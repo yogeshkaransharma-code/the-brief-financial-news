@@ -18,6 +18,7 @@ import unicodedata
 import urllib.error
 import urllib.parse
 import urllib.request
+from editorial_gate import check as editorial_check
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "generated-drafts"
@@ -134,7 +135,15 @@ def make_prompt(item: dict, source: str) -> str:
         "Do NOT echo copyrighted secondary publishers, invent dates, numbers, "
         "quoted words, motives, customer impacts or outcomes. Never turn a proposal "
         "into a final rule. Do not repeat source phrasing except short evidence snippets. "
-        "Keep the writing natural, informative and useful, not promotional. "
+        "Keep the writing like a clear, experienced British reporter talking to a colleague: " 
+        "short sentences, natural language, no corporate PR, no exaggerated importance. " 
+        "Avoid words like substantial, comprehensive, significantly, stakeholders, " 
+        "underpins, pivotal, transformative unless essential and defined. " 
+        "Avoid claiming everyone is directly affected or must act unless the evidence says so. " 
+        "For a consultation, say proposed and might, never that rules are already changing. " 
+        "For a speech, attribute views to the speaker; do not invent binding obligations. " 
+        "Each factual assertion and practical consequence must be rooted in this source. " 
+        "Use plain British English with useful examples only where the source supports them. " 
         "Return ONLY a JSON object with keys: "
         "headline, standfirst, introduction, what_happened, why_it_matters, "
         "who_is_affected, what_next, context, status, evidence, glossary. "
@@ -211,6 +220,8 @@ def validate_draft(generated: dict, source: str, item: dict) -> tuple[dict, dict
     audit = {
         "article_id": identity, "source_url": item["url"], "source_title": item["title"],
         "document_characters": len(source), "word_count": total_words,
+        "source_sha256": hashlib.sha256(source.encode()).hexdigest(),
+        "retrieved_at": dt.datetime.now(dt.timezone.utc).isoformat(),
         "verbatim_source_checks": checks,
         "limitations": "Excerpt matching is not a complete factual or legal review. Do not publish automatically.",
     }
@@ -291,6 +302,7 @@ def main():
             source = read_official_page(item["url"])
             generated = fetch_gemini(make_prompt(item, source))
             article, audit = validate_draft(generated, source, item)
+            editorial_check({"draft": article, "audit": audit})
             results.append(article)
             tried.append({"title": item["title"], "result": "draft saved", "source": item["url"]})
             (OUTPUT / (article["id"] + ".json")).write_text(json.dumps({
