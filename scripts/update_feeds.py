@@ -136,7 +136,12 @@ def main():
         prior = json.loads(DEST.read_text(encoding="utf-8"))
     except (OSError, ValueError):
         prior = {"items": []}
-    seen = {x["id"]: x for x in prior.get("items", []) if x.get("id")}
+    # Keep the archive clear of previous boilerplate and copyright notices.
+    seen = {
+        x["id"]: x for x in prior.get("items", [])
+        if x.get("id") and len(x.get("short") or "") >= 45
+        and not re.match(r"(?i)^(author\\s*:|this content is copyright|copyright notice|read more\\b)", x.get("short") or "")
+    }
     successes, errors = [], []
     for name, url, category in FEEDS:
         try:
