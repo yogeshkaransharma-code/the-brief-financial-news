@@ -11,6 +11,7 @@ import logging
 from pathlib import Path
 import re
 import urllib.request
+import urllib.error
 import urllib.parse
 import xml.etree.ElementTree as ET
 from zoneinfo import ZoneInfo
@@ -29,7 +30,7 @@ FEEDS = [
     ("Finextra payments", "https://www.finextra.com/rss/channel.aspx?channel=payments", "Banking"),
     ("Insurance Business UK", "https://www.insurancebusinessmag.com/uk/rss/", "Insurance"),
     ("Commercial Risk", "https://www.commercialriskonline.com/feed/", "Insurance"),
-    ("Artemis", "https://www.artemis.bm/feed/", "Insurance"),
+    # Artemis serves copyright-only summaries; not suitable for an on-site briefing.
 ]
 
 class CleanHTML(HTMLParser):
@@ -146,8 +147,18 @@ def main():
     for name, url, category in FEEDS:
         try:
             request = urllib.request.Request(url, headers=HEADERS)
-            with urllib.request.urlopen(request, timeout=18) as response:
-                updates = parse(response.read(2000000), name, category)
+            try:
+                with urllib.request.urlopen(request, timeout=18) as response:
+                    raw = response.read(2000000)
+            except urllib.error.HTTPError as exc:
+                if exc.code not in (406, 415):
+                    raise
+                # Some publishers reject a narrowly specified RSS Accept header.
+                fallback_headers = dict(HEADERS)
+                fallback_headers["Accept"] = "*/*"
+                with urllib.request.urlopen(urllib.request.Request(url, headers=fallback_headers), timeout=18) as response:
+                    raw = response.read(2000000)
+            updates = parse(raw, name, category)
             if not updates:
                 raise ValueError("No recent usable items")
             seen.update({x["id"]: x for x in updates})
