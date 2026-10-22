@@ -138,7 +138,12 @@ def make_prompt(item: dict, source: str) -> str:
         "Keep the writing like a clear, experienced British reporter talking to a colleague: " 
         "short sentences, natural language, no corporate PR, no exaggerated importance. " 
         "Avoid words like substantial, comprehensive, significantly, stakeholders, " 
-        "underpins, pivotal, transformative unless essential and defined. " 
+        "underpins, pivotal, transformative unless essential and defined. "
+        "Avoid filler phrases such as Financial services professionals are reviewing, "
+        "Industry participants and The overarching framework. Start with the fact. "
+        "Use figures like 1.85 million, 6.3% and £240 million, with numerals and units, "
+        "not one point eight five million or two hundred forty million pounds. "
+        "Keep paragraphs concise and distinguish proposals from final decisions. " 
         "Avoid claiming everyone is directly affected or must act unless the evidence says so. " 
         "For a consultation, say proposed and might, never that rules are already changing. " 
         "For a speech, attribute views to the speaker; do not invent binding obligations. " 
@@ -186,6 +191,9 @@ def validate_draft(generated: dict, source: str, item: dict) -> tuple[dict, dict
     # primary source or its official article metadata.
     number_pattern = re.compile(r"(?<![\w])(?:£|\$)?\d+(?:[.,]\d+)*(?:%|bn|m|k)?(?![\w])", re.I)
     numbers = lambda value: {m.group().lower().replace(",", "") for m in number_pattern.finditer(value)}
+    spelled = re.compile(r"\b(?:one|two|three|four|five|six|seven|eight|nine|ten|twenty|thirty|forty|fifty|hundred)\s+(?:point|hundred|thousand|million|billion)\b", re.I)
+    if spelled.search(" ".join([generated["standfirst"]] + paras)):
+        raise ValueError("Financial figures must use digits and clear units")
     story_numbers = numbers(" ".join([generated["headline"], generated["standfirst"]] + paras))
     source_numbers = numbers(source + " " + item["title"] + " " + item["dateISO"])
     unsupported_numbers = story_numbers - source_numbers
