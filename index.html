@@ -348,7 +348,8 @@ const priorVisit=store('lastVisit',null); const now=new Date().toISOString();
 const byId=()=>Object.fromEntries([...live,...curated,...published].map(x=>[x.id,x]));
 const scoreDate=s=>Date.parse(s.published_at||s.dateISO||'1970-01-01')||0;
 const sortItems=items=>[...items].sort((a,b)=>sort==='oldest'?scoreDate(a)-scoreDate(b):scoreDate(b)-scoreDate(a));
-const allItems=()=>sortItems([...published,...curated,...live]);
+const liveWithoutPublished=()=>live.filter(s=>!published.some(p=>p.url===s.url));
+const allItems=()=>sortItems([...published,...curated,...liveWithoutPublished()]);
 const isNew=s=>priorVisit&&scoreDate(s)>Date.parse(priorVisit)&&scoreDate(s)<Date.now()+86400000;
 const renderDate=()=>{const d=new Date(); $('edition-date').textContent=d.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric',timeZone:'Europe/London'}).toUpperCase(); $('issue-date').textContent=d.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric',timeZone:'Europe/London'}).toUpperCase();};
 const meta=s=>`${safe(day(s.dateISO||s.published_at))} <span>·</span> ${safe(s.source)} <span>·</span> ${s.kind==='original'?(s.ai_assisted?'The Brief · AI-assisted, editor-reviewed':'Original article'):'Source update'}`;
@@ -372,16 +373,16 @@ function highlightScore(s){
  return points;
 }
 function rankHighlights(items){return [...items].filter(x=>highlightScore(x)>-50).sort((a,b)=>highlightScore(b)-highlightScore(a)||scoreDate(b)-scoreDate(a))}
-function renderTop(){const original=sortItems([...published,...curated]);const freshest=sortItems(live);
+function renderTop(){const original=sortItems([...published,...curated]);const freshest=sortItems(liveWithoutPublished());
  const recent=[...freshest,...original].filter(x=>Date.now()-scoreDate(x)<72*3600000 && scoreDate(x)<=Date.now()+3600000);const ranked=rankHighlights(recent.length?recent:[...freshest,...original]);
- const verifiedFresh=sortItems(published).filter(x=>Date.now()-scoreDate(x)<7*86400000);
+ const verifiedFresh=[...published].sort((a,b)=>scoreDate(b)-scoreDate(a)).filter(x=>Date.now()-scoreDate(x)<7*86400000);
  const lead=verifiedFresh[0]||ranked[0]||original[0];
  if(!lead){$('lead-story').innerHTML='<span class="story-kicker">THE LEAD</span><h1>Clear financial news, without the noise.</h1><p class="standfirst">This edition will appear once sources have been connected.</p>';return;}
  $('lead-story').innerHTML=`<span class="story-kicker">${safe(lead.category)} / THE LEAD STORY</span><h1><button type="button" class="headline-btn" data-open="${safe(lead.id)}">${safe(lead.title)}</button></h1><p class="standfirst">${safe(usefulSummary(lead))}</p><div class="meta">${meta(lead)}</div><button class="cta" type="button" data-open="${safe(lead.id)}">${lead.kind==='original'?'Read the full article':'Read the update'} ↗</button>`;
  const picks=verifiedFresh.slice(0,3),topics=new Set(picks.map(x=>x.category));
  for(const item of ranked){if(picks.length===3)break;if(topics.has(item.category))continue;picks.push(item);topics.add(item.category)}
  for(const item of ranked){if(picks.length===3)break;if(!picks.some(x=>x.id===item.id))picks.push(item)}
- $('briefing-stories').innerHTML=picks.map((s,i)=>`<div class="briefing-story"><span class="brief-number">0${i+1}</span><div><button type="button" data-open="${safe(s.id)}">${safe(s.title)}</button><p>${safe(usefulSummary(s).slice(0,220))}</p></div></div>`).join('');
+ $('briefing-stories').innerHTML=picks.map((s,i)=>`<div class="briefing-story"><span class="brief-number">0${i+1}</span><div><span class="story-kind">${s.kind==='original'?'FULL ARTICLE':'SOURCE UPDATE'}</span><button type="button" data-open="${safe(s.id)}">${safe(s.title)}</button><p>${safe(usefulSummary(s).slice(0,220))}</p></div></div>`).join('');
 }
 function matchingItems(){let items=allItems();if(category!=='All')items=items.filter(s=>s.category===category);if(savedOnly)items=items.filter(s=>saved.has(s.id));if(followingOnly)items=items.filter(s=>following.has(s.category));if(query){const q=query.toLocaleLowerCase();items=items.filter(s=>[s.title,s.short,s.excerpt,s.source,s.category,(s.blocks||[]).map(x=>x.join(' ')).join(' ')].join(' ').toLowerCase().includes(q))}return items}
 function renderFeed(){const items=matchingItems();$('news-count').textContent=`${items.length} ${items.length===1?'story':'stories'}`;const rows=items.slice(0,limit).map((s,i)=>`<article class="news-item"><div class="story-ordinal">${String(i+1).padStart(2,'0')}</div><div><div class="news-cat">${safe(s.category)} &nbsp;·&nbsp; <span class="story-kind ${s.kind==='original'?'':'source'}">${s.kind==='original'?'OUR REPORT':'SOURCE UPDATE'}</span> ${isNew(s)?'<span class="new-chip">NEW</span>':''}</div><h3><button class="headline-btn" type="button" data-open="${safe(s.id)}">${safe(s.title)}</button></h3><p class="summary">${safe(s.short||s.excerpt||'Source update available to read.')}</p><div class="meta">${meta(s)}</div></div><button aria-label="${saved.has(s.id)?'Remove saved story':'Save story'}" title="${saved.has(s.id)?'Remove saved':'Save for later'}" class="news-bookmark ${saved.has(s.id)?'on':''}" type="button" data-save="${safe(s.id)}">${saved.has(s.id)?'★':'☆'}</button></article>`).join('');
