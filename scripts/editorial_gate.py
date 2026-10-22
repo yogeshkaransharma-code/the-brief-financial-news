@@ -110,23 +110,17 @@ def check(bundle: dict, human_review: bool = False) -> dict:
 
 
 def self_test():
-    from datetime import timezone
-    text = " ".join(["The regulator has described a proposed process for affected firms and invited feedback."] * 12)
-    a = {"id": "ai-" + "a" * 20, "title": "Regulator sets out a consultation on accountability rules",
-         "short": "The regulator is considering changes, but the proposals are not yet rules that firms have to implement.",
-         "source": "FCA", "url": "https://www.fca.org.uk/publications/consultation-papers/example",
-         "status": "Proposal", "dateISO": dt.datetime.now(timezone.utc).date().isoformat(),
-         "category": "Regulation", "ai_assisted": True, "blocks": [[str(i), text] for i in range(5)]}
-    checks = [{"claim": "The regulator has announced a consultation", "source_excerpt": "The regulator has described a proposed process for affected firms"}] * 4
-    bundle = {"draft": a, "audit": {"article_id": a["id"], "source_url": a["url"], "verbatim_source_checks": checks}}
+    from editorial_fixtures import make_bundle, resign
+    bundle = make_bundle()
     assert check(bundle)["needs_human_review"]
     bundle["draft"]["status"] = "Confirmed announcement"
+    resign(bundle)
     try:
         check(bundle)
-        raise AssertionError("Consultation should have been rejected")
-    except ValueError:
-        pass
-    print("PASS: full-article editorial gate; consultation mislabelling rejected")
+        raise AssertionError("Consultation mislabelling was not rejected")
+    except ValueError as exc:
+        assert "consultation" in str(exc).lower()
+    print("PASS: fingerprint, evidence and regulatory classification checks")
 
 
 def main():
