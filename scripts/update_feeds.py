@@ -75,6 +75,10 @@ def parse_date(value):
         return None
 
 def categorise(headline, fallback):
+    # The official FCA and PRA feeds are regulatory updates even when
+    # their headlines mention technology or insurance.
+    if fallback == "Regulation":
+        return "Regulation"
     s = headline.lower()
     if re.search(r"\b(fca|pra|regulat\w*|consultation|rulebook|supervis\w*|compliance|enforc\w*|sanction\w*)\b", s):
         return "Regulation"
@@ -105,6 +109,11 @@ def parse(xml_bytes, name, fallback):
             link = text_of(entry, ["link"])
         headline = clean(title)[:230]
         summary = clean(description)[:400]
+        # Some feeds contain only an author line, a copyright notice, or no usable
+        # explanation. These aren't useful news briefings for our readers.
+        if (not summary or len(summary) < 45
+                or re.match(r"(?i)^(author\\s*:|this content is copyright|copyright notice|read more\\b)", summary)):
+            continue
         published = parse_date(date)
         url = urllib.parse.urlsplit(link)
         if not headline or not published or not (url.scheme == "https" and url.hostname) or url.username or url.password:
