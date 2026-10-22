@@ -9,7 +9,7 @@ A free, mobile-friendly financial news hub covering insurance, banking, technolo
 - The GitHub Pages website is deployed.
 - The RSS feed is collected and redeployed hourly, subject to GitHub scheduling delays.
 - The first AI newsroom pilot is installed and its offline validation tests have passed.
-- The AI newsroom is **not generating drafts until a Gemini API key is added**. It does not automatically publish unreviewed articles.
+- The Gemini key is configured and the AI newsroom has successfully generated draft articles. **No AI article publishes automatically**; every one requires accountable human review.
 
 The site is hosted free in a public GitHub repository. Scheduled GitHub Actions checks available RSS feeds hourly, keeps a deduplicated archive, and redeploys the static website. GitHub schedules are best-effort, not exactly timed.
 
@@ -22,7 +22,7 @@ The site is hosted free in a public GitHub repository. Scheduled GitHub Actions 
 
 The pilot checks official FCA and Bank of England web pages. It generates original plain-English reporting in British English from primary-source material and checks several verbatim evidence excerpts. **Those checks are not a substitute for editorial fact-checking.** Drafts are not displayed on the public site. The scheduled pilot runs once a day; the original hourly RSS feed continues independently.
 
-The site is already wired to load fully written, approved articles from `data/articles.json`. After real draft quality has been tested, controlled publication can be enabled without changing the page layout. That second release should include a human-reviewed pilot, stronger independent source checks and a correction process.
+The site is already wired to load fully written, editor-approved articles from `data/articles.json`. Its AI publication flow must also create a version-locked approval record under `data/editorial-audits/`.
 
 **Free-tier note:** Gemini free-tier inputs and outputs may be used by Google to improve its products. This pipeline should receive only public material, not confidential client information. No billing is enabled by our GitHub code, but verify your Google project's billing settings independently.
 
@@ -38,11 +38,22 @@ The automated newsroom is **draft-only**. The AI is not authorised to publish it
    - `draft_run_id`: the numerical run ID from the drafting run page
    - `article_id`: its exact `ai-...` ID as shown in the review packet
    - `approval_phrase`: `APPROVE_AFTER_SOURCE_REVIEW`
-6. The workflow rechecks the draft, prevents duplicate publication, adds it to `data/articles.json`, commits it and deploys GitHub Pages. The site promotes recent approved full articles into the lead story and 60-second briefing.
+   - Three mandatory **YES** confirmations that all material claims, financial/regulatory implications, originality, fairness and wording have been checked
+   - `review_notes`: at least 35 characters specifying what you checked. **These notes are retained in the public repository — do not include personal, confidential or secret information.**
+6. The workflow checks the exact reviewed draft fingerprint, rejects repeat sources and missing approval evidence, records the GitHub approver and source/article fingerprints in `data/editorial-audits/`, commits the approved article and deploys GitHub Pages. The site promotes recent approved full articles into the lead story and 60-second briefing.
 
 The review packet is stored as a GitHub Actions artifact, not as public website content. Publication is deliberately disabled by default, and the manual workflow publishes **only the selected article**. If the review finds an error, reject that draft and regenerate or revise it; approval must never be used merely because a workflow passed.
 
 Editorial limits: the pilot covers selected FCA and Bank of England documents. The underlying HTML-text reader does not yet process all PDF consultations, nor does it provide unrestricted LinkedIn discovery. Source excerpt matching and numeric checks are imperfect; a human is still responsible for approved accuracy. Expansion to other primary sources and narrowly scoped automatic publication requires additional real-world testing.
+
+## Editorial governance: binding standards and benchmarking
+
+- **[Editorial Standards](editorial/EDITORIAL_STANDARDS.md)**: mission, style, original reporting, source hierarchy, figures, regulatory terminology, attribution, independence and corrections.
+- **[Verification and Publication Protocol](editorial/VERIFICATION_AND_PUBLICATION_PROTOCOL.md)**: claim-by-claim evidence register, numerical/regulatory review, source identity and completeness, review state machine, approval record and correction procedure.
+- `scripts/test_editorial_benchmark.py`: 22 labelled adversarial cases in CI — invalid sources, false final rules, unsupported amounts, duplicate evidence, modified content and missing metadata must be rejected. Passing only means **those screenable faults were blocked**.
+- `scripts/verify_approved_articles.py`: every on-site AI article must match a persistent editorial review record and exact content fingerprint. Unapproved and changed versions block publication.
+
+**Do not confuse this with independent factual verification.** A code rule cannot tell whether a plausible paragraph omits a crucial exception or misinterprets a source. Material headlines, claims, numbers, affected populations and implied next steps still require a responsible human to read the actual source. Any high-severity missed error in future benchmark testing blocks expansion of automated publishing.
 
 ## Reading experience
 
