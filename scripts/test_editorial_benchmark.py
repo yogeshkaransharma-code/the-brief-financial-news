@@ -49,7 +49,7 @@ def main():
         ("unrecognised category", lambda b: b["draft"].update(category="Crypto"), "section"),
         ("missing full sections", lambda b: b["draft"].update(blocks=b["draft"]["blocks"][:2]), "five-section"),
         ("short summary", lambda b: b["draft"].update(short="Short"), "headline or standfirst"),
-        ("tampered after review snapshot", lambda b: b["draft"].update(title="This was quietly changed after drafting"), "fingerprint", False),
+        ("tampered after review snapshot", lambda b: b["draft"].update(title="This was quietly changed after drafting"), "Draft content differs", False),
         ("invalid story ID", lambda b: (b["draft"].update(id="ai-invalid"),b["audit"].update(article_id="ai-invalid")), "identity"),
         ("unreviewed but labelled published", lambda b: b["draft"].update(editorial_status="PUBLISHED: forged approval"), "unreviewed"),
         ("AI source provenance missing at approval", lambda b: b["draft"].update(ai_assisted=False), "AI-assisted", True, True),
