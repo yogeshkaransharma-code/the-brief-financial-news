@@ -26,4 +26,15 @@ for s in items:
     assert len(s.get("short") or "") >= 45, f"Unusable story description: {s.get('title')}"
     parsed = urlsplit(s.get("url", ""))
     assert parsed.scheme == "https" and parsed.hostname, "Unsafe or missing story source link"
+published = json.loads((root / "data" / "articles.json").read_text(encoding="utf-8"))
+assert isinstance(published, list), "Published original articles must be a list"
+ids = set()
+for article in published:
+    assert article["id"] not in ids, "Repeated original article"
+    ids.add(article["id"])
+    assert article.get("kind") == "original", "An original article is mislabelled"
+    assert str(article.get("editorial_status", "")).startswith("PUBLISHED:"), "An unapproved AI draft appears in the public feed"
+    assert len(article.get("blocks", [])) >= 5, "Original article has insufficient coverage"
+    assert urlsplit(article.get("url", "")).scheme == "https", "Article source link is invalid"
+
 print(f"PASS: {len(items)} stories, {len(data['sources_checked'])} news sources, fresh update, usable website shell")
