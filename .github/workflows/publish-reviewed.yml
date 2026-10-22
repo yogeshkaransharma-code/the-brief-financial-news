@@ -12,7 +12,26 @@ on:
         required: true
         type: string
       approval_phrase:
-        description: 'Type APPROVE_AFTER_SOURCE_REVIEW after checking the article and its original documents'
+        description: 'Type APPROVE_AFTER_SOURCE_REVIEW only after checking the article and original documents'
+        required: true
+        type: string
+      claims_checked:
+        description: 'Have you verified EVERY material claim, headline and summary against evidence?'
+        required: true
+        type: choice
+        options: ['NO', 'YES']
+      figures_and_rules_checked:
+        description: 'Have you checked dates, figures, denominators, regulatory status and scope?'
+        required: true
+        type: choice
+        options: ['NO', 'YES']
+      originality_and_fairness_checked:
+        description: 'Have you reviewed copyright, attribution, fairness, omissions and natural language?'
+        required: true
+        type: choice
+        options: ['NO', 'YES']
+      review_notes:
+        description: 'Public editorial record: explain what you checked (35+ characters; no secrets or private data)'
         required: true
         type: string
 
@@ -39,8 +58,14 @@ jobs:
           APPROVAL: ${{ inputs.approval_phrase }}
           DRAFT_ID: ${{ inputs.article_id }}
           RUN_ID: ${{ inputs.draft_run_id }}
+          CLAIMS: ${{ inputs.claims_checked }}
+          RULES: ${{ inputs.figures_and_rules_checked }}
+          FAIRNESS: ${{ inputs.originality_and_fairness_checked }}
+          NOTES: ${{ inputs.review_notes }}
         run: |
           test "$APPROVAL" = "APPROVE_AFTER_SOURCE_REVIEW" || { echo "::error::Human editorial sign-off is required"; exit 1; }
+          test "$CLAIMS" = "YES" && test "$RULES" = "YES" && test "$FAIRNESS" = "YES" || { echo "::error::All editorial checks must be signed off"; exit 1; }
+          test "${#NOTES}" -ge 35 || { echo "::error::Explain the specific evidence you reviewed"; exit 1; }
           [[ "$DRAFT_ID" =~ ^ai-[a-f0-9]{20}$ ]] || { echo "::error::Invalid draft ID"; exit 1; }
           [[ "$RUN_ID" =~ ^[0-9]{8,13}$ ]] || { echo "::error::Invalid source run ID"; exit 1; }
 
@@ -58,6 +83,8 @@ jobs:
       - name: Validate and publish exactly the approved article
         env:
           DRAFT_ID: ${{ inputs.article_id }}
+          EDITORIAL_ATTESTATION: ALL_CHECKS_COMPLETED
+          EDITORIAL_REVIEW_NOTES: ${{ inputs.review_notes }}
         run: |
           python scripts/editorial_gate.py --self-test
           python scripts/publish_reviewed.py "/tmp/the-brief-review/$DRAFT_ID.json" "$DRAFT_ID"
@@ -66,7 +93,7 @@ jobs:
         run: |
           git config user.name "The Brief Editorial Desk"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/articles.json
+          git add data/articles.json data/editorial-audits/
           git commit -m "Publish human-reviewed explainer"
           for attempt in 1 2 3; do
             if git push origin HEAD:main; then
