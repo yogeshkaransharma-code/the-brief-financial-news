@@ -127,8 +127,16 @@ def main():
         try:
             request = urllib.request.Request(url, headers=HEADERS)
             with urllib.request.urlopen(request, timeout=18) as response:
-                updates = parse(response.read(2000000), name, category)
+                raw = response.read(2000000)
+                updates = parse(raw, name, category)
             if not updates:
+                root = ET.fromstring(raw)
+                entries = root.findall(".//item") or root.findall("{http://www.w3.org/2005/Atom}entry")
+                if entries:
+                    sample = [(c.tag, (c.text or "")[:100], dict(c.attrib)) for c in list(entries[0])[:10]]
+                    logging.warning("%s format check: root=%s items=%d first_fields=%s", name, root.tag, len(entries), sample)
+                else:
+                    logging.warning("%s format check: root=%s no recognised entries", name, root.tag)
                 raise ValueError("No recent usable items")
             seen.update({x["id"]: x for x in updates})
             successes.append({"name": name, "items": len(updates)})
