@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import hashlib
 import json
 from pathlib import Path
 import re
@@ -18,7 +19,9 @@ STATUSES = {"Proposal", "Confirmed announcement", "Published report", "Speech / 
 RISKY = re.compile(
     r"\b(?:will\s+(?:now\s+)?(?:have to|be required to|need to|be obliged to)|"
     r"must\s+(?:now\s+|immediately\s+)?comply|"
-    r"are\s+now\s+required\s+to)\b", re.I
+    r"are\s+now\s+required\s+to|" 
+    r"(?:now\s+)?in\s+force|effective\s+immediately|"
+    r"(?:final|confirmed)\s+rules?\s+(?:now\s+)?apply)\b", re.I
 )
 NUMBER = re.compile(r"(?<![\w])(?:£|\$)?\d+(?:[.,]\d+)*(?:%|bn|m|k)?(?![\w])")
 
@@ -33,6 +36,17 @@ def check(bundle: dict, human_review: bool = False) -> dict:
         raise ValueError("Missing required article fields")
     if a.get("id") != audit.get("article_id") or a.get("url") != audit.get("source_url"):
         raise ValueError("Article does not match the verified source")
+    signature = hashlib.sha256(json.dumps(a, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")).hexdigest()
+    if audit.get("draft_sha256") != signature:
+        raise ValueError("Draft content differs from the version recorded in its evidence audit")
+    if not re.fullmatch(r"[0-9a-f]{64}", audit.get("source_sha256", "")):
+        raise ValueError("Missing source-text snapshot fingerprint")
+    try:
+        retrieved = dt.datetime.fromisoformat(audit["retrieved_at"].replace("Z", "+00:00"))
+        if retrieved.tzinfo is None or retrieved > dt.datetime.now(dt.timezone.utc) + dt.timedelta(minutes=10):
+            raise ValueError("Invalid retrieval timestamp")
+    except (KeyError, AttributeError, ValueError) as exc:
+        raise ValueError("Missing or invalid source retrieval timestamp") from exc
     if not re.fullmatch(r"ai-[a-f0-9]{20}", a["id"]):
         raise ValueError("Unrecognised article identity")
     source = urlsplit(a["url"])
@@ -70,6 +84,18 @@ def check(bundle: dict, human_review: bool = False) -> dict:
         raise ValueError("Too few documented source-evidence checks")
     if any(not isinstance(x, dict) or len(x.get("source_excerpt", "").split()) < 7 or len(x.get("claim", "")) < 15 for x in evidence):
         raise ValueError("Incomplete evidence record")
+    unique_supports = {re.sub(r"\s+", " ", x["source_excerpt"]).casefold().strip() for x in evidence}
+    if len(unique_supports) < 4:
+        raise ValueError("Evidence repeats the same source passage; four distinct excerpts are required")
+    unique_claims = {re.sub(r"\s+", " ", x["claim"]).casefold().strip() for x in evidence}
+    if len(unique_claims) < 4:
+        raise ValueError("Four distinct factual checks are required")
+    source_numbers = audit.get("source_number_tokens")
+    if not isinstance(source_numbers, list) or any(not isinstance(x, str) for x in source_numbers):
+        raise ValueError("Original source's numerical token register is missing")
+    reported_numbers = {m.group().lower().replace(",", "") for m in NUMBER.finditer(" ".join([a["title"], a["short"]] + paragraphs))}
+    if not reported_numbers.issubset(set(source_numbers)):
+        raise ValueError("Article introduces figures not found in the recorded official source")
     combined = "\n".join(paragraphs + [a["title"], a["short"]])
     if a["status"] in ("Proposal", "Speech / commentary") and RISKY.search(combined):
         raise ValueError("Unqualified compulsory-language claim in proposal/speech")
