@@ -237,6 +237,25 @@ def validate_draft(generated: dict, source: str, item: dict) -> tuple[dict, dict
     return article, audit
 
 
+def story_terms(title: str) -> set[str]:
+    words = re.findall(r"[a-z0-9]{3,}", title.lower())
+    ignore = {"the", "and", "with", "for", "from", "into", "over", "plans",
+              "review", "phase", "changes", "change", "unveil", "regulators",
+              "uk", "fca", "pra", "bank", "england", "2026"}
+    return {w[:-1] if len(w) > 5 and w.endswith("s") else w for w in words
+            if w not in ignore}
+
+
+def same_development(first: dict, second: dict) -> bool:
+    a, b = story_terms(first["title"]), story_terms(second["title"])
+    if not a or not b:
+        return False
+    shared = a & b
+    # Strong, cross-publisher overlap; a regulator's announcement and a BoE
+    # account of the same SM&CR proposal are one development, not two stories.
+    return len(shared) >= 4 and len(shared) / min(len(a), len(b)) >= 0.55
+
+
 def select_candidates(items: list[dict]) -> list[dict]:
     cutoff = dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=4)
     choices = []
@@ -258,8 +277,17 @@ def select_candidates(items: list[dict]) -> list[dict]:
     choices.sort(key=lambda row: (-row[0], -row[1]))
     seen = set()
     selected = []
+    try:
+        already_published = {
+            x["url"] for x in json.loads((ROOT / "data" / "articles.json").read_text(encoding="utf-8"))
+            if x.get("url")
+        }
+    except (ValueError, OSError):
+        already_published = set()
     for _, _, item in choices:
-        if item["url"] in seen:
+        if item["url"] in seen or item["url"] in already_published:
+            continue
+        if any(same_development(item, prior) for prior in selected):
             continue
         selected.append(item)
         seen.add(item["url"])
