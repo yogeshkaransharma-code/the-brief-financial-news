@@ -89,6 +89,9 @@ jobs:
           python scripts/editorial_gate.py --self-test
           python scripts/publish_reviewed.py "/tmp/the-brief-review/$DRAFT_ID.json" "$DRAFT_ID"
 
+      - name: Verify publication is linked to a signed review record
+        run: python scripts/verify_approved_articles.py
+
       - name: Save approved article
         run: |
           git config user.name "The Brief Editorial Desk"
