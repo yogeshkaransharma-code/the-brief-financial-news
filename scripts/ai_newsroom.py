@@ -21,7 +21,7 @@ import urllib.request
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "generated-drafts"
-MODEL = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
+MODEL = os.environ.get("GEMINI_MODEL", "gemini-3.8-flash")
 KEY = os.environ.get("GEMINI_API_KEY", "")
 MAX_DAILY_DRAFTS = 2
 ALLOWED_HOSTS = {"www.fca.org.uk", "fca.org.uk", "www.bankofengland.co.uk", "bankofengland.co.uk"}
