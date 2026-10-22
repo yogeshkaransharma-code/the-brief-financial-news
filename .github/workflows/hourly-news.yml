@@ -1,0 +1,63 @@
+name: Collect and publish financial news
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: '17 * * * *'
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: the-brief-pages
+  cancel-in-progress: false
+
+jobs:
+  news-and-pages:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out website
+        uses: actions/checkout@v4
+
+      - name: Python for RSS collection
+        if: github.event_name != 'push'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Collect fresh source updates
+        if: github.event_name != 'push'
+        run: python scripts/update_feeds.py
+
+      - name: Save new updates to the archive
+        if: github.event_name != 'push'
+        run: |
+          git config user.name "The Brief News Bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/live.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Update financial news"
+            git push
+          fi
+
+      - name: Set up GitHub Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Upload website
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: '.'
+
+      - name: Publish website
+        id: deployment
+        uses: actions/deploy-pages@v4
