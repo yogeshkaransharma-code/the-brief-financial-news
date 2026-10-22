@@ -33,9 +33,15 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_MODEL: gemini-2.5-flash
-        run: python scripts/ai_newsroom.py
+        run: |
+          if [ -z "$GEMINI_API_KEY" ]; then
+            echo '::error::GEMINI_API_KEY secret is not available to the newsroom workflow'
+            exit 1
+          fi
+          python scripts/ai_newsroom.py
 
-      - name: Save drafts privately as workflow artifacts for editorial checks
+      - name: Save unpublished drafts as workflow artifacts for editorial checks
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: the-brief-ai-drafts
