@@ -112,7 +112,7 @@ def parse(xml_bytes, name, fallback):
         # Some feeds contain only an author line, a copyright notice, or no usable
         # explanation. These aren't useful news briefings for our readers.
         if (not summary or len(summary) < 45
-                or re.match(r"(?i)^(author\\s*:|this content is copyright|copyright notice|read more\\b)", summary)):
+                or re.match(r"(?i)^(author\s*:|this content is copyright|copyright notice|read more\b)", summary)):
             continue
         published = parse_date(date)
         url = urllib.parse.urlsplit(link)
@@ -140,7 +140,7 @@ def main():
     seen = {
         x["id"]: x for x in prior.get("items", [])
         if x.get("id") and len(x.get("short") or "") >= 45
-        and not re.match(r"(?i)^(author\\s*:|this content is copyright|copyright notice|read more\\b)", x.get("short") or "")
+        and not re.match(r"(?i)^(author\s*:|this content is copyright|copyright notice|read more\b)", x.get("short") or "")
     }
     successes, errors = [], []
     for name, url, category in FEEDS:
