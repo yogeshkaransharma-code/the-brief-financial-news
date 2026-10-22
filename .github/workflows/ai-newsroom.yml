@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths:
       - 'scripts/ai_newsroom.py'
+      - 'scripts/editorial_gate.py'
+      - 'scripts/build_review_packet.py'
       - '.github/workflows/ai-newsroom.yml'
   workflow_dispatch:
   schedule:
@@ -29,6 +31,9 @@ jobs:
       - name: Test draft validation logic
         run: python scripts/ai_newsroom.py --self-test
 
+      - name: Test independent editorial rules
+        run: python scripts/editorial_gate.py --self-test
+
       - name: Generate evidence-backed editorial drafts
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -39,6 +44,10 @@ jobs:
             exit 1
           fi
           python scripts/ai_newsroom.py
+
+      - name: Build a readable editorial review packet
+        if: always()
+        run: python scripts/build_review_packet.py
 
       - name: Save unpublished drafts as workflow artifacts for editorial checks
         if: always()
