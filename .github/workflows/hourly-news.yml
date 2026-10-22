@@ -49,6 +49,7 @@ jobs:
           python scripts/ai_newsroom.py --self-test
           python scripts/editorial_gate.py --self-test
           python scripts/test_publishing.py
+          python scripts/test_editorial_benchmark.py
 
       - name: Collect fresh source updates
         run: python scripts/update_feeds.py
