@@ -56,6 +56,9 @@ jobs:
             git push
           fi
 
+      - name: Verify live feed and website content
+        run: python scripts/verify_site.py
+
       - name: Set up GitHub Pages
         uses: actions/configure-pages@v5
         with:
