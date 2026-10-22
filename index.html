@@ -342,13 +342,13 @@ const store=(key,fallback)=>{try{return JSON.parse(localStorage.getItem('thebrie
 const saveStore=(key,val)=>{try{localStorage.setItem('thebrief:'+key,JSON.stringify(val))}catch{}};
 const rawCurated=$('curated-data');
 let curated=[];try{curated=JSON.parse(rawCurated?.textContent||'[]')}catch{}
-let live=[],fetched=null,category='All',query='',sort='newest',savedOnly=false,followingOnly=false,limit=10,activeId='',scrollBefore=0;
+let published=[],live=[],fetched=null,category='All',query='',sort='newest',savedOnly=false,followingOnly=false,limit=10,activeId='',scrollBefore=0;
 let saved=new Set(store('saved',[])),following=new Set(store('following',[]));
 const priorVisit=store('lastVisit',null); const now=new Date().toISOString();
-const byId=()=>Object.fromEntries([...curated,...live].map(x=>[x.id,x]));
+const byId=()=>Object.fromEntries([...live,...curated,...published].map(x=>[x.id,x]));
 const scoreDate=s=>Date.parse(s.published_at||s.dateISO||'1970-01-01')||0;
 const sortItems=items=>[...items].sort((a,b)=>sort==='oldest'?scoreDate(a)-scoreDate(b):scoreDate(b)-scoreDate(a));
-const allItems=()=>sortItems([...curated,...live]);
+const allItems=()=>sortItems([...published,...curated,...live]);
 const isNew=s=>priorVisit&&scoreDate(s)>Date.parse(priorVisit)&&scoreDate(s)<Date.now()+86400000;
 const renderDate=()=>{const d=new Date(); $('edition-date').textContent=d.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric',timeZone:'Europe/London'}).toUpperCase(); $('issue-date').textContent=d.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric',timeZone:'Europe/London'}).toUpperCase();};
 const meta=s=>`${safe(day(s.dateISO||s.published_at))} <span>·</span> ${safe(s.source)} <span>·</span> ${s.kind==='original'?'Original article':'Source update'}`;
@@ -372,7 +372,7 @@ function highlightScore(s){
  return points;
 }
 function rankHighlights(items){return [...items].filter(x=>highlightScore(x)>-50).sort((a,b)=>highlightScore(b)-highlightScore(a)||scoreDate(b)-scoreDate(a))}
-function renderTop(){const original=sortItems(curated);const freshest=sortItems(live);
+function renderTop(){const original=sortItems([...published,...curated]);const freshest=sortItems(live);
  const recent=[...freshest,...original].filter(x=>Date.now()-scoreDate(x)<72*3600000 && scoreDate(x)<=Date.now()+3600000);const ranked=rankHighlights(recent.length?recent:[...freshest,...original]);
  const lead=ranked[0]||original[0];
  if(!lead){$('lead-story').innerHTML='<span class="story-kicker">THE LEAD</span><h1>Clear financial news, without the noise.</h1><p class="standfirst">This edition will appear once sources have been connected.</p>';return;}
@@ -433,10 +433,21 @@ function wire(){
  $('following-toggle').onclick=()=>{followingOnly=!followingOnly;savedOnly=false;category='All';limit=10;renderFeed();$('latest').scrollIntoView()};
  $('search-toggle').onclick=()=>{const panel=$('search-panel');panel.hidden=!panel.hidden;if(!panel.hidden)$('search').focus()};$('search').oninput=e=>{query=e.target.value.trim();limit=10;renderFeed()};$('clear-search').onclick=()=>{$('search').value='';query='';renderFeed();$('search').focus()};$('order').onchange=e=>{sort=e.target.value;renderFeed()};$('show-more').onclick=()=>{limit+=10;renderFeed()};
  $('article-save').onclick=()=>{if(activeId!=='about')toggleSaved(activeId)};$('article-share').onclick=()=>{const url=location.href;navigator.clipboard?.writeText(url).then(()=>showToast('Article link copied')).catch(()=>showToast('Copy the address from your browser'))||showToast('Copy the address from your browser')};$('article-print').onclick=()=>window.print();$('open-about').onclick=()=>location.hash='about';$('footer-about').onclick=()=>location.hash='about';window.addEventListener('hashchange',route)}
+async function loadPublished(){
+ try{
+   const response=await fetch('data/articles.json',{cache:'no-store'});
+   if(!response.ok)throw Error('Published articles unavailable');
+   const data=await response.json();
+   if(!Array.isArray(data))throw Error('Published article list invalid');
+   published=data.filter(x=>x&&x.id&&x.title&&Array.isArray(x.blocks)&&x.blocks.length>=3)
+      .map(x=>({...x,kind:'original'}));
+   return true;
+ }catch(err){console.warn('Original article archive unavailable',err);return false}
+}
 async function loadLive(){try{const res=await fetch('data/live.json',{cache:'no-store'});if(!res.ok)throw Error('not available');const updated=await res.json();if(!Array.isArray(updated.items))throw Error('Feed items missing');fetched=updated;live=updated.items.map(s=>({...s,kind:'source'}));if(fetched.generated_at){const at=new Date(fetched.generated_at);$('freshness').textContent=`Source feeds checked ${at.toLocaleDateString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',timeZone:'Europe/London'})}`;}else $('freshness').textContent='News feed loaded · update time unavailable';if(fetched.errors?.length)console.warn('Some news feeds failed to update:',fetched.errors.map(x=>x.source));return true;}
  catch(e){$('freshness').textContent='Live updates temporarily unavailable · Showing our articles';return false;}}
-async function refreshOnOpen(){if(document.hidden)return;const before=fetched?.generated_at;const loaded=await loadLive();if(loaded&&before!==fetched?.generated_at){renderTop();renderFeed()}renderDate();refreshDailyExplainers()}
-async function start(){renderDate();renderExplainers();renderFollows();wire();setInterval(refreshDailyExplainers,60000);setInterval(refreshOnOpen,600000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshOnOpen()});await loadLive();renderTop();renderFeed();route();saveStore('lastVisit',now);}
+async function refreshOnOpen(){if(document.hidden)return;const before=fetched?.generated_at;const loaded=await loadLive();const priorPublished=published.length;await loadPublished();if((loaded&&before!==fetched?.generated_at)||published.length!==priorPublished){renderTop();renderFeed()}renderDate();refreshDailyExplainers()}
+async function start(){renderDate();renderExplainers();renderFollows();wire();setInterval(refreshDailyExplainers,60000);setInterval(refreshOnOpen,600000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshOnOpen()});await Promise.all([loadLive(),loadPublished()]);renderTop();renderFeed();route();saveStore('lastVisit',now);}
 start();
 })();
 </script>
