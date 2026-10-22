@@ -47,13 +47,23 @@ jobs:
         run: python scripts/update_feeds.py
 
       - name: Save new updates to the archive
+        if: github.event_name != 'push'
         run: |
           git config user.name "The Brief News Bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/live.json
           if ! git diff --cached --quiet; then
             git commit -m "Update financial news"
-            git push
+            for attempt in 1 2 3; do
+              if git push origin HEAD:main; then
+                exit 0
+              fi
+              echo "News push collided with another update; rebasing (attempt $attempt)"
+              git fetch origin main
+              git rebase -X theirs origin/main
+            done
+            echo "Could not save updated archive after retries"
+            exit 1
           fi
 
       - name: Verify live feed and website content
