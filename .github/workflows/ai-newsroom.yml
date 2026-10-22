@@ -1,15 +1,6 @@
 name: Draft plain-English financial news
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'scripts/ai_newsroom.py'
-      - 'scripts/editorial_gate.py'
-      - 'scripts/build_review_packet.py'
-      - 'scripts/publish_reviewed.py'
-      - 'scripts/test_publishing.py'
-      - '.github/workflows/ai-newsroom.yml'
   workflow_dispatch:
   schedule:
     - cron: '13 7 * * *'
