@@ -50,8 +50,11 @@ Editorial limits: the pilot covers selected FCA and Bank of England documents. T
 
 - **[Editorial Standards](editorial/EDITORIAL_STANDARDS.md)**: mission, style, original reporting, source hierarchy, figures, regulatory terminology, attribution, independence and corrections.
 - **[Verification and Publication Protocol](editorial/VERIFICATION_AND_PUBLICATION_PROTOCOL.md)**: claim-by-claim evidence register, numerical/regulatory review, source identity and completeness, review state machine, approval record and correction procedure.
+- **[Claim Register Template](editorial/CLAIM_REGISTER_TEMPLATE.csv)**: per-claim evidence worksheet for accountable human review; not automatically filled or certified by AI.
 - `scripts/test_editorial_benchmark.py`: 22 labelled adversarial cases in CI — invalid sources, false final rules, unsupported amounts, duplicate evidence, modified content and missing metadata must be rejected. Passing only means **those screenable faults were blocked**.
 - `scripts/verify_approved_articles.py`: every on-site AI article must match a persistent editorial review record and exact content fingerprint. Unapproved and changed versions block publication.
+
+**Scope limitation:** The new version-locked approval gate covers AI articles entering `data/articles.json`. The six earlier hand-curated articles embedded in `index.html` predate this standard and must be reviewed separately; their presence is not evidence of completed fact-checking under this protocol.
 
 **Do not confuse this with independent factual verification.** A code rule cannot tell whether a plausible paragraph omits a crucial exception or misinterprets a source. Material headlines, claims, numbers, affected populations and implied next steps still require a responsible human to read the actual source. Any high-severity missed error in future benchmark testing blocks expansion of automated publishing.
 
