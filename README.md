@@ -26,6 +26,24 @@ The site is already wired to load fully written, approved articles from `data/ar
 
 **Free-tier note:** Gemini free-tier inputs and outputs may be used by Google to improve its products. This pipeline should receive only public material, not confidential client information. No billing is enabled by our GitHub code, but verify your Google project's billing settings independently.
 
+## Editorial review and article publication
+
+The automated newsroom is **draft-only**. The AI is not authorised to publish its own work.
+
+1. Open [Draft plain-English financial news](https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/workflows/ai-newsroom.yml). A scheduled run takes place each morning, or select **Run workflow** for a manual test.
+2. Open a completed run and download its **the-brief-ai-drafts** artifact.
+3. Unzip it and open **EDITORIAL-REVIEW.html** in your browser. It contains complete candidate articles, official source links, excerpts supporting claims and any rejected candidates.
+4. Compare **every factual claim, deadline, number, regulatory status and suggested implication** with the original source. Do not approve material that is unsupported, inaccurate, misleading or too jargon-heavy. AI and keyword tests cannot replace this judgement.
+5. To publish an article you have genuinely reviewed, open [Publish a reviewed article](https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/workflows/publish-reviewed.yml), choose **Run workflow**, and enter:
+   - `draft_run_id`: the numerical run ID from the drafting run page
+   - `article_id`: its exact `ai-...` ID as shown in the review packet
+   - `approval_phrase`: `APPROVE_AFTER_SOURCE_REVIEW`
+6. The workflow rechecks the draft, prevents duplicate publication, adds it to `data/articles.json`, commits it and deploys GitHub Pages. The site promotes recent approved full articles into the lead story and 60-second briefing.
+
+The review packet is stored as a GitHub Actions artifact, not as public website content. Publication is deliberately disabled by default, and the manual workflow publishes **only the selected article**. If the review finds an error, reject that draft and regenerate or revise it; approval must never be used merely because a workflow passed.
+
+Editorial limits: the pilot covers selected FCA and Bank of England documents. The underlying HTML-text reader does not yet process all PDF consultations, nor does it provide unrestricted LinkedIn discovery. Source excerpt matching and numeric checks are imperfect; a human is still responsible for approved accuracy. Expansion to other primary sources and narrowly scoped automatic publication requires additional real-world testing.
+
 ## Reading experience
 
 - Complete, original articles from selected official sources, readable on our website
