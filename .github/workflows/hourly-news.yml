@@ -27,6 +27,17 @@ jobs:
       - name: Check out website
         uses: actions/checkout@v4
 
+      - name: Check website JavaScript syntax
+        run: |
+          python - <<'PY'
+          import pathlib, re
+          html = pathlib.Path('index.html').read_text(encoding='utf-8')
+          scripts = re.findall(r'<script>(.*?)</script>', html, flags=re.S)
+          assert scripts, 'No website JavaScript found'
+          pathlib.Path('/tmp/brief-site.js').write_text(scripts[-1], encoding='utf-8')
+          PY
+          node --check /tmp/brief-site.js
+
       - name: Python for RSS collection
         uses: actions/setup-python@v5
         with:
