@@ -184,7 +184,7 @@ def validate_draft(generated: dict, source: str, item: dict) -> tuple[dict, dict
                                               "who_is_affected", "what_next", "context"]]
     # A model must not introduce a figure, percentage or year absent from the
     # primary source or its official article metadata.
-    number_pattern = re.compile(r"(?<![\\w])(?:£|\\$)?\\d+(?:[.,]\\d+)*(?:%|bn|m|k)?(?![\\w])", re.I)
+    number_pattern = re.compile(r"(?<![\w])(?:£|\$)?\d+(?:[.,]\d+)*(?:%|bn|m|k)?(?![\w])", re.I)
     numbers = lambda value: {m.group().lower().replace(",", "") for m in number_pattern.finditer(value)}
     story_numbers = numbers(" ".join([generated["headline"], generated["standfirst"]] + paras))
     source_numbers = numbers(source + " " + item["title"] + " " + item["dateISO"])
