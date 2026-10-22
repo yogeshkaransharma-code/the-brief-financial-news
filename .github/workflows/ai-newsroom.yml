@@ -28,7 +28,9 @@ jobs:
         run: python scripts/editorial_gate.py --self-test
 
       - name: Test approved publication without altering the live site
-        run: python scripts/test_publishing.py
+        run: |
+          python scripts/test_publishing.py
+          python scripts/test_editorial_benchmark.py
 
       - name: Generate evidence-backed editorial drafts
         env:
