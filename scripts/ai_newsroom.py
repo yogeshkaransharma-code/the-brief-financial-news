@@ -156,8 +156,8 @@ def make_prompt(item: dict, source: str) -> str:
         "the source supports it). All paragraphs together should total 300–550 words. "
         "status must accurately say Proposal, Confirmed announcement, "
         "Published report or Speech / commentary. "
-        "evidence must be an array of 4–7 objects with keys claim and support. "
-        "Each support must be an EXACT consecutive 7–15 word extract from the "
+        "evidence must contain at least four DISTINCT factual claims, each with a DIFFERENT supporting excerpt. " 
+        "Every support must be an EXACT consecutive 7–15 word extract from the "
         "provided primary source, so another programme can verify it. "
         "glossary must be an array of objects with term and explanation (up to 4 items). "
         "Explain what is KNOWN, what isn't, who may need to act and any next steps. "
@@ -236,6 +236,8 @@ def validate_draft(generated: dict, source: str, item: dict) -> tuple[dict, dict
     }
     audit = {
         "article_id": identity, "source_url": item["url"], "source_title": item["title"],
+        "draft_sha256": hashlib.sha256(json.dumps(article, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")).hexdigest(),
+        "source_number_tokens": sorted(source_numbers),
         "document_characters": len(source), "word_count": total_words,
         "source_sha256": hashlib.sha256(source.encode()).hexdigest(),
         "retrieved_at": dt.datetime.now(dt.timezone.utc).isoformat(),
