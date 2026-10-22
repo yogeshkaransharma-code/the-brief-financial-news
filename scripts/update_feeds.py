@@ -13,6 +13,7 @@ import re
 import urllib.request
 import urllib.parse
 import xml.etree.ElementTree as ET
+from zoneinfo import ZoneInfo
 
 ROOT = Path(__file__).resolve().parents[1]
 DEST = ROOT / "data" / "live.json"
@@ -65,6 +66,11 @@ def parse_date(value):
         pass
     try:
         return dt.datetime.fromisoformat(value.replace("Z", "+00:00")).astimezone(dt.timezone.utc)
+    except (TypeError, ValueError, AttributeError):
+        pass
+    # FCA uses local British dates such as "Thursday, October 22, 2026 - 22:01".
+    try:
+        return dt.datetime.strptime(value.strip(), "%A, %B %d, %Y - %H:%M").replace(tzinfo=ZoneInfo("Europe/London")).astimezone(dt.timezone.utc)
     except (TypeError, ValueError, AttributeError):
         return None
 
@@ -127,16 +133,8 @@ def main():
         try:
             request = urllib.request.Request(url, headers=HEADERS)
             with urllib.request.urlopen(request, timeout=18) as response:
-                raw = response.read(2000000)
-                updates = parse(raw, name, category)
+                updates = parse(response.read(2000000), name, category)
             if not updates:
-                root = ET.fromstring(raw)
-                entries = root.findall(".//item") or root.findall("{http://www.w3.org/2005/Atom}entry")
-                if entries:
-                    sample = [(c.tag, (c.text or "")[:100], dict(c.attrib)) for c in list(entries[0])[:10]]
-                    logging.warning("%s format check: root=%s items=%d first_fields=%s", name, root.tag, len(entries), sample)
-                else:
-                    logging.warning("%s format check: root=%s no recognised entries", name, root.tag)
                 raise ValueError("No recent usable items")
             seen.update({x["id"]: x for x in updates})
             successes.append({"name": name, "items": len(updates)})
