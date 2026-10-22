@@ -1,0 +1,104 @@
+name: Publish a reviewed article
+
+on:
+  workflow_dispatch:
+    inputs:
+      draft_run_id:
+        description: 'GitHub Actions run ID containing the editorial draft artifact'
+        required: true
+        type: string
+      article_id:
+        description: 'Draft ID (ai- followed by 20 hexadecimal characters)'
+        required: true
+        type: string
+      approval_phrase:
+        description: 'Type APPROVE_AFTER_SOURCE_REVIEW after checking the article and its original documents'
+        required: true
+        type: string
+
+permissions:
+  actions: read
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: the-brief-pages
+  cancel-in-progress: false
+
+jobs:
+  publish-reviewed:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Confirm explicit editorial approval
+        env:
+          APPROVAL: ${{ inputs.approval_phrase }}
+          DRAFT_ID: ${{ inputs.article_id }}
+          RUN_ID: ${{ inputs.draft_run_id }}
+        run: |
+          test "$APPROVAL" = "APPROVE_AFTER_SOURCE_REVIEW" || { echo "::error::Human editorial sign-off is required"; exit 1; }
+          [[ "$DRAFT_ID" =~ ^ai-[a-f0-9]{20}$ ]] || { echo "::error::Invalid draft ID"; exit 1; }
+          [[ "$RUN_ID" =~ ^[0-9]{8,13}$ ]] || { echo "::error::Invalid source run ID"; exit 1; }
+
+      - name: Check out publication
+        uses: actions/checkout@v4
+
+      - name: Retrieve original draft and evidence report
+        uses: actions/download-artifact@v4
+        with:
+          name: the-brief-ai-drafts
+          run-id: ${{ inputs.draft_run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: /tmp/the-brief-review
+
+      - name: Validate and publish exactly the approved article
+        env:
+          DRAFT_ID: ${{ inputs.article_id }}
+        run: |
+          python scripts/editorial_gate.py --self-test
+          python scripts/publish_reviewed.py "/tmp/the-brief-review/$DRAFT_ID.json" "$DRAFT_ID"
+
+      - name: Save approved article
+        run: |
+          git config user.name "The Brief Editorial Desk"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/articles.json
+          git commit -m "Publish human-reviewed explainer"
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            git fetch origin main
+            git rebase origin/main
+          done
+          echo "::error::Could not commit approved article"
+          exit 1
+
+      - name: Validate website JavaScript
+        run: |
+          python - <<'PY'
+          import pathlib, re
+          html = pathlib.Path('index.html').read_text(encoding='utf-8')
+          scripts = re.findall(r'<script>(.*?)</script>', html, flags=re.S)
+          assert scripts
+          pathlib.Path('/tmp/brief-web.js').write_text(scripts[-1], encoding='utf-8')
+          PY
+          node --check /tmp/brief-web.js
+
+      - name: Enable GitHub Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Package the site
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: '.'
+
+      - name: Publish the site
+        id: deployment
+        uses: actions/deploy-pages@v4
