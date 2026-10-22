@@ -182,6 +182,15 @@ def validate_draft(generated: dict, source: str, item: dict) -> tuple[dict, dict
         checks.append({"claim": claim[:300], "source_excerpt": excerpt[:220]})
     paras = [generated[x].strip() for x in ["introduction", "what_happened", "why_it_matters",
                                               "who_is_affected", "what_next", "context"]]
+    # A model must not introduce a figure, percentage or year absent from the
+    # primary source or its official article metadata.
+    number_pattern = re.compile(r"(?<![\\w])(?:£|\\$)?\\d+(?:[.,]\\d+)*(?:%|bn|m|k)?(?![\\w])", re.I)
+    numbers = lambda value: {m.group().lower().replace(",", "") for m in number_pattern.finditer(value)}
+    story_numbers = numbers(" ".join([generated["headline"], generated["standfirst"]] + paras))
+    source_numbers = numbers(source + " " + item["title"] + " " + item["dateISO"])
+    unsupported_numbers = story_numbers - source_numbers
+    if unsupported_numbers:
+        raise ValueError("Numbers not supported by primary source: " + ", ".join(sorted(unsupported_numbers))[:160])
     total_words = sum(len(p.split()) for p in paras)
     if total_words < 280 or total_words > 750:
         raise ValueError(f"Article length outside editorial bounds: {total_words} words")
