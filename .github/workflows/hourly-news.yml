@@ -3,6 +3,13 @@ name: Collect and publish financial news
 on:
   push:
     branches: [main]
+    paths:
+      - 'index.html'
+      - 'about.html'
+      - 'scripts/**'
+      - 'data/articles.json'
+      - 'data/retired-source-urls.json'
+      - '.github/workflows/hourly-news.yml'
   workflow_dispatch:
   schedule:
     - cron: '17 * * * *'
