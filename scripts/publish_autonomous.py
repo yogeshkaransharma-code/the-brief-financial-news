@@ -79,9 +79,17 @@ def eligible(bundle):
         # Rolling coverage is at most 24 hours. During the relaunch on
         # 23 October only, announcements first made on 22 October also qualify.
         launched=LAUNCH_START<=issued<=LAUNCH_END and updated==LAUNCH_END
-        if not (launched or issued==updated or (updated-issued).days==1 and
-                dt.datetime.now(dt.timezone.utc).hour<1):
-            problems.append("Original announcement outside the 24-hour window (22 October launch exception only)")
+        precision=a.get("source_time_precision","date")
+        if precision=="timestamp":
+            published_at=dt.datetime.fromisoformat(a["source_published_at"].replace("Z","+00:00"))
+            now=dt.datetime.now(dt.timezone.utc)
+            is_fresh=published_at.tzinfo is not None and dt.timedelta()<=now-published_at<=dt.timedelta(hours=24)
+        else:
+            # If the source gives only its calendar date, avoid inventing the
+            # hour. Accept today's dated releases; 22 Oct is launch-only.
+            is_fresh=(issued==updated)
+        if not (launched or is_fresh):
+            problems.append("Outside the precise 24-hour news window or unverifiable source time")
     except (ValueError,TypeError):
         problems.append("Invalid source date")
     if bundle.get("editorial_flags") or bundle.get("revision_history",[])[-1:][0:1] and bundle["revision_history"][-1].get("problems"):
