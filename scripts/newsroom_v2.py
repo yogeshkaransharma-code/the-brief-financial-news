@@ -18,7 +18,7 @@ from source_retrieval import read_source, SourceError
 from first_party_sources import discover
 from editorial_gate import check as editorial_check
 
-MAX_CANDIDATES = 10
+MAX_CANDIDATES = 5
 MAX_DRAFTS = 2
 MIN_WORDS = 190
 MAX_WORDS = 950
@@ -199,7 +199,9 @@ def make_article(output,item,official):
         if isinstance(entry,dict) and isinstance(entry.get("term"),str) and isinstance(entry.get("explanation"),str):
             glossary.append([entry["term"][:65],entry["explanation"][:260]])
     uid="ai-"+hashlib.sha256(item["url"].encode()).hexdigest()[:20]
-    first=blocks[0][1].split("\n\n")[0]
+    # Use a short standfirst as the intro. Repeating the entire first section
+    # above the article made autonomous reports look unfinished.
+    first=summary.strip()
     return {"id":uid,"kind":"original","category":item.get("category","Regulation"),
             "dateISO":item["dateISO"],"date":item["dateISO"],"source":item["source"],
             "source_url":official.url,"url":official.url,
@@ -433,6 +435,9 @@ def main():
                     json.dumps(bundle,ensure_ascii=False,indent=2)+"\n",encoding="utf-8"
                 )
             report.append({"title":item.get("title","unknown"),"result":"held back","reason":str(exc)[:360],"stage":stage,"source":item.get("url")})
+            if "HTTP 429" in str(exc) or "quota exceeded" in str(exc).lower():
+                report.append({"result":"stopped","reason":"Free model request quota reached; no additional calls until the next scheduled run"})
+                break
     (OUTPUT/"run-report.json").write_text(json.dumps({
         "generated_at":dt.datetime.now(dt.timezone.utc).isoformat(),
         "pipeline":"separate writer and sentence-level AI challenge; human sign-off required",
