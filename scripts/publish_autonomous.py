@@ -17,13 +17,14 @@ from urllib.parse import urlsplit
 from editorial_gate import check
 from newsroom_v2 import canonical
 from verify_approved_articles import validate as verify_feed
+from fresh_sources import LAUNCH_START, LAUNCH_END
 
 ROOT = Path(__file__).resolve().parents[1]
 ARTICLES = ROOT / "data/articles.json"
 AUDIT_DIR = ROOT / "data/editorial-audits"
 DRAFT_DIR = ROOT / "generated-drafts"
-MAX_ARTICLES = 2
-POLICY_VERSION = "first-party-newsroom-2026-10-23-v1"
+MAX_ARTICLES = 6
+POLICY_VERSION = "daily-24-hour-news-2026-10-23-v2"
 # Only named primary-source newsrooms and narrow first-party categories.
 # Never republish a third-party report or an unsupported RSS summary.
 FCA_REPORT = re.compile(r"^/data/complaints-data-\d{4}-h[12]/?$", re.I)
@@ -50,13 +51,16 @@ def eligible(bundle):
     fca_report=host in {"www.fca.org.uk","fca.org.uk"} and bool(FCA_REPORT.fullmatch(parts.path))
     aviva=host in {"www.aviva.com","aviva.com"} and bool(AVIVA_RELEASE.fullmatch(parts.path))
     lloyds=host in {"www.lloydsbankinggroup.com","lloydsbankinggroup.com"} and bool(LLOYDS_RELEASE.fullmatch(parts.path))
-    if parts.scheme!="https" or not (fca_report or aviva or lloyds):
-        problems.append("Not within documented primary-source statistical or company-announcement allowlist")
+    standard=host in {"www.standardlifeplc.com","standardlifeplc.com"} and parts.path.startswith("/news-and-views/press-releases/article-page/")
+    parliament=host=="committees.parliament.uk" and parts.path.startswith("/committee/697/financial-services-regulation-committee/news/")
+    rns=host in {"www.investegate.co.uk","investegate.co.uk"} and parts.path.startswith("/announcement/rns/") and parts.path.endswith(("/9835238","/9835199","/9836547","/9836457"))
+    if parts.scheme!="https" or not (fca_report or aviva or lloyds or standard or parliament or rns):
+        problems.append("Source not in documented first-party/issuer RNS launch allowlist")
     if fca_report and a.get("status")!="Published report":
         problems.append("FCA statistics incorrectly described")
-    if (aviva or lloyds) and a.get("status")!="Confirmed announcement":
+    if (aviva or lloyds or standard or parliament or rns) and a.get("status")!="Confirmed announcement":
         problems.append("A company announcement must be labelled as such")
-    if (aviva or lloyds) and a.get("category") not in {"Banking","Insurance","Technology"}:
+    if (aviva or lloyds or standard or parliament or rns) and a.get("category") not in {"Banking","Insurance","Technology","Regulation"}:
         problems.append("Original company source not within financial-services industry category")
     if audit.get("pipeline_version")!=2:
         problems.append("Missing independent sentence-level review")
@@ -72,11 +76,12 @@ def eligible(bundle):
     updated=dt.datetime.now(dt.timezone.utc).date()
     try:
         issued=dt.date.fromisoformat(a["dateISO"])
-        # The initial intake can catch up on recent first-party news without
-        # mislabelling its original source date as today's new development.
-        max_age=21 if (aviva or lloyds) else 5
-        if not dt.timedelta(days=0)<=updated-issued<=dt.timedelta(days=max_age):
-            problems.append("Original source outside the autonomous news freshness window")
+        # Rolling coverage is at most 24 hours. During the relaunch on
+        # 23 October only, announcements first made on 22 October also qualify.
+        launched=LAUNCH_START<=issued<=LAUNCH_END and updated==LAUNCH_END
+        if not (launched or issued==updated or (updated-issued).days==1 and
+                dt.datetime.now(dt.timezone.utc).hour<1):
+            problems.append("Original announcement outside the 24-hour window (22 October launch exception only)")
     except (ValueError,TypeError):
         problems.append("Invalid source date")
     if bundle.get("editorial_flags") or bundle.get("revision_history",[])[-1:][0:1] and bundle["revision_history"][-1].get("problems"):
