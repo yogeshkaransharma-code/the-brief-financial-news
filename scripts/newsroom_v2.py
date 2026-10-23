@@ -391,7 +391,10 @@ def main():
     # insurance/banking coverage. The discovered source URL/date are retained.
     first_party,discovery_errors=discover()
     published_urls={x.get("url") for x in json.loads((ROOT/"data/articles.json").read_text(encoding="utf-8"))}
-    known={x["url"] for x in candidates} | published_urls
+    retired_path=ROOT/"data/retired-source-urls.json"
+    retired_urls=set(json.loads(retired_path.read_text(encoding="utf-8")).get("urls",[])) if retired_path.exists() else set()
+    candidates=[item for item in candidates if item["url"] not in retired_urls]
+    known={x["url"] for x in candidates} | published_urls | retired_urls
     for item in first_party:
         if item["url"] not in known:
             candidates.append(item)
