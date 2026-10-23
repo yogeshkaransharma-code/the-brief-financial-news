@@ -42,7 +42,7 @@ def make_bundle():
     }
     audit = {
         "article_id": aid, "source_url": article["url"],
-        "source_sha256": hashlib.sha256(b"FAKE FIXTURE ONLY - do not publish").hexdigest(),
+        "source_sha256": hashlib.sha256(PARAGRAPH.encode("utf-8")).hexdigest(),
         "retrieved_at": dt.datetime.now(dt.timezone.utc).isoformat(),
         "source_number_tokens": [],
         "verbatim_source_checks": [
@@ -51,7 +51,7 @@ def make_bundle():
             for claim, excerpt in EXCERPTS
         ],
     }
-    return resign({"draft": article, "audit": audit})
+    return resign({"draft": article, "audit": audit, "captured_source_excerpt": PARAGRAPH})
 
 
 def clone(bundle):
