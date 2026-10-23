@@ -21,8 +21,14 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Install official-document parsers
+        run: python -m pip install -r scripts/requirements-newsroom.txt
+
       - name: Test draft validation logic
-        run: python scripts/ai_newsroom.py --self-test
+        run: |
+          python scripts/ai_newsroom.py --self-test
+          python scripts/source_retrieval.py
+          python scripts/newsroom_v2.py --self-test
 
       - name: Test independent editorial rules
         run: python scripts/editorial_gate.py --self-test
@@ -41,7 +47,7 @@ jobs:
             echo '::error::GEMINI_API_KEY secret is not available to the newsroom workflow'
             exit 1
           fi
-          python scripts/ai_newsroom.py
+          python scripts/newsroom_v2.py
 
       - name: Build a readable editorial review packet
         if: always()
