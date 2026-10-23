@@ -23,7 +23,7 @@
 <a class="skip" href="#latest">Skip to the news</a>
 <div class="utility"><div class="container utility-inner"><span class="utility-left"><span class="live-dot"></span> THE UK FINANCIAL SERVICES DESK</span><span id="edition-date">LATEST UK EDITION</span><span class="utility-right">INDEPENDENT READING · FREE TO ACCESS</span></div></div>
 <header class="site-header"><div class="container header-inner"><div><a class="brand" href="#home" id="logo">THE BRIEF<span>.</span></a><p class="strap">INSURANCE, BANKING & THE BUSINESS BEHIND THE NEWS</p></div><div class="header-actions"><button id="search-toggle" type="button" class="iconbutton" aria-label="Show search" title="Search"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 5 5"/></svg></button><button type="button" id="saved-toggle" class="savedbutton">Saved <span id="saved-number">0</span></button></div></div></header>
-<div class="navstrip"><div class="container nav-inner"><span class="nav-title">TODAY'S EDITION</span><nav class="mini-nav" aria-label="Page sections"><a href="#briefing">60-second brief</a><a href="#latest">All news</a><a href="#context">Explained</a></nav><div id="freshness" class="freshness">Checking the latest source updates…</div></div></div>
+<div class="navstrip"><div class="container nav-inner"><span class="nav-title">TODAY'S EDITION</span><nav class="mini-nav" aria-label="Page sections"><a href="#briefing">60-second brief</a><a href="#latest">AI articles</a></nav><div id="freshness" class="freshness">Checking the latest source updates…</div></div></div>
 <div id="search-panel" class="search-panel" hidden><div class="container search-inner"><label for="search" class="sr-only">Search all stories</label><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 5 5"/></svg><input id="search" type="search" placeholder="Search companies, subjects or headlines" autocomplete="off"><button type="button" id="clear-search">Clear</button></div></div>
 <main id="home-view" class="container">
   <div class="issue-heading"><span>THE DAILY EDITION</span><span id="issue-date">TODAY</span></div>
@@ -31,307 +31,26 @@
     <article id="lead-story" class="lead-story"></article>
     <aside class="one-minute" id="briefing" aria-labelledby="briefing-title">
       <div class="minute-head"><div><span class="minute-kicker">THE ESSENTIALS</span><h2 id="briefing-title">Your 60-second<br>catch-up<span>.</span></h2></div><span class="clock-icon" aria-hidden="true">↗</span></div>
-      <p class="minute-intro">The most useful developments, without the long read.</p>
+      <p class="minute-intro">A quick catch-up from our complete AI-written articles.</p>
       <div id="briefing-stories" class="briefing-stories"></div>
-      <a href="#latest" class="minute-footer">Continue to all news <span aria-hidden="true">↗</span></a>
+      <a href="#latest" class="minute-footer">Read our complete articles <span aria-hidden="true">↗</span></a>
     </aside>
   </section>
-  <div class="signals" id="signals" aria-label="Browse the news"><span>ONE FEED. EVERY CORNER OF FINANCIAL SERVICES.</span><span>SCROLL OR FILTER · YOUR CHOICE</span></div>
+  <div class="signals" id="signals" aria-label="Browse the news"><span>EVERY STORY WRITTEN BY OUR AI NEWSROOM.</span><span>PRIMARY SOURCES · EVIDENCE CHECKS · FULL ARTICLE</span></div>
   <section id="latest" class="news-section" aria-label="Latest news">
-    <div class="news-heading"><div><span class="section-kicker">THE DAILY WIRE</span><h2>What’s happening<span>.</span></h2><p>Real updates, useful context and complete articles where we've written them.</p></div><div class="news-count" id="news-count"></div></div>
+    <div class="news-heading"><div><span class="section-kicker">THE AI NEWSROOM</span><h2>Complete articles<span>.</span></h2><p>Original financial-services stories written by our AI newsroom. Source feeds are used for research, never passed off as finished articles. Coverage appears only when evidence checks pass.</p></div><div class="news-count" id="news-count"></div></div>
     <div class="filterbar" aria-label="Filter news"><div class="chips" id="chips"><button type="button" class="chip active" data-category="All">Everything</button><button type="button" class="chip" data-category="Insurance">Insurance</button><button type="button" class="chip" data-category="Banking">Banking</button><button type="button" class="chip" data-category="Regulation">Regulation</button><button type="button" class="chip" data-category="Technology">Technology</button></div><select id="order" aria-label="Sort stories"><option value="newest">Newest first</option><option value="oldest">Oldest first</option></select></div>
     <div id="special-filter-note" class="filter-note" hidden></div>
-    <div class="news-grid"><div class="feed" id="feed"></div><aside class="desk-side"><div class="sidebar-box"><span class="section-kicker">YOUR READING DESK</span><h3>Keep the useful stuff.</h3><p>Save a story to come back to it. Follow a subject and we'll keep it to hand on this device.</p><div id="follow-buttons" class="follow-buttons"></div><button class="textlink" id="following-toggle">Show my followed subjects →</button></div><div class="sidebar-box quiet"><span class="section-kicker">HOW WE WORK</span><h3>Facts first. Plain English.</h3><p>Stories we write are clearly marked. Automatically gathered updates are labelled separately, with the original publisher named. We don't pass a feed snippet off as journalism.</p><button class="textlink" id="open-about">Our editorial approach →</button></div></aside></div>
+    <div class="news-grid"><div class="feed" id="feed"></div><aside class="desk-side"><div class="sidebar-box"><span class="section-kicker">YOUR READING DESK</span><h3>Keep the useful stuff.</h3><p>Save a story to come back to it. Follow a subject and we'll keep it to hand on this device.</p><div id="follow-buttons" class="follow-buttons"></div><button class="textlink" id="following-toggle">Show my followed subjects →</button></div><div class="sidebar-box quiet"><span class="section-kicker">HOW WE WORK</span><h3>Written by AI. Clearly sourced.</h3><p>The Brief publishes original AI-written reporting only, with primary-source links and machine-review disclosures. No human approval is implied. Stories that fail checking are withheld.</p><button class="textlink" id="open-about">Our editorial approach →</button></div></aside></div>
     <button id="show-more" type="button" class="more-button" hidden>More stories <span>↓</span></button>
-    <p id="nothing" class="nothing" hidden>No stories match your search. Try another term or choose Everything.</p>
+    <p id="nothing" class="nothing" hidden>No AI-written article is available for this selection yet. Our newsroom will publish when an original story passes its checks.</p>
   </section>
-  <section id="context" class="understand" aria-label="Understand the news"><div class="understand-head"><span class="section-kicker">THE CONTEXT · CHANGES DAILY</span><h2>New to this? Start here<span>.</span></h2><p>Three useful explanations every day. One on insurance, one on banking and one on the wider industry.</p><p id="explainer-date" class="explainer-date"></p></div><div id="explainer-list" class="explainer-list"></div><button id="explainer-archive-toggle" class="explainer-archive-toggle" type="button" aria-expanded="false" aria-controls="explainer-archive">Browse all 30 explainers ↓</button><div id="explainer-archive" class="explainer-list explainer-archive" hidden></div></section>
+
 </main>
 <main id="article-view" class="container article-view" hidden><div class="article-topbar"><button id="back" type="button">← All news</button><div><button id="article-save">☆ Save</button><button id="article-share">Copy link ↗</button><button id="article-print">Print</button></div></div><div id="article-layout" class="article-layout"><article id="article-content" class="article-content"></article><aside id="article-rail" class="article-rail"></aside></div></main>
-<footer class="footer"><div class="container footer-inside"><div><strong>THE BRIEF<span>.</span></strong><p>Good financial news should make sense.</p></div><div class="footer-links"><button id="footer-about">About & corrections</button><a href="#home" id="footer-top">Back to top ↑</a></div></div><div class="container copyright">UK edition · Original reporting and clearly attributed source updates · Not financial advice</div></footer>
+<footer class="footer"><div class="container footer-inside"><div><strong>THE BRIEF<span>.</span></strong><p>Good financial news should make sense.</p></div><div class="footer-links"><button id="footer-about">About & corrections</button><a href="#home" id="footer-top">Back to top ↑</a></div></div><div class="container copyright">UK edition · Original AI-written articles · Source-linked and machine-screened · Not financial advice</div></footer>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
-<script type="application/json" id="curated-data">[
-  {
-    "id": "uk-banks-tax-2026",
-    "category": "Banking",
-    "date": "21 October 2026",
-    "dateISO": "2026-10-21",
-    "source": "UK Finance",
-    "status": "Published report",
-    "reading": "2 min read",
-    "title": "UK banks contributed £47.8bn in tax. Here’s what that figure actually includes.",
-    "short": "New figures show a record tax contribution — but almost half the total was collected from others, not paid directly by banks.",
-    "stat": "£47.8bn",
-    "statlabel": "UK banking sector tax contribution in 2025/26",
-    "accent": "bank",
-    "url": "https://www.ukfinance.org.uk/news-and-insight/press-release/uk-finance-publishes-2026-banking-sector-tax-report",
-    "lead": "The UK banking sector paid or collected £47.8 billion in tax during the financial year ending March 2026, according to a report published by UK Finance on 21 October. It is the highest total recorded by the study since it began in 2014. But the headline needs a little unpacking.",
-    "blocks": [
-      [
-        "Where the money comes from",
-        "Of that £47.8 billion, UK Finance says £25.7 billion was tax borne by banks themselves. This includes things such as corporation tax, the bank levy and VAT they cannot recover. The other £22.1 billion was tax collected and passed to government, including employees’ income tax and National Insurance. Those are both contributions to public finances, but they are not the same thing."
-      ],
-      [
-        "Why the banks are talking about it",
-        "The report also compares the tax paid by a model corporate and investment bank in different financial centres. For that model bank, London’s total tax rate is estimated at 46.2%, compared with 27.9% in New York. This is a comparison based on a defined model, not a claim that every London bank pays exactly that rate. UK Finance uses it to make the case that tax competitiveness matters when banks choose where to invest and employ people."
-      ],
-      [
-        "Why it matters in practice",
-        "For banking professionals, this is principally a story about the industry’s economic role and its argument for a stable tax environment. For everyone else, it’s a useful reminder to look beyond a big number and ask what was measured. The report arrives ahead of the UK Autumn Budget, when tax policy is particularly relevant."
-      ]
-    ],
-    "quick": "£47.8bn is the total paid or collected; £25.7bn was tax borne by banks themselves.",
-    "summary": "New figures show a record tax contribution — but almost half the total was collected from others, not paid directly by banks.",
-    "microfacts": [
-      "£47.8bn paid or collected",
-      "£25.7bn tax borne by banks",
-      "£22.1bn collected for government"
-    ],
-    "glossary": [
-      [
-        "Tax borne",
-        "Tax that banks themselves pay, rather than money they collect and pass to government."
-      ],
-      [
-        "Bank levy",
-        "A tax charged on certain liabilities of banks and building societies."
-      ]
-    ],
-    "kind": "original",
-    "author": "The Brief editorial"
-  },
-  {
-    "id": "fca-defi-guidance",
-    "category": "Regulation",
-    "date": "21 October 2026",
-    "dateISO": "2026-10-21",
-    "source": "FCA",
-    "status": "Consultation — not final guidance",
-    "reading": "2 min read",
-    "title": "The FCA wants clearer safeguards for financial firms using decentralised finance.",
-    "short": "The regulator has proposed guidance covering operational failures and financial crime. Firms have until 18 November to respond.",
-    "url": "https://www.fca.org.uk/publications/guidance-consultations/gc26-7-decentralised-finance-guidance",
-    "lead": "The Financial Conduct Authority has opened a consultation on guidance for firms offering financial services through decentralised finance, commonly called DeFi. The announcement came on 21 October 2026. It focuses on managing operational risks and financial crime rather than introducing an entirely new set of rules on the day of publication.",
-    "blocks": [
-      [
-        "First, what is DeFi?",
-        "DeFi is a broad term for financial services built on technology such as blockchains and smart contracts. Some processes that would normally involve a bank or another intermediary can be carried out through automated systems. The technology changes how a service runs, but it does not automatically remove the need to protect customers or comply with applicable law."
-      ],
-      [
-        "What the FCA is proposing",
-        "The draft guidance is intended to help relevant firms understand how existing obligations on operational resilience and financial crime apply in a DeFi setting. Operational resilience is about keeping important services running — or restoring them — when things go wrong. Financial crime controls concern risks such as money laundering and misuse of services. The FCA includes examples of possible controls in its consultation."
-      ],
-      [
-        "What happens next",
-        "This is a consultation, so firms should not treat it as final guidance. Responses are due by 18 November 2026 and the FCA currently plans to publish its final guidance in January 2027. Anyone following the subject should watch for the final version, because the wording may change after industry feedback."
-      ]
-    ],
-    "quick": "The FCA is consulting, not announcing a finished rule. Responses close 18 November.",
-    "summary": "The regulator has proposed guidance covering operational failures and financial crime. Firms have until 18 November to respond.",
-    "microfacts": [
-      "Consultation, not final rules",
-      "FCA proposal",
-      "Source dated 21 October 2026"
-    ],
-    "glossary": [
-      [
-        "Consultation",
-        "A regulator asks for feedback on a proposed change before making a final decision."
-      ],
-      [
-        "DeFi",
-        "Decentralised finance: financial services built using blockchain-based systems, often without a traditional intermediary."
-      ]
-    ],
-    "kind": "original",
-    "author": "The Brief editorial"
-  },
-  {
-    "id": "buy-to-let-q2-2026",
-    "category": "Banking",
-    "date": "21 October 2026",
-    "dateISO": "2026-10-21",
-    "source": "UK Finance",
-    "status": "Industry figures",
-    "reading": "2 min read",
-    "title": "Buy-to-let lending is up 20.6%. That doesn’t tell the whole story.",
-    "short": "UK Finance reports 58,051 new loans in the second quarter. Much of the activity came from landlords refinancing existing mortgages.",
-    "url": "https://www.ukfinance.org.uk/news-and-insight/press-release/uk-finance-buy-let-update-q2-2026",
-    "lead": "Lenders issued 58,051 new buy-to-let loans worth £10.7 billion in the second quarter of 2026, according to UK Finance. That is a 20.6% increase in loan numbers compared with the same period last year. It sounds like an obvious boom — but UK Finance says the comparison is affected by an unusually weak second quarter in 2025.",
-    "blocks": [
-      [
-        "Why the comparison matters",
-        "Changes to stamp duty in early 2025 brought some activity forward and left the following quarter unusually quiet. As a result, comparing the second quarter of 2026 against that quieter period makes growth look especially strong. Looking at the previous quarter gives a more measured picture."
-      ],
-      [
-        "Most of the lending was remortgaging",
-        "Of the loans recorded in the second quarter of 2026, 39,631 were remortgages. These generally involve an existing borrower replacing or renewing a mortgage, rather than purchasing another property. New buy-to-let purchase loans numbered 16,026. UK Finance reported that remortgaging edged up compared with the first quarter, while new-purchase lending fell slightly."
-      ],
-      [
-        "Why bankers and landlords care",
-        "Mortgage lenders will watch refinancing volumes, borrowing costs and arrears to understand demand and credit risk. Landlords will focus on interest costs, rental income and whether the numbers still work after refinancing. The headline growth figure is real, but it needs this context before anyone draws big conclusions about the rental market."
-      ]
-    ],
-    "quick": "Lending rose 20.6% year on year, but a low comparison period and refinancing explain much of the increase.",
-    "summary": "UK Finance reports 58,051 new loans in the second quarter. Much of the activity came from landlords refinancing existing mortgages.",
-    "microfacts": [
-      "20.6% year-on-year increase",
-      "Published lending figures",
-      "Year-on-year comparisons need context"
-    ],
-    "glossary": [
-      [
-        "Buy-to-let",
-        "Property bought to rent out rather than live in."
-      ],
-      [
-        "Refinancing",
-        "Replacing an existing loan with a new one, often when borrowing terms or interest rates change."
-      ]
-    ],
-    "kind": "original",
-    "author": "The Brief editorial"
-  },
-  {
-    "id": "pension-private-markets",
-    "category": "Insurance",
-    "date": "20 October 2026",
-    "dateISO": "2026-10-20",
-    "source": "ABI / Pensions UK",
-    "status": "Industry update",
-    "reading": "2 min read",
-    "title": "Pension providers have £11.1bn in UK private markets. What does that mean?",
-    "short": "A new update measures progress towards a voluntary pledge to invest more pension savings in areas such as property and infrastructure.",
-    "url": "https://www.abi.org.uk/media-hub/news-post/111-billion-held-in-uk-private-markets-by-mansion-house-accord-signatories",
-    "lead": "Workplace pension providers that signed the Mansion House Accord held £11.1 billion in UK private markets at the end of December 2025, according to an update published by the Association of British Insurers and Pensions UK on 20 October 2026. It is a progress report, not an announcement that £11.1 billion of new money was invested this week.",
-    "blocks": [
-      [
-        "What are private markets?",
-        "Most people are familiar with shares traded on public stock exchanges. Private markets include investments that are not bought and sold in quite the same way — for example, infrastructure, certain property projects, private businesses and private lending. They may offer long-term investment opportunities but can be harder to value or sell quickly."
-      ],
-      [
-        "What is the Accord trying to achieve?",
-        "The Mansion House Accord is a voluntary commitment involving 17 workplace pension providers. Subject to their duties to savers, they are working towards holding 10% of defined contribution growth-phase assets in private markets, including 5% in the UK, by 2030. The latest update reports 3.3% of the relevant assets in UK private markets as of the end of 2025."
-      ],
-      [
-        "Why it matters",
-        "The ambition is to give pension savers access to a broader range of investments while making more long-term capital available for UK businesses and projects. But pension managers must still judge each investment on whether it is suitable and offers value for savers. Providers also reported a further £3 billion of UK private-market deals agreed but not yet deployed; that amount is not included in the £11.1 billion figure."
-      ]
-    ],
-    "quick": "£11.1bn is a snapshot of existing holdings at the end of 2025, not fresh money invested in October.",
-    "summary": "A new update measures progress towards a voluntary pledge to invest more pension savings in areas such as property and infrastructure.",
-    "microfacts": [
-      "£11.1bn existing holdings",
-      "Private markets",
-      "Not new investment in October"
-    ],
-    "glossary": [
-      [
-        "Private markets",
-        "Investments that are not bought and sold on public stock exchanges."
-      ],
-      [
-        "Pension provider",
-        "A company or scheme that manages pension savings or arranges retirement products."
-      ]
-    ],
-    "kind": "original",
-    "author": "The Brief editorial"
-  },
-  {
-    "id": "pra-thresholds",
-    "category": "Regulation",
-    "date": "7 October 2026",
-    "dateISO": "2026-10-07",
-    "source": "Bank of England / PRA",
-    "status": "Consultation — not final rules",
-    "reading": "2 min read",
-    "title": "The PRA wants some banking and insurance thresholds to rise automatically.",
-    "short": "A consultation proposes updating 128 thresholds every five years so financial rules keep pace with growth in the economy.",
-    "url": "https://www.bankofengland.co.uk/prudential-regulation/publication/2026/october/updating-regulatory-thresholds-consultation-paper",
-    "lead": "The Prudential Regulation Authority has proposed a new way of keeping financial regulatory thresholds up to date. Its consultation, published on 7 October 2026, would automatically adjust 128 selected thresholds on a regular timetable rather than revisiting each one separately.",
-    "blocks": [
-      [
-        "What is a regulatory threshold?",
-        "Some financial rules depend on a number — for example, the size of a firm or an amount of activity. Once that number is crossed, a different requirement may apply. But a fixed figure can become less meaningful over time as prices and the wider economy grow. A business might eventually cross it without becoming proportionately more important or risky."
-      ],
-      [
-        "What would change?",
-        "The PRA proposes using UK nominal GDP growth to update selected thresholds automatically. Under the proposed timetable, the first such adjustment would take effect on 1 July 2031, with later updates every five years. It does not mean every threshold would be adjusted. The PRA has assessed which measures might be suitable."
-      ],
-      [
-        "What should firms know now?",
-        "This is still a proposal. Feedback is invited by 7 February 2027. Depending on the threshold, banks, building societies, insurers and other firms may have an interest in the final approach. A predictable timetable could help planning, but affected firms would also need to update systems and internal procedures when changes eventually take effect."
-      ]
-    ],
-    "quick": "A PRA proposal covers 128 thresholds. No automatic change takes effect now.",
-    "summary": "A consultation proposes updating 128 thresholds every five years so financial rules keep pace with growth in the economy.",
-    "microfacts": [
-      "128 selected thresholds",
-      "Proposal only",
-      "First planned change: July 2031"
-    ],
-    "glossary": [
-      [
-        "PRA",
-        "Prudential Regulation Authority, which supervises the safety and soundness of banks, insurers and certain other firms."
-      ],
-      [
-        "Threshold",
-        "A financial or size limit that determines when a particular rule applies."
-      ]
-    ],
-    "kind": "original",
-    "author": "The Brief editorial"
-  },
-  {
-    "id": "abi-claims-fraud",
-    "category": "Insurance",
-    "date": "6 October 2026",
-    "dateISO": "2026-10-06",
-    "source": "ABI",
-    "status": "Industry figures",
-    "reading": "2 min read",
-    "title": "Insurers spotted £1.34bn in fraudulent claims last year — and fewer cases.",
-    "short": "The total value of detected fraud went up even as the number of cases fell. That distinction is important.",
-    "url": "https://www.abi.org.uk/media-hub/news-post/fraudsters-target-bigger-payouts-as-insurers-detect-134-billion-of-bogus-claims",
-    "lead": "UK insurers detected fraudulent claims worth £1.34 billion in 2025, according to figures published by the Association of British Insurers on 6 October 2026. That was 14% more than the value detected in 2024, although the number of detected claims fell slightly.",
-    "blocks": [
-      [
-        "Fewer claims, higher value",
-        "The ABI recorded 93,900 detected fraudulent claims in 2025, a fall of 2.7% in case numbers. Yet their combined value rose from £1.18 billion to £1.34 billion. In other words, the average detected fraudulent claim was more expensive. That makes the value trend just as important as the volume."
-      ],
-      [
-        "Where fraud showed up",
-        "Motor insurance accounted for 55% of detected fraudulent claims. The ABI also reported differences across property and travel insurance. These numbers reflect cases insurers identified as fraudulent, rather than the full amount of fraud that may have taken place undetected."
-      ],
-      [
-        "Why this matters beyond claims teams",
-        "Fraud investigations, stronger checks and better data-sharing can be costly, but undetected fraud can be costly too. Insurers may seek to recover claims-related costs through pricing over time, although these figures alone cannot tell us how much any individual premium will change. For brokers and customers, they provide useful background on why insurers ask detailed questions and check evidence."
-      ]
-    ],
-    "quick": "Detected fraud was worth 14% more, despite the number of cases falling 2.7%.",
-    "summary": "The total value of detected fraud went up even as the number of cases fell. That distinction is important.",
-    "microfacts": [
-      "£1.34bn detected value",
-      "2025 claims",
-      "Value up, case count down"
-    ],
-    "glossary": [
-      [
-        "Claims fraud",
-        "Dishonest insurance claims, including made-up losses or inflated amounts."
-      ],
-      [
-        "Detected fraud",
-        "Cases an insurer identifies as fraudulent; it is not the total amount of all fraud that may have occurred."
-      ]
-    ],
-    "kind": "original",
-    "author": "The Brief editorial"
-  }
-]
-</script>
+<script type="application/json" id="curated-data">[]</script>
 <script>(()=>{
 'use strict';
 const $=id=>document.getElementById(id);
@@ -340,16 +59,15 @@ const safeUrl=x=>{try{const u=new URL(x);return (u.protocol==='https:'||u.protoc
 const day=x=>{try{return new Date(x).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric',timeZone:'Europe/London'})}catch{return x||''}};
 const store=(key,fallback)=>{try{return JSON.parse(localStorage.getItem('thebrief:'+key))??fallback}catch{return fallback}};
 const saveStore=(key,val)=>{try{localStorage.setItem('thebrief:'+key,JSON.stringify(val))}catch{}};
-const rawCurated=$('curated-data');
-let curated=[];try{curated=JSON.parse(rawCurated?.textContent||'[]')}catch{}
+// All editorial content comes from the AI-generated article feed, never static/legacy copy.
 let published=[],live=[],fetched=null,category='All',query='',sort='newest',savedOnly=false,followingOnly=false,limit=10,activeId='',scrollBefore=0;
 let saved=new Set(store('saved',[])),following=new Set(store('following',[]));
 const priorVisit=store('lastVisit',null); const now=new Date().toISOString();
-const byId=()=>Object.fromEntries([...live,...curated,...published].map(x=>[x.id,x]));
+const byId=()=>Object.fromEntries(published.map(x=>[x.id,x]));
 const scoreDate=s=>Date.parse(s.published_at||s.dateISO||'1970-01-01')||0;
 const sortItems=items=>[...items].sort((a,b)=>sort==='oldest'?scoreDate(a)-scoreDate(b):scoreDate(b)-scoreDate(a));
 const liveWithoutPublished=()=>live.filter(s=>!published.some(p=>p.url===s.url));
-const allItems=()=>sortItems([...published,...curated,...liveWithoutPublished()]);
+const allItems=()=>sortItems(published.filter(x=>x.ai_assisted&&x.publication_method==='autonomous'));
 const isNew=s=>priorVisit&&scoreDate(s)>Date.parse(priorVisit)&&scoreDate(s)<Date.now()+86400000;
 const renderDate=()=>{const d=new Date(); $('edition-date').textContent=d.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric',timeZone:'Europe/London'}).toUpperCase(); $('issue-date').textContent=d.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric',timeZone:'Europe/London'}).toUpperCase();};
 const meta=s=>`${safe(day(s.dateISO||s.published_at))} <span>·</span> ${safe(s.source)} <span>·</span> ${s.kind==='original'?(s.ai_assisted?(s.publication_method==='autonomous'?'The Brief · AI-assisted, machine-screened':s.publication_method==='ai_source_checked'?'The Brief · AI-written, source-checked':'The Brief · AI-assisted, editor-reviewed'):'Original article'):'Source update'}`;
@@ -373,52 +91,26 @@ function highlightScore(s){
  return points;
 }
 function rankHighlights(items){return [...items].filter(x=>highlightScore(x)>-50).sort((a,b)=>highlightScore(b)-highlightScore(a)||scoreDate(b)-scoreDate(a))}
-function renderTop(){const original=sortItems([...published,...curated]);const freshest=sortItems(liveWithoutPublished());
- const recent=[...freshest,...original].filter(x=>Date.now()-scoreDate(x)<72*3600000 && scoreDate(x)<=Date.now()+3600000);const ranked=rankHighlights(recent.length?recent:[...freshest,...original]);
- const verifiedFresh=[...published].sort((a,b)=>scoreDate(b)-scoreDate(a)).filter(x=>Date.now()-scoreDate(x)<7*86400000);
- const lead=verifiedFresh[0]||ranked[0]||original[0];
- if(!lead){$('lead-story').innerHTML='<span class="story-kicker">THE LEAD</span><h1>Clear financial news, without the noise.</h1><p class="standfirst">This edition will appear once sources have been connected.</p>';return;}
- $('lead-story').innerHTML=`<span class="story-kicker">${safe(lead.category)} / THE LEAD STORY</span><h1><button type="button" class="headline-btn" data-open="${safe(lead.id)}">${safe(lead.title)}</button></h1><p class="standfirst">${safe(usefulSummary(lead))}</p><div class="meta">${meta(lead)}</div><button class="cta" type="button" data-open="${safe(lead.id)}">${lead.kind==='original'?'Read the full article':'Read the update'} ↗</button>`;
- const picks=verifiedFresh.slice(0,3),topics=new Set(picks.map(x=>x.category));
- for(const item of ranked){if(picks.length===3)break;if(topics.has(item.category))continue;picks.push(item);topics.add(item.category)}
- for(const item of ranked){if(picks.length===3)break;if(!picks.some(x=>x.id===item.id))picks.push(item)}
- $('briefing-stories').innerHTML=picks.map((s,i)=>`<div class="briefing-story"><span class="brief-number">0${i+1}</span><div><span class="story-kind">${s.kind==='original'?'FULL ARTICLE':'SOURCE UPDATE'}</span><button type="button" data-open="${safe(s.id)}">${safe(s.title)}</button><p>${safe(usefulSummary(s).slice(0,220))}</p></div></div>`).join('');
+function renderTop(){
+ const originals=sortItems(published.filter(x=>x.ai_assisted&&x.publication_method==='autonomous'));
+ const lead=originals[0];
+ if(!lead){
+   $('lead-story').innerHTML='<span class="story-kicker">THE NEW BRIEF</span><h1>Fresh reporting. Written by our AI.</h1><p class="standfirst">We’ve reset our publication. Our AI newsroom is gathering primary-source financial news and will publish complete articles when they pass verification. We won’t fill the page with unverified headlines.</p>';
+   $('briefing-stories').innerHTML='<p>Our first new articles will appear here after the newsroom’s evidence checks. No recycled headlines.</p>';
+   return;
+ }
+ $('lead-story').innerHTML=`<span class="story-kicker">${safe(lead.category)} / AI-WRITTEN REPORT</span><h1><button type="button" class="headline-btn" data-open="${safe(lead.id)}">${safe(lead.title)}</button></h1><p class="standfirst">${safe(usefulSummary(lead))}</p><div class="meta">${meta(lead)}</div><button class="cta" type="button" data-open="${safe(lead.id)}">Read the full article ↗</button>`;
+ const picks=originals.slice(0,3);
+ $('briefing-stories').innerHTML=picks.map((item,i)=>`<div class="briefing-story"><span class="brief-number">0${i+1}</span><div><span class="story-kind">AI-WRITTEN · FULL ARTICLE</span><button type="button" data-open="${safe(item.id)}">${safe(item.title)}</button><p>${safe(usefulSummary(item).slice(0,200))}</p></div></div>`).join('');
 }
 function matchingItems(){let items=allItems();if(category!=='All')items=items.filter(s=>s.category===category);if(savedOnly)items=items.filter(s=>saved.has(s.id));if(followingOnly)items=items.filter(s=>following.has(s.category));if(query){const q=query.toLocaleLowerCase();items=items.filter(s=>[s.title,s.short,s.excerpt,s.source,s.category,(s.blocks||[]).map(x=>x.join(' ')).join(' ')].join(' ').toLowerCase().includes(q))}return items}
-function renderFeed(){const items=matchingItems();$('news-count').textContent=`${items.length} ${items.length===1?'story':'stories'}`;const rows=items.slice(0,limit).map((s,i)=>`<article class="news-item"><div class="story-ordinal">${String(i+1).padStart(2,'0')}</div><div><div class="news-cat">${safe(s.category)} &nbsp;·&nbsp; <span class="story-kind ${s.kind==='original'?'':'source'}">${s.kind==='original'?'OUR REPORT':'SOURCE UPDATE'}</span> ${isNew(s)?'<span class="new-chip">NEW</span>':''}</div><h3><button class="headline-btn" type="button" data-open="${safe(s.id)}">${safe(s.title)}</button></h3><p class="summary">${safe(s.short||s.excerpt||'Source update available to read.')}</p><div class="meta">${meta(s)}</div></div><button aria-label="${saved.has(s.id)?'Remove saved story':'Save story'}" title="${saved.has(s.id)?'Remove saved':'Save for later'}" class="news-bookmark ${saved.has(s.id)?'on':''}" type="button" data-save="${safe(s.id)}">${saved.has(s.id)?'★':'☆'}</button></article>`).join('');
+function renderFeed(){const items=matchingItems();$('news-count').textContent=`${items.length} ${items.length===1?'AI article':'AI articles'}`;const rows=items.slice(0,limit).map((s,i)=>`<article class="news-item"><div class="story-ordinal">${String(i+1).padStart(2,'0')}</div><div><div class="news-cat">${safe(s.category)} &nbsp;·&nbsp; <span class="story-kind ${s.kind==='original'?'':'source'}">${s.kind==='original'?'OUR REPORT':'SOURCE UPDATE'}</span> ${isNew(s)?'<span class="new-chip">NEW</span>':''}</div><h3><button class="headline-btn" type="button" data-open="${safe(s.id)}">${safe(s.title)}</button></h3><p class="summary">${safe(s.short||s.excerpt||'Source update available to read.')}</p><div class="meta">${meta(s)}</div></div><button aria-label="${saved.has(s.id)?'Remove saved story':'Save story'}" title="${saved.has(s.id)?'Remove saved':'Save for later'}" class="news-bookmark ${saved.has(s.id)?'on':''}" type="button" data-save="${safe(s.id)}">${saved.has(s.id)?'★':'☆'}</button></article>`).join('');
  $('feed').innerHTML=rows;$('nothing').hidden=items.length>0;$('show-more').hidden=items.length<=limit;
  const note=$('special-filter-note');note.hidden=!(savedOnly||followingOnly);note.textContent=savedOnly?'Showing saved stories on this device. Select “Saved” again to see everything.':'Showing the subjects you follow on this device. Select “Show all news” to reset.';
  document.querySelectorAll('[data-category]').forEach(b=>{b.classList.toggle('active',b.dataset.category===category);b.setAttribute('aria-pressed',String(b.dataset.category===category))});
  $('saved-toggle').setAttribute('aria-pressed',String(savedOnly));$('saved-number').textContent=saved.size;$('following-toggle').textContent=followingOnly?'Show all news →':'Show my followed subjects →';
 }
 function renderFollows(){$('follow-buttons').innerHTML=['Insurance','Banking','Regulation','Technology'].map(cat=>`<button type="button" class="followbtn ${following.has(cat)?'active':''}" data-follow="${cat}">${following.has(cat)?'✓ ':'+ '}${cat}</button>`).join('')}
-
-const EXPLAINER_GROUPS = [[{"category":"Insurance","title":"What does an insurance broker actually do?","summary":"A broker helps customers find and arrange insurance; the insurer is the one taking on the risk.","body":"A broker asks what a person or business needs to protect, approaches insurers, explains the available cover and helps arrange the policy. For example, a shop owner might ask a broker to compare property and liability insurance. The insurer provides the cover and normally pays valid claims; the broker helps the customer understand and arrange it. Brokers may also help at renewal and during claims."},{"category":"Insurance","title":"Who decides whether an insurer will cover a risk?","summary":"That's usually the underwriter, not the salesperson or broker.","body":"An underwriter looks at what could go wrong, how likely a claim is and how expensive it might be. They decide whether the insurer should offer cover, at what price and with which conditions, within their authority. A warehouse storing fireworks is a different risk from an office storing stationery, even if both businesses want property insurance."},{"category":"Insurance","title":"What does your insurance premium pay for?","summary":"It funds more than the claims made by one individual customer.","body":"Premiums collected across customers help insurers pay claims, run their operations, buy reinsurance and meet other costs. An insurer cannot predict exactly whose house will flood or which vehicle will be damaged, so it works across a pool of risks. The premium you pay depends on the type of cover, risk information, insurer pricing and sometimes taxes or fees."},{"category":"Insurance","title":"Why do insurers buy reinsurance?","summary":"It's insurance for insurers, helping them manage very large losses.","body":"A single storm could lead to thousands of claims at once. An insurer may buy reinsurance so another company agrees to bear part of defined losses in exchange for a payment. That can help the original insurer manage the financial shock. Customers generally still deal with their own insurer when making a claim; the reinsurance arrangement happens behind the scenes."},{"category":"Insurance","title":"Why might a renewal price rise when you made no claim?","summary":"Insurance pricing reflects the wider pool of risk, not just your own history.","body":"An insurer might face higher repair costs, more claims in a particular area, expensive replacement parts or changing weather risks. Those costs can influence renewal prices even for customers who have not claimed. But prices also depend on individual circumstances, competition and the cover purchased. A broker should be able to explain what has changed rather than simply pass on a number."},{"category":"Insurance","title":"What does a 96% combined ratio tell us?","summary":"It helps show how the insurer's underwriting business is performing.","body":"A 96% combined ratio means roughly £96 was spent on claims and underwriting expenses for every £100 of earned premiums, using the relevant accounting definitions. Below 100% generally suggests an underwriting profit before investment returns; above 100% suggests an underwriting loss. It doesn't tell you the insurer's entire profit, because investment income and other activities matter too."},{"category":"Insurance","title":"What actually happens after an insurance claim?","summary":"The insurer checks the cover and the loss before deciding what to pay.","body":"First, the customer reports what happened. The insurer may ask for photographs, invoices, police details or an inspection, depending on the claim. It then checks the policy terms, works out whether the event is covered and assesses the loss. Some claims are straightforward; others involve repairers, loss adjusters or specialists. The outcome may be a payment, a repair or an explained refusal."},{"category":"Insurance","title":"What is an insurance excess?","summary":"It's the part of an eligible claim the policyholder normally pays.","body":"Suppose your car insurance has a £300 excess and an accepted repair costs £1,500. You would normally pay the first £300 and the insurer would pay the remaining £1,200, subject to the policy terms. A higher voluntary excess can sometimes lower the premium, but it increases what you may need to pay if you claim."},{"category":"Insurance","title":"What is group life insurance at work?","summary":"It's a workplace benefit that can pay money if an insured employee dies.","body":"An employer may arrange life cover for eligible staff through one group policy. The benefit is often based on a multiple of salary, but the amount and eligibility depend on the scheme. If an insured employee dies, the benefit can provide financial support to their beneficiaries. It's different from a personal life policy because the employer usually arranges the scheme and decides its design."},{"category":"Insurance","title":"What does an MGA do in insurance?","summary":"An MGA can underwrite insurance on behalf of an insurer, within agreed limits.","body":"A managing general agent, or MGA, often specialises in particular types of business and receives delegated authority from an insurer to make certain underwriting decisions. A broker might deal with an MGA rather than an insurer's own underwriting team. The precise responsibilities depend on the agreement. The insurer normally remains the carrier of the insured risk, even when an MGA handles the underwriting."}],[{"category":"Banking","title":"How do banks decide whether to lend to a business?","summary":"They want to know whether the borrower can repay, not simply whether it has sales.","body":"A lender examines income, costs, cash flow, existing debt, trading history and the purpose of the borrowing. Security and the wider economic situation may matter too. A company can report a profit yet have little cash because customers haven't paid invoices. That's one reason banks ask for financial statements and cash-flow information before approving finance."},{"category":"Banking","title":"What's the difference between profit and cash flow?","summary":"A business can make a profit on paper while running short of money.","body":"Profit is broadly revenue minus costs over a period. Cash flow measures money actually moving into and out of the business. Imagine a wholesaler sells £20,000 of goods on credit: the sale may count as revenue before the customer pays. The wholesaler still needs cash to pay staff and suppliers. Banks often examine both profit and cash flow."},{"category":"Banking","title":"What does a business relationship manager do?","summary":"They help business customers deal with a bank and understand the services available.","body":"A relationship manager may discuss a customer's plans, daily banking needs, payments, borrowing requests and wider products. They also coordinate with specialists and operational teams when an issue needs attention. The role varies between banks: some manage large portfolios, some mainly provide telephone service and others focus on new business. Not every relationship manager has authority to approve lending."},{"category":"Banking","title":"How do banks make money?","summary":"Lending interest is one source, but there are several others.","body":"A bank may earn the difference between the interest it receives on loans and the interest it pays on deposits and other funding. Banks can also receive fees for payments, accounts and certain services. They incur costs for staff, technology, regulation and bad debts. That's why strong lending growth alone doesn't automatically mean a bank has made more profit."},{"category":"Banking","title":"Why does a bank ask for financial statements?","summary":"The documents help the bank understand the business beyond its sales pitch.","body":"An income statement can show sales, costs and profit. A balance sheet shows assets, liabilities and equity at a particular date. A cash-flow statement helps explain where money came from and how it was used. Banks can use these together to assess trading performance, existing commitments and whether a business might cope with repayments."},{"category":"Banking","title":"What's the difference between an overdraft and a loan?","summary":"Both involve borrowing, but they tend to be used differently.","body":"An overdraft lets an eligible business spend beyond its account balance up to an agreed limit, often to handle short-term timing gaps. A term loan usually provides a set amount that is repaid over an agreed period. Both have costs, conditions and credit approval requirements. An overdraft is not automatically a good replacement for longer-term funding."},{"category":"Banking","title":"What happens when a bank payment fails?","summary":"The reason depends on how the payment was made and where it stopped.","body":"A payment might fail because of incorrect account details, insufficient funds, security checks, limits or a technical problem. Some payments are rejected immediately; others may be delayed or returned later. The customer's bank can usually investigate using the payment reference and the available transaction information. The correct next step depends on the payment scheme and the actual reason."},{"category":"Banking","title":"What does security on a business loan mean?","summary":"The lender may have a claim over an asset if the borrower cannot repay.","body":"Security is something the lender can potentially rely on if a borrower defaults, such as a charge over property or certain business assets. It does not make the loan risk-free, and the precise legal rights depend on the agreement. Some borrowing is unsecured. Business owners should understand what they or their company are putting at risk before signing."},{"category":"Banking","title":"What's the difference between fixed and variable interest?","summary":"One aims to keep the rate steady; the other can change.","body":"With a fixed-rate loan, the agreed interest rate stays the same during the fixed period, subject to its terms. With a variable-rate loan, the rate can rise or fall according to the agreement, for example by tracking a reference rate. Fixed rates offer more certainty during the fixed period; variable rates expose borrowers to changes in interest costs."},{"category":"Banking","title":"Why does a bank check a customer's identity?","summary":"It helps prevent fraud and financial crime, and it's part of legal duties.","body":"Banks need to know who their customers are and, for businesses, who owns or controls them. They may request identity documents, company details and information on where funds come from. These checks are often called Know Your Customer, or KYC. Existing customers can be asked for updates too, especially if circumstances or risk information have changed."}],[{"category":"The wider industry","title":"What does the FCA actually do?","summary":"It's one of the UK's financial regulators, with a focus on conduct and markets.","body":"The Financial Conduct Authority sets and enforces rules for firms and markets within its remit. Its work includes how regulated firms treat customers, market integrity and competition. It also issues warnings, consultations and enforcement notices. Not every FCA announcement is a new rule: a consultation is a proposal, while a final policy statement may set out decisions and implementation dates."},{"category":"The wider industry","title":"What's the difference between the FCA and PRA?","summary":"They supervise different aspects of the financial system, though some firms answer to both.","body":"Broadly, the FCA focuses on conduct, market integrity and competition. The Prudential Regulation Authority, part of the Bank of England, focuses on the safety and soundness of banks, building societies and certain insurers. For example, how a bank treats its customers can fall within FCA rules, while how much financial resilience it must maintain can involve the PRA."},{"category":"The wider industry","title":"When does a proposed rule become an actual rule?","summary":"A consultation is a request for views, not an instruction already in force.","body":"A regulator may publish a consultation explaining a proposed change and inviting responses. After considering feedback, it can publish final requirements, often with dates by which firms must comply. The final rules may differ from the original proposal. When reading regulatory news, always look for whether something is proposed, confirmed or already in effect."},{"category":"The wider industry","title":"What is the Senior Managers and Certification Regime?","summary":"It's a UK framework for accountability in parts of financial services.","body":"The SM&CR sets expectations around senior managers' responsibilities and the fitness and propriety of certain staff in relevant regulated firms. The details vary by type of firm. If you read that regulators are consulting on changes to the regime, it doesn't mean those changes have already taken effect. The relevant regulator's official documents and dates matter."},{"category":"The wider industry","title":"Why do banks or insurers merge?","summary":"Sometimes they want more customers, new capabilities or lower costs.","body":"An acquisition might help a firm enter a new region, add specialist products, gain technology or combine operations. But a deal also brings integration costs, culture clashes and regulatory requirements. The announcement of an agreement is not always the same as a completed merger. Readers should look for the purchase terms, approvals needed and what will happen to customers or staff."},{"category":"The wider industry","title":"What is fintech, in plain English?","summary":"It's the use of technology to provide or improve financial services.","body":"Fintech can mean apps for sending money, software that helps businesses manage payments or tools used by lenders to assess applications. Traditional banks use financial technology too, so fintech isn't limited to start-ups. A useful question when reading a fintech announcement is: what problem does the product solve, who uses it and what has actually launched?"},{"category":"The wider industry","title":"Why do companies publish financial results?","summary":"They show how the business performed, but the headline number is rarely the whole story.","body":"Results can explain revenue, profit, costs, losses, capital position and the outlook for the business. For an insurer, claims and underwriting performance may be important. For a bank, interest income, impairments and funding costs often matter. Comparing figures with the same period last year is useful, but accounting changes and one-off items can distort the picture."},{"category":"The wider industry","title":"What does 'conduct risk' mean?","summary":"It's the risk that a firm's behaviour leads to poor outcomes or harm.","body":"A financial firm may create conduct risk by selling an unsuitable product, giving misleading information or handling complaints badly. Regulators and firms look beyond whether a sale was made to how customers were treated. For example, a product can be profitable but still cause problems if people don't understand its exclusions or costs."},{"category":"The wider industry","title":"What does anti-money laundering mean?","summary":"It's about preventing criminal money from being moved through legitimate businesses.","body":"Financial firms carry out checks to understand customers, monitor suspicious activity and meet reporting duties. You may hear this called AML, short for anti-money laundering. The aim is not to assume every customer is suspicious; it's to identify risks and take proportionate steps. Firms also have separate obligations relating to sanctions and other types of financial crime."},{"category":"The wider industry","title":"Why do interest-rate changes matter to insurance and banking?","summary":"Rates affect borrowing, saving and what financial firms can earn on investments.","body":"Higher interest rates may increase mortgage or business-loan costs, while also changing the returns banks pay on deposits and the income insurers earn on some assets. The effect depends on each firm's products, funding and investments. It's rarely correct to say a rate rise is simply good or bad for every bank or insurer."}]];
-let explainerDayKey = '';
-const UK_DAY = new Intl.DateTimeFormat('en-GB', {timeZone:'Europe/London',year:'numeric',month:'2-digit',day:'2-digit'});
-function ukDayInfo(){
-  const p=Object.fromEntries(UK_DAY.formatToParts(new Date()).filter(x=>x.type!=='literal').map(x=>[x.type,Number(x.value)]));
-  const key=[p.year,String(p.month).padStart(2,'0'),String(p.day).padStart(2,'0')].join('-');
-  return {key,day:Math.floor(Date.UTC(p.year,p.month-1,p.day)/86400000)};
-}
-function explainerCard(s){
-  return '<div class="explainer"><span class="section-kicker">'+safe(s.category)+' · PLAIN ENGLISH</span><h3>'+safe(s.title)+'</h3><p>'+safe(s.summary)+'</p><details><summary>Understand in a minute +</summary><p>'+safe(s.body)+'</p></details></div>';
-}
-function renderExplainers(){
-  const today=ukDayInfo(), slot=((today.day%EXPLAINER_GROUPS[0].length)+EXPLAINER_GROUPS[0].length)%EXPLAINER_GROUPS[0].length;
-  const featured=EXPLAINER_GROUPS.map(group=>group[slot]);
-  const more=EXPLAINER_GROUPS.flatMap(group=>group.filter((_,i)=>i!==slot));
-  explainerDayKey=today.key;
-  $('explainer-list').innerHTML=featured.map(explainerCard).join('');
-  $('explainer-archive').innerHTML=more.map(explainerCard).join('');
-  $('explainer-archive').hidden=true;
-  $('explainer-archive-toggle').textContent='Browse all 30 explainers ↓';
-  $('explainer-archive-toggle').setAttribute('aria-expanded','false');
-  $('explainer-date').textContent='Today’s selection · '+new Date(today.key+'T12:00:00Z').toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric',timeZone:'Europe/London'});
-}
-function refreshDailyExplainers(){
-  if(ukDayInfo().key!==explainerDayKey)renderExplainers();
-}
 
 function renderArticle(s,stay=false){if(!s)return;activeId=s.id;$('home-view').hidden=true;$('article-view').hidden=false;document.title=s.title+' — The Brief';
  const original=s.kind==='original'; const body=original?(s.blocks||[]).map(([heading,para])=>`<h2>${safe(heading)}</h2>${String(para).split(/\n\s*\n/).filter(Boolean).map(t=>`<p>${safe(t)}</p>`).join('')}`).join(''):`<p>${safe(s.excerpt||s.short||'The source has published an update on this topic. Further details are available from the original publisher.')}</p><div class="source-only"><strong>About this update</strong><p>This is an automatically collected source briefing, not a full independently reported article. We don't reproduce a publisher's article without permission. The source and its date are shown below.</p></div>`;
@@ -428,9 +120,9 @@ function renderArticle(s,stay=false){if(!s)return;activeId=s.id;$('home-view').h
  $('article-rail').innerHTML=`<span class="section-kicker">AT A GLANCE</span><h3>Before you go.</h3><div class="railitem"><span>SUBJECT</span>${safe(s.category)}</div><div class="railitem"><span>PUBLISHED</span>${safe(day(s.dateISO||s.published_at))}</div><div class="railitem"><span>PUBLICATION TYPE</span>${original?'Our original coverage':'Automatic source digest'}</div><div class="railitem"><span>FROM</span>${safe(s.source)}</div>${s.status?`<div class="railitem"><span>STATUS</span>${safe(s.status)}</div>`:''}`;
  $('article-save').textContent=saved.has(s.id)?'★ Saved':'☆ Save';if(!stay)window.scrollTo(0,0)}
 function about(){activeId='about';$('home-view').hidden=true;$('article-view').hidden=false;document.title='About & corrections — The Brief';$('article-content').innerHTML=`<span class="story-kicker">HOW THIS PUBLICATION WORKS</span><h1>Clear reporting. No pretending.</h1><p class="art-intro">The Brief is an independent news and explainer project for people who work in, or want to understand, insurance and banking.</p><div class="article-body"><h2>Two types of coverage</h2><p><b>Original articles</b> are written as complete, plain-English explanations from identified sources. They appear in full here.</p><p><b>Source updates</b> come from public news feeds. They show what the provider has published and link to it. A feed excerpt is not the same thing as our own full reporting, so we label it clearly.</p><h2>Corrections</h2><p>Dates, quantities and whether a regulatory change is proposed or final must be checked before an article is published as our own reporting. If a mistake is identified, it should be corrected promptly with an explanation. A public corrections contact is needed before launch.</p><h2>Editorial independence</h2><p>This publication does not claim exclusive access to publishers’ material. It does not reproduce full third-party articles or offer regulated financial advice. Coverage, interviews, proprietary research and professional learning tools will only be described as available once they actually exist.</p></div>`;$('article-rail').innerHTML='<span class="section-kicker">OUR PROMISE</span><h3>Useful before impressive.</h3><div class="railitem">Clear dates. Named sources. No invented conclusions.</div>';window.scrollTo(0,0)}
-function route(){const h=decodeURIComponent(location.hash.slice(1));if(h.startsWith('story/')){renderArticle(byId()[h.slice(6)])}else if(h==='about'){about()}else if(['latest','briefing','context'].includes(h)){activeId='';$('home-view').hidden=false;$('article-view').hidden=true;document.title='The Brief — Insurance and banking, clearly.';requestAnimationFrame(()=>$(h)?.scrollIntoView({block:'start'}))}else{if(h==='home')scrollBefore=0;displayHome()}}
+function route(){const h=decodeURIComponent(location.hash.slice(1));if(h.startsWith('story/')){renderArticle(byId()[h.slice(6)])}else if(h==='about'){about()}else if(['latest','briefing'].includes(h)){activeId='';$('home-view').hidden=false;$('article-view').hidden=true;document.title='The Brief — Insurance and banking, clearly.';requestAnimationFrame(()=>$(h)?.scrollIntoView({block:'start'}))}else{if(h==='home')scrollBefore=0;displayHome()}}
 function wire(){
- $('explainer-archive-toggle').onclick=()=>{const archive=$('explainer-archive');archive.hidden=!archive.hidden;const open=!archive.hidden;$('explainer-archive-toggle').textContent=open?'Hide extra explainers ↑':'Browse all 30 explainers ↓';$('explainer-archive-toggle').setAttribute('aria-expanded',String(open));};
+
  document.body.addEventListener('click',e=>{let el=e.target.closest('[data-open]');if(el){openStory(el.dataset.open);return}el=e.target.closest('[data-save]');if(el){toggleSaved(el.dataset.save);return}el=e.target.closest('[data-category]');if(el){category=el.dataset.category;limit=10;savedOnly=followingOnly=false;renderFeed();return}el=e.target.closest('[data-follow]');if(el){const c=el.dataset.follow;if(following.has(c))following.delete(c);else following.add(c);saveStore('following',[...following]);renderFollows();renderFeed();showToast(following.has(c)?`Following ${c} on this device`:`Stopped following ${c}`)}});
  $('back').onclick=goHome;$('logo').onclick=()=>{scrollBefore=0};$('footer-top').onclick=()=>{scrollBefore=0};$('saved-toggle').onclick=()=>{savedOnly=!savedOnly;followingOnly=false;category='All';limit=10;renderFeed();goHome();setTimeout(()=>$('latest').scrollIntoView(),0)};
  $('following-toggle').onclick=()=>{followingOnly=!followingOnly;savedOnly=false;category='All';limit=10;renderFeed();$('latest').scrollIntoView()};
@@ -447,10 +139,10 @@ async function loadPublished(){
    return true;
  }catch(err){console.warn('Original article archive unavailable',err);return false}
 }
-async function loadLive(){try{const res=await fetch('data/live.json',{cache:'no-store'});if(!res.ok)throw Error('not available');const updated=await res.json();if(!Array.isArray(updated.items))throw Error('Feed items missing');fetched=updated;live=updated.items.map(s=>({...s,kind:'source'}));if(fetched.generated_at){const at=new Date(fetched.generated_at);$('freshness').textContent=`Source feeds checked ${at.toLocaleDateString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',timeZone:'Europe/London'})}`;}else $('freshness').textContent='News feed loaded · update time unavailable';if(fetched.errors?.length)console.warn('Some news feeds failed to update:',fetched.errors.map(x=>x.source));return true;}
+async function loadLive(){try{const res=await fetch('data/live.json',{cache:'no-store'});if(!res.ok)throw Error('not available');const updated=await res.json();if(!Array.isArray(updated.items))throw Error('Feed items missing');fetched=updated;live=[]; // Source feed is a private discovery input, not public article content.if(fetched.generated_at){const at=new Date(fetched.generated_at);$('freshness').textContent=`Source feeds checked ${at.toLocaleDateString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',timeZone:'Europe/London'})}`;}else $('freshness').textContent='News feed loaded · update time unavailable';if(fetched.errors?.length)console.warn('Some news feeds failed to update:',fetched.errors.map(x=>x.source));return true;}
  catch(e){$('freshness').textContent='Live updates temporarily unavailable · Showing our articles';return false;}}
-async function refreshOnOpen(){if(document.hidden)return;const before=fetched?.generated_at;const loaded=await loadLive();const priorPublished=published.length;await loadPublished();if((loaded&&before!==fetched?.generated_at)||published.length!==priorPublished){renderTop();renderFeed()}renderDate();refreshDailyExplainers()}
-async function start(){renderDate();renderExplainers();renderFollows();wire();setInterval(refreshDailyExplainers,60000);setInterval(refreshOnOpen,600000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshOnOpen()});await Promise.all([loadLive(),loadPublished()]);renderTop();renderFeed();route();saveStore('lastVisit',now);}
+async function refreshOnOpen(){if(document.hidden)return;const before=fetched?.generated_at;const loaded=await loadLive();const priorPublished=published.length;await loadPublished();if((loaded&&before!==fetched?.generated_at)||published.length!==priorPublished){renderTop();renderFeed()}renderDate()}
+async function start(){renderDate();renderFollows();wire();setInterval(refreshOnOpen,600000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshOnOpen()});await Promise.all([loadLive(),loadPublished()]);renderTop();renderFeed();route();saveStore('lastVisit',now);}
 start();
 })();
 </script>
