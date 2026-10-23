@@ -52,6 +52,7 @@ jobs:
           python scripts/ai_newsroom.py --self-test
           python scripts/source_retrieval.py
           python scripts/first_party_sources.py
+          python scripts/fresh_sources.py
           python scripts/newsroom_v2.py --self-test
           python scripts/financial_consistency.py
           python scripts/editorial_gate.py --self-test
@@ -92,6 +93,7 @@ jobs:
         run: |
           mkdir -p public/data
           cp index.html public/index.html
+          cp about.html public/about.html
           cp data/articles.json public/data/articles.json
 
       - name: Set up GitHub Pages
