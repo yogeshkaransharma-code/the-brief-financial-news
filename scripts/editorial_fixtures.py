@@ -42,7 +42,7 @@ def make_bundle():
     }
     import re
     fields = [article["title"], article["short"]] + [paragraph for _, paragraph in article["blocks"]]
-    n = sum(len([sentence for sentence in re.split(r"(?<=[.!?])\\s+(?=[A-Z0-9£])|\\n+", field) if sentence.strip()]) for field in fields)
+    n = sum(len([sentence for sentence in re.split(r"(?<=[.!?])\s+(?=[A-Z0-9£])|\n+", field) if sentence.strip()]) for field in fields)
     audit = {
         "pipeline_version": 2,
         "sentence_review": {"review_schema": "one-verdict-per-sentence-v2",
