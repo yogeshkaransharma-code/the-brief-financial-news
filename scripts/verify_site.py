@@ -11,6 +11,11 @@ data = json.loads((root / "data" / "live.json").read_text(encoding="utf-8"))
 items = data.get("items", [])
 assert 'id="feed"' in html, "News container missing"
 assert 'id="briefing-stories"' in html, "Daily briefing container missing"
+about=(root/"about.html").read_text(encoding="utf-8")
+assert 'href="about.html"' in html, "About page navigation absent"
+assert "<h1>Good financial news should make sense.</h1>" in about, "About page content missing"
+assert "preceding 24 hours" in about, "24-hour publication standard not documented"
+assert "automated research and generative AI" in about, "Reporting method must be transparently disclosed"
 assert "fetch('data/articles.json'" in html, "AI article loader missing"
 assert "fetch('data/live.json'" not in html, "Internal source wire must not be loaded into the public website"
 assert '<script type="application/json" id="curated-data">[]</script>' in html, "Legacy hand-written articles remain"
