@@ -1,56 +1,126 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-GB">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#272323">
-<meta name="description" content="About The Brief: original, accessible coverage of UK banking, insurance, financial services and regulation. Our sources, standards and corrections policy.">
+<meta name="description" content="Meet the founder of The Brief and learn why we make financial news easier to understand. Read about our coverage, sources and corrections.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700;750;800&family=Newsreader:wght@400;500;600;700&display=swap" rel="stylesheet">
-<title>About The Brief — Clear financial news</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>About us and the founder | The Brief</title>
 <style>
-:root{--ink:#272323;--accent:#87404B;--paper:#F8F5EF;--muted:#665D5B;--rule:#DED8D0;--display:'Newsreader',Georgia,'Times New Roman',serif;--sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif}*{box-sizing:border-box}
-body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.72 var(--sans)}
+:root{--ink:#272323;--accent:#87404B;--paper:#F8F5EF;--muted:#665D5B;--rule:#DED8D0;--display:'Newsreader',Georgia,'Times New Roman',serif;--sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.7 var(--sans);-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration-color:var(--accent);text-underline-offset:4px}
-.site-header{border-bottom:1px solid var(--rule);background:#fff}.container{max-width:1180px;padding:0 28px;margin:auto}
-.header-inner{display:flex;align-items:center;justify-content:space-between;padding:28px 0;gap:25px}
-.brand{font:bold clamp(32px,5vw,49px)/1 var(--display);letter-spacing:-2px;text-decoration:none}.brand span{color:var(--accent)}
-nav{display:flex;gap:25px;font-size:13px;font-weight:650}nav a{text-decoration:none}nav a[aria-current="page"]{color:var(--accent)}
-article{max-width:780px;margin:56px auto 100px} .eyebrow{font-size:11px;text-transform:uppercase;color:var(--accent);letter-spacing:.16em;font-weight:800}
-h1{font:normal clamp(49px,7vw,76px)/1.03 var(--display);letter-spacing:-2.2px;margin:20px 0 25px}
-.intro{font:normal clamp(20px,2.5vw,25px)/1.5 var(--display);color:#665957;margin-bottom:44px}
-h2{font:normal 30px/1.25 var(--display);letter-spacing:-.7px;margin:40px 0 14px}
-p{margin:13px 0;color:#514745}ul{padding-left:21px;color:#514745}li{padding-bottom:8px}
-.divider{height:1px;background:var(--rule);margin:35px 0}
-.note{border-left:3px solid var(--accent);padding:4px 0 4px 17px;margin:25px 0;color:#665957}
-footer{background:#282324;color:#F9F4EF;padding:25px 0;font-size:13px}footer p{color:#F9F4EF;opacity:.85}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:5px}
+.site-header{border-bottom:1px solid var(--rule);background:#fff}
+.container{max-width:1180px;padding:0 32px;margin:auto}
+.header-inner{display:flex;align-items:center;justify-content:space-between;padding:27px 0;gap:25px}
+.brand{font:700 clamp(32px,5vw,49px)/1 var(--display);letter-spacing:-1.8px;text-decoration:none}
+.brand span{color:var(--accent)}
+nav{display:flex;gap:25px;font-size:13px;font-weight:600}
+nav a{text-decoration:none}
+nav a[aria-current="page"]{color:var(--accent)}
+article{max-width:930px;margin:64px auto 94px}
+.eyebrow{font:700 11px/1.5 var(--sans);text-transform:uppercase;color:var(--accent);letter-spacing:.13em}
+h1{font:500 clamp(43px,6.5vw,72px)/1.07 var(--display);letter-spacing:-1.8px;margin:18px 0 21px;max-width:860px}
+.intro{font:400 clamp(21px,2.5vw,26px)/1.48 var(--display);color:#665957;max-width:780px;margin:0 0 50px}
+h2{font:500 clamp(29px,3vw,36px)/1.19 var(--display);letter-spacing:-.6px;margin:30px 0 15px}
+p{margin:13px 0;color:#514745}
+.content-section{max-width:775px}
+.divider{height:1px;background:var(--rule);margin:40px 0}
+.founder{display:grid;grid-template-columns:minmax(0,1.36fr) minmax(255px,.76fr);background:#FFFDF9;border:1px solid #E7DED6;margin:55px 0;padding:0}
+.founder-copy{padding:42px 42px 43px}
+.founder-copy h2{margin:12px 0 19px;max-width:480px}
+.founder-copy p{font-size:15.5px;line-height:1.75;max-width:590px}
+.founder-signoff{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px;border-top:1px solid var(--rule);margin-top:27px;padding-top:24px}
+.founder-identity{display:flex;flex-direction:column;gap:0}
+.founder-identity strong{font-weight:700;font-size:14px;letter-spacing:-.01em}
+.founder-identity span{font-size:12px;color:var(--muted)}
+.linkedin{display:inline-flex;align-items:center;gap:10px;border:1px solid #BBAFA9;color:var(--ink);background:#fff;padding:10px 15px;text-decoration:none;font:600 12px/1 var(--sans);transition:background .2s,border-color .2s}
+.linkedin:hover{background:#F4EDE9;border-color:var(--accent)}
+.linkedin svg{display:block;flex:none;width:18px;height:18px;color:#0A66C2}
+.founder-side{background:#34282C;color:#F9F4EF;display:flex;flex-direction:column;justify-content:space-between;padding:35px 29px;min-height:390px}
+.side-kicker{font:600 10px/1.5 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:#E8CFCC}
+.side-quote{font:400 clamp(37px,4.1vw,56px)/1.03 var(--display);letter-spacing:-1px}
+.side-quote em{font-style:normal;color:#E2B1B1}
+.side-foot{border-top:1px solid #765B60;padding-top:20px;font:400 13px/1.6 var(--sans);color:#E8D6D2}
+.standard-grid{display:grid;grid-template-columns:1fr 1fr;gap:38px;margin-top:18px}
+.standard-grid h2{margin-top:20px}
+.note{border-left:3px solid var(--accent);padding:4px 0 4px 19px;margin:29px 0;color:#665957;max-width:740px}
+.bottom-link{display:inline-block;margin-top:17px;font-size:14px;font-weight:600}
+footer{background:#282324;color:#F9F4EF;padding:29px 0;font-size:13px}
+footer p{color:#E0D2CF;margin:2px 0}
 footer a{color:#F9F4EF}
-@media(max-width:650px){.container{padding:0 20px}.header-inner{padding:20px 0}nav{gap:14px}article{margin:38px auto 65px}}
+@media(max-width:780px){article{margin:43px auto 70px}.founder{grid-template-columns:1fr}.founder-side{min-height:190px;gap:36px}.side-quote{font-size:44px}.standard-grid{grid-template-columns:1fr;gap:5px}}
+@media(max-width:560px){.container{padding:0 20px}.header-inner{padding:20px 0}.brand{font-size:36px}nav{gap:15px;font-size:12px}.founder-copy{padding:28px 23px}.founder-side{padding:29px 23px}.founder-signoff{align-items:flex-start}.intro{margin-bottom:32px}.side-quote{font-size:42px}}
 </style>
 </head>
 <body>
 <header class="site-header"><div class="container header-inner"><a href="./" class="brand" aria-label="The Brief, home">THE BRIEF<span>.</span></a><nav aria-label="Primary"><a href="./">Latest stories</a><a href="about.html" aria-current="page">About us</a></nav></div></header>
-<main class="container"><article>
-<span class="eyebrow">The publication</span>
+<main class="container">
+<article>
+<span class="eyebrow">Get to know The Brief</span>
 <h1>Good financial news should make sense.</h1>
-<p class="intro">The Brief follows the changes shaping UK banking, insurance and the wider financial-services industry — and explains them without jargon, noise or unnecessary complication.</p>
+<p class="intro">Banking, insurance and finance shape more of our lives than we might realise. We want the important stories to be easier to follow, without losing the detail that matters.</p>
+
+<section class="content-section" aria-labelledby="why-heading">
+<h2 id="why-heading">Why we are here</h2>
+<p>There is no shortage of financial news. The challenge is finding the story underneath the jargon, the lengthy reports and the endless headlines.</p>
+<p>At The Brief, we want you to understand what happened, why it matters and what we still do not know. Whether you know the industry inside out or you are new to it, you should be able to follow along.</p>
+</section>
+
+<section class="founder" aria-labelledby="founder-heading">
+<div class="founder-copy">
+<span class="eyebrow">A note from the founder</span>
+<h2 id="founder-heading">A little about why I started this</h2>
+<p>I spent four years working in insurance before coming to the UK for my MBA. I've always felt that financial news can be far more complicated than it needs to be.</p>
+<p>There is so much worth knowing, but the interesting bits often get buried in jargon. I wanted to change that, so I started The Brief.</p>
+<p>Whether you work in finance or you are simply curious, I hope you leave knowing something you didn't before.</p>
+<div class="founder-signoff">
+ <div class="founder-identity"><strong>Yogesh Karan Sharma</strong><span>Founder, The Brief</span></div>
+ <a class="linkedin" href="https://www.linkedin.com/in/karan6066/" target="_blank" rel="noopener noreferrer" aria-label="Connect with Yogesh Karan Sharma on LinkedIn">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-hidden="true" focusable="false"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.049c.476-.9 1.637-1.85 3.37-1.85 3.601 0 4.263 2.37 4.263 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zm1.785 13.019H3.552V9h3.57v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0z"/></svg>
+  <span>Connect on LinkedIn</span>
+ </a>
+</div>
+</div>
+<aside class="founder-side" aria-label="Our purpose">
+ <span class="side-kicker">The thinking behind The Brief</span>
+ <div class="side-quote">Less jargon.<br><em>More understanding.</em></div>
+ <span class="side-foot">Read the news. Understand the story.</span>
+</aside>
+</section>
+
+<section class="content-section" aria-labelledby="coverage-heading">
+<h2 id="coverage-heading">What we cover</h2>
+<p>We follow UK banking, insurance, brokers and intermediaries, pensions, financial technology, regulation and the wider industry. We look for developments worth understanding, not just announcements worth repeating.</p>
+</section>
 <div class="divider"></div>
-<h2>Why The Brief exists</h2>
-<p>A new insurance rule, a bank's results or a change in how financial products are sold can affect thousands of firms and customers. Yet useful facts often sit in long reports, technical notices and promotional announcements.</p>
-<p>Our aim is straightforward: tell readers what happened, what is known, who may be affected and what still needs explaining. We want each story to stand on its own, with a clear route back to the original source.</p>
-<h2>What we cover</h2>
-<p>We focus on UK banking, general insurance and protection, brokers and intermediaries, pensions and employee benefits, financial technology, regulation and major industry developments. A story earns a place because it is timely and useful — not because a company has put out a press release.</p>
-<h2>How we produce our reporting</h2>
-<p>Our newsroom uses automated research and generative AI to discover original documents, prepare articles and challenge their factual claims. A separate checking process compares material statements with the source, looks for discrepancies and withholds drafts when concerns remain. There is no routine human approval of each published piece.</p>
-<p>Those checks reduce some obvious mistakes, but they do not guarantee accuracy. Models can misunderstand context and primary sources can omit important qualifications. We identify the originating organisation and link to its original material; company assertions are attributed, not treated as independently proven facts.</p>
-<h2>Freshness and selection</h2>
-<p>For daily news, our standard is developments from the preceding 24 hours. For the 23 October 2026 relaunch, we also cover developments first announced on 22 October. Earlier events should not be relabelled as new. If reliable evidence is unavailable, we would rather publish fewer stories than pad the edition.</p>
-<h2>Corrections and accountability</h2>
-<p>If we discover that an article materially misstates a fact, date, financial figure or regulatory status, it should be corrected or withdrawn and the change explained. We are developing an operational corrections process; at present we cannot promise around-the-clock review, and we do not pretend that we can.</p>
-<p class="note">The Brief is not affiliated with the firms or regulators it covers. Our articles are informational, not personal financial, investment or insurance advice.</p>
-<p><a href="./">← Return to today's edition</a></p>
-</article></main>
-<footer><div class="container"><strong>THE BRIEF.</strong><p>Independent in outlook. Plain English by design. <a href="./">Read the latest articles</a>.</p></div></footer>
+<div class="standard-grid">
+<section aria-labelledby="report-heading">
+<h2 id="report-heading">How our reporting works</h2>
+<p>We use automated research and generative AI to find original source material, write explanations and check claims against the documents we retrieve. Drafts with unresolved problems are held back.</p>
+<p>Those checks are useful, but they are not the same as a human editor checking every fact. Articles do not receive routine human approval. We link to the original material and make it clear when a claim comes from a company or organisation.</p>
+</section>
+<section aria-labelledby="freshness-heading">
+<h2 id="freshness-heading">Keeping things current</h2>
+<p>We aim to cover important developments from the preceding 24 hours. That does not mean we publish something every hour. If a source is incomplete or a story cannot be checked properly, we would rather hold it than guess.</p>
+<p>Our first edition on 23 October 2026 also included selected developments from 22 October. An older event should never be passed off as fresh news.</p>
+</section>
+</div>
+<div class="divider"></div>
+<section class="content-section" aria-labelledby="correct-heading">
+<h2 id="correct-heading">Corrections and accountability</h2>
+<p>We want to get the details right. If an article contains a material mistake, it should be corrected or withdrawn, with the change explained. We are still building a reliable corrections process, so we cannot promise round the clock review.</p>
+<p class="note">The Brief is not affiliated with the businesses or regulators we cover. Our articles are for information, not personal financial, investment or insurance advice.</p>
+<a class="bottom-link" href="./">Return to the latest stories</a>
+</section>
+</article>
+</main>
+<footer><div class="container"><strong>THE BRIEF.</strong><p>Financial news, understood.</p><a href="./">Read the latest articles</a></div></footer>
 </body>
 </html>
