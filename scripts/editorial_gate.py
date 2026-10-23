@@ -108,6 +108,9 @@ def check(bundle: dict, human_review: bool = False) -> dict:
     reported_numbers = {m.group().lower().replace(",", "") for m in NUMBER.finditer(" ".join([a["title"], a["short"]] + paragraphs))}
     if not reported_numbers.issubset(set(source_numbers)):
         raise ValueError("Article introduces figures not found in the recorded official source")
+    combined = "\n".join(paragraphs + [a["title"], a["short"]])
+    if a["status"] in ("Proposal", "Speech / commentary") and RISKY.search(combined):
+        raise ValueError("Unqualified compulsory-language claim in proposal/speech")
     if audit.get("pipeline_version") == 2:
         review = audit.get("sentence_review")
         if not isinstance(review, dict) or review.get("review_schema") != "one-verdict-per-sentence-v2":
@@ -135,9 +138,6 @@ def check(bundle: dict, human_review: bool = False) -> dict:
     elif human_review:
         raise ValueError("Legacy AI draft has no separate full-sentence evidence review; cannot publish")
 
-    combined = "\n".join(paragraphs + [a["title"], a["short"]])
-    if a["status"] in ("Proposal", "Speech / commentary") and RISKY.search(combined):
-        raise ValueError("Unqualified compulsory-language claim in proposal/speech")
     if a.get("category") not in ("Regulation", "Insurance", "Banking", "Technology"):
         raise ValueError("Unrecognised section")
     result = {"id": a["id"], "title": a["title"], "word_count": word_count,
