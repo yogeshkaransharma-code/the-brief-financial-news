@@ -124,7 +124,17 @@ def fetch_gemini(prompt: str) -> dict:
     text = "".join(part.get("text", "") for part in parts)
     if not text:
         raise RuntimeError("AI API returned no article content")
-    return json.loads(text)
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        # A small model sometimes emits a trailing comma or truncated bracket
+        # despite JSON response mode. Repair STRUCTURE only: all output still
+        # passes the source/evidence checks, without forgiving bad facts.
+        from json_repair import loads as repaired_json_loads
+        fixed=repaired_json_loads(text)
+        if not isinstance(fixed,dict):
+            raise ValueError("Unusable Gemini JSON even after structural repair")
+        return fixed
 
 
 def make_prompt(item: dict, source: str) -> str:
