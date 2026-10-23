@@ -77,6 +77,7 @@ def launch_items(today=None):
         if issued>today:continue
         entry=dict(item)
         entry["published_at"]=entry["dateISO"]+"T00:00:00+00:00"
+        entry["source_time_precision"]="date"
         result.append(entry)
     return result
 
@@ -86,7 +87,13 @@ def eligible_today(item,today=None,launch=False):
         stamp=dt.datetime.fromisoformat(item["published_at"].replace("Z","+00:00"))
         if stamp.tzinfo is None:return False
         age=today-stamp
-        if dt.timedelta(0)<=age<=dt.timedelta(hours=24):return True
+        # A newsroom listing that supplies only a calendar date cannot justify
+        # claiming the release was within an exact rolling 24-hour interval.
+        if item.get("source_time_precision")=="date":
+            if today.date()==dt.date.fromisoformat(item["dateISO"]):
+                return True
+        elif dt.timedelta(0)<=age<=dt.timedelta(hours=24):
+            return True
         if launch and today.date()<=LAUNCH_END and LAUNCH_START<=dt.date.fromisoformat(item["dateISO"])<=today.date():
             return True
     except (ValueError,KeyError,TypeError):
