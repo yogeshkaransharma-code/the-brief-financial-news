@@ -1,5 +1,5 @@
-name: Draft plain-English financial news
-# V2 newsroom re-test after financial consistency fixes; publication remains human-only.
+name: Autonomous financial news desk
+# FCA factual statistical summaries only; all other AI drafts stay private.
 
 on:
   workflow_dispatch:
@@ -7,12 +7,21 @@ on:
     - cron: '13 7 * * *'
 
 permissions:
-  contents: read
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: the-brief-pages
+  cancel-in-progress: false
 
 jobs:
   ai-drafts:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Check out official news sources
         uses: actions/checkout@v4
@@ -39,6 +48,7 @@ jobs:
         run: |
           python scripts/test_publishing.py
           python scripts/test_editorial_benchmark.py
+          python scripts/test_autonomous.py
 
       - name: Generate evidence-backed editorial drafts
         env:
@@ -63,3 +73,57 @@ jobs:
           path: generated-drafts/
           if-no-files-found: warn
           retention-days: 14
+
+      - name: Publish only eligible official FCA statistical reports
+        env:
+          AUTO_PUBLICATION_ENABLED: '1'
+        run: python scripts/publish_autonomous.py
+
+      - name: Validate publication provenance and website
+        run: |
+          python scripts/verify_approved_articles.py
+          python scripts/verify_site.py
+
+      - name: Commit approved autonomous articles
+        id: publish
+        run: |
+          git config user.name "The Brief Automated Editorial Desk"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/articles.json data/editorial-audits/
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No source-limited article passed. Public site remains unchanged."
+            exit 0
+          fi
+          git commit -m "Publish autonomous FCA factual explainer with machine audit"
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then
+              echo "changed=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            git fetch origin main
+            git rebase origin/main
+          done
+          echo "::error::Publication push failed; no page deployment"
+          exit 1
+
+      - name: Remove unpublished drafts before building public website
+        if: steps.publish.outputs.changed == 'true'
+        run: rm -rf generated-drafts
+
+      - name: Configure GitHub Pages for new articles
+        if: steps.publish.outputs.changed == 'true'
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Package website only
+        if: steps.publish.outputs.changed == 'true'
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: '.'
+
+      - name: Deploy approved autonomous articles
+        if: steps.publish.outputs.changed == 'true'
+        id: deployment
+        uses: actions/deploy-pages@v4
