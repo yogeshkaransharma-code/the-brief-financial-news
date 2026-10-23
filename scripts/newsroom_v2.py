@@ -140,6 +140,37 @@ def revision_prompt(item,official,article,flags,attempt):
     )
 
 
+def omit_unverifiable_body_sentences(article, flags, item, official):
+    """Safely omit up to three disputed body sentences, never headline or lede.
+
+    Exact-evidence disputes sometimes persist when a small verifier cannot
+    quote a complex compound sentence. We may REMOVE such an assertion, but
+    never relabel it supported or alter a figure to force validation.
+    The remaining complete article is independently checked from scratch.
+    """
+    if not 1<=len(flags)<=3:
+        return None
+    sections=[{"heading":h,"text":p} for h,p in article["blocks"]]
+    sentences={p["id"]:p for p in article_sentences(article)}
+    for issue in flags:
+        cid=issue.get("claim_id")
+        claim=sentences.get(cid)
+        if not claim or claim["location"] in ("headline","standfirst"):
+            return None
+        target=next((block for block in sections if block["heading"]==claim["location"]),None)
+        if target is None or target["text"].count(claim["text"])!=1:
+            return None
+        target["text"]=target["text"].replace(claim["text"],"",1).strip()
+        target["text"]=re.sub(r" {2,}"," ",target["text"])
+        if len(target["text"].split())<24:
+            return None
+    try:
+        return make_article({"headline":article["title"],"standfirst":article["short"],
+            "sections":sections,"glossary":[]},item,official)
+    except ValueError:
+        return None
+
+
 def review_until_resolved(item,doc,first_article,gemini=fetch_gemini,max_revisions=2):
     """Return candidate and evidence only after a clean independent review.
 
@@ -187,6 +218,32 @@ def review_until_resolved(item,doc,first_article,gemini=fetch_gemini,max_revisio
             break
         rewritten=gemini(revision_prompt(item,doc,article,flags,attempt+1))
         article=make_article(rewritten,item,doc)
+    # Final conservative editorial cut. Removing a wholly unsupported body
+    # sentence is safer than publishing it or making up an exact quotation.
+    # This is never allowed to change the headline, standfirst or leave
+    # a short/incomplete story. All remaining claims face fresh AI review.
+    if final_bundle and final_bundle.get("editorial_flags"):
+        trimmed=omit_unverifiable_body_sentences(
+            article,final_bundle["editorial_flags"],item,doc
+        )
+        if trimmed:
+            try:
+                new_verdict=gemini(review_prompt(trimmed,doc,article_sentences(trimmed)))
+                new_verdict=repair_exact_citations(trimmed,doc,new_verdict,gemini)
+                verified,issues,coverage=reconcile_reviews(trimmed,doc,new_verdict)
+                audit=build_audit(trimmed,doc,item,verified,coverage)
+                candidate=prepare_bundle(trimmed,audit,doc,issues)
+                if not issues:
+                    from editorial_gate import check
+                    check(candidate)
+                    candidate["revision_history"]=history+[{
+                        "revision":"conservative_omission",
+                        "problems":[],"sentences":coverage.get("total_sentences")
+                    }]
+                    return candidate,True
+                final_bundle["editorial_flags"]=issues
+            except (ValueError,KeyError,TypeError):
+                pass
     return final_bundle,False
 
 
