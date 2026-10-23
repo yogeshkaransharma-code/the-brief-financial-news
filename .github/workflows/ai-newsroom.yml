@@ -7,6 +7,11 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/ai-newsroom.yml'
+      - 'scripts/newsroom_v2.py'
+      - 'scripts/publication_scope.py'
+      - 'scripts/publish_autonomous.py'
+      - 'scripts/first_party_sources.py'
+      - 'scripts/fresh_sources.py'
   workflow_dispatch:
   schedule:
     - cron: '13 * * * *'
