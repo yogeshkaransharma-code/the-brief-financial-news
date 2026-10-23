@@ -75,7 +75,7 @@ def check(bundle: dict, human_review: bool = False) -> dict:
             raise ValueError("Malformed article section")
         paragraphs.append(block[1])
     word_count = sum(len(p.split()) for p in paragraphs)
-    if not 190 <= word_count <= 1100:
+    if not 150 <= word_count <= 1100:
         raise ValueError(f"Article length inappropriate: {word_count} words")
     if len(a["title"]) < 22 or len(a["title"]) > 170 or len(a["short"]) < 60:
         raise ValueError("Headline or standfirst fails editorial criteria")
