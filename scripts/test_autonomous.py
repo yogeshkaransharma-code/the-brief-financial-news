@@ -83,6 +83,15 @@ def main():
         assert len(json.loads((root/"data/articles.json").read_text()))==1
         repeat=auto.publish(root)
         assert not repeat["published"]
+        # Reset is permanent: a formerly published source cannot be recycled,
+        # even when the original article is removed from the public archive.
+        (root/"data/retired-source-urls.json").write_text(json.dumps({
+            "urls":[base["draft"]["url"]]
+        }),encoding="utf-8")
+        (root/"data/articles.json").write_text("[]\n",encoding="utf-8")
+        retired=auto.publish(root)
+        assert not retired["published"], "Retired pre-reset article was republished"
+        assert any("reset legacy" in " ".join(x["reason"]) for x in retired["held"])
         bad=copy.deepcopy(base)
         bad["draft"]["status"]="Proposal"
         resign(bad)
