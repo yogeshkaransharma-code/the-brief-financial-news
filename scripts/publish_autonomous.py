@@ -110,12 +110,17 @@ def publish(root=ROOT, folder=None, dry_run=False):
         raise ValueError("Article feed must be a list")
     seen_id={x.get("id") for x in existing}
     seen_url={x.get("url") for x in existing}
+    retired_file=root/"data/retired-source-urls.json"
+    retired_urls=set(json.loads(retired_file.read_text(encoding="utf-8")).get("urls",[])) if retired_file.exists() else set()
     report={"policy":POLICY_VERSION,"tested":0,"published":[],"held":[],"mode":"dry_run" if dry_run else "active"}
     for file in sorted(folder.glob("ai-*.json")):
         bundle=json.loads(file.read_text(encoding="utf-8"))
         a=bundle.get("draft") or {}
         aid=a.get("id","unknown")
         report["tested"]+=1
+        if a.get("url") in retired_urls:
+            report["held"].append({"id":aid,"reason":["Source belongs to reset legacy edition; publication forbidden"]})
+            continue
         if aid in seen_id or a.get("url") in seen_url:
             report["held"].append({"id":aid,"reason":["Duplicate source/article"]})
             continue
