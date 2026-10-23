@@ -8,8 +8,9 @@ A free, mobile-friendly financial news hub covering insurance, banking, technolo
 
 - The GitHub Pages website is deployed.
 - The RSS feed is collected and redeployed hourly, subject to GitHub scheduling delays.
-- The source-first AI writer and separate evidence checker are installed. A strictly limited autonomous factual pilot is active, with daily scheduled runs.
-- The Gemini key is configured. **Only narrow FCA aggregate complaints-statistics articles may publish without daily human intervention** after the automated source and evidence gates; other AI drafts remain unpublished.
+- The source-first AI writer, independent sentence checker, revision cycle and autonomous GitHub publisher are installed and running daily.
+- Gemini has **actually generated and automatically published** an original Lloyds Banking Group article (GitHub Actions run 39887707343). The public article feed includes the AI-generated piece and its source-review audit.
+- The unattended publication lane permits narrow, first-party **banking and insurance announcements from Lloyds Banking Group and Aviva**, alongside defined FCA statistics. It rejects unsupported interpretations, allegations and more complex regulatory coverage; no human approval is falsely claimed.
 
 The site is hosted free in a public GitHub repository. Scheduled GitHub Actions checks available RSS feeds hourly, keeps a deduplicated archive, and redeploys the static website. GitHub schedules are best-effort, not exactly timed.
 
@@ -26,18 +27,18 @@ The site loads full original articles from `data/articles.json`. Every item must
 
 **Free-tier note:** Gemini free-tier inputs and outputs may be used by Google to improve its products. This pipeline should receive only public material, not confidential client information. No billing is enabled by our GitHub code, but verify your Google project's billing settings independently.
 
-## Autonomous publication pilot (active; strictly limited)
+## Autonomous AI publishing (active; source-limited)
 
-The daily **Autonomous financial news desk** GitHub Action now attempts a complete workflow without requiring a person to approve each article:
+The daily **Autonomous financial news desk** GitHub Action discovers first-party insurer/bank announcements as well as official regulatory material and runs without a person approving each article:
 
 1. Retrieves bounded original official HTML and PDFs where confidently identified.
 2. Gemini writes a complete original, readable British-English article; a separate AI call challenges each article sentence.
 3. When specific objections arise, the AI can rewrite and re-verify the article, with at most **two revision rounds**. Failed versions are retained privately for later diagnosis.
 4. Deterministic checks reject absent or altered source quotations, unsupported figures, false regulatory-force claims, denominator errors, misleading rounded percentage-point comparisons, changed drafts and incomplete reviews.
-5. **Only** original FCA half-year aggregate complaints-data pages matching `/data/complaints-data-YYYY-h1` or `-h2`, with eligible complete captured HTML, no retrieval warnings and zero unresolved claim findings, may publish automatically. **Maximum one per run.** Consultations, speeches, sanctions, allegations, generic financial news and material requiring PDF interpretation remain unpublished.
+5. Only named official regulator statistics and first-party bank/insurer press announcements from the approved **FCA, Lloyds Banking Group and Aviva** paths can publish automatically. Explicit domain/path checks, complete captured HTML, source-date limits, no retrieval warnings, full sentence challenge and zero unresolved errors are required. **Maximum two articles per run.** Consultations, regulatory speeches, allegations, third-party media articles and material needing complex legal interpretation remain unpublished.
 6. The automatic publication leaves a machine-specific audit under `data/editorial-audits/`, is deduplicated and visibly labelled **AI-assisted, machine-screened, not human-reviewed** on the website. Any other story stays in the unpublished review artifact.
 
-**Residual risk:** Even after a clean AI-versus-AI check, a source may have ambiguity or the model may misunderstand it. Machine screening is not professional human verification; never claim zero-error publication. This pilot is intentionally very narrow, can publish no articles on a given day and must not silently widen itself. A documented correction/withdrawal process and later human oversight are still needed for a responsible public newsroom.
+**Verified production example:** [Lloyds launches Investing in Britain Hub](https://yogeshkaransharma-code.github.io/the-brief-financial-news/#story/ai-041c314db98959584c1a) was written, screened, committed and deployed by the scheduled newsroom itself, not added manually. The originating company press release is identified on the article page.\n\n**Residual risk:** Even after a clean AI-versus-AI check, a source may have ambiguity or the model may misunderstand it. Machine screening is not professional human verification; never claim zero-error publication. This pilot is intentionally very narrow, can publish no articles on a given day and must not silently widen itself. A documented correction/withdrawal process and later human oversight are still needed for a responsible public newsroom.
 
 To pause automatic publication without stopping source discovery, change `AUTO_PUBLICATION_ENABLED` to `0` in `.github/workflows/ai-newsroom.yml` (the publish script otherwise performs a dry run). To expand eligible topics, make a separate researched editorial-policy change and add adversarial tests before editing the allowlist.
 
