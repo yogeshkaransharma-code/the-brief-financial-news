@@ -14,7 +14,9 @@ import urllib.request
 from bs4 import BeautifulSoup
 
 ALLOWED = {"fca.org.uk", "www.fca.org.uk", "bankofengland.co.uk", "www.bankofengland.co.uk",
-           "aviva.com", "www.aviva.com", "lloydsbankinggroup.com", "www.lloydsbankinggroup.com"}
+           "aviva.com", "www.aviva.com", "lloydsbankinggroup.com", "www.lloydsbankinggroup.com",
+           "standardlifeplc.com", "www.standardlifeplc.com",
+           "committees.parliament.uk", "www.investegate.co.uk", "investegate.co.uk"}
 UA = "TheBriefResearch/0.2 (public official documents; editorial attribution)"
 MAX_BYTES = 3_000_000
 MAX_TEXT = 43_000
