@@ -44,6 +44,7 @@ jobs:
           python scripts/ai_newsroom.py --self-test
           python scripts/source_retrieval.py
           python scripts/first_party_sources.py
+          python scripts/fresh_sources.py
           python scripts/newsroom_v2.py --self-test
           python scripts/financial_consistency.py
 
@@ -71,7 +72,7 @@ jobs:
         if: always()
         run: python scripts/build_review_packet.py
 
-      - name: Save unpublished drafts as workflow artifacts for editorial checks
+      - name: Archive evidence questions for unpublished stories
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -80,7 +81,7 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
 
-      - name: Publish only eligible official FCA statistical reports
+      - name: Publish eligible fresh original financial stories
         env:
           AUTO_PUBLICATION_ENABLED: '1'
         run: python scripts/publish_autonomous.py
@@ -104,7 +105,7 @@ jobs:
             echo "No source-limited article passed. Public site remains unchanged."
             exit 0
           fi
-          git commit -m "Publish autonomous FCA factual explainer with machine audit"
+          git commit -m "Publish fresh original financial news from verified primary sources"
           for attempt in 1 2 3; do
             if git push origin HEAD:main; then
               echo "changed=true" >> "$GITHUB_OUTPUT"
@@ -125,6 +126,7 @@ jobs:
         run: |
           mkdir -p public/data
           cp index.html public/index.html
+          cp about.html public/about.html
           cp data/articles.json public/data/articles.json
 
       - name: Configure GitHub Pages for new articles
