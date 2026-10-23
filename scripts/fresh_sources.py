@@ -15,6 +15,24 @@ LAUNCH_END=dt.date(2026,10,23)
 
 RELEASES=[
     {
+        "title":"Pensions regulator warns trustees about hidden AI investment concentration risks",
+        "url":"https://www.thepensionsregulator.gov.uk/media-hub/press-releases/2026-press-releases/tpr-sets-expectations-on-hidden-concentration-risks-in-pension-portfolios",
+        "dateISO":"2026-10-22","source":"The Pensions Regulator","category":"Regulation",
+        "kind":"first_party_announcement","priority":105,
+    },
+    {
+        "title":"Rathbones reports £121.1bn of client assets and stronger wealth management flows in its Q3 update",
+        "url":"https://www.rathbones.com/en-gb/wealth-management/media-centre/rathbones-reports-strong-financial-performance-and-strategic-momentum-third-quarter-trading-update",
+        "dateISO":"2026-10-22","source":"Rathbones Group","category":"Banking",
+        "kind":"first_party_announcement","priority":104,
+    },
+    {
+        "title":"CAB Payments reports record third-quarter income and foreign-exchange volumes",
+        "url":"https://www.investegate.co.uk/announcement/rns/cab-payments-holdings-1-3p-wi---cabp/update-on-total-income-performance-to-30-sept-2026/9835194",
+        "dateISO":"2026-10-22","source":"CAB Payments Holdings (issuer RNS)","category":"Technology",
+        "kind":"issuer_regulatory_release","priority":103,
+    },
+    {
         "title":"Financial Services Regulation Committee publishes report on home and travel insurance regulation",
         "url":"https://publications.parliament.uk/pa/ld5902/ldselect/ldfsrc/64/6403.htm",
         "dateISO":"2026-10-23","source":"UK Parliament","category":"Insurance",
