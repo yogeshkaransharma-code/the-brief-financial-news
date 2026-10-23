@@ -510,7 +510,7 @@ def self_test():
     assert status_from_url("https://www.fca.org.uk/news/speeches/example","")=="Speech / commentary"
     assert numeric_tokens("£240 million, up 6.3%")=={"£240","6.3%"}
     assert article_sentences({"title":"FCA proposes changes","short":"Nothing is decided.","blocks":[["Context","The paper is open. Two firms responded."]]})[2]["id"]=="C03"
-    # The 48-hour publishing cache never promotes a failed draft or source.
+    # Retry intervals are bounded and keep failures outside the public article feed.
     sample=dt.datetime(2026,10,23,18,tzinfo=dt.timezone.utc)
     assert (sample+dt.timedelta(hours=8)).isoformat()>sample.isoformat()
     print("PASS: separate writer schema, sentence coverage and financial token checks")
@@ -632,7 +632,7 @@ def main():
     attempts={url:value for url,value in attempts.items()
               if value.get("attempted_at","") >= (now-dt.timedelta(days=7)).isoformat()}
     ledger["sources"]=attempts
-    ledger_path.write_text(json.dumps(ledger,ensure_ascii=False,indent=2,sort_keys=True)+"\\n",encoding="utf-8")
+    ledger_path.write_text(json.dumps(ledger,ensure_ascii=False,indent=2,sort_keys=True)+"\n",encoding="utf-8")
     (OUTPUT/"run-report.json").write_text(json.dumps({
         "generated_at":dt.datetime.now(dt.timezone.utc).isoformat(),
         "pipeline":"AI writer and evidence review; autonomous publication restricted to eligible verified sources",
