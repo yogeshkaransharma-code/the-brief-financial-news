@@ -40,6 +40,12 @@ RELEASES=[
         "kind":"issuer_regulatory_release","priority":97,
     },
     {
+        "title":"Arbuthnot Banking Group reports third-quarter lending and deposit growth",
+        "url":"https://www.investegate.co.uk/announcement/rns/arbuthnot-banking-group--arbb/third-quarter-2026-trading-update/9835245",
+        "dateISO":"2026-10-22","source":"Arbuthnot Banking Group (issuer RNS)","category":"Banking",
+        "kind":"issuer_regulatory_release","priority":96,
+    },
+    {
         "title":"Barclays announces third-quarter 2026 financial results",
         "url":"https://www.investegate.co.uk/announcement/rns/barclays--barc/3rd-quarter-results/9835199",
         "dateISO":"2026-10-22","source":"Barclays PLC (issuer RNS)","category":"Banking",
