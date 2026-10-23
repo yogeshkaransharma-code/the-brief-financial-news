@@ -12,7 +12,7 @@ We have deliberately **cleared the previous public article archive, six prewritt
 
 ## The AI runs the newsroom, not the user
 
-The `Autonomous financial news desk` GitHub Action checks and writes news six times daily (03:13, 07:13, 11:13, 15:13, 19:13 and 23:13 UTC) and can be manually dispatched. GitHub's schedule is best-effort; a run only publishes articles that pass its evidence checks. The underlying `Collect and publish financial news` workflow keeps the **research/discovery feed** `data/live.json` up to date. It is NOT the public original-article feed.
+The `Autonomous financial news desk` GitHub Action checks for suitable, fresh news every hour (scheduled at minute 13 UTC) and can be manually dispatched. It writes and publishes only when a sourced article passes the automated evidence checks; hourly checks do not guarantee an hourly article. GitHub's schedule is best-effort; a run only publishes articles that pass its evidence checks. The underlying `Collect and publish financial news` workflow keeps the **research/discovery feed** `data/live.json` up to date. It is NOT the public original-article feed.
 
 The autonomous newsroom:
 
