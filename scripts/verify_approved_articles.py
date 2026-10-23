@@ -43,6 +43,24 @@ def validate(root: Path) -> int:
                 raise ValueError("Automated article falsely claims a human reviewer")
             if "no human review" not in article["editorial_status"].lower():
                 raise ValueError("Autonomous article must disclose no human review")
+        elif method=="ai_source_checked":
+            # Explicit assistant-led one-off source check; not a human sign-off
+            # or a completed unattended publisher run.
+            if audit.get("review_mode")!="assistant_source_checked_v1":
+                raise ValueError("AI-authored feature lacks the correct source-review record")
+            if audit.get("approved_by_github_actor")!="ASSISTANT_NO_HUMAN_EDITOR" or article.get("reviewed_by")!="assistant-ai-source-review":
+                raise ValueError("AI-reviewed article misattributes editorial responsibility")
+            if audit.get("human_editor_approval") is not False:
+                raise ValueError("AI-written feature cannot claim human editorial approval")
+            if not article.get("url","").startswith("https://www.fca.org.uk/data/complaints-data-2026-h1"):
+                raise ValueError("Initial AI source-review allowance is limited to the checked FCA article")
+            if len(audit.get("claims_checked",[]))<8 or not all(
+                claim.get("status","").startswith("SUPPORTED") and claim.get("section")
+                for claim in audit["claims_checked"]
+            ):
+                raise ValueError("Claim register is incomplete or has unresolved entries")
+            if not audit.get("source_evidence_sha256"):
+                raise ValueError("AI source-review evidence fingerprint missing")
         elif method=="human":
             if not audit.get("approved_by_github_actor") or not article.get("reviewed_by"):
                 raise ValueError("Accountable human reviewer is not recorded")
@@ -50,8 +68,9 @@ def validate(root: Path) -> int:
                 raise ValueError("Article reviewer differs from recorded approval")
         else:
             raise ValueError("Unknown approval mode")
-        if not audit.get("reviewed_draft_sha256") or not audit.get("source_snapshot_sha256"):
-            raise ValueError("Approved draft/source version hashes are absent")
+        source_hash_key = "source_evidence_sha256" if method=="ai_source_checked" else "source_snapshot_sha256"
+        if not audit.get("reviewed_draft_sha256") or not audit.get(source_hash_key):
+            raise ValueError("Article/source evidence version hashes are absent")
         if len(str(audit.get("editor_notes", ""))) < 35:
             raise ValueError("Meaningful editorial approval notes are absent")
     print(f"PASS: {len(articles)} approved, version-locked AI article(s)")
