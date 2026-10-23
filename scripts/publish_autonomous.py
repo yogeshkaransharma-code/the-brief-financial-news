@@ -53,14 +53,16 @@ def eligible(bundle):
     lloyds=host in {"www.lloydsbankinggroup.com","lloydsbankinggroup.com"} and bool(LLOYDS_RELEASE.fullmatch(parts.path))
     standard=host in {"www.standardlifeplc.com","standardlifeplc.com"} and parts.path.startswith("/news-and-views/press-releases/article-page/")
     parliament=(host=="committees.parliament.uk" and parts.path.startswith("/committee/697/financial-services-regulation-committee/news/")) or (host=="publications.parliament.uk" and parts.path=="/pa/ld5902/ldselect/ldfsrc/64/6403.htm")
-    rns=host in {"www.investegate.co.uk","investegate.co.uk"} and parts.path.startswith("/announcement/rns/") and parts.path.endswith(("/9835238","/9835199","/9836547","/9836457","/9835245"))
-    if parts.scheme!="https" or not (fca_report or aviva or lloyds or standard or parliament or rns):
+    tpr=host in {"thepensionsregulator.gov.uk","www.thepensionsregulator.gov.uk"} and parts.path=="/media-hub/press-releases/2026-press-releases/tpr-sets-expectations-on-hidden-concentration-risks-in-pension-portfolios"
+    rathbones=host in {"rathbones.com","www.rathbones.com"} and parts.path=="/en-gb/wealth-management/media-centre/rathbones-reports-strong-financial-performance-and-strategic-momentum-third-quarter-trading-update"
+    rns=host in {"www.investegate.co.uk","investegate.co.uk"} and parts.path.startswith("/announcement/rns/") and parts.path.endswith(("/9835238","/9835199","/9836547","/9836457","/9835245","/9835194"))
+    if parts.scheme!="https" or not (fca_report or aviva or lloyds or standard or parliament or rns or tpr or rathbones):
         problems.append("Source not in documented first-party/issuer RNS launch allowlist")
     if fca_report and a.get("status")!="Published report":
         problems.append("FCA statistics incorrectly described")
-    if (aviva or lloyds or standard or parliament or rns) and a.get("status")!="Confirmed announcement":
+    if (aviva or lloyds or standard or parliament or rns or tpr or rathbones) and a.get("status")!="Confirmed announcement":
         problems.append("A company announcement must be labelled as such")
-    if (aviva or lloyds or standard or parliament or rns) and a.get("category") not in {"Banking","Insurance","Technology","Regulation"}:
+    if (aviva or lloyds or standard or parliament or rns or tpr or rathbones) and a.get("category") not in {"Banking","Insurance","Technology","Regulation"}:
         problems.append("Original company source not within financial-services industry category")
     if audit.get("pipeline_version")!=2:
         problems.append("Missing independent sentence-level review")
