@@ -51,6 +51,7 @@ jobs:
           python -m py_compile scripts/ai_newsroom.py scripts/newsroom_v2.py scripts/source_retrieval.py scripts/editorial_gate.py scripts/publish_reviewed.py scripts/build_review_packet.py
           python scripts/ai_newsroom.py --self-test
           python scripts/source_retrieval.py
+          python scripts/first_party_sources.py
           python scripts/newsroom_v2.py --self-test
           python scripts/financial_consistency.py
           python scripts/editorial_gate.py --self-test
