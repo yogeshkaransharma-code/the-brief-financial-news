@@ -37,7 +37,7 @@ def validate(root: Path) -> int:
         if method=="autonomous":
             if audit.get("review_mode")!="autonomous_low_risk":
                 raise ValueError("Automated article lacks source-limited approval record")
-            if audit.get("automation_policy_version") not in {"limited-autonomy-2026-10-23.1","first-party-newsroom-2026-10-23-v1"}:
+            if audit.get("automation_policy_version") not in {"limited-autonomy-2026-10-23.1","first-party-newsroom-2026-10-23-v1","daily-24-hour-news-2026-10-23-v2"}:
                 raise ValueError("Unknown machine publication policy")
             if article.get("reviewed_by")!="autonomous-evidence-screening" or audit.get("approved_by_github_actor")!="AUTONOMOUS_PIPELINE_NO_HUMAN":
                 raise ValueError("Automated article falsely claims a human reviewer")
