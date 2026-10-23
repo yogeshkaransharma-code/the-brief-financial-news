@@ -16,7 +16,7 @@ LAUNCH_END=dt.date(2026,10,23)
 RELEASES=[
     {
         "title":"Financial Services Regulation Committee publishes report on home and travel insurance regulation",
-        "url":"https://committees.parliament.uk/committee/697/financial-services-regulation-committee/news/218442/financial-services-regulation-committee-publishes-report-on-home-and-travel-insurance-regulation/",
+        "url":"https://publications.parliament.uk/pa/ld5902/ldselect/ldfsrc/64/6403.htm",
         "dateISO":"2026-10-23","source":"UK Parliament","category":"Insurance",
         "kind":"first_party_announcement",
         "priority":100,
