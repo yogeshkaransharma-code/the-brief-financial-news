@@ -33,10 +33,23 @@ def validate(root: Path) -> int:
             raise ValueError("Approval record is associated with another source/article")
         if audit.get("published_article_sha256") != fingerprint(article):
             raise ValueError("Published article changed after editorial approval")
-        if not audit.get("approved_by_github_actor") or not article.get("reviewed_by"):
-            raise ValueError("Accountable human reviewer is not recorded")
-        if article["reviewed_by"] != audit["approved_by_github_actor"]:
-            raise ValueError("Article reviewer differs from recorded approval")
+        method=article.get("publication_method","human")
+        if method=="autonomous":
+            if audit.get("review_mode")!="autonomous_low_risk":
+                raise ValueError("Automated article lacks source-limited approval record")
+            if audit.get("automation_policy_version")!="limited-autonomy-2026-10-23.1":
+                raise ValueError("Unknown machine publication policy")
+            if article.get("reviewed_by")!="autonomous-evidence-screening" or audit.get("approved_by_github_actor")!="AUTONOMOUS_PIPELINE_NO_HUMAN":
+                raise ValueError("Automated article falsely claims a human reviewer")
+            if "no human review" not in article["editorial_status"].lower():
+                raise ValueError("Autonomous article must disclose no human review")
+        elif method=="human":
+            if not audit.get("approved_by_github_actor") or not article.get("reviewed_by"):
+                raise ValueError("Accountable human reviewer is not recorded")
+            if article["reviewed_by"] != audit["approved_by_github_actor"]:
+                raise ValueError("Article reviewer differs from recorded approval")
+        else:
+            raise ValueError("Unknown approval mode")
         if not audit.get("reviewed_draft_sha256") or not audit.get("source_snapshot_sha256"):
             raise ValueError("Approved draft/source version hashes are absent")
         if len(str(audit.get("editor_notes", ""))) < 35:
