@@ -110,6 +110,7 @@ def review_until_resolved(item,doc,first_article,gemini=fetch_gemini,max_revisio
     for attempt in range(max_revisions+1):
         try:
             verification=gemini(review_prompt(article,doc,article_sentences(article)))
+            verification=repair_exact_citations(article,doc,verification,gemini)
             checks,flags,coverage=reconcile_reviews(article,doc,verification)
             audit=build_audit(article,doc,item,checks,coverage)
             bundle=prepare_bundle(article,audit,doc,flags)
@@ -272,6 +273,77 @@ def reconcile_reviews(article,official,verdict):
         holds.append({"reason":"Fewer than four separately supported claims"})
     return exact,holds,{"total_sentences":len(segments),"reviewed_sentence_ids":[r["id"] for r in rows],"reviewed":len(rows),
                          "supported":len(exact),"held":len(holds),"review_schema":"one-verdict-per-sentence-v2"}
+
+def repair_exact_citations(article,official,verdict,gemini):
+    """One bounded attempt to recover EXACT source text for malformed citations.
+
+    This repairs evidence formatting, never fabricates or auto-approves a claim:
+    the repaired quote still has to match the captured source verbatim and the
+    independent reviewer must explicitly assess sentence-level entailment.
+    """
+    original=verdict.get("reviews") if isinstance(verdict,dict) else None
+    if not isinstance(original,list):
+        return verdict
+    indexed={x["id"]:x for x in article_sentences(article)}
+    broken=[]
+    for row in original:
+        if not isinstance(row,dict) or row.get("verdict")!="SUPPORTED":
+            continue
+        quote=row.get("source_quote","")
+        if not isinstance(quote,str) or not 7<=len(quote.split())<=30 or norm(quote) not in norm(official.text):
+            if row.get("id") in indexed:
+                broken.append(indexed[row["id"]])
+    if not broken or len(broken)>15:
+        return verdict
+    # Candidate passages narrow the evidence search so a small free model can
+    # copy an exact phrase rather than fabricate what a whole webpage said.
+    paras=[p.strip() for p in official.text.split("\n\n") if len(p.strip())>60]
+    stop={"that","this","from","have","with","their","were","which","into","what","they","them",
+          "than","there","under","over","been","will","only","more","some","also"}
+    def words(text):
+        return {x for x in re.findall(r"[a-z]{4,}|\d+(?:\.\d+)?",text.lower()) if x not in stop}
+    tasks=[]
+    for sentence in broken:
+        keys=words(sentence["text"])
+        selected=sorted(paras,key=lambda p:len(keys & words(p)),reverse=True)[:3]
+        tasks.append({"id":sentence["id"],"sentence":sentence["text"],
+                      "candidate_passages":selected})
+    prompt=(
+        "Act as a conservative official-document verifier. Your previous response "
+        "marked some sentences SUPPORTED but provided citations that did not match "
+        "the original source verbatim. For each task below, decide whether the WHOLE "
+        "sentence is supported, including timeframe, scope, rates and denominators. "
+        "Return one result per id in JSON key repairs; each result has id, verdict "
+        "(SUPPORTED/INSUFFICIENT/CONTRADICTED), source_quote, issue. "
+        "If and ONLY IF supported, COPY a CONTIGUOUS phrase of 7–25 words EXACTLY "
+        "as written in the candidate source passages. Do not generate new words "
+        "inside the quote, even if the original text is awkward. If no one exact "
+        "passage fully supports the claim, choose INSUFFICIENT and leave the quote empty. "
+        "Do not repair factual errors merely by finding similar words. "
+        "\nTASKS:\n"+json.dumps(tasks,ensure_ascii=False)
+    )
+    try:
+        result=gemini(prompt)
+        repairs=result.get("repairs") if isinstance(result,dict) else None
+        if not isinstance(repairs,list):
+            return verdict
+        replacement={x.get("id"):x for x in repairs if isinstance(x,dict)}
+        permitted={x["id"] for x in broken}
+        out=[]
+        for row in original:
+            if row.get("id") not in permitted or row["id"] not in replacement:
+                out.append(row);continue
+            candidate=replacement[row["id"]]
+            quote=candidate.get("source_quote","")
+            if candidate.get("verdict")=="SUPPORTED" and isinstance(quote,str) and 7<=len(quote.split())<=30 and norm(quote) in norm(official.text):
+                out.append({"id":row["id"],"verdict":"SUPPORTED","source_quote":quote,"issue":""})
+            else:
+                out.append({"id":row["id"],"verdict":"INSUFFICIENT","source_quote":"",
+                            "issue":str(candidate.get("issue") or "Exact supporting primary-source passage unavailable")[:280]})
+        return {"reviews":out}
+    except (ValueError,KeyError,TypeError):
+        return verdict
+
 
 def build_audit(article,official,item,checks,coverage):
     return {"pipeline_version":2,"article_id":article["id"],"source_url":article["url"],
