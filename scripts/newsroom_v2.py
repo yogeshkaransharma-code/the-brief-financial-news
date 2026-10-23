@@ -121,6 +121,10 @@ def revision_prompt(item,official,article,flags,attempt):
     return (
         "You are revising a British financial-news article after an evidence audit. "
         "The draft has NOT been approved. Fix each disputed claim using ONLY the "
+        "original official document supplied below. Keep the exact population, "
+        "time period and denominator of every statistic. When the reviewer flags "
+        "an interpretation as ambiguous, delete it or quote the narrowly "
+        "supported fact instead of changing the wording superficially. "
         "Prefer deleting an unsupportable sentence to repeating it with new words. "
         "If the HEADLINE or STANDFIRST is disputed, rewrite it from scratch around "
         "one directly evidenced fact; avoid combining unrelated claims in a headline. "
@@ -533,7 +537,10 @@ def main():
             known.add(item["url"])
     # Permanent freshness: normal news must be within the past 24 hours.
     # The one-off 23 October launch may draw on developments from 22 October.
-    candidates=[x for x in candidates if eligible_today(x,now,launch=True)]
+    candidates=[x for x in candidates if eligible_today(x,now,launch=False)]
+    # This is an always-on news site, not an archive replay. Never keep
+    # attempting yesterday's launch-only stories after the rolling news window.
+    # The published archive remains intact and sorts by the original date.
     # Prioritise diverse original stories, not a sequence of repeated announcements
     # about the same firm. A fixed launch queue is a one-time seed, not a fallback
     # to old stories when the source feeds run dry.
