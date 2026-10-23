@@ -103,38 +103,53 @@ def norm(value: str) -> str:
 
 
 def fetch_gemini(prompt: str) -> dict:
+    """Call a free-tier-capable model, failing over on transient API errors.
+
+    Provider errors and quota exhaustion never turn into made-up article text.
+    Every returned JSON object still faces strict source/evidence validation.
+    """
     if not KEY:
         raise RuntimeError("Missing GEMINI_API_KEY GitHub Actions secret")
-    url = "https://generativelanguage.googleapis.com/v1beta/models/" + urllib.parse.quote(MODEL, safe="-._") + ":generateContent"
-    payload = {
-        "contents": [{"role": "user", "parts": [{"text": prompt}]}],
-        "generationConfig": {"responseMimeType": "application/json", "temperature": 0.2, "maxOutputTokens": 6000}
+    payload={
+        "contents":[{"role":"user","parts":[{"text":prompt}]}],
+        "generationConfig":{"responseMimeType":"application/json","temperature":0.2,"maxOutputTokens":6000}
     }
-    request = urllib.request.Request(
-        url, data=json.dumps(payload).encode(), method="POST",
-        headers={"Content-Type": "application/json", "x-goog-api-key": KEY}
-    )
-    try:
-        with urllib.request.urlopen(request, timeout=70) as response:
-            raw = json.loads(response.read(300_000))
-    except urllib.error.HTTPError as err:
-        detail = err.read(1000).decode("utf-8", errors="replace")
-        raise RuntimeError(f"AI API returned HTTP {err.code}: {detail}") from None
-    parts = raw.get("candidates", [{}])[0].get("content", {}).get("parts", [])
-    text = "".join(part.get("text", "") for part in parts)
-    if not text:
-        raise RuntimeError("AI API returned no article content")
-    try:
-        return json.loads(text)
-    except json.JSONDecodeError:
-        # A small model sometimes emits a trailing comma or truncated bracket
-        # despite JSON response mode. Repair STRUCTURE only: all output still
-        # passes the source/evidence checks, without forgiving bad facts.
-        from json_repair import loads as repaired_json_loads
-        fixed=repaired_json_loads(text)
-        if not isinstance(fixed,dict):
-            raise ValueError("Unusable Gemini JSON even after structural repair")
-        return fixed
+    candidates=list(dict.fromkeys([MODEL,"gemini-3.1-flash-lite","gemini-2.5-flash-lite"]))
+    failures=[]
+    for model_name in candidates:
+        url=("https://generativelanguage.googleapis.com/v1beta/models/"
+             +urllib.parse.quote(model_name,safe="-._")+":generateContent")
+        request=urllib.request.Request(
+            url,data=json.dumps(payload).encode(),method="POST",
+            headers={"Content-Type":"application/json","x-goog-api-key":KEY}
+        )
+        try:
+            with urllib.request.urlopen(request,timeout=50) as response:
+                raw=json.loads(response.read(300_000))
+        except urllib.error.HTTPError as error:
+            details=error.read(550).decode("utf-8",errors="replace")
+            failures.append(f"{model_name}: HTTP {error.code}: {details[:180]}")
+            # Permanent errors require correction, not arbitrary model retries.
+            if error.code not in (404,429,500,502,503,504):
+                raise RuntimeError(f"Gemini API returned HTTP {error.code}: {details}") from None
+            continue
+        except (TimeoutError,ConnectionError,urllib.error.URLError) as error:
+            failures.append(f"{model_name}: connection unavailable ({type(error).__name__})")
+            continue
+        content=raw.get("candidates",[{}])[0].get("content",{}).get("parts",[])
+        produced="".join(part.get("text","") for part in content)
+        if not produced:
+            failures.append(f"{model_name}: empty response")
+            continue
+        try:
+            data=json.loads(produced)
+        except json.JSONDecodeError:
+            from json_repair import loads as repair_loads
+            data=repair_loads(produced)
+        if isinstance(data,dict):
+            return data
+        failures.append(f"{model_name}: malformed article response")
+    raise RuntimeError("All available Gemini models failed; article held: "+"; ".join(failures)[:900])
 
 
 def make_prompt(item: dict, source: str) -> str:
