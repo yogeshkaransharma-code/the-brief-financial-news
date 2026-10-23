@@ -205,6 +205,8 @@ def make_article(output,item,official):
     first=summary.strip()
     return {"id":uid,"kind":"original","category":item.get("category","Regulation"),
             "dateISO":item["dateISO"],"date":item["dateISO"],"source":item["source"],
+            "source_published_at":item.get("published_at",item["dateISO"]+"T00:00:00+00:00"),
+            "source_time_precision":item.get("source_time_precision","timestamp"),
             "source_url":official.url,"url":official.url,
             "status":status_from_url(item["url"],item["title"]),"title":title.strip(),
             "short":summary.strip(),"quick":summary.strip(),"lead":first,
