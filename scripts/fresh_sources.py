@@ -55,7 +55,7 @@ RELEASES=[
         "title":"Secure Trust Bank reports its third-quarter 2026 trading update",
         "url":"https://www.investegate.co.uk/announcement/rns/secure-trust-bank--stb/q3-2026-trading-update/9835238",
         "dateISO":"2026-10-22","source":"Secure Trust Bank (issuer RNS)","category":"Banking",
-        "kind":"issuer_regulatory_release","priority":97,
+        "kind":"issuer_regulatory_release","priority":107,
     },
     {
         "title":"Arbuthnot Banking Group reports third-quarter lending and deposit growth",
