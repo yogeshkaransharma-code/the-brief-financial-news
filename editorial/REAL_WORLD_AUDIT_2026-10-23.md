@@ -86,3 +86,19 @@ The AI pipeline has been changed for future drafts to retain the **exact extract
 **Still outstanding:** end-to-end extraction of linked PDFs, tables and appendices; reviewer-verified evidence register covering **every material claim**, not just model-selected passages; independent calculation against original data; corrections contact and workflow; source-rights checks beyond the currently restricted official list. These remain human-review blockers until genuinely implemented and tested.
 
 **Do not auto-publish on the strength of this report.**
+
+
+## Follow-up: live V2 writer/reviewer regression, 23 October 2026
+
+**Run:** https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/39881366333  
+**Outcome:** Six official candidates tried; one complaints draft passed the two-model *automated* screen; one FCA speech was held after three citation difficulties; four other source pages were too thin to responsibly read. **Zero AI articles published.**
+
+A professional desk review then caught material concerns the second AI model did **not** catch in its 13-for-13 'supported' labels:
+
+1. **Uphold-rate denominator:** The draft said firms upheld 'just over half of the cases received', while the FCA's detailed figures are **54.8% of closed complaints**. The source's own overview used the looser 'received' wording, underscoring why reproducing source text isn't always the same as precise reporting.
+2. **Rounded rates and reported movement:** The article used 54.8%, a previous 55.5% and a stated 0.8 percentage-point fall. The FCA overview itself reports a fall of 0.8pp, even though subtracting the displayed one-decimal rates gives 0.7pp. This is a **precision/methodology question requiring unrounded underlying data**, not proof the FCA figure is wrong. The article must not present the rounded figures as an exact independently reconciled calculation.
+3. **Thin official sources:** The CP26/37 landing page returned 69 useful characters, and two sector complaint pages returned 659/640. The reader correctly refused to pretend it had read the entire source.
+
+**Corrective code:** `scripts/financial_consistency.py` now detects (1) the incorrect received-vs-closed denominator where the official detailed source says closed and (2) unreconciled percentage-point changes, requiring clarification. It runs at editorial approval and in both CI workflows. The writer prompt now asks for precise detailed denominators and avoids non-reconciling rounded comparisons. Articles held at deterministic preflight are retained for review rather than silently discarded.
+
+**Important:** The V2 verifier missed these issues despite declaring the sentences supported. This is documented evidence that **AI-versus-AI checking is not sufficient for safe unattended publication**. The existing approvals policy remains HUMAN REVIEW ONLY and must not be weakened.
