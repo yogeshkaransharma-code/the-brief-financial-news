@@ -1,6 +1,10 @@
 name: Draft plain-English financial news
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/ai-newsroom.yml'
   workflow_dispatch:
   schedule:
     - cron: '13 7 * * *'
