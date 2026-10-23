@@ -11,7 +11,8 @@ data = json.loads((root / "data" / "live.json").read_text(encoding="utf-8"))
 items = data.get("items", [])
 assert 'id="feed"' in html, "News container missing"
 assert 'id="briefing-stories"' in html, "Daily briefing container missing"
-assert "fetch('data/live.json'" in html, "News loader missing"
+assert "fetch('data/articles.json'" in html, "AI article loader missing"
+assert "fetch('data/live.json'" not in html, "Internal source wire must not be loaded into the public website"
 assert '<script type="application/json" id="curated-data">[]</script>' in html, "Legacy hand-written articles remain"
 assert "EXPLAINER_GROUPS" not in html, "Legacy prewritten explainers remain"
 assert "const byId=()=>Object.fromEntries(published.map" in html, "External feed records exposed as article pages"
