@@ -96,11 +96,14 @@ def draft_with_source_repair(item, official, gemini=fetch_gemini, max_repairs=1)
             if attempt>=max_repairs or not (
                 "Numbers absent from official source:" in str(err)
                 or "Article length must serve the story" in str(err)
+                or "Article needs coherent sections" in str(err)
+                or "Missing explanatory paragraph" in str(err)
             ):
                 raise
             raw=gemini(
                 "Rewrite this article as JSON with headline, standfirst, sections "
-                "(each heading/text), and optional glossary. The previous draft "
+                "(each heading/text), and optional glossary. Return exactly three to six " 
+                "substantial sections, each a heading and text paragraph. The previous draft "
                 "FAILED a factual/structural gate: "+str(err)+". "
                 "Never guess or calculate missing figures. Delete claims with "
                 "a number not explicitly found in the source below; retain only "
@@ -132,7 +135,8 @@ def revision_prompt(item,official,article,flags,attempt):
         "analyst-consensus figure unless the cited source explicitly connects them. "
         "For trading updates, separate management outlook, analyst consensus and "
         "historical results into distinct source-supported sentences. "
-        "original document below, or remove it altogether. Be direct, engaging "
+        "If a disputed claim cannot be supported by the original document, "
+        "remove it altogether. Be direct, engaging "
         "and clear, but do not add unsourced implications, figures or commentary. "
         "When the source gives a percentage of CLOSED complaints, never call it "
         "a percentage of received complaints. For FCA complaints reports, delete "
