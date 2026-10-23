@@ -4,11 +4,11 @@
 
 ## Editorial restart — 23 October 2026
 
-We have deliberately **cleared the previous public article archive, six prewritten articles and 30 static explainers**. The publication starts again with only articles generated and autonomously published by the newsroom's AI.
+The old manually curated **news article archive was cleared** and replaced by independently screened AI-written news articles. Separately, the original 30 evergreen financial-literacy guides have been restored as educational content; they are not news articles.
 
 **What readers see:** complete, original on-site AI-written articles about UK banking, insurance, regulation and related financial technology, with original-source links, accurate source dates and explicit disclosure of machine-only review. The homepage, lead story, 60-second briefing, search and categories use **only** `data/articles.json` entries with `ai_assisted: true` and `publication_method: "autonomous"`. If no story passes the checks, the page explains that fact; we do not fill it with copied RSS headlines.
 
-**What readers do not see:** raw RSS summaries or source headlines masquerading as articles, prewritten generic explainers, old manually curated stories, failed AI drafts, article previews awaiting human sign-off.
+**What readers do not see:** raw RSS summaries or source headlines masquerading as articles, old manually curated news stories, failed AI drafts, or article previews awaiting human sign-off. The beginner guides are explicitly identified as evergreen educational explanations, not fresh reporting.
 
 ## The AI runs the newsroom, not the user
 
@@ -25,7 +25,7 @@ The autonomous newsroom:
 
 ### Coverage that may publish unattended
 
-Only specifically allowed primary-source paths can currently publish automatically, including **Lloyds Banking Group and Aviva releases**, selected first-party company announcements, non-adverse **FCA press releases**, and particular FCA reporting pages. Enforcement accusations and unverified consequential claims remain held. More financial-services sources and story types require careful integration and tested risk controls. Discovering an RSS headline does **not** mean the article is approved or that the original source is accessible. Regulation that changes legal duties, allegations and consequential/uncorroborated claims remain on hold.
+Only specifically allowed primary-source paths can currently publish automatically, including **Lloyds Banking Group and Aviva releases**, selected first-party company announcements, non-adverse **FCA press releases, speeches and consultation papers** (with proposal/commentary status enforced), and particular FCA reporting pages. Enforcement accusations and unverified consequential claims remain held. More financial-services sources and story types require careful integration and tested risk controls. Discovering an RSS headline does **not** mean the article is approved or that the original source is accessible. Regulation that changes legal duties, allegations and consequential/uncorroborated claims remain on hold.
 
 This is **real AI-driven publication**, not a hand-authored static site, but the eligible source set is not yet equivalent to comprehensive UK financial-services news coverage. The daily free Gemini tier may also limit how many candidates can be written or revised. No system can guarantee that every AI-produced claim is error-free; the source and the model may both contain mistakes. Machine-reviewed coverage must never be represented as human-editor-approved or independently certified.
 
@@ -33,7 +33,7 @@ This is **real AI-driven publication**, not a hand-authored static site, but the
 
 - `data/articles.json` was reset to `[]`; old reviewed-article JSON audit files were deleted.
 - `data/retired-source-urls.json` blocks the original pre-reset articles from being quietly republished.
-- `scripts/verify_site.py` refuses to deploy any manually curated content, prewritten explainer collection, raw source-feed story, old source URL or article not published by the autonomous AI workflow.
+- `scripts/verify_site.py` refuses to deploy manually curated **news articles**, raw source-feed stories, retired source URLs or articles not published by the autonomous AI workflow. It separately checks that the educational 30-guide rotation is present.
 - `scripts/verify_approved_articles.py` validates that each autonomous article matches a signed machine-review record and exact article hash.
 - `scripts/test_autonomous.py` and `scripts/test_editorial_benchmark.py` test duplicate prevention, narrow source allowlists, source evidence and selected adversarial faults.
 - `data/live.json` remains a discovery cache only. Visitors do not see it as a story list.
@@ -42,7 +42,7 @@ Removing content from the current published branch **does not erase old versions
 
 ## Repository map
 
-- `index.html` — lightweight self-contained article-first website.
+- `index.html` — lightweight self-contained article-first website. News is grouped by source development date and the educational guides rotate in pairs of UK calendar days.
 - `data/articles.json` — public archive of completed autonomous AI articles.
 - `data/live.json` — internal hourly research leads, not published stories.
 - `data/retired-source-urls.json` — URLs from the superseded edition.
