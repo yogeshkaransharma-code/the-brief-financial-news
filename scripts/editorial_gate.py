@@ -92,7 +92,7 @@ def check(bundle: dict, human_review: bool = False) -> dict:
     # Every cited excerpt must actually be present in exactly the captured text
     # used by the model, not merely be supplied by the model as a quotation.
     import unicodedata
-    normalize = lambda v: re.sub(r"\\s+", " ", re.sub(r"[^\\w\\s]", " ", unicodedata.normalize("NFKC", v).lower())).strip()
+    normalize = lambda v: re.sub(r"\s+", " ", re.sub(r"[^\w\s]", " ", unicodedata.normalize("NFKC", v).lower())).strip()
     evidence_source = normalize(captured)
     if any(normalize(x["source_excerpt"]) not in evidence_source for x in evidence):
         raise ValueError("An evidence quote does not appear in the captured official source excerpt")
