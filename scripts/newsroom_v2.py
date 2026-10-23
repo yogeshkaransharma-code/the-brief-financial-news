@@ -50,8 +50,9 @@ def write_prompt(item, official):
         "If a source's broad overview differs from detailed methodology, prefer the "
         "precise denominator and explain the discrepancy, not the loose overview. "
         "For upheld complaint rates, always distinguish CLOSED complaints from complaints RECEIVED. "
-        "Avoid exact percentage-point comparisons when displayed rounded rates do not "
-        "reconcile; use the separate rates and note that exact deltas require source data. "
+        "For FCA aggregate complaints reports, OMIT ALL percentage-point changes "
+        "rather than discussing how rounded rates reconcile. Give the reported rates "
+        "directly and preserve their defined denominators. "
         "Use accessible, natural, confident British English. Lead with the news, "
         "not 'Financial services professionals are reviewing'. "
         "Avoid bureaucratic filler and spelled-out financial figures. "
@@ -116,6 +117,14 @@ def review_until_resolved(item,doc,first_article,gemini=fetch_gemini,max_revisio
                     check(bundle)
                 except ValueError as exc:
                     flags=[{"reason":str(exc),"type":"deterministic_check"}]
+                    bundle["editorial_flags"]=flags
+            # This limited autonomous lane excludes rounded percentage-point
+            # interpretations entirely; ask the writer to remove them and
+            # re-verify rather than discarding an otherwise useful article.
+            if not flags and re.fullmatch(r"/data/complaints-data-\\d{4}-h[12]/?", __import__("urllib.parse",fromlist=["urlsplit"]).urlsplit(article["url"]).path):
+                combined=" ".join([article["title"],article["short"]]+[p for _,p in article["blocks"]])
+                if re.search(r"(?i)percentage[- ]point",combined):
+                    flags=[{"reason":"Remove percentage-point comparisons from this unattended statistical story; report direct source figures without deriving rounded deltas.","type":"autonomous_scope"}]
                     bundle["editorial_flags"]=flags
             history.append({"revision":attempt,"problems":flags[:16],
                             "sentences":coverage.get("total_sentences")})
