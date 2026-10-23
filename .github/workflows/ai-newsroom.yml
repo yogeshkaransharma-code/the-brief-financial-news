@@ -106,19 +106,25 @@ jobs:
         run: |
           git config user.name "The Brief Automated Editorial Desk"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/articles.json
+          git add data/articles.json data/newsroom-attempts.json
           if [ -d data/editorial-audits ]; then
             git add data/editorial-audits/
           fi
           if git diff --cached --quiet; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
-            echo "No source-limited article passed. Public site remains unchanged."
+            echo "No new articles or attempt history changes. Public site remains unchanged."
             exit 0
           fi
-          git commit -m "Publish fresh original financial news from verified primary sources"
+          # Saving retry history is NOT the same as publishing a news story.
+          if git diff --cached --quiet -- data/articles.json; then
+            published_changed=false
+          else
+            published_changed=true
+          fi
+          git commit -m "Save approved financial news and source retry history"
           for attempt in 1 2 3; do
             if git push origin HEAD:main; then
-              echo "changed=true" >> "$GITHUB_OUTPUT"
+              echo "changed=$published_changed" >> "$GITHUB_OUTPUT"
               exit 0
             fi
             git fetch origin main
