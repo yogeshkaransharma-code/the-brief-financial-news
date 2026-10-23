@@ -291,7 +291,7 @@ def same_development(first: dict, second: dict) -> bool:
     return len(shared) >= 4 and len(shared) / min(len(a), len(b)) >= 0.55
 
 
-def select_candidates(items: list[dict]) -> list[dict]:
+def select_candidates(items: list[dict], limit: int = 12) -> list[dict]:
     cutoff = dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=4)
     choices = []
     for item in items:
@@ -326,7 +326,7 @@ def select_candidates(items: list[dict]) -> list[dict]:
             continue
         selected.append(item)
         seen.add(item["url"])
-        if len(selected) >= 12:
+        if len(selected) >= limit:
             break
     return selected
 
