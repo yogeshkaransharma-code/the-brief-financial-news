@@ -561,15 +561,21 @@ def main():
     # Permanent freshness: normal news must be within the past 24 hours.
     # The one-off 23 October launch may draw on developments from 22 October.
     candidates=[x for x in candidates if eligible_today(x,now,launch=False)]
+    fresh_candidates=len(candidates)
     candidates=[x for x in candidates if not is_cooled(x["url"])]
+    available_after_source_cooldowns=len(candidates)
     pause=ledger.get("quota_pause_until")
     try:
         pause_until=dt.datetime.fromisoformat(pause) if pause else now
     except (ValueError,TypeError):
         pause_until=now
     if pause_until.tzinfo is not None and pause_until>now:
-        report.append({"result":"paused","reason":"Model quota cooldown; source discovery continues independently"})
+        report.append({"result":"paused","reason":"Model quota cooldown until "+pause_until.isoformat()+
+          "; source discovery continues independently"})
         candidates=[]
+    else:
+        # Expired pauses must not continue to look like active failures.
+        ledger.pop("quota_pause_until",None)
     # This is an always-on news site, not an archive replay. Never keep
     # attempting yesterday's launch-only stories after the rolling news window.
     # The published archive remains intact and sorts by the original date.
@@ -578,11 +584,20 @@ def main():
     # to old stories when the source feeds run dry.
     candidates.sort(key=lambda x: (
         -dt.date.fromisoformat(x["dateISO"]).toordinal(),
+        # A regulator's confirmed financial release or consultation is a
+        # stronger first draft candidate than a speech or commentary.
+        1 if source_lane(x["url"])=="fca_speech" else 0,
+        -int(x.get("priority",0)),
         -dt.datetime.fromisoformat(x["published_at"].replace("Z","+00:00")).timestamp()
             if x.get("source_time_precision") != "date" else 0,
-        -int(x.get("priority",0)),
         0 if x.get("category")=="Insurance" else 1
     ))
+    print("NEWSROOM_SOURCE_STATUS: "+json.dumps({
+        "fresh_unpublished_source_candidates":fresh_candidates,
+        "available_after_retry_cooldowns":available_after_source_cooldowns,
+        "eligible_for_this_run":len(candidates),
+        "active_quota_pause_until":ledger.get("quota_pause_until")
+    },sort_keys=True))
     for item in candidates[:MAX_CANDIDATES]:
         if accepted>=MAX_DRAFTS:
             break
@@ -636,7 +651,12 @@ def main():
     (OUTPUT/"run-report.json").write_text(json.dumps({
         "generated_at":dt.datetime.now(dt.timezone.utc).isoformat(),
         "pipeline":"AI writer and evidence review; autonomous publication restricted to eligible verified sources",
-        "model":MODEL,"machine_screened":accepted,"first_party_discovery_errors":discovery_errors,"items_checked":report
+        "model":MODEL,"machine_screened":accepted,
+        "fresh_unpublished_source_candidates":fresh_candidates,
+        "available_after_retry_cooldowns":available_after_source_cooldowns,
+        "eligible_for_this_run":len(candidates),
+        "active_quota_pause_until":ledger.get("quota_pause_until"),
+        "first_party_discovery_errors":discovery_errors,"items_checked":report
     },ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(f"Newsroom V2: {accepted} screened draft(s), {len(report)} candidate outcomes; separate autonomous publisher decides eligibility.")
 
