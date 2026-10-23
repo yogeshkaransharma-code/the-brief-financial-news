@@ -53,7 +53,9 @@ def make_bundle():
         "article_id": aid, "source_url": article["url"],
         "source_sha256": hashlib.sha256(PARAGRAPH.encode("utf-8")).hexdigest(),
         "retrieved_at": dt.datetime.now(dt.timezone.utc).isoformat(),
-        "source_number_tokens": [],
+        "source_number_tokens": sorted({m.group().lower().replace(",", "") for m in re.finditer(
+            r"(?<![\w])(?:£|\$)?\d+(?:[.,]\d+)*(?:%|bn|m|k)?(?![\w])",
+            PARAGRAPH+" "+article["title"]+" "+article["dateISO"], re.I)}),
         "verbatim_source_checks": [
             {"claim": claim + " according to the primary official source",
              "source_excerpt": excerpt}
