@@ -86,6 +86,17 @@ def html_extract(raw, source_url):
             text=fallback
     if len(text)<850:
         raise SourceError(f"Insufficient official article content ({len(text)} characters); cannot responsibly draft")
+    # Some FCA charts and data widgets render figures inside DIV/SPAN content,
+    # not paragraph or table tags. Preserve the *entire* official main text if
+    # it contains numeric tokens absent from our structured extraction.
+    complete_main=clean_text(main.get_text(" ",strip=True))
+    amount=re.compile(r"(?<![\\w])(?:£|\\$)?\\d+(?:[.,]\\d+)*(?:%|bn|m|k)?(?![\\w])",re.I)
+    numbers=lambda value: {m.group().lower().replace(",","") for m in amount.finditer(value)}
+    if numbers(complete_main)-numbers(text):
+        proposed=text+"\\n\\n[ADDITIONAL MAIN-PAGE CHART AND FIGURE TEXT]\\n"+complete_main
+        if len(proposed)>MAX_TEXT:
+            raise SourceError("Important chart text exceeds full-source context limit; held without truncation")
+        text=proposed
     if len(text)>MAX_TEXT:
         raise SourceError("Full HTML exceeds safe model context; no silent truncation")
     attachments=[]
