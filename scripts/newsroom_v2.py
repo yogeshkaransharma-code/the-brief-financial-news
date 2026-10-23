@@ -12,6 +12,7 @@ import os
 from pathlib import Path
 import re
 import sys
+from urllib.parse import urlsplit
 from ai_newsroom import ROOT, OUTPUT, MODEL, fetch_gemini, select_candidates, norm
 from source_retrieval import read_source, SourceError
 from editorial_gate import check as editorial_check
@@ -121,7 +122,7 @@ def review_until_resolved(item,doc,first_article,gemini=fetch_gemini,max_revisio
             # This limited autonomous lane excludes rounded percentage-point
             # interpretations entirely; ask the writer to remove them and
             # re-verify rather than discarding an otherwise useful article.
-            if not flags and re.fullmatch(r"/data/complaints-data-\\d{4}-h[12]/?", __import__("urllib.parse",fromlist=["urlsplit"]).urlsplit(article["url"]).path):
+            if not flags and re.fullmatch(r"/data/complaints-data-\d{4}-h[12]/?", urlsplit(article["url"]).path):
                 combined=" ".join([article["title"],article["short"]]+[p for _,p in article["blocks"]])
                 if re.search(r"(?i)percentage[- ]point",combined):
                     flags=[{"reason":"Remove percentage-point comparisons from this unattended statistical story; report direct source figures without deriving rounded deltas.","type":"autonomous_scope"}]
