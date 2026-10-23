@@ -305,7 +305,14 @@ def main():
     items=json.loads((ROOT/"data/live.json").read_text(encoding="utf-8")).get("items",[])
     report=[]
     accepted=0
-    for item in select_candidates(items)[:MAX_CANDIDATES]:
+    candidates=select_candidates(items)
+    # In unattended mode, use the limited FCA reporting lane first, rather
+    # than spend free requests on speeches that are ineligible for publishing.
+    candidates.sort(key=lambda x: (
+        0 if re.fullmatch(r"/data/complaints-data-\d{4}-h[12]/?",urlsplit(x["url"]).path) else 1,
+        0 if "fca" in x["source"].lower() else 1
+    ))
+    for item in candidates[:MAX_CANDIDATES]:
         if accepted>=MAX_DRAFTS:
             break
         uid="ai-"+hashlib.sha256(item["url"].encode()).hexdigest()[:20]
