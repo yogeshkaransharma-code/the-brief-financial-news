@@ -16,7 +16,7 @@ from ai_newsroom import ROOT, OUTPUT, MODEL, fetch_gemini, select_candidates, no
 from source_retrieval import read_source, SourceError
 from editorial_gate import check as editorial_check
 
-MAX_CANDIDATES = 3
+MAX_CANDIDATES = 6
 MAX_DRAFTS = 2
 MIN_WORDS = 190
 MAX_WORDS = 950
