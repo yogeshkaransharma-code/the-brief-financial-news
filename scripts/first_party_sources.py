@@ -44,7 +44,7 @@ def parse_listing(content,source,section,base,today=None):
                 except (KeyError,ValueError):pass
         if not date or not 0<=(today-date).days<=21:continue
         found.append({"title":title,"url":url,"dateISO":date.isoformat(),"published_at":date.isoformat()+"T12:00:00+00:00",
-                      "source":source,"category":section,"kind":"first_party_announcement"})
+                      "source":source,"category":section,"kind":"first_party_announcement","source_time_precision":"date"})
     unique={}
     for entry in found:
         unique.setdefault(entry["url"],entry)
