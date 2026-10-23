@@ -114,7 +114,7 @@ def fetch_gemini(prompt: str) -> dict:
         "contents":[{"role":"user","parts":[{"text":prompt}]}],
         "generationConfig":{"responseMimeType":"application/json","temperature":0.2,"maxOutputTokens":6000}
     }
-    candidates=list(dict.fromkeys([MODEL,"gemini-3.5-flash-lite","gemini-3.7-flash","gemini-3.1-flash-lite"]))
+    candidates=list(dict.fromkeys([MODEL,"gemini-3.5-flash-lite","gemini-2.5-flash-lite","gemini-3.1-flash-lite","gemini-3.8-flash"]))
     failures=[]
     for model_name in candidates:
         url=("https://generativelanguage.googleapis.com/v1beta/models/"
@@ -128,7 +128,7 @@ def fetch_gemini(prompt: str) -> dict:
                 raw=json.loads(response.read(300_000))
         except urllib.error.HTTPError as error:
             details=error.read(550).decode("utf-8",errors="replace")
-            failures.append(f"{model_name}: HTTP {error.code}: {details[:180]}")
+            failures.append(f"{model_name}: HTTP {error.code}: {details[:260]}")
             # Permanent errors require correction, not arbitrary model retries.
             if error.code not in (404,429,500,502,503,504):
                 raise RuntimeError(f"Gemini API returned HTTP {error.code}: {details}") from None
