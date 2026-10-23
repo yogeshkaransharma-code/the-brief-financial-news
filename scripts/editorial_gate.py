@@ -13,6 +13,7 @@ import json
 from pathlib import Path
 import re
 from urllib.parse import urlsplit
+from financial_consistency import concerns as financial_concerns
 
 OFFICIAL = {"www.fca.org.uk", "www.bankofengland.co.uk", "fca.org.uk", "bankofengland.co.uk"}
 STATUSES = {"Proposal", "Confirmed announcement", "Published report", "Speech / commentary"}
@@ -111,6 +112,9 @@ def check(bundle: dict, human_review: bool = False) -> dict:
     combined = "\n".join(paragraphs + [a["title"], a["short"]])
     if a["status"] in ("Proposal", "Speech / commentary") and RISKY.search(combined):
         raise ValueError("Unqualified compulsory-language claim in proposal/speech")
+    contextual_issues = financial_concerns(a, captured)
+    if contextual_issues:
+        raise ValueError("Financial interpretation requires clarification: " + "; ".join(contextual_issues))
     if audit.get("pipeline_version") == 2:
         review = audit.get("sentence_review")
         if not isinstance(review, dict) or review.get("review_schema") != "one-verdict-per-sentence-v2":
