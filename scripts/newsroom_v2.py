@@ -15,9 +15,10 @@ import sys
 from urllib.parse import urlsplit
 from ai_newsroom import ROOT, OUTPUT, MODEL, fetch_gemini, select_candidates, norm
 from source_retrieval import read_source, SourceError
+from first_party_sources import discover
 from editorial_gate import check as editorial_check
 
-MAX_CANDIDATES = 6
+MAX_CANDIDATES = 10
 MAX_DRAFTS = 2
 MIN_WORDS = 190
 MAX_WORDS = 950
@@ -61,6 +62,12 @@ def write_prompt(item, official):
         "An ideal story covers what happened, useful context, who is affected and what's next "
         "when the source supports those points. A short simple story can have three sections. "
         "Every sentence must be grounded in the source. Clearly attribute organisational claims. "
+        "For insurer/bank company announcements, write 'Aviva says' or 'Lloyds says' "
+        "for a company-reported benefit, product claim or projection, and do not "
+        "present company publicity as independently confirmed industry fact. "
+        "Report product eligibility and non-contractual limitations precisely. "
+        "Avoid promotional claims such as 'revolutionary', 'game changing' or "
+        "'the UK's first' unless independently substantiated. "
         "Return ONLY a JSON object with: "
         "headline (string), standfirst (string), sections (array of 3 to 6 objects, "
         "each with heading and text strings), glossary (array of objects with term/explanation, optional). "
@@ -378,11 +385,21 @@ def main():
     report=[]
     accepted=0
     candidates=select_candidates(items)
-    # In unattended mode, use the limited FCA reporting lane first, rather
-    # than spend free requests on speeches that are ineligible for publishing.
+    # Company pages, not third-party news summaries, supply our original
+    # insurance/banking coverage. The discovered source URL/date are retained.
+    first_party,discovery_errors=discover()
+    published_urls={x.get("url") for x in json.loads((ROOT/"data/articles.json").read_text(encoding="utf-8"))}
+    known={x["url"] for x in candidates} | published_urls
+    for item in first_party:
+        if item["url"] not in known:
+            candidates.append(item)
+            known.add(item["url"])
+    # Source quality and breadth before drafting: a company announcement is
+    # preferable to repeatedly generating the same FCA complaints story.
     candidates.sort(key=lambda x: (
+        0 if x.get("kind")=="first_party_announcement" else 1,
         0 if re.fullmatch(r"/data/complaints-data-\d{4}-h[12]/?",urlsplit(x["url"]).path) else 1,
-        0 if "fca" in x["source"].lower() else 1
+        -dt.date.fromisoformat(x["dateISO"]).toordinal()
     ))
     for item in candidates[:MAX_CANDIDATES]:
         if accepted>=MAX_DRAFTS:
@@ -419,7 +436,7 @@ def main():
     (OUTPUT/"run-report.json").write_text(json.dumps({
         "generated_at":dt.datetime.now(dt.timezone.utc).isoformat(),
         "pipeline":"separate writer and sentence-level AI challenge; human sign-off required",
-        "model":MODEL,"machine_screened":accepted,"items_checked":report
+        "model":MODEL,"machine_screened":accepted,"first_party_discovery_errors":discovery_errors,"items_checked":report
     },ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(f"Newsroom V2: {accepted} screened draft(s), {len(report)} attempted; NO automatic publication.")
 
