@@ -47,6 +47,11 @@ def write_prompt(item, official):
         "If the evidence is thin, write a concise article instead of padding it. "
         "Be accurate about the denominator and period behind statistics and the "
         "difference between proposed rules and rules already in force. "
+        "If a source's broad overview differs from detailed methodology, prefer the "
+        "precise denominator and explain the discrepancy, not the loose overview. "
+        "For upheld complaint rates, always distinguish CLOSED complaints from complaints RECEIVED. "
+        "Avoid exact percentage-point comparisons when displayed rounded rates do not "
+        "reconcile; use the separate rates and note that exact deltas require source data. "
         "Use accessible, natural, confident British English. Lead with the news, "
         "not 'Financial services professionals are reviewing'. "
         "Avoid bureaucratic filler and spelled-out financial figures. "
@@ -221,6 +226,7 @@ def main():
             break
         uid="ai-"+hashlib.sha256(item["url"].encode()).hexdigest()[:20]
         stage="source"
+        bundle=None
         try:
             doc=read_source(item["url"])
             stage="writing"
@@ -241,6 +247,11 @@ def main():
             accepted+=1
             report.append({"title":item["title"],"result":"draft saved","reason":"machine-screened; HUMAN REVIEW still required","source":item["url"]})
         except Exception as exc:
+            if stage=="editorial_preflight" and bundle is not None:
+                bundle.setdefault("editorial_flags",[]).append({"reason":str(exc)[:400],"type":"deterministic_check"})
+                (OUTPUT/("HOLD-"+uid+".json")).write_text(
+                    json.dumps(bundle,ensure_ascii=False,indent=2)+"\n",encoding="utf-8"
+                )
             report.append({"title":item.get("title","unknown"),"result":"held back","reason":str(exc)[:360],"stage":stage,"source":item.get("url")})
     (OUTPUT/"run-report.json").write_text(json.dumps({
         "generated_at":dt.datetime.now(dt.timezone.utc).isoformat(),
