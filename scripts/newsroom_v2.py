@@ -18,9 +18,10 @@ from source_retrieval import read_source, SourceError
 from first_party_sources import discover
 from fresh_sources import launch_items, eligible_today
 from editorial_gate import check as editorial_check
+from publication_scope import source_lane
 
 MAX_CANDIDATES = 12
-MAX_DRAFTS = 6
+MAX_DRAFTS = 3
 MIN_WORDS = 150
 MAX_WORDS = 950
 NUMBER = re.compile(r"(?<![\w])(?:£|\$)?\d+(?:[.,]\d+)*(?:%|bn|m|k)?(?![\w])", re.I)
@@ -486,17 +487,17 @@ def main():
     now=dt.datetime.now(dt.timezone.utc)
     report=[]
     accepted=0
-    candidates=select_candidates(items)
+    candidates=[item for item in select_candidates(items, limit=50) if source_lane(item['url'])]
     # Company pages, not third-party news summaries, supply our original
     # insurance/banking coverage. The discovered source URL/date are retained.
     first_party,discovery_errors=discover()
     published_urls={x.get("url") for x in json.loads((ROOT/"data/articles.json").read_text(encoding="utf-8"))}
     retired_path=ROOT/"data/retired-source-urls.json"
     retired_urls=set(json.loads(retired_path.read_text(encoding="utf-8")).get("urls",[])) if retired_path.exists() else set()
-    candidates=[item for item in candidates if item["url"] not in retired_urls]
+    candidates=[item for item in candidates if item["url"] not in retired_urls and item["url"] not in published_urls]
     known={x["url"] for x in candidates} | published_urls | retired_urls
     for item in first_party + launch_items(now.date()):
-        if item["url"] not in known:
+        if source_lane(item["url"]) and item["url"] not in known:
             candidates.append(item)
             known.add(item["url"])
     # Permanent freshness: normal news must be within the past 24 hours.
@@ -506,8 +507,10 @@ def main():
     # about the same firm. A fixed launch queue is a one-time seed, not a fallback
     # to old stories when the source feeds run dry.
     candidates.sort(key=lambda x: (
-        -int(x.get("priority",0)),
         -dt.date.fromisoformat(x["dateISO"]).toordinal(),
+        -dt.datetime.fromisoformat(x["published_at"].replace("Z","+00:00")).timestamp()
+            if x.get("source_time_precision") != "date" else 0,
+        -int(x.get("priority",0)),
         0 if x.get("category")=="Insurance" else 1
     ))
     for item in candidates[:MAX_CANDIDATES]:
@@ -550,7 +553,7 @@ def main():
         "pipeline":"AI writer and evidence review; autonomous publication restricted to eligible verified sources",
         "model":MODEL,"machine_screened":accepted,"first_party_discovery_errors":discovery_errors,"items_checked":report
     },ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
-    print(f"Newsroom V2: {accepted} screened draft(s), {len(report)} attempted; NO automatic publication.")
+    print(f"Newsroom V2: {accepted} screened draft(s), {len(report)} candidate outcomes; separate autonomous publisher decides eligibility.")
 
 if __name__=="__main__":
     main()
