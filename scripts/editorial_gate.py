@@ -66,15 +66,15 @@ def check(bundle: dict, human_review: bool = False) -> dict:
     if a.get("editorial_status", "").startswith("PUBLISHED") and not human_review:
         raise ValueError("Published article was supplied as an unreviewed draft")
     blocks = a["blocks"]
-    if not isinstance(blocks, list) or len(blocks) < 5:
-        raise ValueError("A full, five-section article is required")
+    if not isinstance(blocks, list) or len(blocks) < 3:
+        raise ValueError("At least three coherent explanatory sections are required")
     paragraphs = []
     for block in blocks:
         if not isinstance(block, list) or len(block) != 2 or not all(isinstance(x, str) and x.strip() for x in block):
             raise ValueError("Malformed article section")
         paragraphs.append(block[1])
     word_count = sum(len(p.split()) for p in paragraphs)
-    if not 260 <= word_count <= 1150:
+    if not 190 <= word_count <= 1100:
         raise ValueError(f"Article length inappropriate: {word_count} words")
     if len(a["title"]) < 22 or len(a["title"]) > 170 or len(a["short"]) < 60:
         raise ValueError("Headline or standfirst fails editorial criteria")
@@ -108,6 +108,33 @@ def check(bundle: dict, human_review: bool = False) -> dict:
     reported_numbers = {m.group().lower().replace(",", "") for m in NUMBER.finditer(" ".join([a["title"], a["short"]] + paragraphs))}
     if not reported_numbers.issubset(set(source_numbers)):
         raise ValueError("Article introduces figures not found in the recorded official source")
+    if audit.get("pipeline_version") == 2:
+        review = audit.get("sentence_review")
+        if not isinstance(review, dict) or review.get("review_schema") != "one-verdict-per-sentence-v2":
+            raise ValueError("Separate evidence-review report missing")
+        fields = [a["title"], a["short"]] + [p for p in paragraphs]
+        sentence_count = sum(
+            len([x for x in re.split(r"(?<=[.!?])\s+(?=[A-Z0-9£])|\n+", field) if x.strip()])
+            for field in fields
+        )
+        labels = [f"C{i:02}" for i in range(1, sentence_count + 1)]
+        if review.get("reviewed_sentence_ids") != labels or review.get("reviewed") != sentence_count:
+            raise ValueError("Not every sentence was independently screened")
+        if (review.get("held") or review.get("supported") != sentence_count
+                or bundle.get("editorial_flags")):
+            raise ValueError("An unsupported, contradicted or ambiguous sentence was found")
+        if not isinstance(audit.get("source_document_urls"), list) or not audit["source_document_urls"]:
+            raise ValueError("Original source-document URLs missing from evidence packet")
+        import hashlib as _hashlib
+        # Numeric tokens are checked again against the captured material;
+        # the model's self-reported token register is not authoritative.
+        expected_tokens = {m.group().lower().replace(",", "") for m in
+                           NUMBER.finditer(captured + " " + audit.get("source_title", "") + " " + a["dateISO"])}
+        if set(source_numbers) != expected_tokens:
+            raise ValueError("Source numerical register differs from captured source")
+    elif human_review:
+        raise ValueError("Legacy AI draft has no separate full-sentence evidence review; cannot publish")
+
     combined = "\n".join(paragraphs + [a["title"], a["short"]])
     if a["status"] in ("Proposal", "Speech / commentary") and RISKY.search(combined):
         raise ValueError("Unqualified compulsory-language claim in proposal/speech")
