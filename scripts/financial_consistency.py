@@ -26,7 +26,7 @@ def concerns(article, captured):
     # *false* without raw data, but hold any unqualified, non-reconciling claim.
     for line in SENTENCE.split(text):
         for match in re.finditer(
-            r"(\d+(?:\.\d+)?)%\b?.{0,140}?(\d+(?:\.\d+)?)\s+percentage points?.{0,140}?(\d+(?:\.\d+)?)%",
+            r"(\d+(?:\.\d+)?)%.{0,140}?(\d+(?:\.\d+)?)\s+percentage points?.{0,140}?(\d+(?:\.\d+)?)%",
             line,re.I
         ):
             current=float(match.group(1))
