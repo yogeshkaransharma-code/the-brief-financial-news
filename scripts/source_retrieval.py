@@ -79,7 +79,13 @@ def html_extract(raw, source_url):
         parts.append(text)
     text="\n\n".join(parts)
     if len(text)<850:
-        raise SourceError("Insufficient original source text; cannot responsibly draft")
+        # Regulators sometimes put body text directly in DIVs rather than P
+        # elements. This still reads only the page's main editorial content.
+        fallback=clean_text(main.get_text(" ",strip=True))
+        if len(fallback)>len(text):
+            text=fallback
+    if len(text)<850:
+        raise SourceError(f"Insufficient official article content ({len(text)} characters); cannot responsibly draft")
     if len(text)>MAX_TEXT:
         raise SourceError("Full HTML exceeds safe model context; no silent truncation")
     attachments=[]
