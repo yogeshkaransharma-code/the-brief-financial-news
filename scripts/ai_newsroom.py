@@ -349,7 +349,7 @@ def main():
             source = read_official_page(item["url"])
             generated = fetch_gemini(make_prompt(item, source))
             article, audit = validate_draft(generated, source, item)
-            editorial_check({"draft": article, "audit": audit})
+            editorial_check({"draft": article, "audit": audit, "captured_source_excerpt": source})
             results.append(article)
             tried.append({"title": item["title"], "result": "draft saved", "source": item["url"]})
             # Include the exact extracted text given to the model in the private
