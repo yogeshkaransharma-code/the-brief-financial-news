@@ -102,3 +102,16 @@ A professional desk review then caught material concerns the second AI model did
 **Corrective code:** `scripts/financial_consistency.py` now detects (1) the incorrect received-vs-closed denominator where the official detailed source says closed and (2) unreconciled percentage-point changes, requiring clarification. It runs at editorial approval and in both CI workflows. The writer prompt now asks for precise detailed denominators and avoids non-reconciling rounded comparisons. Articles held at deterministic preflight are retained for review rather than silently discarded.
 
 **Important:** The V2 verifier missed these issues despite declaring the sentences supported. This is documented evidence that **AI-versus-AI checking is not sufficient for safe unattended publication**. The existing approvals policy remains HUMAN REVIEW ONLY and must not be weakened.
+
+## Final V2 pilot after financial-consistency changes
+
+**Live run:** https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/39881974189  
+**Result:** 6 candidates attempted; 2 complete articles generated; **both placed on HOLD after independent sentence review**; 4 sources could not provide sufficient usable original text. No machine-screened article was advanced and **0 articles published**.
+
+**FCA complaints:** The writer corrected the earlier gross denominator fault by identifying that **54.8% of CLOSED complaints** were upheld. The AI reviewer nevertheless flagged five sentences needing better evidence, including the combined standfirst, generic closure description and release-schedule claims. The text still repeated the FCA's reported 0.8pp decrease alongside rounded 54.8% and 55.5% values. The new deterministic financial-consistency check independently flags that for clarification rather than treating rounded arithmetic as conclusive.
+
+**FCA speech:** The separate review identified five source-quotation problems and held the story. The story remains a **speech/commentary**, not a newly binding regulation.
+
+The final CI and GitHub Pages deployment succeeded at https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/39882048151.
+
+**Editorial consequence:** the new process now produces intelligible candidate articles and provides specific grounds for withholding publication. **This is NOT proof that the system can publish accurately without a human.** The present release stays draft-only, and the editor must inspect full primary documents and decide whether any wording is supportable.
