@@ -81,8 +81,9 @@ def revision_prompt(item,official,article,flags,attempt):
         "original document below, or remove it altogether. Be direct, engaging "
         "and clear, but do not add unsourced implications, figures or commentary. "
         "When the source gives a percentage of CLOSED complaints, never call it "
-        "a percentage of received complaints. When rounded figures don't reconcile "
-        "with a published movement, omit the movement rather than guess. "
+        "a percentage of received complaints. For FCA complaints reports, delete "
+        "ALL percentage-point comparisons (even if the FCA reports them): keep "
+        "only directly reported levels, periods and precise denominators. "
         "Preserve useful supported facts and write a coherent article, not "
         "an apology or an explanation of this verification process. "
         "Use three to six natural sections with 190–550 total body words where "
@@ -179,7 +180,14 @@ def make_article(output,item,official):
     if story_nums-source_nums:
         raise ValueError("Numbers absent from official source: "+repr(sorted(story_nums-source_nums)[:8]))
     glossary=[]
-    for entry in output.get("glossary",[])[:4]:
+    glossary_items=output.get("glossary",[])
+    # The optional glossary must never prevent an otherwise valid story
+    # from reaching evidence review. Some models return a mapping or null.
+    if isinstance(glossary_items,dict):
+        glossary_items=[{"term":term,"explanation":desc} for term,desc in glossary_items.items()]
+    if not isinstance(glossary_items,list):
+        glossary_items=[]
+    for entry in glossary_items[:4]:
         if isinstance(entry,dict) and isinstance(entry.get("term"),str) and isinstance(entry.get("explanation"),str):
             glossary.append([entry["term"][:65],entry["explanation"][:260]])
     uid="ai-"+hashlib.sha256(item["url"].encode()).hexdigest()[:20]
