@@ -12,7 +12,7 @@ We have deliberately **cleared the previous public article archive, six prewritt
 
 ## The AI runs the newsroom, not the user
 
-The `Autonomous financial news desk` GitHub Action runs every morning and can be manually dispatched. The underlying `Collect and publish financial news` workflow keeps the **research/discovery feed** `data/live.json` up to date. It is NOT the public original-article feed.
+The `Autonomous financial news desk` GitHub Action checks and writes news six times daily (03:13, 07:13, 11:13, 15:13, 19:13 and 23:13 UTC) and can be manually dispatched. GitHub's schedule is best-effort; a run only publishes articles that pass its evidence checks. The underlying `Collect and publish financial news` workflow keeps the **research/discovery feed** `data/live.json` up to date. It is NOT the public original-article feed.
 
 The autonomous newsroom:
 
@@ -21,11 +21,11 @@ The autonomous newsroom:
 3. Uses Gemini to write an original article in plain British English.
 4. Separately challenges individual statements against captured source text and exact excerpts. Attempts up to two targeted article revisions if claims cannot be supported.
 5. Performs conservative deterministic source, figure, denominator, document-integrity and high-risk-language checks.
-6. Automatically publishes at most two eligible stories per run, with provenance and a version-locked machine-review audit; otherwise holds without asking the user to approve or edit.
+6. Attempts up to three fully reviewed articles per run. Publishes only eligible articles, with provenance and a version-locked machine-review audit; otherwise holds them rather than inventing facts or using news-feed summaries.
 
 ### Coverage that may publish unattended
 
-Only specifically allowed primary-source paths can currently publish automatically, including **Lloyds Banking Group and Aviva news releases**, and certain FCA statistical reporting pages. More financial-services sources and story types require careful integration and tested risk controls. Discovering an RSS headline does **not** mean the article is approved or that the original source is accessible. Regulation that changes legal duties, allegations and consequential/uncorroborated claims remain on hold.
+Only specifically allowed primary-source paths can currently publish automatically, including **Lloyds Banking Group and Aviva releases**, selected first-party company announcements, non-adverse **FCA press releases**, and particular FCA reporting pages. Enforcement accusations and unverified consequential claims remain held. More financial-services sources and story types require careful integration and tested risk controls. Discovering an RSS headline does **not** mean the article is approved or that the original source is accessible. Regulation that changes legal duties, allegations and consequential/uncorroborated claims remain on hold.
 
 This is **real AI-driven publication**, not a hand-authored static site, but the eligible source set is not yet equivalent to comprehensive UK financial-services news coverage. The daily free Gemini tier may also limit how many candidates can be written or revised. No system can guarantee that every AI-produced claim is error-free; the source and the model may both contain mistakes. Machine-reviewed coverage must never be represented as human-editor-approved or independently certified.
 
@@ -49,13 +49,14 @@ Removing content from the current published branch **does not erase old versions
 - `scripts/update_feeds.py` — feed discovery.
 - `scripts/first_party_sources.py` — original company newsroom discovery.
 - `scripts/source_retrieval.py` — bounded first-party document retrieval.
-- `scripts/newsroom_v2.py` — Gemini writer, separate sentence review, bounded revision loop.
+- `scripts/newsroom_v2.py` — Gemini writer, separate sentence review, bounded revision and evidence-repair loop.
+- `scripts/publication_scope.py` — limited, reusable primary-source eligibility rules that exclude high-risk enforcement releases.
 - `scripts/editorial_gate.py`, `scripts/financial_consistency.py` — mechanical pre-publication checks.
 - `scripts/publish_autonomous.py` — source-limited automatic publisher.
 - `data/editorial-audits/` — machine review records created only for newly published articles.
 - `editorial/EDITORIAL_STANDARDS.md` and `editorial/VERIFICATION_AND_PUBLICATION_PROTOCOL.md` — accuracy, sourcing and accountability standards.
 
-The AI workflow needs the configured GitHub Actions secret `GEMINI_API_KEY`; never expose the key in files, articles or public commits. It currently requests `gemini-3.5-flash-lite`; model availability and free-tier limits can change. GitHub Actions scheduling is best-effort, not minute-precise.
+The AI workflow needs the configured GitHub Actions secret `GEMINI_API_KEY`; never expose the key in files, articles or public commits. It currently requests `gemini-3.6-flash`, with configured model fallbacks; model availability and free-tier limits can change. GitHub Actions scheduling is best-effort, not minute-precise.
 
 ## Publication ethics
 
