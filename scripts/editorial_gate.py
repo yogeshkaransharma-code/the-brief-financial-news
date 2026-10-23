@@ -15,7 +15,7 @@ import re
 from urllib.parse import urlsplit
 from financial_consistency import concerns as financial_concerns
 
-OFFICIAL = {"www.fca.org.uk", "www.bankofengland.co.uk", "fca.org.uk", "bankofengland.co.uk", "www.aviva.com", "aviva.com", "www.lloydsbankinggroup.com", "lloydsbankinggroup.com", "www.standardlifeplc.com", "standardlifeplc.com", "committees.parliament.uk", "www.investegate.co.uk", "investegate.co.uk"}
+OFFICIAL = {"www.fca.org.uk", "www.bankofengland.co.uk", "fca.org.uk", "bankofengland.co.uk", "www.aviva.com", "aviva.com", "www.lloydsbankinggroup.com", "lloydsbankinggroup.com", "www.standardlifeplc.com", "standardlifeplc.com", "committees.parliament.uk", "publications.parliament.uk", "www.investegate.co.uk", "investegate.co.uk"}
 STATUSES = {"Proposal", "Confirmed announcement", "Published report", "Speech / commentary"}
 RISKY = re.compile(
     r"\b(?:will\s+(?:now\s+)?(?:have to|be required to|need to|be obliged to)|"
