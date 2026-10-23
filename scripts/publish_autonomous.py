@@ -18,6 +18,7 @@ from editorial_gate import check
 from newsroom_v2 import canonical
 from verify_approved_articles import validate as verify_feed
 from fresh_sources import LAUNCH_START, LAUNCH_END
+from publication_scope import source_lane
 
 ROOT = Path(__file__).resolve().parents[1]
 ARTICLES = ROOT / "data/articles.json"
@@ -25,12 +26,8 @@ AUDIT_DIR = ROOT / "data/editorial-audits"
 DRAFT_DIR = ROOT / "generated-drafts"
 MAX_ARTICLES = 6
 POLICY_VERSION = "daily-24-hour-news-2026-10-23-v2"
-# Only named primary-source newsrooms and narrow first-party categories.
-# Never republish a third-party report or an unsupported RSS summary.
-FCA_REPORT = re.compile(r"^/data/complaints-data-\d{4}-h[12]/?$", re.I)
-AVIVA_RELEASE = re.compile(r"^/newsroom/news-and-research-overview/news-releases/20\d{2}/\d{2}/[a-z0-9-]+/?$",re.I)
-LLOYDS_RELEASE = re.compile(r"^/media/press-releases/20\d{2}/[a-z0-9-]+(?:/[a-z0-9-]+)?\.html$",re.I)
-SPEECH = re.compile(r"/speeches?/",re.I)
+# URL-level lanes are shared with candidate selection so Gemini focuses on
+# stories that have a chance of passing the autonomous publication gate.
 HIGH_RISK = re.compile(
     r"\b(?:criminal|convicted|guilty|misconduct|lawsuit|litigation|"
     r"regulatory breach|sanction|enforcement action|will have to|must comply|"
@@ -46,24 +43,15 @@ def eligible(bundle):
         check(bundle)
     except (ValueError, KeyError, TypeError) as exc:
         return ["Editorial evidence gate failed: "+str(exc)]
-    parts=urlsplit(a["url"])
-    host=parts.hostname or ""
-    fca_report=host in {"www.fca.org.uk","fca.org.uk"} and bool(FCA_REPORT.fullmatch(parts.path))
-    aviva=host in {"www.aviva.com","aviva.com"} and bool(AVIVA_RELEASE.fullmatch(parts.path))
-    lloyds=host in {"www.lloydsbankinggroup.com","lloydsbankinggroup.com"} and bool(LLOYDS_RELEASE.fullmatch(parts.path))
-    standard=host in {"www.standardlifeplc.com","standardlifeplc.com"} and parts.path.startswith("/news-and-views/press-releases/article-page/")
-    parliament=(host=="committees.parliament.uk" and parts.path.startswith("/committee/697/financial-services-regulation-committee/news/")) or (host=="publications.parliament.uk" and parts.path=="/pa/ld5902/ldselect/ldfsrc/64/6403.htm")
-    tpr=host in {"thepensionsregulator.gov.uk","www.thepensionsregulator.gov.uk"} and parts.path=="/media-hub/press-releases/2026-press-releases/tpr-sets-expectations-on-hidden-concentration-risks-in-pension-portfolios"
-    rathbones=host in {"rathbones.com","www.rathbones.com"} and parts.path=="/en-gb/wealth-management/media-centre/rathbones-reports-strong-financial-performance-and-strategic-momentum-third-quarter-trading-update"
-    rns=host in {"www.investegate.co.uk","investegate.co.uk"} and parts.path.startswith("/announcement/rns/") and parts.path.endswith(("/9835238","/9835199","/9836547","/9836457","/9835245","/9835194"))
-    if parts.scheme!="https" or not (fca_report or aviva or lloyds or standard or parliament or rns or tpr or rathbones):
-        problems.append("Source not in documented first-party/issuer RNS launch allowlist")
-    if fca_report and a.get("status")!="Published report":
+    lane=source_lane(a["url"])
+    if not lane:
+        problems.append("Source outside the cautious first-party reporting lanes (or excluded adverse enforcement)")
+    if lane=="fca_data" and a.get("status")!="Published report":
         problems.append("FCA statistics incorrectly described")
-    if (aviva or lloyds or standard or parliament or rns or tpr or rathbones) and a.get("status")!="Confirmed announcement":
-        problems.append("A company announcement must be labelled as such")
-    if (aviva or lloyds or standard or parliament or rns or tpr or rathbones) and a.get("category") not in {"Banking","Insurance","Technology","Regulation"}:
-        problems.append("Original company source not within financial-services industry category")
+    if lane in {"fca_release","company_release","official_release","issuer_rns"} and a.get("status")!="Confirmed announcement":
+        problems.append("An official announcement must be labelled as such")
+    if lane and a.get("category") not in {"Banking","Insurance","Technology","Regulation"}:
+        problems.append("Original source not within financial-services industry category")
     if audit.get("pipeline_version")!=2:
         problems.append("Missing independent sentence-level review")
     if audit.get("source_extraction")!="HTML main content":
