@@ -13,7 +13,8 @@ from urllib.parse import urljoin, urlsplit
 import urllib.request
 from bs4 import BeautifulSoup
 
-ALLOWED = {"fca.org.uk", "www.fca.org.uk", "bankofengland.co.uk", "www.bankofengland.co.uk"}
+ALLOWED = {"fca.org.uk", "www.fca.org.uk", "bankofengland.co.uk", "www.bankofengland.co.uk",
+           "aviva.com", "www.aviva.com", "lloydsbankinggroup.com", "www.lloydsbankinggroup.com"}
 UA = "TheBriefResearch/0.2 (public official documents; editorial attribution)"
 MAX_BYTES = 3_000_000
 MAX_TEXT = 43_000
@@ -84,6 +85,12 @@ def html_extract(raw, source_url):
         fallback=clean_text(main.get_text(" ",strip=True))
         if len(fallback)>len(text):
             text=fallback
+    # Company newsrooms put promotional boilerplate, investor disclosures and
+    # recommendations after the actual release. Remove unrelated later cards
+    # rather than letting them contaminate the model's story.
+    if urlsplit(source_url).hostname in {"www.aviva.com","aviva.com"}:
+        for stop in ("\n\nEnquiries:", "\n\nNotes to editors:", "\n\nMore from our Newsroom"):
+            if stop in text: text=text.split(stop,1)[0]
     if len(text)<850:
         raise SourceError(f"Insufficient official article content ({len(text)} characters); cannot responsibly draft")
     # Some FCA charts and data widgets render figures inside DIV/SPAN content,
