@@ -2,6 +2,10 @@ name: Autonomous financial news desk
 # FCA factual statistical summaries only; all other AI drafts stay private.
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/ai-newsroom.yml'
   workflow_dispatch:
   schedule:
     - cron: '13 7 * * *'
