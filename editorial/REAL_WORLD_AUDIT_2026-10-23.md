@@ -6,7 +6,7 @@
 
 ## Material evidence limitation
 
-The original AI ZIP includes the article, five self-selected citation excerpts and a SHA-256 digest. It **does not contain the actual extracted source text, complete primary documents or PDF annexes**. Our independent web retrieval could not access the two particular 22 October FCA landing pages directly. Consequently, a handful of quotations *claimed* to come from a source cannot prove the other material assertions.
+The original AI ZIP includes the article, five self-selected citation excerpts and a SHA-256 digest. It **does not contain the extracted source text, complete primary documents or PDF annexes**. The missing source extract makes retrospective fingerprint validation impossible for that old bundle even though the FCA complaints page is now independently accessible. At first our independent web retrieval could not access either of the new FCA landing pages directly. Subsequently we reached the complete **FCA H1 2026 complaints HTML page** through the FCA's official complaints index. The CP26/37 original consultation and its complete PDF remain outstanding. Consequently, a handful of quotations *claimed* to come from a source cannot prove the other material assertions.
 
 No human reviewer can honestly sign the current approval checklist on these old artifact bundles without retrieving and checking the complete official publications first.
 
@@ -47,14 +47,14 @@ The AI pipeline has been changed for future drafts to retain the **exact extract
 
 | Claim in article | Current outcome | Professional review needed |
 |---|---|---|
-| 1.85 million complaints received, Jan–Jun 2026 | **Not independently confirmed directly** | Retrieve FCA H1 2026 aggregate dataset and check methodology/precision |
-| 6.3% increase over 2025 H2 | **Plausible using rounded numbers, not signed off** | Independent calculation from *unrounded* FCA published counts; 1.85 / 1.74 − 1 ≈ 6.32%, but rounded figures do not prove exact rate |
+| 1.85 million complaints received, Jan–Jun 2026 | **SUPPORTED by FCA H1 2026 page** | FCA explicitly reports this volume; check underlying XLSX only for deeper breakdowns |
+| 6.3% increase over 2025 H2 | **SUPPORTED as FCA-reported result** | FCA explicitly states 6.3%; 1.85 / 1.74 − 1 ≈ 6.32% from rounded values; underlying XLSX needed to independently recompute exact rate |
 | 'Six percent rise' in standfirst | **HOLD — inconsistent precision** | Prefer exact, source-backed 6.3% if established |
-| £240 million paid in redress | **Not independently confirmed directly** | Check official redress table, measure/time window, whether paid/awarded; don't infer per-complaint relationship |
-| 'Just over half of cases received were found in favour of complainants' | **HOLD — denominator not established** | FCA reports *upheld complaints* using complaint closure metrics. Verify whether the cited percentage is of closed cases; do not say received without evidence |
+| £240 million paid in redress | **SUPPORTED by FCA H1 2026 page** | FCA explicitly says redress **paid**, up 1.8% from £236 million; don't infer per-complaint relationship |
+| 'Just over half of cases received were found in favour of complainants' | **HOLD — imprecise denominator** | FCA's overview uses this broad phrasing, but its detailed breakdown is unambiguous: **1,003,011 upheld, 54.8% of CLOSED complaints upheld**. Our article must use the precise closed-case denominator |
 | Upholding complaints 'resulted in' £240m redress | **HOLD — unsupported causal inference** | Report upheld proportion and redress separately; avoid implying the statistic itself proves causality or one-to-one linkage |
-| Current accounts highest complaint-volume product | Provisionally supported by claimed excerpt and prior-methodology context | Verify 2026 H1 product ranking and whether it is a *volume*, not rate, ranking |
-| Over 3,000 regulated firms and 500/1,000 disclosure thresholds | General FCA methodology supported | Confirm that the 2026 H1 data uses identical definition and coverage |
+| Current accounts highest complaint-volume product | **SUPPORTED by FCA H1 2026 page** | Explicitly described as most complained-about *product*; don't imply the highest complaint rate per account |
+| Over 3,000 regulated firms and 500/1,000 disclosure thresholds | **SUPPORTED by FCA H1 2026 page** | The FCA lists more than 3,000 firms in aggregate and the 500/1,000 firm-level reporting thresholds |
 | Published complaints data by itself measures firm quality | Article rightly cautions against this | Preserve exclusion/methodology and account for size of customer base |
 | Claim H1 2026 figures represent all consumer-credit-only firms | **Not made in article** | Preserve FCA's explicit exclusion of firms authorised only for consumer-credit activities |
 
@@ -66,7 +66,7 @@ The AI pipeline has been changed for future drafts to retain the **exact extract
 
 **Trusted contextual references:**
 - FCA complaints data and explanatory methodology: https://www.fca.org.uk/data/complaints-data
-- FCA H1 2026 original claimed by draft: https://www.fca.org.uk/data/complaints-data-2026-h1
+- FCA H1 2026 **directly inspected** original: https://www.fca.org.uk/data/complaints-data-2026-h1
 
 **Publication decision: HOLD.** Requires accessible full current-period aggregate dataset, precise denominators, independent calculations and improved copy.
 
@@ -77,7 +77,7 @@ The AI pipeline has been changed for future drafts to retain the **exact extract
 3. Plain-English prompts did not reliably prevent robotic openings and spelled-out amounts.
 4. Source-number presence cannot establish the *right meaning, denominator or causal relationship*.
 5. Relative-timing language and proposed/effective distinctions need specialist editorial review.
-6. Neither direct live 22 October 2026 FCA page was independently accessible in the web review interface at audit time. We must not claim the two originals were fully independently inspected.
+6. **The H1 2026 complaints HTML page was subsequently retrieved and examined independently; CP26/37 was not.** The complaints data workbook and linked consultation PDF have not yet been fully inspected, so comprehensive documentary sign-off is still not complete.
 
 ## Required remediation (already in code or pending)
 
