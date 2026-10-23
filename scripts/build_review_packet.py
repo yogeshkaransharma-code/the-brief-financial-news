@@ -32,6 +32,13 @@ def render():
             escape(x["source_excerpt"]) + "</blockquote></li>"
             for x in audit.get("verbatim_source_checks", [])
         )
+        captured = bundle.get("captured_source_excerpt", "")
+        evidence_snapshot = (
+            "<details><summary>View exact extracted source text supplied to AI (not the complete document)</summary>"
+            "<pre class=\"source-extract\">" + escape(captured) + "</pre></details>"
+            if captured else "<p class=\"warning\">Source snapshot missing. Publication must be held.</p>"
+        )
+        source_limits = escape(audit.get("source_retrieval_limits", "Human verification of the complete official source remains essential."))
         source = escape(article["url"], quote=True)
         cards.append(
             f'<article><small>UNPUBLISHED · {escape(article["status"])}</small>'
@@ -40,6 +47,7 @@ def render():
             f'<p><b>Primary source:</b> <a href="{source}" rel="noopener noreferrer">{escape(article["source"])}</a></p>'
             f'<div class="copy">{body}</div>'
             f'<h2>Evidence to check against the original</h2><ol>{checks}</ol>'
+            f'<p class="warning">{source_limits}</p>{evidence_snapshot}'
             '<p class="warning">Matching quotes does not verify the interpretation or every claim. '
             'Check all deadlines, amounts, regulatory status and possible implications. '
             'Reject or revise the draft if anything is inaccurate.</p></article>'
@@ -62,6 +70,7 @@ article h2{font-size:26px;margin-top:34px}small{font-weight:800;color:#33645d;le
 .standfirst{font-size:19px;color:#46615f}.warning{background:#fff4e8;padding:17px;border-left:3px solid #ad7048}
 blockquote{margin:8px 0 24px;padding:8px 18px;border-left:3px solid #a4bcb5;color:#45615f}
 code{overflow-wrap:anywhere;font-size:14px}a{color:#1f625c}.copy p{margin-bottom:19px}
+.source-extract{font-size:12px;white-space:pre-wrap;overflow-wrap:anywhere;border:1px solid #e2e2e2;background:#f7f7f5;padding:18px;max-height:450px;overflow:auto}
 </style></head><body><main><p>THE BRIEF · INTERNAL EDITORIAL REVIEW</p>
 <h1>Review today's AI-assisted news drafts</h1>
 <p>Run ID: <code>__RUN__</code>. Drafts in this packet are not on the public website.</p>
