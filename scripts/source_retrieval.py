@@ -174,7 +174,10 @@ def self_test():
     html=b"<main><h1>Official update</h1><p>"+b"Details of the regulatory announcement and how it affects a defined group of firms. "*18+b"</p></main>"
     text,_=html_extract(html,"https://www.fca.org.uk/news/a")
     assert "announcement" in text
-    print("PASS: approved-host restrictions, HTML extraction and no silent truncation")
+    richer=b"<main><h1>Published data</h1><p>"+b"The FCA's published reporting covers regulated financial firms and aggregate consumer complaints. "*17+b"</p><div class='chart'><span>54.8%</span></div></main>"
+    captured,_=html_extract(richer,"https://www.fca.org.uk/data/complaints-data-2026-h1")
+    assert "54.8%" in captured, "Figure embedded outside paragraphs must not disappear"
+    print("PASS: approved-host restrictions, chart/span figures, HTML extraction and no silent truncation")
 
 if __name__=="__main__":
     self_test()
