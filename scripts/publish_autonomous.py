@@ -22,13 +22,16 @@ ROOT = Path(__file__).resolve().parents[1]
 ARTICLES = ROOT / "data/articles.json"
 AUDIT_DIR = ROOT / "data/editorial-audits"
 DRAFT_DIR = ROOT / "generated-drafts"
-MAX_ARTICLES = 1
-POLICY_VERSION = "limited-autonomy-2026-10-23.1"
-# One tightly defined factual pilot: official FCA half-year complaints reports.
-# Do not expand this to arbitrary consultations, press releases or market news.
-ELIGIBLE = re.compile(r"^/data/complaints-data-\d{4}-h[12]/?$", re.I)
+MAX_ARTICLES = 2
+POLICY_VERSION = "first-party-newsroom-2026-10-23-v1"
+# Only named primary-source newsrooms and narrow first-party categories.
+# Never republish a third-party report or an unsupported RSS summary.
+FCA_REPORT = re.compile(r"^/data/complaints-data-\d{4}-h[12]/?$", re.I)
+AVIVA_RELEASE = re.compile(r"^/newsroom/news-and-research-overview/news-releases/20\d{2}/\d{2}/[a-z0-9-]+/?$",re.I)
+LLOYDS_RELEASE = re.compile(r"^/media/press-releases/20\d{2}/[a-z0-9-]+(?:/[a-z0-9-]+)?\.html$",re.I)
+SPEECH = re.compile(r"/speeches?/",re.I)
 HIGH_RISK = re.compile(
-    r"\b(?:fraud|criminal|convicted|guilty|misconduct|lawsuit|litigation|"
+    r"\b(?:criminal|convicted|guilty|misconduct|lawsuit|litigation|"
     r"regulatory breach|sanction|enforcement action|will have to|must comply|"
     r"comes into force|new legal duty|accused of|insolvency|bankruptcy)\b", re.I
 )
@@ -43,10 +46,18 @@ def eligible(bundle):
     except (ValueError, KeyError, TypeError) as exc:
         return ["Editorial evidence gate failed: "+str(exc)]
     parts=urlsplit(a["url"])
-    if parts.scheme!="https" or parts.hostname not in {"www.fca.org.uk","fca.org.uk"} or not ELIGIBLE.fullmatch(parts.path):
-        problems.append("Not in explicit FCA statistical-summary allowlist")
-    if a.get("status")!="Published report":
-        problems.append("Not a published statistical report")
+    host=parts.hostname or ""
+    fca_report=host in {"www.fca.org.uk","fca.org.uk"} and bool(FCA_REPORT.fullmatch(parts.path))
+    aviva=host in {"www.aviva.com","aviva.com"} and bool(AVIVA_RELEASE.fullmatch(parts.path))
+    lloyds=host in {"www.lloydsbankinggroup.com","lloydsbankinggroup.com"} and bool(LLOYDS_RELEASE.fullmatch(parts.path))
+    if parts.scheme!="https" or not (fca_report or aviva or lloyds):
+        problems.append("Not within documented primary-source statistical or company-announcement allowlist")
+    if fca_report and a.get("status")!="Published report":
+        problems.append("FCA statistics incorrectly described")
+    if (aviva or lloyds) and a.get("status")!="Confirmed announcement":
+        problems.append("A company announcement must be labelled as such")
+    if (aviva or lloyds) and a.get("category") not in {"Banking","Insurance","Technology"}:
+        problems.append("Original company source not within financial-services industry category")
     if audit.get("pipeline_version")!=2:
         problems.append("Missing independent sentence-level review")
     if audit.get("source_extraction")!="HTML main content":
@@ -61,8 +72,11 @@ def eligible(bundle):
     updated=dt.datetime.now(dt.timezone.utc).date()
     try:
         issued=dt.date.fromisoformat(a["dateISO"])
-        if not dt.timedelta(days=0)<=updated-issued<=dt.timedelta(days=5):
-            problems.append("Document is too old or incorrectly dated for automatic publication")
+        # The initial intake can catch up on recent first-party news without
+        # mislabelling its original source date as today's new development.
+        max_age=21 if (aviva or lloyds) else 5
+        if not dt.timedelta(days=0)<=updated-issued<=dt.timedelta(days=max_age):
+            problems.append("Original source outside the autonomous news freshness window")
     except (ValueError,TypeError):
         problems.append("Invalid source date")
     if bundle.get("editorial_flags") or bundle.get("revision_history",[])[-1:][0:1] and bundle["revision_history"][-1].get("problems"):
@@ -110,7 +124,7 @@ def publish(root=ROOT, folder=None, dry_run=False):
             report["held"].append({"id":aid,"reason":reasons})
             continue
         if len(report["published"])>=MAX_ARTICLES:
-            report["held"].append({"id":aid,"reason":["One story per run safety cap"]})
+            report["held"].append({"id":aid,"reason":["Daily original-story cap"]})
             continue
         item=dict(a)
         item["reviewed_by"]="autonomous-evidence-screening"
@@ -130,7 +144,7 @@ def publish(root=ROOT, folder=None, dry_run=False):
             "published_article_sha256":canonical(item),
             "source_document_urls":bundle["audit"]["source_document_urls"],
             "claim_challenge_sentences":bundle["audit"]["sentence_review"]["reviewed"],
-            "editor_notes":"Strict automated FCA statistical-summary screening; NOT verified by a human editor.",
+            "editor_notes":"Original regulator or first-party banking/insurance release; machine-screened, not fact-certified by a human editor.",
             "residual_risk":"The AI and source may be wrong; a passing automated check does not prove a claim's meaning.",
         }
         if not dry_run:
