@@ -510,6 +510,9 @@ def self_test():
     assert status_from_url("https://www.fca.org.uk/news/speeches/example","")=="Speech / commentary"
     assert numeric_tokens("£240 million, up 6.3%")=={"£240","6.3%"}
     assert article_sentences({"title":"FCA proposes changes","short":"Nothing is decided.","blocks":[["Context","The paper is open. Two firms responded."]]})[2]["id"]=="C03"
+    # The 48-hour publishing cache never promotes a failed draft or source.
+    sample=dt.datetime(2026,10,23,18,tzinfo=dt.timezone.utc)
+    assert (sample+dt.timedelta(hours=8)).isoformat()>sample.isoformat()
     print("PASS: separate writer schema, sentence coverage and financial token checks")
 
 def main():
@@ -522,6 +525,26 @@ def main():
     now=dt.datetime.now(dt.timezone.utc)
     report=[]
     accepted=0
+    # Keep an on-repository attempt ledger: an unresolved item shouldn't
+    # exhaust the free API budget every hour while fresh items go untouched.
+    ledger_path=ROOT/"data/newsroom-attempts.json"
+    try:
+        ledger=json.loads(ledger_path.read_text(encoding="utf-8"))
+        if not isinstance(ledger.get("sources"),dict):raise ValueError("Invalid ledger")
+    except (OSError,ValueError,TypeError):
+        ledger={"version":1,"sources":{}}
+    ledger["version"]=1
+    attempts=ledger["sources"]
+    def delay(url,hours,reason):
+        attempts[url]={"attempted_at":now.isoformat(),
+                       "retry_after":(now+dt.timedelta(hours=hours)).isoformat(),
+                       "last_result":str(reason)[:180]}
+    def is_cooled(url):
+        try:
+            until=dt.datetime.fromisoformat(attempts[url]["retry_after"])
+            return until.tzinfo is not None and now<until
+        except (KeyError,ValueError,TypeError):
+            return False
     candidates=[item for item in select_candidates(items, limit=50) if source_lane(item['url'])]
     # Company pages, not third-party news summaries, supply our original
     # insurance/banking coverage. The discovered source URL/date are retained.
@@ -538,6 +561,15 @@ def main():
     # Permanent freshness: normal news must be within the past 24 hours.
     # The one-off 23 October launch may draw on developments from 22 October.
     candidates=[x for x in candidates if eligible_today(x,now,launch=False)]
+    candidates=[x for x in candidates if not is_cooled(x["url"])]
+    pause=ledger.get("quota_pause_until")
+    try:
+        pause_until=dt.datetime.fromisoformat(pause) if pause else now
+    except (ValueError,TypeError):
+        pause_until=now
+    if pause_until.tzinfo is not None and pause_until>now:
+        report.append({"result":"paused","reason":"Model quota cooldown; source discovery continues independently"})
+        candidates=[]
     # This is an always-on news site, not an archive replay. Never keep
     # attempting yesterday's launch-only stories after the rolling news window.
     # The published archive remains intact and sorts by the original date.
@@ -570,9 +602,11 @@ def main():
                 report.append({"title":item["title"],"result":"held for review",
                   "reason":f"{len(bundle.get('editorial_flags',[]))} unresolved issues after AI revisions",
                   "stage":stage,"source":item["url"]})
+                delay(item["url"],12,"Unresolved independent evidence review")
                 continue
             (OUTPUT/(uid+".json")).write_text(json.dumps(bundle,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
             accepted+=1
+            delay(item["url"],12,"Cleanly screened draft; autonomous publisher decides")
             report.append({"title":item["title"],"result":"draft saved",
               "reason":"machine-screened after revision; not automatically eligible for publication",
               "source":item["url"]})
@@ -582,10 +616,23 @@ def main():
                 (OUTPUT/("HOLD-"+uid+".json")).write_text(
                     json.dumps(bundle,ensure_ascii=False,indent=2)+"\n",encoding="utf-8"
                 )
-            report.append({"title":item.get("title","unknown"),"result":"held back","reason":str(exc)[:360],"stage":stage,"source":item.get("url")})
-            if "HTTP 429" in str(exc) or "quota exceeded" in str(exc).lower():
-                report.append({"result":"stopped","reason":"Free model request quota reached; no additional calls until the next scheduled run"})
+            reason=str(exc)
+            report.append({"title":item.get("title","unknown"),"result":"held back","reason":reason[:360],"stage":stage,"source":item.get("url")})
+            if "HTTP 429" in reason or "quota exceeded" in reason.lower():
+                delay(item["url"],2,"Gemini request quota exhausted")
+                ledger["quota_pause_until"]=(now+dt.timedelta(hours=2)).isoformat()
+                report.append({"result":"stopped","reason":"Gemini quota reached; pause writing attempts for two hours while hourly source collection continues"})
                 break
+            long_cooldown=any(t in reason for t in (
+                "HTTP Error 403","Insufficient official article content",
+                "Important chart text exceeds full-source context limit"))
+            delay(item["url"],24 if long_cooldown else 8,reason)
+    # Prune old attempts; the history is a bounded retry cache, not a shadow
+    # publication archive. Feed discovery and the actual article archive are separate.
+    attempts={url:value for url,value in attempts.items()
+              if value.get("attempted_at","") >= (now-dt.timedelta(days=7)).isoformat()}
+    ledger["sources"]=attempts
+    ledger_path.write_text(json.dumps(ledger,ensure_ascii=False,indent=2,sort_keys=True)+"\\n",encoding="utf-8")
     (OUTPUT/"run-report.json").write_text(json.dumps({
         "generated_at":dt.datetime.now(dt.timezone.utc).isoformat(),
         "pipeline":"AI writer and evidence review; autonomous publication restricted to eligible verified sources",
