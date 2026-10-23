@@ -8,8 +8,8 @@ A free, mobile-friendly financial news hub covering insurance, banking, technolo
 
 - The GitHub Pages website is deployed.
 - The RSS feed is collected and redeployed hourly, subject to GitHub scheduling delays.
-- The first AI newsroom pilot is installed and its offline validation tests have passed.
-- The Gemini key is configured and the AI newsroom has successfully generated draft articles. **No AI article publishes automatically**; every one requires accountable human review.
+- The source-first AI writer and separate evidence checker are installed. A strictly limited autonomous factual pilot is active, with daily scheduled runs.
+- The Gemini key is configured. **Only narrow FCA aggregate complaints-statistics articles may publish without daily human intervention** after the automated source and evidence gates; other AI drafts remain unpublished.
 
 The site is hosted free in a public GitHub repository. Scheduled GitHub Actions checks available RSS feeds hourly, keeps a deduplicated archive, and redeploys the static website. GitHub schedules are best-effort, not exactly timed.
 
@@ -22,13 +22,28 @@ The site is hosted free in a public GitHub repository. Scheduled GitHub Actions 
 
 The V2 pilot checks selected official FCA and Bank of England web pages. It first retrieves bounded original HTML and, where confidently identified, a central selectable-text PDF; nothing is silently truncated. Gemini writes a natural original article **without** being forced to invent supporting quotations. A **separate AI request** challenges each headline, summary and article sentence against the captured source, and a deterministic gate checks citation presence, figures, dates, document fingerprints and review coverage. **Those checks are not a substitute for editorial fact-checking.** Drafts are not displayed on the public site. The scheduled pilot runs once a day; the original hourly RSS feed continues independently.
 
-The site is already wired to load fully written, editor-approved articles from `data/articles.json`. Its AI publication flow must also create a version-locked approval record under `data/editorial-audits/`.
+The site loads full original articles from `data/articles.json`. Every item must have a version-locked audit record identifying whether its approval was accountable-human or explicitly autonomous with no human review.
 
 **Free-tier note:** Gemini free-tier inputs and outputs may be used by Google to improve its products. This pipeline should receive only public material, not confidential client information. No billing is enabled by our GitHub code, but verify your Google project's billing settings independently.
 
+## Autonomous publication pilot (active; strictly limited)
+
+The daily **Autonomous financial news desk** GitHub Action now attempts a complete workflow without requiring a person to approve each article:
+
+1. Retrieves bounded original official HTML and PDFs where confidently identified.
+2. Gemini writes a complete original, readable British-English article; a separate AI call challenges each article sentence.
+3. When specific objections arise, the AI can rewrite and re-verify the article, with at most **two revision rounds**. Failed versions are retained privately for later diagnosis.
+4. Deterministic checks reject absent or altered source quotations, unsupported figures, false regulatory-force claims, denominator errors, misleading rounded percentage-point comparisons, changed drafts and incomplete reviews.
+5. **Only** original FCA half-year aggregate complaints-data pages matching `/data/complaints-data-YYYY-h1` or `-h2`, with eligible complete captured HTML, no retrieval warnings and zero unresolved claim findings, may publish automatically. **Maximum one per run.** Consultations, speeches, sanctions, allegations, generic financial news and material requiring PDF interpretation remain unpublished.
+6. The automatic publication leaves a machine-specific audit under `data/editorial-audits/`, is deduplicated and visibly labelled **AI-assisted, machine-screened, not human-reviewed** on the website. Any other story stays in the unpublished review artifact.
+
+**Residual risk:** Even after a clean AI-versus-AI check, a source may have ambiguity or the model may misunderstand it. Machine screening is not professional human verification; never claim zero-error publication. This pilot is intentionally very narrow, can publish no articles on a given day and must not silently widen itself. A documented correction/withdrawal process and later human oversight are still needed for a responsible public newsroom.
+
+To pause automatic publication without stopping source discovery, change `AUTO_PUBLICATION_ENABLED` to `0` in `.github/workflows/ai-newsroom.yml` (the publish script otherwise performs a dry run). To expand eligible topics, make a separate researched editorial-policy change and add adversarial tests before editing the allowlist.
+
 ## Editorial review and article publication
 
-The automated newsroom is **draft-only**. The AI is not authorised to publish its own work. The second AI pass is not a human or independent journalistic fact-check; it merely flags potential errors. Weak, incomplete or disputed sources and unsupported sentences are held, not approved.
+Outside the narrowly defined FCA factual-statistics pilot above, the automated newsroom is **draft-only**. Its second AI pass is not an independent human fact-check; it flags potential errors. Weak, incomplete or disputed sources and unsupported sentences are held, not approved.
 
 1. Open [Draft plain-English financial news](https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/workflows/ai-newsroom.yml). A scheduled run takes place each morning, or select **Run workflow** for a manual test.
 2. Open a completed run and download its **the-brief-ai-drafts** artifact.
