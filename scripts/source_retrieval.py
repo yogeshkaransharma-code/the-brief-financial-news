@@ -90,10 +90,10 @@ def html_extract(raw, source_url):
     # not paragraph or table tags. Preserve the *entire* official main text if
     # it contains numeric tokens absent from our structured extraction.
     complete_main=clean_text(main.get_text(" ",strip=True))
-    amount=re.compile(r"(?<![\\w])(?:£|\\$)?\\d+(?:[.,]\\d+)*(?:%|bn|m|k)?(?![\\w])",re.I)
+    amount=re.compile(r"(?<![\w])(?:£|\$)?\d+(?:[.,]\d+)*(?:%|bn|m|k)?(?![\w])",re.I)
     numbers=lambda value: {m.group().lower().replace(",","") for m in amount.finditer(value)}
     if numbers(complete_main)-numbers(text):
-        proposed=text+"\\n\\n[ADDITIONAL MAIN-PAGE CHART AND FIGURE TEXT]\\n"+complete_main
+        proposed=text+"\n\n[ADDITIONAL MAIN-PAGE CHART AND FIGURE TEXT]\n"+complete_main
         if len(proposed)>MAX_TEXT:
             raise SourceError("Important chart text exceeds full-source context limit; held without truncation")
         text=proposed
