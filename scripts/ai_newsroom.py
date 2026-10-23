@@ -352,9 +352,18 @@ def main():
             editorial_check({"draft": article, "audit": audit})
             results.append(article)
             tried.append({"title": item["title"], "result": "draft saved", "source": item["url"]})
+            # Include the exact extracted text given to the model in the private
+            # editorial artifact, so a reviewer can audit claims independently.
+            # This is NOT a full regulatory document or a substitute for a linked PDF.
+            audit["source_retrieval_limits"] = (
+                "Official HTML excerpt supplied to AI, limited to 19,000 characters. "
+                "Linked PDF documents, tables and appendices are not automatically parsed. "
+                "Read the original complete materials before any human sign-off."
+            )
             (OUTPUT / (article["id"] + ".json")).write_text(json.dumps({
                 "draft": article, "audit": audit,
-                "notice": "Unpublished draft. Evidence quotes are checked, but factual conclusions still need review."
+                "captured_source_excerpt": source,
+                "notice": "UNPUBLISHED: extracted HTML is not the complete source record; material claims require human checking."
             }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         except Exception as exc:
             tried.append({"title": item["title"], "result": "held back", "reason": str(exc)[:250]})
