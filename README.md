@@ -20,7 +20,7 @@ The site is hosted free in a public GitHub repository. Scheduled GitHub Actions 
 3. Visit [AI newsroom workflow](https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/workflows/ai-newsroom.yml) and select **Run workflow**, branch `main`.
 4. Open the completed run. Its `the-brief-ai-drafts` artifact contains up to two full article drafts and an audit report. If the source material is insufficient or the evidence checks fail, the article is held back.
 
-The pilot checks official FCA and Bank of England web pages. It generates original plain-English reporting in British English from primary-source material and checks several verbatim evidence excerpts. **Those checks are not a substitute for editorial fact-checking.** Drafts are not displayed on the public site. The scheduled pilot runs once a day; the original hourly RSS feed continues independently.
+The V2 pilot checks selected official FCA and Bank of England web pages. It first retrieves bounded original HTML and, where confidently identified, a central selectable-text PDF; nothing is silently truncated. Gemini writes a natural original article **without** being forced to invent supporting quotations. A **separate AI request** challenges each headline, summary and article sentence against the captured source, and a deterministic gate checks citation presence, figures, dates, document fingerprints and review coverage. **Those checks are not a substitute for editorial fact-checking.** Drafts are not displayed on the public site. The scheduled pilot runs once a day; the original hourly RSS feed continues independently.
 
 The site is already wired to load fully written, editor-approved articles from `data/articles.json`. Its AI publication flow must also create a version-locked approval record under `data/editorial-audits/`.
 
@@ -28,11 +28,11 @@ The site is already wired to load fully written, editor-approved articles from `
 
 ## Editorial review and article publication
 
-The automated newsroom is **draft-only**. The AI is not authorised to publish its own work.
+The automated newsroom is **draft-only**. The AI is not authorised to publish its own work. The second AI pass is not a human or independent journalistic fact-check; it merely flags potential errors. Weak, incomplete or disputed sources and unsupported sentences are held, not approved.
 
 1. Open [Draft plain-English financial news](https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/workflows/ai-newsroom.yml). A scheduled run takes place each morning, or select **Run workflow** for a manual test.
 2. Open a completed run and download its **the-brief-ai-drafts** artifact.
-3. Unzip it and open **EDITORIAL-REVIEW.html** in your browser. It contains complete candidate articles, official source links, excerpts supporting claims and any rejected candidates.
+3. Unzip it and open **EDITORIAL-REVIEW.html** in your browser. It contains both *screened* and *held* candidate articles, their complete captured text where available, original document links, sentence-level issues and the sources refused before writing.
 4. Compare **every factual claim, deadline, number, regulatory status and suggested implication** with the original source. Do not approve material that is unsupported, inaccurate, misleading or too jargon-heavy. AI and keyword tests cannot replace this judgement.
 5. To publish an article you have genuinely reviewed, open [Publish a reviewed article](https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/workflows/publish-reviewed.yml), choose **Run workflow**, and enter:
    - `draft_run_id`: the numerical run ID from the drafting run page
@@ -73,7 +73,9 @@ Editorial limits: the pilot covers selected FCA and Bank of England documents. T
 - `scripts/update_feeds.py`: RSS collector
 - `data/live.json`: automatically updated source headlines and short descriptions
 - `data/articles.json`: full, approved original articles loaded on-site (currently empty)
-- `scripts/ai_newsroom.py`: official-page reader, AI drafting and evidence checks
+- `scripts/ai_newsroom.py`: legacy helpers for Gemini calls, source discovery and historical validation tests
+- `scripts/source_retrieval.py`: bounded HTML / selectable-text PDF capture with official-domain restrictions
+- `scripts/newsroom_v2.py`: independent writer-and-sentence-review draft-only newsroom
 - `.github/workflows/ai-newsroom.yml`: daily draft workflow and action artifacts
 - `.github/workflows/hourly-news.yml`: news collection and GitHub Pages deployment
 
