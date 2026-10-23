@@ -1,6 +1,6 @@
 name: Autonomous financial news desk
-# Official regulator, bank and insurer newsrooms; only low-risk first-party material may publish.
-# Launch fifth-story retry: omit unsupported compound claims and independently reverify.
+# Original first-party financial stories; machine-only verification is source-limited.
+# Recheck fresh primary-source developments throughout the day; hold anything uncertain.
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
       - '.github/workflows/ai-newsroom.yml'
   workflow_dispatch:
   schedule:
-    - cron: '13 7 * * *'
+    - cron: '13 3,7,11,15,19,23 * * *'
 
 permissions:
   contents: write
@@ -39,8 +39,12 @@ jobs:
       - name: Install official-document parsers
         run: python -m pip install -r scripts/requirements-newsroom.txt
 
+      - name: Refresh fresh financial-news leads
+        run: python scripts/update_feeds.py
+
       - name: Test draft validation logic
         run: |
+          python scripts/publication_scope.py
           python scripts/ai_newsroom.py --self-test
           python scripts/source_retrieval.py
           python scripts/first_party_sources.py
