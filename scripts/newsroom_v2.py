@@ -16,10 +16,11 @@ from urllib.parse import urlsplit
 from ai_newsroom import ROOT, OUTPUT, MODEL, fetch_gemini, select_candidates, norm
 from source_retrieval import read_source, SourceError
 from first_party_sources import discover
+from fresh_sources import launch_items, eligible_today
 from editorial_gate import check as editorial_check
 
-MAX_CANDIDATES = 5
-MAX_DRAFTS = 2
+MAX_CANDIDATES = 12
+MAX_DRAFTS = 6
 MIN_WORDS = 190
 MAX_WORDS = 950
 NUMBER = re.compile(r"(?<![\w])(?:£|\$)?\d+(?:[.,]\d+)*(?:%|bn|m|k)?(?![\w])", re.I)
@@ -384,6 +385,7 @@ def main():
     if not os.environ.get("GEMINI_API_KEY"):
         raise RuntimeError("GEMINI_API_KEY is not configured")
     items=json.loads((ROOT/"data/live.json").read_text(encoding="utf-8")).get("items",[])
+    now=dt.datetime.now(dt.timezone.utc)
     report=[]
     accepted=0
     candidates=select_candidates(items)
@@ -395,16 +397,20 @@ def main():
     retired_urls=set(json.loads(retired_path.read_text(encoding="utf-8")).get("urls",[])) if retired_path.exists() else set()
     candidates=[item for item in candidates if item["url"] not in retired_urls]
     known={x["url"] for x in candidates} | published_urls | retired_urls
-    for item in first_party:
+    for item in first_party + launch_items(now.date()):
         if item["url"] not in known:
             candidates.append(item)
             known.add(item["url"])
-    # Source quality and breadth before drafting: a company announcement is
-    # preferable to repeatedly generating the same FCA complaints story.
+    # Permanent freshness: normal news must be within the past 24 hours.
+    # The one-off 23 October launch may draw on developments from 22 October.
+    candidates=[x for x in candidates if eligible_today(x,now,launch=True)]
+    # Prioritise diverse original stories, not a sequence of repeated announcements
+    # about the same firm. A fixed launch queue is a one-time seed, not a fallback
+    # to old stories when the source feeds run dry.
     candidates.sort(key=lambda x: (
-        0 if x.get("kind")=="first_party_announcement" else 1,
-        0 if re.fullmatch(r"/data/complaints-data-\d{4}-h[12]/?",urlsplit(x["url"]).path) else 1,
-        -dt.date.fromisoformat(x["dateISO"]).toordinal()
+        -int(x.get("priority",0)),
+        -dt.date.fromisoformat(x["dateISO"]).toordinal(),
+        0 if x.get("category")=="Insurance" else 1
     ))
     for item in candidates[:MAX_CANDIDATES]:
         if accepted>=MAX_DRAFTS:
@@ -443,7 +449,7 @@ def main():
                 break
     (OUTPUT/"run-report.json").write_text(json.dumps({
         "generated_at":dt.datetime.now(dt.timezone.utc).isoformat(),
-        "pipeline":"separate writer and sentence-level AI challenge; human sign-off required",
+        "pipeline":"AI writer and evidence review; autonomous publication restricted to eligible verified sources",
         "model":MODEL,"machine_screened":accepted,"first_party_discovery_errors":discovery_errors,"items_checked":report
     },ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(f"Newsroom V2: {accepted} screened draft(s), {len(report)} attempted; NO automatic publication.")
