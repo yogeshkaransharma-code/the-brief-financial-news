@@ -43,10 +43,15 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Install official-document parsers
+        run: python -m pip install -r scripts/requirements-newsroom.txt
+
       - name: Test newsroom syntax and editorial publishing controls
         run: |
-          python -m py_compile scripts/ai_newsroom.py scripts/editorial_gate.py scripts/publish_reviewed.py scripts/build_review_packet.py
+          python -m py_compile scripts/ai_newsroom.py scripts/newsroom_v2.py scripts/source_retrieval.py scripts/editorial_gate.py scripts/publish_reviewed.py scripts/build_review_packet.py
           python scripts/ai_newsroom.py --self-test
+          python scripts/source_retrieval.py
+          python scripts/newsroom_v2.py --self-test
           python scripts/editorial_gate.py --self-test
           python scripts/test_publishing.py
           python scripts/test_editorial_benchmark.py
