@@ -19,7 +19,12 @@ assert "automated research and generative AI" in about, "Reporting method must b
 assert "fetch('data/articles.json'" in html, "AI article loader missing"
 assert "fetch('data/live.json'" not in html, "Internal source wire must not be loaded into the public website"
 assert '<script type="application/json" id="curated-data">[]</script>' in html, "Legacy hand-written articles remain"
-assert "EXPLAINER_GROUPS" not in html, "Legacy prewritten explainers remain"
+assert 'id="context"' in html and 'id="explainer-list"' in html, "Beginner learning section missing"
+assert "const EXPLAINER_GROUPS = " in html and 'Explore all 30 explainers' in html, "Original educational guides are missing"
+assert "Math.floor(today.day/2)" in html, "Explainer set does not rotate every two UK calendar days"
+assert "const scoreDate=s=>Date.parse(s.dateISO||" in html, "Underlying news date is not the primary sort key"
+assert 'date-separator' in html, "Chronological date headings are absent"
+assert "fetch('data/live.json'" not in html, "Internal source feed leaked into public site"
 assert "const byId=()=>Object.fromEntries(published.map" in html, "External feed records exposed as article pages"
 assert "const allItems=()=>sortItems(published.filter(" in html, "Non-AI source headlines are still in the main news feed"
 assert "Edition preview · automated updates not connected" not in html, "Outdated status placeholder"
@@ -52,4 +57,4 @@ for article in published:
     assert len(article.get("blocks", [])) >= 3, "Original article has insufficient coverage"
     assert urlsplit(article.get("url", "")).scheme == "https", "Article source link is invalid"
 
-print(f"PASS: {len(published)} autonomous AI articles, {len(items)} private discovery leads, no legacy content, healthy website")
+print(f"PASS: {len(published)} autonomous AI articles, {len(items)} private discovery leads, no legacy news feed, two-day education rotation, healthy website")
