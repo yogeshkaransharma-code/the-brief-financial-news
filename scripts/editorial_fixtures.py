@@ -40,7 +40,16 @@ def make_bundle():
         "status": "Proposal", "dateISO": date, "category": "Regulation",
         "blocks": [[f"Section {i}", PARAGRAPH] for i in range(5)],
     }
+    import re
+    fields = [article["title"], article["short"]] + [paragraph for _, paragraph in article["blocks"]]
+    n = sum(len([sentence for sentence in re.split(r"(?<=[.!?])\\s+(?=[A-Z0-9£])|\\n+", field) if sentence.strip()]) for field in fields)
     audit = {
+        "pipeline_version": 2,
+        "sentence_review": {"review_schema": "one-verdict-per-sentence-v2",
+                            "total_sentences": n, "reviewed": n, "supported": n, "held": 0,
+                            "reviewed_sentence_ids": [f"C{i:02}" for i in range(1, n + 1)]},
+        "source_document_urls": [article["url"]],
+        "source_title": article["title"],
         "article_id": aid, "source_url": article["url"],
         "source_sha256": hashlib.sha256(PARAGRAPH.encode("utf-8")).hexdigest(),
         "retrieved_at": dt.datetime.now(dt.timezone.utc).isoformat(),
