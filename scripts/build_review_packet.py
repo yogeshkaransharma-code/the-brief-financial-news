@@ -13,13 +13,15 @@ FOLDER = ROOT / "generated-drafts"
 
 def render():
     FOLDER.mkdir(exist_ok=True)
-    files = sorted(FOLDER.glob("ai-*.json"))
+    files = sorted([*FOLDER.glob("ai-*.json"), *FOLDER.glob("HOLD-ai-*.json")])
     repo = os.environ.get("GITHUB_REPOSITORY", "yogeshkaransharma-code/the-brief-financial-news")
     run = os.environ.get("GITHUB_RUN_ID", "unknown")
     cards = []
     for file in files:
         bundle = json.loads(file.read_text(encoding="utf-8"))
         article, audit = bundle["draft"], bundle["audit"]
+        flags = bundle.get("editorial_flags") or []
+        flagged = bool(flags) or file.name.startswith("HOLD-")
         title = escape(article["title"])
         draft_id = escape(article["id"])
         body = "".join(
@@ -40,12 +42,14 @@ def render():
         )
         source_limits = escape(audit.get("source_retrieval_limits", "Human verification of the complete official source remains essential."))
         source = escape(article["url"], quote=True)
+        flag_items = "".join("<li>"+escape(str(flag.get("claim_id","")))+" — "+escape(str(flag.get("reason","")))+"</li>" for flag in flags if isinstance(flag,dict))
+        flags_html = ("<h2>Unresolved evidence or interpretation</h2><ul>"+(flag_items or "<li>Material evidence gaps</li>")+"</ul>") if flagged else ""
         cards.append(
-            f'<article><small>UNPUBLISHED · {escape(article["status"])}</small>'
+            f'<article><small>{("HELD — DO NOT PUBLISH" if flagged else "SCREENED — HUMAN REVIEW REQUIRED")} · {escape(article["status"])}</small>'
             f'<h1>{title}</h1><p class="standfirst">{escape(article["short"])}</p>'
             f'<p><b>Draft ID:</b> <code>{draft_id}</code></p>'
             f'<p><b>Primary source:</b> <a href="{source}" rel="noopener noreferrer">{escape(article["source"])}</a></p>'
-            f'<div class="copy">{body}</div>'
+            f'<div class="copy">{body}</div>{flags_html}'
             f'<h2>Evidence to check against the original</h2><ol>{checks}</ol>'
             f'<p class="warning">{source_limits}</p>{evidence_snapshot}'
             '<p class="warning">Matching quotes does not verify the interpretation or every claim. '
@@ -89,7 +93,7 @@ __ARTICLES__
               .replace("__ARTICLES__", "\n".join(cards) if cards else "<p>No drafts passed verification in this run.</p>")
               .replace("__HELD__", held or "<li>None</li>"))
     (FOLDER / "EDITORIAL-REVIEW.html").write_text(result, encoding="utf-8")
-    print(f"Editorial review packet: {len(files)} complete draft(s)")
+    print(f"Editorial review packet: {len(files)} candidate article(s), including {sum(x.name.startswith('HOLD-') for x in files)} held after independent review")
 
 
 if __name__ == "__main__":
