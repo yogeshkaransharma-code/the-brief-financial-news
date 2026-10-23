@@ -96,7 +96,7 @@ function renderTop(){
  const lead=originals[0];
  if(!lead){
    $('lead-story').innerHTML='<span class="story-kicker">THE NEW BRIEF</span><h1>Financial news, made clear.</h1><p class="standfirst">We’ve reset our publication. The Brief reports on banking, insurance and regulation. When a development is ready to report responsibly, you’ll find the full story here.</p>';
-   $('briefing-stories').innerHTML='<p>Today's briefing will appear as new articles are published.</p>';
+   $('briefing-stories').innerHTML=`<p>Today’s briefing will appear as new articles are published.</p>`;
    return;
  }
  $('lead-story').innerHTML=`<span class="story-kicker">${safe(lead.category)} / THE LEAD STORY</span><h1><button type="button" class="headline-btn" data-open="${safe(lead.id)}">${safe(lead.title)}</button></h1><p class="standfirst">${safe(usefulSummary(lead))}</p><div class="meta">${meta(lead)}</div><button class="cta" type="button" data-open="${safe(lead.id)}">Read the full article ↗</button>`;
