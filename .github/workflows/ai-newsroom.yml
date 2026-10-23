@@ -2,10 +2,6 @@ name: Draft plain-English financial news
 # V2 newsroom re-test after financial consistency fixes; publication remains human-only.
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/ai-newsroom.yml'
   workflow_dispatch:
   schedule:
     - cron: '13 7 * * *'
