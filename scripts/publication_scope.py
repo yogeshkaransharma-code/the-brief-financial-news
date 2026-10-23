@@ -11,6 +11,8 @@ from urllib.parse import urlsplit
 
 FCA_REPORT = re.compile(r"^/data/(?:complaints-data-\d{4}-h[12]|access-cash-coverage-uk-\d{4}-h[12])/?$", re.I)
 FCA_RELEASE = re.compile(r"^/news/press-releases/[a-z0-9-]+/?$", re.I)
+FCA_SPEECH = re.compile(r"^/news/speeches/[a-z0-9-]+/?$", re.I)
+FCA_CONSULTATION = re.compile(r"^/publications/consultation-papers/[a-z0-9-]+/?$", re.I)
 # Adverse actions against firms/people and allegations are NOT published
 # unattended, even when an official regulator announces them.
 ADVERSE = re.compile(
@@ -35,6 +37,13 @@ def source_lane(url: str) -> str | None:
             return "fca_data"
         if FCA_RELEASE.fullmatch(path) and not ADVERSE.search(path.rsplit("/", 1)[-1]):
             return "fca_release"
+        # Only verifiable FCA speeches and consultation papers, not generic
+        # enforcement notices or third-party interpretation. The writer and
+        # publisher must preserve the speech/proposal status and hold legal claims.
+        if FCA_SPEECH.fullmatch(path) and not ADVERSE.search(path.rsplit("/", 1)[-1]):
+            return "fca_speech"
+        if FCA_CONSULTATION.fullmatch(path) and not ADVERSE.search(path.rsplit("/", 1)[-1]):
+            return "fca_consultation"
     if host in {"aviva.com", "www.aviva.com"} and AVIVA_RELEASE.fullmatch(path):
         return "company_release"
     if host in {"lloydsbankinggroup.com", "www.lloydsbankinggroup.com"} and LLOYDS_RELEASE.fullmatch(path):
@@ -58,7 +67,9 @@ def self_test():
     assert source_lane("https://www.fca.org.uk/data/access-cash-coverage-uk-2025-h1") == "fca_data"
     assert source_lane("https://www.fca.org.uk/news/press-releases/fca-restricts-6-firms-following-concerns-over-anti-money-laundering-controls") is None
     assert source_lane("https://www.fca.org.uk.evil.com/news/press-releases/test") is None
-    assert source_lane("https://www.fca.org.uk/news/speeches/something") is None
+    assert source_lane("https://www.fca.org.uk/news/speeches/beyond-borders-regulating-risks-we-share") == "fca_speech"
+    assert source_lane("https://www.fca.org.uk/publications/consultation-papers/cp26-38-financial-crime-guide-updates") == "fca_consultation"
+    assert source_lane("https://www.fca.org.uk/news/speeches/fines-and-sanctions") is None
     assert source_lane("http://www.fca.org.uk/data/complaints-data-2026-h1") is None
     print("PASS: fresh FCA reporting lanes; high-risk enforcement and spoofed sources remain held")
 
