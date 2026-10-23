@@ -120,6 +120,11 @@ def revision_prompt(item,official,article,flags,attempt):
     return (
         "You are revising a British financial-news article after an evidence audit. "
         "The draft has NOT been approved. Fix each disputed claim using ONLY the "
+        "Prefer deleting an unsupportable sentence to repeating it with new words. "
+        "In particular, never combine a named executive's statement with a separate "
+        "analyst-consensus figure unless the cited source explicitly connects them. "
+        "For trading updates, separate management outlook, analyst consensus and "
+        "historical results into distinct source-supported sentences. "
         "original document below, or remove it altogether. Be direct, engaging "
         "and clear, but do not add unsourced implications, figures or commentary. "
         "When the source gives a percentage of CLOSED complaints, never call it "
