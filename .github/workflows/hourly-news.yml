@@ -88,6 +88,12 @@ jobs:
       - name: Verify approval audit for published articles
         run: python scripts/verify_approved_articles.py
 
+      - name: Build public site with AI articles only
+        run: |
+          mkdir -p public/data
+          cp index.html public/index.html
+          cp data/articles.json public/data/articles.json
+
       - name: Set up GitHub Pages
         uses: actions/configure-pages@v5
         with:
@@ -96,7 +102,7 @@ jobs:
       - name: Upload website
         uses: actions/upload-pages-artifact@v4
         with:
-          path: '.'
+          path: './public'
 
       - name: Publish website
         id: deployment
