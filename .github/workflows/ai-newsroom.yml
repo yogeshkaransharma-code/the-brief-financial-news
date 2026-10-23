@@ -120,6 +120,13 @@ jobs:
         if: steps.publish.outputs.changed == 'true'
         run: rm -rf generated-drafts
 
+      - name: Build public site with finished AI articles only
+        if: steps.publish.outputs.changed == 'true'
+        run: |
+          mkdir -p public/data
+          cp index.html public/index.html
+          cp data/articles.json public/data/articles.json
+
       - name: Configure GitHub Pages for new articles
         if: steps.publish.outputs.changed == 'true'
         uses: actions/configure-pages@v5
@@ -130,7 +137,7 @@ jobs:
         if: steps.publish.outputs.changed == 'true'
         uses: actions/upload-pages-artifact@v4
         with:
-          path: '.'
+          path: './public'
 
       - name: Deploy approved autonomous articles
         if: steps.publish.outputs.changed == 'true'
