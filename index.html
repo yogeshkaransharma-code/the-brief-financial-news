@@ -139,9 +139,13 @@ async function loadPublished(){
    return true;
  }catch(err){console.warn('Original article archive unavailable',err);return false}
 }
-async function loadLive(){try{const res=await fetch('data/live.json',{cache:'no-store'});if(!res.ok)throw Error('not available');const updated=await res.json();if(!Array.isArray(updated.items))throw Error('Feed items missing');fetched=updated;live=[]; /* Sources support newsroom research but never appear as articles. */ if(fetched.generated_at){const at=new Date(fetched.generated_at);$('freshness').textContent=`Source feeds checked ${at.toLocaleDateString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',timeZone:'Europe/London'})}`;}else $('freshness').textContent='News feed loaded · update time unavailable';if(fetched.errors?.length)console.warn('Some news feeds failed to update:',fetched.errors.map(x=>x.source));return true;}
- catch(e){$('freshness').textContent='Live updates temporarily unavailable · Showing our articles';return false;}}
-async function refreshOnOpen(){if(document.hidden)return;const before=fetched?.generated_at;const loaded=await loadLive();const priorPublished=published.length;await loadPublished();if((loaded&&before!==fetched?.generated_at)||published.length!==priorPublished){renderTop();renderFeed()}renderDate()}
+async function loadLive(){
+ // Official RSS research remains in GitHub Actions, never in the public website.
+ live=[];
+ $('freshness').textContent='AI newsroom · monitoring original financial sources';
+ return false;
+}
+async function refreshOnOpen(){if(document.hidden)return;await loadPublished();renderTop();renderFeed();renderDate()}
 async function start(){renderDate();renderFollows();wire();setInterval(refreshOnOpen,600000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshOnOpen()});await Promise.all([loadLive(),loadPublished()]);renderTop();renderFeed();route();saveStore('lastVisit',now);}
 start();
 })();
