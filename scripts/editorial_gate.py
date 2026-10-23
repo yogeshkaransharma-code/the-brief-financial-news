@@ -41,6 +41,11 @@ def check(bundle: dict, human_review: bool = False) -> dict:
         raise ValueError("Draft content differs from the version recorded in its evidence audit")
     if not re.fullmatch(r"[0-9a-f]{64}", audit.get("source_sha256", "")):
         raise ValueError("Missing source-text snapshot fingerprint")
+    captured = bundle.get("captured_source_excerpt")
+    if not isinstance(captured, str) or len(captured.strip()) < 800:
+        raise ValueError("Original source excerpt missing from the audit packet")
+    if hashlib.sha256(captured.encode("utf-8")).hexdigest() != audit["source_sha256"]:
+        raise ValueError("Source excerpt does not match its recorded fingerprint")
     try:
         retrieved = dt.datetime.fromisoformat(audit["retrieved_at"].replace("Z", "+00:00"))
         if retrieved.tzinfo is None or retrieved > dt.datetime.now(dt.timezone.utc) + dt.timedelta(minutes=10):
@@ -84,6 +89,13 @@ def check(bundle: dict, human_review: bool = False) -> dict:
         raise ValueError("Too few documented source-evidence checks")
     if any(not isinstance(x, dict) or len(x.get("source_excerpt", "").split()) < 7 or len(x.get("claim", "")) < 15 for x in evidence):
         raise ValueError("Incomplete evidence record")
+    # Every cited excerpt must actually be present in exactly the captured text
+    # used by the model, not merely be supplied by the model as a quotation.
+    import unicodedata
+    normalize = lambda v: re.sub(r"\\s+", " ", re.sub(r"[^\\w\\s]", " ", unicodedata.normalize("NFKC", v).lower())).strip()
+    evidence_source = normalize(captured)
+    if any(normalize(x["source_excerpt"]) not in evidence_source for x in evidence):
+        raise ValueError("An evidence quote does not appear in the captured official source excerpt")
     unique_supports = {re.sub(r"\s+", " ", x["source_excerpt"]).casefold().strip() for x in evidence}
     if len(unique_supports) < 4:
         raise ValueError("Evidence repeats the same source passage; four distinct excerpts are required")
