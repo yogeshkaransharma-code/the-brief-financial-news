@@ -1,12 +1,8 @@
 name: Autonomous financial news desk
 # FCA factual statistical summaries only; all other AI drafts stay private.
-# Final pilot with exact-citation repair and autonomous source-limited publishing.
+# Scheduled factual publication pilot; source or verification gaps always prevent publication.
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/ai-newsroom.yml'
   workflow_dispatch:
   schedule:
     - cron: '13 7 * * *'
