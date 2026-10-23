@@ -21,7 +21,7 @@ from editorial_gate import check as editorial_check
 
 MAX_CANDIDATES = 12
 MAX_DRAFTS = 6
-MIN_WORDS = 190
+MIN_WORDS = 150
 MAX_WORDS = 950
 NUMBER = re.compile(r"(?<![\w])(?:£|\$)?\d+(?:[.,]\d+)*(?:%|bn|m|k)?(?![\w])", re.I)
 GENERIC = re.compile(r"(?i)\b(?:industry participants|financial services professionals are reviewing|in today's evolving landscape|in a significant development)\b")
