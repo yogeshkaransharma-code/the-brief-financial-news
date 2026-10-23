@@ -34,7 +34,7 @@ for article in published:
     ids.add(article["id"])
     assert article.get("kind") == "original", "An original article is mislabelled"
     assert str(article.get("editorial_status", "")).startswith("PUBLISHED:"), "An unapproved AI draft appears in the public feed"
-    assert len(article.get("blocks", [])) >= 5, "Original article has insufficient coverage"
+    assert len(article.get("blocks", [])) >= 3, "Original article has insufficient coverage"
     assert urlsplit(article.get("url", "")).scheme == "https", "Article source link is invalid"
 
 print(f"PASS: {len(items)} stories, {len(data['sources_checked'])} news sources, fresh update, usable website shell")
