@@ -34,6 +34,7 @@ jobs:
           python scripts/ai_newsroom.py --self-test
           python scripts/source_retrieval.py
           python scripts/newsroom_v2.py --self-test
+          python scripts/financial_consistency.py
 
       - name: Test independent editorial rules
         run: python scripts/editorial_gate.py --self-test
