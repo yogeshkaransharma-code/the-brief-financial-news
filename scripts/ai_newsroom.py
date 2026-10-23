@@ -114,7 +114,7 @@ def fetch_gemini(prompt: str) -> dict:
         "contents":[{"role":"user","parts":[{"text":prompt}]}],
         "generationConfig":{"responseMimeType":"application/json","temperature":0.2,"maxOutputTokens":6000}
     }
-    candidates=list(dict.fromkeys([MODEL,"gemini-3.1-flash-lite","gemini-2.5-flash-lite"]))
+    candidates=list(dict.fromkeys([MODEL,"gemini-3.5-flash-lite","gemini-3.7-flash","gemini-3.1-flash-lite"]))
     failures=[]
     for model_name in candidates:
         url=("https://generativelanguage.googleapis.com/v1beta/models/"
