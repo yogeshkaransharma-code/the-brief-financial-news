@@ -26,13 +26,13 @@ GOVERNMENT = {"HM Treasury", "Department for Work and Pensions",
               "Department for Science, Innovation and Technology"}
 # The newsroom is UK financial services, not every general business headline.
 FOCUSED_NEWS = re.compile(
-    r"(?i)\\b(uk|britain|british|england|london|bank\\w*|insur\\w*|"
-    r"broker\\w*|financ\\w*|fintech|payment\\w*|invest\\w*|"
-    r"pension\\w*|asset manag\\w*|wealth|mortgage\\w*|"
-    r"lending|credit|budget|interest rate|inflation|regulat\\w*|"
-    r"capital market\\w*|stock market|ftse|sterling|"
-    r"fca|pra|boe|treasury|taxation|savings?|reinsur\\w*|"
-    r"fund manag\\w*|insurtech|fintech|underwrit\\w*)\\b"
+    r"(?i)\b(uk|britain|british|england|london|bank\w*|insur\w*|"
+    r"broker\w*|financ\w*|fintech|payment\w*|invest\w*|"
+    r"pension\w*|asset manag\w*|wealth|mortgage\w*|"
+    r"lending|credit|budget|interest rate|inflation|regulat\w*|"
+    r"capital market\w*|stock market|ftse|sterling|"
+    r"fca|pra|boe|treasury|taxation|savings?|reinsur\w*|"
+    r"fund manag\w*|insurtech|fintech|underwrit\w*)\b"
 )
 BROADER_MEDIA = {"BBC Business","Sky Business","The Guardian Business",
                  "Financial Times","Bloomberg Markets","Wall Street Journal Markets",
