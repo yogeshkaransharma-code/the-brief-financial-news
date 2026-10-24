@@ -81,7 +81,7 @@ def parse_listing(content,source,section,base,today=None):
         if date is None and source=="Munich Re":
             # Munich Re uses a dated, issuer-controlled press release URL.
             # This is not the date from a secondary media article.
-            m=re.search(r"/media-release-(20\\d{2})-(\\d{2})-(\\d{2})\\.html$",url,re.I)
+            m=re.search(r"/media-release-(20\d{2})-(\d{2})-(\d{2})\.html$",url,re.I)
             if m:
                 try:date=dt.date(int(m.group(1)),int(m.group(2)),int(m.group(3)))
                 except ValueError:pass
