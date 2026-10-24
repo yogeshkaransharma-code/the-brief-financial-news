@@ -40,6 +40,9 @@ def assess(article_list,report,now):
             "last_article_at":published[0].isoformat() if published else None,
             "fresh_source_candidates":fresh,"candidates_after_cooldowns":available,
             "machine_screened":screened,"traced_originals":report.get("traced_originals",0),
+            "media_leads_in_24h":report.get("media_leads_in_24h",0),
+            "distinct_research_leads_attempted":report.get("distinct_research_leads_attempted",0),
+            "research_checked_this_run":len(report.get("original_source_trace",[])),
             "status":state,"quota_pause_until":quota,"ai_budget":spend}
 
 def main():
@@ -59,7 +62,10 @@ def main():
         f"| Published in last 24 hours | {state['published_last_24h']} |",
         f"| Most recent publication UTC | {state['last_article_at'] or 'None'} |",
         f"| Fresh original candidates | {state['fresh_source_candidates']} |",
-        f"| Official sources traced from news links | {state['traced_originals']} |",
+        f"| News reports from last 24 hours | {state['media_leads_in_24h']} |",
+        f"| Different media links investigated | {state['distinct_research_leads_attempted']} |",
+        f"| Media links investigated in this run | {state['research_checked_this_run']} |",
+        f"| Original documents traced from news links | {state['traced_originals']} |",
         f"| After retry holds | {state['candidates_after_cooldowns']} |",
         f"| Machine-screened new drafts | {state['machine_screened']} |",
         f"| AI requests in this run | {state['ai_budget'].get('requests_this_run','unknown')} |",
