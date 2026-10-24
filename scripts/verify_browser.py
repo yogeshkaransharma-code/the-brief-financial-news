@@ -35,12 +35,14 @@ def main():
         page.goto(SITE+"?mobile-reader-verification=20261024",
             wait_until="domcontentloaded",timeout=45000)
         page.wait_for_timeout(3500)
-        static=page.locator("#static-edition")
-        assert static.count()==1 and static.is_visible(),"Static published-news edition isn't visible to readers"
-        assert latest["title"] in static.inner_text(),"Newest article not visible in mobile edition"
+        assert page.locator("#static-edition").count()==0,"Temporary emergency list spoiled the mobile design"
+        assert page.locator("#latest-published-highlight").count()==0,"Redundant latest-story panel is still present"
+        assert page.locator("#lead-story").is_visible(),"Editorial lead story is not visible on mobile"
         assert latest["title"] in page.locator("#lead-story").inner_text(),\
             "Latest published original article isn't the lead story on mobile"
+        assert page.locator("#briefing-stories .briefing-story").count()>0,"Sixty-second briefing is empty"
         assert page.locator("#feed .news-item").count()>0,"No articles are visibly rendered in main news feed"
+        assert page.locator("#feed .news-item").first.is_visible(),"News feed is not visible to mobile readers"
         page.screenshot(path=str(OUT/"mobile-home.png"),full_page=True)
         target=SITE+"story/"+latest["id"]+".html"
         page.goto(target,wait_until="domcontentloaded",timeout=45000)
