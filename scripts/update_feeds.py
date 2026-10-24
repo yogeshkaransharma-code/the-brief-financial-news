@@ -112,9 +112,9 @@ def parse(xml_bytes, name, fallback):
         headline = clean(title)[:230]
         summary = clean(description)[:400]
         if name == "HM Treasury" and not re.search(
-            r"(?i)\\b(financ\\w*|econom\\w*|bank\\w*|insur\\w*|pension\\w*|budget|"
-            r"invest\\w*|mortgage\\w*|savings?|payment\\w*|fintech|regulat\\w*|"
-            r"tax\\w*|treasury|fraud|capital|funding|credit|market\\w*|business)\\b",
+            r"(?i)\b(financ\w*|econom\w*|bank\w*|insur\w*|pension\w*|budget|"
+            r"invest\w*|mortgage\w*|savings?|payment\w*|fintech|regulat\w*|"
+            r"tax\w*|treasury|fraud|capital|funding|credit|market\w*|business)\b",
             headline+" "+summary):
             continue
         # Some feeds contain only an author line, a copyright notice, or no usable
