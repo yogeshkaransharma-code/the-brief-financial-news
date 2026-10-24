@@ -105,12 +105,10 @@ jobs:
       - name: Verify approval audit for published articles
         run: python scripts/verify_approved_articles.py
 
-      - name: Build public site with AI articles only
+      - name: Build readable static public website
         run: |
-          mkdir -p public/data
-          cp index.html public/index.html
-          cp about.html public/about.html
-          cp data/articles.json public/data/articles.json
+          python scripts/build_public.py
+          python scripts/verify_public.py
 
       - name: Set up GitHub Pages
         uses: actions/configure-pages@v5
@@ -125,3 +123,8 @@ jobs:
       - name: Publish website
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Verify real public website, data and full article page
+        env:
+          BRIEF_SITE_URL: https://yogeshkaransharma-code.github.io/the-brief-financial-news/
+        run: python scripts/verify_live.py
