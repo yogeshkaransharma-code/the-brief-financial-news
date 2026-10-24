@@ -19,6 +19,7 @@ from newsroom_v2 import canonical
 from verify_approved_articles import validate as verify_feed
 from fresh_sources import LAUNCH_START, LAUNCH_END
 from publication_scope import source_lane
+from source_retrieval import permitted
 
 ROOT = Path(__file__).resolve().parents[1]
 ARTICLES = ROOT / "data/articles.json"
@@ -62,12 +63,20 @@ def eligible(bundle):
         problems.append("Original source not within financial-services industry category")
     if audit.get("pipeline_version")!=2:
         problems.append("Missing independent sentence-level review")
-    if audit.get("source_extraction")!="HTML main content":
+    extraction=audit.get("source_extraction")
+    if extraction not in {"HTML main content","complete HTML and linked official PDF"}:
         problems.append("Unsupported or incomplete source format")
     if audit.get("source_retrieval_limits") != "Full captured material shown; check all relevant linked appendices before approval. ":
         problems.append("Source retrieval has extra warnings or caveats")
-    if audit.get("source_document_urls") != [a["url"]]:
+    docs=audit.get("source_document_urls") or []
+    if extraction=="HTML main content" and docs != [a["url"]]:
         problems.append("Complex or redirected source document")
+    if extraction=="complete HTML and linked official PDF":
+        # One completely captured official appendix is allowed, not an
+        # arbitrary selection from multiple reports or third-party files.
+        if not (len(docs)==2 and docs[0]==a["url"]
+                and permitted(docs[1]) and docs[1].lower().split("?")[0].endswith(".pdf")):
+            problems.append("Linked full primary document was not clearly identified")
     source=bundle.get("captured_source_excerpt","")
     if len(source)<1250:
         problems.append("Too little original-source evidence for an unattended financial article")
