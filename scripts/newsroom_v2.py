@@ -355,7 +355,17 @@ def main():
     attempts=ledger["sources"]
     meter=CallBudget(ledger,now)
     def budgeted_ai(prompt):
-        return meter.call(fetch_gemini,prompt)
+        # Google may return a transient 503 even when free quota is untouched.
+        # The backup uses the SAME user-provided Gemini key and is separately
+        # counted against our strict daily/run limits. No paid provider switch.
+        try:
+            return meter.call(fetch_gemini,prompt)
+        except RuntimeError as exc:
+            transient=any(code in str(exc) for code in ("HTTP 503","HTTP 502","HTTP 504","HTTP 404"))
+            if PROVIDER!="gemini" or not transient or meter.remaining()<1:
+                raise
+            print("GEMINI_CAPACITY_FALLBACK: primary unavailable; one separately metered request to gemini-3.5-flash-lite")
+            return meter.call(lambda p: fetch_gemini(p,model_override="gemini-3.5-flash-lite"),prompt)
     # One-time migration: the writer's malformed-section repair and the
     # short-consultation linked-PDF reader have now been fixed. Retry only
     # those old mechanical failures once instead of serving stale cooldowns.
@@ -513,6 +523,11 @@ def main():
                 ledger["quota_pause_until"]=after.isoformat()
                 report.append({"result":"stopped","reason":"Gemini capacity reached; retry after "+after.isoformat()+" while hourly discovery continues"})
                 break
+            if any(code in reason for code in ("HTTP 503","HTTP 502","HTTP 504")):
+                # Provider congestion is not bad source evidence and does not
+                # deserve the old 36-hour lockout.
+                delay(item["url"],1,"Transient Gemini provider overload; retry on next run")
+                continue
             long_cooldown=any(t in reason for t in (
                 "HTTP Error 403","Insufficient official article content",
                 "Important chart text exceeds full-source context limit"))
