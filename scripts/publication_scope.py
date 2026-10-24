@@ -16,8 +16,8 @@ FCA_CONSULTATION = re.compile(r"^/publications/consultation-papers/[a-z0-9-]+/?$
 FCA_REVIEW = re.compile(r"^/publications/multi-firm-reviews/[a-z0-9-]+/?$",re.I)
 BOE_RELEASE = re.compile(r"^/news/20\d{2}/[a-z]+/[a-z0-9-]+/?$",re.I)
 TPR_RELEASES = re.compile(r"^/(?:en/)?media-hub/press-releases/20\d{2}-press-releases/[a-z0-9-]+/?$",re.I)
-ALLIANZ_RELEASE = re.compile(r"^/news-and-insight/news/[a-z0-9-]+\\.html$",re.I)
-MUNICH_RELEASE = re.compile(r"^/en/company/media-relations/media-information-and-corporate-news/media-information/20\\d{2}/[a-z0-9.-]+\\.html$",re.I)
+ALLIANZ_RELEASE = re.compile(r"^/news-and-insight/news/[a-z0-9-]+\.html$",re.I)
+MUNICH_RELEASE = re.compile(r"^/en/company/media-relations/media-information-and-corporate-news/media-information/20\d{2}/[a-z0-9.-]+\.html$",re.I)
 # Adverse actions against firms/people and allegations are NOT published
 # unattended, even when an official regulator announces them.
 ADVERSE = re.compile(
