@@ -102,17 +102,13 @@ def build():
 
     latest = max(records, key=lambda a: (a.get("published_at", ""), a["id"]))
     first = records[0]
-    feature = (
-        '<div id="latest-published-highlight" style="padding:14px 0;border-bottom:1px solid #ded8d0">'
-        '<span class="section-kicker">MOST RECENTLY PUBLISHED</span>'
-        '<p style="margin:4px 0;font:500 22px/1.25 Georgia,serif"><a href="' + esc(story_href(latest)) + '">'
-        + esc(latest["title"]) + '</a></p><p class="meta">Original announcement: '
-        + esc(latest.get("dateISO")) + ' · The Brief published: '
-        + esc(latest.get("published_at", "")[:10]) + '</p></div>'
-    )
-    page = insert_once(page,
-        '<div class="issue-heading"><span>THE DAILY EDITION</span><span id="issue-date">TODAY</span></div>',
-        '<div class="issue-heading"><span>THE DAILY EDITION</span><span id="issue-date">TODAY</span></div>\n' + feature)
+    # The repository retains a source-mode backup for broken JavaScript.
+    # The published build already contains real, readable lead/feed HTML,
+    # so NEVER copy the duplicate emergency article-list box into Pages.
+    fallback = re.compile(r"\s*<!-- THEBRIEF_STATIC_START -->.*?<!-- THEBRIEF_STATIC_END -->", re.S)
+    page, removed = fallback.subn("", page, count=1)
+    if removed != 1 or "THEBRIEF_STATIC_START" in page or 'id="static-edition"' in page:
+        raise ValueError("Could not remove duplicate repository-only safety section")
     lead = ('<article id="lead-story" class="lead-story"><span class="story-kicker">'
         + esc(first.get("category")) + ' / THE LEAD STORY</span><h1><a href="'
         + esc(story_href(first)) + '">' + esc(first["title"])
@@ -169,6 +165,8 @@ def build():
                 raise ValueError("Missing pre-rendered headline: " + a["id"])
     if built.count('id="embedded-articles"') != 1:
         raise ValueError("Inline fallback missing")
+    if 'id="static-edition"' in built or 'id="latest-published-highlight"' in built:
+        raise ValueError("Temporary duplicate headline blocks leaked into public design")
     for a in records:
         if not (OUT / story_href(a)).is_file():
             raise ValueError("Missing public standalone article: " + a["id"])
