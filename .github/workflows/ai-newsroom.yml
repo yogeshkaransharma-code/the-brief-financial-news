@@ -14,6 +14,8 @@ on:
       - 'scripts/source_trace.py'
       - 'scripts/source_retrieval.py'
       - 'scripts/ai_newsroom.py'
+      - 'scripts/model_providers.py'
+      - 'scripts/update_feeds.py'
       - 'scripts/newsroom_health.py'
       - 'scripts/fresh_sources.py'
   workflow_dispatch:
@@ -59,6 +61,7 @@ jobs:
           python scripts/source_retrieval.py
           python scripts/first_party_sources.py
           python scripts/source_trace.py
+          python scripts/model_providers.py
           python scripts/newsroom_health.py --self-test
           python scripts/fresh_sources.py
           python scripts/newsroom_v2.py --self-test
@@ -75,11 +78,25 @@ jobs:
 
       - name: Generate evidence-backed editorial drafts
         env:
+          # Explicit provider selection: Gemini stays the free-tier default.
+          # No paid provider is called unless the owner opts in by changing
+          # this repository variable AND saving the matching GitHub secret.
+          BRIEF_AI_PROVIDER: ${{ vars.BRIEF_AI_PROVIDER || 'gemini' }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_MODEL: gemini-3.6-flash
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: gpt-6-luna
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_MODEL: claude-haiku-5-5
         run: |
-          if [ -z "$GEMINI_API_KEY" ]; then
-            echo '::error::GEMINI_API_KEY secret is not available to the newsroom workflow'
+          case "$BRIEF_AI_PROVIDER" in
+            gemini) needed="$GEMINI_API_KEY" ;;
+            openai) needed="$OPENAI_API_KEY" ;;
+            anthropic) needed="$ANTHROPIC_API_KEY" ;;
+            *) echo "::error::Unknown BRIEF_AI_PROVIDER"; exit 1 ;;
+          esac
+          if [ -z "$needed" ]; then
+            echo "::error::The selected AI provider's GitHub secret is missing"
             exit 1
           fi
           python scripts/newsroom_v2.py
