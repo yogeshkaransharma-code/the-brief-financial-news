@@ -91,10 +91,16 @@ def html_extract(raw, source_url):
         parts.append(text)
     text="\n\n".join(parts)
     if len(text)<850:
-        # Regulators sometimes put body text directly in DIVs rather than P
-        # elements. This still reads only the page's main editorial content.
-        fallback=clean_text(main.get_text(" ",strip=True))
-        if len(fallback)>len(text):
+        # Some regulator pages are hydrated outside their template's tiny
+        # <main> shell. Use a readable article/body fallback, but never
+        # remove the requirement for substantial independently captured text.
+        alternatives=[main.get_text(" ",strip=True)]
+        if article is not None:
+            alternatives.append(article.get_text(" ",strip=True))
+        if soup.body is not None:
+            alternatives.append(soup.body.get_text(" ",strip=True))
+        fallback=max((clean_text(part) for part in alternatives),key=len,default="")
+        if 850<=len(fallback)<=MAX_TEXT and len(fallback)>len(text):
             text=fallback
     # Company newsrooms put promotional boilerplate, investor disclosures and
     # recommendations after the actual release. Remove unrelated later cards
@@ -106,7 +112,10 @@ def html_extract(raw, source_url):
     # document is the PDF it links to. Discover that official attachment
     # before rejecting the page as thin. The PDF must still be read in full.
     attachments=[]
-    for anchor in main.find_all("a",href=True):
+    # Short consultation pages sometimes put their PDF link outside the main
+    # shell. Search the same official page's anchors, never an external site.
+    pdf_area=(soup if "/consultation" in urlsplit(source_url).path.lower() else main)
+    for anchor in pdf_area.find_all("a",href=True):
         url=urljoin(source_url,anchor["href"])
         if permitted(url) and urlsplit(url).path.lower().endswith(".pdf"):
             label=clean_text(anchor.get_text(" ",strip=True)).lower()
