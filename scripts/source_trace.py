@@ -28,6 +28,15 @@ NEWS_HOSTS = {
 UA = "TheBrief-SourceResearch/0.3 (citation tracing; no article reproduction)"
 MAX_NEWS_BYTES = 800_000
 REVIEW_LIMIT = 12
+# Prefer developments about banking, insurance and financial policy, not every
+# story carrying a broad "Business" RSS label (restaurants, celebrities, etc).
+FINANCE_HEADLINE = re.compile(
+    r"(?i)\\b(bank\\w*|insur\\w*|broker\\w*|mortgage\\w*|pension\\w*|"
+    r"investment\\w*|investor\\w*|financial|fintech|payments?|"
+    r"budget|tax|ftse|lending|credit|savings?|capital markets?|"
+    r"fund manager\\w*|wealth|stock\\w*|equity|interest rates?|"
+    r"bond\\w*|inflation|regulat\\w*|central bank|fca|pra)\\b"
+)
 STOP = set("the a an of in for on at from by to is are will new says uk us and or as it with its report reports latest after amid over under against company firm firms financial insurance bank banking regulator industry group year month".split())
 DATE_RE = re.compile(r"^20\d{2}-\d\d-\d\d(?:T[^ ]+)?")
 BAD_LINK = re.compile(r"(?:advert|sponsor|privacy|terms|register|account|contact|careers|share|cookies|home|login)",re.I)
@@ -139,26 +148,54 @@ def get_reputable_page(url):
         if len(raw)>MAX_NEWS_BYTES:raise ValueError("News lead exceeds size limit")
         return raw,final
 
-def find_originals(leads,now=None,limit=REVIEW_LIMIT):
-    """Screen fresh third-party leads and return dated official originals.
+def choose_leads(leads,now,limit=REVIEW_LIMIT,attempts=None):
+    """Rotate through fresh newsroom leads, avoiding the same 12 forever.
 
-    This is best-effort discovery. Missing citations, inaccessible pages, and
-    ambiguous release dates are recorded, NOT worked around by speculation.
+    This stage requires no model credits. A story is re-examined only after
+    its retry time; failures never masquerade as absent news.
     """
     from fresh_sources import eligible_today
-    now=now or dt.datetime.now(dt.timezone.utc)
-    out=[]; events=[]; seen=set()
+    attempts=attempts if attempts is not None else {}
     fresh=[]
     for lead in leads:
-        if reputable(lead.get("url","")) and eligible_today(lead,now):
-            fresh.append(lead)
-    # Focus on news about our remit; RSS "finance" streams include many distant
-    # consumer and international announcements not relevant to UK readers.
-    fresh.sort(key=lambda x:(
-        0 if x.get("category") in ("Insurance","Regulation") else 1,
-        -(dt.datetime.fromisoformat(x["published_at"].replace("Z","+00:00")).timestamp())
-    ))
-    for lead in fresh[:limit]:
+        url=lead.get("url","")
+        if not reputable(url) or not eligible_today(lead,now):
+            continue
+        # No need to inspect off-topic lifestyle/business stories.
+        if not FINANCE_HEADLINE.search(lead.get("title","")):
+            continue
+        try:
+            hold=attempts.get(url,{}).get("retry_after")
+            if hold and dt.datetime.fromisoformat(hold)>now:
+                continue
+        except (TypeError,ValueError):
+            pass
+        fresh.append(lead)
+    # Give UK financial services precedence while preserving recent global
+    # banking, markets and technology coverage.
+    def priority(item):
+        title=item.get("title","")
+        uk=bool(re.search(r"(?i)\\b(uk|britain|british|london|england|sterling|ftse|fca|pra|chancellor|budget)\\b",title))
+        financial=item.get("category") in ("Insurance","Regulation")
+        posted=dt.datetime.fromisoformat(item["published_at"].replace("Z","+00:00")).timestamp()
+        return (-int(uk),-int(financial),-posted)
+    fresh.sort(key=priority)
+    return fresh[:limit],len(fresh)
+
+
+def find_originals(leads,now=None,limit=REVIEW_LIMIT,attempts=None):
+    """Trace different fresh media leads on successive runs without AI usage."""
+    from fresh_sources import eligible_today
+    now=now or dt.datetime.now(dt.timezone.utc)
+    attempts=attempts if attempts is not None else {}
+    out=[]; events=[]; seen=set()
+    selected,available=choose_leads(leads,now,limit,attempts)
+    for lead in selected:
+        # Reserve the lead at the start, even if retrieval is blocked, to
+        # ensure the next hourly run studies OTHER headlines.
+        attempts[lead["url"]]={"attempted_at":now.isoformat(),
+            "retry_after":(now+dt.timedelta(hours=25)).isoformat(),
+            "headline":lead.get("title","")[:160]}
         try:
             markup,real_url=get_reputable_page(lead["url"])
             urls=extract_original_links(markup,real_url,lead["title"])
@@ -206,6 +243,23 @@ def self_test():
     urls=extract_original_links(html,base,"FCA publishes bank capital consultation")
     assert urls==[official],urls
     assert not reputable("https://www.finextra.com.evil.test/x")
+    now=dt.datetime(2026,10,24,12,tzinfo=dt.timezone.utc)
+    mock=[{"title":"UK banks face possible new tax after Budget announcement",
+            "url":"https://www.theguardian.com/business/2026/oct/24/uk-bank-tax-1",
+            "published_at":"2026-10-24T10:00:00+00:00","dateISO":"2026-10-24","category":"Banking"},
+          {"title":"Financial watchdog announces changes to mortgage regulations",
+            "url":"https://www.bbc.co.uk/news/business-23456780",
+            "published_at":"2026-10-24T09:00:00+00:00","dateISO":"2026-10-24","category":"Regulation"},
+          {"title":"Curry restaurant opens in Dubai",
+            "url":"https://www.theguardian.com/business/2026/oct/24/restaurant",
+            "published_at":"2026-10-24T11:00:00+00:00","dateISO":"2026-10-24","category":"Banking"}]
+    state={}
+    first,num=choose_leads(mock,now,limit=1,attempts=state)
+    assert num==2 and len(first)==1 and "banks" in first[0]["title"]
+    state[first[0]["url"]]={"retry_after":(now+dt.timedelta(hours=25)).isoformat()}
+    second,num=choose_leads(mock,now,limit=1,attempts=state)
+    assert num==1 and second[0]["url"]!=first[0]["url"]
+    assert choose_leads(mock,now,attempts={x["url"]:{"retry_after":(now+dt.timedelta(hours=25)).isoformat()} for x in first+second})[0]==[]
     assert not reputable("http://www.finextra.com/x")
     assert reputable("https://www.bbc.co.uk/news/business-10000000")
     assert reputable("https://www.ft.com/content/1234")
