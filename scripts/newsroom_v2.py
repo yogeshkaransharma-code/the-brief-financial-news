@@ -26,7 +26,7 @@ from publication_scope import source_lane
 
 MAX_CANDIDATES = 12
 MAX_DRAFTS = 3
-MIN_WORDS = 150
+MIN_WORDS = 120
 MAX_WORDS = 950
 NUMBER = re.compile(r"(?<![\w])(?:£|\$)?\d+(?:[.,]\d+)*(?:%|bn|m|k)?(?![\w])", re.I)
 GENERIC = re.compile(r"(?i)\b(?:industry participants|financial services professionals are reviewing|in today's evolving landscape|in a significant development)\b")
@@ -382,8 +382,10 @@ def main():
             transient=any(code in str(exc) for code in ("HTTP 503","HTTP 502","HTTP 504","HTTP 404","TimeoutError","URLError"))
             if PROVIDER!="gemini" or not transient or meter.remaining()<1:
                 raise
-            print("GEMINI_CAPACITY_FALLBACK: primary unavailable; one separately metered request to gemini-3.5-flash-lite")
-            return meter.call(lambda p: fetch_gemini(p,model_override="gemini-3.5-flash-lite"),prompt)
+            backup=("gemini-3.8-flash" if os.environ.get("GEMINI_MODEL")=="gemini-3.5-flash-lite"
+                    else "gemini-3.5-flash-lite")
+            print("GEMINI_CAPACITY_FALLBACK: one separately metered request to "+backup)
+            return meter.call(lambda p: fetch_gemini(p,model_override=backup),prompt)
     # One-time migration: the writer's malformed-section repair and the
     # short-consultation linked-PDF reader have now been fixed. Retry only
     # those old mechanical failures once instead of serving stale cooldowns.
