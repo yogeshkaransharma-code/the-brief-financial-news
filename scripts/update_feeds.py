@@ -24,6 +24,18 @@ HEADERS = {"User-Agent": "TheBriefNewsReader/0.1 (RSS reader; source attribution
 GOVERNMENT = {"HM Treasury", "Department for Work and Pensions",
               "Competition and Markets Authority", "Department for Business and Trade",
               "Department for Science, Innovation and Technology"}
+# Government sites publish energy, childcare, visas and many other topics.
+# To avoid irrelevant automated pieces, a government HEADLINE must explicitly
+# concern financial services, savings, investment, pensions or market rules.
+GOVERNMENT_FINANCE_HEADLINE = re.compile(
+    r"(?i)\b(bank\w*|insur\w*|reinsur\w*|broker\w*|financ\w*|"
+    r"pension\w*|retirement|mortgage\w*|consumer credit|"
+    r"payment\w*|saving\w*|stock market\w*|capital market\w*|"
+    r"wealth management|investment\w*|investor\w*|"
+    r"financial regulation|fintech|fraud|fca|pra|"
+    r"funding for small businesses|business lending|economic forecast|"
+    r"interest rate|financial services)\b"
+)
 # The newsroom is UK financial services, not every general business headline.
 FOCUSED_NEWS = re.compile(
     r"(?i)\b(uk|britain|british|england|london|bank\w*|insur\w*|"
@@ -145,7 +157,7 @@ def parse(xml_bytes, name, fallback):
             link = text_of(entry, ["link"])
         headline = clean(title)[:230]
         summary = clean(description)[:400]
-        if name in GOVERNMENT and not FOCUSED_NEWS.search(headline+" "+summary):
+        if name in GOVERNMENT and not GOVERNMENT_FINANCE_HEADLINE.search(headline):
             continue
         if name in BROADER_MEDIA and not FOCUSED_NEWS.search(headline+" "+summary):
             continue
