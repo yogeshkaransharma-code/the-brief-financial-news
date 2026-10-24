@@ -14,7 +14,8 @@ import re
 import sys
 from zoneinfo import ZoneInfo
 from urllib.parse import urlsplit
-from ai_newsroom import ROOT, OUTPUT, MODEL, fetch_gemini, select_candidates, norm
+from ai_newsroom import ROOT, OUTPUT, select_candidates, norm
+from model_providers import ACTIVE_MODEL as MODEL, PROVIDER, fetch_ai as fetch_gemini
 from source_retrieval import read_source, retrieve_bytes, SourceError
 from first_party_sources import discover
 from source_trace import find_originals, published_date
@@ -573,8 +574,9 @@ def main():
     if "--self-test" in sys.argv:
         self_test();return
     OUTPUT.mkdir(parents=True,exist_ok=True)
-    if not os.environ.get("GEMINI_API_KEY"):
-        raise RuntimeError("GEMINI_API_KEY is not configured")
+    keys={"gemini":"GEMINI_API_KEY","openai":"OPENAI_API_KEY","anthropic":"ANTHROPIC_API_KEY"}
+    if not os.environ.get(keys[PROVIDER]):
+        raise RuntimeError(keys[PROVIDER]+" is not configured for "+PROVIDER)
     items=json.loads((ROOT/"data/live.json").read_text(encoding="utf-8")).get("items",[])
     now=dt.datetime.now(dt.timezone.utc)
     report=[]
