@@ -31,11 +31,11 @@ REVIEW_LIMIT = 12
 # Prefer developments about banking, insurance and financial policy, not every
 # story carrying a broad "Business" RSS label (restaurants, celebrities, etc).
 FINANCE_HEADLINE = re.compile(
-    r"(?i)\\b(bank\\w*|insur\\w*|broker\\w*|mortgage\\w*|pension\\w*|"
-    r"investment\\w*|investor\\w*|financial|fintech|payments?|"
+    r"(?i)\b(bank\w*|insur\w*|broker\w*|mortgage\w*|pension\w*|"
+    r"investment\w*|investor\w*|financial|fintech|payments?|"
     r"budget|tax|ftse|lending|credit|savings?|capital markets?|"
-    r"fund manager\\w*|wealth|stock\\w*|equity|interest rates?|"
-    r"bond\\w*|inflation|regulat\\w*|central bank|fca|pra)\\b"
+    r"fund manager\w*|wealth|stock\w*|equity|interest rates?|"
+    r"bond\w*|inflation|regulat\w*|central bank|fca|pra)\b"
 )
 STOP = set("the a an of in for on at from by to is are will new says uk us and or as it with its report reports latest after amid over under against company firm firms financial insurance bank banking regulator industry group year month".split())
 DATE_RE = re.compile(r"^20\d{2}-\d\d-\d\d(?:T[^ ]+)?")
@@ -181,7 +181,7 @@ def choose_leads(leads,now,limit=REVIEW_LIMIT,attempts=None):
     # banking, markets and technology coverage.
     def priority(item):
         title=item.get("title","")
-        uk=bool(re.search(r"(?i)\\b(uk|britain|british|london|england|sterling|ftse|fca|pra|chancellor|budget)\\b",title))
+        uk=bool(re.search(r"(?i)\b(uk|britain|british|london|england|sterling|ftse|fca|pra|chancellor|budget)\b",title))
         financial=item.get("category") in ("Insurance","Regulation")
         posted=dt.datetime.fromisoformat(item["published_at"].replace("Z","+00:00")).timestamp()
         return (-int(uk),-int(financial),-posted)
