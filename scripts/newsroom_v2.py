@@ -16,6 +16,7 @@ from urllib.parse import urlsplit
 from ai_newsroom import ROOT, OUTPUT, MODEL, fetch_gemini, select_candidates, norm
 from source_retrieval import read_source, SourceError
 from first_party_sources import discover
+from source_trace import find_originals
 from fresh_sources import launch_items, eligible_today
 from editorial_gate import check as editorial_check
 from publication_scope import source_lane
@@ -553,12 +554,20 @@ def main():
     # Company pages, not third-party news summaries, supply our original
     # insurance/banking coverage. The discovered source URL/date are retained.
     first_party,discovery_errors=discover()
+    # Independent media identify developments; their articles are never sent
+    # to the writer. Trace relevant links back to first-party documents,
+    # verify official publication dates and then use only that source text.
+    traced,trace_events=find_originals(items,now,limit=12)
+    print("ORIGINAL_SOURCE_TRACE: "+json.dumps({
+        "reviewed":len(trace_events),"found":len(traced),
+        "unresolved":sum(e.get("result")!="official source traced" for e in trace_events)
+    },sort_keys=True))
     published_urls={x.get("url") for x in json.loads((ROOT/"data/articles.json").read_text(encoding="utf-8"))}
     retired_path=ROOT/"data/retired-source-urls.json"
     retired_urls=set(json.loads(retired_path.read_text(encoding="utf-8")).get("urls",[])) if retired_path.exists() else set()
     candidates=[item for item in candidates if item["url"] not in retired_urls and item["url"] not in published_urls]
     known={x["url"] for x in candidates} | published_urls | retired_urls
-    for item in first_party + launch_items(now.date()):
+    for item in first_party + traced + launch_items(now.date()):
         if source_lane(item["url"]) and item["url"] not in known:
             candidates.append(item)
             known.add(item["url"])
@@ -660,7 +669,9 @@ def main():
         "available_after_retry_cooldowns":available_after_source_cooldowns,
         "eligible_for_this_run":len(candidates),
         "active_quota_pause_until":ledger.get("quota_pause_until"),
-        "first_party_discovery_errors":discovery_errors,"items_checked":report
+        "first_party_discovery_errors":discovery_errors,
+        "original_source_trace":trace_events,"traced_originals":len(traced),
+        "items_checked":report
     },ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(f"Newsroom V2: {accepted} screened draft(s), {len(report)} candidate outcomes; separate autonomous publisher decides eligibility.")
 
