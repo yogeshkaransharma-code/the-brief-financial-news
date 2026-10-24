@@ -95,7 +95,16 @@ def html_extract(raw, source_url):
     if urlsplit(source_url).hostname in {"www.aviva.com","aviva.com"}:
         for stop in ("\n\nEnquiries:", "\n\nNotes to editors:", "\n\nMore from our Newsroom"):
             if stop in text: text=text.split(stop,1)[0]
-    if len(text)<850:
+    # A consultation landing page may be short because the full published
+    # document is the PDF it links to. Discover that official attachment
+    # before rejecting the page as thin. The PDF must still be read in full.
+    attachments=[]
+    for anchor in main.find_all("a",href=True):
+        url=urljoin(source_url,anchor["href"])
+        if permitted(url) and urlsplit(url).path.lower().endswith(".pdf"):
+            label=clean_text(anchor.get_text(" ",strip=True)).lower()
+            attachments.append((url,label))
+    if len(text)<850 and not ("/consultation" in urlsplit(source_url).path.lower() and attachments):
         raise SourceError(f"Insufficient official article content ({len(text)} characters); cannot responsibly draft")
     # Some FCA charts and data widgets render figures inside DIV/SPAN content,
     # not paragraph or table tags. Preserve the *entire* official main text if
@@ -110,12 +119,6 @@ def html_extract(raw, source_url):
         text=proposed
     if len(text)>MAX_TEXT:
         raise SourceError("Full HTML exceeds safe model context; no silent truncation")
-    attachments=[]
-    for a in main.find_all("a",href=True):
-        url=urljoin(source_url, a["href"])
-        if permitted(url) and urlsplit(url).path.lower().endswith(".pdf"):
-            label=clean_text(a.get_text(" ", strip=True)).lower()
-            attachments.append((url,label))
     return text, attachments
 
 def pdf_extract(raw):
@@ -188,6 +191,9 @@ def self_test():
     richer=b"<main><h1>Published data</h1><p>"+b"The FCA's published reporting covers regulated financial firms and aggregate consumer complaints. "*17+b"</p><div class='chart'><span>54.8%</span></div></main>"
     captured,_=html_extract(richer,"https://www.fca.org.uk/data/complaints-data-2026-h1")
     assert "54.8%" in captured, "Figure embedded outside paragraphs must not disappear"
+    brief=b'<main><h1>Financial crime guide consultation</h1><a href="https://www.fca.org.uk/content/dam/fca/documents/consultation-papers/cp26-38.pdf">Download the consultation paper PDF</a></main>'
+    partial,links=html_extract(brief,"https://www.fca.org.uk/publications/consultation-papers/cp26-38-financial-crime-guide-updates")
+    assert len(partial)<850 and len(links)==1 and links[0][0].endswith(".pdf"),"Thin official consultation must be able to discover its complete linked PDF"
     print("PASS: approved-host restrictions, chart/span figures, HTML extraction and no silent truncation")
 
 if __name__=="__main__":
