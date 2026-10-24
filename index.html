@@ -41,6 +41,11 @@
 <div id="search-panel" class="search-panel" hidden><div class="container search-inner"><label for="search" class="sr-only">Search all stories</label><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 5 5"/></svg><input id="search" type="search" placeholder="Search companies, subjects or headlines" autocomplete="off"><button type="button" id="clear-search">Clear</button></div></div>
 <main id="home-view" class="container">
   <div class="issue-heading"><span>THE DAILY EDITION</span><span id="issue-date">TODAY</span></div>
+  <!-- THEBRIEF_STATIC_START -->
+  <section id="static-edition" aria-label="Published news edition" style="padding:20px;background:#fff;margin:20px 0">
+    <p>Published articles will appear here independently of JavaScript.</p>
+  </section>
+  <!-- THEBRIEF_STATIC_END -->
   <section class="top-layout" aria-label="Leading stories">
     <article id="lead-story" class="lead-story"></article>
     <aside class="one-minute" id="briefing" aria-labelledby="briefing-title">
@@ -222,7 +227,7 @@ async function loadLive(){
  return false;
 }
 async function refreshOnOpen(){if(document.hidden)return;await loadPublished();renderTop();renderFeed();renderDate();renderExplainers()}
-async function start(){renderDate();renderFollows();renderExplainers();wire();setInterval(refreshOnOpen,600000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshOnOpen()});await Promise.all([loadLive(),loadPublished()]);renderTop();renderFeed();route();saveStore('lastVisit',now);}
+async function start(){renderDate();renderFollows();renderExplainers();wire();setInterval(refreshOnOpen,600000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshOnOpen()});await Promise.all([loadLive(),loadPublished()]);renderTop();renderFeed();if(published.length && $('static-edition'))$('static-edition').hidden=true;route();saveStore('lastVisit',now);}
 start();
 })();
 </script>
