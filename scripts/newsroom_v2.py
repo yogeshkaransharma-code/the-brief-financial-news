@@ -389,10 +389,18 @@ def main():
     # Independent media identify developments; their articles are never sent
     # to the writer. Trace relevant links back to first-party documents,
     # verify official publication dates and then use only that source text.
-    traced,trace_events=find_originals(items,now,limit=12)
+    # Rotating research history is separate from model/source retry history.
+    # It costs no AI tokens and prevents probing the same unavailable media
+    # pages twelve times in a row every hour.
+    trace_attempts=ledger.setdefault("research_leads",{})
+    if not isinstance(trace_attempts,dict):
+        trace_attempts={}
+        ledger["research_leads"]=trace_attempts
+    traced,trace_events=find_originals(items,now,limit=12,attempts=trace_attempts)
     print("ORIGINAL_SOURCE_TRACE: "+json.dumps({
         "reviewed":len(trace_events),"found":len(traced),
-        "unresolved":sum(e.get("result")!="official source traced" for e in trace_events)
+        "unresolved":sum(e.get("result")!="official source traced" for e in trace_events),
+        "different_media_leads_seen":len(trace_attempts)
     },sort_keys=True))
     published_urls={x.get("url") for x in json.loads((ROOT/"data/articles.json").read_text(encoding="utf-8"))}
     retired_path=ROOT/"data/retired-source-urls.json"
@@ -519,6 +527,8 @@ def main():
     attempts={url:value for url,value in attempts.items()
               if value.get("attempted_at","") >= (now-dt.timedelta(days=7)).isoformat()}
     ledger["sources"]=attempts
+    ledger["research_leads"]={url:rec for url,rec in trace_attempts.items()
+        if rec.get("attempted_at","") >= (now-dt.timedelta(days=3)).isoformat()}
     ledger_path.write_text(json.dumps(ledger,ensure_ascii=False,indent=2,sort_keys=True)+"\n",encoding="utf-8")
     (OUTPUT/"run-report.json").write_text(json.dumps({
         "generated_at":dt.datetime.now(dt.timezone.utc).isoformat(),
@@ -532,6 +542,10 @@ def main():
         "active_quota_pause_until":ledger.get("quota_pause_until"),
         "first_party_discovery_errors":discovery_errors,
         "original_source_trace":trace_events,"traced_originals":len(traced),
+        "distinct_research_leads_attempted":len(ledger["research_leads"]),
+        "media_leads_in_24h":sum(1 for it in items if
+             it.get("source") not in {"FCA","FCA publications","PRA","Bank of England"}
+             and it.get("published_at") and eligible_today(it,now)),
         "items_checked":report
     },ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(f"Newsroom V2: {accepted} screened draft(s), {len(report)} candidate outcomes; separate autonomous publisher decides eligibility.")
