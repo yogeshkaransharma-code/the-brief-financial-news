@@ -482,7 +482,8 @@ def main():
             if not passed:
                 (OUTPUT/("HOLD-"+uid+".json")).write_text(json.dumps(bundle,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
                 report.append({"title":item["title"],"result":"held for review",
-                  "reason":f"{len(bundle.get('editorial_flags',[]))} unsupported claims in the single independent review",
+                  "reason":f"{len(bundle.get('editorial_flags',[]))} editorial flags: "
+                       + "; ".join(str(x.get("reason","unknown"))[:120] for x in bundle.get("editorial_flags",[])[:5]),
                   "stage":stage,"source":item["url"]})
                 # Do not send the same development repeatedly through an AI
                 # before its 24-hour publication window closes.
@@ -548,6 +549,8 @@ def main():
              and it.get("published_at") and eligible_today(it,now)),
         "items_checked":report
     },ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+    for outcome in report[:12]:
+        print("NEWSROOM_CANDIDATE_OUTCOME: "+json.dumps(outcome,ensure_ascii=False,sort_keys=True)[:650])
     print(f"Newsroom V2: {accepted} screened draft(s), {len(report)} candidate outcomes; separate autonomous publisher decides eligibility.")
 
 if __name__=="__main__":
