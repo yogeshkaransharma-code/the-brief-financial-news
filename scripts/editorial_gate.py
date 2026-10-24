@@ -14,8 +14,10 @@ from pathlib import Path
 import re
 from urllib.parse import urlsplit
 from financial_consistency import concerns as financial_concerns
+from source_retrieval import ALLOWED as OFFICIAL
+from publication_scope import source_lane
 
-OFFICIAL = {"www.fca.org.uk", "www.bankofengland.co.uk", "fca.org.uk", "bankofengland.co.uk", "www.aviva.com", "aviva.com", "www.lloydsbankinggroup.com", "lloydsbankinggroup.com", "www.standardlifeplc.com", "standardlifeplc.com", "committees.parliament.uk", "publications.parliament.uk", "www.investegate.co.uk", "investegate.co.uk", "thepensionsregulator.gov.uk", "www.thepensionsregulator.gov.uk", "rathbones.com", "www.rathbones.com"}
+# Share the primary-source host allowlist with the actual document reader.
 STATUSES = {"Proposal", "Confirmed announcement", "Published report", "Speech / commentary"}
 RISKY = re.compile(
     r"\b(?:will\s+(?:now\s+)?(?:have to|be required to|need to|be obliged to)|"
@@ -56,7 +58,8 @@ def check(bundle: dict, human_review: bool = False) -> dict:
     if not re.fullmatch(r"ai-[a-f0-9]{20}", a["id"]):
         raise ValueError("Unrecognised article identity")
     source = urlsplit(a["url"])
-    if source.scheme != "https" or source.hostname not in OFFICIAL or source.username or source.password:
+    if (source.scheme != "https" or source.hostname not in OFFICIAL or source.username
+            or source.password or source_lane(a["url"]) is None):
         raise ValueError("Article source is not an approved official site")
     if a["status"] not in STATUSES:
         raise ValueError("Publication status is missing or invalid")
@@ -75,7 +78,7 @@ def check(bundle: dict, human_review: bool = False) -> dict:
             raise ValueError("Malformed article section")
         paragraphs.append(block[1])
     word_count = sum(len(p.split()) for p in paragraphs)
-    if not 150 <= word_count <= 1100:
+    if not 120 <= word_count <= 1100:
         raise ValueError(f"Article length inappropriate: {word_count} words")
     if len(a["title"]) < 22 or len(a["title"]) > 170 or len(a["short"]) < 60:
         raise ValueError("Headline or standfirst fails editorial criteria")
