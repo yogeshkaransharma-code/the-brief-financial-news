@@ -23,8 +23,11 @@ def assess(article_list,report,now):
     available=report.get("available_after_retry_cooldowns",0)
     screened=report.get("machine_screened",0)
     quota=report.get("active_quota_pause_until")
+    spend=report.get("api_budget") or {}
     if quota:
         state="API capacity paused"
+    elif spend and spend.get("remaining_today")==0:
+        state="Daily AI request budget exhausted; no more paid calls"
     elif fresh and not available:
         state="Source retry holds are excluding all fresh candidates"
     elif report.get("eligible_for_this_run",0)==0:
@@ -37,7 +40,7 @@ def assess(article_list,report,now):
             "last_article_at":published[0].isoformat() if published else None,
             "fresh_source_candidates":fresh,"candidates_after_cooldowns":available,
             "machine_screened":screened,"traced_originals":report.get("traced_originals",0),
-            "status":state,"quota_pause_until":quota}
+            "status":state,"quota_pause_until":quota,"ai_budget":spend}
 
 def main():
     now=dt.datetime.now(dt.timezone.utc)
@@ -59,6 +62,8 @@ def main():
         f"| Official sources traced from news links | {state['traced_originals']} |",
         f"| After retry holds | {state['candidates_after_cooldowns']} |",
         f"| Machine-screened new drafts | {state['machine_screened']} |",
+        f"| AI requests in this run | {state['ai_budget'].get('requests_this_run','unknown')} |",
+        f"| AI requests used today / cap | {state['ai_budget'].get('requests_today_including_this_run','unknown')} / {state['ai_budget'].get('daily_limit','unknown')} |",
         f"| Operational state | {state['status']} |",
         "",
         "A green GitHub job alone does not mean an article was published.",
