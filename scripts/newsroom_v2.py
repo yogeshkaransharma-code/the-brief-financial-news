@@ -12,6 +12,7 @@ import os
 from pathlib import Path
 import re
 import sys
+from zoneinfo import ZoneInfo
 from urllib.parse import urlsplit
 from ai_newsroom import ROOT, OUTPUT, MODEL, fetch_gemini, select_candidates, norm
 from source_retrieval import read_source, SourceError
@@ -27,6 +28,18 @@ MIN_WORDS = 150
 MAX_WORDS = 950
 NUMBER = re.compile(r"(?<![\w])(?:£|\$)?\d+(?:[.,]\d+)*(?:%|bn|m|k)?(?![\w])", re.I)
 GENERIC = re.compile(r"(?i)\b(?:industry participants|financial services professionals are reviewing|in today's evolving landscape|in a significant development)\b")
+
+def next_quota_check(message,now):
+    """Distinguish per-day exhaustion from short rolling throttles."""
+    detail=message.lower()
+    if any(label in detail for label in ("requestsperday","tokensperday","per day","daily limit","rpd")):
+        local=now.astimezone(ZoneInfo("America/Los_Angeles"))
+        tomorrow=(local+dt.timedelta(days=1)).date()
+        midnight=dt.datetime.combine(tomorrow,dt.time(0,5),ZoneInfo("America/Los_Angeles"))
+        return midnight.astimezone(dt.timezone.utc)
+    # Avoid treating an RPM/TPM limit as an exhausted entire day.
+    return now+dt.timedelta(minutes=30)
+
 
 def numeric_tokens(text):
     return {m.group().lower().replace(",","") for m in NUMBER.finditer(text)}
@@ -522,6 +535,8 @@ def self_test():
     # Retry intervals are bounded and keep failures outside the public article feed.
     sample=dt.datetime(2026,10,23,18,tzinfo=dt.timezone.utc)
     assert (sample+dt.timedelta(hours=8)).isoformat()>sample.isoformat()
+    assert next_quota_check("Quota exceeded: GenerateRequestsPerDayPerProjectPerModel",sample)>sample+dt.timedelta(hours=1)
+    assert next_quota_check("Too many tokens this minute",sample)==sample+dt.timedelta(minutes=30)
     print("PASS: separate writer schema, sentence coverage and financial token checks")
 
 def main():
@@ -651,9 +666,11 @@ def main():
             reason=str(exc)
             report.append({"title":item.get("title","unknown"),"result":"held back","reason":reason[:360],"stage":stage,"source":item.get("url")})
             if "HTTP 429" in reason or "quota exceeded" in reason.lower():
-                delay(item["url"],2,"Gemini request quota exhausted")
-                ledger["quota_pause_until"]=(now+dt.timedelta(hours=2)).isoformat()
-                report.append({"result":"stopped","reason":"Gemini quota reached; pause writing attempts for two hours while hourly source collection continues"})
+                after=next_quota_check(reason,now)
+                attempts[item["url"]]={"attempted_at":now.isoformat(),"retry_after":after.isoformat(),
+                                       "last_result":"Gemini capacity exhausted"}
+                ledger["quota_pause_until"]=after.isoformat()
+                report.append({"result":"stopped","reason":"Gemini capacity reached; retry after "+after.isoformat()+" while hourly discovery continues"})
                 break
             long_cooldown=any(t in reason for t in (
                 "HTTP Error 403","Insufficient official article content",
