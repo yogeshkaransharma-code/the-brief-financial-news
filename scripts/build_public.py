@@ -122,7 +122,7 @@ def build():
         + '</span><div><span class="story-kind">FULL ARTICLE</span>'
         + '<a href="' + esc(story_href(a)) + '">' + esc(a["title"]) + '</a>'
         + '<p>' + esc(a.get("short", "")[:190]) + '</p></div></div>'
-        for i, a in enumerate(records[:3])
+        for i, a in enumerate(records[1:3])
     )
     page = insert_once(page,
         '<div id="briefing-stories" class="briefing-stories"></div>',
