@@ -15,6 +15,7 @@ on:
       - 'scripts/source_retrieval.py'
       - 'scripts/ai_newsroom.py'
       - 'scripts/model_providers.py'
+      - 'scripts/ai_cost_guard.py'
       - 'scripts/update_feeds.py'
       - 'scripts/newsroom_health.py'
       - 'scripts/fresh_sources.py'
@@ -55,13 +56,14 @@ jobs:
 
       - name: Test draft validation logic
         run: |
-          python -m py_compile scripts/newsroom_v2.py scripts/publish_autonomous.py scripts/publication_scope.py scripts/source_trace.py scripts/source_retrieval.py
+          python -m py_compile scripts/newsroom_v2.py scripts/publish_autonomous.py scripts/publication_scope.py scripts/source_trace.py scripts/source_retrieval.py scripts/ai_cost_guard.py
           python scripts/publication_scope.py
           python scripts/ai_newsroom.py --self-test
           python scripts/source_retrieval.py
           python scripts/first_party_sources.py
           python scripts/source_trace.py
           python scripts/model_providers.py
+          python scripts/ai_cost_guard.py
           python scripts/newsroom_health.py --self-test
           python scripts/fresh_sources.py
           python scripts/newsroom_v2.py --self-test
