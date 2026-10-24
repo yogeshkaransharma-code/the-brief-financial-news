@@ -18,7 +18,8 @@ ALLOWED = {"fca.org.uk", "www.fca.org.uk", "bankofengland.co.uk", "www.bankofeng
            "standardlifeplc.com", "www.standardlifeplc.com",
            "committees.parliament.uk", "publications.parliament.uk", "www.investegate.co.uk", "investegate.co.uk",
            "thepensionsregulator.gov.uk", "www.thepensionsregulator.gov.uk",
-           "rathbones.com", "www.rathbones.com"}
+           "rathbones.com", "www.rathbones.com",
+           "allianz.co.uk", "www.allianz.co.uk", "munichre.com", "www.munichre.com"}
 UA = "TheBriefResearch/0.2 (public official documents; editorial attribution)"
 MAX_BYTES = 3_000_000
 MAX_TEXT = 43_000
