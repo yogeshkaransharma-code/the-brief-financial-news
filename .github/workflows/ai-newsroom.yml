@@ -85,7 +85,7 @@ jobs:
           # this repository variable AND saving the matching GitHub secret.
           BRIEF_AI_PROVIDER: ${{ vars.BRIEF_AI_PROVIDER || 'gemini' }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          GEMINI_MODEL: gemini-3.6-flash
+          GEMINI_MODEL: gemini-3.8-flash
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_MODEL: gpt-6-luna
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
