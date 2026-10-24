@@ -1,0 +1,65 @@
+name: Daily public news check
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/public-site-health.yml'
+  schedule:
+    # Every evening, verify that the public site contains a story published
+    # today, as well as an accessible article page and primary source.
+    - cron: '43 20 * * *'
+
+permissions:
+  contents: read
+
+jobs:
+  public-news-health:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Check out published archive
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Check real homepage, public archive and full article
+        env:
+          BRIEF_SITE_URL: https://yogeshkaransharma-code.github.io/the-brief-financial-news/
+        run: python scripts/verify_live.py
+
+      - name: Check for at least one article actually published today
+        run: |
+          python - <<'PY'
+          import datetime as dt
+          import json
+          from pathlib import Path
+          from zoneinfo import ZoneInfo
+
+          zone=ZoneInfo("Europe/London")
+          today=dt.datetime.now(zone).date()
+          articles=json.loads(Path("data/articles.json").read_text(encoding="utf-8"))
+          dated=[]
+          for a in articles:
+              try:
+                  ts=dt.datetime.fromisoformat(a["published_at"].replace("Z","+00:00"))
+                  if ts.tzinfo and ts.astimezone(zone).date()==today:
+                      dated.append(a)
+              except (KeyError,ValueError,TypeError):
+                  pass
+          with open(__import__("os").environ["GITHUB_STEP_SUMMARY"],"a",encoding="utf-8") as f:
+              f.write("## The Brief daily edition\n\n")
+              f.write(f"UK publication date: **{today}**\n\n")
+              f.write(f"Articles published today: **{len(dated)}**\n\n")
+              if dated:
+                  for a in dated:
+                      f.write("- "+a["title"]+"\n")
+          if not dated:
+              print(f"::error::No original article published on {today} (UK time). This is a newsroom issue requiring attention, not a successful daily edition.")
+              raise SystemExit(1)
+          print(f"DAILY_PUBLICATION_OK: {len(dated)} original article(s) published on {today} UK time")
+          PY
