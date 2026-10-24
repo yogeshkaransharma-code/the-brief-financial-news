@@ -56,25 +56,19 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
 
-      - name: Check for at least one article actually published today
+      - name: Demand genuine same-day originals in nightly edition
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        env:
+          PYTHONPATH: scripts
         run: |
           python - <<'PY'
-          import datetime as dt
           import json
           from pathlib import Path
-          from zoneinfo import ZoneInfo
+          from same_day_policy import clock,published_same_day
 
-          zone=ZoneInfo("Europe/London")
-          today=dt.datetime.now(zone).date()
+          today=clock().date()
           articles=json.loads(Path("data/articles.json").read_text(encoding="utf-8"))
-          dated=[]
-          for a in articles:
-              try:
-                  ts=dt.datetime.fromisoformat(a["published_at"].replace("Z","+00:00"))
-                  if ts.tzinfo and ts.astimezone(zone).date()==today:
-                      dated.append(a)
-              except (KeyError,ValueError,TypeError):
-                  pass
+          dated=[a for a in articles if published_same_day(a)]
           with open(__import__("os").environ["GITHUB_STEP_SUMMARY"],"a",encoding="utf-8") as f:
               f.write("## The Brief daily edition\n\n")
               f.write(f"UK publication date: **{today}**\n\n")
@@ -85,5 +79,5 @@ jobs:
           if not dated:
               print(f"::error::No original article published on {today} (UK time). This is a newsroom issue requiring attention, not a successful daily edition.")
               raise SystemExit(1)
-          print(f"DAILY_PUBLICATION_OK: {len(dated)} original article(s) published on {today} UK time")
+          print(f"DAILY_SAME_DAY_ORIGINALS_OK: {len(dated)} original article(s) with source AND publication date {today}")
           PY
