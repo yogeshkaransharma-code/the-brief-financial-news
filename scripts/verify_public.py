@@ -40,11 +40,13 @@ def verify():
     html_text = (PUBLIC / "index.html").read_text(encoding="utf-8")
     parser = Visible()
     parser.feed(html_text)
-    required = {"lead-story", "feed", "briefing-stories", "latest-published-highlight", "embedded-articles"}
+    required = {"lead-story", "feed", "briefing-stories", "embedded-articles"}
     assert required.issubset(parser.found), "Visible article areas missing from generated homepage"
+    assert "static-edition" not in parser.found and "latest-published-highlight" not in parser.found, "Temporary duplicate news sections still on published homepage"
     latest = max(articles, key=lambda a:(a.get("published_at",""),a["id"]))
     text = " ".join(parser.text)
     assert latest["title"] in text, "Newest approved article not visibly printed on homepage"
+    assert latest["title"] in html_text.split('<article id="lead-story"',1)[1].split('</article>',1)[0], "Newest article does not occupy actual editorial lead"
     assert all(a["title"] in text for a in articles[:min(len(articles),10)]), "Missing visible news headlines"
     for article in articles:
         story = PUBLIC / "story" / (article["id"]+".html")
