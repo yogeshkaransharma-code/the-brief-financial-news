@@ -17,7 +17,7 @@ from urllib.parse import urlsplit
 from editorial_gate import check
 from newsroom_v2 import canonical
 from verify_approved_articles import validate as verify_feed
-from fresh_sources import LAUNCH_START, LAUNCH_END, MAX_NEWS_AGE
+from same_day_policy import source_issued_today
 from publication_scope import source_lane
 from source_retrieval import permitted
 
@@ -26,7 +26,7 @@ ARTICLES = ROOT / "data/articles.json"
 AUDIT_DIR = ROOT / "data/editorial-audits"
 DRAFT_DIR = ROOT / "generated-drafts"
 MAX_ARTICLES = 6
-POLICY_VERSION = "dated-catchup-newsroom-2026-10-24-v3"
+POLICY_VERSION = "strict-uk-same-day-original-news-2026-10-24-v4"
 # URL-level lanes are shared with candidate selection so Gemini focuses on
 # stories that have a chance of passing the autonomous publication gate.
 HIGH_RISK = re.compile(
@@ -82,24 +82,10 @@ def eligible(bundle):
     source=bundle.get("captured_source_excerpt","")
     if len(source)<1250:
         problems.append("Too little original-source evidence for an unattended financial article")
-    updated=dt.datetime.now(dt.timezone.utc).date()
-    try:
-        issued=dt.date.fromisoformat(a["dateISO"])
-        # Catch-up publication preserves the source date rather than
-        # falsely treating an earlier official announcement as today's event.
-        launched=LAUNCH_START<=issued<=LAUNCH_END and updated==LAUNCH_END
-        precision=a.get("source_time_precision","date")
-        if precision=="timestamp":
-            published_at=dt.datetime.fromisoformat(a["source_published_at"].replace("Z","+00:00"))
-            now=dt.datetime.now(dt.timezone.utc)
-            is_fresh=published_at.tzinfo is not None and dt.timedelta()<=now-published_at<=MAX_NEWS_AGE
-        else:
-            # For source date without an exact time, compare actual dates.
-            is_fresh=(0<=(updated-issued).days<=MAX_NEWS_AGE.days)
-        if not (launched or is_fresh):
-            problems.append("Official source older than four days, future dated or unverifiable")
-    except (ValueError,TypeError):
-        problems.append("Invalid source date")
+    # Publication MUST occur on the same UK calendar date as the first-party
+    # announcement. A fresh AI write-up never refreshes an old source.
+    if not source_issued_today(a,dt.datetime.now(dt.timezone.utc)):
+        problems.append("Original announcement is not from TODAY in the UK; old or future news is forbidden")
     if bundle.get("editorial_flags") or bundle.get("revision_history",[])[-1:][0:1] and bundle["revision_history"][-1].get("problems"):
         problems.append("Outstanding disputed claim")
     combined="\n".join([a["title"],a["short"]]+[t for _,t in a["blocks"]])
