@@ -235,8 +235,8 @@ async function loadLive(){
  $('freshness').textContent='Original sources monitored · full articles published after checks';
  return false;
 }
-async function refreshOnOpen(){if(document.hidden)return;await loadPublished();renderTop();renderFeed();renderDate();renderExplainers()}
-async function start(){renderDate();renderFollows();renderExplainers();wire();setInterval(refreshOnOpen,600000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshOnOpen()});await Promise.all([loadLive(),loadPublished()]);renderTop();renderFeed();route();saveStore('lastVisit',now);}
+async function refreshOnOpen(){if(document.hidden)return;await loadPublished();renderTop();renderFeed();if(published.length&&$('static-edition'))$('static-edition').hidden=true;renderDate();renderExplainers()}
+async function start(){renderDate();renderFollows();renderExplainers();wire();setInterval(refreshOnOpen,600000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshOnOpen()});await Promise.all([loadLive(),loadPublished()]);renderTop();renderFeed();if(published.length&&$('static-edition'))$('static-edition').hidden=true;route();saveStore('lastVisit',now);}
 start();
 })();
 </script>
