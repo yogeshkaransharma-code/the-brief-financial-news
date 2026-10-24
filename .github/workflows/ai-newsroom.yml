@@ -29,7 +29,9 @@ permissions:
   id-token: write
 
 concurrency:
-  group: the-brief-autonomous-newsroom
+  # Serialize article writes and Pages deployments with the hourly collector.
+  # Neither workflow may publish an older website over fresh articles.
+  group: the-brief-pages
   cancel-in-progress: false
 
 jobs:
