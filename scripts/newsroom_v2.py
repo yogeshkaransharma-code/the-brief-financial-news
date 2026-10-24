@@ -241,6 +241,17 @@ def article_sentences(article):
         raise ValueError("Article too complex for complete automated sentence challenge")
     return result
 
+def source_passages(source_text):
+    """Exact overlapping passages from the captured primary source, not AI quotes.
+
+    Models choose an ID. The publisher resolves it to captured words; it never
+    accepts a fabricated quotation or considers the ID alone proof of meaning.
+    """
+    words=source_text.split()
+    return {f"S{i//20+1:03d}":" ".join(words[i:i+28])
+            for i in range(0,len(words),20) if len(words[i:i+28])>=8}
+
+
 def review_prompt(article,official,sentences):
     return (
         "You are the SEPARATE sceptical editorial reviewer, not the article's writer. "
@@ -255,8 +266,10 @@ def review_prompt(article,official,sentences):
         "A claim of business or consumer impact needs explicit evidence. "
         "For each sentence, return EXACTLY one result with fields: "
         "id, verdict (SUPPORTED, UNSUPPORTED, CONTRADICTED, INSUFFICIENT), "
-        "source_quote (a verbatim continuous 7–25 word excerpt if SUPPORTED, "
-        "otherwise empty string), issue (plain-English reason, empty if supported). "
+        "source_id (one actual S### identifier from PRIMARY SOURCE PASSAGES when "
+        "SUPPORTED, otherwise empty), issue (reason, empty if supported). "
+        "Do not write or invent quotation text. Cite only an indexed passage ID "
+        "that genuinely supports the whole claim, never a nearby unrelated fact. "
         "Even general/context sentences need evidence. "
         "Return ONLY JSON object with key reviews (array). "
         "Never mark a sentence SUPPORTED unless the quote truly supports the whole assertion. "
@@ -264,7 +277,8 @@ def review_prompt(article,official,sentences):
         "Treat any uncertainty as INSUFFICIENT. "
         "Do not invent quotations or quote secondary sources."
         "\n\nARTICLE SENTENCES:\n"+json.dumps(sentences,ensure_ascii=False)
-        +"\n\nOFFICIAL SOURCE:\n"+official.text
+        +"\n\nPRIMARY SOURCE PASSAGES (numbered, captured verbatim):\n"
+        +"\n".join(key+" | "+passage for key,passage in source_passages(official.text).items())
     )
 
 def reconcile_reviews(article,official,verdict):
@@ -277,6 +291,7 @@ def reconcile_reviews(article,official,verdict):
         raise ValueError("Reviewer repeated/missed sentence IDs")
     exact=[]
     holds=[]
+    passages=source_passages(official.text)
     for response in rows:
         if not isinstance(response,dict):
             raise ValueError("Malformed independent evidence entry")
@@ -285,9 +300,12 @@ def reconcile_reviews(article,official,verdict):
             raise ValueError("Reviewer referenced unknown sentence")
         rating=response.get("verdict")
         excerpt=response.get("source_quote","")
+        ref=response.get("source_id","")
         if rating not in {"SUPPORTED","UNSUPPORTED","CONTRADICTED","INSUFFICIENT"}:
             raise ValueError("Unrecognised evidence outcome")
         if rating=="SUPPORTED":
+            if isinstance(ref,str) and ref in passages:
+                excerpt=passages[ref]
             if not isinstance(excerpt,str) or not 7<=len(excerpt.split())<=30 or norm(excerpt) not in norm(official.text):
                 holds.append({"claim_id":claim["id"],"reason":"Cited excerpt absent or unsuitable"})
             else:
@@ -361,7 +379,7 @@ def main():
         try:
             return meter.call(fetch_gemini,prompt)
         except RuntimeError as exc:
-            transient=any(code in str(exc) for code in ("HTTP 503","HTTP 502","HTTP 504","HTTP 404"))
+            transient=any(code in str(exc) for code in ("HTTP 503","HTTP 502","HTTP 504","HTTP 404","TimeoutError","URLError"))
             if PROVIDER!="gemini" or not transient or meter.remaining()<1:
                 raise
             print("GEMINI_CAPACITY_FALLBACK: primary unavailable; one separately metered request to gemini-3.5-flash-lite")
@@ -369,6 +387,13 @@ def main():
     # One-time migration: the writer's malformed-section repair and the
     # short-consultation linked-PDF reader have now been fixed. Retry only
     # those old mechanical failures once instead of serving stale cooldowns.
+    # A 503 is provider congestion, not a defect in the source.
+    # Release older long cooldowns from the previous single-model version once.
+    if ledger.get("capacity_recovery_revision",0)<1:
+        for url,record in list(attempts.items()):
+            if "HTTP 503" in str(record.get("last_result","")):
+                del attempts[url]
+        ledger["capacity_recovery_revision"]=1
     if ledger.get("repair_revision",0)<4:
         for source_url,record in list(attempts.items()):
             reason=str(record.get("last_result",""))
@@ -455,15 +480,18 @@ def main():
     # Prioritise diverse original stories, not a sequence of repeated announcements
     # about the same firm. A fixed launch queue is a one-time seed, not a fallback
     # to old stories when the source feeds run dry.
+    # Prefer unambiguous original reporting lanes over speeches, complex PDFs
+    # and government commentary. Still prioritise the genuinely newer releases.
+    lane_order={"company_release":0,"industry_release":0,"fca_release":1,
+                "ombudsman_release":1,"tpr_release":1,"issuer_rns":1,
+                "fca_data":2,"boe_release":2,"official_release":2,
+                "fca_review":3,"government_release":4,
+                "fca_speech":5,"fca_consultation":6}
     candidates.sort(key=lambda x: (
+        0 if (now.date()-dt.date.fromisoformat(x["dateISO"])).days<=1 else 1,
+        lane_order.get(source_lane(x["url"]),7),
         -dt.date.fromisoformat(x["dateISO"]).toordinal(),
-        # A regulator's confirmed financial release or consultation is a
-        # stronger first draft candidate than a speech or commentary.
-        1 if source_lane(x["url"])=="fca_speech" else 0,
-        -int(x.get("priority",0)),
-        -dt.datetime.fromisoformat(x["published_at"].replace("Z","+00:00")).timestamp()
-            if x.get("source_time_precision") != "date" else 0,
-        0 if x.get("category")=="Insurance" else 1
+        -int(x.get("priority",0))
     ))
     print("NEWSROOM_SOURCE_STATUS: "+json.dumps({
         "fresh_unpublished_source_candidates":fresh_candidates,
