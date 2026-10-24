@@ -30,14 +30,15 @@ def original_date(item):
     """Only first-party source timestamps and explicit source dates count."""
     precision=item.get("source_time_precision")
     if precision=="timestamp":
-        raw=item.get("source_published_at") or item.get("published_at")
+        raw=item.get("source_published_at")
         if not raw:
             raise ValueError("Missing original source timestamp")
         day=date_in_uk(raw)
         # A source-reported date may be its local date or UTC date at midnight.
         source_date=dt.date.fromisoformat(str(item["dateISO"])[:10])
-        if abs((day-source_date).days)>1:
-            raise ValueError("Source timestamp and source calendar date disagree")
+        utc_day=dt.datetime.fromisoformat(str(raw).replace("Z","+00:00")).astimezone(dt.timezone.utc).date()
+        if source_date not in {day,utc_day}:
+            raise ValueError("Source date conflicts with both the UK and UTC original timestamp")
         return day
     if precision in (None,"date"):
         return dt.date.fromisoformat(str(item["dateISO"])[:10])
