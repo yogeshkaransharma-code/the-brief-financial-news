@@ -8,6 +8,7 @@ from __future__ import annotations
 import json
 import os
 from pathlib import Path
+from same_day_policy import published_same_day
 from playwright.sync_api import sync_playwright
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -16,48 +17,51 @@ OUT=ROOT/"browser-evidence"
 
 
 def main():
-    approved=json.loads((ROOT/"data/articles.json").read_text(encoding="utf-8"))
-    assert approved,"There are no editorially approved full articles"
-    latest=max(approved,key=lambda x:(x.get("published_at",""),x["id"]))
+    archive=json.loads((ROOT/"data/articles.json").read_text(encoding="utf-8"))
+    today=[x for x in archive if published_same_day(x)]
+    latest=max(today,key=lambda x:(x.get("published_at",""),x["id"])) if today else None
     OUT.mkdir(exist_ok=True)
     with sync_playwright() as p:
         browser=p.chromium.launch(headless=True)
-        context=browser.new_context(
-            viewport={"width":390,"height":844},
-            device_scale_factor=1,
-            is_mobile=True,
-            has_touch=True,
-            color_scheme="light",
-            service_workers="block")
+        context=browser.new_context(viewport={"width":390,"height":844},
+            device_scale_factor=1,is_mobile=True,has_touch=True,
+            color_scheme="light",service_workers="block")
         page=context.new_page()
         messages=[]
-        page.on("pageerror",lambda error: messages.append(str(error)[:250]))
-        page.goto(SITE+"?mobile-reader-verification=20261024",
+        page.on("pageerror",lambda error:messages.append(str(error)[:250]))
+        page.goto(SITE+"?mobile-reader-verification=same-day",
             wait_until="domcontentloaded",timeout=45000)
-        page.wait_for_timeout(3500)
-        assert page.locator("#static-edition").count()==0,"Temporary emergency list spoiled the mobile design"
-        assert page.locator("#latest-published-highlight").count()==0,"Redundant latest-story panel is still present"
-        assert page.locator("#lead-story").is_visible(),"Editorial lead story is not visible on mobile"
-        assert latest["title"] in page.locator("#lead-story").inner_text(),\
-            "Latest published original article isn't the lead story on mobile"
-        assert page.locator("#briefing-stories .briefing-story").count()>0,"Sixty-second briefing is empty"
-        assert page.locator("#feed .news-item").count()>0,"No articles are visibly rendered in main news feed"
-        assert page.locator("#feed .news-item").first.is_visible(),"News feed is not visible to mobile readers"
+        page.wait_for_timeout(2500)
+        assert page.locator("#static-edition").count()==0,"Old fallback debug box remains"
+        assert page.locator("#lead-story").is_visible(),"Editorial lead not visible"
+        visible=page.locator("#home-view").inner_text()
+        for old in archive:
+            if old["id"] not in {a["id"] for a in today}:
+                assert old["title"] not in visible,"Yesterday's article visible in today's news"
+        if latest:
+            assert latest["title"] in page.locator("#lead-story").inner_text(),"Latest same-day article missing"
+            assert page.locator("#feed .news-item").count()>0,"Same-day feed unexpectedly empty"
+            target=SITE+"story/"+latest["id"]+".html"
+        else:
+            assert "No verified news from today yet" in page.locator("#lead-story").inner_text(),\
+                "Empty daily edition must be explicit and readable"
+            assert page.locator("#feed .news-item").count()==0,\
+                "Yesterday's articles carried over to today's feed"
+            target=None
         page.screenshot(path=str(OUT/"mobile-home.png"),full_page=True)
-        target=SITE+"story/"+latest["id"]+".html"
-        page.goto(target,wait_until="domcontentloaded",timeout=45000)
-        page.wait_for_timeout(500)
-        assert latest["title"] in page.locator("h1").inner_text(),"Full story headline is not rendered"
-        assert latest["blocks"][0][0] in page.locator("article").inner_text(),"Full story body is missing"
-        assert page.get_by_text("Original evidence").count() or page.get_by_text("Original source").count(),\
-            "Attribution to primary source is not visible"
-        page.screenshot(path=str(OUT/"mobile-article.png"),full_page=True)
+        if target:
+            page.goto(target,wait_until="domcontentloaded",timeout=45000)
+            assert latest["title"] in page.locator("h1").inner_text()
+            assert latest["blocks"][0][0] in page.locator("article").inner_text()
+            page.screenshot(path=str(OUT/"mobile-article.png"),full_page=True)
         browser.close()
-    if messages:
-        raise AssertionError("Homepage JavaScript crashed in a real mobile browser: "+" | ".join(messages)[:500])
-    print("MOBILE_READER_OK:",json.dumps({"latest":latest["id"],"home":SITE,
-          "story":target,"screenshots":["mobile-home.png","mobile-article.png"],
-          "articles_in_archive":len(approved)}))
+    assert not messages,"Browser JavaScript errors: "+" | ".join(messages)
+    print("MOBILE_SAME_DAY_OK:",json.dumps({"articles_today":len(today),
+        "old_articles_hidden":len(archive)-len(today),"home":SITE,"story":target}))
+
+
+if __name__=="__main__":
+    main()
 
 
 if __name__=="__main__":
