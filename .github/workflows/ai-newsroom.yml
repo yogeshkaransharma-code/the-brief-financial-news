@@ -135,6 +135,10 @@ jobs:
         run: |
           git config user.name "The Brief Automated Editorial Desk"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # The discovery feed is managed by the separate hourly collector.
+          # Discard its ephemeral local refresh before rebasing publication data:
+          # autostashing it can conflict with the collector and lose real articles.
+          git restore --worktree -- data/live.json
           git add data/articles.json data/newsroom-attempts.json
           if [ -d data/editorial-audits ]; then
             git add data/editorial-audits/
@@ -162,7 +166,7 @@ jobs:
             # means the latest origin/main state. Only do this when there is
             # no new published article to preserve.
             if [ "$published_changed" = false ]; then
-              if ! git -c rebase.autoStash=true rebase -X ours origin/main; then
+              if ! git rebase -X ours origin/main; then
                 git rebase --abort || true
                 echo "::warning::Retry history conflicted; keeping the remote state without failing the newsdesk"
                 echo "changed=false" >> "$GITHUB_OUTPUT"
@@ -171,7 +175,7 @@ jobs:
             else
               # With an actual news article, fail closed if publication data
               # conflicts rather than silently losing a published story.
-              if ! git -c rebase.autoStash=true rebase origin/main; then
+              if ! git rebase origin/main; then
                 git rebase --abort || true
                 echo "::error::Concurrent article edit requires conflict-safe reconciliation"
                 exit 1
