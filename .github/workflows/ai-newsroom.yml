@@ -191,13 +191,11 @@ jobs:
         if: steps.publish.outputs.changed == 'true'
         run: rm -rf generated-drafts
 
-      - name: Build public site with finished AI articles only
+      - name: Build public pages with visible full articles
         if: steps.publish.outputs.changed == 'true'
         run: |
-          mkdir -p public/data
-          cp index.html public/index.html
-          cp about.html public/about.html
-          cp data/articles.json public/data/articles.json
+          python scripts/build_public.py
+          python scripts/verify_public.py
 
       - name: Configure GitHub Pages for new articles
         if: steps.publish.outputs.changed == 'true'
@@ -215,3 +213,9 @@ jobs:
         if: steps.publish.outputs.changed == 'true'
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Verify full article is accessible to public readers
+        if: steps.publish.outputs.changed == 'true'
+        env:
+          BRIEF_SITE_URL: https://yogeshkaransharma-code.github.io/the-brief-financial-news/
+        run: python scripts/verify_live.py
