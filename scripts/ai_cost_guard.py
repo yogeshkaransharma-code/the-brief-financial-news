@@ -98,8 +98,8 @@ def self_test():
     other=CallBudget(ledger,t,per_run=2,per_day=3)
     assert other.remaining()==1
     other.call(lambda p:p,"last")
-    assert CallBudget(ledger,t).remaining()==0
-    assert CallBudget(ledger,t+dt.timedelta(days=1)).remaining()==6
+    assert CallBudget(ledger,t,per_run=2,per_day=3).remaining()==0
+    assert CallBudget(ledger,t+dt.timedelta(days=1),per_run=2,per_day=3).remaining()==2
     u="https://www.fca.org.uk/news/press-releases/fca-releases-banking-data"
     doc=SimpleNamespace(url=u,document_urls=[u],text="Verified official information. "*85,
          complete_capture=True,notes=[],extraction="HTML main content")
