@@ -278,7 +278,7 @@ def self_test():
     assert not reputable("https://www.ft.com.evil.test/content/1234")
     accountlink=b'<article><p>FCA publishes proposals on home insurance and current accounts. <a href="https://www.fca.org.uk/news/press-releases/fca-publishes-home-insurance-and-current-accounts-proposals">Read the FCA official announcement on home insurance and current accounts</a></p></article>'
     assert extract_original_links(accountlink,base,"FCA publishes proposals on home insurance and current accounts")
-        assert not extract_original_links(b'<article><a href="https://www.fca.org.uk/">FCA</a></article>',base,"Banks consider new approach")
+    assert not extract_original_links(b'<article><a href="https://www.fca.org.uk/">FCA</a></article>',base,"Banks consider new approach")
     dated=b'<html><head><meta property="article:published_time" content="2026-10-24T09:30:00+01:00"></head></html>'
     assert published_date(dated)==("2026-10-24","2026-10-24T08:30:00+00:00","timestamp")
     assert published_date(b"<html>27 years ago</html>") is None
