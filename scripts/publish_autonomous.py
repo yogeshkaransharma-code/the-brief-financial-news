@@ -17,7 +17,7 @@ from urllib.parse import urlsplit
 from editorial_gate import check
 from newsroom_v2 import canonical
 from verify_approved_articles import validate as verify_feed
-from fresh_sources import LAUNCH_START, LAUNCH_END
+from fresh_sources import LAUNCH_START, LAUNCH_END, MAX_NEWS_AGE
 from publication_scope import source_lane
 from source_retrieval import permitted
 
@@ -26,7 +26,7 @@ ARTICLES = ROOT / "data/articles.json"
 AUDIT_DIR = ROOT / "data/editorial-audits"
 DRAFT_DIR = ROOT / "generated-drafts"
 MAX_ARTICLES = 6
-POLICY_VERSION = "daily-24-hour-news-2026-10-23-v2"
+POLICY_VERSION = "dated-catchup-newsroom-2026-10-24-v3"
 # URL-level lanes are shared with candidate selection so Gemini focuses on
 # stories that have a chance of passing the autonomous publication gate.
 HIGH_RISK = re.compile(
@@ -85,20 +85,19 @@ def eligible(bundle):
     updated=dt.datetime.now(dt.timezone.utc).date()
     try:
         issued=dt.date.fromisoformat(a["dateISO"])
-        # Rolling coverage is at most 24 hours. During the relaunch on
-        # 23 October only, announcements first made on 22 October also qualify.
+        # Catch-up publication preserves the source date rather than
+        # falsely treating an earlier official announcement as today's event.
         launched=LAUNCH_START<=issued<=LAUNCH_END and updated==LAUNCH_END
         precision=a.get("source_time_precision","date")
         if precision=="timestamp":
             published_at=dt.datetime.fromisoformat(a["source_published_at"].replace("Z","+00:00"))
             now=dt.datetime.now(dt.timezone.utc)
-            is_fresh=published_at.tzinfo is not None and dt.timedelta()<=now-published_at<=dt.timedelta(hours=24)
+            is_fresh=published_at.tzinfo is not None and dt.timedelta()<=now-published_at<=MAX_NEWS_AGE
         else:
-            # If the source gives only its calendar date, avoid inventing the
-            # hour. Accept today's dated releases; 22 Oct is launch-only.
-            is_fresh=(issued==updated)
+            # For source date without an exact time, compare actual dates.
+            is_fresh=(0<=(updated-issued).days<=MAX_NEWS_AGE.days)
         if not (launched or is_fresh):
-            problems.append("Outside the precise 24-hour news window or unverifiable source time")
+            problems.append("Official source older than four days, future dated or unverifiable")
     except (ValueError,TypeError):
         problems.append("Invalid source date")
     if bundle.get("editorial_flags") or bundle.get("revision_history",[])[-1:][0:1] and bundle["revision_history"][-1].get("problems"):
