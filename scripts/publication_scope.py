@@ -22,6 +22,8 @@ OMBUDSMAN_NEWS = re.compile(r"^/who-we-are/data-insight/news/[a-z0-9-]+/?$",re.I
 TPR_RELEASES = re.compile(r"^/(?:en/)?media-hub/press-releases/20\d{2}-press-releases/[a-z0-9-]+/?$",re.I)
 ALLIANZ_RELEASE = re.compile(r"^/news-and-insight/news/[a-z0-9-]+\.html$",re.I)
 MUNICH_RELEASE = re.compile(r"^/en/company/media-relations/media-information-and-corporate-news/media-information/20\d{2}/[a-z0-9.-]+\.html$",re.I)
+ABI_RELEASE = re.compile(r"^/media-hub/news-post/[a-z0-9-]+/?$", re.I)
+UK_FINANCE_RELEASE = re.compile(r"^/news-and-insight/press-release/[a-z0-9-]+/?$", re.I)
 # Adverse actions against firms/people and allegations are NOT published
 # unattended, even when an official regulator announces them.
 ADVERSE = re.compile(
@@ -55,6 +57,10 @@ def source_lane(url: str) -> str | None:
             return "fca_consultation"
         if FCA_REVIEW.fullmatch(path) and not ADVERSE.search(path.rsplit("/", 1)[-1]):
             return "fca_review"
+    if host in {"abi.org.uk","www.abi.org.uk"} and ABI_RELEASE.fullmatch(path) and not ADVERSE.search(path.rsplit("/",1)[-1]):
+        return "industry_release"
+    if host in {"ukfinance.org.uk","www.ukfinance.org.uk"} and UK_FINANCE_RELEASE.fullmatch(path) and not ADVERSE.search(path.rsplit("/",1)[-1]):
+        return "industry_release"
     if host in {"financial-ombudsman.org.uk","www.financial-ombudsman.org.uk"}:
         if OMBUDSMAN_NEWS.fullmatch(path) and not ADVERSE.search(path.rsplit("/",1)[-1]):
             return "ombudsman_release"
@@ -118,7 +124,11 @@ def self_test():
     assert source_lane("https://www.munichre.com/en/company/media-relations/media-information-and-corporate-news/media-information/2026/media-release-2026-10-23.html")=="company_release"
     assert source_lane("https://www.thepensionsregulator.gov.uk/en/media-hub/press-releases/2026-press-releases/fraud-charges") is None
     assert source_lane("http://www.fca.org.uk/data/complaints-data-2026-h1") is None
-    print("PASS: fresh FCA reporting lanes; high-risk enforcement and spoofed sources remain held")
+    assert source_lane("https://www.abi.org.uk/media-hub/news-post/the-abi-shares-practical-advice-ahead-of-first-named-storms-of-the-season") == "industry_release"
+    assert source_lane("https://www.ukfinance.org.uk/news-and-insight/press-release/uk-finance-publishes-2026-banking-sector-tax-report") == "industry_release"
+    assert source_lane("https://www.abi.org.uk.evil.test/media-hub/news-post/invalid") is None
+    assert source_lane("https://www.ukfinance.org.uk/news-and-insight/blog/industry-opinion") is None
+    print("PASS: official regulator, company and industry release URL lanes; spoofed sources held")
 
 if __name__ == "__main__":
     self_test()

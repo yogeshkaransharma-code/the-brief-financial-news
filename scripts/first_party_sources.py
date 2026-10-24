@@ -18,14 +18,21 @@ INDEXES=(
     ("HSBC","Banking","https://www.hsbc.com/news-and-views/news/media-releases"),
     ("NatWest Group","Banking","https://www.natwestgroup.com/news-and-insights/news-room/press-releases.html"),
     ("Financial Ombudsman Service","Regulation","https://www.financial-ombudsman.org.uk/who-we-are/data-insight/news"),
+    ("Association of British Insurers","Insurance","https://www.abi.org.uk/media-hub"),
+    ("UK Finance","Banking","https://www.ukfinance.org.uk/news-and-insight/press-release"),
 )
 MON={"jan":1,"feb":2,"mar":3,"apr":4,"may":5,"jun":6,"jul":7,"aug":8,"sep":9,"sept":9,"oct":10,"nov":11,"dec":12}
 DATE=re.compile(r"\b([0-3]?\d)\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)[a-z]*\s+(20\d\d)\b",re.I)
 MONTH_FIRST=re.compile(r"\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)[a-z]*\s+([0-3]?\d),?\s+(20\d\d)\b",re.I)
+DOT_DATE=re.compile(r"\b([0-3]?\d)\.([01]?\d)\.(20\d\d)\b")
 
 def official_release(url, source):
     p=urlsplit(url)
     if p.scheme!="https" or p.username or p.password:return False
+    if source=="Association of British Insurers":
+        return source_lane(url)=="industry_release" and p.hostname in {"abi.org.uk","www.abi.org.uk"}
+    if source=="UK Finance":
+        return source_lane(url)=="industry_release" and p.hostname in {"ukfinance.org.uk","www.ukfinance.org.uk"}
     if source=="Aviva":
         return p.hostname in {"www.aviva.com","aviva.com"} and "/newsroom/news-and-research-overview/news-releases/" in p.path
     if source=="The Pensions Regulator":
@@ -50,6 +57,12 @@ def parse_listing(content,source,section,base,today=None):
         url=urljoin(base,anchor["href"]).split("#")[0]
         if not official_release(url,source):continue
         title=" ".join(anchor.get_text(" ",strip=True).split())
+        if source=="Association of British Insurers":
+            # The ABI hub mixes opinion with releases. Only release-labelled
+            # cards enter the automated newsroom, never member-only commentary.
+            if not re.match(r"(?i)^press release\s*\|",title):
+                continue
+            title=re.sub(r"(?i)^press release\s*\|\s*\d{1,2}\.\d{1,2}\.20\d{2}\s*","",title).strip()
         if source in {"Allianz UK","Munich Re","HSBC","NatWest Group","Financial Ombudsman Service"} and (len(title)<25 or title.lower() in {"read more","more information","discover more"}):
             node=anchor
             for _ in range(4):
@@ -75,14 +88,17 @@ def parse_listing(content,source,section,base,today=None):
             context=" ".join(node.get_text(" ",strip=True).split())[:1100]
             m=DATE.search(context)
             m2=MONTH_FIRST.search(context)
-            if (m or m2) and len(context)<900:
+            m3=DOT_DATE.search(context)
+            if (m or m2 or m3) and len(context)<900:
                 try:
                     if m:
                         month=m.group(2)
                         date=dt.date(int(m.group(3)),MON[month[:4].lower()] if month.lower().startswith("sept") else MON[month[:3].lower()],int(m.group(1)))
-                    else:
+                    elif m2:
                         month=m2.group(1)
                         date=dt.date(int(m2.group(3)),MON[month[:4].lower()] if month.lower().startswith("sept") else MON[month[:3].lower()],int(m2.group(2)))
+                    else:
+                        date=dt.date(int(m3.group(3)),int(m3.group(2)),int(m3.group(1)))
                     break
                 except (KeyError,ValueError):pass
         if date is None and source=="Munich Re":
@@ -145,7 +161,13 @@ def self_test():
     fos=b'''<main><article><h3><a href="/who-we-are/data-insight/news/financial-ombudsman-reports-complaints-growth">Financial Ombudsman Service reports latest complaints trends</a></h3><p>24 October 2026</p></article></main>'''
     fo=parse_listing(fos,"Financial Ombudsman Service","Regulation","https://www.financial-ombudsman.org.uk/who-we-are/data-insight/news",today=dt.date(2026,10,24))
     assert len(fo)==1 and fo[0]["dateISO"]=="2026-10-24",fo
-    print("PASS: first-party announcement titles, date validation, official URL allowlist")
+    abi=b'''<main><article><a href="/media-hub/news-post/insurers-share-practical-steps-ahead-of-storms">Press release | 24.10.2026 Insurers share practical steps ahead of storms</a></article><article><a href="/media-hub/news-post/commentary">Opinion | 24.10.2026 The insurance market needs reform</a></article></main>'''
+    a=parse_listing(abi,"Association of British Insurers","Insurance","https://www.abi.org.uk/media-hub",today=dt.date(2026,10,24))
+    assert len(a)==1 and a[0]["dateISO"]=="2026-10-24" and a[0]["title"]=="Insurers share practical steps ahead of storms",a
+    uk=b'''<main><article><span>24 Oct 2026</span><h3><a href="/news-and-insight/press-release/banks-report-customer-payment-trends">Banks report fresh customer payment trends</a></h3></article></main>'''
+    f=parse_listing(uk,"UK Finance","Banking","https://www.ukfinance.org.uk/news-and-insight/press-release",today=dt.date(2026,10,24))
+    assert len(f)==1 and f[0]["dateISO"]=="2026-10-24",f
+    print("PASS: first-party release dates, ABI opinion exclusion and official URL allowlist")
 
 if __name__=="__main__":
     self_test()

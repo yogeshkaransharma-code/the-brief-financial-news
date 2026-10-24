@@ -19,7 +19,8 @@ ALLOWED = {"fca.org.uk", "www.fca.org.uk", "bankofengland.co.uk", "www.bankofeng
            "committees.parliament.uk", "publications.parliament.uk", "www.investegate.co.uk", "investegate.co.uk",
            "thepensionsregulator.gov.uk", "www.thepensionsregulator.gov.uk",
            "rathbones.com", "www.rathbones.com",
-           "allianz.co.uk", "www.allianz.co.uk", "munichre.com", "www.munichre.com", "www.gov.uk", "gov.uk", "hsbc.com", "www.hsbc.com", "natwestgroup.com", "www.natwestgroup.com", "financial-ombudsman.org.uk", "www.financial-ombudsman.org.uk"}
+           "allianz.co.uk", "www.allianz.co.uk", "munichre.com", "www.munichre.com", "www.gov.uk", "gov.uk", "hsbc.com", "www.hsbc.com", "natwestgroup.com", "www.natwestgroup.com", "financial-ombudsman.org.uk", "www.financial-ombudsman.org.uk",
+           "abi.org.uk", "www.abi.org.uk", "ukfinance.org.uk", "www.ukfinance.org.uk"}
 UA = "TheBriefResearch/0.2 (public official documents; editorial attribution)"
 MAX_BYTES = 3_000_000
 MAX_TEXT = 43_000

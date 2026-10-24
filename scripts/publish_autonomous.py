@@ -59,7 +59,7 @@ def eligible(bundle):
         problems.append("FCA consultation must be explicitly presented as a proposal")
     if lane=="government_release" and a.get("status") not in {"Confirmed announcement","Proposal"}:
         problems.append("Government publication status misrepresented")
-    if lane in {"fca_release","company_release","official_release","issuer_rns","tpr_release","ombudsman_release"} and a.get("status")!="Confirmed announcement":
+    if lane in {"fca_release","company_release","industry_release","official_release","issuer_rns","tpr_release","ombudsman_release"} and a.get("status")!="Confirmed announcement":
         problems.append("An official announcement must be labelled as such")
     if lane and a.get("category") not in {"Banking","Insurance","Technology","Regulation"}:
         problems.append("Original source not within financial-services industry category")
