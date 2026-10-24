@@ -20,11 +20,14 @@ INDEXES=(
     ("Financial Ombudsman Service","Regulation","https://www.financial-ombudsman.org.uk/who-we-are/data-insight/news"),
     ("Association of British Insurers","Insurance","https://www.abi.org.uk/media-hub"),
     ("UK Finance","Banking","https://www.ukfinance.org.uk/news-and-insight/press-release"),
+    ("Financial Conduct Authority","Regulation","https://www.fca.org.uk/news"),
+    ("Bank of England","Banking","https://www.bankofengland.co.uk/news/latest-and-upcoming"),
 )
 MON={"jan":1,"feb":2,"mar":3,"apr":4,"may":5,"jun":6,"jul":7,"aug":8,"sep":9,"sept":9,"oct":10,"nov":11,"dec":12}
 DATE=re.compile(r"\b([0-3]?\d)\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)[a-z]*\s+(20\d\d)\b",re.I)
 MONTH_FIRST=re.compile(r"\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)[a-z]*\s+([0-3]?\d),?\s+(20\d\d)\b",re.I)
 DOT_DATE=re.compile(r"\b([0-3]?\d)\.([01]?\d)\.(20\d\d)\b")
+SLASH_DATE=re.compile(r"\b([0-3]?\d)/([01]?\d)/(20\d\d)\b")
 
 def official_release(url, source):
     p=urlsplit(url)
@@ -33,6 +36,10 @@ def official_release(url, source):
         return source_lane(url)=="industry_release" and p.hostname in {"abi.org.uk","www.abi.org.uk"}
     if source=="UK Finance":
         return source_lane(url)=="industry_release" and p.hostname in {"ukfinance.org.uk","www.ukfinance.org.uk"}
+    if source=="Financial Conduct Authority":
+        return source_lane(url) in {"fca_release","fca_consultation","fca_review","fca_speech","fca_data"}
+    if source=="Bank of England":
+        return source_lane(url)=="boe_release"
     if source=="Aviva":
         return p.hostname in {"www.aviva.com","aviva.com"} and "/newsroom/news-and-research-overview/news-releases/" in p.path
     if source=="The Pensions Regulator":
@@ -89,7 +96,8 @@ def parse_listing(content,source,section,base,today=None):
             m=DATE.search(context)
             m2=MONTH_FIRST.search(context)
             m3=DOT_DATE.search(context)
-            if (m or m2 or m3) and len(context)<900:
+            m4=SLASH_DATE.search(context)
+            if (m or m2 or m3 or m4) and len(context)<900:
                 try:
                     if m:
                         month=m.group(2)
@@ -98,7 +106,8 @@ def parse_listing(content,source,section,base,today=None):
                         month=m2.group(1)
                         date=dt.date(int(m2.group(3)),MON[month[:4].lower()] if month.lower().startswith("sept") else MON[month[:3].lower()],int(m2.group(2)))
                     else:
-                        date=dt.date(int(m3.group(3)),int(m3.group(2)),int(m3.group(1)))
+                        dated=m3 if m3 else m4
+                        date=dt.date(int(dated.group(3)),int(dated.group(2)),int(dated.group(1)))
                     break
                 except (KeyError,ValueError):pass
         if date is None and source=="Munich Re":
@@ -128,7 +137,9 @@ def discover():
             items.extend(records)
             print(f"FIRST_PARTY_DISCOVERY {source}: {len(records)} recent original announcements")
         except Exception as e:
-            problems.append(f"{source}: {type(e).__name__} {str(e)[:100]}")
+            issue=f"{source}: {type(e).__name__} {str(e)[:100]}"
+            problems.append(issue)
+            print("FIRST_PARTY_BLOCKED "+issue)
     return items,problems
 
 def self_test():
@@ -167,7 +178,13 @@ def self_test():
     uk=b'''<main><article><span>24 Oct 2026</span><h3><a href="/news-and-insight/press-release/banks-report-customer-payment-trends">Banks report fresh customer payment trends</a></h3></article></main>'''
     f=parse_listing(uk,"UK Finance","Banking","https://www.ukfinance.org.uk/news-and-insight/press-release",today=dt.date(2026,10,24))
     assert len(f)==1 and f[0]["dateISO"]=="2026-10-24",f
-    print("PASS: first-party release dates, ABI opinion exclusion and official URL allowlist")
+    fca=b'''<main><article><h3><a href="/news/press-releases/fca-outlines-new-bank-account-rules">FCA outlines new bank account rules for firms</a></h3><span>23/10/2026</span></article></main>'''
+    f=parse_listing(fca,"Financial Conduct Authority","Regulation","https://www.fca.org.uk/news",today=dt.date(2026,10,24))
+    assert len(f)==1 and f[0]["dateISO"]=="2026-10-23",f
+    boe=b'''<main><article><a href="/news/2026/october/bank-of-england-announces-new-market-guidance">Bank of England announces new market guidance for banks</a><span>22 October 2026</span></article></main>'''
+    b=parse_listing(boe,"Bank of England","Banking","https://www.bankofengland.co.uk/news/latest-and-upcoming",today=dt.date(2026,10,24))
+    assert len(b)==1 and b[0]["dateISO"]=="2026-10-22",b
+    print("PASS: first-party regulator, banking and insurance indexed source discovery")
 
 if __name__=="__main__":
     self_test()
