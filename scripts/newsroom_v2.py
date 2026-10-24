@@ -391,11 +391,14 @@ def main():
     # those old mechanical failures once instead of serving stale cooldowns.
     # A 503 is provider congestion, not a defect in the source.
     # Release older long cooldowns from the previous single-model version once.
-    if ledger.get("capacity_recovery_revision",0)<1:
+    if ledger.get("capacity_recovery_revision",0)<2:
         for url,record in list(attempts.items()):
-            if "HTTP 503" in str(record.get("last_result","")):
+            reason=str(record.get("last_result",""))
+            if ("HTTP 503" in reason or "Article length must serve" in reason
+                    or ("Held after one draft" in reason and source_lane(url) in
+                        {"company_release","industry_release","ombudsman_release"})):
                 del attempts[url]
-        ledger["capacity_recovery_revision"]=1
+        ledger["capacity_recovery_revision"]=2
     if ledger.get("repair_revision",0)<4:
         for source_url,record in list(attempts.items()):
             reason=str(record.get("last_result",""))
