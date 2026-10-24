@@ -493,8 +493,10 @@ def main():
                 "fca_review":3,"government_release":4,
                 "fca_speech":5,"fca_consultation":6}
     candidates.sort(key=lambda x: (
-        0 if (now.date()-dt.date.fromisoformat(x["dateISO"])).days<=1 else 1,
+        # Source quality and simple fully readable releases beat ambiguous
+        # speeches/PDFs, especially when Gemini budget is nearly exhausted.
         lane_order.get(source_lane(x["url"]),7),
+        0 if (now.date()-dt.date.fromisoformat(x["dateISO"])).days<=1 else 1,
         -dt.date.fromisoformat(x["dateISO"]).toordinal(),
         -int(x.get("priority",0))
     ))
