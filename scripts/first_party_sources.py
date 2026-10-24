@@ -15,6 +15,8 @@ INDEXES=(
     ("The Pensions Regulator","Regulation","https://www.thepensionsregulator.gov.uk/media-hub/press-releases"),
     ("Allianz UK","Insurance","https://www.allianz.co.uk/news-and-insight/news.html"),
     ("Munich Re","Insurance","https://www.munichre.com/en/company/media-relations/media-information-and-corporate-news.html"),
+    ("HSBC","Banking","https://www.hsbc.com/news-and-views/news/media-releases"),
+    ("NatWest Group","Banking","https://www.natwestgroup.com/news-and-insights/news-room/press-releases.html"),
 )
 MON={"jan":1,"feb":2,"mar":3,"apr":4,"may":5,"jun":6,"jul":7,"aug":8,"sep":9,"sept":9,"oct":10,"nov":11,"dec":12}
 DATE=re.compile(r"\b([0-3]?\d)\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)[a-z]*\s+(20\d\d)\b",re.I)
@@ -27,6 +29,8 @@ def official_release(url, source):
         return p.hostname in {"www.aviva.com","aviva.com"} and "/newsroom/news-and-research-overview/news-releases/" in p.path
     if source=="The Pensions Regulator":
         return source_lane(url)=="tpr_release"
+    if source in {"HSBC","NatWest Group"}:
+        return source_lane(url)=="company_release"
     if source in {"Allianz UK","Munich Re"}:
         return source_lane(url)=="company_release"
     if source=="UK Parliament":
@@ -43,7 +47,7 @@ def parse_listing(content,source,section,base,today=None):
         url=urljoin(base,anchor["href"]).split("#")[0]
         if not official_release(url,source):continue
         title=" ".join(anchor.get_text(" ",strip=True).split())
-        if source in {"Allianz UK","Munich Re"} and (len(title)<25 or title.lower() in {"read more","more information","discover more"}):
+        if source in {"Allianz UK","Munich Re","HSBC","NatWest Group"} and (len(title)<25 or title.lower() in {"read more","more information","discover more"}):
             node=anchor
             for _ in range(4):
                 node=node.parent if getattr(node,"parent",None) else node
@@ -129,6 +133,12 @@ def self_test():
     undated=b'''<article><h3>Munich Re reports quarterly profit and updates annual guidance</h3><a href="/en/company/media-relations/media-information-and-corporate-news/media-information/2026/media-release-2026-10-23.html">More information</a></article>'''
     recovered=parse_listing(undated,"Munich Re","Insurance","https://www.munichre.com/en/company/media-relations/media-information-and-corporate-news.html",today=dt.date(2026,10,24))
     assert len(recovered)==1 and recovered[0]["dateISO"]=="2026-10-23",recovered
+    hsbc=b'''<main><article><h3><a href="/news-and-views/news/media-releases/2026/bank-reports-third-quarter-results">HSBC reports its third quarter financial results and revenue growth</a></h3><p>24 Oct 2026</p></article></main>'''
+    h=parse_listing(hsbc,"HSBC","Banking","https://www.hsbc.com/news-and-views/news/media-releases",today=dt.date(2026,10,24))
+    assert len(h)==1 and h[0]["dateISO"]=="2026-10-24",h
+    nw=b'''<main><article><h3><a href="/news-and-insights/news-room/press-releases/2026/natwest-business-banking-report-shows-growth.html">NatWest Group publishes new survey of business banking customers</a></h3><span>24 Oct 2026</span></article></main>'''
+    n=parse_listing(nw,"NatWest Group","Banking","https://www.natwestgroup.com/news-and-insights/news-room/press-releases.html",today=dt.date(2026,10,24))
+    assert len(n)==1 and n[0]["dateISO"]=="2026-10-24",n
     print("PASS: first-party announcement titles, date validation, official URL allowlist")
 
 if __name__=="__main__":
