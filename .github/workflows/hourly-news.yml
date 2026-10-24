@@ -92,6 +92,13 @@ jobs:
             exit 1
           fi
 
+      - name: Sync latest approved articles before deploying
+        # An AI newsroom run may have published while this feed job was reading.
+        # Never deploy an older checkout over newly published articles.
+        run: |
+          git fetch origin main
+          git reset --hard origin/main
+
       - name: Verify live feed and website content
         run: python scripts/verify_site.py
 
