@@ -44,9 +44,15 @@ def probe():
             if not isinstance(archive,list) or latest["id"] not in {x.get("id") for x in archive}:
                 raise AssertionError("Latest audited article is missing from public data file")
             if ('id="embedded-articles"' not in homepage or
-                    'id="latest-published-highlight"' not in homepage or
+                    '<article id="lead-story"' not in homepage or
+                    '<div class="feed" id="feed">' not in homepage or
                     html.escape(latest["title"],quote=True) not in homepage):
-                raise AssertionError("Latest article is not visibly embedded on public homepage")
+                raise AssertionError("Latest article is not visibly embedded in the actual editorial homepage")
+            hero=homepage.split('<article id="lead-story"',1)[1].split('</article>',1)[0]
+            if html.escape(latest["title"],quote=True) not in hero:
+                raise AssertionError("Newest approved report is missing from the lead-story panel")
+            if 'id="static-edition"' in homepage or 'id="latest-published-highlight"' in homepage:
+                raise AssertionError("Temporary duplicate debug news panels remain on the public website")
             if (html.escape(latest["title"],quote=True) not in full_story
                     or html.escape(latest["url"],quote=True) not in full_story):
                 raise AssertionError("Public full article page is unavailable or missing source attribution")
