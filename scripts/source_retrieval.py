@@ -70,7 +70,13 @@ def html_extract(raw, source_url):
     soup = BeautifulSoup(raw, "html.parser")
     for x in soup.select("script,style,noscript,nav,header,footer,aside,form,svg,button"):
         x.decompose()
-    main = soup.select_one("main") or soup.select_one("article") or soup.select_one('[role="main"]') or soup.body
+    # Prefer a substantial article element to a full main container. Some
+    # newsroom templates put unrelated cards and 100s of navigation links in
+    # main, which otherwise swamps the real release with duplicate chart data.
+    page_main = soup.select_one("main") or soup.select_one('[role="main"]') or soup.body
+    article = soup.select_one("main article") or soup.select_one("article")
+    main = (article if article and len(clean_text(article.get_text(" ",strip=True)))>=850
+            else page_main)
     if main is None:
         raise SourceError("No readable official HTML document body")
     parts=[]
@@ -114,10 +120,12 @@ def html_extract(raw, source_url):
     amount=re.compile(r"(?<![\w])(?:£|\$)?\d+(?:[.,]\d+)*(?:%|bn|m|k)?(?![\w])",re.I)
     numbers=lambda value: {m.group().lower().replace(",","") for m in amount.finditer(value)}
     if numbers(complete_main)-numbers(text):
-        proposed=text+"\n\n[ADDITIONAL MAIN-PAGE CHART AND FIGURE TEXT]\n"+complete_main
-        if len(proposed)>MAX_TEXT:
+        # Keep one complete rendition, not a second copy of the same body.
+        # The old code appended the complete body after its paragraph extract,
+        # doubling the size and falsely rejecting long FCA review pages.
+        if len(complete_main)>MAX_TEXT:
             raise SourceError("Important chart text exceeds full-source context limit; held without truncation")
-        text=proposed
+        text=complete_main
     if len(text)>MAX_TEXT:
         raise SourceError("Full HTML exceeds safe model context; no silent truncation")
     return text, attachments
@@ -192,6 +200,9 @@ def self_test():
     richer=b"<main><h1>Published data</h1><p>"+b"The FCA's published reporting covers regulated financial firms and aggregate consumer complaints. "*17+b"</p><div class='chart'><span>54.8%</span></div></main>"
     captured,_=html_extract(richer,"https://www.fca.org.uk/data/complaints-data-2026-h1")
     assert "54.8%" in captured, "Figure embedded outside paragraphs must not disappear"
+    duplicate=b"<main><p>"+b"Regulated institutions published an official reporting update. "*200+b"</p><div><span>51.4%</span></div></main>"
+    full,_=html_extract(duplicate,"https://www.fca.org.uk/data/complaints-data-2026-h1")
+    assert "51.4%" in full and len(full)<14000,"Avoid doubling long official text when charts appear"
     brief=b'<main><h1>Financial crime guide consultation</h1><a href="https://www.fca.org.uk/content/dam/fca/documents/consultation-papers/cp26-38.pdf">Download the consultation paper PDF</a></main>'
     partial,links=html_extract(brief,"https://www.fca.org.uk/publications/consultation-papers/cp26-38-financial-crime-guide-updates")
     assert len(partial)<850 and len(links)==1 and links[0][0].endswith(".pdf"),"Thin official consultation must be able to discover its complete linked PDF"
