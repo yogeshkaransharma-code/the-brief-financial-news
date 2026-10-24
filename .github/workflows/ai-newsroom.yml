@@ -12,6 +12,8 @@ on:
       - 'scripts/publish_autonomous.py'
       - 'scripts/first_party_sources.py'
       - 'scripts/source_trace.py'
+      - 'scripts/source_retrieval.py'
+      - 'scripts/ai_newsroom.py'
       - 'scripts/newsroom_health.py'
       - 'scripts/fresh_sources.py'
   workflow_dispatch:
@@ -51,7 +53,7 @@ jobs:
 
       - name: Test draft validation logic
         run: |
-          python -m py_compile scripts/newsroom_v2.py scripts/publish_autonomous.py scripts/publication_scope.py scripts/source_trace.py
+          python -m py_compile scripts/newsroom_v2.py scripts/publish_autonomous.py scripts/publication_scope.py scripts/source_trace.py scripts/source_retrieval.py
           python scripts/publication_scope.py
           python scripts/ai_newsroom.py --self-test
           python scripts/source_retrieval.py
