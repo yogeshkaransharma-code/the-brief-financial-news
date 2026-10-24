@@ -19,6 +19,9 @@ on:
       - 'scripts/update_feeds.py'
       - 'scripts/newsroom_health.py'
       - 'scripts/fresh_sources.py'
+      - 'scripts/same_day_policy.py'
+      - 'scripts/build_public.py'
+      - 'scripts/sync_fallback.py'
   workflow_dispatch:
   schedule:
     - cron: '13 * * * *'
@@ -67,6 +70,7 @@ jobs:
           python scripts/model_providers.py
           python scripts/ai_cost_guard.py
           python scripts/newsroom_health.py --self-test
+          python scripts/same_day_policy.py
           python scripts/fresh_sources.py
           python scripts/newsroom_v2.py --self-test
           python scripts/financial_consistency.py
@@ -145,7 +149,7 @@ jobs:
           # autostashing it can conflict with the collector and lose real articles.
           git restore --worktree -- data/live.json
           git add data/articles.json data/newsroom-attempts.json index.html
-          if [ -d story ]; then git add story/; fi
+          if [ -d story ]; then git add -A story/; fi
           if [ -d data/editorial-audits ]; then
             git add data/editorial-audits/
           fi
