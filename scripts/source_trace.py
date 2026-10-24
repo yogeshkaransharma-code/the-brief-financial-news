@@ -77,6 +77,18 @@ def extract_original_links(markup,news_url,title):
         ranked[official]=max(ranked.get(official,0),score+(2 if cite else 0))
     return [u for u,_ in sorted(ranked.items(),key=lambda x:-x[1])[:3]]
 
+def official_headline(markup):
+    """Never allow a newspaper's framing to become the primary source title."""
+    soup=BeautifulSoup(markup,"html.parser")
+    title=soup.select_one("main h1, article h1, h1")
+    if title:
+        headline=" ".join(title.get_text(" ",strip=True).split())
+        if 20<=len(headline)<=220:return headline
+    for meta in soup.select('meta[property="og:title"][content]'):
+        headline=" ".join(meta["content"].split())
+        if 20<=len(headline)<=220:return headline
+    return None
+
 def published_date(markup):
     """Official source metadata only. No dates inherited from news coverage."""
     soup=BeautifulSoup(markup,"html.parser")
@@ -156,11 +168,15 @@ def find_originals(leads,now=None,limit=REVIEW_LIMIT):
                     if "html" not in ctype or source_lane(final) is None:
                         continue
                     date=published_date(raw)
+                    source_title=official_headline(raw)
+                    if not source_title:
+                        events.append({"headline":lead["title"],"result":"official headline could not be established"})
+                        continue
                     if not date:
                         events.append({"headline":lead["title"],"result":"original date could not be independently established"})
                         continue
                     dateISO,published_at,precision=date
-                    primary={"title":lead["title"],"url":final,"dateISO":dateISO,
+                    primary={"title":source_title,"url":final,"dateISO":dateISO,
                              "published_at":published_at,"source":urlsplit(final).hostname,
                              "source_time_precision":precision,"category":lead["category"],
                              "kind":"traced_primary_source","found_via":real_url}
@@ -190,6 +206,7 @@ def self_test():
     dated=b'<html><head><meta property="article:published_time" content="2026-10-24T09:30:00+01:00"></head></html>'
     assert published_date(dated)==("2026-10-24","2026-10-24T08:30:00+00:00","timestamp")
     assert published_date(b"<html>27 years ago</html>") is None
+    assert official_headline(b"<main><h1>Company publishes original financial results for the quarter</h1></main>")=="Company publishes original financial results for the quarter"
     print("PASS: reputable-lead restrictions, citation relevance and official-only release dating")
 
 if __name__=="__main__":
