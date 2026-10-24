@@ -12,6 +12,7 @@ on:
       - 'scripts/publish_autonomous.py'
       - 'scripts/first_party_sources.py'
       - 'scripts/source_trace.py'
+      - 'scripts/newsroom_health.py'
       - 'scripts/fresh_sources.py'
   workflow_dispatch:
   schedule:
@@ -56,6 +57,7 @@ jobs:
           python scripts/source_retrieval.py
           python scripts/first_party_sources.py
           python scripts/source_trace.py
+          python scripts/newsroom_health.py --self-test
           python scripts/fresh_sources.py
           python scripts/newsroom_v2.py --self-test
           python scripts/financial_consistency.py
@@ -102,6 +104,10 @@ jobs:
         run: |
           python scripts/verify_approved_articles.py
           python scripts/verify_site.py
+
+      - name: Report whether the newsroom actually produced news
+        if: always()
+        run: python scripts/newsroom_health.py
 
       - name: Commit approved autonomous articles
         id: publish
