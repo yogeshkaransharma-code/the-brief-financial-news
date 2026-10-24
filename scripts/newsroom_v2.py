@@ -15,9 +15,9 @@ import sys
 from zoneinfo import ZoneInfo
 from urllib.parse import urlsplit
 from ai_newsroom import ROOT, OUTPUT, MODEL, fetch_gemini, select_candidates, norm
-from source_retrieval import read_source, SourceError
+from source_retrieval import read_source, retrieve_bytes, SourceError
 from first_party_sources import discover
-from source_trace import find_originals
+from source_trace import find_originals, published_date
 from fresh_sources import launch_items, eligible_today
 from editorial_gate import check as editorial_check
 from publication_scope import source_lane
@@ -39,6 +39,33 @@ def next_quota_check(message,now):
         return midnight.astimezone(dt.timezone.utc)
     # Avoid treating an RPM/TPM limit as an exhausted entire day.
     return now+dt.timedelta(minutes=30)
+
+
+def recover_official_publication_time(item, now):
+    """Resolve an issuer's dated-but-untimed listing against its own metadata.
+
+    Never invent a noon timestamp or relabel yesterday's press release as
+    published today. A dated listing is only eligible after midnight when the
+    issuer itself supplies a real offset-aware original publication time.
+    """
+    if item.get("source_time_precision") != "date":
+        return item
+    if item.get("dateISO") != (now.date()-dt.timedelta(days=1)).isoformat():
+        return item
+    try:
+        raw,ctype,final=retrieve_bytes(item["url"])
+        if "html" not in ctype:
+            return item
+        found=published_date(raw)
+        if not found or found[0] != item["dateISO"] or found[2] != "timestamp":
+            return item
+        enriched=dict(item)
+        enriched["source_published_at"]=found[1]
+        enriched["published_at"]=found[1]
+        enriched["source_time_precision"]="timestamp"
+        return enriched
+    except (OSError,ValueError,SourceError):
+        return item
 
 
 def numeric_tokens(text):
@@ -562,6 +589,12 @@ def main():
     # One-time migration: the writer's malformed-section repair and the
     # short-consultation linked-PDF reader have now been fixed. Retry only
     # those old mechanical failures once instead of serving stale cooldowns.
+    if ledger.get("repair_revision",0)<4:
+        for source_url,record in list(attempts.items()):
+            reason=str(record.get("last_result",""))
+            if "Important chart text exceeds full-source context limit" in reason:
+                del attempts[source_url]
+        ledger["repair_revision"]=4
     if ledger.get("repair_revision",0)<2:
         for source_url,record in list(attempts.items()):
             reason=str(record.get("last_result",""))
@@ -600,8 +633,18 @@ def main():
         if source_lane(item["url"]) and item["url"] not in known:
             candidates.append(item)
             known.add(item["url"])
-    # Permanent freshness: normal news must be within the past 24 hours.
-    # The one-off 23 October launch may draw on developments from 22 October.
+    # Lists from companies often show only a calendar day. Near midnight we
+    # can still cover yesterday's genuinely recent release if the company's
+    # own page contains an exact published timestamp. Check a small bounded
+    # selection of the most recent such dated first-party announcements.
+    previous_day=(now.date()-dt.timedelta(days=1)).isoformat()
+    needs_times=[x for x in candidates if x.get("source_time_precision")=="date"
+                 and x.get("dateISO")==previous_day]
+    needs_times.sort(key=lambda x:(x.get("category")!="Insurance",x.get("title","")))
+    enriched={}
+    for item in needs_times[:8]:
+        enriched[item["url"]]=recover_official_publication_time(item,now)
+    candidates=[enriched.get(x["url"],x) for x in candidates]
     candidates=[x for x in candidates if eligible_today(x,now,launch=False)]
     fresh_candidates=len(candidates)
     candidates=[x for x in candidates if not is_cooled(x["url"])]
