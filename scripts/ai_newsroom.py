@@ -25,7 +25,8 @@ OUTPUT = ROOT / "generated-drafts"
 MODEL = os.environ.get("GEMINI_MODEL", "gemini-3.8-flash")
 KEY = os.environ.get("GEMINI_API_KEY", "")
 MAX_DAILY_DRAFTS = 2
-ALLOWED_HOSTS = {"www.fca.org.uk", "fca.org.uk", "www.bankofengland.co.uk", "bankofengland.co.uk", "www.aviva.com", "aviva.com", "www.lloydsbankinggroup.com", "lloydsbankinggroup.com", "www.standardlifeplc.com", "standardlifeplc.com", "committees.parliament.uk", "publications.parliament.uk", "www.investegate.co.uk", "investegate.co.uk", "thepensionsregulator.gov.uk", "www.thepensionsregulator.gov.uk", "rathbones.com", "www.rathbones.com"}
+ALLOWED_HOSTS = {"www.fca.org.uk", "fca.org.uk", "www.bankofengland.co.uk", "bankofengland.co.uk", "www.aviva.com", "aviva.com", "www.lloydsbankinggroup.com", "lloydsbankinggroup.com", "www.standardlifeplc.com", "standardlifeplc.com", "committees.parliament.uk", "publications.parliament.uk", "www.investegate.co.uk", "investegate.co.uk", "thepensionsregulator.gov.uk", "www.thepensionsregulator.gov.uk", "rathbones.com", "www.rathbones.com",
+           "allianz.co.uk", "www.allianz.co.uk", "munichre.com", "www.munichre.com"}
 AGENT = "TheBrief-EditorialResearch/0.1 (original reporting; linked sources)"
 
 
