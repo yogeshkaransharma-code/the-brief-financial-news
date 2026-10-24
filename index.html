@@ -133,13 +133,14 @@ const byId=()=>Object.fromEntries(published.map(x=>[x.id,x]));
 // Lead with the date the underlying development was announced, NOT when our AI wrote it.
 const scoreDate=s=>Date.parse(s.dateISO||s.source_published_at||s.published_at||'1970-01-01')||0;
 const reportTime=s=>Date.parse(s.published_at||s.dateISO||'1970-01-01')||0;
-const compareStories=(a,b)=>scoreDate(a)-scoreDate(b)||reportTime(a)-reportTime(b)||(a.id||'').localeCompare(b.id||'');
+// Sort the feed by when a verified report reaches The Brief; the source event date stays explicit in every byline.
+ const compareStories=(a,b)=>reportTime(a)-reportTime(b)||scoreDate(a)-scoreDate(b)||(a.id||'').localeCompare(b.id||'');
 const sortItems=items=>[...items].sort((a,b)=>sort==='oldest'?compareStories(a,b):-compareStories(a,b));
-const sourceDay=s=>String(s.dateISO||s.source_published_at||s.published_at||'').slice(0,10);
+const sourceDay=s=>String(s.published_at||s.dateISO||'').slice(0,10);
 const fullDay=key=>new Date(key+'T12:00:00Z').toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric',timeZone:'Europe/London'});
 const liveWithoutPublished=()=>live.filter(s=>!published.some(p=>p.url===s.url));
 const allItems=()=>sortItems(published.filter(x=>x.ai_assisted&&x.publication_method==='autonomous'));
-const isNew=s=>priorVisit&&scoreDate(s)>Date.parse(priorVisit)&&scoreDate(s)<Date.now()+86400000;
+const isNew=s=>priorVisit&&reportTime(s)>Date.parse(priorVisit)&&reportTime(s)<Date.now()+86400000;
 const renderDate=()=>{const d=new Date(); $('edition-date').textContent=d.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric',timeZone:'Europe/London'}).toUpperCase(); $('issue-date').textContent=d.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric',timeZone:'Europe/London'}).toUpperCase();};
 const meta=s=>`News: ${safe(day(s.dateISO||s.source_published_at||s.published_at))} <span>·</span> Published: ${safe(day(s.published_at))} <span>·</span> ${safe(s.source)}`;
 function showToast(t){const el=$('toast');el.textContent=t;el.classList.add('show');window.clearTimeout(showToast.timer);showToast.timer=window.setTimeout(()=>el.classList.remove('show'),2600)}
@@ -235,7 +236,7 @@ async function loadLive(){
  return false;
 }
 async function refreshOnOpen(){if(document.hidden)return;await loadPublished();renderTop();renderFeed();renderDate();renderExplainers()}
-async function start(){renderDate();renderFollows();renderExplainers();wire();setInterval(refreshOnOpen,600000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshOnOpen()});await Promise.all([loadLive(),loadPublished()]);renderTop();renderFeed();if(published.length && $('static-edition'))$('static-edition').hidden=true;route();saveStore('lastVisit',now);}
+async function start(){renderDate();renderFollows();renderExplainers();wire();setInterval(refreshOnOpen,600000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshOnOpen()});await Promise.all([loadLive(),loadPublished()]);renderTop();renderFeed();route();saveStore('lastVisit',now);}
 start();
 })();
 </script>
