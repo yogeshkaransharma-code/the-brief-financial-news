@@ -198,6 +198,8 @@ def main():
         x["id"]: x for x in prior.get("items", [])
         if x.get("id") and len(x.get("short") or "") >= 45
         and not re.match(r"(?i)^(author\s*:|this content is copyright|copyright notice|read more\b)", x.get("short") or "")
+        and (x.get("source") not in GOVERNMENT
+             or GOVERNMENT_FINANCE_HEADLINE.search(x.get("title","")))
     }
     successes, errors = [], []
     for name, url, category in FEEDS:
@@ -215,8 +217,10 @@ def main():
                 with urllib.request.urlopen(urllib.request.Request(url, headers=fallback_headers), timeout=18) as response:
                     raw = response.read(2000000)
             updates = parse(raw, name, category)
-            if not updates:
+            if not updates and name not in GOVERNMENT:
                 raise ValueError("No recent usable items")
+            # A government feed can be healthy but have no financial-services
+            # headlines today. This is an empty relevant result, not a failure.
             seen.update({x["id"]: x for x in updates})
             successes.append({"name": name, "items": len(updates)})
         except Exception as exc:
