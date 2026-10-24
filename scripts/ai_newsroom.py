@@ -104,10 +104,10 @@ def norm(value: str) -> str:
 
 
 def fetch_gemini(prompt: str) -> dict:
-    """Call a free-tier-capable model, failing over on transient API errors.
+    """Call the one explicitly selected Gemini model, without retries.
 
-    Provider errors and quota exhaustion never turn into made-up article text.
-    Every returned JSON object still faces strict source/evidence validation.
+    No fallback cascade: any error holds the story; quota errors pause the desk.
+    Every returned JSON object still faces source/evidence verification.
     """
     if not KEY:
         raise RuntimeError("Missing GEMINI_API_KEY GitHub Actions secret")
@@ -115,7 +115,9 @@ def fetch_gemini(prompt: str) -> dict:
         "contents":[{"role":"user","parts":[{"text":prompt}]}],
         "generationConfig":{"responseMimeType":"application/json","temperature":0.2,"maxOutputTokens":6000}
     }
-    candidates=list(dict.fromkeys([MODEL,"gemini-3.5-flash-lite","gemini-2.5-flash-lite","gemini-3.1-flash-lite","gemini-3.8-flash"]))
+    # A 429 must not trigger four more quota-consuming attempts on other
+    # models. Explicit provider/model selection means exactly one API call.
+    candidates=[MODEL]
     failures=[]
     for model_name in candidates:
         url=("https://generativelanguage.googleapis.com/v1beta/models/"
