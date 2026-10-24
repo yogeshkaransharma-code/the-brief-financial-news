@@ -37,8 +37,10 @@ def status_from_url(url, title):
         return "Proposal"
     if "/speech" in lower:
         return "Speech / commentary"
-    if "/data/" in lower or "/research/" in lower:
+    if "/data/" in lower or "/research/" in lower or "/multi-firm-reviews/" in lower:
         return "Published report"
+    if source_lane(url)=="boe_release" and re.search(r"(?i)\\b(propos(?:es|ed|als?)|plans? to|consult(?:s|ation)|seeks? views|draft rules)\\b",title):
+        return "Proposal"
     return "Confirmed announcement"
 
 def write_prompt(item, official):
@@ -513,6 +515,8 @@ def self_test():
     example={"title":"Regulator publishes an update","dateISO":"2026-10-22"}
     assert status_from_url("https://www.fca.org.uk/publications/consultation-papers/example","")=="Proposal"
     assert status_from_url("https://www.fca.org.uk/news/speeches/example","")=="Speech / commentary"
+    assert status_from_url("https://www.fca.org.uk/publications/multi-firm-reviews/example","")=="Published report"
+    assert status_from_url("https://www.bankofengland.co.uk/news/2026/october/regulators-unveil-plans","Regulators unveil plans to simplify the regime")=="Proposal"
     assert numeric_tokens("£240 million, up 6.3%")=={"£240","6.3%"}
     assert article_sentences({"title":"FCA proposes changes","short":"Nothing is decided.","blocks":[["Context","The paper is open. Two firms responded."]]})[2]["id"]=="C03"
     # Retry intervals are bounded and keep failures outside the public article feed.
