@@ -5,6 +5,7 @@ import datetime as dt
 import json
 import os
 from pathlib import Path
+from same_day_policy import published_same_day
 import sys
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -24,7 +25,9 @@ def assess(article_list,report,now):
     screened=report.get("machine_screened",0)
     quota=report.get("active_quota_pause_until")
     spend=report.get("api_budget") or {}
-    if quota:
+    if fresh==0:
+        state="No verified original announcement dated today in the UK"
+    elif quota:
         state="API capacity paused"
     elif spend and spend.get("remaining_today")==0:
         state="Daily AI request budget exhausted; no more paid calls"
@@ -37,6 +40,7 @@ def assess(article_list,report,now):
     else:
         state="At least one draft passed machine screening"
     return {"published_total":len(article_list),"published_last_24h":recent,
+            "genuine_same_day_articles":sum(published_same_day(x,now) for x in article_list),
             "last_article_at":published[0].isoformat() if published else None,
             "fresh_source_candidates":fresh,"candidates_after_cooldowns":available,
             "machine_screened":screened,"traced_originals":report.get("traced_originals",0),
@@ -60,6 +64,7 @@ def main():
         "| --- | --- |",
         f"| Published articles | {state['published_total']} |",
         f"| Published in last 24 hours | {state['published_last_24h']} |",
+        f"| Original source AND publication dated today in UK | {state['genuine_same_day_articles']} |",
         f"| Most recent publication UTC | {state['last_article_at'] or 'None'} |",
         f"| Fresh original candidates | {state['fresh_source_candidates']} |",
         f"| News reports from last 24 hours | {state['media_leads_in_24h']} |",
