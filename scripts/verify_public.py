@@ -4,6 +4,7 @@ import html
 import json
 from pathlib import Path
 from html.parser import HTMLParser
+from same_day_policy import published_same_day
 
 ROOT = Path(__file__).resolve().parents[1]
 PUBLIC = ROOT / "public"
@@ -36,18 +37,23 @@ class Visible(HTMLParser):
 def verify():
     articles = json.loads((PUBLIC / "data/articles.json").read_text(encoding="utf-8"))
     original = json.loads((ROOT / "data/articles.json").read_text(encoding="utf-8"))
-    assert len(articles) == len(original) and len(articles)>0, "Published article file differs from reviewed archive"
+    eligible=[a for a in original if published_same_day(a)]
+    assert {a["id"] for a in articles}=={a["id"] for a in eligible}, "Public feed includes old news or omits same-day news"
     html_text = (PUBLIC / "index.html").read_text(encoding="utf-8")
     parser = Visible()
     parser.feed(html_text)
     required = {"lead-story", "feed", "briefing-stories", "embedded-articles"}
     assert required.issubset(parser.found), "Visible article areas missing from generated homepage"
     assert "static-edition" not in parser.found and "latest-published-highlight" not in parser.found, "Temporary duplicate news sections still on published homepage"
-    latest = max(articles, key=lambda a:(a.get("published_at",""),a["id"]))
+    latest = max(articles, key=lambda a:(a.get("published_at",""),a["id"])) if articles else None
     text = " ".join(parser.text)
-    assert latest["title"] in text, "Newest approved article not visibly printed on homepage"
-    assert latest["title"] in html_text.split('<article id="lead-story"',1)[1].split('</article>',1)[0], "Newest article does not occupy actual editorial lead"
+    if latest:
+        assert latest["title"] in text, "Latest same-day article must appear"
+        assert latest["title"] in html_text.split('<article id="lead-story"',1)[1].split('</article>',1)[0], "Same-day news not in lead"
+    else:
+        assert "No verified news from today yet" in text, "Empty same-day edition not explained"
     assert all(a["title"] in text for a in articles[:min(len(articles),10)]), "Missing visible news headlines"
+    assert all(a["title"] not in text for a in original if not published_same_day(a)), "Old headlines leaked into today’s edition"
     for article in articles:
         story = PUBLIC / "story" / (article["id"]+".html")
         assert story.is_file(), "Full standalone article missing"
@@ -58,7 +64,7 @@ def verify():
             assert html.escape(heading,quote=True) in body
             assert html.escape(str(para).split("\n")[0],quote=True)[:50] in body, "Body content missing"
     assert "data/live.json" not in html_text, "Private discovery archive referenced on public page"
-    print("PUBLIC_SITE_VALIDATED:",json.dumps({"visible_headlines":len(articles),"standalone_articles":len(articles),"latest":latest["id"],"javascript_required":False}))
+    print("PUBLIC_SITE_VALIDATED:",json.dumps({"visible_headlines_today":len(articles),"historical_blocked":len(original)-len(articles),"standalone_articles":len(articles),"latest":latest["id"] if latest else None,"javascript_required":False}))
 
 
 if __name__ == "__main__":
