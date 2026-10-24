@@ -70,8 +70,9 @@ jobs:
       - name: Collect fresh source updates
         run: python scripts/update_feeds.py
 
-      - name: Save new updates to the archive
-        if: github.event_name != 'push'
+      - name: Save new updates to the private discovery cache
+        # data/live.json is not a push trigger, so storing this cache
+        # cannot cause an action loop. The public Pages build still excludes it.
         run: |
           git config user.name "The Brief News Bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
