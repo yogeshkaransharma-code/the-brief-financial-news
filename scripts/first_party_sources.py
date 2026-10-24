@@ -13,9 +13,12 @@ INDEXES=(
     ("Lloyds Banking Group","Banking","https://www.lloydsbankinggroup.com/media/press-releases.html"),
     ("UK Parliament","Regulation","https://committees.parliament.uk/committee/697/financial-services-regulation-committee/news/"),
     ("The Pensions Regulator","Regulation","https://www.thepensionsregulator.gov.uk/media-hub/press-releases"),
+    ("Allianz UK","Insurance","https://www.allianz.co.uk/news-and-insight/news.html"),
+    ("Munich Re","Insurance","https://www.munichre.com/en/company/media-relations/media-information-and-corporate-news.html"),
 )
 MON={"jan":1,"feb":2,"mar":3,"apr":4,"may":5,"jun":6,"jul":7,"aug":8,"sep":9,"sept":9,"oct":10,"nov":11,"dec":12}
 DATE=re.compile(r"\b([0-3]?\d)\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)[a-z]*\s+(20\d\d)\b",re.I)
+MONTH_FIRST=re.compile(r"\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)[a-z]*\s+([0-3]?\d),?\s+(20\d\d)\b",re.I)
 
 def official_release(url, source):
     p=urlsplit(url)
@@ -24,6 +27,8 @@ def official_release(url, source):
         return p.hostname in {"www.aviva.com","aviva.com"} and "/newsroom/news-and-research-overview/news-releases/" in p.path
     if source=="The Pensions Regulator":
         return source_lane(url)=="tpr_release"
+    if source in {"Allianz UK","Munich Re"}:
+        return source_lane(url)=="company_release"
     if source=="UK Parliament":
         return p.hostname=="committees.parliament.uk" and bool(re.fullmatch(
             r"/committee/697/financial-services-regulation-committee/news/\d+/[a-z0-9-]+/?",p.path
@@ -38,6 +43,14 @@ def parse_listing(content,source,section,base,today=None):
         url=urljoin(base,anchor["href"]).split("#")[0]
         if not official_release(url,source):continue
         title=" ".join(anchor.get_text(" ",strip=True).split())
+        if source in {"Allianz UK","Munich Re"} and (len(title)<25 or title.lower() in {"read more","more information","discover more"}):
+            node=anchor
+            for _ in range(4):
+                node=node.parent if getattr(node,"parent",None) else node
+                headings=node.find_all(["h2","h3","h4"]) if hasattr(node,"find_all") else []
+                if len(headings)==1:
+                    title=" ".join(headings[0].get_text(" ",strip=True).split())
+                    if len(title)>=25:break
         if source=="UK Parliament":
             # Listings often wrap a heading, summary and calendar date inside
             # the same link; take the actual headline, not concatenated prose.
@@ -54,9 +67,15 @@ def parse_listing(content,source,section,base,today=None):
             node=node.parent
             context=" ".join(node.get_text(" ",strip=True).split())[:1100]
             m=DATE.search(context)
-            if m and len(context)<900:
+            m2=MONTH_FIRST.search(context)
+            if (m or m2) and len(context)<900:
                 try:
-                    date=dt.date(int(m.group(3)),MON[m.group(2)[:4].lower()] if m.group(2).lower().startswith("sept") else MON[m.group(2)[:3].lower()],int(m.group(1)))
+                    if m:
+                        month=m.group(2)
+                        date=dt.date(int(m.group(3)),MON[month[:4].lower()] if month.lower().startswith("sept") else MON[month[:3].lower()],int(m.group(1)))
+                    else:
+                        month=m2.group(1)
+                        date=dt.date(int(m2.group(3)),MON[month[:4].lower()] if month.lower().startswith("sept") else MON[month[:3].lower()],int(m2.group(2)))
                     break
                 except (KeyError,ValueError):pass
         if not date or not 0<=(today-date).days<=21:continue
@@ -94,6 +113,12 @@ def self_test():
     tpr=b'''<main><article><a href="/en/media-hub/press-releases/2026-press-releases/tpr-publishes-new-investment-guidance"><h3>TPR publishes new investment guidance for workplace pension trustees</h3></a><p>Saturday 24 October 2026</p></article></main>'''
     found=parse_listing(tpr,"The Pensions Regulator","Regulation","https://www.thepensionsregulator.gov.uk/media-hub/press-releases",today=dt.date(2026,10,24))
     assert len(found)==1 and found[0]["dateISO"]=="2026-10-24",found
+    a=b'''<article><span>Oct 23, 2026</span><h3>Allianz UK and Superscript expand commercial insurance distribution</h3><a href="/news-and-insight/news/allianz-uk-superscript-commercial-insurance.html">Read more</a></article>'''
+    result=parse_listing(a,"Allianz UK","Insurance","https://www.allianz.co.uk/news-and-insight/news.html",today=dt.date(2026,10,24))
+    assert len(result)==1 and result[0]["dateISO"]=="2026-10-23",result
+    m=b'''<article><span>October 23, 2026</span><h3>Munich Re reports quarterly profit and updates annual guidance</h3><a href="/en/company/media-relations/media-information-and-corporate-news/media-information/2026/media-release-2026-10-23.html">More information</a></article>'''
+    mr=parse_listing(m,"Munich Re","Insurance","https://www.munichre.com/en/company/media-relations/media-information-and-corporate-news.html",today=dt.date(2026,10,24))
+    assert len(mr)==1 and mr[0]["dateISO"]=="2026-10-23",mr
     print("PASS: first-party announcement titles, date validation, official URL allowlist")
 
 if __name__=="__main__":
