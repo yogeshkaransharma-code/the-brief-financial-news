@@ -10,6 +10,7 @@ import json
 import re
 from pathlib import Path
 from urllib.parse import quote
+from same_day_policy import published_same_day, clock
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "public"
@@ -137,16 +138,18 @@ h1{{font-size:clamp(37px,10vw,48px);letter-spacing:-1px;margin:16px 0}}
 
 
 def build():
-    records = valid_articles()
-    if not records:
-        raise ValueError("There are no published articles to display; refusing blank deploy")
+    archive = valid_articles()
+    records = [a for a in archive if published_same_day(a)]
+    today = clock().date().strftime("%-d %B %Y")
+    # Empty is the correct edition when no verified original development was
+    # announced AND published on this same UK date. Never replay old news.
     page = (ROOT / "index.html").read_text(encoding="utf-8")
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "data").mkdir(exist_ok=True)
     (OUT / "story").mkdir(exist_ok=True)
 
-    latest = max(records, key=lambda a: (a.get("published_at", ""), a["id"]))
-    first = records[0]
+    latest = records[0] if records else None
+    first = latest
     # The repository retains a source-mode backup for broken JavaScript.
     # The published build already contains real, readable lead/feed HTML,
     # so NEVER copy the duplicate emergency article-list box into Pages.
@@ -154,13 +157,19 @@ def build():
     page, removed = fallback.subn("", page, count=1)
     if removed != 1 or "THEBRIEF_STATIC_START" in page or 'id="static-edition"' in page:
         raise ValueError("Could not remove duplicate repository-only safety section")
-    lead = ('<article id="lead-story" class="lead-story"><span class="story-kicker">'
-        + esc(first.get("category")) + ' / THE LEAD STORY</span><h1><a href="'
-        + esc(story_href(first)) + '">' + esc(first["title"])
-        + '</a></h1><p class="standfirst">' + esc(first.get("short")) + '</p>'
-        + '<p class="meta">Original news: ' + esc(first.get("dateISO"))
-        + ' · The Brief published: ' + esc(first.get("published_at", "")[:10]) + '</p>'
-        + '<p><a class="cta" href="' + esc(story_href(first)) + '">Read the full article ↗</a></p></article>')
+    if first:
+        lead = ('<article id="lead-story" class="lead-story"><span class="story-kicker">'
+            + esc(first.get("category")) + ' / THE LEAD STORY</span><h1><a href="'
+            + esc(story_href(first)) + '">' + esc(first["title"])
+            + '</a></h1><p class="standfirst">' + esc(first.get("short")) + '</p>'
+            + '<p class="meta">Original news: ' + esc(first.get("dateISO"))
+            + ' · The Brief published: ' + esc(first.get("published_at", "")[:10]) + '</p>'
+            + '<p><a class="cta" href="' + esc(story_href(first)) + '">Read the full article ↗</a></p></article>')
+    else:
+        lead = ('<article id="lead-story" class="lead-story"><span class="story-kicker">THE BRIEF / '+
+            esc(today)+'</span><h1>No verified news from today yet.</h1>'
+            '<p class="standfirst">We have not confirmed a new first-party financial-services announcement '
+            'dated today in the UK. We will not fill today’s edition with yesterday’s news.</p></article>')
     page = insert_once(page, '<article id="lead-story" class="lead-story"></article>', lead)
     briefing = ''.join(
         '<div class="briefing-story"><span class="brief-number">0' + str(i+1)
@@ -169,6 +178,8 @@ def build():
         + '<p>' + esc(a.get("short", "")[:190]) + '</p></div></div>'
         for i, a in enumerate(records[1:3])
     )
+    if not briefing:
+        briefing = '<p>No verified same-day stories to brief yet.</p>'
     page = insert_once(page,
         '<div id="briefing-stories" class="briefing-stories"></div>',
         '<div id="briefing-stories" class="briefing-stories">' + briefing + '</div>')
@@ -188,7 +199,7 @@ def build():
             + ' · The Brief published: ' + esc(a.get("published_at", "")[:10]) + '</p></div></article>'
         )
     page = insert_once(page, '<div class="feed" id="feed"></div>',
-        '<div class="feed" id="feed">' + '\n'.join(rows) + '</div>')
+        '<div class="feed" id="feed">' + ('\n'.join(rows) if rows else '<p class="nothing">No approved first-party reports dated '+esc(today)+' have been published yet.</p>') + '</div>')
     page = insert_once(page, '<div class="news-count" id="news-count"></div>',
         '<div class="news-count" id="news-count">' + str(len(records)) + ' articles</div>')
     payload = json.dumps(records, ensure_ascii=False, separators=(",", ":")).replace("<", "\\u003c")
@@ -203,7 +214,7 @@ def build():
 
     # These assertions catch the actual failure the earlier smoke tests missed.
     built = (OUT / "index.html").read_text(encoding="utf-8")
-    if not all(x["title"].replace("&", "&amp;") in built for x in records[:5]):
+    if records and not all(x["title"].replace("&", "&amp;") in built for x in records[:5]):
         # Some headlines contain punctuation encoded as entities; check rendered text.
         for a in records[:5]:
             if esc(a["title"]) not in built:
@@ -215,8 +226,9 @@ def build():
     for a in records:
         if not (OUT / story_href(a)).is_file():
             raise ValueError("Missing public standalone article: " + a["id"])
-    print("PUBLIC_BUILD_OK: " + json.dumps({"articles": len(records),
-        "latest": latest["id"], "standalone_pages": len(records),
+    print("PUBLIC_BUILD_OK: " + json.dumps({"articles_today": len(records),
+        "historical_records_excluded":len(archive)-len(records),
+        "latest": latest["id"] if latest else None, "standalone_pages": len(records),
         "pre_rendered_feed": True, "inline_fallback": True}, sort_keys=True))
 
 
