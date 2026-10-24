@@ -16,6 +16,7 @@ from zoneinfo import ZoneInfo
 from urllib.parse import urlsplit
 from ai_newsroom import ROOT, OUTPUT, select_candidates, norm
 from model_providers import ACTIVE_MODEL as MODEL, PROVIDER, fetch_ai as fetch_gemini
+from ai_cost_guard import CallBudget, BudgetExhausted, preflight_source
 from source_retrieval import read_source, retrieve_bytes, SourceError
 from first_party_sources import discover
 from source_trace import find_originals, published_date
@@ -492,6 +493,9 @@ def main():
         ledger={"version":1,"sources":{}}
     ledger["version"]=1
     attempts=ledger["sources"]
+    meter=CallBudget(ledger,now)
+    def budgeted_ai(prompt):
+        return meter.call(fetch_gemini,prompt)
     # One-time migration: the writer's malformed-section repair and the
     # short-consultation linked-PDF reader have now been fixed. Retry only
     # those old mechanical failures once instead of serving stale cooldowns.
@@ -592,29 +596,35 @@ def main():
     for item in candidates[:MAX_CANDIDATES]:
         if accepted>=MAX_DRAFTS:
             break
+        if meter.remaining()<2:
+            report.append({"result":"stopped","reason":"Budget has fewer than two calls remaining for one draft and one verification"})
+            break
         uid="ai-"+hashlib.sha256(item["url"].encode()).hexdigest()[:20]
         stage="source"
         bundle=None
         try:
             doc=read_source(item["url"])
+            preflight_source(item,doc)
             stage="writing"
-            article=draft_with_source_repair(item,doc)
-            stage="independent_review_and_revisions"
-            bundle, passed=review_until_resolved(item,doc,article)
+            article=draft_with_source_repair(item,doc,gemini=budgeted_ai)
+            stage="independent_review"
+            bundle, passed=review_until_resolved(item,doc,article,gemini=budgeted_ai)
             if bundle is None:
                 raise ValueError("Review failed before a complete, auditable version could be saved")
             if not passed:
                 (OUTPUT/("HOLD-"+uid+".json")).write_text(json.dumps(bundle,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
                 report.append({"title":item["title"],"result":"held for review",
-                  "reason":f"{len(bundle.get('editorial_flags',[]))} unresolved issues after AI revisions",
+                  "reason":f"{len(bundle.get('editorial_flags',[]))} unsupported claims in the single independent review",
                   "stage":stage,"source":item["url"]})
-                delay(item["url"],12,"Unresolved independent evidence review")
+                # Do not send the same development repeatedly through an AI
+                # before its 24-hour publication window closes.
+                delay(item["url"],36,"Held after one draft and one independent review")
                 continue
             (OUTPUT/(uid+".json")).write_text(json.dumps(bundle,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
             accepted+=1
-            delay(item["url"],12,"Cleanly screened draft; autonomous publisher decides")
+            delay(item["url"],36,"Single clean draft sent to autonomous publication gate")
             report.append({"title":item["title"],"result":"draft saved",
-              "reason":"machine-screened after revision; not automatically eligible for publication",
+              "reason":"single independent review passed; publisher still checks publication eligibility",
               "source":item["url"]})
         except Exception as exc:
             if stage=="editorial_preflight" and bundle is not None:
@@ -624,6 +634,9 @@ def main():
                 )
             reason=str(exc)
             report.append({"title":item.get("title","unknown"),"result":"held back","reason":reason[:360],"stage":stage,"source":item.get("url")})
+            if isinstance(exc,BudgetExhausted):
+                report.append({"result":"stopped","reason":"Hard daily or per-run AI request cap reached"})
+                break
             if "HTTP 429" in reason or "quota exceeded" in reason.lower():
                 after=next_quota_check(reason,now)
                 attempts[item["url"]]={"attempted_at":now.isoformat(),"retry_after":after.isoformat(),
@@ -634,7 +647,13 @@ def main():
             long_cooldown=any(t in reason for t in (
                 "HTTP Error 403","Insufficient official article content",
                 "Important chart text exceeds full-source context limit"))
-            delay(item["url"],24 if long_cooldown else 8,reason)
+            # AI failed: do not re-prompt the same source for another 36
+            # hours. Source-fetch failures involve no AI calls and can retry
+            # after the underlying site becomes available.
+            if stage=="source":
+                delay(item["url"],24 if long_cooldown else 4,reason)
+            else:
+                delay(item["url"],36,reason)
     # Prune old attempts; the history is a bounded retry cache, not a shadow
     # publication archive. Feed discovery and the actual article archive are separate.
     attempts={url:value for url,value in attempts.items()
@@ -645,6 +664,8 @@ def main():
         "generated_at":dt.datetime.now(dt.timezone.utc).isoformat(),
         "pipeline":"AI writer and evidence review; autonomous publication restricted to eligible verified sources",
         "model":MODEL,"machine_screened":accepted,
+        "api_budget":meter.snapshot(),
+        "ai_policy":"one paid draft request and one paid independent review per development; zero AI rewrites",
         "fresh_unpublished_source_candidates":fresh_candidates,
         "available_after_retry_cooldowns":available_after_source_cooldowns,
         "eligible_for_this_run":len(candidates),
