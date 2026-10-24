@@ -16,6 +16,8 @@ FCA_CONSULTATION = re.compile(r"^/publications/consultation-papers/[a-z0-9-]+/?$
 FCA_REVIEW = re.compile(r"^/publications/multi-firm-reviews/[a-z0-9-]+/?$",re.I)
 BOE_RELEASE = re.compile(r"^/news/20\d{2}/[a-z]+/[a-z0-9-]+/?$",re.I)
 GOV_PRESS = re.compile(r"^/government/news/[a-z0-9-]+/?$",re.I)
+HSBC_RELEASE = re.compile(r"^/news-and-views/news/media-releases/20\d{2}/[a-z0-9-]+/?$",re.I)
+NATWEST_RELEASE = re.compile(r"^/news-and-insights/news-room/press-releases/(?:[a-z0-9-]+/)?20\d{2}/(?:[a-z]{3}/)?[a-z0-9-]+\.html$",re.I)
 TPR_RELEASES = re.compile(r"^/(?:en/)?media-hub/press-releases/20\d{2}-press-releases/[a-z0-9-]+/?$",re.I)
 ALLIANZ_RELEASE = re.compile(r"^/news-and-insight/news/[a-z0-9-]+\.html$",re.I)
 MUNICH_RELEASE = re.compile(r"^/en/company/media-relations/media-information-and-corporate-news/media-information/20\d{2}/[a-z0-9.-]+\.html$",re.I)
@@ -61,6 +63,10 @@ def source_lane(url: str) -> str | None:
     if host in {"www.thepensionsregulator.gov.uk","thepensionsregulator.gov.uk"}:
         if TPR_RELEASES.fullmatch(path) and not ADVERSE.search(path.rsplit("/", 1)[-1]):
             return "tpr_release"
+    if host in {"www.hsbc.com","hsbc.com"} and HSBC_RELEASE.fullmatch(path) and not ADVERSE.search(path.rsplit("/",1)[-1]):
+        return "company_release"
+    if host in {"www.natwestgroup.com","natwestgroup.com"} and NATWEST_RELEASE.fullmatch(path) and not ADVERSE.search(path.rsplit("/",1)[-1]):
+        return "company_release"
     if host in {"allianz.co.uk","www.allianz.co.uk"} and ALLIANZ_RELEASE.fullmatch(path):
         return "company_release"
     if host in {"munichre.com","www.munichre.com"} and MUNICH_RELEASE.fullmatch(path):
@@ -95,6 +101,10 @@ def self_test():
     assert source_lane("https://www.thepensionsregulator.gov.uk/en/media-hub/press-releases/2026-press-releases/tpr-sets-expectations-on-hidden-concentration-risks-in-pension-portfolios")=="tpr_release"
     assert source_lane("https://www.fca.org.uk/publications/multi-firm-reviews/conflicts-interest-fair-customer-treatment-private-markets")=="fca_review"
     assert source_lane("https://www.bankofengland.co.uk.evil.com/news/2026/october/fake") is None
+    assert source_lane("https://www.hsbc.com/news-and-views/news/media-releases/2026/hsbc-and-google-cloud-announce-transformative-ai-banking-partnership") == "company_release"
+    assert source_lane("https://www.natwestgroup.com/news-and-insights/news-room/press-releases/2026/natwest-group-first-to-unveil-next-generation-of-ai-tools-to-hel.html") == "company_release"
+    assert source_lane("https://www.natwestgroup.com/news-and-insights/news-room/press-releases/ai-and-data/2026/apr/natwest-becomes-first-uk-bank-to-launch-trusted-home-buying-advi.html") == "company_release"
+    assert source_lane("https://hsbc.com.evil.test/news-and-views/news/media-releases/2026/x") is None
     assert source_lane("https://www.gov.uk/government/news/treasury-announces-changes-to-savings-policy")=="government_release"
     assert source_lane("https://www.gov.uk.evil.org/government/news/treasury-announces-banking-plan") is None
     assert source_lane("https://www.gov.uk/government/news/firm-fined-over-fraud") is None
