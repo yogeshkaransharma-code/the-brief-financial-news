@@ -12,6 +12,7 @@ import tempfile
 import publish_autonomous as auto
 from editorial_fixtures import make_bundle, resign
 from newsroom_v2 import canonical
+from same_day_policy import source_issued_today, clock
 
 def prepared():
     bundle=make_bundle()
@@ -20,7 +21,7 @@ def prepared():
     url=f"https://www.fca.org.uk/data/complaints-data-{year}-h1"
     a["url"]=a["source_url"]=url
     a["status"]="Published report"
-    a["dateISO"]=a["date"]=dt.datetime.now(dt.timezone.utc).date().isoformat()
+    a["dateISO"]=a["date"]=clock().date().isoformat()
     a["title"]="FCA publishes fresh complaints statistics for UK regulated firms"
     a["short"]="The Financial Conduct Authority has published aggregate complaints statistics for UK financial firms, with data and reporting limitations clearly identified."
     para=("The FCA has published data about the number of complaints UK financial firms reported. "
@@ -95,16 +96,18 @@ def main():
         # No same-day source, no article. Publishing a fresh AI rewrite must
         # NEVER refresh yesterday's official announcement.
         stale=copy.deepcopy(base)
-        stale["draft"]["dateISO"]=(dt.datetime.now(dt.timezone.utc).date()-dt.timedelta(days=1)).isoformat()
+        stale["draft"]["dateISO"]=(clock().date()-dt.timedelta(days=1)).isoformat()
         stale["draft"]["date"]=stale["draft"]["dateISO"]
         resign(stale)
         reasons=auto.eligible(stale)
-        assert any("TODAY" in reason for reason in reasons), "Yesterday's original source escaped today's hard gate"
+        assert not source_issued_today(stale["draft"]), "Yesterday's source unexpectedly eligible"
+        assert reasons, "Yesterday's original source escaped final publication approval"
         future=copy.deepcopy(base)
-        future["draft"]["dateISO"]=(dt.datetime.now(dt.timezone.utc).date()+dt.timedelta(days=1)).isoformat()
+        future["draft"]["dateISO"]=(clock().date()+dt.timedelta(days=1)).isoformat()
         future["draft"]["date"]=future["draft"]["dateISO"]
         resign(future)
-        assert auto.eligible(future), "Future-dated source escaped the same-day gate"
+        assert not source_issued_today(future["draft"]), "Tomorrow's source unexpectedly eligible"
+        assert auto.eligible(future), "Future-dated source escaped the final gate"
         bad=copy.deepcopy(base)
         bad["draft"]["status"]="Proposal"
         resign(bad)
