@@ -130,10 +130,26 @@ jobs:
               exit 0
             fi
             git fetch origin main
-            # The research refresh modifies data/live.json without committing it.
-            # Autostash that tracked change during rebase so a concurrent
-            # hourly collector/documentation commit cannot block publication.
-            git -c rebase.autoStash=true rebase origin/main
+            # A retry-ledger-only update must NEVER break the newsroom because
+            # another run saved fresher retry state. During this rebase, 'ours'
+            # means the latest origin/main state. Only do this when there is
+            # no new published article to preserve.
+            if [ "$published_changed" = false ]; then
+              if ! git -c rebase.autoStash=true rebase -X ours origin/main; then
+                git rebase --abort || true
+                echo "::warning::Retry history conflicted; keeping the remote state without failing the newsdesk"
+                echo "changed=false" >> "$GITHUB_OUTPUT"
+                exit 0
+              fi
+            else
+              # With an actual news article, fail closed if publication data
+              # conflicts rather than silently losing a published story.
+              if ! git -c rebase.autoStash=true rebase origin/main; then
+                git rebase --abort || true
+                echo "::error::Concurrent article edit requires conflict-safe reconciliation"
+                exit 1
+              fi
+            fi
           done
           echo "::error::Publication push failed; no page deployment"
           exit 1
