@@ -19,6 +19,11 @@ NEWS_HOSTS = {
     "finextra.com", "www.finextra.com",
     "insurancebusinessmag.com", "www.insurancebusinessmag.com",
     "commercialriskonline.com", "www.commercialriskonline.com",
+    "bbc.co.uk", "www.bbc.co.uk", "bbc.com", "www.bbc.com",
+    "news.sky.com", "theguardian.com", "www.theguardian.com",
+    "ft.com", "www.ft.com", "bloomberg.com", "www.bloomberg.com",
+    "wsj.com", "www.wsj.com", "marketwatch.com", "www.marketwatch.com",
+    "economist.com", "www.economist.com",
 }
 UA = "TheBrief-SourceResearch/0.3 (citation tracing; no article reproduction)"
 MAX_NEWS_BYTES = 800_000
@@ -202,6 +207,9 @@ def self_test():
     assert urls==[official],urls
     assert not reputable("https://www.finextra.com.evil.test/x")
     assert not reputable("http://www.finextra.com/x")
+    assert reputable("https://www.bbc.co.uk/news/business-10000000")
+    assert reputable("https://www.ft.com/content/1234")
+    assert not reputable("https://www.ft.com.evil.test/content/1234")
     assert not extract_original_links(b'<article><a href="https://www.fca.org.uk/">FCA</a></article>',base,"Banks consider new approach")
     dated=b'<html><head><meta property="article:published_time" content="2026-10-24T09:30:00+01:00"></head></html>'
     assert published_date(dated)==("2026-10-24","2026-10-24T08:30:00+00:00","timestamp")
