@@ -15,6 +15,7 @@ FCA_SPEECH = re.compile(r"^/news/speeches/[a-z0-9-]+/?$", re.I)
 FCA_CONSULTATION = re.compile(r"^/publications/consultation-papers/[a-z0-9-]+/?$", re.I)
 FCA_REVIEW = re.compile(r"^/publications/multi-firm-reviews/[a-z0-9-]+/?$",re.I)
 BOE_RELEASE = re.compile(r"^/news/20\d{2}/[a-z]+/[a-z0-9-]+/?$",re.I)
+GOV_PRESS = re.compile(r"^/government/news/[a-z0-9-]+/?$",re.I)
 TPR_RELEASES = re.compile(r"^/(?:en/)?media-hub/press-releases/20\d{2}-press-releases/[a-z0-9-]+/?$",re.I)
 ALLIANZ_RELEASE = re.compile(r"^/news-and-insight/news/[a-z0-9-]+\.html$",re.I)
 MUNICH_RELEASE = re.compile(r"^/en/company/media-relations/media-information-and-corporate-news/media-information/20\d{2}/[a-z0-9.-]+\.html$",re.I)
@@ -51,6 +52,9 @@ def source_lane(url: str) -> str | None:
             return "fca_consultation"
         if FCA_REVIEW.fullmatch(path) and not ADVERSE.search(path.rsplit("/", 1)[-1]):
             return "fca_review"
+    if host in {"www.gov.uk","gov.uk"}:
+        if GOV_PRESS.fullmatch(path) and not ADVERSE.search(path.rsplit("/",1)[-1]):
+            return "government_release"
     if host in {"www.bankofengland.co.uk","bankofengland.co.uk"}:
         if BOE_RELEASE.fullmatch(path) and not ADVERSE.search(path.rsplit("/", 1)[-1]):
             return "boe_release"
@@ -91,6 +95,9 @@ def self_test():
     assert source_lane("https://www.thepensionsregulator.gov.uk/en/media-hub/press-releases/2026-press-releases/tpr-sets-expectations-on-hidden-concentration-risks-in-pension-portfolios")=="tpr_release"
     assert source_lane("https://www.fca.org.uk/publications/multi-firm-reviews/conflicts-interest-fair-customer-treatment-private-markets")=="fca_review"
     assert source_lane("https://www.bankofengland.co.uk.evil.com/news/2026/october/fake") is None
+    assert source_lane("https://www.gov.uk/government/news/treasury-announces-changes-to-savings-policy")=="government_release"
+    assert source_lane("https://www.gov.uk.evil.org/government/news/treasury-announces-banking-plan") is None
+    assert source_lane("https://www.gov.uk/government/news/firm-fined-over-fraud") is None
     assert source_lane("https://www.allianz.co.uk/news-and-insight/news/uk-drivers-want-dashboard-buttons-back.html")=="company_release"
     assert source_lane("https://www.munichre.com/en/company/media-relations/media-information-and-corporate-news/media-information/2026/media-release-2026-10-23.html")=="company_release"
     assert source_lane("https://www.thepensionsregulator.gov.uk/en/media-hub/press-releases/2026-press-releases/fraud-charges") is None
