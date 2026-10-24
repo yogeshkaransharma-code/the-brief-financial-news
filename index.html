@@ -174,7 +174,7 @@ function renderTop(){
  const originals=sortItems(published.filter(x=>x.ai_assisted&&x.publication_method==='autonomous'));
  const lead=originals[0];
  if(!lead){
-   $('lead-story').innerHTML='<span class="story-kicker">THE NEW BRIEF</span><h1>Financial news, made clear.</h1><p class="standfirst">We’ve reset our publication. The Brief reports on banking, insurance and regulation. When a development is ready to report responsibly, you’ll find the full story here.</p>';
+   $('lead-story').innerHTML='<span class="story-kicker">THE BRIEF / TODAY</span><h1>No verified news from today yet.</h1><p class="standfirst">We have not confirmed a new first-party financial-services announcement dated today in the UK. We will not fill today’s edition with yesterday’s news.</p>';
    $('briefing-stories').innerHTML=`<p>No verified same-day stories to brief yet.</p>`;
    return;
  }
