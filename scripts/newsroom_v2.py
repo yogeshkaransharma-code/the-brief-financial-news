@@ -39,7 +39,7 @@ def status_from_url(url, title):
         return "Speech / commentary"
     if "/data/" in lower or "/research/" in lower or "/multi-firm-reviews/" in lower:
         return "Published report"
-    if source_lane(url)=="boe_release" and re.search(r"(?i)\\b(propos(?:es|ed|als?)|plans? to|consult(?:s|ation)|seeks? views|draft rules)\\b",title):
+    if source_lane(url)=="boe_release" and re.search(r"(?i)\b(propos(?:es|ed|als?)|plans? to|consult(?:s|ation)|seeks? views|draft rules)\b",title):
         return "Proposal"
     return "Confirmed announcement"
 
