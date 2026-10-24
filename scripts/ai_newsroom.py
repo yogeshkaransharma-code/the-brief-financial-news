@@ -103,11 +103,11 @@ def norm(value: str) -> str:
     return re.sub(r"\s+", " ", re.sub(r"[^\w\s]", " ", value)).strip()
 
 
-def fetch_gemini(prompt: str) -> dict:
-    """Call the one explicitly selected Gemini model, without retries.
+def fetch_gemini(prompt: str, model_override: str | None = None) -> dict:
+    """Exactly one Gemini HTTP call, with an optional explicitly metered model.
 
-    No fallback cascade: any error holds the story; quota errors pause the desk.
-    Every returned JSON object still faces source/evidence verification.
+    Any separate capacity fallback must be metered by the calling newsroom.
+    429 limits do not trigger a hidden cascade. Verification remains mandatory.
     """
     if not KEY:
         raise RuntimeError("Missing GEMINI_API_KEY GitHub Actions secret")
@@ -117,7 +117,7 @@ def fetch_gemini(prompt: str) -> dict:
     }
     # A 429 must not trigger four more quota-consuming attempts on other
     # models. Explicit provider/model selection means exactly one API call.
-    candidates=[MODEL]
+    candidates=[model_override or MODEL]
     failures=[]
     for model_name in candidates:
         url=("https://generativelanguage.googleapis.com/v1beta/models/"
