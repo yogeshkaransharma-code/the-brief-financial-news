@@ -195,15 +195,25 @@ function wire(){
  $('search-toggle').onclick=()=>{const panel=$('search-panel');panel.hidden=!panel.hidden;if(!panel.hidden)$('search').focus()};$('search').oninput=e=>{query=e.target.value.trim();limit=10;renderFeed()};$('clear-search').onclick=()=>{$('search').value='';query='';renderFeed();$('search').focus()};$('order').onchange=e=>{sort=e.target.value;renderFeed()};$('show-more').onclick=()=>{limit+=10;renderFeed()};
  $('article-save').onclick=()=>{if(activeId!=='about')toggleSaved(activeId)};$('article-share').onclick=()=>{const url=location.href;navigator.clipboard?.writeText(url).then(()=>showToast('Article link copied')).catch(()=>showToast('Copy the address from your browser'))||showToast('Copy the address from your browser')};$('article-print').onclick=()=>window.print();$('open-about').onclick=()=>location.href='about.html';$('footer-about').onclick=()=>location.href='about.html';window.addEventListener('hashchange',route)}
 async function loadPublished(){
+ const approved=data=>Array.isArray(data)?data.filter(x=>x&&x.id&&x.title&&x.ai_assisted===true
+    &&x.publication_method==='autonomous'&&Array.isArray(x.blocks)&&x.blocks.length>=3)
+    .map(x=>({...x,kind:'original'})):[];
+ // The public HTML carries verified stories as a backup for blocked/stale JSON.
+ try{
+   const inline=$('embedded-articles');
+   if(inline && inline.textContent.trim())published=approved(JSON.parse(inline.textContent));
+ }catch(err){console.warn('Embedded article backup invalid',err)}
  try{
    const response=await fetch('data/articles.json',{cache:'no-store'});
-   if(!response.ok)throw Error('Published articles unavailable');
+   if(!response.ok)throw Error('Published articles unavailable (HTTP '+response.status+')');
    const data=await response.json();
    if(!Array.isArray(data))throw Error('Published article list invalid');
-   published=data.filter(x=>x&&x.id&&x.title&&Array.isArray(x.blocks)&&x.blocks.length>=3)
-      .map(x=>({...x,kind:'original'}));
-   return true;
- }catch(err){console.warn('Original article archive unavailable',err);return false}
+   // Do not let a stale JSON response replace a newer built-in edition.
+   const merged=new Map(published.map(x=>[x.id,x]));
+   approved(data).forEach(x=>merged.set(x.id,x));
+   published=[...merged.values()];
+ }catch(err){console.warn('Using published homepage backup',err)}
+ return published.length>0;
 }
 async function loadLive(){
  // Official RSS research remains in GitHub Actions, never in the public website.
