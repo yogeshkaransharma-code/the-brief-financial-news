@@ -21,12 +21,45 @@ DEST = ROOT / "data" / "live.json"
 NOW = dt.datetime.now(dt.timezone.utc)
 HEADERS = {"User-Agent": "TheBriefNewsReader/0.1 (RSS reader; source attribution retained)", "Accept": "application/rss+xml,application/atom+xml,text/xml,application/xml"}
 
+GOVERNMENT = {"HM Treasury", "Department for Work and Pensions",
+              "Competition and Markets Authority", "Department for Business and Trade",
+              "Department for Science, Innovation and Technology"}
+# The newsroom is UK financial services, not every general business headline.
+FOCUSED_NEWS = re.compile(
+    r"(?i)\\b(uk|britain|british|england|london|bank\\w*|insur\\w*|"
+    r"broker\\w*|financ\\w*|fintech|payment\\w*|invest\\w*|"
+    r"pension\\w*|asset manag\\w*|wealth|mortgage\\w*|"
+    r"lending|credit|budget|interest rate|inflation|regulat\\w*|"
+    r"capital market\\w*|stock market|ftse|sterling|"
+    r"fca|pra|boe|treasury|taxation|savings?|reinsur\\w*|"
+    r"fund manag\\w*|insurtech|fintech|underwrit\\w*)\\b"
+)
+BROADER_MEDIA = {"BBC Business","Sky Business","The Guardian Business",
+                 "Financial Times","Bloomberg Markets","Wall Street Journal Markets",
+                 "MarketWatch","The Economist Finance"}
+OFFICIAL_FEED_NAMES = {"FCA","FCA publications","Bank of England","PRA"} | GOVERNMENT
+
+
 FEEDS = [
     ("FCA", "https://www.fca.org.uk/news/rss.xml", "Regulation"),
     ("FCA publications", "https://www.fca.org.uk/publications/rss.xml", "Regulation"),
     ("Bank of England", "https://www.bankofengland.co.uk/rss/news", "Banking"),
     ("PRA", "https://www.bankofengland.co.uk/rss/prudential-regulation-publications", "Regulation"),
+    # Government releases are direct official evidence candidates, not media reports.
     ("HM Treasury", "https://www.gov.uk/government/organisations/hm-treasury.atom", "Regulation"),
+    ("Department for Work and Pensions", "https://www.gov.uk/government/organisations/department-for-work-pensions.atom", "Regulation"),
+    ("Competition and Markets Authority", "https://www.gov.uk/government/organisations/competition-and-markets-authority.atom", "Regulation"),
+    ("Department for Business and Trade", "https://www.gov.uk/government/organisations/department-for-business-and-trade.atom", "Regulation"),
+    ("Department for Science, Innovation and Technology", "https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology.atom", "Technology"),
+    # Media feeds are lead discovery only. They are NOT source evidence.
+    ("BBC Business", "https://feeds.bbci.co.uk/news/business/rss.xml", "Banking"),
+    ("Sky Business", "https://feeds.skynews.com/feeds/rss/business.xml", "Banking"),
+    ("The Guardian Business", "https://www.theguardian.com/uk/business/rss", "Banking"),
+    ("Financial Times", "https://www.ft.com/rss/home", "Banking"),
+    ("Bloomberg Markets", "https://feeds.bloomberg.com/markets/news.rss", "Banking"),
+    ("Wall Street Journal Markets", "https://feeds.content.dowjones.io/public/rss/RSSMarketsMain", "Banking"),
+    ("MarketWatch", "https://feeds.content.dowjones.io/public/rss/mw_topstories", "Banking"),
+    ("The Economist Finance", "https://www.economist.com/finance-and-economics/rss.xml", "Banking"),
     ("Finextra", "https://www.finextra.com/rss/headlines.aspx", "Banking"),
     ("Finextra payments", "https://www.finextra.com/rss/channel.aspx?channel=payments", "Banking"),
     ("Insurance Business UK", "https://www.insurancebusinessmag.com/uk/rss/", "Insurance"),
@@ -102,7 +135,8 @@ def parse(xml_bytes, name, fallback):
             title = text_of(entry, [ns + "title"])
             description = text_of(entry, [ns + "summary", ns + "content"])
             date = text_of(entry, [ns + "published", ns + "updated"])
-            alternatives = [x.attrib.get("href", "") for x in entry.findall(ns + "link") if x.attrib.get("rel", "alternate") == "alternate"]
+            alternatives = [x.attrib.get("href", "") for x in entry.findall(ns + "link")
+                            if x.attrib.get("href") and x.attrib.get("rel", "alternate") in ("alternate", "")]
             link = alternatives[0] if alternatives else ""
         else:
             title = text_of(entry, ["title"])
@@ -111,17 +145,20 @@ def parse(xml_bytes, name, fallback):
             link = text_of(entry, ["link"])
         headline = clean(title)[:230]
         summary = clean(description)[:400]
-        if name == "HM Treasury" and not re.search(
-            r"(?i)\b(financ\w*|econom\w*|bank\w*|insur\w*|pension\w*|budget|"
-            r"invest\w*|mortgage\w*|savings?|payment\w*|fintech|regulat\w*|"
-            r"tax\w*|treasury|fraud|capital|funding|credit|market\w*|business)\b",
-            headline+" "+summary):
+        if name in GOVERNMENT and not FOCUSED_NEWS.search(headline+" "+summary):
+            continue
+        if name in BROADER_MEDIA and not FOCUSED_NEWS.search(headline+" "+summary):
             continue
         # Some feeds contain only an author line, a copyright notice, or no usable
         # explanation. These aren't useful news briefings for our readers.
         if (not summary or len(summary) < 45
                 or re.match(r"(?i)^(author\s*:|this content is copyright|copyright notice|read more\b)", summary)):
-            continue
+            # A government agency's short Atom summary still identifies an
+            # official URL; it must NEVER be used for article evidence.
+            if name in GOVERNMENT and len(headline)>=25:
+                summary="Original government announcement. The full official document must be retrieved and verified before reporting."
+            else:
+                continue
         published = parse_date(date)
         url = urllib.parse.urlsplit(link)
         if not headline or not published or not (url.scheme == "https" and url.hostname) or url.username or url.password:
@@ -175,7 +212,11 @@ def main():
             logging.warning("%s: %s", name, exc)
     if not successes:
         raise SystemExit("All feeds failed; keep existing data unchanged")
-    recent = sorted(seen.values(), key=lambda x: x.get("published_at", ""), reverse=True)
+    # Preserve primary-source candidates when dozens of commercial publishers
+    # post in the same hour. They are much more useful than another media lead.
+    recent = sorted(seen.values(),key=lambda x: (
+        x.get("source") in OFFICIAL_FEED_NAMES, x.get("published_at","")
+    ),reverse=True)
     results, fingerprints = [], set()
     for item in recent:
         fp = re.sub(r"[^a-z0-9]", "", item["title"].lower())[:125]
@@ -183,7 +224,7 @@ def main():
             continue
         fingerprints.add(fp)
         results.append(item)
-        if len(results) >= 260:
+        if len(results) >= 450:
             break
     output = {"generated_at": NOW.isoformat(), "sources_checked": successes, "items": results, "errors": errors, "status": "live" if not errors else "partial"}
     DEST.parent.mkdir(parents=True, exist_ok=True)
