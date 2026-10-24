@@ -26,6 +26,7 @@ FEEDS = [
     ("FCA publications", "https://www.fca.org.uk/publications/rss.xml", "Regulation"),
     ("Bank of England", "https://www.bankofengland.co.uk/rss/news", "Banking"),
     ("PRA", "https://www.bankofengland.co.uk/rss/prudential-regulation-publications", "Regulation"),
+    ("HM Treasury", "https://www.gov.uk/government/organisations/hm-treasury.atom", "Regulation"),
     ("Finextra", "https://www.finextra.com/rss/headlines.aspx", "Banking"),
     ("Finextra payments", "https://www.finextra.com/rss/channel.aspx?channel=payments", "Banking"),
     ("Insurance Business UK", "https://www.insurancebusinessmag.com/uk/rss/", "Insurance"),
@@ -110,6 +111,12 @@ def parse(xml_bytes, name, fallback):
             link = text_of(entry, ["link"])
         headline = clean(title)[:230]
         summary = clean(description)[:400]
+        if name == "HM Treasury" and not re.search(
+            r"(?i)\\b(financ\\w*|econom\\w*|bank\\w*|insur\\w*|pension\\w*|budget|"
+            r"invest\\w*|mortgage\\w*|savings?|payment\\w*|fintech|regulat\\w*|"
+            r"tax\\w*|treasury|fraud|capital|funding|credit|market\\w*|business)\\b",
+            headline+" "+summary):
+            continue
         # Some feeds contain only an author line, a copyright notice, or no usable
         # explanation. These aren't useful news briefings for our readers.
         if (not summary or len(summary) < 45
