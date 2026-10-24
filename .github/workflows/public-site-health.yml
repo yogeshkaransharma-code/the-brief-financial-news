@@ -32,6 +32,25 @@ jobs:
           BRIEF_SITE_URL: https://yogeshkaransharma-code.github.io/the-brief-financial-news/
         run: python scripts/verify_live.py
 
+      - name: Install browser for actual mobile reader validation
+        run: |
+          python -m pip install playwright
+          python -m playwright install chromium --with-deps
+
+      - name: Verify articles visually in a mobile browser
+        env:
+          BRIEF_SITE_URL: https://yogeshkaransharma-code.github.io/the-brief-financial-news/
+        run: python scripts/verify_browser.py
+
+      - name: Archive visual proof of article visibility
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mobile-newsreader-screenshots
+          path: browser-evidence/
+          if-no-files-found: warn
+          retention-days: 14
+
       - name: Check for at least one article actually published today
         run: |
           python - <<'PY'
