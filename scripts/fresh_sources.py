@@ -4,15 +4,16 @@
 Never treats a news aggregator's reporting as original evidence. Investegate
 entries below are reprints of issuer-authored Regulatory News Service (RNS)
 announcements, not articles written by Investegate.
-After launch, use a short, transparent source-dated catch-up window to prevent a weekend news drought.
+Every original announcement must be dated TODAY in the UK. No catch-up window.
 """
 from __future__ import annotations
 import datetime as dt
 from urllib.parse import urlsplit
+from same_day_policy import source_issued_today
 
 LAUNCH_START=dt.date(2026,10,22)
 LAUNCH_END=dt.date(2026,10,23)
-MAX_NEWS_AGE=dt.timedelta(days=4)  # original source date always retained
+MAX_NEWS_AGE=dt.timedelta(0)  # Zero grace days. No old news, including weekends.
 
 RELEASES=[
     {
@@ -101,42 +102,23 @@ def launch_items(today=None):
     return result
 
 def eligible_today(item,today=None,launch=False):
-    today=today or dt.datetime.now(dt.timezone.utc)
-    try:
-        stamp=dt.datetime.fromisoformat(item["published_at"].replace("Z","+00:00"))
-        if stamp.tzinfo is None:return False
-        age=today-stamp
-        # Date-only issuer listings do not justify a fabricated publication hour.
-        # Cover important yet-unreported official releases up to four calendar
-        # days old, preserving the true source date on the final article.
-        if item.get("source_time_precision")=="date":
-            source_day=dt.date.fromisoformat(item["dateISO"])
-            if 0<=(today.date()-source_day).days<=MAX_NEWS_AGE.days:
-                return True
-        elif dt.timedelta(0)<=age<=MAX_NEWS_AGE:
-            return True
-        if launch and today.date()<=LAUNCH_END and LAUNCH_START<=dt.date.fromisoformat(item["dateISO"])<=today.date():
-            return True
-    except (ValueError,KeyError,TypeError):
-        pass
-    return False
+    """Only today's original source date qualifies, not writing date or 24h age."""
+    return source_issued_today(item,today)
 
 def self_test():
-    now=dt.datetime(2026,10,23,10,tzinfo=dt.timezone.utc)
-    assert len(launch_items(dt.date(2026,10,23)))>=5
+    now=dt.datetime(2026,10,24,19,tzinfo=dt.timezone.utc)
+    today={"dateISO":"2026-10-24","published_at":"2026-10-24T11:00:00+00:00","source_time_precision":"date"}
+    old=dict(today,dateISO="2026-10-23",published_at="2026-10-23T21:00:00+00:00")
+    future=dict(today,dateISO="2026-10-25")
+    assert eligible_today(today,now)
+    assert not eligible_today(old,now), "Yesterday must be rejected, even under old launch flag"
+    assert not eligible_today(old,now,launch=True), "Launch exception may not bypass today's date"
+    assert not eligible_today(future,now)
+    assert not eligible_today(dict(today,source_time_precision="timestamp",
+                  source_published_at="2026-10-24T21:00:00Z"),now), "Future times forbidden"
+    assert not eligible_today(dict(today,dateISO="2026-10-22"),now), "Weekend carry-over forbidden"
     assert launch_items(dt.date(2026,10,24))==[]
-    fixture={"published_at":"2026-10-22T08:00:00+00:00","dateISO":"2026-10-22"}
-    assert eligible_today(fixture,now)
-    assert eligible_today(fixture,now,launch=True)
-    old=dict(fixture,published_at="2026-10-17T08:00:00+00:00",dateISO="2026-10-17")
-    assert not eligible_today(old,now)
-    stale_date=dict(fixture,published_at="2026-10-17T12:00:00+00:00",dateISO="2026-10-17",source_time_precision="date")
-    assert not eligible_today(stale_date,now)
-    yesterday=dict(fixture,published_at="2026-10-22T12:00:00+00:00",dateISO="2026-10-22",source_time_precision="date")
-    assert eligible_today(yesterday,now)
-    fixture["published_at"]="2026-10-23T08:00:00+00:00"
-    assert eligible_today(fixture,now)
-    print("PASS: four-day source-dated catch-up, stale and future releases excluded")
+    print("PASS: UK same-day source date only, no yesterday, future or weekend catch-up")
 
 if __name__=="__main__":
     self_test()
