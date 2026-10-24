@@ -6,11 +6,13 @@ import re
 from urllib.parse import urljoin,urlsplit
 from bs4 import BeautifulSoup
 from source_retrieval import retrieve_bytes
+from publication_scope import source_lane
 
 INDEXES=(
     ("Aviva","Insurance","https://www.aviva.com/newsroom/"),
     ("Lloyds Banking Group","Banking","https://www.lloydsbankinggroup.com/media/press-releases.html"),
     ("UK Parliament","Regulation","https://committees.parliament.uk/committee/697/financial-services-regulation-committee/news/"),
+    ("The Pensions Regulator","Regulation","https://www.thepensionsregulator.gov.uk/media-hub/press-releases"),
 )
 MON={"jan":1,"feb":2,"mar":3,"apr":4,"may":5,"jun":6,"jul":7,"aug":8,"sep":9,"sept":9,"oct":10,"nov":11,"dec":12}
 DATE=re.compile(r"\b([0-3]?\d)\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)[a-z]*\s+(20\d\d)\b",re.I)
@@ -20,6 +22,8 @@ def official_release(url, source):
     if p.scheme!="https" or p.username or p.password:return False
     if source=="Aviva":
         return p.hostname in {"www.aviva.com","aviva.com"} and "/newsroom/news-and-research-overview/news-releases/" in p.path
+    if source=="The Pensions Regulator":
+        return source_lane(url)=="tpr_release"
     if source=="UK Parliament":
         return p.hostname=="committees.parliament.uk" and bool(re.fullmatch(
             r"/committee/697/financial-services-regulation-committee/news/\d+/[a-z0-9-]+/?",p.path
@@ -87,6 +91,9 @@ def self_test():
     p=parse_listing(parliament,"UK Parliament","Regulation","https://committees.parliament.uk/committee/697/financial-services-regulation-committee/news/",today=dt.date(2026,10,23))
     assert len(p)==1 and p[0]["dateISO"]=="2026-10-23" and p[0]["category"]=="Insurance",p
     assert not official_release("https://committees.parliament.uk.evil.com/committee/697/financial-services-regulation-committee/news/218442/bogus/","UK Parliament")
+    tpr=b'''<main><article><a href="/en/media-hub/press-releases/2026-press-releases/tpr-publishes-new-investment-guidance"><h3>TPR publishes new investment guidance for workplace pension trustees</h3></a><p>Saturday 24 October 2026</p></article></main>'''
+    found=parse_listing(tpr,"The Pensions Regulator","Regulation","https://www.thepensionsregulator.gov.uk/media-hub/press-releases",today=dt.date(2026,10,24))
+    assert len(found)==1 and found[0]["dateISO"]=="2026-10-24",found
     print("PASS: first-party announcement titles, date validation, official URL allowlist")
 
 if __name__=="__main__":
