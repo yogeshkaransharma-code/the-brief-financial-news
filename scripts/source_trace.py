@@ -39,7 +39,11 @@ FINANCE_HEADLINE = re.compile(
 )
 STOP = set("the a an of in for on at from by to is are will new says uk us and or as it with its report reports latest after amid over under against company firm firms financial insurance bank banking regulator industry group year month".split())
 DATE_RE = re.compile(r"^20\d{2}-\d\d-\d\d(?:T[^ ]+)?")
-BAD_LINK = re.compile(r"(?:advert|sponsor|privacy|terms|register|account|contact|careers|share|cookies|home|login)",re.I)
+# Reject footer/navigation links, not legitimate financial stories about
+# current accounts, home insurance or bank registers.
+BAD_LINK = re.compile(r"(?i)^(?:privacy(?: policy)?|terms(?: and conditions)?|"
+    r"cookies?(?: policy)?|contact(?: us)?|careers?|log ?in|sign ?in|"
+    r"register|advertis(?:ing|e)|sponsored|share|homepage|home|my account)$")
 
 class NoExternalRedirects(urllib.request.HTTPRedirectHandler):
     def redirect_request(self,req,fp,code,msg,headers,newurl):
@@ -86,7 +90,9 @@ def extract_original_links(markup,news_url,title):
             continue
         score=overlap(title,label+" "+surrounding,official)
         cite=bool(re.search(r"(?i)\b(source|original|press release|announcement|fca|pra|regulator|results|official|statement|report|published|consultation)\b",label))
-        if score < 2 or (not cite and score<3):
+        if score < 2 and not (cite and score>=1):
+            continue
+        if not cite and score<3:
             continue
         ranked[official]=max(ranked.get(official,0),score+(2 if cite else 0))
     return [u for u,_ in sorted(ranked.items(),key=lambda x:-x[1])[:3]]
@@ -214,6 +220,12 @@ def find_originals(leads,now=None,limit=REVIEW_LIMIT,attempts=None):
                     if not source_title:
                         events.append({"headline":lead["title"],"result":"official headline could not be established"})
                         continue
+                    # News links can be promotional boilerplate; require the
+                    # actual original document's headline to overlap the lead
+                    # rather than merely trusting the presence of a URL.
+                    if len(meaningful_terms(lead["title"]) & meaningful_terms(source_title))<2:
+                        events.append({"headline":lead["title"],"result":"official document does not substantiate the same development"})
+                        continue
                     if not date:
                         events.append({"headline":lead["title"],"result":"original date could not be independently established"})
                         continue
@@ -264,7 +276,9 @@ def self_test():
     assert reputable("https://www.bbc.co.uk/news/business-10000000")
     assert reputable("https://www.ft.com/content/1234")
     assert not reputable("https://www.ft.com.evil.test/content/1234")
-    assert not extract_original_links(b'<article><a href="https://www.fca.org.uk/">FCA</a></article>',base,"Banks consider new approach")
+    accountlink=b'<article><p>FCA publishes proposals on home insurance and current accounts. <a href="https://www.fca.org.uk/news/press-releases/fca-publishes-home-insurance-and-current-accounts-proposals">Read the FCA official announcement on home insurance and current accounts</a></p></article>'
+    assert extract_original_links(accountlink,base,"FCA publishes proposals on home insurance and current accounts")
+        assert not extract_original_links(b'<article><a href="https://www.fca.org.uk/">FCA</a></article>',base,"Banks consider new approach")
     dated=b'<html><head><meta property="article:published_time" content="2026-10-24T09:30:00+01:00"></head></html>'
     assert published_date(dated)==("2026-10-24","2026-10-24T08:30:00+00:00","timestamp")
     assert published_date(b"<html>27 years ago</html>") is None
