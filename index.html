@@ -18,7 +18,7 @@
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.toast{transition:none}}
 /* Final reading pass: put the short briefing first on small screens and shorten the desktop lead */
 @media(min-width:781px){.one-minute{padding-top:23px;padding-bottom:21px}.one-minute h2{font-size:37px;margin-top:7px}.minute-intro{margin:10px 0 6px;padding-bottom:11px}.briefing-story{padding:10px 0 11px}.briefing-story p{margin-top:4px}.minute-footer{margin-top:11px}.top-layout{padding-bottom:27px}.news-section{padding-top:37px}}
-@media(max-width:520px){.top-layout{display:flex;flex-direction:column}.one-minute{order:-1}.lead-story{order:1}.one-minute{padding-top:19px;padding-bottom:18px}.minute-intro{margin:11px 0 4px;padding-bottom:11px}.briefing-story{padding:9px 0}.minute-footer{margin-top:10px}}
+@media(max-width:520px){.top-layout{display:flex;flex-direction:column}.one-minute{padding-top:19px;padding-bottom:18px}.minute-intro{margin:11px 0 4px;padding-bottom:11px}.briefing-story{padding:9px 0}.minute-footer{margin-top:10px}}
 @media print{.utility,.header-actions,.navstrip,.filterbar,.news-section,.understand,.footer,.article-topbar,.article-rail,.toast,.one-minute{display:none!important}.article-view{display:block!important}.article-layout{display:block;padding:0}.article-content{max-width:700px;margin:auto}.article-body{font-size:12pt;color:black}.article-content h1{font-size:30pt}.source-note a{color:#000}}
 
 /* An unmistakable but calm chronology; no old story may interrupt a newer date. */
@@ -174,7 +174,7 @@ function renderTop(){
  const latestPublication=[...originals].sort((a,b)=>reportTime(b)-reportTime(a))[0];
  $('freshness').textContent='Latest article · '+new Date(latestPublication.published_at).toLocaleString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',timeZone:'Europe/London'});
  $('lead-story').innerHTML=`<span class="story-kicker">${safe(lead.category)} / THE LEAD STORY</span><h1><button type="button" class="headline-btn" data-open="${safe(lead.id)}">${safe(lead.title)}</button></h1><p class="standfirst">${safe(usefulSummary(lead))}</p><div class="meta">${meta(lead)}</div><button class="cta" type="button" data-open="${safe(lead.id)}">Read the full article ↗</button>`;
- const picks=originals.slice(0,3);
+ const picks=originals.slice(1,3); // Other verified developments, not a repeat of the lead story.
  $('briefing-stories').innerHTML=picks.map((item,i)=>`<div class="briefing-story"><span class="brief-number">0${i+1}</span><div><span class="story-kind">FULL ARTICLE</span><button type="button" data-open="${safe(item.id)}">${safe(item.title)}</button><p>${safe(usefulSummary(item).slice(0,200))}</p></div></div>`).join('');
 }
 function matchingItems(){let items=allItems();if(category!=='All')items=items.filter(s=>s.category===category);if(savedOnly)items=items.filter(s=>saved.has(s.id));if(followingOnly)items=items.filter(s=>following.has(s.category));if(query){const q=query.toLocaleLowerCase();items=items.filter(s=>[s.title,s.short,s.excerpt,s.source,s.category,(s.blocks||[]).map(x=>x.join(' ')).join(' ')].join(' ').toLowerCase().includes(q))}return items}
