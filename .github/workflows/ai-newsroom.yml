@@ -123,6 +123,9 @@ jobs:
           AUTO_PUBLICATION_ENABLED: '1'
         run: python scripts/publish_autonomous.py
 
+      - name: Keep canonical repository website and article pages visible
+        run: python scripts/sync_fallback.py
+
       - name: Validate publication provenance and website
         run: |
           python scripts/verify_approved_articles.py
@@ -141,7 +144,8 @@ jobs:
           # Discard its ephemeral local refresh before rebasing publication data:
           # autostashing it can conflict with the collector and lose real articles.
           git restore --worktree -- data/live.json
-          git add data/articles.json data/newsroom-attempts.json
+          git add data/articles.json data/newsroom-attempts.json index.html
+          if [ -d story ]; then git add story/; fi
           if [ -d data/editorial-audits ]; then
             git add data/editorial-audits/
           fi
