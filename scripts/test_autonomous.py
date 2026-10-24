@@ -92,6 +92,19 @@ def main():
         retired=auto.publish(root)
         assert not retired["published"], "Retired pre-reset article was republished"
         assert any("reset legacy" in " ".join(x["reason"]) for x in retired["held"])
+        # No same-day source, no article. Publishing a fresh AI rewrite must
+        # NEVER refresh yesterday's official announcement.
+        stale=copy.deepcopy(base)
+        stale["draft"]["dateISO"]=(dt.datetime.now(dt.timezone.utc).date()-dt.timedelta(days=1)).isoformat()
+        stale["draft"]["date"]=stale["draft"]["dateISO"]
+        resign(stale)
+        reasons=auto.eligible(stale)
+        assert any("TODAY" in reason for reason in reasons), "Yesterday's original source escaped today's hard gate"
+        future=copy.deepcopy(base)
+        future["draft"]["dateISO"]=(dt.datetime.now(dt.timezone.utc).date()+dt.timedelta(days=1)).isoformat()
+        future["draft"]["date"]=future["draft"]["dateISO"]
+        resign(future)
+        assert auto.eligible(future), "Future-dated source escaped the same-day gate"
         bad=copy.deepcopy(base)
         bad["draft"]["status"]="Proposal"
         resign(bad)
