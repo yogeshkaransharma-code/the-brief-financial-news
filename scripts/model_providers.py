@@ -50,9 +50,9 @@ def post_json(url,payload,headers):
             raise RuntimeError("Provider request quota exceeded: HTTP 429") from None
         raise RuntimeError(f"Provider returned HTTP {err.code}: {detail[:100]}") from None
 
-def fetch_ai(prompt):
+def fetch_ai(prompt, model_override=None):
     if PROVIDER=="gemini":
-        return fetch_gemini(prompt)
+        return fetch_gemini(prompt, model_override=model_override)
     if PROVIDER=="openai":
         key=os.getenv("OPENAI_API_KEY")
         if not key:
