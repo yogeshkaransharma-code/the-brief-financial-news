@@ -4,7 +4,7 @@
 Never treats a news aggregator's reporting as original evidence. Investegate
 entries below are reprints of issuer-authored Regulatory News Service (RNS)
 announcements, not articles written by Investegate.
-After launch, the rolling 24-hour rule applies to every discovery channel.
+After launch, use a short, transparent source-dated catch-up window to prevent a weekend news drought.
 """
 from __future__ import annotations
 import datetime as dt
@@ -12,6 +12,7 @@ from urllib.parse import urlsplit
 
 LAUNCH_START=dt.date(2026,10,22)
 LAUNCH_END=dt.date(2026,10,23)
+MAX_NEWS_AGE=dt.timedelta(days=4)  # original source date always retained
 
 RELEASES=[
     {
@@ -105,12 +106,14 @@ def eligible_today(item,today=None,launch=False):
         stamp=dt.datetime.fromisoformat(item["published_at"].replace("Z","+00:00"))
         if stamp.tzinfo is None:return False
         age=today-stamp
-        # A newsroom listing that supplies only a calendar date cannot justify
-        # claiming the release was within an exact rolling 24-hour interval.
+        # Date-only issuer listings do not justify a fabricated publication hour.
+        # Cover important yet-unreported official releases up to four calendar
+        # days old, preserving the true source date on the final article.
         if item.get("source_time_precision")=="date":
-            if today.date()==dt.date.fromisoformat(item["dateISO"]):
+            source_day=dt.date.fromisoformat(item["dateISO"])
+            if 0<=(today.date()-source_day).days<=MAX_NEWS_AGE.days:
                 return True
-        elif dt.timedelta(0)<=age<=dt.timedelta(hours=24):
+        elif dt.timedelta(0)<=age<=MAX_NEWS_AGE:
             return True
         if launch and today.date()<=LAUNCH_END and LAUNCH_START<=dt.date.fromisoformat(item["dateISO"])<=today.date():
             return True
@@ -123,11 +126,17 @@ def self_test():
     assert len(launch_items(dt.date(2026,10,23)))>=5
     assert launch_items(dt.date(2026,10,24))==[]
     fixture={"published_at":"2026-10-22T08:00:00+00:00","dateISO":"2026-10-22"}
-    assert not eligible_today(fixture,now)
+    assert eligible_today(fixture,now)
     assert eligible_today(fixture,now,launch=True)
+    old=dict(fixture,published_at="2026-10-17T08:00:00+00:00",dateISO="2026-10-17")
+    assert not eligible_today(old,now)
+    stale_date=dict(fixture,published_at="2026-10-17T12:00:00+00:00",dateISO="2026-10-17",source_time_precision="date")
+    assert not eligible_today(stale_date,now)
+    yesterday=dict(fixture,published_at="2026-10-22T12:00:00+00:00",dateISO="2026-10-22",source_time_precision="date")
+    assert eligible_today(yesterday,now)
     fixture["published_at"]="2026-10-23T08:00:00+00:00"
     assert eligible_today(fixture,now)
-    print("PASS: one-off 22 October launch and permanent 24-hour fresh-news cutoff")
+    print("PASS: four-day source-dated catch-up, stale and future releases excluded")
 
 if __name__=="__main__":
     self_test()
