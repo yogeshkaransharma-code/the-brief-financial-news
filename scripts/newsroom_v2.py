@@ -559,6 +559,16 @@ def main():
         ledger={"version":1,"sources":{}}
     ledger["version"]=1
     attempts=ledger["sources"]
+    # One-time migration: the writer's malformed-section repair and the
+    # short-consultation linked-PDF reader have now been fixed. Retry only
+    # those old mechanical failures once instead of serving stale cooldowns.
+    if ledger.get("repair_revision",0)<2:
+        for source_url,record in list(attempts.items()):
+            reason=str(record.get("last_result",""))
+            if ("Article needs coherent sections" in reason
+                    or "Insufficient official article content" in reason):
+                del attempts[source_url]
+        ledger["repair_revision"]=2
     def delay(url,hours,reason):
         attempts[url]={"attempted_at":now.isoformat(),
                        "retry_after":(now+dt.timedelta(hours=hours)).isoformat(),
