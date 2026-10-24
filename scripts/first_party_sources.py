@@ -78,6 +78,13 @@ def parse_listing(content,source,section,base,today=None):
                         date=dt.date(int(m2.group(3)),MON[month[:4].lower()] if month.lower().startswith("sept") else MON[month[:3].lower()],int(m2.group(2)))
                     break
                 except (KeyError,ValueError):pass
+        if date is None and source=="Munich Re":
+            # Munich Re uses a dated, issuer-controlled press release URL.
+            # This is not the date from a secondary media article.
+            m=re.search(r"/media-release-(20\\d{2})-(\\d{2})-(\\d{2})\\.html$",url,re.I)
+            if m:
+                try:date=dt.date(int(m.group(1)),int(m.group(2)),int(m.group(3)))
+                except ValueError:pass
         if not date or not 0<=(today-date).days<=21:continue
         effective_category=("Insurance" if source=="UK Parliament" and re.search(r"insurance|claims|underwriting|protection",title,re.I) else section)
         found.append({"title":title,"url":url,"dateISO":date.isoformat(),"published_at":date.isoformat()+"T12:00:00+00:00",
@@ -119,6 +126,9 @@ def self_test():
     m=b'''<article><span>October 23, 2026</span><h3>Munich Re reports quarterly profit and updates annual guidance</h3><a href="/en/company/media-relations/media-information-and-corporate-news/media-information/2026/media-release-2026-10-23.html">More information</a></article>'''
     mr=parse_listing(m,"Munich Re","Insurance","https://www.munichre.com/en/company/media-relations/media-information-and-corporate-news.html",today=dt.date(2026,10,24))
     assert len(mr)==1 and mr[0]["dateISO"]=="2026-10-23",mr
+    undated=b'''<article><h3>Munich Re reports quarterly profit and updates annual guidance</h3><a href="/en/company/media-relations/media-information-and-corporate-news/media-information/2026/media-release-2026-10-23.html">More information</a></article>'''
+    recovered=parse_listing(undated,"Munich Re","Insurance","https://www.munichre.com/en/company/media-relations/media-information-and-corporate-news.html",today=dt.date(2026,10,24))
+    assert len(recovered)==1 and recovered[0]["dateISO"]=="2026-10-23",recovered
     print("PASS: first-party announcement titles, date validation, official URL allowlist")
 
 if __name__=="__main__":
