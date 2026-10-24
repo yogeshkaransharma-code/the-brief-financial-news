@@ -6,6 +6,11 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/public-site-health.yml'
+      - 'index.html'
+      - 'scripts/build_public.py'
+      - 'scripts/verify_browser.py'
+      - 'scripts/verify_live.py'
+      - 'scripts/verify_public.py'
   schedule:
     # Every evening, verify that the public site contains a story published
     # today, as well as an accessible article page and primary source.
