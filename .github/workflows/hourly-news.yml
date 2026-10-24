@@ -13,6 +13,8 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '17 * * * *'
+    # Refresh close to midnight in GMT and BST so yesterday's news disappears.
+    - cron: '3 0,23 * * *'
 
 permissions:
   contents: write
@@ -60,6 +62,7 @@ jobs:
           python scripts/ai_cost_guard.py
           python scripts/source_retrieval.py
           python scripts/first_party_sources.py
+          python scripts/same_day_policy.py
           python scripts/fresh_sources.py
           python scripts/newsroom_v2.py --self-test
           python scripts/financial_consistency.py
