@@ -48,11 +48,15 @@ def eligible(bundle):
         problems.append("Source outside the cautious first-party reporting lanes (or excluded adverse enforcement)")
     if lane=="fca_data" and a.get("status")!="Published report":
         problems.append("FCA statistics incorrectly described")
+    if lane=="fca_review" and a.get("status")!="Published report":
+        problems.append("FCA review must be presented as a published review")
+    if lane=="boe_release" and a.get("status") not in {"Proposal","Confirmed announcement"}:
+        problems.append("Bank of England release must identify proposals or announcements accurately")
     if lane=="fca_speech" and a.get("status")!="Speech / commentary":
         problems.append("FCA speech cannot be presented as new rules or final regulatory decision")
     if lane=="fca_consultation" and a.get("status")!="Proposal":
         problems.append("FCA consultation must be explicitly presented as a proposal")
-    if lane in {"fca_release","company_release","official_release","issuer_rns"} and a.get("status")!="Confirmed announcement":
+    if lane in {"fca_release","company_release","official_release","issuer_rns","tpr_release"} and a.get("status")!="Confirmed announcement":
         problems.append("An official announcement must be labelled as such")
     if lane and a.get("category") not in {"Banking","Insurance","Technology","Regulation"}:
         problems.append("Original source not within financial-services industry category")
@@ -65,8 +69,8 @@ def eligible(bundle):
     if audit.get("source_document_urls") != [a["url"]]:
         problems.append("Complex or redirected source document")
     source=bundle.get("captured_source_excerpt","")
-    if len(source)<1900:
-        problems.append("Insufficient original factual reporting")
+    if len(source)<1250:
+        problems.append("Too little original-source evidence for an unattended financial article")
     updated=dt.datetime.now(dt.timezone.utc).date()
     try:
         issued=dt.date.fromisoformat(a["dateISO"])
