@@ -42,7 +42,7 @@ def valid_articles():
                 and isinstance(a.get("blocks"), list)
                 and len(a["blocks"]) >= 3):
             raise ValueError("Unapproved or incomplete article in public build")
-    return sorted(records, key=lambda a: (a.get("dateISO", ""), a.get("published_at", ""), a["id"]), reverse=True)
+    return sorted(records, key=lambda a: (a.get("published_at", ""), a.get("dateISO", ""), a["id"]), reverse=True)
 
 
 def story_href(a):
