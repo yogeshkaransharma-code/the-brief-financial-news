@@ -34,6 +34,7 @@ jobs:
       - name: Install bounded source parsers
         run: python -m pip install -r scripts/requirements-newsroom.txt
       - name: Validate editorial and failure controls
+        id: controls
         if: github.event_name != 'schedule'
         run: python scripts/run_checks.py
       - name: Discover original-source leads without AI requests
@@ -62,7 +63,7 @@ jobs:
         id: health
         if: always()
         env:
-          BRIEF_PIPELINE_ERROR: ${{ failure() || steps.writer.outcome == 'failure' || steps.publisher.outcome == 'failure' || steps.discovery.outcome == 'failure' || steps.headlines.outcome == 'failure' }}
+          BRIEF_PIPELINE_ERROR: ${{ steps.controls.outcome == 'failure' || steps.writer.outcome == 'failure' || steps.publisher.outcome == 'failure' || steps.discovery.outcome == 'failure' || steps.headlines.outcome == 'failure' }}
         run: python scripts/newsroom_health.py
       - name: Preserve source evidence and diagnostic reports
         if: always()
