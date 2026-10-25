@@ -71,15 +71,11 @@ jobs:
           GEMINI_MODEL: gemini-3.5-flash-lite
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: python scripts/launch_canary.py
-      - name: Build today's source-linked hourly headline desk
-        id: radar
-        if: always()
-        run: python scripts/hourly_radar.py
       - name: Record actual publication outcome and source failures
         id: health
         if: always()
         env:
-          BRIEF_PIPELINE_ERROR: ${{ steps.writer.outcome == 'failure' || steps.publisher.outcome == 'failure' || steps.discovery.outcome == 'failure' || steps.radar.outcome == 'failure' || steps.launch_edition.outcome == 'failure' }}
+          BRIEF_PIPELINE_ERROR: ${{ steps.writer.outcome == 'failure' || steps.publisher.outcome == 'failure' || steps.discovery.outcome == 'failure' || steps.launch_edition.outcome == 'failure' }}
         run: python scripts/newsroom_health.py
       - name: Preserve source evidence and diagnostic reports
         if: always()
@@ -149,13 +145,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "Actual publication verified. ${{ needs.maintenance.outputs.new_articles }} new reports."
-  headlines:
-    name: Publisher headline desk refreshed
-    needs: maintenance
-    if: needs.maintenance.outputs.outcome == 'RADAR_UPDATED'
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "Same-UK-day publisher links updated. No unverified full article is claimed."
   attention:
     name: Newsroom needs attention — ${{ needs.maintenance.outputs.outcome }}
     needs: maintenance
