@@ -421,7 +421,7 @@ def original_media_candidates(items,now,limit=6):
     """Original UK-date journalism; never a recycled RSS refresh."""
     filtered=[]
     for item in items:
-        if item.get("source")!="The Guardian Business" or source_lane(item.get("url",""))!="original_reporting":
+        if item.get("source") not in {"The Guardian Business","The Guardian Money","The Guardian Insurance","The Guardian Banking"} or source_lane(item.get("url",""))!="original_reporting":
             continue
         if not MEDIA_FOCUS.search(item.get("title","")) or not eligible_today(item,now):
             continue
