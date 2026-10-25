@@ -54,12 +54,7 @@ def probe():
             if os.getenv('GITHUB_RUN_ID') and '--monitor' not in sys.argv:
                 build=json.loads(read(SITE+'data/build.json'+token))
                 assert build['run_id']==os.environ['GITHUB_RUN_ID'],'Live site is still serving an earlier deployment'
-            local_desk=ROOT/'data/headlines.json'
-            if local_desk.exists() and '--monitor' not in sys.argv:
-                desk=json.loads(read(SITE+'data/headlines.json'+token))
-                assert desk==json.loads(local_desk.read_text()),'Publisher desk did not refresh on the live website'
-                for item in desk['items']:
-                    assert html.escape(item['url'],quote=True) in home,'Publisher link missing from homepage'
+            assert 'id="publisher-desk"' not in home,'External publisher headline panel is still live'
             assert state.get('outcome') in {'PUBLISHED','NO_QUALIFYING_NEWS','BLOCKED','DEGRADED'},'Unknown newsroom outcome'
             if '--monitor' in sys.argv:
                 age=dt.datetime.now(dt.timezone.utc)-dt.datetime.fromisoformat(state['checked_at'])

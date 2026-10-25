@@ -36,6 +36,7 @@ def main():
  assert relevant({'title':'How to interpret new reporting obligations','url':'https://www.professionalpensions.com/news/4537731/reporting-obligations'})
  assert not relevant({'title':'Sponsored adviser product promotion','url':'https://www.professionalpensions.com/news/4537731/adviser-product'})
  assert relevant({'title':'Aon completes acquisition of specialist intermediary'})
+ assert relevant({'title':'Cookie theft: how fraudsters get the digital key to your accounts','url':'https://www.theguardian.com/money/2026/oct/25/cookie-theft-how-fraudsters-get-the-digital-key-to-your-accounts'})
  wealth='https://www.investmentweek.co.uk/news/4537796/baillie-gifford-us-growth-narrowly-saba-shareholders-board'
  assert source_lane(wealth)=='original_reporting'
  from test_autonomous import prepared

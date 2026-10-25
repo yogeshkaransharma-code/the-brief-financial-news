@@ -14,8 +14,8 @@ A UK financial-services publication covering banking, insurance, reinsurance, br
 4. Send a diverse selection of complete, date-verified documents to Gemini for commissioning. It ranks worthwhile developments, rejects publicity and duplicates, and records reasons. Unknown candidates and incomplete decisions are rejected. Changing source pools do not reset cached document-specific rejections.
 5. Write complete original articles and separately challenge every headline, standfirst, section heading and sentence against captured evidence. Deterministic controls check dates, figures, coverage, integrity and attribution. Disputed consequential reporting without corroboration is held; official enforcement findings require explicit attribution.
 6. Publish approved articles using their actual source and publication dates. Today's edition contains same-day UK developments; older material remains in the accurately dated searchable archive. There is no daily article-count ceiling.
-7. Refresh a separate, clearly labelled publisher-link desk. Feed dates on these supplementary links are distinguished from the document dates verified for original articles. Headlines never become artificial on-site article pages.
-8. Deploy real HTML reading pages to GitHub Pages. Check the exact deployment run, all current article bodies, archive access and the refreshed publisher desk. Check mobile and desktop presentation after code changes and new articles, including archive search, subject filters and source-registry search.
+7. Maintain source-linked headlines internally for discovery and commissioning. The public publication contains complete The Brief articles; external headlines never become artificial article pages or public headline filler.
+8. Deploy real HTML reading pages to GitHub Pages. Check the exact deployment run, all current article bodies, archive access and the original-article homepage. Check mobile and desktop presentation after code changes and new articles, including archive search, subject filters and source-registry search.
 
 ## Costs and retries
 
@@ -29,9 +29,9 @@ Per-source cooldowns, unchanged-pool caching, document-specific rejection cachin
 
 Editorial results and technical delivery are separate:
 
-- `data/status.json`: editorial outcome, source coverage warnings, candidates, commissions, holds, published article count, publisher-link refresh and request consumption.
+- `data/status.json`: editorial outcome, source coverage warnings, candidates, commissions, holds, published article count, internal discovery leads and request consumption.
 - `data/run-history.json`: observed deployment, live HTTP reading and browser outcomes after the checks finish.
-- `data/launch-acceptance.json`: evidence checkpoint for repeated successful scheduled runs, original Gemini publication verified live, sector breadth, publisher updates and mobile/desktop reading. It remains pending until observed evidence supports each criterion.
+- `data/launch-acceptance.json`: evidence checkpoint for repeated successful scheduled runs, original Gemini publication verified live, sector breadth, verified article delivery and mobile/desktop reading. It remains pending until observed evidence supports each criterion.
 
 The public status artifact is built before its own deployment checks. It labels this timing, links to the current workflow, and includes verified history from preceding runs. Missing reports, failed pipeline stages, model pauses, failed deployments and unreadable live content produce actionable failing workflow results. Individual unavailable sources produce coverage warnings while working routes continue. GitHub's normal notifications apply; no external messaging integration is assumed.
 

@@ -53,7 +53,8 @@ def read(path,default):
 def main():
  publication=read('generated-drafts/publication-report.json',{})
  state=assess(read('data/articles.json',[]),read('generated-drafts/run-report.json',{}),dt.datetime.now(dt.timezone.utc),publication,read('data/live.json',{}))
- state['publisher_links']=len(read('data/headlines.json',{}).get('items',[]))
+ state['publisher_links']=0
+ state['discovery_headlines']=len(read('data/headlines.json',{}).get('items',[]))
  state['publisher_desk_checked_at']=read('data/headlines.json',{}).get('checked_at')
  state['previous_verified_runs']=read('data/run-history.json',[])[-24:]
  from launch_acceptance import evaluate
@@ -66,7 +67,7 @@ def main():
  if os.getenv('GITHUB_OUTPUT'):
   with open(os.environ['GITHUB_OUTPUT'],'a') as f:f.write('outcome='+state['outcome']+'\nnew_articles='+str(state['published_this_run'])+'\n')
  summary='## Editorial result: '+state['outcome']+'\n\nDeployment and full live reading checks follow this assessment.\n\n| Measure | Result |\n|---|---|\n'
- for k in ['published_this_run','publisher_links','primary_indexes_checked','primary_index_failures','feeds_working','feed_failures','fresh_source_candidates','verified_original_candidates','articles_commissioned','articles_held','machine_screened','source_coverage_status']:
+ for k in ['published_this_run','discovery_headlines','primary_indexes_checked','primary_index_failures','feeds_working','feed_failures','fresh_source_candidates','verified_original_candidates','articles_commissioned','articles_held','machine_screened','source_coverage_status']:
   summary+='| '+k.replace('_',' ')+' | '+str(state[k])+' |\n'
  summary+='\nModel requests: '+json.dumps(state['ai_budget'])+'\n'
  for e in state['discovery_errors']:summary+='\n- Coverage warning: '+str(e)

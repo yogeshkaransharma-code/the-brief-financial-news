@@ -29,5 +29,8 @@ def verify():
     if not edition:assert 'No verified news from today yet' in home
     assert not (public/'data/live.json').exists() and 'data/live.json' not in home
     assert (public/'status.html').is_file()
+    assert 'id="publisher-desk"' not in home
+    assert not (public/'data/headlines.json').exists(),'Internal research headlines leaked into public output'
     print('PUBLIC_ARTIFACT_VALIDATED:',json.dumps({'today':len(edition),'archive':len(archive),'complete_stories':len(canonical)}))
 if __name__=='__main__':verify()
+

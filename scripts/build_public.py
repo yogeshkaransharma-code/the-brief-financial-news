@@ -183,7 +183,7 @@ def utility_page(title,body,prefix=''):
 def status_page():
     path=ROOT/'data/status.json'
     state=json.loads(path.read_text()) if path.exists() else {'outcome':'UNVERIFIED','checked_at':'No production run recorded'}
-    fields=[('Editorial outcome',state.get('editorial_outcome',state.get('outcome'))),('This artifact',state.get('technical_status','See workflow result')),('Publisher links',state.get('publisher_links',0)),('Articles held',state.get('articles_held',0)),('Last check (UTC)',state.get('checked_at')),('UK edition date',state.get('uk_date')),('Newsroom outcome',state.get('outcome')),('New articles this run',state.get('published_this_run',0)),('Articles today',state.get('genuine_same_day_articles',0)),('Primary indexes checked',state.get('primary_indexes_checked',0)),('Primary index failures',state.get('primary_index_failures',0)),('RSS feeds working',state.get('feeds_working',0)),('RSS feed failures',state.get('feed_failures',0)),('Production requests / daily cap',str(state.get('ai_budget',{}).get('production_requests_today',state.get('ai_budget',{}).get('requests_today_including_this_run','unknown')))+' / '+str(state.get('ai_budget',{}).get('daily_limit','unknown'))),('One-time diagnostic requests / cap',str(state.get('launch_diagnostic_allowance',{}).get('requests',0))+' / 2'),('Source candidates found',state.get('fresh_source_candidates',0)),('Unpublished real-model test',state.get('launch_test',{}).get('result','NOT_RUN'))]
+    fields=[('Editorial outcome',state.get('editorial_outcome',state.get('outcome'))),('This artifact',state.get('technical_status','See workflow result')),('Internal discovery leads',state.get('discovery_headlines',0)),('Articles held',state.get('articles_held',0)),('Last check (UTC)',state.get('checked_at')),('UK edition date',state.get('uk_date')),('Newsroom outcome',state.get('outcome')),('New articles this run',state.get('published_this_run',0)),('Articles today',state.get('genuine_same_day_articles',0)),('Primary indexes checked',state.get('primary_indexes_checked',0)),('Primary index failures',state.get('primary_index_failures',0)),('RSS feeds working',state.get('feeds_working',0)),('RSS feed failures',state.get('feed_failures',0)),('Production requests / daily cap',str(state.get('ai_budget',{}).get('production_requests_today',state.get('ai_budget',{}).get('requests_today_including_this_run','unknown')))+' / '+str(state.get('ai_budget',{}).get('daily_limit','unknown'))),('One-time diagnostic requests / cap',str(state.get('launch_diagnostic_allowance',{}).get('requests',0))+' / 2'),('Source candidates found',state.get('fresh_source_candidates',0)),('Unpublished real-model test',state.get('launch_test',{}).get('result','NOT_RUN'))]
     rows=''.join('<tr><th>'+esc(k)+'</th><td>'+esc(v)+'</td></tr>' for k,v in fields)
     selection=state.get('editorial_selection',{})
     rows+='<tr><th>Gemini editorial selection</th><td>'+esc(selection.get('result','NOT_RECORDED'))+'</td></tr>'
@@ -200,21 +200,12 @@ def status_page():
         body+='<h2>Launch evidence: '+esc(acceptance.get('result'))+'</h2><p>'+esc(', '.join(acceptance.get('pending',[])).replace('_',' '))+'</p>'
     history=state.get('previous_verified_runs',[])
     if history:
-        body+='<h2>Verified run history</h2><table><tr><th>Checked</th><th>Trigger</th><th>Technical result</th><th>Editorial result</th><th>Articles / links</th></tr>'
+        body+='<h2>Verified run history</h2><table><tr><th>Checked</th><th>Trigger</th><th>Technical result</th><th>Editorial result</th><th>Articles</th></tr>'
         for r in reversed(history):
-            body+='<tr><td><a href="'+esc(r.get('run_url'))+'">'+esc(r.get('checked_at'))+'</a></td><td>'+esc(r.get('event'))+'</td><td>'+esc(r.get('technical_status'))+'</td><td>'+esc(r.get('editorial_outcome'))+'</td><td>'+esc(r.get('published_this_run',0))+' / '+esc(r.get('publisher_links',0))+'</td></tr>'
+            body+='<tr><td><a href="'+esc(r.get('run_url'))+'">'+esc(r.get('checked_at'))+'</a></td><td>'+esc(r.get('event'))+'</td><td>'+esc(r.get('technical_status'))+'</td><td>'+esc(r.get('editorial_outcome'))+'</td><td>'+esc(r.get('published_this_run',0))+'</td></tr>'
         body+='</table>'
     body+='<p>The current artifact is built before deployment checks. The linked workflow and verified history record the subsequent live result.</p>'
     return utility_page('Inside the newsroom.',body)
-
-
-def publisher_panel():
-    path=ROOT/'data/headlines.json'
-    desk=json.loads(path.read_text()) if path.exists() else {}
-    from same_day_policy import source_issued_today
-    links=[x for x in desk.get('items',[]) if source_issued_today(x)]
-    rows=''.join('<article data-desk-category="'+esc(x['category'])+'" style="padding:16px 0;border-bottom:1px solid var(--rule)"><div class="news-cat">SOURCE-LINKED HEADLINE · '+esc(x['category'])+'</div><h3 style="font:500 25px/1.25 Georgia,serif;margin:8px 0"><a href="'+esc(x['url'])+'" rel="noopener noreferrer" target="_blank">'+esc(x['title'])+' ↗</a></h3><p class="meta">'+esc(x['source'])+' · Publisher feed date: '+esc(x['dateISO'])+'</p></article>' for x in links)
-    return '<section id="publisher-desk" aria-label="Source-linked headlines" style="border-top:2px solid var(--ink);margin:26px 0;padding:24px 0"><span class="section-kicker">THE WIDER NEWS DESK</span><h2 style="font:400 36px Georgia,serif;margin:8px 0">Source-linked headlines</h2><p>Reports at other publishers. These links supplement The Brief’s original articles above. Feed dates have not been independently verified against every article.</p><p class="meta">Desk checked: '+esc(desk.get('checked_at','Not recorded'))+' · <a href="sources.html">Explore our sources</a></p><label for="desk-subject">Subject </label><select id="desk-subject"><option>Everything</option>'+''.join('<option>'+x+'</option>' for x in sorted({x['category'] for x in links}))+'</select><div>'+ (rows or '<p>No qualifying publisher headlines dated today in the latest discovery run.</p>')+'</div><script>document.querySelector("#desk-subject").onchange=function(){document.querySelectorAll("[data-desk-category]").forEach(x=>x.hidden=this.value!=="Everything"&&x.dataset.deskCategory!==this.value)}</script></section>'
 
 
 def sources_page():
@@ -298,11 +289,8 @@ def build():
     page = insert_once(page, '<script type="application/json" id="curated-data">[]</script>',
         '<script type="application/json" id="curated-data">[]</script>\n'
         '<script type="application/json" id="embedded-articles">' + payload + '</script>')
-    page=insert_once(page,'<section id="context" class="understand"',publisher_panel()+'<section id="context" class="understand"')
     (OUT / "index.html").write_text(page, encoding="utf-8")
     (OUT/'sources.html').write_text(sources_page(),encoding='utf-8')
-    headline_path=ROOT/'data/headlines.json'
-    if headline_path.exists():shutil.copy2(headline_path,OUT/'data/headlines.json')
     import os,subprocess
     source_sha=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
     (OUT/'data/build.json').write_text(json.dumps({'run_id':os.getenv('GITHUB_RUN_ID','local'),'source_sha':source_sha,'built_at':dt.datetime.now(dt.timezone.utc).isoformat()})+'\n')

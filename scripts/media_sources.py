@@ -51,6 +51,7 @@ def relevant(item):
  # approve it. Unknown company names and acronyms must not starve the editor.
  if host in SPECIALIST_HOSTS and publisher(url):
   return not bool(re.search(r'(?i)\b(?:sponsored|advertorial|partner content)\b',title))
+ if host=='theguardian.com' and urlsplit(url).path.startswith('/money/') and re.search(r'(?i)\b(?:fraudsters?|bank accounts?|account theft|scams?)\b',title):return True
  if LIFESTYLE.search(title):return False
  if FINANCE.search(title):return True
  # Recognise firms in headlines, not incidental references in related-story summaries.

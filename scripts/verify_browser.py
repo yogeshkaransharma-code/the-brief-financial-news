@@ -27,14 +27,7 @@ def main():
                     assert page.locator('#launch-edition').is_visible()
                     assert a['title'] in page.locator('#launch-edition').inner_text()
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'),'Homepage overflows viewport'
-            assert page.locator('#publisher-desk').is_visible(),'Supplementary desk missing'
-            desktop_links=json.loads((ROOT/'data/headlines.json').read_text())['items'] if (ROOT/'data/headlines.json').exists() else []
-            assert page.locator('#publisher-desk article').count()==len(desktop_links),'Publisher desk missing links'
-            if desktop_links:
-                subject=desktop_links[0]['category']
-                page.locator('#desk-subject').select_option(subject)
-                assert page.locator('#publisher-desk article:visible').count()==sum(x['category']==subject for x in desktop_links)
-                page.locator('#desk-subject').select_option('Everything')
+            assert page.locator('#publisher-desk').count()==0,'External publisher headlines leaked into the publication'
             page.screenshot(path=str(OUT/f'home-{width}.png'),full_page=True)
             page.get_by_role('link',name='Archive',exact=True).click()
             assert 'The archive.' in page.locator('h1').inner_text()

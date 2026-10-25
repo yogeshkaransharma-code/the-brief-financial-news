@@ -41,7 +41,7 @@ jobs:
         id: discovery
         continue-on-error: true
         run: python scripts/update_feeds.py
-      - name: Refresh the supplementary publisher-link desk
+      - name: Refresh internal source-linked discovery leads
         id: headlines
         continue-on-error: true
         run: python scripts/headline_desk.py
