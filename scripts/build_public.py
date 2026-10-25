@@ -77,6 +77,10 @@ def standalone_story(a):
         archive_notice += '<p class="disclosure">Legacy report: source dating and claims were screened by the earlier system and have not been revalidated under the current controls. Dates below are retained as originally recorded.</p>'
     if a.get('retrospective_launch'):
         archive_notice += '<p class="disclosure"><strong>Saturday launch edition · 24 October 2026.</strong> This report was prepared retrospectively from an announcement issued after 6am UK on Saturday. The publication timestamp below records when The Brief actually published it.</p>'
+    media=a.get("status")=="Original reporting"
+    source_caption="Original reporting" if media else "Original announcement"
+    source_description=("This report summarises attributed journalism from the named publisher. The Brief did not independently verify every corporate claim." if media else "This report is based on the named primary document.")
+    source_link_text="read the original report" if media else "read the original announcement"
     publication_stamp=dt.datetime.fromisoformat(a['published_at'].replace('Z','+00:00')).astimezone(__import__('zoneinfo').ZoneInfo('Europe/London')).strftime('%-d %B %Y, %H:%M %Z')
     return f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -136,11 +140,11 @@ h1{{font-size:clamp(37px,10vw,48px);letter-spacing:-1px;margin:16px 0}}
 <div class="kicker">{esc(a.get("category",""))} / THE BRIEF ORIGINAL</div>
 <h1>{headline}</h1>
 <p class="intro">{description}</p>
-<div class="meta">Original announcement: <time datetime="{esc(a["dateISO"])}">{esc(news_date)}</time> <span>·</span> Published: <time datetime="{esc(a["published_at"])}">{esc(publication_stamp)}</time> <span>·</span> {esc(a.get("source",""))}</div>
+<div class="meta">{source_caption}: <time datetime="{esc(a["dateISO"])}">{esc(news_date)}</time> <span>·</span> Published: <time datetime="{esc(a["published_at"])}">{esc(publication_stamp)}</time> <span>·</span> {esc(a.get("source",""))}</div>
 <div class="article-body">{body}</div>
 <div class="source"><h2>Original evidence</h2>
-<p>This report is based on the named primary document. <a href="{esc(a["url"])}" target="_blank" rel="noopener noreferrer">{esc(a.get("source","Primary source"))} — read the original announcement ↗</a></p></div>
-<p class="disclosure">This article was generated and screened by an automated newsroom using a primary source. It has not been independently reviewed by a human editor. <a href="../about.html">Read our editorial and corrections policy.</a> Not financial advice.</p>
+<p>{source_description} <a href="{esc(a["url"])}" target="_blank" rel="noopener noreferrer">{esc(a.get("source","Primary source"))} — {source_link_text} ↗</a></p></div>
+<p class="disclosure">This article was generated and screened by an automated newsroom using the linked original source. It has not been independently reviewed by a human editor. <a href="../about.html">Read our editorial and corrections policy.</a> Not financial advice.</p>
 </article></main>
 <footer><a href="../index.html">THE BRIEF.</a> · UK financial news, understood.</footer>
 </body></html>
