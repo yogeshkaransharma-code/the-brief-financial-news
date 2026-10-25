@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-25T12:37:45.971829+00:00",
+  "checked_at": "2026-10-25T12:41:14.064144+00:00",
   "uk_date": "2026-10-25",
   "outcome": "NO_QUALIFYING_NEWS",
   "editorial_outcome": "NO_QUALIFYING_NEWS",
@@ -11,66 +11,71 @@
   "published_this_run": 0,
   "genuine_same_day_articles": 3,
   "editorial_selection": {
-    "result": "NO_VERIFIED_CANDIDATES",
-    "requests": 0,
-    "selected": []
+    "result": "NO_WORTHWHILE_NEWS",
+    "requests": 1,
+    "cache_key": "0675e460e3960143bf5924386bf28232beca27b7dee9e9cf803a94a71d4c2463",
+    "selected": [],
+    "skipped": [
+      {
+        "id": "N01",
+        "reason": "Anecdotal pre-Budget commentary on employer National Insurance and hiring sentiment lacks a specific substantive corporate or market development.",
+        "url": "https://www.bbc.co.uk/news/articles/c62kep355q02o",
+        "category": "Banking"
+      },
+      {
+        "id": "N02",
+        "reason": "Personal finance anecdote regarding household mortgage pressures ahead of the Budget lacks institutional or market-moving significance.",
+        "url": "https://www.bbc.co.uk/news/articles/c6gel54940qno",
+        "category": "Banking"
+      }
+    ]
   },
   "published_total": 14,
   "last_article_at": "2026-10-25T12:35:26.192637+00:00",
   "fresh_source_candidates": 5,
-  "verified_original_candidates": 0,
+  "verified_original_candidates": 2,
   "candidates_by_sector": {
     "Banking": 2
   },
-  "verified_by_sector": {},
+  "verified_by_sector": {
+    "Banking": 2
+  },
   "articles_commissioned": 0,
   "articles_held": 0,
   "machine_screened": 0,
   "primary_indexes_checked": 29,
-  "primary_index_failures": 4,
+  "primary_index_failures": 5,
   "feeds_working": 31,
   "feed_failures": 1,
   "ai_budget": {
     "quota_date": "2026-10-25",
     "quota_timezone": "America/Los_Angeles",
-    "requests_this_run": 0,
-    "requests_today_including_this_run": 10,
+    "requests_this_run": 1,
+    "requests_today_including_this_run": 11,
     "run_limit": 7,
     "daily_limit": 30,
-    "remaining_today": 20
+    "remaining_today": 19
   },
   "quota_pause_until": null,
-  "candidate_outcomes": [
-    {
-      "title": "Firms 'holding back' on new jobs ahead of Budget",
-      "source": "https://www.bbc.co.uk/news/articles/c62kep355q02o",
-      "result": "cached editorial rejection",
-      "reason": "Focuses on general business commentary and hiring hesitancy ahead of the Budget rather than a specific, actionable financial or regulatory development."
-    },
-    {
-      "title": "Budget 2026: No more fat to trim for 'squeezed middle'",
-      "source": "https://www.bbc.co.uk/news/articles/c6gel54940qno",
-      "result": "cached editorial rejection",
-      "reason": "Human interest profile illustrating general cost-of-living and mortgage pressures on households, lacking institutional financial news value."
-    }
-  ],
+  "candidate_outcomes": [],
   "discovery_errors": [
-    "UK Parliament: HTTPError HTTP Error 403: Forbidden",
     "Allianz UK: HTTPError HTTP Error 403: Forbidden",
+    "UK Parliament: HTTPError HTTP Error 403: Forbidden",
     "Association of British Insurers: HTTPError HTTP Error 403: Forbidden",
     "Revolut UK: HTTPError HTTP Error 403: Forbidden",
+    "Managing General Agents Association: URLError <urlopen error timed out>",
     {
-      "source": "Money Marketing",
-      "url": "https://www.moneymarketing.co.uk/feed/",
-      "error": "HTTP Error 403: Forbidden"
+      "source": "Insurance Journal",
+      "url": "https://www.insurancejournal.com/rss/news/",
+      "error": "<urlopen error timed out>"
     }
   ],
   "publication_holds": [],
-  "run_id": "40193917300",
+  "run_id": "40194116220",
   "event": "push",
-  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40193917300",
+  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40194116220",
   "publisher_links": 5,
-  "publisher_desk_checked_at": "2026-10-25T12:37:35.961978+00:00",
+  "publisher_desk_checked_at": "2026-10-25T12:40:35.069423+00:00",
   "previous_verified_runs": [
     {
       "run_id": "40193630697",
@@ -98,28 +103,50 @@
       "deployment": "success",
       "live_check": "success",
       "browser_check": "failure"
+    },
+    {
+      "run_id": "40193917300",
+      "event": "push",
+      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40193917300",
+      "editorial_outcome": "NO_QUALIFYING_NEWS",
+      "published_this_run": 0,
+      "publisher_links": 5,
+      "source_coverage_status": "PARTIAL",
+      "fresh_source_candidates": 5,
+      "verified_by_sector": {},
+      "ai_budget": {
+        "quota_date": "2026-10-25",
+        "quota_timezone": "America/Los_Angeles",
+        "requests_this_run": 0,
+        "requests_today_including_this_run": 10,
+        "run_limit": 7,
+        "daily_limit": 30,
+        "remaining_today": 20
+      },
+      "commissioned_stories": [],
+      "checked_at": "2026-10-25T12:39:28.472355+00:00",
+      "technical_status": "LIVE_VERIFIED",
+      "deployment": "success",
+      "live_check": "success",
+      "browser_check": "success"
     }
   ],
   "launch_acceptance": {
     "result": "EVIDENCE_PENDING",
     "checks": {
       "repeated_scheduled_hourly_runs": false,
-      "original_gemini_publication_live_verified": false,
+      "original_gemini_publication_live_verified": true,
       "worthwhile_same_day_developments_across_sectors": false,
-      "publisher_desk_live_refresh": false,
-      "mobile_and_desktop_reading": false,
-      "latest_run_technically_healthy": false,
+      "publisher_desk_live_refresh": true,
+      "mobile_and_desktop_reading": true,
+      "latest_run_technically_healthy": true,
       "latest_editorial_run_unblocked": true
     },
     "verified_scheduled_runs": 0,
     "commissioned_sectors": [],
     "pending": [
       "repeated_scheduled_hourly_runs",
-      "original_gemini_publication_live_verified",
-      "worthwhile_same_day_developments_across_sectors",
-      "publisher_desk_live_refresh",
-      "mobile_and_desktop_reading",
-      "latest_run_technically_healthy"
+      "worthwhile_same_day_developments_across_sectors"
     ],
     "note": "Operational evidence checkpoint, not a guarantee of future events or error-free journalism."
   },

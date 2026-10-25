@@ -2,7 +2,7 @@
   "api_budget": {
     "date": "2026-10-25",
     "limit": 30,
-    "requests": 10,
+    "requests": 11,
     "timezone": "America/Los_Angeles"
   },
   "api_calls": [
@@ -328,22 +328,54 @@
         "serviceTier": "standard",
         "totalTokenCount": 3160
       }
+    },
+    {
+      "at": "2026-10-25T12:41:00.347330+00:00",
+      "prompt_characters": 5798,
+      "purpose": "production",
+      "result": "response_received",
+      "usage": {
+        "candidatesTokenCount": 104,
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 1507,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1507
+          }
+        ],
+        "serviceTier": "standard",
+        "totalTokenCount": 1611
+      }
     }
   ],
   "capacity_recovery_revision": 2,
   "editorial_rejections": {
     "https://www.bbc.co.uk/news/articles/c62kep355q02o": {
       "edition_date": "2026-10-25",
-      "reason": "Focuses on general business commentary and hiring hesitancy ahead of the Budget rather than a specific, actionable financial or regulatory development.",
-      "source_sha256": "a2c064a81ce6dea1eae0dcb0fd573e8a87c2a534fdf24c43c2713836cdb67aca"
+      "reason": "Anecdotal pre-Budget commentary on employer National Insurance and hiring sentiment lacks a specific substantive corporate or market development.",
+      "source_sha256": "cbbf3c7858ab6b406566ae946bea06165e82492e0e73790d1308b67441dfbad0"
     },
     "https://www.bbc.co.uk/news/articles/c6gel54940qno": {
       "edition_date": "2026-10-25",
-      "reason": "Human interest profile illustrating general cost-of-living and mortgage pressures on households, lacking institutional financial news value.",
-      "source_sha256": "35fcc53f9d189e4977dddddb02f014b112b13ddcac1597255da8d8ff8ee09750"
+      "reason": "Personal finance anecdote regarding household mortgage pressures ahead of the Budget lacks institutional or market-moving significance.",
+      "source_sha256": "f311207e4d9536685f5b31f7ec5ae19df8da63a469eb10956a7c8528a1594ec9"
     }
   },
   "editorial_selections": {
+    "0675e460e3960143bf5924386bf28232beca27b7dee9e9cf803a94a71d4c2463": {
+      "selected": [],
+      "skipped": [
+        {
+          "id": "N01",
+          "reason": "Anecdotal pre-Budget commentary on employer National Insurance and hiring sentiment lacks a specific substantive corporate or market development."
+        },
+        {
+          "id": "N02",
+          "reason": "Personal finance anecdote regarding household mortgage pressures ahead of the Budget lacks institutional or market-moving significance."
+        }
+      ]
+    },
     "58c95c8bb590f8d34105d3a53a2fb37dcf848a4cf6b084770c018a706d7b5e86": {
       "selected": [
         {
