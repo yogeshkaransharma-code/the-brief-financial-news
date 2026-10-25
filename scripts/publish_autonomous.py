@@ -56,6 +56,14 @@ def eligible(bundle, *, edition_date=None):
             problems.append("Unrecognised original publisher")
         if reporter and not re.search(r'(?i)(?<!\w)'+re.escape(reporter)+r'(?!\w)',combined_lead):
             problems.append("Independent reporter must be attributed in the headline or standfirst")
+    if lane=='regulatory_proposal' and a.get('status')!='Proposal':
+        problems.append('Regulatory consultation or discussion paper must be presented as a proposal')
+    if lane=='regulatory_policy' and a.get('status')!='Published policy':
+        problems.append('Final policy or guidance must be labelled as published policy, with effective dates preserved')
+    if lane=='pra_publication' and a.get('status') not in {'Proposal','Published policy','Published report'}:
+        problems.append('PRA publication has an invalid policy/proposal/report status')
+    if lane=='regulatory_report' and a.get('status')!='Published report':
+        problems.append('Regulatory research must be labelled a published report')
     if lane=="fca_data" and a.get("status")!="Published report":
         problems.append("FCA statistics incorrectly described")
     if lane=="fca_review" and a.get("status")!="Published report":
@@ -68,7 +76,7 @@ def eligible(bundle, *, edition_date=None):
         problems.append("FCA consultation must be explicitly presented as a proposal")
     if lane=="government_release" and a.get("status") not in {"Confirmed announcement","Proposal"}:
         problems.append("Government publication status misrepresented")
-    if lane in {"fca_release","company_release","industry_release","official_release","issuer_rns","tpr_release","ombudsman_release"} and a.get("status")!="Confirmed announcement":
+    if lane in {"fca_release","company_release","industry_release","official_release","issuer_rns","tpr_release","ombudsman_release","regulatory_finding"} and a.get("status")!="Confirmed announcement":
         problems.append("An official announcement must be labelled as such")
     if lane and a.get("category") not in {"Banking","Insurance","Technology","Regulation","Pensions","Brokers"}:
         problems.append("Original source not within financial-services industry category")
@@ -118,7 +126,7 @@ def eligible(bundle, *, edition_date=None):
     if HIGH_RISK.search(combined):
         if lane=='original_reporting':
             problems.append("Consequential or disputed original reporting needs independent corroboration before autonomous publication")
-        elif not re.search(r'(?i)\b(?:says?|said|announced|reported|according to|found|proposes?|consulting)\b',a['short']):
+        elif not re.search(r'(?i)\b(?:says?|said|announced|published|reported|according to|found|proposes?|consulting)\b',a['short']):
             problems.append("Consequential official findings must be explicitly attributed in the standfirst")
     count=sum(len(x.split()) for _,x in a["blocks"])
     if count>700:

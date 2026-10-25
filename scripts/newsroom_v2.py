@@ -78,6 +78,9 @@ def numeric_tokens(text):
     return {m.group().lower().replace(",","") for m in NUMBER.finditer(text)}
 
 def status_from_url(url, title):
+    from regulatory_sources import publication_status
+    regulatory_status=publication_status(url,title)
+    if regulatory_status:return regulatory_status
     if source_lane(url)=="original_reporting":
         return "Original reporting"
     lower=url.lower()
@@ -317,7 +320,9 @@ def review_prompt(article,official,sentences):
         "Do NOT excuse an unsupported combination of facts as a paraphrase. "
         "A figure appearing somewhere in the source "
         "does not establish that the sentence applies it to the right population/denominator. "
-        "A regulator's proposal is not a rule already in force. "
+        "A regulator's proposal is not a rule already in force. A published policy or final guidance "
+        "may have a future commencement date: verify the exact effective dates and scope, "
+        "and never assume publication means immediate legal effect. "
         "A claim of business or consumer impact needs explicit evidence. "
         "For each sentence, return EXACTLY one result with fields: "
         "id, verdict (SUPPORTED, UNSUPPORTED, CONTRADICTED, INSUFFICIENT), "

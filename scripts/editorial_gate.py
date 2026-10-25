@@ -20,7 +20,7 @@ from publication_scope import source_lane
 from numeric_evidence import unsupported as unsupported_quantities
 
 # Share the primary-source host allowlist with the actual document reader.
-STATUSES = {"Proposal", "Confirmed announcement", "Published report", "Speech / commentary", "Original reporting"}
+STATUSES = {"Proposal", "Confirmed announcement", "Published report", "Speech / commentary", "Original reporting", "Published policy"}
 RISKY = re.compile(
     r"\b(?:will\s+(?:now\s+)?(?:have to|be required to|need to|be obliged to)|"
     r"must\s+(?:now\s+|immediately\s+)?comply|"

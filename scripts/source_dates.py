@@ -19,7 +19,7 @@ def parse(value):
         pass
     # Only explicit publication elements are passed here, not arbitrary prose.
     cleaned=re.sub(r'(?i)(st|nd|rd|th)\b','',value)
-    cleaned=re.sub(r'(?i)^(first published|published|publication date|date published)\s*:?\s*','',cleaned)
+    cleaned=re.sub(r'(?i)^(first published|published|publication date|date published)(?:\s+on)?\s*:?\s*','',cleaned)
     for fmt in ('%d %B %Y','%d %b %Y','%B %d, %Y','%d/%m/%Y','%d.%m.%Y'):
         try:
             day=dt.datetime.strptime(cleaned,fmt).date().isoformat()
@@ -96,3 +96,4 @@ def verify_announcement(item,doc,now=None):
     if item.get('source_time_precision')=='date' and item.get('dateISO') not in {day,original_date(result).isoformat()}:
         raise ValueError('Listing date conflicts with the original document publication date')
     return result
+

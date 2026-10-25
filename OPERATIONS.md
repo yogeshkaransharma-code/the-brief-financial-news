@@ -125,3 +125,9 @@ Every deployment verifies the exact run identifier, live current and archive fee
 `data/run-history.json` records the observed deployment, HTTP reading and browser result after checks finish, separately from editorial output and request usage. The next public status build includes verified history. The current public artifact cannot already contain its own subsequent live-test result; its status labels this timing and links to the workflow.
 
 Launch acceptance still requires observed repeated **scheduled** runs and real editorial output. Offline fixtures, a manual/code-triggered successful run and a source-linked desk refresh do not establish continuous editorial performance. Do not mark that acceptance complete until the run history and evidence support it.
+
+### Remaining regulatory route restrictions removed
+
+The feed audit found real PRA consultation and FCA guidance/data URLs being discarded by route allowlists before source capture. Supported routes now include PRA regulatory publications, FCA guidance consultations/discussion papers, final policy/guidance, regulatory research, final notices and wider FCA data reports. Issuer RNS routes recognise new announcement IDs rather than six historical IDs. Existing indexes and RSS discovery use the same expanded classification.
+
+Proposals remain proposals. Published policy is a separate status and does not imply immediate commencement. Short regulatory landing pages require their central original document; missing, ambiguous or over-limit documents remain held. Complete captures use one consistent character limit. Explicit “Published on” datelines are accepted; modification dates and old documents do not acquire today's date. Credit-card rewards coverage no longer becomes insurance merely because its headline contains “premium”.

@@ -12,6 +12,7 @@ import re
 from urllib.parse import urljoin, urlsplit
 import urllib.request
 from bs4 import BeautifulSoup
+from regulatory_sources import requires_document, lane as regulatory_lane
 
 ALLOWED = {"fca.org.uk", "www.fca.org.uk", "bankofengland.co.uk", "www.bankofengland.co.uk",
            "aviva.com", "www.aviva.com", "lloydsbankinggroup.com", "www.lloydsbankinggroup.com",
@@ -126,13 +127,13 @@ def html_extract(raw, source_url):
     attachments=[]
     # Short consultation pages sometimes put their PDF link outside the main
     # shell. Search the same official page's anchors, never an external site.
-    pdf_area=(soup if "/consultation" in urlsplit(source_url).path.lower() else main)
+    pdf_area=(soup if requires_document(source_url) else main)
     for anchor in pdf_area.find_all("a",href=True):
         url=urljoin(source_url,anchor["href"])
         if permitted(url) and urlsplit(url).path.lower().endswith(".pdf"):
             label=clean_text(anchor.get_text(" ",strip=True)).lower()
             attachments.append((url,label))
-    if len(text)<850 and not ("/consultation" in urlsplit(source_url).path.lower() and attachments):
+    if len(text)<850 and not (requires_document(source_url) and attachments):
         raise SourceError(f"Insufficient official article content ({len(text)} characters); cannot responsibly draft")
     # Some FCA charts and data widgets render figures inside DIV/SPAN content,
     # not paragraph or table tags. Preserve the *entire* official main text if
@@ -190,10 +191,10 @@ def read_source(url):
         path=urlsplit(final).path.lower()
         # Consultation landing pages often only preview a linked policy PDF.
         # Do not mistake a short landing page for its complete consultation.
-        if "/consultation" in path or "/policy-statements/" in path:
+        if requires_document(final) or regulatory_lane(final)=='pra_publication':
             relevant=[(u,label) for u,label in links
-                      if "consultation paper" in label or "full document" in label
-                      or "download" in label or u.split("/")[-1].lower().startswith(("cp","ps"))]
+                      if any(term in label for term in ('consultation paper','full document','policy statement','finalised guidance','supervisory statement','final notice','download'))
+                      or u.split("/")[-1].lower().startswith(("cp","ps","fg","ss","dp","gc"))]
             unique=list(dict.fromkeys(u for u,_ in relevant))
             if unique:
                 if len(unique)>1:
@@ -208,7 +209,7 @@ def read_source(url):
                 text=text+"\n\n[LINKED PRIMARY DOCUMENT]\n"+pdf_text
                 docs.append(pdf_final)
                 extraction="complete HTML and linked official PDF"
-            else:
+            elif requires_document(final):
                 notes.append("No central PDF identified automatically; verify additional attachments before approval")
     else:
         raise SourceError("Unsupported official document format; no draft")

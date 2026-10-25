@@ -43,9 +43,9 @@ def official_release(url, source):
     if source=="UK Finance":
         return source_lane(url)=="industry_release" and p.hostname in {"ukfinance.org.uk","www.ukfinance.org.uk"}
     if source=="Financial Conduct Authority":
-        return source_lane(url) in {"fca_release","fca_consultation","fca_review","fca_speech","fca_data"}
+        return source_lane(url) in {"fca_release","fca_consultation","fca_review","fca_speech","fca_data","regulatory_policy","regulatory_proposal","regulatory_report","regulatory_finding","official_release"}
     if source=="Bank of England":
-        return source_lane(url)=="boe_release"
+        return source_lane(url) in {"boe_release","pra_publication"}
     if source=="Aviva":
         return p.hostname in {"www.aviva.com","aviva.com"} and "/newsroom/news-and-research-overview/news-releases/" in p.path
     if source=="The Pensions Regulator":
@@ -125,6 +125,7 @@ def parse_listing(content,source,section,base,today=None):
                 except ValueError:pass
         if not date or not 0<=(today-date).days<=21:continue
         effective_category=("Insurance" if source=="UK Parliament" and re.search(r"insurance|claims|underwriting|protection",title,re.I) else section)
+        if source_lane(url) in {'pra_publication','regulatory_policy','regulatory_proposal','regulatory_report','regulatory_finding'}:effective_category='Regulation'
         found.append({"title":title,"url":url,"dateISO":date.isoformat(),"published_at":date.isoformat(),
                       "source":source,"category":effective_category,"kind":"first_party_announcement","source_time_precision":"date"})
     unique={}
@@ -154,7 +155,7 @@ def discover():
                     if dated and title:
                         day,stamp,precision=dated
                         if 0<=(clock().date()-dt.date.fromisoformat(day)).days<=21:
-                            records.append({"title":title,"url":real,"dateISO":day,"published_at":stamp,"source_published_at":stamp,"source_time_precision":precision,"source":source,"category":category,"kind":"first_party_announcement"})
+                            records.append({"title":title,"url":real,"dateISO":day,"published_at":stamp,"source_published_at":stamp,"source_time_precision":precision,"source":source,"category":"Regulation" if source_lane(real) in {'pra_publication','regulatory_policy','regulatory_proposal','regulatory_report','regulatory_finding'} else category,"kind":"first_party_announcement"})
                 except Exception:continue
         return source,records
     with ThreadPoolExecutor(max_workers=5) as pool:
@@ -260,4 +261,3 @@ def self_test():
 
 if __name__=="__main__":
     self_test()
-

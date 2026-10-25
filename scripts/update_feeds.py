@@ -145,7 +145,7 @@ def categorise(headline, fallback):
     if re.search(r"\b(broker\w*|intermediar\w*|mga[s]?)\b",s):return "Brokers"
     if re.search(r"\b(fca|pra|regulat\w*|consultation|rulebook|supervis\w*|compliance|enforc\w*|sanction\w*)\b", s):
         return "Regulation"
-    if re.search(r"\b(insur\w*|broker\w*|underwrit\w*|reinsur\w*|lloyd.s|mga|claims?|premium\w*|pensions?)\b", s):
+    if re.search(r"\b(insur\w*|broker\w*|underwrit\w*|reinsur\w*|lloyd.s|mga|pensions?)\b", s):
         return "Insurance"
     if re.search(r"\b(fintech|insurtech|artificial intelligence|cyber\w*|digital|software|blockchain)\b", s):
         return "Technology"

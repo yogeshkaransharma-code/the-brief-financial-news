@@ -11,7 +11,7 @@ from publication_scope import source_lane
 
 MAX_REQUESTS_PER_RUN=7  # One selection plus at most three writer/reviewer pairs.
 MAX_REQUESTS_PER_DAY=30  # Local ceiling, not a claim about Google's project quota.
-MAX_SOURCE_CHARS=30000
+MAX_SOURCE_CHARS=43000  # Matches the full-capture reader; never truncate a document.
 MIN_SOURCE_CHARS=850
 PACIFIC=ZoneInfo('America/Los_Angeles')
 

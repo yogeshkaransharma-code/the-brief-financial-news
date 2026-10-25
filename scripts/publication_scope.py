@@ -33,7 +33,7 @@ ADVERSE = re.compile(
 )
 AVIVA_RELEASE = re.compile(r"^/newsroom/news-and-research-overview/news-releases/20\d{2}/\d{2}/[a-z0-9-]+/?$", re.I)
 LLOYDS_RELEASE = re.compile(r"^/media/press-releases/20\d{2}/[a-z0-9-]+(?:/[a-z0-9-]+)?\.html$", re.I)
-ISSUER_RNS = re.compile(r"^/announcement/rns/.*?/(?:9835238|9835199|9836547|9836457|9835245|9835194)$", re.I)
+ISSUER_RNS = re.compile(r"^/announcement/rns/(?:[^/?#]+/)+\d{5,12}/?$", re.I)
 TPR_RELEASE = "/media-hub/press-releases/2026-press-releases/tpr-sets-expectations-on-hidden-concentration-risks-in-pension-portfolios"
 RATHBONES_RELEASE = "/en-gb/wealth-management/media-centre/rathbones-reports-strong-financial-performance-and-strategic-momentum-third-quarter-trading-update"
 
@@ -57,6 +57,9 @@ def source_lane(url: str) -> str | None:
     if host in {"theguardian.com","www.theguardian.com"} and not p.query:
         if GUARDIAN_ORIGINAL.fullmatch(path):
             return "original_reporting"
+    from regulatory_sources import lane as regulatory_lane
+    regulatory=regulatory_lane(url)
+    if regulatory:return regulatory
     extra=extra_lane(url)
     if extra:return extra
     if host in {"fca.org.uk", "www.fca.org.uk"}:
