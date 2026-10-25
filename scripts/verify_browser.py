@@ -18,6 +18,9 @@ def main():
             page=context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
             page.goto(SITE,wait_until='networkidle',timeout=60000)
             assert page.locator('#lead-story').is_visible()
+            assert page.locator('#hourly-radar').is_visible()
+            radar=json.loads((ROOT/'data/hourly-radar.json').read_text())
+            assert page.locator('#hourly-radar .radar-card').count()==len(radar.get('items',[])),'Hourly headline count differs'
             assert page.locator('#feed .news-item').count()==len(today[:10]),'Visible today count differs'
             visible='\n'.join(page.locator('#lead-story,#briefing-stories,#feed').all_inner_texts())
             for a in articles:

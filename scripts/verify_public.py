@@ -26,6 +26,13 @@ def verify():
         assert escaped in story and html.escape(a['url'],quote=True) in story
         assert '<main class="reader"><article>' in story
         for h,p in a['blocks']:assert html.escape(h,quote=True) in story and html.escape(p,quote=True) in story
+    radar=json.loads((public/'data/hourly-radar.json').read_text())
+    assert radar['kind']=='publisher_headlines_only'
+    assert 'id="hourly-radar"' in home and 'source links, not full articles by The Brief' in home
+    from hourly_radar import safe_publisher
+    assert all(safe_publisher(x) and x['dateISO']==radar['uk_date'] for x in radar['items'])
+    for x in radar['items']:
+        assert html.escape(x['title'],quote=True) in home and html.escape(x['url'],quote=True) in home
     if not edition:assert 'No verified news from today yet' in home
     assert not (public/'data/live.json').exists() and 'data/live.json' not in home
     assert (public/'status.html').is_file()

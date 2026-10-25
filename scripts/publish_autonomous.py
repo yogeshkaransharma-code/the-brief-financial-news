@@ -50,7 +50,7 @@ def eligible(bundle, *, edition_date=None):
     if lane=="original_reporting":
         if a.get("status")!="Original reporting":
             problems.append("Journalist-originated source must be labelled original reporting")
-        if a.get("source")!="The Guardian Business":
+        if a.get("source") not in {"The Guardian Business","The Guardian Money","The Guardian Insurance","The Guardian Banking"}:
             problems.append("Media source identity does not match the approved original publisher")
         combined_lead=(a.get("title","")+" "+a.get("short",""))
         if not re.search(r"(?i)\bthe guardian\b",combined_lead):
