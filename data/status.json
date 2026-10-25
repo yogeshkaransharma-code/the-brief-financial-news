@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-25T14:26:16.859299+00:00",
+  "checked_at": "2026-10-25T14:29:32.370349+00:00",
   "uk_date": "2026-10-25",
   "outcome": "NO_QUALIFYING_NEWS",
   "editorial_outcome": "NO_QUALIFYING_NEWS",
@@ -11,30 +11,19 @@
   "published_this_run": 0,
   "genuine_same_day_articles": 3,
   "editorial_selection": {
-    "result": "NO_WORTHWHILE_NEWS",
-    "requests": 1,
-    "cache_key": "d27d95091c232197826bab93091b1ceaa45ac13b08706df7a15b47ba5019a0f2",
-    "selected": [],
-    "skipped": [
-      {
-        "id": "N01",
-        "reason": "Human-interest profile focusing on general cost-of-living pressures and upcoming mortgage rate renewals for a household, lacking substantive institutional financial policy, banking, or corporate developments suitable for a professional financial news publication.",
-        "url": "https://www.bbc.co.uk/news/articles/c6gel54940qno",
-        "category": "Banking"
-      }
-    ]
+    "result": "NO_VERIFIED_CANDIDATES",
+    "requests": 0,
+    "selected": []
   },
   "published_total": 14,
   "last_article_at": "2026-10-25T12:35:26.192637+00:00",
   "fresh_source_candidates": 7,
-  "verified_original_candidates": 1,
+  "verified_original_candidates": 0,
   "candidates_by_sector": {
     "Banking": 2,
     "Technology": 1
   },
-  "verified_by_sector": {
-    "Banking": 1
-  },
+  "verified_by_sector": {},
   "articles_commissioned": 0,
   "articles_held": 0,
   "machine_screened": 0,
@@ -45,7 +34,7 @@
   "ai_budget": {
     "quota_date": "2026-10-25",
     "quota_timezone": "America/Los_Angeles",
-    "requests_this_run": 1,
+    "requests_this_run": 0,
     "requests_today_including_this_run": 16,
     "run_limit": 7,
     "daily_limit": 30,
@@ -64,6 +53,12 @@
       "source": "https://www.theguardian.com/money/2026/oct/25/cookie-theft-how-fraudsters-get-the-digital-key-to-your-accounts",
       "result": "cached editorial rejection",
       "reason": "General consumer cybersecurity advice on cookie theft rather than a distinct, substantive corporate financial sector or regulatory policy development."
+    },
+    {
+      "title": "Budget 2026: No more fat to trim for 'squeezed middle'",
+      "source": "https://www.bbc.co.uk/news/articles/c6gel54940qno",
+      "result": "cached editorial rejection",
+      "reason": "Human-interest profile focusing on general cost-of-living pressures and upcoming mortgage rate renewals for a household, lacking substantive institutional financial policy, banking, or corporate developments suitable for a professional financial news publication."
     }
   ],
   "discovery_errors": [
@@ -73,12 +68,12 @@
     "Revolut UK: HTTPError HTTP Error 403: Forbidden"
   ],
   "publication_holds": [],
-  "run_id": "40202185077",
+  "run_id": "40202443515",
   "event": "push",
-  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40202185077",
+  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40202443515",
   "publisher_links": 0,
   "discovery_headlines": 7,
-  "publisher_desk_checked_at": "2026-10-25T14:26:05.004839+00:00",
+  "publisher_desk_checked_at": "2026-10-25T14:29:21.356289+00:00",
   "previous_verified_runs": [
     {
       "run_id": "40193630697",
@@ -452,6 +447,35 @@
       "deployment": "skipped",
       "live_check": "skipped",
       "browser_check": "skipped"
+    },
+    {
+      "run_id": "40202185077",
+      "event": "push",
+      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40202185077",
+      "editorial_outcome": "NO_QUALIFYING_NEWS",
+      "published_this_run": 0,
+      "publisher_links": 0,
+      "discovery_headlines": 7,
+      "source_coverage_status": "PARTIAL",
+      "fresh_source_candidates": 7,
+      "verified_by_sector": {
+        "Banking": 1
+      },
+      "ai_budget": {
+        "quota_date": "2026-10-25",
+        "quota_timezone": "America/Los_Angeles",
+        "requests_this_run": 1,
+        "requests_today_including_this_run": 16,
+        "run_limit": 7,
+        "daily_limit": 30,
+        "remaining_today": 14
+      },
+      "commissioned_stories": [],
+      "checked_at": "2026-10-25T14:27:08.041750+00:00",
+      "technical_status": "LIVE_VERIFIED",
+      "deployment": "success",
+      "live_check": "success",
+      "browser_check": "success"
     }
   ],
   "launch_acceptance": {
@@ -462,16 +486,14 @@
       "worthwhile_same_day_developments_across_sectors": false,
       "article_site_live_verified": true,
       "mobile_and_desktop_reading": true,
-      "latest_run_technically_healthy": false,
-      "latest_editorial_run_unblocked": false
+      "latest_run_technically_healthy": true,
+      "latest_editorial_run_unblocked": true
     },
     "verified_scheduled_runs": 1,
     "commissioned_sectors": [],
     "pending": [
       "repeated_scheduled_hourly_runs",
-      "worthwhile_same_day_developments_across_sectors",
-      "latest_run_technically_healthy",
-      "latest_editorial_run_unblocked"
+      "worthwhile_same_day_developments_across_sectors"
     ],
     "note": "Operational evidence checkpoint, not a guarantee of future events or error-free journalism."
   },
