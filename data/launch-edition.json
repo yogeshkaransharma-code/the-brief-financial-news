@@ -1,19 +1,25 @@
 {
-  "version": 2,
+  "version": 3,
   "edition_date": "2026-10-24",
   "window_start": "2026-10-24T06:00:00+01:00",
   "retrospective": true,
-  "result": "HELD",
-  "published": [],
-  "run_id": "40150652461",
-  "checked_at": "2026-10-25T01:27:00.892903+00:00",
+  "result": "PUBLISHED",
+  "published": [
+    {
+      "id": "ai-6d43cd604a058aa7b9da",
+      "title": "Chancellor unveils major funding package for UK artificial intelligence and security",
+      "url": "https://www.gov.uk/government/news/chancellor-unveils-britains-ambitious-plan-for-ai"
+    }
+  ],
+  "run_id": "40150946287",
+  "checked_at": "2026-10-25T01:31:25.524269+00:00",
   "attempted": true,
   "source_url": "https://www.gov.uk/government/news/chancellor-unveils-britains-ambitious-plan-for-ai",
   "original_source_time": "2026-10-24T05:00:05+00:00",
   "model": "gemini:gemini-3.5-flash-lite",
   "editorial_selection": {
     "result": "SELECTED",
-    "requests": 1,
+    "requests": 0,
     "cache_key": "f97d4431ddff40da0caf822d3669c0e2133e1c61c81df2c1cd751f047b925d90",
     "selected": [
       {
@@ -24,24 +30,16 @@
     ],
     "skipped": []
   },
-  "holds": [
-    "Editorial evidence gate failed: An unsupported, contradicted or ambiguous sentence was found"
-  ],
-  "flags": [
-    {
-      "claim_id": "C17",
-      "sentence": "Locally, £30 million will fund partnerships with Mayoral Strategic Authorities to drive artificial intelligence adoption and skills, while a new Advanced Chip Design Academy in Edinburgh and an AI Centre of Excellence in Manchester aim to develop talent and hardware capabilities.",
-      "reason": "The source mentions £18 million for an Advanced Chip Design Academy in Edinburgh (S017, S018), not £30 million, and places the NCSC AI Cyber Security Centre of Excellence in Manchester (S021) rather than calling it an 'AI Centre of Excellence'."
-    }
-  ],
-  "requests_this_attempt": 3,
+  "reused_gemini_draft": true,
+  "holds": [],
+  "requests_this_attempt": 1,
   "api_budget": {
     "quota_date": "2026-10-24",
     "quota_timezone": "America/Los_Angeles",
-    "requests_this_run": 3,
-    "requests_today_including_this_run": 26,
+    "requests_this_run": 1,
+    "requests_today_including_this_run": 27,
     "run_limit": 3,
     "daily_limit": 30,
-    "remaining_today": 4
+    "remaining_today": 3
   }
 }

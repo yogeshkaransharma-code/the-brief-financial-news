@@ -1,7 +1,7 @@
 {
-  "checked_at": "2026-10-25T01:27:44.519475+00:00",
+  "checked_at": "2026-10-25T01:31:39.365783+00:00",
   "uk_date": "2026-10-25",
-  "outcome": "BLOCKED",
+  "outcome": "PUBLISHED",
   "launch_test": {
     "version": 1,
     "result": "PASSED",
@@ -33,15 +33,15 @@
       "remaining_today": 0
     }
   },
-  "published_this_run": 0,
+  "published_this_run": 1,
   "genuine_same_day_articles": 0,
   "editorial_selection": {
     "result": "NO_VERIFIED_CANDIDATES",
     "requests": 0,
     "selected": []
   },
-  "published_total": 10,
-  "last_article_at": "2026-10-23T18:18:00.030075+00:00",
+  "published_total": 11,
+  "last_article_at": "2026-10-25T01:31:29.728819+00:00",
   "fresh_source_candidates": 0,
   "machine_screened": 0,
   "primary_indexes_checked": 19,
@@ -51,13 +51,13 @@
   "ai_budget": {
     "quota_date": "2026-10-24",
     "quota_timezone": "America/Los_Angeles",
-    "requests_this_run": 0,
-    "requests_today_including_this_run": 26,
+    "requests_this_run": 1,
+    "requests_today_including_this_run": 27,
     "run_limit": 7,
     "daily_limit": 30,
-    "remaining_today": 4,
+    "remaining_today": 3,
     "diagnostic_requests_today": 2,
-    "production_requests_today": 24
+    "production_requests_today": 25
   },
   "quota_pause_until": null,
   "candidate_outcomes": [],
@@ -68,23 +68,29 @@
     "Revolut UK: HTTPError HTTP Error 403: Forbidden"
   ],
   "publication_holds": [],
-  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40150652461",
+  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40150946287",
   "launch_edition": {
-    "version": 2,
+    "version": 3,
     "edition_date": "2026-10-24",
     "window_start": "2026-10-24T06:00:00+01:00",
     "retrospective": true,
-    "result": "HELD",
-    "published": [],
-    "run_id": "40150652461",
-    "checked_at": "2026-10-25T01:27:00.892903+00:00",
+    "result": "PUBLISHED",
+    "published": [
+      {
+        "id": "ai-6d43cd604a058aa7b9da",
+        "title": "Chancellor unveils major funding package for UK artificial intelligence and security",
+        "url": "https://www.gov.uk/government/news/chancellor-unveils-britains-ambitious-plan-for-ai"
+      }
+    ],
+    "run_id": "40150946287",
+    "checked_at": "2026-10-25T01:31:25.524269+00:00",
     "attempted": true,
     "source_url": "https://www.gov.uk/government/news/chancellor-unveils-britains-ambitious-plan-for-ai",
     "original_source_time": "2026-10-24T05:00:05+00:00",
     "model": "gemini:gemini-3.5-flash-lite",
     "editorial_selection": {
       "result": "SELECTED",
-      "requests": 1,
+      "requests": 0,
       "cache_key": "f97d4431ddff40da0caf822d3669c0e2133e1c61c81df2c1cd751f047b925d90",
       "selected": [
         {
@@ -95,28 +101,20 @@
       ],
       "skipped": []
     },
-    "holds": [
-      "Editorial evidence gate failed: An unsupported, contradicted or ambiguous sentence was found"
-    ],
-    "flags": [
-      {
-        "claim_id": "C17",
-        "sentence": "Locally, £30 million will fund partnerships with Mayoral Strategic Authorities to drive artificial intelligence adoption and skills, while a new Advanced Chip Design Academy in Edinburgh and an AI Centre of Excellence in Manchester aim to develop talent and hardware capabilities.",
-        "reason": "The source mentions £18 million for an Advanced Chip Design Academy in Edinburgh (S017, S018), not £30 million, and places the NCSC AI Cyber Security Centre of Excellence in Manchester (S021) rather than calling it an 'AI Centre of Excellence'."
-      }
-    ],
-    "requests_this_attempt": 3,
+    "reused_gemini_draft": true,
+    "holds": [],
+    "requests_this_attempt": 1,
     "api_budget": {
       "quota_date": "2026-10-24",
       "quota_timezone": "America/Los_Angeles",
-      "requests_this_run": 3,
-      "requests_today_including_this_run": 26,
+      "requests_this_run": 1,
+      "requests_today_including_this_run": 27,
       "run_limit": 3,
       "daily_limit": 30,
-      "remaining_today": 4
+      "remaining_today": 3
     }
   },
-  "launch_edition_published_this_run": 0,
+  "launch_edition_published_this_run": 1,
   "launch_diagnostic_allowance": {
     "limit": 2,
     "requests": 2
