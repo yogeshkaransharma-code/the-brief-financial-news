@@ -37,6 +37,14 @@ def read(path,default):
 
 def main():
     state=assess(read('data/articles.json',[]),read('generated-drafts/run-report.json',{}),dt.datetime.now(dt.timezone.utc),read('generated-drafts/publication-report.json',{}),read('data/live.json',{}))
+    state['launch_test']=read('data/launch-test.json',{'result':'NOT_RUN'})
+    ledger=read('data/newsroom-attempts.json',{})
+    saved_budget=ledger.get('api_budget',{})
+    state['launch_diagnostic_allowance']=ledger.get('launch_diagnostic_allowance',{'limit':2,'requests':0})
+    if saved_budget:
+        state['ai_budget'].update(requests_today_including_this_run=saved_budget.get('requests',0),daily_limit=saved_budget.get('limit',20),remaining_today=max(0,saved_budget.get('limit',20)-saved_budget.get('requests',0)))
+    if state['launch_test'].get('run_id')==os.getenv('GITHUB_RUN_ID','local'):
+        state['ai_budget']['requests_this_run']=state['ai_budget'].get('requests_this_run',0)+state['launch_test'].get('requests_this_attempt',0)
     (ROOT/'data/status.json').write_text(json.dumps(state,ensure_ascii=False,indent=2)+'\n')
     out=os.getenv('GITHUB_OUTPUT')
     if out:
@@ -45,6 +53,7 @@ def main():
     summary+='| Measure | Result |\n|---|---|\n'
     for k in ['primary_indexes_checked','primary_index_failures','feeds_working','feed_failures','fresh_source_candidates','machine_screened','last_article_at']:
         summary+='| '+k.replace('_',' ')+' | '+str(state[k])+' |\n'
+    summary+='\nUnpublished real-model test: **'+state['launch_test'].get('result','NOT_RUN')+'**. This never counts as publication.\n'
     summary+='\nNo new article means no successful news publication. Discovery gaps mean coverage is incomplete, not proof nothing happened.\n'
     for e in state['discovery_errors']:summary+='\n- Discovery issue: '+str(e)
     for e in state['candidate_outcomes']:summary+='\n- '+str(e.get('title','Pipeline'))+': '+str(e.get('result'))+' — '+str(e.get('reason',''))

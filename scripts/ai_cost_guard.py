@@ -18,9 +18,10 @@ PACIFIC=ZoneInfo('America/Los_Angeles')
 class BudgetExhausted(RuntimeError):pass
 
 class CallBudget:
-    def __init__(self,ledger,now=None,per_run=MAX_REQUESTS_PER_RUN,per_day=MAX_REQUESTS_PER_DAY,path=None):
+    def __init__(self,ledger,now=None,per_run=MAX_REQUESTS_PER_RUN,per_day=MAX_REQUESTS_PER_DAY,path=None,now_fn=None):
         self.ledger=ledger
-        self.now=now or dt.datetime.now(dt.timezone.utc)
+        self._clock=now_fn or (lambda:dt.datetime.now(dt.timezone.utc))
+        self.now=now or self._clock()
         self.today=self.now.astimezone(PACIFIC).date().isoformat()
         old=ledger.get('api_budget',{})
         # Retain old counts conservatively during reset-zone migration.
@@ -36,19 +37,24 @@ class CallBudget:
             temp.write_text(json.dumps(self.ledger,ensure_ascii=False,indent=2,sort_keys=True)+'\n')
             temp.replace(self.path)
     def remaining(self):return max(0,min(self.per_run-self.run_used,self.per_day-self.daily_used))
-    def call(self,fn,prompt):
+    def call(self,fn,prompt,*,diagnostic=False):
         if self.path:
-            quota_day=dt.datetime.now(dt.timezone.utc).astimezone(PACIFIC).date().isoformat()
+            quota_day=self._clock().astimezone(PACIFIC).date().isoformat()
             if quota_day!=self.today:
                 self.today=quota_day;self.daily_used=0;self._sync()
-        if not self.remaining():raise BudgetExhausted('Daily/run AI request cap reached')
+        if diagnostic:
+            allowance=self.ledger.setdefault('launch_diagnostic_allowance',{'limit':2,'requests':0})
+            if allowance['requests']>=2 or self.run_used>=self.per_run:
+                raise BudgetExhausted('One-time two-request launch diagnostic allowance exhausted')
+            allowance['requests']+=1
+        elif not self.remaining():raise BudgetExhausted('Daily/run AI request cap reached')
         if self.path:
             # One serial workflow, conservatively below common free RPM limits.
             delay=15-(time.monotonic()-self.last_call)
             if delay>0:time.sleep(delay)
         self.daily_used+=1;self.run_used+=1
         journal=self.ledger.setdefault('api_calls',[])
-        entry={'at':dt.datetime.now(dt.timezone.utc).isoformat(),'result':'reserved','prompt_characters':len(prompt)}
+        entry={'at':dt.datetime.now(dt.timezone.utc).isoformat(),'result':'reserved','prompt_characters':len(prompt),'purpose':'one-time launch diagnostic' if diagnostic else 'production'}
         journal.append(entry);self.ledger['api_calls']=journal[-100:]
         self._sync()  # reservation survives an exception or interrupted call
         self.last_call=time.monotonic()
@@ -82,7 +88,7 @@ def self_test():
     t=dt.datetime(2026,10,25,1,tzinfo=dt.timezone.utc);ledger={}
     with tempfile.TemporaryDirectory() as folder:
         path=Path(folder)/'ledger.json'
-        m=CallBudget(ledger,t,per_run=2,per_day=3,path=path)
+        m=CallBudget(ledger,t,per_run=2,per_day=3,path=path,now_fn=lambda:t)
         assert m.today=='2026-10-24'
         assert m.call(lambda p:p,'ok')=='ok'
         m.last_call=0

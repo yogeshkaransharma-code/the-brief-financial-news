@@ -55,6 +55,15 @@ jobs:
         env:
           AUTO_PUBLICATION_ENABLED: '1'
         run: python scripts/publish_autonomous.py
+      - name: Test real Gemini writing and challenge before launch without publishing old news
+        id: launch_test
+        continue-on-error: true
+        env:
+          BRIEF_LAUNCH_DIAGNOSTIC: '1'
+          BRIEF_AI_PROVIDER: gemini
+          GEMINI_MODEL: gemini-3.5-flash-lite
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python scripts/launch_canary.py
       - name: Record actual publication outcome and source failures
         id: health
         if: always()

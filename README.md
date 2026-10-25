@@ -50,3 +50,7 @@ python scripts/verify_live.py
 - `public/data/archive.json`, `archive.html`, `edition/YYYY-MM-DD.html`, `story/ID.html`: historical access and complete reading pages.
 
 Legacy articles are preserved as historical reporting with a notice. Their hashes validate provenance, not factual truth or the accuracy of their old source dates. Consequential legal/enforcement stories and incomplete or ambiguous documents remain held. Corrections can be reported through the public repository issue tracker; checked revisions must update the approval hash and show a correction notice.
+
+## Launch validation — 25 October
+
+The owner requires launch preparation now. A one-time, separately recorded two-request diagnostic can test the existing Gemini key even when the local twenty-request production cap has been reached. It does not reset that counter or enable billing: both calls also increase the aggregate request count. The unchanged production cap continues to block additional production requests until the quota day changes. This diagnostic allowance is global and is never replenished by a new day or code version. An historical primary source is written and independently challenged only as an UNPUBLISHED test; the final publication gate must still reject its old date. Results appear on the status page and in the workflow evidence. There are no ChatGPT follow-up tasks enabled for this work.
