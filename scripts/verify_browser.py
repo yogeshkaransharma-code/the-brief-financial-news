@@ -38,7 +38,8 @@ def main():
                 body=page.locator('main article').inner_text()
                 for heading,text in target['blocks']:
                     assert heading in body and text in body,'Full reading content missing'
-                original=page.get_by_role('link',name='read the original announcement',exact=False)
+                original=page.locator('main article .source a[href]').first
+                assert original.count()==1,'Article is missing a visible link to its original evidence'
                 assert original.get_attribute('href')==target['url'],'Source URL differs'
                 assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'),'Article overflows viewport'
                 page.screenshot(path=str(OUT/f'article-{width}.png'),full_page=True)
