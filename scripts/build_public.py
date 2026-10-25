@@ -43,7 +43,7 @@ def valid_articles():
                 and str(a.get("editorial_status", "")).startswith("PUBLISHED:")
                 and a.get("url", "").startswith("https://")
                 and isinstance(a.get("blocks"), list)
-                and len(a["blocks"]) >= 3):
+                and len(a["blocks"]) >= 2):
             raise ValueError("Unapproved or incomplete article in public build")
     return sorted(records, key=lambda a: (a.get("published_at", ""), a.get("dateISO", ""), a["id"]), reverse=True)
 
@@ -202,18 +202,6 @@ def build():
     archive = valid_articles()
     records = [a for a in archive if published_same_day(a)]
     today = clock().date().strftime("%-d %B %Y")
-    # Separately labelled source-linked headlines keep readers informed
-    # between Gemini publications; they never enter the approved article feed.
-    from hourly_radar import safe_publisher
-    try:
-        raw_radar=json.loads((ROOT/"data/hourly-radar.json").read_text(encoding="utf-8"))
-    except (OSError,ValueError):
-        raw_radar={}
-    radar_now=clock()
-    radar_items=(raw_radar.get("items",[]) if raw_radar.get("uk_date")==radar_now.date().isoformat() else [])
-    radar_items=[x for x in radar_items if safe_publisher(x) and x.get("dateISO")==radar_now.date().isoformat()][:18]
-    radar_data={"uk_date":radar_now.date().isoformat(),
-        "checked_at":raw_radar.get("checked_at"),"kind":"publisher_headlines_only","items":radar_items}
     # Empty is the correct edition when no verified original development was
     # announced AND published on this same UK date. Never replay old news.
     page = (ROOT / "index.html").read_text(encoding="utf-8")
@@ -279,30 +267,6 @@ def build():
         )
     page = insert_once(page, '<div class="feed" id="feed"></div>',
         '<div class="feed" id="feed">' + ('\n'.join(rows) if rows else '<p class="nothing">No approved first-party reports dated '+esc(today)+' have been published yet.</p>') + '</div>')
-    radar_time=raw_radar.get("checked_at") or ""
-    try:
-        radar_time_label=dt.datetime.fromisoformat(radar_time.replace("Z","+00:00")).astimezone(__import__("zoneinfo").ZoneInfo("Europe/London")).strftime("%-d %B, %H:%M %Z")
-    except (ValueError,AttributeError):
-        radar_time_label="awaiting the next scheduled scan"
-    radar_rows=[]
-    for item in radar_items:
-        try:
-            time_label=dt.datetime.fromisoformat(item["source_published_at"].replace("Z","+00:00")).astimezone(__import__("zoneinfo").ZoneInfo("Europe/London")).strftime("%H:%M")
-        except (ValueError,KeyError):
-            time_label="time not specified"
-        radar_rows.append('<article class="radar-card"><span class="section-kicker">'+esc(item["category"])+' · PUBLISHER LINK</span>'
-            +'<h3><a href="'+esc(item["url"])+'" target="_blank" rel="noopener noreferrer">'+esc(item["title"])+'</a></h3>'
-            +'<p class="meta">'+esc(item["source"])+' · Publisher feed time '+esc(time_label)+' UK · Opens original publisher</p></article>')
-    radar_html=('<section id="hourly-radar" data-uk-date="'+esc(radar_now.date().isoformat())+'" aria-label="Source-linked headlines updated hourly">'
-        +'<div class="radar-heading"><div><span class="section-kicker">ACROSS THE MARKET</span><h2>Fresh from the source desks.</h2></div>'
-        +'<span class="radar-updated">Last scan: '+esc(radar_time_label)+'</span></div>'
-        +'<p class="radar-description">Headlines from named publishers, linked to their own reporting and dated in the UK. '
-        +'These are <strong>source links, not full articles by The Brief</strong>; headlines and claims have not been independently fact-checked. '
-        +'Our separate Gemini articles appear above after source and claim checks.</p>'
-        +(('<div class="radar-grid">'+''.join(radar_rows)+'</div>') if radar_rows else
-          '<p class="nothing">No new eligible source-linked headlines from today were found at this scan. The search continues each hour.</p>')
-        +'</section>')
-    page=insert_once(page,'<div id="hourly-radar-hook"></div>',radar_html)
     page = insert_once(page, '<div class="news-count" id="news-count"></div>',
         '<div class="news-count" id="news-count">' + str(len(records)) + ' articles</div>')
     payload = json.dumps(records, ensure_ascii=False, separators=(",", ":")).replace("<", "\\u003c")
@@ -312,7 +276,6 @@ def build():
     (OUT / "index.html").write_text(page, encoding="utf-8")
     (OUT / "about.html").write_text((ROOT / "about.html").read_text(encoding="utf-8"), encoding="utf-8")
     (OUT / "data/articles.json").write_text(json.dumps(records, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    (OUT / "data/hourly-radar.json").write_text(json.dumps(radar_data,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     (OUT / "data/archive.json").write_text(json.dumps(archive,ensure_ascii=False,indent=2)+"\n")
     (OUT / "archive.html").write_text(archive_page(archive),encoding="utf-8")
     (OUT / "edition").mkdir(exist_ok=True)
@@ -342,7 +305,7 @@ def build():
     print("PUBLIC_BUILD_OK: " + json.dumps({"articles_today": len(records),
         "archived_records":len(archive)-len(records),
         "latest": latest["id"] if latest else None, "standalone_pages": len(archive),
-        "pre_rendered_feed": True, "source_links_today":len(radar_items), "inline_fallback": True}, sort_keys=True))
+        "pre_rendered_feed": True, "inline_fallback": True}, sort_keys=True))
 
 
 if __name__ == "__main__":

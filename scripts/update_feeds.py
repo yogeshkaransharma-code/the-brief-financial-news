@@ -191,6 +191,9 @@ def parse(xml_bytes, name, fallback):
             continue
         if published > NOW + dt.timedelta(days=1) or NOW - published > dt.timedelta(days=70):
             continue
+        # Strip BBC's RSS campaign tags only on a canonical BBC /news/articles/ URL.
+        if name=="BBC Business" and url.hostname in {"www.bbc.co.uk","bbc.co.uk","www.bbc.com","bbc.com"} and re.fullmatch(r"/news/articles/[a-z0-9]{10,24}/?",url.path,re.I):
+            link=urllib.parse.urlunsplit((url.scheme,url.netloc,url.path,"",""))
         uid = hashlib.sha256(link.split("#")[0].encode()).hexdigest()[:20]
         output.append({
             "id": "feed-" + uid, "kind": "source",

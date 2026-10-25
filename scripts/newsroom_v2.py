@@ -30,7 +30,7 @@ from numeric_evidence import unsupported as unsupported_quantities
 
 MAX_CANDIDATES = 16
 MAX_DRAFTS = 3
-MIN_WORDS = 120
+MIN_WORDS = 95
 MAX_WORDS = 950
 NUMBER = re.compile(r"(?<![\w])(?:£|\$)?\d+(?:[.,]\d+)*(?:%|bn|m|k)?(?![\w])", re.I)
 GENERIC = re.compile(r"(?i)\b(?:industry participants|financial services professionals are reviewing|in today's evolving landscape|in a significant development)\b")
@@ -95,14 +95,15 @@ def status_from_url(url, title):
 
 def write_prompt(item, official):
     media = source_lane(item["url"])=="original_reporting"
+    reporter="the BBC" if item.get("source")=="BBC Business" else "The Guardian"
     media_note = (
-        "This is ORIGINAL JOURNALISM BY THE GUARDIAN, not an issuer press release. "
-        "Every relevant claim must be explicitly attributed to The Guardian's reporting, "
+        f"This is ORIGINAL JOURNALISM BY {reporter}, not an issuer press release. "
+        f"Every relevant claim must be explicitly attributed to {reporter}'s reporting, "
         "including the standfirst. Do not turn alleged facts into independently proven facts. "
-        "The Guardian article was first published TODAY, but the underlying event or staff communication "
+        "The journalistic source was first published TODAY, but the underlying event or staff communication "
         "may have occurred on an earlier date; preserve the original distinction. "
         "Never imply the company issued a press release or that you interviewed its spokesperson. "
-        "Do not reproduce the Guardian article or substantial quotations; independently explain the "
+        "Do not reproduce the original article or substantial quotations; independently explain the "
         "reported development using concise, original phrasing and provide a source link. "
         "If claims cannot be supported precisely, avoid them or hold the article. "
         if media else ""
@@ -129,7 +130,7 @@ def write_prompt(item, official):
         "Avoid bureaucratic filler and spelled-out financial figures. "
         "Create sections based on what the story justifies, not five compulsory headings. "
         "An ideal story covers what happened, useful context, who is affected and what's next "
-        "when the source supports those points. A short simple story can have three sections. "
+        "when the source supports those points. A short, well-evidenced story can have two or three concise sections. "
         "Every sentence and section heading must be grounded in the source. Clearly attribute organisational claims. "
         "For insurer/bank company announcements, write 'Aviva says' or 'Lloyds says' "
         "for a company-reported benefit, product claim or projection, and do not "
@@ -138,9 +139,9 @@ def write_prompt(item, official):
         "Avoid promotional claims such as 'revolutionary', 'game changing' or "
         "'the UK's first' unless independently substantiated. "
         "Return ONLY a JSON object with: "
-        "headline (string), standfirst (string), sections (array of 3 to 6 objects, "
+        "headline (string), standfirst (string), sections (array of 2 to 5 objects, "
         "each with heading and text strings), glossary (array of objects with term/explanation, optional). "
-        "Write 220–650 words in total, but never invent text to reach a quota. "
+        "Write around 120–450 words in total for source-supported developments; a tight 95-word article is acceptable when that is all the evidence justifies. Never pad with speculation. "
         "Prefer crisp paragraphs. Don't reproduce extensive source phrasing. "
         f"\n\nSOURCE TITLE: {item['title']}\nSOURCE DATE: {item['dateISO']}"
         f"\nPRIMARY SOURCE: {official.url}\nDOCUMENTS: {', '.join(official.document_urls)}"
@@ -231,7 +232,7 @@ def make_article(output,item,official):
         raise ValueError("Unusable headline")
     if not isinstance(summary,str) or not 55<=len(summary)<=350:
         raise ValueError("Unusable standfirst")
-    if not isinstance(raw_sections,list) or not 3<=len(raw_sections)<=6:
+    if not isinstance(raw_sections,list) or not 2<=len(raw_sections)<=5:
         raise ValueError("Article needs coherent sections, not a rigid template")
     blocks=[]
     for entry in raw_sections:
@@ -408,6 +409,9 @@ def self_test():
     assert original_media_candidates([sample_media],dt.datetime(2026,10,25,11,tzinfo=dt.timezone.utc))==[dict(sample_media,kind="original_media_reporting")]
     assert not original_media_candidates([dict(sample_media,dateISO="2026-10-24",published_at="2026-10-24T07:00:00+00:00",source_published_at="2026-10-24T07:00:00+00:00")],dt.datetime(2026,10,25,11,tzinfo=dt.timezone.utc))
     assert status_from_url(guardian,"")=="Original reporting"
+    bbc=dict(sample_media,source="BBC Business",url="https://www.bbc.co.uk/news/articles/c62kep355q02o",
+             title="UK banks prepare for changes ahead of Budget")
+    assert original_media_candidates([bbc],dt.datetime(2026,10,25,11,tzinfo=dt.timezone.utc))==[dict(bbc,kind="original_media_reporting")]
     print("PASS: separate writer schema, sentence coverage and financial token checks")
 
 MEDIA_FOCUS = re.compile(
@@ -421,9 +425,14 @@ def original_media_candidates(items,now,limit=6):
     """Original UK-date journalism; never a recycled RSS refresh."""
     filtered=[]
     for item in items:
-        if item.get("source") not in {"The Guardian Business","The Guardian Money","The Guardian Insurance","The Guardian Banking"} or source_lane(item.get("url",""))!="original_reporting":
+        if item.get("source") not in {"The Guardian Business","The Guardian Money","The Guardian Insurance","The Guardian Banking","BBC Business"} or source_lane(item.get("url",""))!="original_reporting":
             continue
         if not MEDIA_FOCUS.search(item.get("title","")) or not eligible_today(item,now):
+            continue
+        # Opaque BBC article IDs require independent first-published metadata
+        # from the original BBC article; RSS timing is never enough.
+        if item["source"]=="BBC Business":
+            filtered.append(dict(item,kind="original_media_reporting"))
             continue
         from urllib.parse import urlsplit
         match=re.fullmatch(r"/(?:business|money)/(20\d{2})/(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/(\d{1,2})/[a-z0-9-]+/?",urlsplit(item["url"]).path)

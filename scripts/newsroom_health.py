@@ -46,15 +46,9 @@ def main():
     state=assess(read('data/articles.json',[]),read('generated-drafts/run-report.json',{}),dt.datetime.now(dt.timezone.utc),publication,read('data/live.json',{}),read('data/launch-test.json',{'result':'NOT_RUN'}))
     # Unavailable individual sites are a coverage warning, not a total
     # newsroom failure while the source desk still has broad working inputs.
-    radar=read('data/hourly-radar.json',{})
-    todays_radar=(radar.get('items',[]) if radar.get('uk_date')==clock().date().isoformat() else [])
-    state['hourly_source_headlines']=len(todays_radar)
-    state['radar_checked_at']=radar.get('checked_at')
     state['source_coverage_status']='PARTIAL' if state['discovery_errors'] else 'COMPLETE'
     if state['outcome']=='DEGRADED' and state['feeds_working']>=10 and (state['primary_indexes_checked']-state['primary_index_failures'])>=10:
         state['outcome']='NO_QUALIFYING_NEWS'
-    if state['outcome']=='NO_QUALIFYING_NEWS' and todays_radar:
-        state['outcome']='RADAR_UPDATED'
     state['launch_edition']=edition
     state['launch_edition_published_this_run']=len(edition_new)
     if edition.get('attempted') and edition.get('result') in {'BLOCKED','HELD','STARTED'} and not state['published_this_run']:
@@ -85,7 +79,7 @@ def main():
         with open(out,'a') as f:f.write('outcome='+state['outcome']+'\nnew_articles='+str(state['published_this_run'])+'\n')
     summary='## Newsroom result: '+state['outcome']+'\n\nNew articles actually published: **'+str(state['published_this_run'])+'**. Today’s edition: **'+str(state['genuine_same_day_articles'])+'**.\n\n'
     summary+='| Measure | Result |\n|---|---|\n'
-    for k in ['primary_indexes_checked','primary_index_failures','feeds_working','feed_failures','fresh_source_candidates','machine_screened','hourly_source_headlines','source_coverage_status','last_article_at']:
+    for k in ['primary_indexes_checked','primary_index_failures','feeds_working','feed_failures','fresh_source_candidates','machine_screened','source_coverage_status','last_article_at']:
         summary+='| '+k.replace('_',' ')+' | '+str(state[k])+' |\n'
     summary+='\nUnpublished real-model test: **'+state['launch_test'].get('result','NOT_RUN')+'**. This never counts as publication.\n'
     summary+='\nNo new article means no successful news publication. Discovery gaps mean coverage is incomplete, not proof nothing happened.\n'

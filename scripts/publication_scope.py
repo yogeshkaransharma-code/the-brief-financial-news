@@ -42,12 +42,17 @@ GUARDIAN_ORIGINAL = re.compile(
     r"^/(?:business|money)/20\d{2}/(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/\d{1,2}/[a-z0-9-]{18,}/?$", re.I
 )
 
+BBC_ORIGINAL = re.compile(r"^/news/articles/[a-z0-9]{10,24}/?$", re.I)
+
 def source_lane(url: str) -> str | None:
     """Return a narrow primary-source lane, or None to hold automatically."""
     p = urlsplit(url)
     if p.scheme != "https" or p.username or p.password or p.port not in (None,443):
         return None
     host, path = (p.hostname or "").lower(), p.path
+    if host in {"bbc.co.uk","www.bbc.co.uk","bbc.com","www.bbc.com"} and not p.query:
+        if BBC_ORIGINAL.fullmatch(path):
+            return "original_reporting"
     if host in {"theguardian.com","www.theguardian.com"} and not p.query:
         if GUARDIAN_ORIGINAL.fullmatch(path) and not ADVERSE.search(path.rsplit("/",1)[-1]):
             return "original_reporting"
@@ -144,6 +149,10 @@ def self_test():
     assert source_lane("https://www.ukfinance.org.uk/news-and-insight/press-release/uk-finance-publishes-2026-banking-sector-tax-report") == "industry_release"
     assert source_lane("https://www.abi.org.uk.evil.test/media-hub/news-post/invalid") is None
     assert source_lane("https://www.ukfinance.org.uk/news-and-insight/blog/industry-opinion") is None
+    assert source_lane("https://www.bbc.co.uk/news/articles/c62kep355q02o")=="original_reporting"
+    assert source_lane("https://www.bbc.co.uk/news/articles/c62kep355q02o?at_medium=RSS") is None
+    assert source_lane("https://www.bbc.co.uk.evil.invalid/news/articles/c62kep355q02o") is None
+    assert source_lane("https://www.bbc.co.uk/news/live/c62kep355q02o") is None
     assert source_lane("https://www.theguardian.com/business/2026/oct/25/nationwide-to-cut-275-jobs-in-latest-round-since-takeover-of-virgin-money")=="original_reporting"
     assert source_lane("https://www.theguardian.com/business/2026/oct/25/") is None
     assert source_lane("https://www.theguardian.com/business/2026/oct/25/nationwide-to-cut-275-jobs-in-latest-round-since-takeover-of-virgin-money?preview=true") is None

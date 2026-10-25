@@ -32,21 +32,6 @@
 @media(max-width:520px){.explainer h3{font-size:23px}.explainer p,.explainer details{font-size:14px}.mini-nav a{font-size:13px}.date-separator{font-size:12px}}
 
 </style>
-<style>
-#hourly-radar{margin:38px 0 10px;padding:30px 0 12px;border-top:2px solid var(--ink)}
-#hourly-radar[hidden]{display:none!important}
-.radar-heading{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:12px}
-.radar-heading h2{font:500 clamp(29px,3vw,40px)/1.15 var(--display);margin:4px 0}
-.radar-description{max-width:790px;font-size:13px;color:#746764;line-height:1.6}
-.radar-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 26px;margin:19px 0}
-.radar-card{padding:17px 0;border-bottom:1px solid var(--rule)}
-.radar-card h3{font:500 22px/1.22 var(--display);margin:8px 0}
-.radar-card h3 a{text-decoration:none}
-.radar-card h3 a:hover{text-decoration:underline}
-.radar-card .meta{line-height:1.6}
-.radar-updated{font-size:11px;color:#796C68;font-weight:700}
-@media(max-width:700px){.radar-grid{grid-template-columns:1fr}.radar-card h3{font-size:21px}.radar-heading{display:block}}
-</style>
 </head>
 <body>
 <a class="skip" href="#latest">Skip to the news</a>
@@ -76,7 +61,6 @@
     <div class="news-grid"><div class="feed" id="feed"></div><aside class="desk-side"><div class="sidebar-box"><span class="section-kicker">YOUR READING DESK</span><h3>Keep the useful stuff.</h3><p>Save a story to come back to it. Follow a subject and we'll keep it to hand on this device.</p><div id="follow-buttons" class="follow-buttons"></div><button class="textlink" id="following-toggle">Show my followed subjects →</button></div><div class="sidebar-box quiet"><span class="section-kicker">HOW WE WORK</span><h3>Clear reporting, properly sourced.</h3><p>Every published story has a named source. We explain our reporting method and limitations on the About page.</p><button class="textlink" id="open-about">About The Brief →</button></div></aside></div>
     <button id="show-more" type="button" class="more-button" hidden>More stories <span>↓</span></button>
     <p id="nothing" class="nothing" hidden>No verified reports dated today in the UK have been published yet.</p>
-    <div id="hourly-radar-hook"></div>
   </section>
 
   <section id="context" class="understand" aria-label="Understand the basics">
@@ -164,7 +148,7 @@ const fullDay=key=>new Date(key+'T12:00:00Z').toLocaleDateString('en-GB',{weekda
 const liveWithoutPublished=()=>live.filter(s=>!published.some(p=>p.url===s.url));
 const allItems=()=>sortItems(published.filter(x=>x.ai_assisted&&x.publication_method==='autonomous'&&currentDayArticle(x)));
 const isNew=s=>priorVisit&&reportTime(s)>Date.parse(priorVisit)&&reportTime(s)<Date.now()+86400000;
-const renderDate=()=>{const d=new Date(); $('edition-date').textContent=d.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric',timeZone:'Europe/London'}).toUpperCase(); $('issue-date').textContent=d.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric',timeZone:'Europe/London'}).toUpperCase();const radar=document.getElementById('hourly-radar');if(radar)radar.hidden=radar.dataset.ukDate!==ukDayInfo().key;};
+const renderDate=()=>{const d=new Date(); $('edition-date').textContent=d.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric',timeZone:'Europe/London'}).toUpperCase(); $('issue-date').textContent=d.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric',timeZone:'Europe/London'}).toUpperCase();};
 const meta=s=>`News: ${safe(day(s.dateISO||s.source_published_at||s.published_at))} <span>·</span> Published: ${safe(day(s.published_at))} <span>·</span> ${safe(s.source)}`;
 function showToast(t){const el=$('toast');el.textContent=t;el.classList.add('show');window.clearTimeout(showToast.timer);showToast.timer=window.setTimeout(()=>el.classList.remove('show'),2600)}
 function toggleSaved(id){if(saved.has(id))saved.delete(id);else saved.add(id);saveStore('saved',[...saved]);$('saved-number').textContent=saved.size;renderFeed();if(activeId===id)renderArticle(byId()[id],true)}
@@ -233,7 +217,7 @@ function wire(){
  $('article-save').onclick=()=>{if(activeId!=='about')toggleSaved(activeId)};$('article-share').onclick=()=>{const url=location.href;navigator.clipboard?.writeText(url).then(()=>showToast('Article link copied')).catch(()=>showToast('Copy the address from your browser'))||showToast('Copy the address from your browser')};$('article-print').onclick=()=>window.print();$('open-about').onclick=()=>location.href='about.html';$('footer-about').onclick=()=>location.href='about.html';window.addEventListener('hashchange',route)}
 async function loadPublished(){
  const approved=data=>Array.isArray(data)?data.filter(x=>x&&x.id&&x.title&&x.ai_assisted===true
-    &&x.publication_method==='autonomous'&&Array.isArray(x.blocks)&&x.blocks.length>=3&&currentDayArticle(x))
+    &&x.publication_method==='autonomous'&&Array.isArray(x.blocks)&&x.blocks.length>=2&&currentDayArticle(x))
     .map(x=>({...x,kind:'original'})):[];
  // The public HTML carries verified stories as a backup for blocked/stale JSON.
  try{

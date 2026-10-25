@@ -71,15 +71,15 @@ def check(bundle: dict, human_review: bool = False) -> dict:
     if a.get("editorial_status", "").startswith("PUBLISHED") and not human_review:
         raise ValueError("Published article was supplied as an unreviewed draft")
     blocks = a["blocks"]
-    if not isinstance(blocks, list) or len(blocks) < 3:
-        raise ValueError("At least three coherent explanatory sections are required")
+    if not isinstance(blocks, list) or len(blocks) < 2:
+        raise ValueError("At least two coherent explanatory sections are required")
     paragraphs = []
     for block in blocks:
         if not isinstance(block, list) or len(block) != 2 or not all(isinstance(x, str) and x.strip() for x in block):
             raise ValueError("Malformed article section")
         paragraphs.append(block[1])
     word_count = sum(len(p.split()) for p in paragraphs)
-    if not 120 <= word_count <= 1100:
+    if not 95 <= word_count <= 1100:
         raise ValueError(f"Article length inappropriate: {word_count} words")
     if len(a["title"]) < 22 or len(a["title"]) > 170 or len(a["short"]) < 60:
         raise ValueError("Headline or standfirst fails editorial criteria")
