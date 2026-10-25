@@ -30,8 +30,9 @@ def main():
             assert page.locator('#publisher-desk').count()==0,'External publisher headlines leaked into the publication'
             assert page.locator('.desk-tile').count()==4,'Financial-services sector navigation absent'
             page.screenshot(path=str(OUT/f'home-{width}.png'),full_page=True)
-            page.locator('.desk-tile[data-category="Banking"]').click()
-            assert page.locator('.chip[data-category="Banking"]').get_attribute('aria-pressed')=='true','Banking desk filter did not respond'
+            page.locator('.desk-tile[href="archive.html?category=Banking"]').click()
+            assert page.locator('#archive-category').input_value()=='Banking','Banking desk archive filter did not respond'
+            assert page.locator('article[data-category="Banking"]:visible').count()>0,'Banking archive desk empty despite published reports'
             page.goto(SITE+'hourly.html',wait_until='domcontentloaded',timeout=60000)
             assert page.locator('h1').inner_text()=='The hourly desk.','Hourly reading page unavailable'
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'),'Hourly page overflows viewport'
