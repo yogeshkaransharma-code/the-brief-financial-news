@@ -16,6 +16,7 @@ from urllib.parse import urlsplit
 from financial_consistency import concerns as financial_concerns
 from source_retrieval import ALLOWED as OFFICIAL
 from publication_scope import source_lane
+from numeric_evidence import unsupported as unsupported_quantities
 
 # Share the primary-source host allowlist with the actual document reader.
 STATUSES = {"Proposal", "Confirmed announcement", "Published report", "Speech / commentary"}
@@ -110,7 +111,8 @@ def check(bundle: dict, human_review: bool = False) -> dict:
     if not isinstance(source_numbers, list) or any(not isinstance(x, str) for x in source_numbers):
         raise ValueError("Original source's numerical token register is missing")
     reported_numbers = {m.group().lower().replace(",", "") for m in NUMBER.finditer(" ".join([a["title"], a["short"]] + ([v for block in blocks for v in block] if audit.get("review_headings") else paragraphs)))}
-    if not reported_numbers.issubset(set(source_numbers)):
+    reported_text=' '.join([a['title'],a['short']]+([v for block in blocks for v in block] if audit.get('review_headings') else paragraphs))
+    if unsupported_quantities(reported_text,captured+' '+audit.get('source_title','')+' '+a['dateISO']):
         raise ValueError("Article introduces figures not found in the recorded official source")
     combined = "\n".join([v for block in blocks for v in block] + [a["title"], a["short"]])
     if a["status"] in ("Proposal", "Speech / commentary") and RISKY.search(combined):

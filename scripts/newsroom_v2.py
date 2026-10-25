@@ -25,6 +25,7 @@ from editorial_gate import check as editorial_check
 from publication_scope import source_lane
 from source_dates import verify_announcement
 from same_day_policy import clock
+from numeric_evidence import unsupported as unsupported_quantities
 
 MAX_CANDIDATES = 16
 MAX_DRAFTS = 3
@@ -135,7 +136,10 @@ def draft_with_source_repair(item,official,gemini=fetch_gemini,max_repairs=0):
 
     No rewritten prompt, second paid call or different model is attempted.
     """
-    return make_article(gemini(write_prompt(item,official)),item,official)
+    response=gemini(write_prompt(item,official))
+    raw=OUTPUT/'writer-responses';raw.mkdir(parents=True,exist_ok=True)
+    (raw/(hashlib.sha256(item['url'].encode()).hexdigest()[:20]+'.json')).write_text(json.dumps(response,ensure_ascii=False,indent=2)+'\n')
+    return make_article(response,item,official)
 
 
 def review_until_resolved(item,doc,first_article,gemini=fetch_gemini,max_revisions=0):
@@ -147,6 +151,8 @@ def review_until_resolved(item,doc,first_article,gemini=fetch_gemini,max_revisio
     """
     article=first_article
     verification=gemini(review_prompt(article,doc,article_sentences(article)))
+    raw=OUTPUT/'reviewer-responses';raw.mkdir(parents=True,exist_ok=True)
+    (raw/(article.get('id','unknown')+'.json')).write_text(json.dumps(verification,ensure_ascii=False,indent=2)+'\n')
     checks,flags,coverage=reconcile_reviews(article,doc,verification)
     audit=build_audit(article,doc,item,checks,coverage)
     bundle=prepare_bundle(article,audit,doc,flags)
@@ -199,8 +205,9 @@ def make_article(output,item,official):
         raise ValueError("Boilerplate corporate phrasing; rewrite")
     story_nums=numeric_tokens(combined)
     source_nums=numeric_tokens(official.text+" "+item['title']+" "+item['dateISO'])
-    if story_nums-source_nums:
-        raise ValueError("Numbers absent from official source: "+repr(sorted(story_nums-source_nums)[:8]))
+    missing=unsupported_quantities(combined,official.text+' '+item['title']+' '+item['dateISO'])
+    if missing:
+        raise ValueError("Numbers absent from official source: "+repr(missing[:8]))
     glossary=[]
     glossary_items=output.get("glossary",[])
     # The optional glossary must never prevent an otherwise valid story
@@ -471,7 +478,31 @@ def main():
         "eligible_for_this_run":len(candidates),
         "active_quota_pause_until":ledger.get("quota_pause_until")
     },sort_keys=True))
+    # Free source/date preflight happens before the commissioning editor spends
+    # a request. Gemini, rather than the sort above, makes the final selection.
+    from editorial_selection import choose
+    verified=[]
     for item in candidates[:MAX_CANDIDATES]:
+        try:
+            doc=read_source(item['url']);preflight_source(item,doc)
+            item=verify_announcement(item,doc,now)
+            verified.append((item,doc))
+        except Exception as exc:
+            report.append({'title':item['title'],'source':item['url'],'result':'held back','stage':'source','reason':str(exc)[:360]})
+            delay(item['url'],4,str(exc))
+    selection={'result':'NO_VERIFIED_CANDIDATES','requests':0,'selected':[]}
+    selected=[]
+    try:
+        selected,selection=choose(verified,ledger,meter,fetch_gemini,edition_date=clock(now).date().isoformat(),max_stories=min(MAX_DRAFTS,max(0,(meter.remaining()-1)//2)))
+    except Exception as exc:
+        selection={'result':'BLOCKED','reason':str(exc)[:360],'requests':meter.run_used,'selected':[]}
+        report.append({'result':'stopped','stage':'editorial_selection','reason':str(exc)[:360]})
+        if isinstance(exc,GeminiAPIError):
+            after=next_quota_check(str(exc),now)
+            if exc.daily:after=next_quota_check('daily limit',now)
+            ledger['quota_pause_until']=after.isoformat()
+    print('GEMINI_EDITORIAL_SELECTION: '+json.dumps(selection,ensure_ascii=False))
+    for item,doc in selected:
         if accepted>=MAX_DRAFTS:
             break
         if meter.remaining()<2:
@@ -481,9 +512,8 @@ def main():
         stage="source"
         bundle=None
         try:
-            doc=read_source(item["url"])
-            preflight_source(item,doc)
-            item=verify_announcement(item,doc,now)
+            # The same complete capture used for selection is used for writing
+            # and review; no second fetch can silently change the evidence.
             stage="writing"
             article=draft_with_source_repair(item,doc,gemini=budgeted_ai)
             stage="independent_review"
@@ -559,6 +589,8 @@ def main():
         "ai_policy":"one Gemini draft and separate evidence review; no model fallback or rewrite",
         "first_party_indexes_checked":len(__import__("first_party_sources").INDEXES),
         "fresh_unpublished_source_candidates":fresh_candidates,
+        "verified_original_candidates":len(verified),
+        "editorial_selection":selection,
         "available_after_retry_cooldowns":available_after_source_cooldowns,
         "eligible_for_this_run":len(candidates),
         "active_quota_pause_until":ledger.get("quota_pause_until"),

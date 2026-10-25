@@ -16,13 +16,15 @@ def assess(articles,report,now,publication=None,feeds=None,launch=None):
     feed_ok=len(feeds.get('sources_checked',[]));feed_fail=len(feeds.get('errors',[]))
     if not report or not publication or os.getenv('BRIEF_PIPELINE_ERROR')=='true':outcome='BLOCKED'
     elif new:outcome='PUBLISHED'
-    elif report.get('fresh_unpublished_source_candidates',0):outcome='BLOCKED'
+    elif report.get('editorial_selection',{}).get('result')=='BLOCKED':outcome='BLOCKED'
+    elif report.get('verified_original_candidates',report.get('fresh_unpublished_source_candidates',0)) and report.get('editorial_selection',{}).get('result')!='NO_WORTHWHILE_NEWS':outcome='BLOCKED'
     elif failures or feed_fail:outcome='DEGRADED'
     elif not checked or not feed_ok:outcome='BLOCKED'
     else:outcome='NO_QUALIFYING_NEWS'
     if not new and (launch or {}).get('result') in {'FAILED','HELD','STARTED'}:outcome='BLOCKED'
     return {'checked_at':now.isoformat(),'uk_date':clock(now).date().isoformat(),'outcome':outcome,
       'launch_test':launch or {'result':'NOT_RUN'},'published_this_run':new,'genuine_same_day_articles':sum(published_same_day(a,now) for a in articles),
+      'editorial_selection':report.get('editorial_selection',{'result':'NOT_RECORDED'}),
       'published_total':len(articles),'last_article_at':max((a['published_at'] for a in articles),default=None),
       'fresh_source_candidates':report.get('fresh_unpublished_source_candidates',0),
       'machine_screened':report.get('machine_screened',0),'primary_indexes_checked':checked,

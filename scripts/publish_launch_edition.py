@@ -13,6 +13,7 @@ from newsroom_v2 import write_prompt,make_article,review_until_resolved
 from source_retrieval import read_source
 from source_dates import verify_announcement
 from publish_autonomous import publish,eligible
+from editorial_selection import choose
 
 ROOT=Path(__file__).resolve().parents[1]
 DAY='2026-10-24'
@@ -26,13 +27,13 @@ def run(root=ROOT):
         print('LAUNCH_EDITION_ALREADY_PUBLISHED:',existing[0]['id']);return
     if dest.exists():
         previous=json.loads(dest.read_text())
-        if previous.get('attempted'):
+        if previous.get('attempted') and previous.get('version',1)>=2:
             print('LAUNCH_EDITION_HELD: previous attempt retained; no automatic repeat');return
-    report={'edition_date':DAY,'window_start':'2026-10-24T06:00:00+01:00',
+    report={'version':2,'edition_date':DAY,'window_start':'2026-10-24T06:00:00+01:00',
             'retrospective':True,'result':'STARTED','published':[],
             'run_id':os.getenv('GITHUB_RUN_ID','local'),'checked_at':dt.datetime.now(dt.timezone.utc).isoformat()}
     ledger_path=root/'data/newsroom-attempts.json'
-    ledger=json.loads(ledger_path.read_text());meter=CallBudget(ledger,per_run=2,path=ledger_path)
+    ledger=json.loads(ledger_path.read_text());meter=CallBudget(ledger,per_run=3,path=ledger_path)
     folder=root/'generated-drafts/launch-edition';folder.mkdir(parents=True,exist_ok=True)
     try:
         doc=read_source(SOURCE)
@@ -42,10 +43,15 @@ def run(root=ROOT):
         preflight_source(item,doc)
         issue=dt.datetime.fromisoformat(item['source_published_at'])
         if issue<dt.datetime.fromisoformat(report['window_start']):raise ValueError('Source predates 6am launch')
-        if meter.remaining()<2:raise ValueError('Fewer than two requests remain; writer/reviewer pair not started')
+        if meter.remaining()<3:raise ValueError('Fewer than three requests remain; selection/writer/reviewer sequence not started')
         report.update(attempted=True,source_url=SOURCE,original_source_time=item['source_published_at'],model=ACTIVE_MODEL)
         dest.write_text(json.dumps(report,indent=2)+'\n')
+        selected,decision=choose([(item,doc)],ledger,meter,fetch_ai,edition_date=DAY,max_stories=1)
+        report['editorial_selection']=decision
+        if not selected:raise ValueError('Gemini declined this source for the launch edition')
         output=meter.call(fetch_ai,write_prompt(item,doc)+'\nEDITORIAL FOCUS: Write one concise report on the announced investment in British AI companies and AI/cyber security. Preserve announced funding versus delivered spending. Attribute ambitions and projected benefits to the Treasury. Do not add financial-services implications absent from the source. Avoid covering every programme or stakeholder quote. Omit the glossary.')
+        (folder/'writer-response.json').write_text(json.dumps(output,ensure_ascii=False,indent=2)+'\n')
+        (folder/'original-source.txt').write_text(doc.text)
         article=make_article(output,item,doc)
         bundle,passed=review_until_resolved(item,doc,article,gemini=lambda p:meter.call(fetch_ai,p))
         (folder/(article['id']+'.json')).write_text(json.dumps(bundle,ensure_ascii=False,indent=2)+'\n')
