@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['scripts/audit_coverage.py', '.github/workflows/coverage-audit.yml']
+    paths: ['scripts/audit_coverage.py', 'scripts/source_dates.py', 'scripts/media_sources.py', '.github/workflows/coverage-audit.yml']
 permissions:
   contents: write
 concurrency:

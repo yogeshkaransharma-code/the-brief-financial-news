@@ -1,6 +1,7 @@
 """Original publication dating, never dateModified or an unrelated card's time."""
 from __future__ import annotations
 import datetime as dt
+import email.utils
 import json
 import re
 from bs4 import BeautifulSoup
@@ -18,6 +19,13 @@ def parse(value):
             return utc_stamp.date().isoformat(),utc_stamp.isoformat(),'timestamp'
     except ValueError:
         pass
+    # Some publishers supply their explicit pubdate as an RFC 822 timestamp.
+    try:
+        stamp=email.utils.parsedate_to_datetime(value)
+        if stamp.tzinfo:
+            utc_stamp=stamp.astimezone(dt.timezone.utc)
+            return utc_stamp.date().isoformat(),utc_stamp.isoformat(),'timestamp'
+    except (ValueError,TypeError,OverflowError):pass
     # Only explicit publication elements are passed here, not arbitrary prose.
     cleaned=re.sub(r'(?i)(?<=\d)(st|nd|rd|th)\b','',value)
     cleaned=re.sub(r'(?i)^(first published|published|publication date|date published)(?:\s+on)?\s*:?\s*','',cleaned)

@@ -78,7 +78,7 @@ def eligible(bundle, *, edition_date=None):
         problems.append("Government publication status misrepresented")
     if lane in {"fca_release","company_release","industry_release","official_release","issuer_rns","tpr_release","ombudsman_release","regulatory_finding"} and a.get("status")!="Confirmed announcement":
         problems.append("An official announcement must be labelled as such")
-    if lane and a.get("category") not in {"Banking","Insurance","Technology","Regulation","Pensions","Brokers"}:
+    if lane and a.get("category") not in {"Banking","Insurance","Technology","Regulation","Pensions","Brokers","Wealth"}:
         problems.append("Original source not within financial-services industry category")
     if not a.get("date_evidence") or audit.get("date_evidence")!=a.get("date_evidence"):
         problems.append("Missing original-document date evidence")

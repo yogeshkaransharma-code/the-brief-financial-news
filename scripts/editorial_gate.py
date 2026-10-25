@@ -148,7 +148,7 @@ def check(bundle: dict, human_review: bool = False) -> dict:
     elif human_review:
         raise ValueError("Legacy AI draft has no separate full-sentence evidence review; cannot publish")
 
-    if a.get("category") not in ("Regulation", "Insurance", "Banking", "Technology", "Pensions", "Brokers"):
+    if a.get("category") not in ("Regulation", "Insurance", "Banking", "Technology", "Pensions", "Brokers", "Wealth"):
         raise ValueError("Unrecognised section")
     result = {"id": a["id"], "title": a["title"], "word_count": word_count,
               "status": a["status"], "evidence_checks": len(evidence),

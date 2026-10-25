@@ -32,6 +32,20 @@ def main():
  for title in ['UK leather firm makes wallets','How can I save on bank fees?','My partner wants my pension','Sponsored insurance product launch']:
   assert not relevant({'title':title}),title
  assert relevant({'title':'Treasury Budget to include new lending guarantees'})
+ assert relevant({'title':'PPF confirms zero levy for 2027/28 and one-year pause to ACS levy','url':'https://www.professionalpensions.com/news/4537731/ppf-confirms-zero-levy-2027-pause-acs-levy'})
+ assert relevant({'title':'How to interpret new reporting obligations','url':'https://www.professionalpensions.com/news/4537731/reporting-obligations'})
+ assert not relevant({'title':'Sponsored adviser product promotion','url':'https://www.professionalpensions.com/news/4537731/adviser-product'})
+ assert relevant({'title':'Aon completes acquisition of specialist intermediary'})
+ wealth='https://www.investmentweek.co.uk/news/4537796/baillie-gifford-us-growth-narrowly-saba-shareholders-board'
+ assert source_lane(wealth)=='original_reporting'
+ from test_autonomous import prepared
+ from editorial_fixtures import resign
+ from publish_autonomous import eligible
+ w=prepared();w['draft']['category']='Wealth';resign(w)
+ assert not eligible(w),eligible(w)
+ assert relevant({'title':'Baillie Gifford US Growth shareholders back board','url':wealth})
+ assert source_lane('https://www.theguardian.com/uk-news/2026/oct/25/banking-lobby-group-accused-cherry-picking-data')=='original_reporting'
+ assert source_lane('https://www.theguardian.com/uk-news/ng-interactive/2026/oct/25/budget-game') is None
  assert source_lane('https://www.fca.org.uk/news/press-releases/fca-fines-bank-for-misconduct')=='fca_release'
  report={'first_party_indexes_checked':29,'first_party_discovery_errors':['one blocked source'],'editorial_selection':{'result':'NO_VERIFIED_CANDIDATES'}}
  result=assess([],report,now,{'published':[]},{'sources_checked':[{}],'errors':[]})

@@ -74,7 +74,7 @@ class CallBudget:
 
 def preflight_source(item,doc):
     if not source_lane(item.get('url','')):raise ValueError('Not a permitted original publication category')
-    if item.get('category') not in {'Banking','Insurance','Technology','Regulation','Pensions','Brokers'}:raise ValueError('Unsupported financial-services category')
+    if item.get('category') not in {'Banking','Insurance','Technology','Regulation','Pensions','Brokers','Wealth'}:raise ValueError('Unsupported financial-services category')
     if not doc.complete_capture or doc.notes:raise ValueError('Official source is incomplete or has unresolved attachments')
     if not MIN_SOURCE_CHARS<=len(doc.text)<=MAX_SOURCE_CHARS:raise ValueError('Source length outside full-reading limits')
     if doc.url!=item.get('url') or not doc.document_urls or doc.document_urls[0]!=doc.url:raise ValueError('Source redirected; provenance must be re-established')

@@ -165,7 +165,7 @@ def archive_page(records,edition=None):
     if any(a.get('retrospective_launch') for a in records):
         body+='<p class="note"><strong>Saturday launch edition · 24 October 2026, from 6am UK.</strong> These launch reports were prepared retrospectively. Each article shows the original announcement date and its actual publication timestamp.</p>'
     body+='<p class="note">Reports from the earlier publishing system are retained with their recorded dates and a legacy verification notice. They have not been re-certified under the new controls.</p>'
-    body+='<label for="archive-search">Search the archive</label><input id="archive-search" type="search" placeholder="Company, subject or keyword"><label for="archive-category">Subject</label><select id="archive-category"><option>Everything</option>'+''.join('<option>'+x+'</option>' for x in ['Banking','Insurance','Brokers','Pensions','Regulation','Technology'])+'</select><p id="archive-count" role="status">'+str(len(records))+' reports</p>'
+    body+='<label for="archive-search">Search the archive</label><input id="archive-search" type="search" placeholder="Company, subject or keyword"><label for="archive-category">Subject</label><select id="archive-category"><option>Everything</option>'+''.join('<option>'+x+'</option>' for x in ['Banking','Insurance','Brokers','Pensions','Wealth','Regulation','Technology'])+'</select><p id="archive-count" role="status">'+str(len(records))+' reports</p>'
     body+=''.join(rows) or '<p>No earlier editions yet.</p>'
     script="""<script>
 const q=document.querySelector('#archive-search'),c=document.querySelector('#archive-category');

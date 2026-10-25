@@ -25,6 +25,7 @@ def main():
  assert not source_lane(pra.replace('.co.uk/','.co.uk.evil.test/'))
  assert parse('Published on 25 October 2026')==('2026-10-25','2026-10-25','date')
  assert parse('Updated on 25 October 2026') is None
+ assert parse('Fri, 23 Oct 2026 07:00 GMT')==('2026-10-23','2026-10-23T07:00:00+00:00','timestamp')
  assert parse('First published: 21st August 2026')==('2026-08-21','2026-08-21','date')
  assert parse('2026-10-24T20:30:00-04:00')==('2026-10-25','2026-10-25T00:30:00+00:00','timestamp')
  from source_dates import published_date

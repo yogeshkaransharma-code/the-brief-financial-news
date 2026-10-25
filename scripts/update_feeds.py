@@ -87,7 +87,8 @@ FEEDS = [
     ("Insurance Times", "https://www.insurancetimes.co.uk/insurance-times-rss/1388.rss", "Insurance"),
     ("Insurance Age", "https://www.insuranceage.co.uk/feeds/rss/category/broker", "Brokers"),
     ("Professional Pensions", "https://www.professionalpensions.com/feeds/rss", "Pensions"),
-    ("Money Marketing", "https://www.moneymarketing.co.uk/feed/", "Pensions"),
+    ("Investment Week", "https://www.investmentweek.co.uk/feeds/rss", "Wealth"),
+    ("Money Marketing", "https://www.moneymarketing.co.uk/feed/", "Wealth"),
     ("Mortgage Solutions", "https://www.mortgagesolutions.co.uk/feed/", "Banking"),
     # The Paypers /rss currently returns HTML; do not claim it is a working feed.
     # Artemis serves copyright-only summaries; not suitable for an on-site briefing.
@@ -141,7 +142,8 @@ def categorise(headline, fallback):
     if fallback == "Regulation":
         return "Regulation"
     s = headline.lower()
-    if re.search(r"\b(pension\w*|retirement|asset manag\w*|wealth manag\w*|fund manag\w*)\b",s):return "Pensions"
+    if re.search(r"\b(pension\w*|retirement)\b",s):return "Pensions"
+    if re.search(r"\b(asset manag\w*|wealth manag\w*|fund manag\w*|investment trust\w*)\b",s):return "Wealth"
     if re.search(r"\b(broker\w*|intermediar\w*|mga[s]?)\b",s):return "Brokers"
     if re.search(r"\b(fca|pra|regulat\w*|consultation|rulebook|supervis\w*|compliance|enforc\w*|sanction\w*)\b", s):
         return "Regulation"
