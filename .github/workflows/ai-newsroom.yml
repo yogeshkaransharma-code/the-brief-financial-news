@@ -27,6 +27,8 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -71,8 +73,6 @@ jobs:
         run: |
           python scripts/verify_approved_articles.py
           python scripts/sync_fallback.py
-          python scripts/build_public.py
-          python scripts/verify_public.py
       - name: Save articles, request ledger and truthful status
         if: always()
         run: |
@@ -81,8 +81,22 @@ jobs:
           git add data/ index.html
           if ! git diff --cached --quiet; then
             git commit -m "Record newsroom outcome, evidence approvals and quota usage"
-            git push origin HEAD:main
+            saved=false
+            for attempt in 1 2 3; do
+              if git push origin HEAD:main; then
+                saved=true
+                break
+              fi
+              git fetch origin main
+              # Reconcile independent edits; do not choose ours/theirs for article conflicts.
+              git rebase origin/main
+            done
+            test "$saved" = true
           fi
+      - name: Build and verify the exact reconciled public artifact
+        run: |
+          python scripts/build_public.py
+          python scripts/verify_public.py
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:

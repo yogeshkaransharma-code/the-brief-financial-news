@@ -28,7 +28,7 @@ INDEXES=(
 )
 INDEXES += EXTRA_INDEXES
 MON={"jan":1,"feb":2,"mar":3,"apr":4,"may":5,"jun":6,"jul":7,"aug":8,"sep":9,"sept":9,"oct":10,"nov":11,"dec":12}
-DATE=re.compile(r"\b([0-3]?\d)\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)[a-z]*\s+(20\d\d)\b",re.I)
+DATE=re.compile(r"\b([0-3]?\d)(?:st|nd|rd|th)?\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)[a-z]*\s+(20\d\d)\b",re.I)
 MONTH_FIRST=re.compile(r"\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)[a-z]*\s+([0-3]?\d),?\s+(20\d\d)\b",re.I)
 DOT_DATE=re.compile(r"\b([0-3]?\d)\.([01]?\d)\.(20\d\d)\b")
 SLASH_DATE=re.compile(r"\b([0-3]?\d)/([01]?\d)/(20\d\d)\b")
@@ -146,7 +146,7 @@ def discover():
             from source_trace import official_headline
             soup=BeautifulSoup(raw,"html.parser")
             urls=list(dict.fromkeys(urljoin(final,a["href"]).split("#")[0] for a in soup.select("a[href]")
-                if official_release(urljoin(final,a["href"]),source) and len(a.get_text(" ",strip=True))>=25))
+                if official_release(urljoin(final,a["href"]),source)))
             for link in urls[:3]:
                 try:
                     content,content_type,real=retrieve_bytes(link)

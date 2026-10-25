@@ -1,5 +1,6 @@
 # The Brief — Editorial Standards
 
+> Operational update, 25 October 2026: the owner has authorised unattended Gemini publication. Current executable policy and controls are documented in README.md and AUDIT.md. Any older requirement below for routine human sign-off or rolling freshness windows is superseded: original announcement and publication must share the UK calendar date, every generated heading and sentence must pass separate evidence challenge, and uncertain/high-risk material stays held. Machine review must never be described as human approval.
 **Version:** 1.0 (23 October 2026)  
 **Owner:** The Brief editorial desk  
 **Status:** Binding internal editorial policy; not a claim of Reuters/IPSO affiliation or independent accreditation  
@@ -108,3 +109,4 @@ Review these standards after a material correction, a missed-failure test, major
 - IPSO on AI and accountability: https://www.ipso.co.uk/news-analysis/does-ai-generated-content-change-editorial-standards/
 
 **Companion:** [Verification and Publication Protocol](VERIFICATION_AND_PUBLICATION_PROTOCOL.md).
+

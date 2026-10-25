@@ -64,7 +64,9 @@ def published_same_day(item, now=None):
     """Only properly approved articles from TODAY'S actual source-day appear."""
     try:
         uk_pub=date_in_uk(item["published_at"])
-        return (uk_pub==clock(now).date()
+        return (source_issued_today(item,now)
+                and dt.datetime.fromisoformat(str(item["published_at"]).replace("Z","+00:00"))<=clock(now)
+                and uk_pub==clock(now).date()
                 and original_date(item)==uk_pub
                 and item.get("publication_method")=="autonomous"
                 and item.get("ai_assisted") is True
@@ -95,3 +97,4 @@ def self_test():
 
 if __name__=="__main__":
     self_test()
+

@@ -1,5 +1,6 @@
 # The Brief — Verification and Publication Protocol
 
+> Operational update, 25 October 2026: the owner has authorised unattended Gemini publication. Current executable policy and controls are documented in README.md and AUDIT.md. Any older requirement below for routine human sign-off or rolling freshness windows is superseded: original announcement and publication must share the UK calendar date, every generated heading and sentence must pass separate evidence challenge, and uncertain/high-risk material stays held. Machine review must never be described as human approval.
 **Version:** 1.0 (23 October 2026)  
 **Owner:** The Brief editorial desk  
 **Default publication mode:** HUMAN APPROVAL ONLY. No AI-driven auto-approval.  
@@ -173,3 +174,4 @@ If any material answer is **NO** or unsupported **N/A**, do not approve.
 - IPSO and AI editorial accountability: https://www.ipso.co.uk/news-analysis/does-ai-generated-content-change-editorial-standards/
 
 This is The Brief's own internal policy, **not a certification of compliance with external press codes**. Formal policy cannot guarantee reliable journalism without effective people, evidence and accountability.
+

@@ -125,7 +125,7 @@ function currentDayArticle(x){
  const source=(x.source_time_precision==='timestamp')
   ? ukDateFromTimestamp(x.source_published_at||'')
   : String(x.dateISO||'').slice(0,10);
- return source===today && ukDateFromTimestamp(x.published_at)===today;
+ return source===today && ukDateFromTimestamp(x.published_at)===today && Date.parse(x.published_at)<=Date.now() && (x.source_time_precision!=='timestamp' || Date.parse(x.source_published_at)<=Date.now());
 }
 
 const safeUrl=x=>{try{const u=new URL(x);return (u.protocol==='https:'||u.protocol==='http:')?u.href:'#'}catch{return '#'}};
@@ -243,7 +243,7 @@ async function loadLive(){
  return false;
 }
 async function refreshOnOpen(){if(document.hidden)return;await loadPublished();renderTop();renderFeed();if(published.length&&$('static-edition'))$('static-edition').hidden=true;renderDate();renderExplainers()}
-async function start(){renderDate();renderFollows();renderExplainers();wire();setInterval(refreshOnOpen,30000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshOnOpen()});await Promise.all([loadLive(),loadPublished()]);renderTop();renderFeed();if(published.length&&$('static-edition'))$('static-edition').hidden=true;route();saveStore('lastVisit',now);}
+async function start(){renderDate();renderFollows();renderExplainers();wire();setInterval(refreshOnOpen,30000);let editionDay=ukDayInfo().key;setInterval(()=>{const day=ukDayInfo().key;if(day!==editionDay){editionDay=day;renderTop();renderFeed();renderDate()}},1000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshOnOpen()});await Promise.all([loadLive(),loadPublished()]);renderTop();renderFeed();if(published.length&&$('static-edition'))$('static-edition').hidden=true;route();saveStore('lastVisit',now);}
 start();
 })();
 </script>

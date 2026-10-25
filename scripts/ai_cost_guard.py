@@ -37,6 +37,10 @@ class CallBudget:
             temp.replace(self.path)
     def remaining(self):return max(0,min(self.per_run-self.run_used,self.per_day-self.daily_used))
     def call(self,fn,prompt):
+        if self.path:
+            quota_day=dt.datetime.now(dt.timezone.utc).astimezone(PACIFIC).date().isoformat()
+            if quota_day!=self.today:
+                self.today=quota_day;self.daily_used=0;self._sync()
         if not self.remaining():raise BudgetExhausted('Daily/run AI request cap reached')
         if self.path:
             # One serial workflow, conservatively below common free RPM limits.
