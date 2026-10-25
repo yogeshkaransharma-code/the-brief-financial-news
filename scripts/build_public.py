@@ -19,7 +19,7 @@ OUT = ROOT / "public"
 
 
 def esc(value):
-    return html.escape(str(value or ""), quote=True)
+    return html.escape("" if value is None else str(value), quote=True)
 
 
 def insert_once(page, old, replacement):
@@ -112,7 +112,7 @@ footer{{background:#30282A;color:#F7F0ED;padding:25px 30px;text-align:center;fon
 footer a{{color:#F7F0ED}}
 @media(max-width:520px){{
 .masthead-inner{{padding:23px 18px 19px;display:block}}
-.brand{{font-size:41px}}.tagline{{font-size:9px;margin-top:9px}}
+.brand{{font-size:41px}}.tagline{{display:block;font-size:9px;margin-top:9px}}
 .navinner{{padding:14px 18px}}
 .reader{{padding:30px 18px 60px}}
 h1{{font-size:clamp(37px,10vw,48px);letter-spacing:-1px;margin:16px 0}}
@@ -177,6 +177,12 @@ def status_page():
     fields=[('Last check (UTC)',state.get('checked_at')),('UK edition date',state.get('uk_date')),('Newsroom outcome',state.get('outcome')),('New articles this run',state.get('published_this_run',0)),('Articles today',state.get('genuine_same_day_articles',0)),('Primary indexes checked',state.get('primary_indexes_checked',0)),('Primary index failures',state.get('primary_index_failures',0)),('RSS feeds working',state.get('feeds_working',0)),('RSS feed failures',state.get('feed_failures',0)),('AI requests used / daily cap',str(state.get('ai_budget',{}).get('requests_today_including_this_run','unknown'))+' / '+str(state.get('ai_budget',{}).get('daily_limit','unknown'))),('Source candidates found',state.get('fresh_source_candidates',0))]
     rows=''.join('<tr><th>'+esc(k)+'</th><td>'+esc(v)+'</td></tr>' for k,v in fields)
     body='<p class="intro">Publication and technical checks are different measures. An empty edition is never counted as successful news publication.</p><table>'+rows+'</table><p class="note">This status describes the recorded run, not a guarantee of continuing service. GitHub schedules can be delayed. If the last check is over three hours old, monitoring is stale.</p><p><a href="https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions">Inspect live workflow results and diagnostic artifacts ↗</a></p>'
+    if state.get('discovery_errors'):
+        body+='<h2>Source access issues</h2><ul>'
+        for error in state['discovery_errors']:
+            label=(error.get('source','Source')+': '+error.get('error','Unavailable')) if isinstance(error,dict) else str(error)
+            body+='<li>'+esc(label)+'</li>'
+        body+='</ul>'
     return utility_page('Inside the newsroom.',body)
 
 

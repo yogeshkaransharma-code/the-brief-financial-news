@@ -44,6 +44,11 @@ def main():
                 results.append({'width':width,'article':target['id'],'source_url':target['url'],'source_http':response.status if response else None,'source_heading':source.locator('h1').first.inner_text() if source.locator('h1').count() else None})
                 source.screenshot(path=str(OUT/f'original-source-{width}.png'),full_page=True)
                 assert response and response.ok,'Original evidence is inaccessible to the browser'
+            page.goto(SITE+'status.html',wait_until='domcontentloaded',timeout=60000)
+            status=json.loads((ROOT/'data/status.json').read_text())
+            displayed=page.get_by_role('row').filter(has_text='New articles this run').locator('td').inner_text()
+            assert displayed==str(status['published_this_run']),'Status page hides or misstates zero article count'
+            page.screenshot(path=str(OUT/f'status-{width}.png'),full_page=True)
             assert not errors,errors
             context.close()
         browser.close()
