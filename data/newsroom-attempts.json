@@ -1,8 +1,8 @@
 {
   "api_budget": {
     "date": "2026-10-24",
-    "limit": 24,
-    "requests": 23,
+    "limit": 30,
+    "requests": 26,
     "timezone": "America/Los_Angeles"
   },
   "api_calls": [
@@ -62,9 +62,77 @@
         "serviceTier": "standard",
         "totalTokenCount": 3650
       }
+    },
+    {
+      "at": "2026-10-25T01:27:02.232321+00:00",
+      "prompt_characters": 3509,
+      "purpose": "production",
+      "result": "response_received",
+      "usage": {
+        "candidatesTokenCount": 61,
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 783,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 783
+          }
+        ],
+        "serviceTier": "standard",
+        "totalTokenCount": 844
+      }
+    },
+    {
+      "at": "2026-10-25T01:27:17.233913+00:00",
+      "prompt_characters": 15986,
+      "purpose": "production",
+      "result": "response_received",
+      "usage": {
+        "candidatesTokenCount": 505,
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 3159,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 3159
+          }
+        ],
+        "serviceTier": "standard",
+        "totalTokenCount": 3664
+      }
+    },
+    {
+      "at": "2026-10-25T01:27:32.235295+00:00",
+      "prompt_characters": 24476,
+      "purpose": "production",
+      "result": "response_received",
+      "usage": {
+        "candidatesTokenCount": 835,
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 5001,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 5001
+          }
+        ],
+        "serviceTier": "standard",
+        "totalTokenCount": 5836
+      }
     }
   ],
   "capacity_recovery_revision": 2,
+  "editorial_selections": {
+    "f97d4431ddff40da0caf822d3669c0e2133e1c61c81df2c1cd751f047b925d90": {
+      "selected": [
+        {
+          "id": "N01",
+          "reason": "Substantive fiscal and economic policy development directly affecting national industry investment and financial planning ahead of the Budget."
+        }
+      ],
+      "skipped": []
+    }
+  },
   "launch_diagnostic_allowance": {
     "limit": 2,
     "requests": 2
