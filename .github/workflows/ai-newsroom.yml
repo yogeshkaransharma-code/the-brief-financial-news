@@ -59,11 +59,14 @@ jobs:
         env:
           AUTO_PUBLICATION_ENABLED: '1'
         run: python scripts/publish_autonomous.py
+      - name: Refresh accurately dated hourly desk edition without model requests
+        id: hourly_desk
+        run: python scripts/hourly_desk.py
       - name: Record actual publication outcome and source failures
         id: health
         if: always()
         env:
-          BRIEF_PIPELINE_ERROR: ${{ steps.controls.outcome == 'failure' || steps.writer.outcome == 'failure' || steps.publisher.outcome == 'failure' || steps.discovery.outcome == 'failure' || steps.headlines.outcome == 'failure' }}
+          BRIEF_PIPELINE_ERROR: ${{ steps.controls.outcome == 'failure' || steps.writer.outcome == 'failure' || steps.publisher.outcome == 'failure' || steps.discovery.outcome == 'failure' || steps.headlines.outcome == 'failure' || steps.hourly_desk.outcome == 'failure' }}
         run: python scripts/newsroom_health.py
       - name: Preserve source evidence and diagnostic reports
         if: always()

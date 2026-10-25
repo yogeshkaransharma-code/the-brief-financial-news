@@ -231,6 +231,19 @@ def build():
     (OUT / "data").mkdir(exist_ok=True)
     (OUT / "story").mkdir(exist_ok=True)
 
+    from hourly_desk import make as make_hourly, page as hourly_page
+    desk_data_file=ROOT/"data/hourly-desk.json"
+    if desk_data_file.exists():
+        desk_data=json.loads(desk_data_file.read_text(encoding="utf-8"))
+    else:
+        desk_data=make_hourly(archive)
+    (OUT/"data/hourly-desk.json").write_text(json.dumps(desk_data,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+    (OUT/"hourly.html").write_text(hourly_page(desk_data),encoding="utf-8")
+    uk_hour=dt.datetime.fromisoformat(desk_data["checked_at"]).astimezone(dt.timezone(dt.timedelta(0))).strftime("%d %b %H:%M UTC")
+    desk_intro=("<div class='hourly-bar' role='status'><div><strong>Newsroom briefing · updated "+esc(uk_hour)+"</strong>"
+                "<p>"+("Fresh full articles today: "+str(desk_data["today_count"]) if desk_data["today_count"] else "Earlier reporting is labelled as background; no new approved article today")+
+                " · Source dates retained, no recycled breaking-news claims.</p></div><a href='hourly.html'>Open the hourly desk ↗</a></div>")
+    page = insert_once(page,"<!-- HOURLY_DESK_INSERT -->",desk_intro)
     latest = records[0] if records else None
     first = latest
     # The repository retains a source-mode backup for broken JavaScript.

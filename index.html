@@ -31,6 +31,37 @@
 @media(hover:hover){.explainer:hover{transform:translateY(-2px);box-shadow:0 8px 22px #34202011}}
 @media(max-width:520px){.explainer h3{font-size:23px}.explainer p,.explainer details{font-size:14px}.mini-nav a{font-size:13px}.date-separator{font-size:12px}}
 
+/* The Brief financial-services identity: discreet terminal cues, not a trading dashboard. */
+:root{--ink:#132b3b;--ink2:#142e3d;--paper:#f7f6f1;--surface:#fff;--rule:#d9e0df;--quiet:#617079;--accent:#246f75;--accent-soft:#e2eeec}
+.utility{background:#102737;color:#e7f2ef}.live-dot{background:#72c4b2;box-shadow:0 0 0 3px #72c4b222}
+.brand{font-weight:700;letter-spacing:-2.8px}.brand span,.news-heading h2 span,.understand h2 span{color:#b76f4e}
+.strap{color:#65747a}.navstrip{background:#eaf0ee;border-color:#d6e2df}
+.nav-title{color:#276d75}.mini-nav a{color:#304e5a}.chip.active{background:#123949;border-color:#123949}
+.lead-story h1{font-weight:500}.one-minute{background:#142d3e}.minute-kicker,.brief-number{color:#92d0c2}.one-minute h2 span{color:#d9a486}
+.news-item h3{font-weight:500}.story-kicker,.section-kicker,.news-cat{color:#23727a}
+.issue-heading{border-color:#163749}.issue-heading span:first-child:before{content:"";display:inline-block;width:7px;height:7px;background:#258b8a;margin-right:10px;border-radius:50%}
+.cta{border-color:#23747a}.news-bookmark.on{color:#23747a}
+.desk-launch{padding:22px 0 34px;border-bottom:1px solid #cddada}
+.desk-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:22px}
+.desk-head h2{font:normal clamp(27px,2.9vw,39px)/1.1 var(--display);margin:8px 0 0;letter-spacing:-1.2px}
+.desk-head h2 em{font-weight:400;color:#23747a}
+.desk-hourly-link{font-size:12px;font-weight:800;text-decoration:none;white-space:nowrap;border-bottom:1px solid #27747b;padding-bottom:7px}
+.desk-tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.desk-tile{position:relative;display:flex;flex-direction:column;min-height:185px;background:#fff;border:1px solid #d8e3e0;padding:18px 18px 16px;text-decoration:none;transition:transform .2s,border-color .2s,box-shadow .2s;overflow:hidden}
+.desk-tile:hover,.desk-tile:focus-visible{color:#122f40;transform:translateY(-3px);border-color:#559da0;box-shadow:0 14px 26px #102a3b12}
+.desk-tile svg{width:34px;height:34px;fill:none;stroke:#25767a;stroke-width:1.6;stroke-linejoin:round;stroke-linecap:round;margin-bottom:9px}
+.desk-number{font:750 9px/1.2 var(--sans);letter-spacing:.13em;color:#6b8186;margin-bottom:9px}
+.desk-tile strong{font:normal 27px/1.1 var(--display);letter-spacing:-.5px}
+.desk-tile>span:nth-last-child(2){font:12px/1.4 var(--sans);color:#688086;margin-top:7px;padding-right:9px}
+.desk-tile b{position:absolute;right:18px;top:17px;color:#b36b4d;font-weight:400}
+.hourly-bar{display:flex;gap:20px;align-items:center;justify-content:space-between;background:#e7efee;border:1px solid #c8dcda;padding:12px 18px;margin:13px 0 0}
+.hourly-bar strong{font-size:11px;color:#205b67;letter-spacing:.06em;text-transform:uppercase}
+.hourly-bar p{font-size:11px;color:#576d73;margin:2px 0 0}
+.hourly-bar a{white-space:nowrap;font-size:12px;font-weight:750;color:#175d68;text-decoration:none;border-bottom:1px solid #48858b}
+.signals{background:#e7efee;color:#36656b}
+@media(max-width:850px){.desk-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}.desk-tile{min-height:170px}.desk-head{align-items:start}}
+@media(max-width:520px){.desk-head{display:block}.desk-hourly-link{display:inline-block;margin-top:13px}.desk-tiles{gap:8px}.desk-tile{padding:14px 12px;min-height:154px}.desk-tile strong{font-size:23px}.desk-tile>span:nth-last-child(2){font-size:11px}.desk-tile svg{width:29px;height:29px}.hourly-bar{align-items:flex-start;flex-direction:column;gap:7px}}
+@media(prefers-reduced-motion:reduce){.desk-tile{transition:none}.desk-tile:hover{transform:none}}
 </style>
 </head>
 <body>
@@ -44,6 +75,7 @@
   <!-- THEBRIEF_STATIC_START -->
 <section id="static-edition" aria-label="Same-day approved news" style="padding:18px 22px;background:white;margin:20px 0;border-top:2px solid #87404b"><p style="font:700 11px Arial,sans-serif">VERIFIED UK NEWS · 25 October 2026</p><ul><li><a href="story/ai-a2365797604fd8f8cd6e.html">Four revenue options examined by BBC Verify ahead of the Budget</a></li><li><a href="story/ai-2a3b7cbf755ad7ecabaf.html">City economists doubt Bank of England will push interest rates to 4.75%</a></li><li><a href="story/ai-f196445ae2c30ad2b47f.html">Nationwide cuts 275 jobs in latest round following Virgin Money takeover</a></li></ul></section>
 <!-- THEBRIEF_STATIC_END -->
+  <!-- HOURLY_DESK_INSERT -->
   <section class="top-layout" aria-label="Leading stories">
     <article id="lead-story" class="lead-story"></article>
     <aside class="one-minute" id="briefing" aria-labelledby="briefing-title">
@@ -52,6 +84,15 @@
       <div id="briefing-stories" class="briefing-stories"></div>
       <a href="#latest" class="minute-footer">Read our complete articles <span aria-hidden="true">↗</span></a>
     </aside>
+  </section>
+  <section class="desk-launch" id="sector-desks" aria-label="Explore The Brief news desks">
+    <div class="desk-head"><div><span class="section-kicker">THE FINANCIAL SERVICES DESK</span><h2>Follow the market. <em>Understand the move.</em></h2></div><a class="desk-hourly-link" href="hourly.html">Explore the hourly desk <span aria-hidden="true">↗</span></a></div>
+    <div class="desk-tiles">
+      <a class="desk-tile" href="#latest" data-category="Insurance"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3 27 8v9c0 7-5.2 11-11 13C10.2 28 5 24 5 17V8L16 3Z"/><path d="m11 16 4 4 7-8"/></svg><span class="desk-number">01 / RISK</span><strong>Insurance</strong><span>Insurers, underwriting and claims</span><b aria-hidden="true">↗</b></a>
+      <a class="desk-tile" href="#latest" data-category="Banking"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="m3 12 13-8 13 8H3ZM6 14v12m7-12v12m7-12v12m6-12v12M3 28h26"/></svg><span class="desk-number">02 / CAPITAL</span><strong>Banking</strong><span>Lenders, rates and retail finance</span><b aria-hidden="true">↗</b></a>
+      <a class="desk-tile" href="#latest" data-category="Brokers"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="8" cy="9" r="4"/><circle cx="24" cy="9" r="4"/><path d="M3 28v-8c0-4 3-6 6-6m20 14v-8c0-4-3-6-6-6M12 25l8-12M13 14l7 11"/></svg><span class="desk-number">03 / DISTRIBUTION</span><strong>Brokers</strong><span>Intermediaries, MGAs and deals</span><b aria-hidden="true">↗</b></a>
+      <a class="desk-tile" href="#latest" data-category="Regulation"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 7h22M9 7v20h14V7M13 3h6m-7 11h8m-8 5h8m-8 5h5"/></svg><span class="desk-number">04 / POLICY</span><strong>Regulation</strong><span>FCA, PRA and government policy</span><b aria-hidden="true">↗</b></a>
+    </div>
   </section>
   <div class="signals" id="signals" aria-label="Browse the news"><span>INDEPENDENT VOICE. CLEAR FINANCIAL NEWS.</span><span>BANKING · INSURANCE · REGULATION · TECHNOLOGY</span></div>
   <section id="latest" class="news-section" aria-label="Latest news">
