@@ -1,38 +1,7 @@
 {
-  "checked_at": "2026-10-25T01:01:47.422281+00:00",
+  "checked_at": "2026-10-25T01:03:53.013202+00:00",
   "uk_date": "2026-10-25",
   "outcome": "DEGRADED",
-  "published_this_run": 0,
-  "genuine_same_day_articles": 0,
-  "published_total": 10,
-  "last_article_at": "2026-10-23T18:18:00.030075+00:00",
-  "fresh_source_candidates": 0,
-  "machine_screened": 0,
-  "primary_indexes_checked": 19,
-  "primary_index_failures": 4,
-  "feeds_working": 25,
-  "feed_failures": 0,
-  "ai_budget": {
-    "quota_date": "2026-10-24",
-    "quota_timezone": "America/Los_Angeles",
-    "requests_this_run": 0,
-    "requests_today_including_this_run": 22,
-    "run_limit": 6,
-    "daily_limit": 20,
-    "remaining_today": 0,
-    "diagnostic_requests_today": 2,
-    "production_requests_today": 20
-  },
-  "quota_pause_until": null,
-  "candidate_outcomes": [],
-  "discovery_errors": [
-    "UK Parliament: HTTPError HTTP Error 403: Forbidden",
-    "Allianz UK: HTTPError HTTP Error 403: Forbidden",
-    "Association of British Insurers: HTTPError HTTP Error 403: Forbidden",
-    "Revolut UK: HTTPError HTTP Error 403: Forbidden"
-  ],
-  "publication_holds": [],
-  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40148980924",
   "launch_test": {
     "version": 1,
     "result": "PASSED",
@@ -64,6 +33,42 @@
       "remaining_today": 0
     }
   },
+  "published_this_run": 0,
+  "genuine_same_day_articles": 0,
+  "published_total": 10,
+  "last_article_at": "2026-10-23T18:18:00.030075+00:00",
+  "fresh_source_candidates": 0,
+  "machine_screened": 0,
+  "primary_indexes_checked": 19,
+  "primary_index_failures": 4,
+  "feeds_working": 24,
+  "feed_failures": 1,
+  "ai_budget": {
+    "quota_date": "2026-10-24",
+    "quota_timezone": "America/Los_Angeles",
+    "requests_this_run": 0,
+    "requests_today_including_this_run": 22,
+    "run_limit": 6,
+    "daily_limit": 20,
+    "remaining_today": 0,
+    "diagnostic_requests_today": 2,
+    "production_requests_today": 20
+  },
+  "quota_pause_until": null,
+  "candidate_outcomes": [],
+  "discovery_errors": [
+    "Allianz UK: HTTPError HTTP Error 403: Forbidden",
+    "UK Parliament: HTTPError HTTP Error 403: Forbidden",
+    "Association of British Insurers: HTTPError HTTP Error 403: Forbidden",
+    "Revolut UK: HTTPError HTTP Error 403: Forbidden",
+    {
+      "source": "Money Marketing",
+      "url": "https://www.moneymarketing.co.uk/feed/",
+      "error": "HTTP Error 403: Forbidden"
+    }
+  ],
+  "publication_holds": [],
+  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40149123177",
   "launch_diagnostic_allowance": {
     "limit": 2,
     "requests": 2
