@@ -47,6 +47,11 @@ TERMS=(
  ("basis points","A basis point is one-hundredth of a percentage point; 100 basis points equal one percentage point."),
  ("persistency","The proportion of insurance policies that remain in force over a defined period."),
  ("annuity","A financial product that provides regular income, usually in retirement."),
+ ("National Insurance","UK contributions paid by workers and employers to help fund state benefits and services. It is not a commercial insurance policy."),
+ ("VAT","Value Added Tax — a tax added to the sale price of most goods and services."),
+ ("basis point","One-hundredth of a percentage point; for example, a 25-basis-point rate rise is 0.25 percentage points."),
+ ("base rate","The Bank of England's benchmark interest rate, which influences borrowing and saving rates."),
+ ("APE","Annual premium equivalent — a common insurance sales measure that combines regular premiums with a share of single premiums."),
 )
 def terms_for(a,limit=4):
     combined=" ".join([str(a.get("title","")),str(a.get("short",""))]+[str(p) for _,p in a.get("blocks",[])])
