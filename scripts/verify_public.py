@@ -17,7 +17,8 @@ def verify():
     current_home=re.sub(r'<section id="launch-edition".*?</section>','',home,flags=re.S)
     if 'id="launch-edition"' in home:
         assert 'Prepared retrospectively; actual publication times' in home
-    assert 'archive.html' in home and 'status.html' in home
+    assert 'archive.html?category=Insurance' in home and 'archive.html?category=Banking' in home
+    assert 'status.html' not in home and 'hourly.html' not in home
     for a in canonical:
         escaped=html.escape(a['title'],quote=True)
         assert escaped in archive_html,'Archive headline absent'
@@ -28,16 +29,16 @@ def verify():
         for h,p in a['blocks']:assert html.escape(h,quote=True) in story and html.escape(p,quote=True) in story
     if not edition:assert 'No verified news from today yet' in home
     assert not (public/'data/live.json').exists() and 'data/live.json' not in home
-    assert (public/'status.html').is_file()
-    desk=json.loads((public/'data/hourly-desk.json').read_text())
-    desk_html=(public/'hourly.html').read_text()
-    assert 'href="hourly.html"' in home and 'The hourly desk.' in desk_html
-    assert desk['mode'] in {'TODAY_VERIFIED','DATED_CONTEXT','EMPTY'}
-    assert desk['edition_date']==__import__('same_day_policy').clock().date().isoformat()
-    for item in desk['items']:
-        assert item['id'] in {a['id'] for a in canonical},'Hourly desk includes unapproved reporting'
-        assert html.escape(item['title'],quote=True) in desk_html,'Hourly story missing'
-        assert item['original_date'] in desk_html,'Hourly story missing its original date'
+    assert not (public/'status.html').exists(), 'Internal newsroom dashboard accidentally published'
+    assert not (public/'hourly.html').exists(), 'Duplicate hourly reading page was published'
+    assert (public/'assets/site.css').is_file(), 'Shared burgundy stylesheet absent'
+    assert (public/'about.html').is_file() and (public/'sources.html').is_file()
+    for a in archive:
+        assert a['desk_section'] in {'Insurance','Banking'}, 'Third public category leaked'
+    for a in edition:
+        if a.get('display_glossary'):
+            story=(public/'story'/(a['id']+'.html')).read_text()
+            assert 'Jargon, explained.' in story, 'Story glossary missing'
     assert 'id="publisher-desk"' not in home
     assert not (public/'data/headlines.json').exists(),'Internal research headlines leaked into public output'
     print('PUBLIC_ARTIFACT_VALIDATED:',json.dumps({'today':len(edition),'archive':len(archive),'complete_stories':len(canonical)}))

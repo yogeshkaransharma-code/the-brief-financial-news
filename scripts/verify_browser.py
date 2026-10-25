@@ -4,6 +4,7 @@ import os
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 from same_day_policy import published_same_day
+from site_design import desk_for
 ROOT=Path(__file__).resolve().parents[1]
 SITE=os.getenv('BRIEF_SITE_URL','https://yogeshkaransharma-code.github.io/the-brief-financial-news/').rstrip('/')+'/'
 OUT=ROOT/'browser-evidence'
@@ -28,24 +29,21 @@ def main():
                     assert a['title'] in page.locator('#launch-edition').inner_text()
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'),'Homepage overflows viewport'
             assert page.locator('#publisher-desk').count()==0,'External publisher headlines leaked into the publication'
-            assert page.locator('.desk-tile').count()==4,'Financial-services sector navigation absent'
+            assert page.locator('.tb-nav a').count()==3,'Navigation is not exactly Insurance, Banking and About'
+            assert page.locator('.tb-sector-visual').count()==2,'Insurance and banking imagery missing'
+            assert page.locator('a[href="status.html"]').count()==0,'Technical dashboard link leaked'
             page.screenshot(path=str(OUT/f'home-{width}.png'),full_page=True)
-            page.locator('.desk-tile[href="archive.html?category=Banking"]').click()
-            assert page.locator('#archive-category').input_value()=='Banking','Banking desk archive filter did not respond'
-            assert page.locator('article[data-category="Banking"]:visible').count()>0,'Banking archive desk empty despite published reports'
-            page.goto(SITE+'hourly.html',wait_until='domcontentloaded',timeout=60000)
-            assert page.locator('h1').inner_text()=='The hourly desk.','Hourly reading page unavailable'
-            assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'),'Hourly page overflows viewport'
-            page.screenshot(path=str(OUT/f'hourly-{width}.png'),full_page=True)
-            page.goto(SITE,wait_until='domcontentloaded',timeout=60000)
-            page.get_by_role('link',name='Archive',exact=True).click()
+            page.locator('.tb-sector-visual[href="archive.html?category=Banking"]').click()
+            assert page.locator('#archive-category').input_value()=='Banking','Banking section filter failed'
+            assert page.locator('article[data-category="Banking"]:visible').count()>0,'Banking section is empty'
+            page.goto(SITE+'archive.html',wait_until='domcontentloaded',timeout=60000)
             assert 'The archive.' in page.locator('h1').inner_text()
             assert page.locator('article[data-category]').count()==len(articles),'Archive headline count differs'
             if articles:
                 target=articles[0]
                 page.locator('#archive-search').fill(target['title'])
                 assert page.locator('article[data-category]:visible').count()==1,'Archive search failed'
-                page.locator('#archive-category').select_option(target['category'])
+                page.locator('#archive-category').select_option(desk_for(target))
                 assert page.locator('article[data-category]:visible').count()==1,'Archive subject filter failed'
                 page.get_by_role('link',name=target['title'],exact=True).click()
                 assert target['title']==page.locator('h1').inner_text()
@@ -72,11 +70,12 @@ def main():
             page.locator('#source-search').fill('RSS/Atom')
             assert page.locator('[data-source-row]:visible').count()>0,'Source registry search failed'
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'),'Source registry overflows viewport'
-            page.goto(SITE+'status.html',wait_until='domcontentloaded',timeout=60000)
-            status=json.loads((ROOT/'data/status.json').read_text())
-            displayed=page.get_by_role('row').filter(has_text='New articles this run').locator('td').inner_text()
-            assert displayed==str(status['published_this_run']),'Status page hides or misstates zero article count'
-            page.screenshot(path=str(OUT/f'status-{width}.png'),full_page=True)
+            page.goto(SITE+'about.html',wait_until='domcontentloaded',timeout=60000)
+            assert page.locator('.tb-nav a').count()==3
+            assert page.locator('a[href="status.html"]').count()==0
+            assert page.locator('.tb-about-images img').count()==2
+            assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'),'About page overflows viewport'
+            page.screenshot(path=str(OUT/f'about-{width}.png'),full_page=True)
             assert not errors,errors
             context.close()
         browser.close()

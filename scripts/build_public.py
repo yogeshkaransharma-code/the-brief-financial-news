@@ -11,6 +11,7 @@ import re
 from pathlib import Path
 from urllib.parse import quote
 from same_day_policy import published_same_day, clock, original_date, date_in_uk
+from site_design import desk_for, terms_for, header, footer as site_footer, visual
 import shutil
 import datetime as dt
 
@@ -45,7 +46,7 @@ def valid_articles():
                 and isinstance(a.get("blocks"), list)
                 and len(a["blocks"]) >= 2):
             raise ValueError("Unapproved or incomplete article in public build")
-    return sorted(records, key=lambda a: (a.get("published_at", ""), a.get("dateISO", ""), a["id"]), reverse=True)
+    return sorted([dict(a, desk_section=desk_for(a), display_glossary=(a.get("glossary") or terms_for(a))) for a in records], key=lambda a: (a.get("published_at", ""), a.get("dateISO", ""), a["id"]), reverse=True)
 
 
 def story_href(a):
@@ -63,92 +64,54 @@ def article_body(a):
 
 
 def standalone_story(a):
-    """One source-attributed reading page styled as part of the publication."""
-    from datetime import date
-
-    headline = esc(a["title"])
-    description = esc(a.get("short", ""))
-    body = article_body(a)
-    news_date = original_date(a).strftime("%-d %B %Y")
-    release_date = date_in_uk(a["published_at"]).strftime("%-d %B %Y")
-    archived = original_date(a) != clock().date()
-    archive_notice = ('<p class="disclosure"><strong>ARCHIVE · Earlier edition.</strong> This is historical reporting, not today’s news.</p>' if archived else "")
-    if not a.get("date_evidence"):
-        archive_notice += '<p class="disclosure">Legacy report: source dating and claims were screened by the earlier system and have not been revalidated under the current controls. Dates below are retained as originally recorded.</p>'
-    if a.get('retrospective_launch'):
-        archive_notice += '<p class="disclosure"><strong>Saturday launch edition · 24 October 2026.</strong> This report was prepared retrospectively from an announcement issued after 6am UK on Saturday. The publication timestamp below records when The Brief actually published it.</p>'
-    media=a.get("status")=="Original reporting"
-    source_caption="Original reporting" if media else "Original announcement"
-    source_description=("This report summarises attributed journalism from the named publisher. The Brief did not independently verify every corporate claim." if media else "This report is based on the named primary document.")
-    source_link_text="read the original report" if media else "read the original announcement"
+    """A complete, source-linked reading page under the shared burgundy masthead."""
+    section=a.get("desk_section") or desk_for(a)
+    news_date=original_date(a).strftime("%-d %B %Y")
     publication_stamp=dt.datetime.fromisoformat(a['published_at'].replace('Z','+00:00')).astimezone(__import__('zoneinfo').ZoneInfo('Europe/London')).strftime('%-d %B %Y, %H:%M %Z')
+    archived=original_date(a)!=clock().date()
+    note=('<p class="archive-note"><strong>ARCHIVE · Earlier edition.</strong> This is earlier reporting, not today’s news.</p>' if archived else '')
+    if not a.get("date_evidence"):
+        note+='<p class="archive-note">Legacy report: the source date and claims have not been revalidated under the current controls.</p>'
+    if a.get("retrospective_launch"):
+        note+='<p class="archive-note">Saturday launch edition prepared retrospectively; the recorded publication time is accurate.</p>'
+    is_media=a.get("status")=="Original reporting"
+    source_description=("This article summarises attributed journalism by the named publisher. The Brief has not independently verified every underlying claim." if is_media
+        else "This article is based on the original announcement or document below.")
+    terms=a.get("display_glossary") or terms_for(a)
+    definitions=(''.join('<dt>'+esc(t)+'</dt><dd>'+esc(d)+'</dd>' for t,d in terms))
+    glossary_html=('<section class="tb-glossary"><h2>Jargon, explained.</h2><dl>'+definitions+'</dl></section>' if definitions else '')
     return f"""<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{headline} — The Brief</title><meta name="description" content="{description}">
+<html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#332B2E"><meta name="description" content="{esc(a.get('short',''))}">
+<title>{esc(a['title'])} — The Brief</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Newsreader:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
 <style>
-:root{{--ink:#272323;--paper:#F8F5EF;--accent:#87404B;--muted:#6B5F5C;--rule:#DED8D0;--serif:'Newsreader',Georgia,serif;--sans:'Inter',Arial,sans-serif}}
-*{{box-sizing:border-box}}
-body{{margin:0;background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased}}
-a{{color:inherit;text-underline-offset:4px;text-decoration-color:#B58B91}}
-a:hover{{color:var(--accent)}}
-.utility{{background:#30282A;color:#EFE7E4;font:750 10px var(--sans);letter-spacing:.14em;text-align:center;padding:11px 16px}}
-.masthead{{border-bottom:1px solid var(--rule)}}
-.masthead-inner{{max-width:1110px;padding:25px 28px 23px;margin:auto;display:flex;align-items:end;justify-content:space-between;gap:18px}}
-.brand{{font:700 clamp(37px,5vw,54px)/.95 var(--serif);letter-spacing:-1.8px;text-decoration:none}}
-.brand span{{color:var(--accent)}}
-.tagline{{font:750 10px/1.5 var(--sans);letter-spacing:.12em;color:#645B5B}}
-.navstrip{{border-bottom:1px solid var(--rule);background:white}}
-.navinner{{max-width:1110px;padding:13px 28px;margin:auto;display:flex;justify-content:space-between;gap:15px;font:650 12px var(--sans)}}
-.reader{{width:min(100%,820px);margin:auto;padding:46px 30px 80px}}
-.kicker{{font:800 11px var(--sans);letter-spacing:.13em;color:var(--accent);text-transform:uppercase}}
-h1{{font:500 clamp(38px,5.7vw,65px)/1.06 var(--serif);letter-spacing:-1.6px;margin:22px 0 23px}}
-.intro{{font:400 clamp(19px,2.8vw,23px)/1.5 var(--serif);color:#695D5A;margin:0 0 25px}}
-.meta{{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:14px 0;font:550 12px/1.7 var(--sans);color:#706562}}
-.meta span{{padding:0 8px;color:#A99B98}}
-.mainpoint{{margin:30px 0;background:#F1E7E3;border-left:3px solid var(--accent);padding:20px 25px}}
-.mainpoint b{{font:800 10px var(--sans);letter-spacing:.13em;color:var(--accent)}}
-.mainpoint p{{font:400 21px/1.48 var(--serif);margin:9px 0 0}}
-.article-body{{max-width:710px;font:400 20px/1.68 var(--serif)}}
-.article-body h2{{font:500 31px/1.22 var(--serif);letter-spacing:-.5px;margin:42px 0 15px}}
-.article-body p{{margin:0 0 23px}}
-.source{{border-top:2px solid #45383B;margin-top:45px;padding:20px 0;font:14px/1.7 var(--sans);overflow-wrap:anywhere}}
-.source h2{{font:500 26px var(--serif);margin:0 0 12px}}
-.disclosure{{font:12px/1.7 var(--sans);color:#6F6462;max-width:670px}}
-footer{{background:#30282A;color:#F7F0ED;padding:25px 30px;text-align:center;font:12px var(--sans)}}
-footer a{{color:#F7F0ED}}
-@media(max-width:520px){{
-.masthead-inner{{padding:23px 18px 19px;display:block}}
-.brand{{font-size:41px}}.tagline{{display:block;font-size:9px;margin-top:9px}}
-.navinner{{padding:14px 18px}}
-.reader{{padding:30px 18px 60px}}
-h1{{font-size:clamp(37px,10vw,48px);letter-spacing:-1px;margin:16px 0}}
-.intro{{font-size:20px;line-height:1.45}}
-.article-body{{font-size:19px;line-height:1.7}}
-.article-body h2{{font-size:28px}}
-.mainpoint{{padding:17px 19px}}
-}}
-</style></head><body>
-<div class="utility">THE UK FINANCIAL SERVICES DESK</div>
-<header class="masthead"><div class="masthead-inner">
-<a class="brand" href="../index.html">THE BRIEF<span>.</span></a>
-<span class="tagline">FINANCIAL NEWS, UNDERSTOOD<br> BANKING · INSURANCE · REGULATION</span>
-</div></header>
-<nav class="navstrip"><div class="navinner"><a href="../index.html">← Today</a><a href="../archive.html">Archive</a><a href="../about.html">About &amp; corrections</a></div></nav>
-<main class="reader"><article>
-{archive_notice}
-<div class="kicker">{esc(a.get("category",""))} / THE BRIEF ORIGINAL</div>
-<h1>{headline}</h1>
-<p class="intro">{description}</p>
-<div class="meta">{source_caption}: <time datetime="{esc(a["dateISO"])}">{esc(news_date)}</time> <span>·</span> Published: <time datetime="{esc(a["published_at"])}">{esc(publication_stamp)}</time> <span>·</span> {esc(a.get("source",""))}</div>
-<div class="article-body">{body}</div>
-<div class="source"><h2>Original evidence</h2>
-<p>{source_description} <a href="{esc(a["url"])}" target="_blank" rel="noopener noreferrer">{esc(a.get("source","Primary source"))} — {source_link_text} ↗</a></p></div>
-<p class="disclosure">This article was generated and screened by an automated newsroom using the linked original source. It has not been independently reviewed by a human editor. <a href="../about.html">Read our editorial and corrections policy.</a> Not financial advice.</p>
-</article></main>
-<footer><a href="../index.html">THE BRIEF.</a> · UK financial news, understood.</footer>
-</body></html>
-"""
+.reader{{width:min(100%,840px);margin:auto;padding:44px 28px 95px}}
+.reader .kicker{{font:800 11px var(--sans);letter-spacing:.14em;color:#87404B;text-transform:uppercase}}
+.reader h1{{font:500 clamp(38px,5.1vw,62px)/1.08 var(--display);letter-spacing:-1.45px;margin:18px 0 20px}}
+.reader .intro{{font:400 clamp(19px,2.1vw,24px)/1.46 var(--display);color:#655956;margin:0 0 23px}}
+.reader .meta{{padding:13px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);font:12px/1.7 var(--sans);color:#766a65}}
+.reader .article-body{{font:400 20px/1.72 var(--display);max-width:735px}}
+.reader .article-body h2{{font:500 31px/1.23 var(--display);letter-spacing:-.5px;margin:35px 0 12px}}
+.reader .article-body p{{margin:0 0 23px}}
+.reader .archive-note{{font:13px/1.65 var(--sans);background:#f1e7e3;color:#654d52;border-left:3px solid #87404B;padding:12px 17px}}
+.reader .disclosure{{font:12px/1.7 var(--sans);color:#766966;margin-top:23px}}
+.reader a{{text-underline-offset:4px;text-decoration-color:#b48a91}}
+@media(max-width:600px){{.reader{{padding:30px 19px 70px}}.reader .article-body{{font-size:19px}}.reader .article-body h2{{font-size:26px}}}}
+</style></head>
+<body class="tb-reading-page">{header("../")}
+<main class="reader"><article>{note}<div class="kicker">{esc(section)} / THE BRIEF REPORT</div>
+<h1>{esc(a['title'])}</h1><p class="intro">{esc(a.get('short',''))}</p>
+<div class="meta">Original source date: <time datetime="{esc(a['dateISO'])}">{esc(news_date)}</time> · Published by The Brief: <time datetime="{esc(a['published_at'])}">{esc(publication_stamp)}</time> · {esc(a.get('source',''))}</div>
+{visual(section)}
+<div class="article-body">{article_body(a)}</div>
+{glossary_html}
+<div class="source tb-source-evidence"><h2>Original source</h2>
+<p>{esc(source_description)} This photograph is contextual imagery, not evidence of the reported event.</p>
+<a href="{esc(a['url'])}" target="_blank" rel="noopener noreferrer">{esc(a.get('source','Original publisher'))} — read the original source ↗</a></div>
+<p class="disclosure">Prepared and machine-screened by an automated newsroom; no human editorial review is claimed. <a href="../about.html">Our standards and corrections policy</a>. Not financial advice.</p>
+</article></main>{site_footer("../")}</body></html>"""
 
 
 def archive_page(records,edition=None):
@@ -159,13 +122,13 @@ def archive_page(records,edition=None):
         cards=[]
         for a in records:
             if original_date(a).isoformat()!=day:continue
-            cards.append('<article data-category="'+esc(a['category'])+'"><span class="kicker">'+esc(a['category'])+'</span><h2><a href="'+prefix+story_href(a)+'">'+esc(a['title'])+'</a></h2><p>'+esc(a['short'])+'</p><small>Original announcement: '+esc(day)+' · Published by The Brief: '+esc(date_in_uk(a['published_at']))+' · '+esc(a['source'])+'</small></article>')
+            cards.append('<article data-category="'+esc(a['desk_section'])+'"><span class="kicker">'+esc(a['desk_section'])+'</span><h2><a href="'+prefix+story_href(a)+'">'+esc(a['title'])+'</a></h2><p>'+esc(a['short'])+'</p><small>Original announcement: '+esc(day)+' · Published by The Brief: '+esc(date_in_uk(a['published_at']))+' · '+esc(a['source'])+'</small></article>')
         rows.append('<section><h2 class="edition"><a href="'+prefix+'edition/'+day+'.html">'+esc(day)+' edition ↗</a></h2>'+''.join(cards)+'</section>')
     body='<p class="intro">Earlier developments, kept in their dated editions. Nothing here is presented as today’s news.</p>'
     if any(a.get('retrospective_launch') for a in records):
         body+='<p class="note"><strong>Saturday launch edition · 24 October 2026, from 6am UK.</strong> These launch reports were prepared retrospectively. Each article shows the original announcement date and its actual publication timestamp.</p>'
     body+='<p class="note">Reports from the earlier publishing system are retained with their recorded dates and a legacy verification notice. They have not been re-certified under the new controls.</p>'
-    body+='<label for="archive-search">Search the archive</label><input id="archive-search" type="search" placeholder="Company, subject or keyword"><label for="archive-category">Subject</label><select id="archive-category"><option>Everything</option>'+''.join('<option>'+x+'</option>' for x in ['Banking','Insurance','Brokers','Pensions','Wealth','Regulation','Technology'])+'</select><p id="archive-count" role="status">'+str(len(records))+' reports</p>'
+    body+='<label for="archive-search">Search the archive</label><input id="archive-search" type="search" placeholder="Company, subject or keyword"><label for="archive-category">Subject</label><select id="archive-category"><option>Everything</option>'+''.join('<option>'+x+'</option>' for x in ['Insurance','Banking'])+'</select><p id="archive-count" role="status">'+str(len(records))+' reports</p>'
     body+=''.join(rows) or '<p>No earlier editions yet.</p>'
     script="""<script>
 const q=document.querySelector('#archive-search'),c=document.querySelector('#archive-category');
@@ -177,9 +140,14 @@ if(requested&&[...c.options].some(o=>o.value===requested)){c.value=requested;fil
 
 
 def utility_page(title,body,prefix=''):
-    return '<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+esc(title)+' — The Brief</title><style>'+"""
-:root{--paper:#F7F6F1;--ink:#132B3B;--accent:#246F75;--rule:#D9E0DF}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.65 Arial,sans-serif}a{color:inherit;text-underline-offset:4px;text-decoration-color:var(--accent)}header{border-bottom:1px solid var(--rule);padding:25px max(20px,calc((100% - 1100px)/2));background:#fff}header a{font:bold 40px Georgia,serif;text-decoration:none;white-space:nowrap}nav{display:flex;gap:24px;flex-wrap:wrap;margin-top:18px}nav a{font:600 13px Arial,sans-serif}main{max-width:900px;margin:auto;padding:50px 24px 90px}h1{font:normal clamp(42px,8vw,68px)/1.1 Georgia,serif;letter-spacing:-1.7px}h2{font:normal 28px/1.25 Georgia,serif}article{padding:24px 0;border-bottom:1px solid var(--rule)}article p{color:#665b59}.kicker,label{font:bold 11px Arial,sans-serif;letter-spacing:.1em;color:var(--accent)}small{font-size:12px;color:#6b5f5c}.intro{font:23px/1.5 Georgia,serif}.note{border-left:3px solid var(--accent);padding:12px 18px;background:#E8F0EE;font-size:13px}.edition{border-bottom:2px solid var(--ink);margin-top:40px;padding-bottom:12px}.edition a{font:600 14px Arial,sans-serif}label{display:block;margin:18px 0 6px}input,select{font:16px Arial,sans-serif;width:100%;padding:12px;border:1px solid #bcaeaa;background:#fff;color:var(--ink)}input:focus-visible,a:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:4px}[hidden]{display:none!important}table{width:100%;border-collapse:collapse}td,th{padding:12px;text-align:left;border-bottom:1px solid var(--rule);overflow-wrap:anywhere}footer{background:#132B3B;color:#fff;padding:30px;text-align:center;font-size:12px}@media(max-width:520px){main{padding:28px 18px 60px}h1{font-size:43px}h2{font-size:25px}}
-"""+'</style></head><body><header><a href="'+prefix+'index.html">THE BRIEF<span style="color:#87404B">.</span></a><nav aria-label="Primary"><a href="'+prefix+'index.html">Today</a><a href="'+prefix+'archive.html">Archive</a><a href="'+prefix+'about.html">About</a><a href="'+prefix+'status.html">Newsroom status</a></nav></header><main><h1>'+esc(title)+'</h1>'+body+'</main><footer>THE BRIEF. · Financial news, understood.</footer></body></html>'
+    """Single editorial layout for archive, dated editions and source information."""
+    return ('<!doctype html><html lang="en-GB"><head><meta charset="utf-8">'
+        '<meta name="viewport" content="width=device-width,initial-scale=1">'
+        '<meta name="theme-color" content="#332B2E"><title>'+esc(title)+' — The Brief</title>'
+        '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Newsreader:wght@400;500;600;700&amp;display=swap" rel="stylesheet">'
+        '<link rel="stylesheet" href="'+prefix+'assets/site.css"></head><body class="tb-utility-page">'
+        +header(prefix)+'<main class="tb-page"><span class="kicker">INSURANCE &amp; BANKING / THE BRIEF</span><h1>'+esc(title)+'</h1>'+body+'</main>'
+        +site_footer(prefix)+'</body></html>')
 
 
 def status_page():
@@ -232,20 +200,10 @@ def build():
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "data").mkdir(exist_ok=True)
     (OUT / "story").mkdir(exist_ok=True)
+    (OUT / "assets").mkdir(exist_ok=True)
+    shutil.copy2(ROOT/"assets/site.css",OUT/"assets/site.css")
 
-    from hourly_desk import make as make_hourly, page as hourly_page
-    desk_data_file=ROOT/"data/hourly-desk.json"
-    if desk_data_file.exists():
-        desk_data=json.loads(desk_data_file.read_text(encoding="utf-8"))
-    else:
-        desk_data=make_hourly(archive)
-    (OUT/"data/hourly-desk.json").write_text(json.dumps(desk_data,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
-    (OUT/"hourly.html").write_text(hourly_page(desk_data),encoding="utf-8")
-    uk_hour=dt.datetime.fromisoformat(desk_data["checked_at"]).astimezone(dt.timezone(dt.timedelta(0))).strftime("%d %b %H:%M UTC")
-    desk_intro=("<div class='hourly-bar' role='status'><div><strong>Newsroom briefing · updated "+esc(uk_hour)+"</strong>"
-                "<p>"+("Fresh full articles today: "+str(desk_data["today_count"]) if desk_data["today_count"] else "Earlier reporting is labelled as background; no new approved article today")+
-                " · Source dates retained, no recycled breaking-news claims.</p></div><a href='hourly.html'>Open the hourly desk ↗</a></div>")
-    page = insert_once(page,"<!-- HOURLY_DESK_INSERT -->",desk_intro)
+    page = insert_once(page,"<!-- HOURLY_DESK_INSERT -->","")
     latest = records[0] if records else None
     first = latest
     # The repository retains a source-mode backup for broken JavaScript.
@@ -257,7 +215,7 @@ def build():
         raise ValueError("Could not remove duplicate repository-only safety section")
     if first:
         lead = ('<article id="lead-story" class="lead-story"><span class="story-kicker">'
-            + esc(first.get("category")) + ' / THE LEAD STORY</span><h1><a href="'
+            + esc(first.get("desk_section")) + ' / THE LEAD STORY</span><h1><a href="'
             + esc(story_href(first)) + '">' + esc(first["title"])
             + '</a></h1><p class="standfirst">' + esc(first.get("short")) + '</p>'
             + '<p class="meta">Original news: ' + esc(first.get("dateISO"))
@@ -290,7 +248,7 @@ def build():
             prior = date
         rows.append(
             '<article class="news-item"><div class="story-ordinal">' + str(i+1).zfill(2)
-            + '</div><div><div class="news-cat">' + esc(a.get("category")) + ' · OUR REPORT</div>'
+            + '</div><div><div class="news-cat">' + esc(a.get("desk_section")) + ' · OUR REPORT</div>'
             + '<h3><a href="' + esc(story_href(a)) + '">' + esc(a["title"]) + '</a></h3>'
             + '<p class="summary">' + esc(a.get("short")) + '</p>'
             + '<p class="meta">Original news: ' + esc(date)
@@ -319,7 +277,6 @@ def build():
         (OUT / "edition" / (day+".html")).write_text(archive_page(selected,day),encoding="utf-8")
     status_path=ROOT/"data/status.json"
     if status_path.exists():shutil.copy2(status_path,OUT/"data/status.json")
-    (OUT/"status.html").write_text(status_page(),encoding="utf-8")
     for a in archive:
         (OUT / story_href(a)).write_text(standalone_story(a), encoding="utf-8")
 
