@@ -38,12 +38,19 @@ ISSUER_RNS = re.compile(r"^/announcement/rns/.*?/(?:9835238|9835199|9836547|9836
 TPR_RELEASE = "/media-hub/press-releases/2026-press-releases/tpr-sets-expectations-on-hidden-concentration-risks-in-pension-portfolios"
 RATHBONES_RELEASE = "/en-gb/wealth-management/media-centre/rathbones-reports-strong-financial-performance-and-strategic-momentum-third-quarter-trading-update"
 
+GUARDIAN_ORIGINAL = re.compile(
+    r"^/(?:business|money)/20\d{2}/(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/\d{1,2}/[a-z0-9-]{18,}/?$", re.I
+)
+
 def source_lane(url: str) -> str | None:
     """Return a narrow primary-source lane, or None to hold automatically."""
     p = urlsplit(url)
     if p.scheme != "https" or p.username or p.password or p.port not in (None,443):
         return None
     host, path = (p.hostname or "").lower(), p.path
+    if host in {"theguardian.com","www.theguardian.com"} and not p.query:
+        if GUARDIAN_ORIGINAL.fullmatch(path) and not ADVERSE.search(path.rsplit("/",1)[-1]):
+            return "original_reporting"
     if not ADVERSE.search(path.rsplit("/",1)[-1]):
         extra=extra_lane(url)
         if extra:return extra
@@ -137,6 +144,10 @@ def self_test():
     assert source_lane("https://www.ukfinance.org.uk/news-and-insight/press-release/uk-finance-publishes-2026-banking-sector-tax-report") == "industry_release"
     assert source_lane("https://www.abi.org.uk.evil.test/media-hub/news-post/invalid") is None
     assert source_lane("https://www.ukfinance.org.uk/news-and-insight/blog/industry-opinion") is None
+    assert source_lane("https://www.theguardian.com/business/2026/oct/25/nationwide-to-cut-275-jobs-in-latest-round-since-takeover-of-virgin-money")=="original_reporting"
+    assert source_lane("https://www.theguardian.com/business/2026/oct/25/") is None
+    assert source_lane("https://www.theguardian.com/business/2026/oct/25/nationwide-to-cut-275-jobs-in-latest-round-since-takeover-of-virgin-money?preview=true") is None
+    assert source_lane("https://www.theguardian.com.evil.invalid/business/2026/oct/25/nationwide-to-cut-275-jobs-in-latest-round-since-takeover-of-virgin-money") is None
     print("PASS: official regulator, company and industry release URL lanes; spoofed sources held")
 
 if __name__ == "__main__":
