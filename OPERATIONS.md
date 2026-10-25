@@ -50,3 +50,9 @@ The local aggregate request ceiling is now 30 per Pacific quota day, including t
 The initial launch attempt used one Gemini call and was blocked by literal numeric token comparison before review. Version 2 normalises equivalent currency spacing and million/billion notation while retaining value, scale, percentage and currency checks. It retains raw model responses for diagnosis. One versioned retry is permitted for this corrected parser; subsequent failures/holds do not repeat automatically.
 
 Gemini commissioning is now part of the normal production path: all candidates undergo source/date preflight first, then Gemini chooses from the bounded verified pool. Decisions are schema-checked, source-bound and cached. No verified candidates means no selection request. Fewer than three remaining calls means no new selection/writer/reviewer sequence starts. Original discovery remains deterministic RSS/index retrieval and source tracing; Gemini is not using paid search grounding or unrestricted browsing.
+
+### Gemini commissioning and bounded omission test
+
+Run 40150652461 made a real Gemini selection, draft and separate review. Gemini selected the Treasury announcement but held one optional regional sentence (C17). No article was published. The retained draft is source-hash and draft-hash locked for recovery; the disputed sentence can be removed whole and the full remaining article must receive a fresh independent review. This uses one review request rather than another writer call.
+
+The regular pipeline allows at most one such omission only when one flagged body sentence represents at most 20% of the report, contains no explicit limitation/qualification, leaves three non-empty sections and at least 120 words, and request budget remains for a complete new review. Headlines and standfirsts cannot be silently edited. Multiple flags, unresolved disputes or failed rechecks stay held. The seven-call run ceiling and thirty-call daily ceiling still apply.

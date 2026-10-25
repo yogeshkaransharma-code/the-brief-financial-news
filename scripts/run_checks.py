@@ -7,6 +7,7 @@ checks=[['ai_newsroom.py','--self-test'],['ai_cost_guard.py'],['source_retrieval
 checks.insert(-1,['test_launch_edition.py'])
 checks.insert(-1,['numeric_evidence.py'])
 checks.insert(-1,['test_editorial_selection.py'])
+checks.insert(-1,['test_editorial_omission.py'])
 for c in checks:
     subprocess.run([sys.executable,str(root/'scripts'/c[0])]+c[1:],check=True,cwd=root)
 print('OFFLINE_CHECKS_PASSED:',len(checks))

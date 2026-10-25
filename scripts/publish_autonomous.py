@@ -181,6 +181,7 @@ def publish(root=ROOT, folder=None, dry_run=False, *, edition_date=None):
             "review_headings":True,
             "workflow_run_url":("https://github.com/"+os.getenv("GITHUB_REPOSITORY","")+"/actions/runs/"+os.getenv("GITHUB_RUN_ID","")),
             "claim_challenge_sentences":bundle["audit"]["sentence_review"]["reviewed"],
+            "editorial_omissions":bundle['audit'].get('editorial_omissions',[]),
             "editor_notes":"Original regulator or first-party banking/insurance release; machine-screened, not fact-certified by a human editor.",
             "residual_risk":"The AI and source may be wrong; a passing automated check does not prove a claim's meaning.",
         }

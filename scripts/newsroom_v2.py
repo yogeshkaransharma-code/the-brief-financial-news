@@ -6,6 +6,7 @@ No AI-driven publication. Never substitute RSS summaries for original sources.
 """
 from __future__ import annotations
 import datetime as dt
+import copy
 import hashlib
 import json
 import os
@@ -142,6 +143,25 @@ def draft_with_source_repair(item,official,gemini=fetch_gemini,max_repairs=0):
     return make_article(response,item,official)
 
 
+def omit_flagged_context(article,flags):
+    """At most one whole optional body sentence; never invent replacement text.
+
+    A fresh complete review is mandatory afterwards. Never remove a heading,
+    standfirst, qualification, multiple disputed claims or a material body share.
+    """
+    if len(flags)!=1 or not isinstance(flags[0].get('sentence'),str):return None
+    sentence=flags[0]['sentence']
+    if re.search(r'(?i)\b(not|only|except|unless|subject to|provided that|however)\b',sentence):return None
+    words=sum(len(p.split()) for _,p in article['blocks'])
+    if len(sentence.split())>words*.2:return None
+    changed=copy.deepcopy(article);matches=0
+    for block in changed['blocks']:
+        if block[1].count(sentence)==1:
+            matches+=1;block[1]=block[1].replace(sentence,'').strip()
+            if not block[1]:return None
+    if matches!=1 or sum(len(p.split()) for _,p in changed['blocks'])<MIN_WORDS:return None
+    return changed
+
 def review_until_resolved(item,doc,first_article,gemini=fetch_gemini,max_revisions=0):
     """One independently checked draft: one reviewer request, no AI rewrites.
 
@@ -172,6 +192,13 @@ def review_until_resolved(item,doc,first_article,gemini=fetch_gemini,max_revisio
             bundle["editorial_flags"]=flags
     bundle["revision_history"]=[{"revision":0,"problems":flags[:16],
                                    "sentences":coverage.get("total_sentences")}]
+    if flags and max_revisions:
+        shortened=omit_flagged_context(article,flags)
+        if shortened is not None:
+            revised,ok=review_until_resolved(item,doc,shortened,gemini=gemini,max_revisions=0)
+            revised['audit']['editorial_omissions']=[{'text':flags[0]['sentence'],'reason':flags[0].get('reason'),'method':'Whole optional sentence removed; remaining article independently re-reviewed'}]
+            revised['revision_history']=bundle['revision_history']+[{'revision':1,'problems':revised.get('editorial_flags',[]),'sentences':revised['audit']['sentence_review']['reviewed']}]
+            return revised,ok
     return bundle,not bool(flags)
 
 
@@ -517,7 +544,7 @@ def main():
             stage="writing"
             article=draft_with_source_repair(item,doc,gemini=budgeted_ai)
             stage="independent_review"
-            bundle, passed=review_until_resolved(item,doc,article,gemini=budgeted_ai)
+            bundle, passed=review_until_resolved(item,doc,article,gemini=budgeted_ai,max_revisions=1 if meter.remaining()>=2 else 0)
             if bundle is None:
                 raise ValueError("Review failed before a complete, auditable version could be saved")
             if not passed:

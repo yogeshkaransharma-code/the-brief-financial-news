@@ -58,3 +58,5 @@ The owner requires launch preparation now. A one-time, separately recorded two-r
 ## Saturday launch reconstruction
 
 The owner explicitly requested a launch edition starting Saturday 24 October 2026 at 06:00 UK. This is a fixed, one-off retrospective window, not a moving catch-up policy. Exact original source timestamps are required. Gemini selects, writes and separately reviews; publication uses the actual current timestamp and is labelled retrospective. These reports never enter today’s feed. Normal hourly publication remains restricted to announcements from that current UK day.
+
+A single optional body sentence flagged in review may be removed whole, followed by a complete new review, only within the existing request allowance. No replacement facts are generated. Qualifications, headlines, multiple flags, missing sections and unresolved review results stay held.

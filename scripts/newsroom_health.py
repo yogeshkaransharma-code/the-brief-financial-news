@@ -66,6 +66,8 @@ def main():
     state['ai_budget']['production_requests_today']=max(0,saved_budget.get('requests',0)-diagnostic_today)
     if state['launch_test'].get('run_id')==os.getenv('GITHUB_RUN_ID','local'):
         state['ai_budget']['requests_this_run']=state['ai_budget'].get('requests_this_run',0)+state['launch_test'].get('requests_this_attempt',0)
+    if edition.get('run_id')==os.getenv('GITHUB_RUN_ID','local'):
+        state['ai_budget']['requests_this_run']=state['ai_budget'].get('requests_this_run',0)+edition.get('requests_this_attempt',0)
     (ROOT/'data/status.json').write_text(json.dumps(state,ensure_ascii=False,indent=2)+'\n')
     out=os.getenv('GITHUB_OUTPUT')
     if out:
