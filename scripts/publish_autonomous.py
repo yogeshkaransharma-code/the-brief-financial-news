@@ -53,7 +53,7 @@ def eligible(bundle, *, edition_date=None):
         if a.get("source")!="The Guardian Business":
             problems.append("Media source identity does not match the approved original publisher")
         combined_lead=(a.get("title","")+" "+a.get("short",""))
-        if not re.search(r"(?i)\\bthe guardian\\b",combined_lead):
+        if not re.search(r"(?i)\bthe guardian\b",combined_lead):
             problems.append("Independent newspaper report must be attributed to The Guardian in the headline or standfirst")
     if lane=="fca_data" and a.get("status")!="Published report":
         problems.append("FCA statistics incorrectly described")
