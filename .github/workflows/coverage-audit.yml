@@ -1,6 +1,10 @@
 name: Independent publisher coverage audit — no model requests
 on:
   workflow_dispatch:
+  # Twice-daily independent blind-spot checks cost zero model requests.
+  # Hourly publishing remains exclusively in ai-newsroom.yml.
+  schedule:
+    - cron: '23 6,18 * * *'
   push:
     branches: [main]
     paths: ['scripts/audit_coverage.py', 'scripts/source_dates.py', 'scripts/media_sources.py', '.github/workflows/coverage-audit.yml']

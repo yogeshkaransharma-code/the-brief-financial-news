@@ -48,6 +48,7 @@ FOCUSED_NEWS = re.compile(
     r"fund manag\w*|insurtech|fintech|underwrit\w*)\b"
 )
 BROADER_MEDIA = {"BBC Business","Sky Business","The Guardian Business",
+                 "The Guardian Money","The Guardian Insurance","The Guardian Banking",
                  "Financial Times","Bloomberg Markets","Wall Street Journal Markets",
                  "MarketWatch","The Economist Finance"}
 OFFICIAL_FEED_NAMES = {"FCA","FCA publications","Bank of England","PRA"} | GOVERNMENT
@@ -183,8 +184,6 @@ def parse(xml_bytes, name, fallback):
         if name in GOVERNMENT and not GOVERNMENT_FINANCE_HEADLINE.search(headline):
             continue
         from media_sources import relevant
-        if name in BROADER_MEDIA and not relevant({'title':headline}):
-            continue
         # Some feeds contain only an author line, a copyright notice, or no usable
         # explanation. These aren't useful news briefings for our readers.
         if (not summary or len(summary) < 45
@@ -206,6 +205,12 @@ def parse(xml_bytes, name, fallback):
             link=urllib.parse.urlunsplit((url.scheme,url.netloc,url.path,"",""))
         from media_sources import canonical_url
         link=canonical_url(link)
+        # Publisher sections are context, not a licence to take every lifestyle headline.
+        # Evaluate the canonical article URL alongside its headline. This preserves
+        # a genuinely relevant financial-security report even when its headline
+        # omits the words 'bank' and 'insurance'.
+        if name in BROADER_MEDIA and not relevant({'title':headline,'url':link}):
+            continue
         uid = hashlib.sha256(link.encode()).hexdigest()[:20]
         output.append({
             "id": "feed-" + uid, "kind": "source",
