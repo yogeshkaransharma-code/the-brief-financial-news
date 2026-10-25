@@ -1,8 +1,8 @@
 {
-  "checked_at": "2026-10-25T18:32:31.017421+00:00",
+  "checked_at": "2026-10-25T19:28:22.019784+00:00",
   "uk_date": "2026-10-25",
-  "outcome": "BLOCKED",
-  "editorial_outcome": "BLOCKED",
+  "outcome": "NO_QUALIFYING_NEWS",
+  "editorial_outcome": "NO_QUALIFYING_NEWS",
   "technical_status": "AWAITING_LIVE_VERIFICATION",
   "source_coverage_status": "PARTIAL",
   "launch_test": {
@@ -11,42 +11,30 @@
   "published_this_run": 0,
   "genuine_same_day_articles": 4,
   "editorial_selection": {
-    "result": "SELECTED",
-    "requests": 1,
-    "cache_key": "48d6cd79642e3976f4f122c9bec44c6dfb3efd48caf98ebeb4aed67b8408025a",
-    "selected": [
-      {
-        "id": "N01",
-        "reason": "Substantive bilateral regulatory and financing policy development between the UK and Canada concerning defence financing institutions, offering high reader value for a financial-news publication.",
-        "url": "https://www.gov.uk/government/news/joint-statement-from-hm-treasury-and-department-of-finance-canada",
-        "category": "Regulation"
-      }
-    ],
-    "skipped": []
+    "result": "NO_VERIFIED_CANDIDATES",
+    "requests": 0,
+    "selected": []
   },
   "published_total": 15,
   "last_article_at": "2026-10-25T16:31:49.549910+00:00",
   "fresh_source_candidates": 7,
-  "verified_original_candidates": 1,
+  "verified_original_candidates": 0,
   "candidates_by_sector": {
     "Banking": 1,
-    "Regulation": 1,
     "Technology": 1
   },
-  "verified_by_sector": {
-    "Regulation": 1
-  },
-  "articles_commissioned": 1,
-  "articles_held": 1,
+  "verified_by_sector": {},
+  "articles_commissioned": 0,
+  "articles_held": 0,
   "machine_screened": 0,
   "primary_indexes_checked": 29,
   "primary_index_failures": 4,
-  "feeds_working": 33,
-  "feed_failures": 0,
+  "feeds_working": 32,
+  "feed_failures": 1,
   "ai_budget": {
     "quota_date": "2026-10-25",
     "quota_timezone": "America/Los_Angeles",
-    "requests_this_run": 3,
+    "requests_this_run": 0,
     "requests_today_including_this_run": 24,
     "run_limit": 7,
     "daily_limit": 30,
@@ -65,28 +53,26 @@
       "source": "https://www.bbc.co.uk/news/articles/c6gel54940qno",
       "result": "cached editorial rejection",
       "reason": "Focuses on general consumer cost-of-living sentiment rather than a distinct institutional, corporate, or policy development relevant to professional financial readers."
-    },
-    {
-      "title": "Joint statement from HM Treasury and Department of Finance Canada",
-      "result": "held for review",
-      "reason": "3 editorial flags: The source does not explicitly mention 'defence financing' in the headline or explicitly pledge closer cooperation speci; Section heading not directly backed by a source text statement.; Section heading not directly backed by a source text statement.",
-      "stage": "independent_review",
-      "source": "https://www.gov.uk/government/news/joint-statement-from-hm-treasury-and-department-of-finance-canada"
     }
   ],
   "discovery_errors": [
     "UK Parliament: HTTPError HTTP Error 403: Forbidden",
     "Allianz UK: HTTPError HTTP Error 403: Forbidden",
     "Association of British Insurers: HTTPError HTTP Error 403: Forbidden",
-    "Revolut UK: HTTPError HTTP Error 403: Forbidden"
+    "Revolut UK: HTTPError HTTP Error 403: Forbidden",
+    {
+      "source": "Insurance Age",
+      "url": "https://www.insuranceage.co.uk/feeds/rss/category/broker",
+      "error": "not well-formed (invalid token): line 1, column 0"
+    }
   ],
   "publication_holds": [],
-  "run_id": "40221662491",
+  "run_id": "40226158992",
   "event": "schedule",
-  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40221662491",
+  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40226158992",
   "publisher_links": 0,
   "discovery_headlines": 7,
-  "publisher_desk_checked_at": "2026-10-25T18:31:50.218064+00:00",
+  "publisher_desk_checked_at": "2026-10-25T19:28:10.966802+00:00",
   "previous_verified_runs": [
     {
       "run_id": "40193630697",
@@ -662,6 +648,42 @@
       "deployment": "success",
       "live_check": "success",
       "browser_check": "skipped"
+    },
+    {
+      "run_id": "40221662491",
+      "event": "schedule",
+      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40221662491",
+      "editorial_outcome": "BLOCKED",
+      "published_this_run": 0,
+      "publisher_links": 0,
+      "discovery_headlines": 7,
+      "source_coverage_status": "PARTIAL",
+      "fresh_source_candidates": 7,
+      "verified_by_sector": {
+        "Regulation": 1
+      },
+      "ai_budget": {
+        "quota_date": "2026-10-25",
+        "quota_timezone": "America/Los_Angeles",
+        "requests_this_run": 3,
+        "requests_today_including_this_run": 24,
+        "run_limit": 7,
+        "daily_limit": 30,
+        "remaining_today": 6
+      },
+      "commissioned_stories": [
+        {
+          "id": "N01",
+          "reason": "Substantive bilateral regulatory and financing policy development between the UK and Canada concerning defence financing institutions, offering high reader value for a financial-news publication.",
+          "url": "https://www.gov.uk/government/news/joint-statement-from-hm-treasury-and-department-of-finance-canada",
+          "category": "Regulation"
+        }
+      ],
+      "checked_at": "2026-10-25T18:33:07.412308+00:00",
+      "technical_status": "LIVE_VERIFIED",
+      "deployment": "success",
+      "live_check": "success",
+      "browser_check": "skipped"
     }
   ],
   "launch_acceptance": {
@@ -673,14 +695,16 @@
       "article_site_live_verified": true,
       "mobile_and_desktop_reading": true,
       "latest_run_technically_healthy": true,
-      "latest_editorial_run_unblocked": true
+      "latest_editorial_run_unblocked": false
     },
-    "verified_scheduled_runs": 5,
+    "verified_scheduled_runs": 6,
     "commissioned_sectors": [
-      "Banking"
+      "Banking",
+      "Regulation"
     ],
     "pending": [
-      "worthwhile_same_day_developments_across_sectors"
+      "worthwhile_same_day_developments_across_sectors",
+      "latest_editorial_run_unblocked"
     ],
     "note": "Operational evidence checkpoint, not a guarantee of future events or error-free journalism."
   },
