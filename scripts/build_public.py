@@ -142,14 +142,14 @@ if(requested&&[...c.options].some(o=>o.value===requested)){c.value=requested;fil
     return page.replace('</body>',script+'</body>')
 
 
-def utility_page(title,body,prefix=''):
+def utility_page(title,body,prefix='',active=''):
     """Single editorial layout for archive, dated editions and source information."""
     return ('<!doctype html><html lang="en-GB"><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width,initial-scale=1">'
         '<meta name="theme-color" content="#332B2E"><title>'+esc(title)+' — The Brief</title>'
         '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Newsreader:wght@400;500;600;700&amp;display=swap" rel="stylesheet">'
         '<link rel="stylesheet" href="'+prefix+'assets/site.css"></head><body class="tb-utility-page">'
-        +header(prefix)+'<main class="tb-page"><span class="kicker">INSURANCE &amp; BANKING / THE BRIEF</span><h1>'+esc(title)+'</h1>'+body+'</main>'
+        +header(prefix,active)+'<main class="tb-page"><span class="kicker">INSURANCE &amp; BANKING / THE BRIEF</span><h1>'+esc(title)+'</h1>'+body+'</main>'
         +site_footer(prefix)+'</body></html>')
 
 
@@ -179,6 +179,23 @@ def status_page():
         body+='</table>'
     body+='<p>The current artifact is built before deployment checks. The linked workflow and verified history record the subsequent live result.</p>'
     return utility_page('Inside the newsroom.',body)
+
+
+def desk_page(records,section):
+    """A real, independently addressable Insurance or Banking page."""
+    selected=[a for a in records if a['desk_section']==section]
+    intro=('Underwriting, brokers, insurers, claims, protection and insurance regulation.' if section=='Insurance'
+        else 'Banks, lending, savings, payments, markets and banking regulation.')
+    intro_html='<p class="intro">'+intro+' Read each full article on The Brief, with definitions and the original source linked below.</p>'
+    cards=[]
+    for a in selected:
+        date=original_date(a).strftime('%-d %B %Y')
+        cards.append('<article data-category="'+esc(section)+'"><span class="kicker">'+esc(date)+' · '+esc(a.get('source',''))+'</span>'
+            '<h2><a href="'+story_href(a)+'">'+esc(a['title'])+'</a></h2>'
+            '<p>'+esc(a.get('short',''))+'</p><small>Original news: '+esc(date)+' · <a href="'+story_href(a)+'">Read complete article ↗</a></small></article>')
+    if not selected:cards.append('<p>No approved reports in this section yet. The newsroom continues to check sources.</p>')
+    body=intro_html+'<p class="note">Earlier developments remain dated. We do not label older reporting as breaking news.</p>'+''.join(cards)
+    return utility_page(section+'.',body,active=section)
 
 
 def sources_page():
@@ -274,6 +291,8 @@ def build():
     (OUT / "data/articles.json").write_text(json.dumps(records, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     (OUT / "data/archive.json").write_text(json.dumps(archive,ensure_ascii=False,indent=2)+"\n")
     (OUT / "archive.html").write_text(archive_page(archive),encoding="utf-8")
+    (OUT / "insurance.html").write_text(desk_page(archive,'Insurance'),encoding="utf-8")
+    (OUT / "banking.html").write_text(desk_page(archive,'Banking'),encoding="utf-8")
     (OUT / "edition").mkdir(exist_ok=True)
     for day in sorted({original_date(a).isoformat() for a in archive}):
         selected=[a for a in archive if original_date(a).isoformat()==day]

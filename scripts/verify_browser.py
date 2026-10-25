@@ -33,14 +33,15 @@ def main():
             assert page.locator('.tb-sector-visual').count()==2,'Insurance and banking imagery missing'
             assert page.locator('a[href="status.html"]').count()==0,'Technical dashboard link leaked'
             page.screenshot(path=str(OUT/f'home-{width}.png'),full_page=True)
-            page.locator('.tb-sector-visual[href="archive.html?category=Banking"]').click()
-            page.wait_for_load_state('domcontentloaded')
-            try:
-                page.wait_for_function("document.querySelector('#archive-category')?.value === 'Banking'",timeout=9000)
-            except Exception:
-                details=page.evaluate("({href:location.href,select:document.querySelector('#archive-category')?.value,options:[...document.querySelector('#archive-category')?.options||[]].map(x=>x.value),scripts:document.scripts.length,ready:document.readyState})")
-                raise AssertionError('Banking section filter failed: '+str(details))
-            assert page.locator('article[data-category="Banking"]:visible').count()>0,'Banking section is empty'
+            page.locator('.tb-sector-visual[href="banking.html"]').click()
+            assert page.locator('h1').inner_text()=='Banking.','Banking page missing'
+            assert page.locator('article[data-category="Banking"]').count()==sum(desk_for(a)=='Banking' for a in articles),'Banking page has missing or misplaced reports'
+            assert page.locator('article[data-category="Insurance"]').count()==0,'Insurance articles wrongly shown under banking'
+            assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'),'Banking page overflows'
+            page.goto(SITE+'insurance.html',wait_until='domcontentloaded',timeout=60000)
+            assert page.locator('h1').inner_text()=='Insurance.'
+            assert page.locator('article[data-category="Insurance"]').count()==sum(desk_for(a)=='Insurance' for a in articles)
+            assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'),'Insurance page overflows'
             page.goto(SITE+'archive.html',wait_until='domcontentloaded',timeout=60000)
             assert 'The archive.' in page.locator('h1').inner_text()
             assert page.locator('article[data-category]').count()==len(articles),'Archive headline count differs'

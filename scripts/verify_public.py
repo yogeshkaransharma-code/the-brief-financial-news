@@ -17,7 +17,7 @@ def verify():
     current_home=re.sub(r'<section id="launch-edition".*?</section>','',home,flags=re.S)
     if 'id="launch-edition"' in home:
         assert 'Prepared retrospectively; actual publication times' in home
-    assert 'archive.html?category=Insurance' in home and 'archive.html?category=Banking' in home
+    assert 'insurance.html' in home and 'banking.html' in home
     assert 'status.html' not in home and 'hourly.html' not in home
     for a in canonical:
         escaped=html.escape(a['title'],quote=True)
@@ -33,6 +33,15 @@ def verify():
     assert not (public/'hourly.html').exists(), 'Duplicate hourly reading page was published'
     assert (public/'assets/site.css').is_file(), 'Shared burgundy stylesheet absent'
     assert (public/'about.html').is_file() and (public/'sources.html').is_file()
+    for section in ['Insurance','Banking']:
+        path=public/(section.lower()+'.html')
+        page=path.read_text(encoding='utf-8')
+        assert '<h1>'+section+'.</h1>' in page
+        assert 'class="tb-header"' in page and 'status.html' not in page
+        matches=[a for a in archive if a['desk_section']==section]
+        for article in matches:assert html.escape(article['title'],quote=True) in page
+        assert page.count('<article data-category=')==len(matches)
+
     for a in archive:
         assert a['desk_section'] in {'Insurance','Banking'}, 'Third public category leaked'
     for a in edition:

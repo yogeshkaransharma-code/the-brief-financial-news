@@ -50,9 +50,13 @@ def probe():
                 assert all(html.escape(p,quote=True) in story for _,p in a['blocks']),'Full article paragraphs missing'
                 tested.append(a['id'])
             if not today:assert 'No verified news from today yet' in home,'Empty edition misleading'
-            assert 'archive.html?category=Insurance' in home and 'archive.html?category=Banking' in home,'Section navigation missing'
+            assert 'insurance.html' in home and 'banking.html' in home,'Section navigation missing'
             assert 'href="status.html"' not in home and 'href="hourly.html"' not in home,'Internal/duplicate pages still linked'
             assert '.tb-sector-visual' in read(SITE+'assets/site.css'+token),'Shared visual identity missing'
+            for section in ['Insurance','Banking']:
+                sector_page=read(SITE+section.lower()+'.html'+token)
+                assert '<h1>'+section+'.</h1>' in sector_page,'Sector page missing'
+                assert 'class="tb-header"' in sector_page,'Sector page branding missing'
             about=read(SITE+'about.html'+token)
             assert 'class="tb-header"' in about and 'status.html' not in about,'About page has wrong navigation'
             state=json.loads(read(SITE+'data/status.json'+token))
