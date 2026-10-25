@@ -30,7 +30,7 @@ from numeric_evidence import unsupported as unsupported_quantities
 
 MAX_CANDIDATES = 16
 MAX_DRAFTS = 3
-MIN_WORDS = 120
+MIN_WORDS = 95
 MAX_WORDS = 950
 NUMBER = re.compile(r"(?<![\w])(?:£|\$)?\d+(?:[.,]\d+)*(?:%|bn|m|k)?(?![\w])", re.I)
 GENERIC = re.compile(r"(?i)\b(?:industry participants|financial services professionals are reviewing|in today's evolving landscape|in a significant development)\b")
@@ -130,7 +130,7 @@ def write_prompt(item, official):
         "Avoid bureaucratic filler and spelled-out financial figures. "
         "Create sections based on what the story justifies, not five compulsory headings. "
         "An ideal story covers what happened, useful context, who is affected and what's next "
-        "when the source supports those points. A short simple story can have three sections. "
+        "when the source supports those points. A short, well-evidenced story can have two or three concise sections. "
         "Every sentence and section heading must be grounded in the source. Clearly attribute organisational claims. "
         "For insurer/bank company announcements, write 'Aviva says' or 'Lloyds says' "
         "for a company-reported benefit, product claim or projection, and do not "
@@ -139,9 +139,9 @@ def write_prompt(item, official):
         "Avoid promotional claims such as 'revolutionary', 'game changing' or "
         "'the UK's first' unless independently substantiated. "
         "Return ONLY a JSON object with: "
-        "headline (string), standfirst (string), sections (array of 3 to 6 objects, "
+        "headline (string), standfirst (string), sections (array of 2 to 5 objects, "
         "each with heading and text strings), glossary (array of objects with term/explanation, optional). "
-        "Write 220–650 words in total, but never invent text to reach a quota. "
+        "Write around 120–450 words in total for source-supported developments; a tight 95-word article is acceptable when that is all the evidence justifies. Never pad with speculation. "
         "Prefer crisp paragraphs. Don't reproduce extensive source phrasing. "
         f"\n\nSOURCE TITLE: {item['title']}\nSOURCE DATE: {item['dateISO']}"
         f"\nPRIMARY SOURCE: {official.url}\nDOCUMENTS: {', '.join(official.document_urls)}"
@@ -232,7 +232,7 @@ def make_article(output,item,official):
         raise ValueError("Unusable headline")
     if not isinstance(summary,str) or not 55<=len(summary)<=350:
         raise ValueError("Unusable standfirst")
-    if not isinstance(raw_sections,list) or not 3<=len(raw_sections)<=6:
+    if not isinstance(raw_sections,list) or not 2<=len(raw_sections)<=5:
         raise ValueError("Article needs coherent sections, not a rigid template")
     blocks=[]
     for entry in raw_sections:
