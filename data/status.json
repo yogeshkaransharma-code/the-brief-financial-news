@@ -1,110 +1,130 @@
 {
-  "checked_at": "2026-10-25T11:57:23.961012+00:00",
+  "checked_at": "2026-10-25T12:35:26.263544+00:00",
   "uk_date": "2026-10-25",
-  "outcome": "BLOCKED",
+  "outcome": "PUBLISHED",
+  "editorial_outcome": "PUBLISHED",
+  "technical_status": "AWAITING_LIVE_VERIFICATION",
+  "source_coverage_status": "PARTIAL",
   "launch_test": {
-    "version": 1,
-    "result": "PASSED",
-    "checked_at": "2026-10-25T00:57:47.713543+00:00",
-    "model": "gemini:gemini-3.5-flash-lite",
-    "source_url": "https://www.fca.org.uk/news/press-releases/fca-calls-private-market-firms-manage-conflicts-interest-line-rapid-growth",
-    "requests_this_attempt": 2,
-    "published_articles": 0,
-    "unpublished_test": true,
-    "run_id": "40148709835",
-    "quota_date": "2026-10-24",
-    "original_source_date": "2026-10-23",
-    "one_time_diagnostic": true,
-    "writer_and_review_passed": true,
-    "old_source_publication_rejected": true,
-    "reviewed_sentences": 13,
-    "editorial_flags": [],
-    "publication_gate_holds": [
-      "Original announcement is not from TODAY in the UK; old or future news is forbidden",
-      "High-risk claim requires human accountability"
-    ],
-    "api_budget": {
-      "quota_date": "2026-10-24",
-      "quota_timezone": "America/Los_Angeles",
-      "requests_this_run": 2,
-      "requests_today_including_this_run": 22,
-      "run_limit": 2,
-      "daily_limit": 20,
-      "remaining_today": 0
-    }
+    "result": "NOT_RUN"
   },
-  "published_this_run": 0,
-  "genuine_same_day_articles": 1,
+  "published_this_run": 2,
+  "genuine_same_day_articles": 3,
   "editorial_selection": {
-    "result": "NOT_RECORDED"
-  },
-  "published_total": 12,
-  "last_article_at": "2026-10-25T11:29:28.547719+00:00",
-  "fresh_source_candidates": 0,
-  "machine_screened": 0,
-  "primary_indexes_checked": 0,
-  "primary_index_failures": 0,
-  "feeds_working": 32,
-  "feed_failures": 0,
-  "ai_budget": {
-    "requests_today_including_this_run": 3,
-    "daily_limit": 30,
-    "remaining_today": 27,
-    "diagnostic_requests_today": 0,
-    "production_requests_today": 3
-  },
-  "quota_pause_until": null,
-  "candidate_outcomes": [],
-  "discovery_errors": [],
-  "publication_holds": [],
-  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40191008902",
-  "source_coverage_status": "COMPLETE",
-  "launch_edition": {
-    "version": 3,
-    "edition_date": "2026-10-24",
-    "window_start": "2026-10-24T06:00:00+01:00",
-    "retrospective": true,
-    "result": "PUBLISHED",
-    "published": [
+    "result": "SELECTED",
+    "requests": 1,
+    "cache_key": "58c95c8bb590f8d34105d3a53a2fb37dcf848a4cf6b084770c018a706d7b5e86",
+    "selected": [
       {
-        "id": "ai-6d43cd604a058aa7b9da",
-        "title": "Chancellor unveils major funding package for UK artificial intelligence and security",
-        "url": "https://www.gov.uk/government/news/chancellor-unveils-britains-ambitious-plan-for-ai"
+        "id": "N01",
+        "reason": "Provides credible macroeconomic analysis from City economists challenging market-implied interest rate expectations, offering valuable insight for financial professionals and investors regarding Bank of England policy.",
+        "url": "https://www.theguardian.com/business/2026/oct/25/interest-rates-bank-of-england-rises-summer-2027"
+      },
+      {
+        "id": "N05",
+        "reason": "Covers critical fiscal policy expectations ahead of the upcoming Budget, specifically examining potential increases in taxes on UK banks and their implications for corporate profits and sector investment.",
+        "url": "https://www.bbc.co.uk/news/articles/c65yn9p55np2o"
+      },
+      {
+        "id": "N02",
+        "reason": "Highlights substantive upcoming government financing and regional investment policies, detailing planned funding allocations for affordable housing and local borrowing powers.",
+        "url": "https://www.bbc.co.uk/news/articles/cqm24j9y9zn7o"
       }
     ],
-    "run_id": "40150946287",
-    "checked_at": "2026-10-25T01:31:25.524269+00:00",
-    "attempted": true,
-    "source_url": "https://www.gov.uk/government/news/chancellor-unveils-britains-ambitious-plan-for-ai",
-    "original_source_time": "2026-10-24T05:00:05+00:00",
-    "model": "gemini:gemini-3.5-flash-lite",
-    "editorial_selection": {
-      "result": "SELECTED",
-      "requests": 0,
-      "cache_key": "f97d4431ddff40da0caf822d3669c0e2133e1c61c81df2c1cd751f047b925d90",
-      "selected": [
-        {
-          "id": "N01",
-          "reason": "Substantive fiscal and economic policy development directly affecting national industry investment and financial planning ahead of the Budget.",
-          "url": "https://www.gov.uk/government/news/chancellor-unveils-britains-ambitious-plan-for-ai"
-        }
-      ],
-      "skipped": []
-    },
-    "reused_gemini_draft": true,
-    "holds": [],
-    "requests_this_attempt": 1,
-    "api_budget": {
-      "quota_date": "2026-10-24",
-      "quota_timezone": "America/Los_Angeles",
-      "requests_this_run": 1,
-      "requests_today_including_this_run": 27,
-      "run_limit": 3,
-      "daily_limit": 30,
-      "remaining_today": 3
-    }
+    "skipped": [
+      {
+        "id": "N03",
+        "reason": "Focuses on general business commentary and hiring hesitancy ahead of the Budget rather than a specific, actionable financial or regulatory development.",
+        "url": "https://www.bbc.co.uk/news/articles/c62kep355q02o"
+      },
+      {
+        "id": "N04",
+        "reason": "Human interest profile illustrating general cost-of-living and mortgage pressures on households, lacking institutional financial news value.",
+        "url": "https://www.bbc.co.uk/news/articles/c6gel54940qno"
+      }
+    ]
   },
-  "launch_edition_published_this_run": 0,
+  "published_total": 14,
+  "last_article_at": "2026-10-25T12:35:26.192637+00:00",
+  "fresh_source_candidates": 7,
+  "verified_original_candidates": 5,
+  "candidates_by_sector": {
+    "Banking": 6,
+    "Insurance": 1
+  },
+  "verified_by_sector": {
+    "Banking": 5
+  },
+  "articles_commissioned": 3,
+  "articles_held": 3,
+  "machine_screened": 2,
+  "primary_indexes_checked": 29,
+  "primary_index_failures": 4,
+  "feeds_working": 31,
+  "feed_failures": 1,
+  "ai_budget": {
+    "quota_date": "2026-10-25",
+    "quota_timezone": "America/Los_Angeles",
+    "requests_this_run": 7,
+    "requests_today_including_this_run": 10,
+    "run_limit": 7,
+    "daily_limit": 30,
+    "remaining_today": 20
+  },
+  "quota_pause_until": null,
+  "candidate_outcomes": [
+    {
+      "title": "French Bond Rout Puts Crisis at Heart of ECB Succession Endgame",
+      "source": "https://www.bloomberg.com/news/articles/2026-10-25/french-bond-rout-puts-crisis-at-heart-of-ecb-succession-endgame",
+      "result": "held back",
+      "stage": "source",
+      "reason": "HTTP Error 403: Forbidden"
+    },
+    {
+      "title": "The Cat-and-Mouse Game Between Premium Credit-Card Firms and Points Junkies",
+      "source": "https://www.wsj.com/finance/banking/the-cat-and-mouse-game-between-premium-credit-card-firms-and-points-junkies-8ce2e30a",
+      "result": "held back",
+      "stage": "source",
+      "reason": "HTTP Error 401: HTTP Forbidden"
+    },
+    {
+      "title": "Interest rates unlikely to reach 4.75% by next summer, say City economists",
+      "result": "draft saved",
+      "reason": "single independent review passed; publisher still checks publication eligibility",
+      "source": "https://www.theguardian.com/business/2026/oct/25/interest-rates-bank-of-england-rises-summer-2027"
+    },
+    {
+      "title": "Four ways Labour could raise money in the Budget without hiking income tax",
+      "result": "draft saved",
+      "reason": "single independent review passed; publisher still checks publication eligibility",
+      "source": "https://www.bbc.co.uk/news/articles/c65yn9p55np2o"
+    },
+    {
+      "title": "Budget to include £1bn for social and affordable housing",
+      "result": "held for review",
+      "reason": "1 editorial flags: The source identifies the chancellor as John Healey, but does not state his title is 'Chancellor' (he is referred to as ",
+      "stage": "independent_review",
+      "source": "https://www.bbc.co.uk/news/articles/cqm24j9y9zn7o"
+    }
+  ],
+  "discovery_errors": [
+    "Allianz UK: HTTPError HTTP Error 403: Forbidden",
+    "UK Parliament: HTTPError HTTP Error 403: Forbidden",
+    "Association of British Insurers: HTTPError HTTP Error 403: Forbidden",
+    "Revolut UK: HTTPError HTTP Error 403: Forbidden",
+    {
+      "source": "Money Marketing",
+      "url": "https://www.moneymarketing.co.uk/feed/",
+      "error": "HTTP Error 403: Forbidden"
+    }
+  ],
+  "publication_holds": [],
+  "run_id": "40193630697",
+  "event": "push",
+  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40193630697",
+  "publisher_links": 5,
+  "publisher_desk_checked_at": "2026-10-25T12:33:39.695700+00:00",
+  "previous_verified_runs": [],
   "launch_diagnostic_allowance": {
     "limit": 2,
     "requests": 2

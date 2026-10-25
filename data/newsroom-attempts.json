@@ -2,7 +2,7 @@
   "api_budget": {
     "date": "2026-10-25",
     "limit": 30,
-    "requests": 3,
+    "requests": 10,
     "timezone": "America/Los_Angeles"
   },
   "api_calls": [
@@ -195,10 +195,181 @@
         "serviceTier": "standard",
         "totalTokenCount": 2422
       }
+    },
+    {
+      "at": "2026-10-25T12:33:51.961183+00:00",
+      "prompt_characters": 12449,
+      "purpose": "production",
+      "result": "response_received",
+      "usage": {
+        "candidatesTokenCount": 261,
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 3253,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 3253
+          }
+        ],
+        "serviceTier": "standard",
+        "totalTokenCount": 3514
+      }
+    },
+    {
+      "at": "2026-10-25T12:34:06.962772+00:00",
+      "prompt_characters": 8344,
+      "purpose": "production",
+      "result": "response_received",
+      "usage": {
+        "candidatesTokenCount": 646,
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 1762,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1762
+          }
+        ],
+        "serviceTier": "standard",
+        "totalTokenCount": 2408
+      }
+    },
+    {
+      "at": "2026-10-25T12:34:21.964742+00:00",
+      "prompt_characters": 12418,
+      "purpose": "production",
+      "result": "response_received",
+      "usage": {
+        "candidatesTokenCount": 777,
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 2742,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2742
+          }
+        ],
+        "serviceTier": "standard",
+        "totalTokenCount": 3519
+      }
+    },
+    {
+      "at": "2026-10-25T12:34:36.966654+00:00",
+      "prompt_characters": 10594,
+      "purpose": "production",
+      "result": "response_received",
+      "usage": {
+        "candidatesTokenCount": 487,
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 2132,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2132
+          }
+        ],
+        "serviceTier": "standard",
+        "totalTokenCount": 2619
+      }
+    },
+    {
+      "at": "2026-10-25T12:34:51.969172+00:00",
+      "prompt_characters": 15039,
+      "purpose": "production",
+      "result": "response_received",
+      "usage": {
+        "candidatesTokenCount": 642,
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 3161,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 3161
+          }
+        ],
+        "serviceTier": "standard",
+        "totalTokenCount": 3803
+      }
+    },
+    {
+      "at": "2026-10-25T12:35:06.971138+00:00",
+      "prompt_characters": 8450,
+      "purpose": "production",
+      "result": "response_received",
+      "usage": {
+        "candidatesTokenCount": 374,
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 1738,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1738
+          }
+        ],
+        "serviceTier": "standard",
+        "totalTokenCount": 2112
+      }
+    },
+    {
+      "at": "2026-10-25T12:35:21.975015+00:00",
+      "prompt_characters": 10815,
+      "purpose": "production",
+      "result": "response_received",
+      "usage": {
+        "candidatesTokenCount": 816,
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 2344,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2344
+          }
+        ],
+        "serviceTier": "standard",
+        "totalTokenCount": 3160
+      }
     }
   ],
   "capacity_recovery_revision": 2,
+  "editorial_rejections": {
+    "https://www.bbc.co.uk/news/articles/c62kep355q02o": {
+      "edition_date": "2026-10-25",
+      "reason": "Focuses on general business commentary and hiring hesitancy ahead of the Budget rather than a specific, actionable financial or regulatory development.",
+      "source_sha256": "a2c064a81ce6dea1eae0dcb0fd573e8a87c2a534fdf24c43c2713836cdb67aca"
+    },
+    "https://www.bbc.co.uk/news/articles/c6gel54940qno": {
+      "edition_date": "2026-10-25",
+      "reason": "Human interest profile illustrating general cost-of-living and mortgage pressures on households, lacking institutional financial news value.",
+      "source_sha256": "35fcc53f9d189e4977dddddb02f014b112b13ddcac1597255da8d8ff8ee09750"
+    }
+  },
   "editorial_selections": {
+    "58c95c8bb590f8d34105d3a53a2fb37dcf848a4cf6b084770c018a706d7b5e86": {
+      "selected": [
+        {
+          "id": "N01",
+          "reason": "Provides credible macroeconomic analysis from City economists challenging market-implied interest rate expectations, offering valuable insight for financial professionals and investors regarding Bank of England policy."
+        },
+        {
+          "id": "N05",
+          "reason": "Covers critical fiscal policy expectations ahead of the upcoming Budget, specifically examining potential increases in taxes on UK banks and their implications for corporate profits and sector investment."
+        },
+        {
+          "id": "N02",
+          "reason": "Highlights substantive upcoming government financing and regional investment policies, detailing planned funding allocations for affordable housing and local borrowing powers."
+        }
+      ],
+      "skipped": [
+        {
+          "id": "N03",
+          "reason": "Focuses on general business commentary and hiring hesitancy ahead of the Budget rather than a specific, actionable financial or regulatory development."
+        },
+        {
+          "id": "N04",
+          "reason": "Human interest profile illustrating general cost-of-living and mortgage pressures on households, lacking institutional financial news value."
+        }
+      ]
+    },
     "aea56447c0d3a3739cd405170e62baf1ee13f80ab146d981b4cf556600f76970": {
       "selected": [
         {
@@ -270,10 +441,20 @@
       "headline": "How does the UK state pension compare with other countries?",
       "retry_after": "2026-10-25T13:20:37.107455+00:00"
     },
+    "https://www.bbc.co.uk/news/articles/c62kep355q02o": {
+      "attempted_at": "2026-10-25T12:33:39.994842+00:00",
+      "headline": "Firms 'holding back' on new jobs ahead of Budget",
+      "retry_after": "2026-10-26T13:33:39.994842+00:00"
+    },
     "https://www.bbc.co.uk/news/articles/c62kep355q02o?at_medium=RSS&at_campaign=rss": {
       "attempted_at": "2026-10-25T07:40:56.207113+00:00",
       "headline": "Firms 'holding back' on new jobs ahead of Budget",
       "retry_after": "2026-10-26T08:40:56.207113+00:00"
+    },
+    "https://www.bbc.co.uk/news/articles/c65yn9p55np2o": {
+      "attempted_at": "2026-10-25T12:33:39.994842+00:00",
+      "headline": "Four ways Labour could raise money in the Budget without hiking income tax",
+      "retry_after": "2026-10-26T13:33:39.994842+00:00"
     },
     "https://www.bbc.co.uk/news/articles/c65yn9p55np2o?at_medium=RSS&at_campaign=rss": {
       "attempted_at": "2026-10-25T06:41:26.063474+00:00",
@@ -284,6 +465,11 @@
       "attempted_at": "2026-10-24T18:03:53.775710+00:00",
       "headline": "Inflation and government borrowing highest for a year ahead of next week's Budget",
       "retry_after": "2026-10-25T19:03:53.775710+00:00"
+    },
+    "https://www.bbc.co.uk/news/articles/c6gel54940qno": {
+      "attempted_at": "2026-10-25T12:33:39.994842+00:00",
+      "headline": "Budget 2026: No more fat to trim for 'squeezed middle'",
+      "retry_after": "2026-10-26T13:33:39.994842+00:00"
     },
     "https://www.bbc.co.uk/news/articles/c6gel54940qno?at_medium=RSS&at_campaign=rss": {
       "attempted_at": "2026-10-25T06:41:26.063474+00:00",
@@ -309,6 +495,11 @@
       "attempted_at": "2026-10-24T18:08:24.265095+00:00",
       "headline": "Island inflation rate rises to 3%, figures show",
       "retry_after": "2026-10-25T19:08:24.265095+00:00"
+    },
+    "https://www.bbc.co.uk/news/articles/cqm24j9y9zn7o": {
+      "attempted_at": "2026-10-25T12:33:39.994842+00:00",
+      "headline": "Budget to include £1bn for social and affordable housing",
+      "retry_after": "2026-10-26T13:33:39.994842+00:00"
     },
     "https://www.bbc.co.uk/news/articles/cqm24j9y9zn7o?at_medium=RSS&at_campaign=rss": {
       "attempted_at": "2026-10-25T05:34:45.012765+00:00",
@@ -359,6 +550,11 @@
       "attempted_at": "2026-10-25T10:34:07.319628+00:00",
       "headline": "French Bond Rout Puts Crisis at Heart of ECB Succession Endgame",
       "retry_after": "2026-10-26T11:34:07.319628+00:00"
+    },
+    "https://www.bloomberg.com/news/audio/2026-10-25/what-s-happening-in-em-bond-investors-turn-to-developing-world": {
+      "attempted_at": "2026-10-25T12:33:39.994842+00:00",
+      "headline": "What’s Happening in EM: Bond Investors Turn to Developing World",
+      "retry_after": "2026-10-26T13:33:39.994842+00:00"
     },
     "https://www.bloomberg.com/news/videos/2026-10-23/bloomberg-money-10-23-2026-video": {
       "attempted_at": "2026-10-24T12:23:38.260120+00:00",
@@ -685,6 +881,11 @@
       "headline": "Young Americans are giving up on car ownership. It’s a path to financial freedom for some.",
       "retry_after": "2026-10-25T15:39:58.758436+00:00"
     },
+    "https://www.theguardian.com/business/2026/oct/25/interest-rates-bank-of-england-rises-summer-2027": {
+      "attempted_at": "2026-10-25T12:33:39.994842+00:00",
+      "headline": "Interest rates unlikely to reach 4.75% by next summer, say City economists",
+      "retry_after": "2026-10-26T13:33:39.994842+00:00"
+    },
     "https://www.theguardian.com/lifeandstyle/2026/oct/25/gave-ex-house-half-savings-now-resentful": {
       "attempted_at": "2026-10-25T11:46:48.008065+00:00",
       "headline": "I gave my ex our house and half my savings, but now I feel resentful | Ask Annalisa Barbieri",
@@ -734,6 +935,11 @@
       "attempted_at": "2026-10-24T18:14:23.966045+00:00",
       "headline": "5 of the Top Financial Advisor Companies for Retirees: Well-Known Fiduciary Firms to Consider",
       "retry_after": "2026-10-25T19:14:23.966045+00:00"
+    },
+    "https://www.wsj.com/finance/banking/the-cat-and-mouse-game-between-premium-credit-card-firms-and-points-junkies-8ce2e30a": {
+      "attempted_at": "2026-10-25T12:33:39.994842+00:00",
+      "headline": "The Cat-and-Mouse Game Between Premium Credit-Card Firms and Points Junkies",
+      "retry_after": "2026-10-26T13:33:39.994842+00:00"
     },
     "https://www.wsj.com/finance/banking/the-cat-and-mouse-game-between-premium-credit-card-firms-and-points-junkies-8ce2e30a?mod=rss_markets_main": {
       "attempted_at": "2026-10-25T00:38:13.492245+00:00",
@@ -827,6 +1033,21 @@
       "last_result": "All available Gemini models failed; article held: gemini-3.8-flash: connection unavailable (TimeoutError)",
       "retry_after": "2026-10-26T06:03:53.775710+00:00"
     },
+    "https://www.bbc.co.uk/news/articles/c65yn9p55np2o": {
+      "attempted_at": "2026-10-25T12:33:39.994842+00:00",
+      "last_result": "Single clean draft sent to autonomous publication gate",
+      "retry_after": "2026-10-27T00:33:39.994842+00:00"
+    },
+    "https://www.bbc.co.uk/news/articles/cqm24j9y9zn7o": {
+      "attempted_at": "2026-10-25T12:33:39.994842+00:00",
+      "last_result": "Held after one draft and one independent review",
+      "retry_after": "2026-10-27T00:33:39.994842+00:00"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-25/french-bond-rout-puts-crisis-at-heart-of-ecb-succession-endgame": {
+      "attempted_at": "2026-10-25T12:33:39.994842+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "retry_after": "2026-10-25T16:33:39.994842+00:00"
+    },
     "https://www.fca.org.uk/news/speeches/beyond-borders-regulating-risks-we-share": {
       "attempted_at": "2026-10-24T17:59:32.319264+00:00",
       "last_result": "Numbers absent from official source: ['1', '82']",
@@ -872,10 +1093,20 @@
       "last_result": "Single clean draft sent to autonomous publication gate",
       "retry_after": "2026-10-26T06:14:23.966045+00:00"
     },
+    "https://www.theguardian.com/business/2026/oct/25/interest-rates-bank-of-england-rises-summer-2027": {
+      "attempted_at": "2026-10-25T12:33:39.994842+00:00",
+      "last_result": "Single clean draft sent to autonomous publication gate",
+      "retry_after": "2026-10-27T00:33:39.994842+00:00"
+    },
     "https://www.theguardian.com/business/2026/oct/25/nationwide-to-cut-275-jobs-in-latest-round-since-takeover-of-virgin-money": {
       "attempted_at": "2026-10-25T11:28:36.623939+00:00",
       "last_result": "Single clean draft sent to autonomous publication gate",
       "retry_after": "2026-10-26T23:28:36.623939+00:00"
+    },
+    "https://www.wsj.com/finance/banking/the-cat-and-mouse-game-between-premium-credit-card-firms-and-points-junkies-8ce2e30a": {
+      "attempted_at": "2026-10-25T12:33:39.994842+00:00",
+      "last_result": "HTTP Error 401: HTTP Forbidden",
+      "retry_after": "2026-10-25T16:33:39.994842+00:00"
     }
   },
   "version": 1
