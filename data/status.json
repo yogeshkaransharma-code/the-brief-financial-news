@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-25T03:36:38.179620+00:00",
+  "checked_at": "2026-10-25T04:36:18.482989+00:00",
   "uk_date": "2026-10-25",
   "outcome": "DEGRADED",
   "launch_test": {
@@ -46,8 +46,8 @@
   "machine_screened": 0,
   "primary_indexes_checked": 29,
   "primary_index_failures": 4,
-  "feeds_working": 29,
-  "feed_failures": 0,
+  "feeds_working": 27,
+  "feed_failures": 2,
   "ai_budget": {
     "quota_date": "2026-10-24",
     "quota_timezone": "America/Los_Angeles",
@@ -65,10 +65,20 @@
     "UK Parliament: HTTPError HTTP Error 403: Forbidden",
     "Allianz UK: HTTPError HTTP Error 403: Forbidden",
     "Association of British Insurers: HTTPError HTTP Error 403: Forbidden",
-    "Revolut UK: HTTPError HTTP Error 403: Forbidden"
+    "Revolut UK: HTTPError HTTP Error 403: Forbidden",
+    {
+      "source": "Insurance Age",
+      "url": "https://www.insuranceage.co.uk/feeds/rss/category/broker",
+      "error": "not well-formed (invalid token): line 1, column 0"
+    },
+    {
+      "source": "Insurance Journal",
+      "url": "https://www.insurancejournal.com/rss/news/",
+      "error": "<urlopen error timed out>"
+    }
   ],
   "publication_holds": [],
-  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40158817806",
+  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40162448384",
   "launch_edition": {
     "version": 3,
     "edition_date": "2026-10-24",
