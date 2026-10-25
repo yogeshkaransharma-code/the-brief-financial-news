@@ -29,6 +29,15 @@ def verify():
     if not edition:assert 'No verified news from today yet' in home
     assert not (public/'data/live.json').exists() and 'data/live.json' not in home
     assert (public/'status.html').is_file()
+    desk=json.loads((public/'data/hourly-desk.json').read_text())
+    desk_html=(public/'hourly.html').read_text()
+    assert 'href="hourly.html"' in home and 'The hourly desk.' in desk_html
+    assert desk['mode'] in {'TODAY_VERIFIED','DATED_CONTEXT','EMPTY'}
+    assert desk['edition_date']==__import__('same_day_policy').clock().date().isoformat()
+    for item in desk['items']:
+        assert item['id'] in {a['id'] for a in canonical},'Hourly desk includes unapproved reporting'
+        assert html.escape(item['title'],quote=True) in desk_html,'Hourly story missing'
+        assert item['original_date'] in desk_html,'Hourly story missing its original date'
     assert 'id="publisher-desk"' not in home
     assert not (public/'data/headlines.json').exists(),'Internal research headlines leaked into public output'
     print('PUBLIC_ARTIFACT_VALIDATED:',json.dumps({'today':len(edition),'archive':len(archive),'complete_stories':len(canonical)}))

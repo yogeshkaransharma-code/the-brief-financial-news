@@ -50,6 +50,22 @@ def probe():
                 assert all(html.escape(p,quote=True) in story for _,p in a['blocks']),'Full article paragraphs missing'
                 tested.append(a['id'])
             if not today:assert 'No verified news from today yet' in home,'Empty edition misleading'
+            desk=json.loads(read(SITE+'data/hourly-desk.json'+token))
+            hourly=read(SITE+'hourly.html'+token)
+            assert 'The hourly desk.' in hourly,'Hourly newsroom reading page is absent'
+            assert 'hourly.html' in home,'Hourly desk entry point is absent'
+            assert desk['mode'] in {'TODAY_VERIFIED','DATED_CONTEXT','EMPTY'},'Unknown hourly desk type'
+            assert desk['edition_date']==clock().date().isoformat(),'Hourly desk is not for the UK date'
+            assert all(item['id'] in {a['id'] for a in archive} for item in desk['items']),'Unapproved material in hourly desk'
+            for item in desk['items']:
+                assert html.escape(item['title'],quote=True) in hourly,'Hourly desk report missing'
+                assert item['original_date'] in hourly,'Original news date is not shown'
+            if '--monitor' in sys.argv:
+                age=dt.datetime.now(dt.timezone.utc)-dt.datetime.fromisoformat(desk['checked_at'])
+                assert age<dt.timedelta(hours=3),'Hourly publication check is stale'
+            else:
+                expected=json.loads((ROOT/'data/hourly-desk.json').read_text())
+                assert desk['checked_at']==expected['checked_at'],'Hourly page serves an older edition'
             state=json.loads(read(SITE+'data/status.json'+token))
             if os.getenv('GITHUB_RUN_ID') and '--monitor' not in sys.argv:
                 build=json.loads(read(SITE+'data/build.json'+token))

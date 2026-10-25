@@ -28,7 +28,15 @@ def main():
                     assert a['title'] in page.locator('#launch-edition').inner_text()
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'),'Homepage overflows viewport'
             assert page.locator('#publisher-desk').count()==0,'External publisher headlines leaked into the publication'
+            assert page.locator('.desk-tile').count()==4,'Financial-services sector navigation absent'
             page.screenshot(path=str(OUT/f'home-{width}.png'),full_page=True)
+            page.locator('.desk-tile[data-category="Banking"]').click()
+            assert page.locator('.chip[data-category="Banking"]').get_attribute('aria-pressed')=='true','Banking desk filter did not respond'
+            page.goto(SITE+'hourly.html',wait_until='domcontentloaded',timeout=60000)
+            assert page.locator('h1').inner_text()=='The hourly desk.','Hourly reading page unavailable'
+            assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'),'Hourly page overflows viewport'
+            page.screenshot(path=str(OUT/f'hourly-{width}.png'),full_page=True)
+            page.goto(SITE,wait_until='domcontentloaded',timeout=60000)
             page.get_by_role('link',name='Archive',exact=True).click()
             assert 'The archive.' in page.locator('h1').inner_text()
             assert page.locator('article[data-category]').count()==len(articles),'Archive headline count differs'
