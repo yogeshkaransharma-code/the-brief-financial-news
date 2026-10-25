@@ -229,6 +229,33 @@ def self_test():
     assert len(cx)==1 and cx[0]["dateISO"]=="2026-10-24",cx
     assert not official_release("https://news.uk.chubb.com/news-releases?category=778","Chubb UK")
     assert not official_release("https://news.uk.chubb.com/news-releases?item=122864&evil=1","Chubb UK")
+    # Live-domain-shaped examples: independent issuer newsrooms, not media content.
+    admiral=b'''<article><p>24 October 2026</p><h3>Admiral Business expands intermediary access to SME insurance products</h3><a href="/news-releases/news-release-details/admiral-business-expands-intermediary-access">Read More</a></article>'''
+    aa=parse_listing(admiral,"Admiral Group","Insurance","https://www.admiralgroup.co.uk/media/news-releases-and-media-contacts",today=dt.date(2026,10,25))
+    assert len(aa)==1 and aa[0]["dateISO"]=="2026-10-24",aa
+    retail=b'''<article><h3><a href="/news-and-insights/2026/lloyds-business-banking-expands-sme-finance.html">Lloyds Business Banking expands SME finance for regional firms</a></h3><span>Lloyds Retail 24 Oct 2026</span></article>'''
+    rb=parse_listing(retail,"Lloyds Bank Retail","Banking","https://www.lloydsbank.com/news-and-insights.html",today=dt.date(2026,10,25))
+    assert len(rb)==1 and rb[0]["dateISO"]=="2026-10-24",rb
+    market=b'''<article><h3><a href="/insights/media-centre/press-releases/lloyds-brokers-market-update-2026">Lloyd's market publishes new broker trading arrangements</a></h3><span>24 October 2026</span></article>'''
+    ll=parse_listing(market,"Lloyd's Market","Insurance","https://www.lloyds.com/insights/media-centre/press-releases",today=dt.date(2026,10,25))
+    assert len(ll)==1 and ll[0]["dateISO"]=="2026-10-24",ll
+    assert not official_release("https://www.lloyds.com.attacker.invalid/insights/media-centre/press-releases/test","Lloyd's Market")
+    assert not official_release("https://www.admiralgroup.co.uk/news-releases/news-release-details/test?preview=true","Admiral Group")
+    assert not official_release("https://www.lloydsbank.com/news-and-insights.html","Lloyds Bank Retail")
+    assert not official_release("https://www.lloyds.com/insights/media-centre/press-releases","Lloyd's Market")
+    ageas=b'''<article><p>9 October 2026</p><h3><a href="/press-releases/2026-press-releases/ageas-esure-boards-independent-non-executive-directors/">Ageas and esure Boards appoint two Independent Non-Executive Directors</a></h3></article>'''
+    ag=parse_listing(ageas,"Ageas UK","Insurance","https://www.ageas.co.uk/press-releases/",today=dt.date(2026,10,25))
+    assert len(ag)==1 and ag[0]["dateISO"]=="2026-10-09",ag
+    lma=b'''<article><h3><a href="/lma-and-iua-launch-joint-healthcare-claims-group-to-strengthen-market-expertise/">LMA and IUA launch Joint Healthcare Claims Group to strengthen market expertise</a></h3><p>07 October 2026</p></article>'''
+    lm=parse_listing(lma,"Lloyd's Market Association","Insurance","https://lmalloyds.com/insights-resources/press-releases/",today=dt.date(2026,10,25))
+    assert len(lm)==1 and lm[0]["dateISO"]=="2026-10-07",lm
+    mga=b'''<article><h3><a href="/mgaa-appoints-padda-consulting-as-uk-compliance-and-regulatory-partner/">MGAA appoints Padda Consulting as UK Compliance and Regulatory Partner</a></h3><p>28th July 2026</p></article>'''
+    assert not parse_listing(mga,"Managing General Agents Association","Brokers","https://mgaa.co.uk/news/",today=dt.date(2026,10,25)), "Old MGA news must not be fresh"
+    ga=b'''<article><h3><a href="/news/news-details/2026/Arthur-J--Gallagher--Co--Acquires-Bridge-Insurance-Brokers-Limited/default.aspx">Gallagher acquires commercial insurance brokers in the United Kingdom</a></h3><p>16 April 2026</p></article>'''
+    assert len(parse_listing(ga,"Gallagher Investor Relations","Brokers","https://investor.ajg.com/news/default.aspx",today=dt.date(2026,4,16)))==1
+    assert not official_release("https://investor.ajg.com.evil.invalid/news/news-details/2026/fake/default.aspx","Gallagher Investor Relations")
+    assert not official_release("https://lmalloyds.com/insights-resources/press-releases/","Lloyd's Market Association")
+    assert not official_release("https://www.howdengroup.com/news-insights?draft=1","Howden Broking Group")
     print("PASS: first-party regulator, banking and insurance indexed source discovery")
 
 if __name__=="__main__":

@@ -23,6 +23,8 @@ ALLOWED = {"fca.org.uk", "www.fca.org.uk", "bankofengland.co.uk", "www.bankofeng
            "abi.org.uk", "www.abi.org.uk", "ukfinance.org.uk", "www.ukfinance.org.uk"}
 from source_registry import EXTRA_HOSTS
 ALLOWED |= EXTRA_HOSTS
+from market_coverage import recognised_original_hosts
+ALLOWED |= recognised_original_hosts()
 UA = "TheBriefResearch/0.2 (public official documents; editorial attribution)"
 MAX_BYTES = 3_000_000
 MAX_TEXT = 43_000

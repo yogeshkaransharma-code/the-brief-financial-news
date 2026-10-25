@@ -22,7 +22,7 @@ DEST = ROOT / "data" / "live.json"
 NOW = dt.datetime.now(dt.timezone.utc)
 HEADERS = {"User-Agent": "TheBriefNewsReader/0.1 (RSS reader; source attribution retained)", "Accept": "application/rss+xml,application/atom+xml,text/xml,application/xml"}
 
-GOVERNMENT = {"HM Treasury", "Department for Work and Pensions",
+GOVERNMENT = {"HM Revenue & Customs","Office for National Statistics","HM Treasury", "Department for Work and Pensions",
               "Competition and Markets Authority", "Department for Business and Trade",
               "Department for Science, Innovation and Technology"}
 # Government sites publish energy, childcare, visas and many other topics.
@@ -60,6 +60,8 @@ FEEDS = [
     ("PRA", "https://www.bankofengland.co.uk/rss/prudential-regulation-publications", "Regulation"),
     # Government releases are direct official evidence candidates, not media reports.
     ("HM Treasury", "https://www.gov.uk/government/organisations/hm-treasury.atom", "Regulation"),
+    ("HM Revenue & Customs", "https://www.gov.uk/government/organisations/hm-revenue-customs.atom", "Regulation"),
+    ("Office for National Statistics", "https://www.gov.uk/government/organisations/office-for-national-statistics.atom", "Banking"),
     ("Department for Work and Pensions", "https://www.gov.uk/government/organisations/department-for-work-pensions.atom", "Regulation"),
     ("Competition and Markets Authority", "https://www.gov.uk/government/organisations/competition-and-markets-authority.atom", "Regulation"),
     ("Department for Business and Trade", "https://www.gov.uk/government/organisations/department-for-business-and-trade.atom", "Regulation"),
@@ -77,6 +79,8 @@ FEEDS = [
     ("Finextra payments", "https://www.finextra.com/rss/channel.aspx?channel=payments", "Banking"),
     ("Insurance Business UK", "https://www.insurancebusinessmag.com/uk/rss/", "Insurance"),
     ("Commercial Risk", "https://www.commercialriskonline.com/feed/", "Insurance"),
+    ("Reinsurance News", "https://www.reinsurancene.ws/feed/", "Insurance"),
+    ("Insurance Journal", "https://www.insurancejournal.com/rss/news/", "Insurance"),
     ("Insurance Times", "https://www.insurancetimes.co.uk/insurance-times-rss/1388.rss", "Insurance"),
     ("Insurance Age", "https://www.insuranceage.co.uk/feeds/rss/category/broker", "Brokers"),
     ("Professional Pensions", "https://www.professionalpensions.com/feeds/rss", "Pensions"),
