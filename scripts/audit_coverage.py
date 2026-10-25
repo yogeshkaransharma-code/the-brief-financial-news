@@ -51,6 +51,7 @@ def retrieve(url):
 
 def list_headlines(raw,base,limit=8):
  soup=BeautifulSoup(raw,'html.parser');out=[];seen=set()
+ for node in soup.select('nav,footer,aside,form,[role="navigation"],.menu,.menu-item'):node.decompose()
  for a in soup.select('a[href]'):
   url=canonical_url(urljoin(base,a['href']));p=urlsplit(url)
   if p.scheme!='https' or (p.hostname or '').removeprefix('www.')!=urlsplit(base).hostname.removeprefix('www.'):continue
@@ -94,7 +95,12 @@ def main():
      lead['comparison']='TODAY_ALREADY_DISCOVERED' if lead['present_in_feed'] else 'TODAY_MISSING_FROM_FEED'
     elif uk<today:lead['comparison']='EARLIER_DATED_DEVELOPMENT'
     else:lead['comparison']='FUTURE_DATE_HOLD'
-   else:lead['comparison']='ORIGINAL_DATE_UNRESOLVED'
+   else:
+    lead['comparison']='ORIGINAL_DATE_UNRESOLVED'
+    soup=BeautifulSoup(raw,'html.parser')
+    lead['date_elements']=[str(x)[:700] for x in soup.select('time,[class*=date],[itemprop*=date]')[:12]]
+    lead['date_meta']=[dict(x.attrs) for x in soup.select('meta[content]') if any(t in str(x.attrs).lower() for t in ('date','time','publish'))][:10]
+    lead['jsonld_types']=[(x.get_text() or '')[:1200] for x in soup.select('script[type="application/ld+json"]')[:3]]
   except Exception as exc:lead.update(comparison='ARTICLE_UNAVAILABLE',error=str(exc)[:180])
   return lead
  pairs=[(r,h) for r in rows for h in r['headlines']]
@@ -109,6 +115,17 @@ def main():
   'today_blocked_by_route':[a for a in today_rows if not a['production_route']],
   'today_blocked_by_title_filter':[a for a in today_rows if not a['passes_title_relevance']],
   'summary':{'publishers_read':sum(r['index_result']=='READ' for r in rows),'publishers_unavailable':sum(r['index_result']!='READ' for r in rows),'articles_inspected':len(articles),'today_dated':len(today_rows),'article_dates_unresolved':sum(a['comparison'] in {'ARTICLE_UNAVAILABLE','ORIGINAL_DATE_UNRESOLVED'} for a in articles)}}
+ # Probe an observed wealth publisher's conventional public RSS endpoint.
+ probes=[]
+ for url in ['https://www.investmentweek.co.uk/feeds/rss']:
+  try:
+   import xml.etree.ElementTree as ET
+   req=urllib.request.Request(url,headers={'User-Agent':HEADERS['User-Agent'],'Accept':'application/rss+xml,application/atom+xml,text/xml'})
+   with urllib.request.urlopen(req,timeout=15) as response:raw=response.read(2000000)
+   xml=ET.fromstring(raw);entries=xml.findall('.//item') or xml.findall('{http://www.w3.org/2005/Atom}entry')
+   probes.append({'url':url,'result':'VALID_FEED' if entries else 'NO_ENTRIES','entries':len(entries)})
+  except Exception as exc:probes.append({'url':url,'result':'UNAVAILABLE','error':str(exc)[:180]})
+ report['additional_feed_probes']=probes
  (ROOT/'data/coverage-audit.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
  print('COVERAGE_AUDIT_SUMMARY:',json.dumps(report['summary']))
  for a in articles:print('COVERAGE_AUDIT_ARTICLE:',json.dumps(a,ensure_ascii=False))
