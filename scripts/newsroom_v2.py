@@ -588,6 +588,9 @@ def main():
     for item,doc,error in captures:
         try:
             if error:raise error
+            if item['url'] in published_urls or item['url'] in retired_urls:
+                report.append({'title':item['title'],'source':item['url'],'result':'duplicate after canonical redirect','reason':'Canonical source is already published or retired'})
+                continue
             previous=ledger.get('editorial_rejections',{}).get(item['url'],{})
             if previous.get('edition_date')==clock(now).date().isoformat() and previous.get('source_sha256')==doc.evidence_sha256:
                 report.append({'title':item['title'],'source':item['url'],'result':'cached editorial rejection','reason':previous['reason']})

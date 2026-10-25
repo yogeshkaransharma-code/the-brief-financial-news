@@ -57,8 +57,8 @@ def choose(verified,ledger,meter,ai,*,edition_date,max_stories=3):
         if rejected[url].get('edition_date')!=edition_date:del rejected[url]
     for old in list(cache)[:-32]:cache.pop(old)
     return selected,{'result':'SELECTED' if selected else 'NO_WORTHWHILE_NEWS','requests':requests,
-                    'cache_key':key,'selected':[dict(row,url=candidates[row['id']][0]['url']) for row in response['selected']],
-                    'skipped':[dict(row,url=candidates[row['id']][0]['url']) for row in response['skipped']]}
+                    'cache_key':key,'selected':[dict(row,url=candidates[row['id']][0]['url'],category=candidates[row['id']][0]['category']) for row in response['selected']],
+                    'skipped':[dict(row,url=candidates[row['id']][0]['url'],category=candidates[row['id']][0]['category']) for row in response['skipped']]}
 
 def validate_decision(response,candidates,max_stories):
     if not isinstance(response,dict) or not all(isinstance(response.get(k),list) for k in ('selected','skipped')):

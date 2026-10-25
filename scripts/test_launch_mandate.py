@@ -44,5 +44,12 @@ def main():
  selected,decision=choose(docs,ledger,meter,lambda _:copy.deepcopy(response),edition_date='2026-10-25')
  assert len(selected)==2 and meter.run_used==1
  assert len(ledger['editorial_rejections'])==2
+ from launch_acceptance import evaluate
+ assert evaluate([])['result']=='EVIDENCE_PENDING'
+ one={'run_id':'1','checked_at':now.isoformat(),'event':'push','technical_status':'LIVE_VERIFIED','editorial_outcome':'PUBLISHED','published_this_run':1,'publisher_links':2,'ai_budget':{'requests_this_run':3},'browser_check':'success','commissioned_stories':[{'category':'Banking'},{'category':'Insurance'},{'category':'Pensions'}]}
+ assert evaluate([one],now)['result']=='EVIDENCE_PENDING','A technical/code run was mislabelled launch-ready'
+ two=dict(one,event='schedule',run_id='2');three=dict(one,event='schedule',run_id='3')
+ assert evaluate([one,two,three],now)['result']=='EVIDENCE_COMPLETE'
+ assert evaluate([one,two,two],now)['result']=='EVIDENCE_PENDING','Duplicate schedule run counted twice'
  print('PASS: original journalism across four sectors, clean URLs, spoof/freshness/lifestyle rejection, warning isolation, multi-story selection and rejection cache')
 if __name__=='__main__':main()

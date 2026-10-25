@@ -56,6 +56,8 @@ def main():
  state['publisher_links']=len(read('data/headlines.json',{}).get('items',[]))
  state['publisher_desk_checked_at']=read('data/headlines.json',{}).get('checked_at')
  state['previous_verified_runs']=read('data/run-history.json',[])[-24:]
+ from launch_acceptance import evaluate
+ state['launch_acceptance']=evaluate(state['previous_verified_runs'])
  ledger=read('data/newsroom-attempts.json',{})
  saved=ledger.get('api_budget',{})
  state['launch_diagnostic_allowance']=ledger.get('launch_diagnostic_allowance',{'limit':2,'requests':0})

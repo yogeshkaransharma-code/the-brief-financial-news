@@ -44,7 +44,7 @@ GUARDIAN_ORIGINAL = re.compile(
 BBC_ORIGINAL = re.compile(r"^/news/articles/[a-z0-9]{10,24}/?$", re.I)
 
 def source_lane(url: str) -> str | None:
-    """Return a narrow primary-source lane, or None to hold automatically."""
+    """Recognise supported official and original-reporting article routes."""
     p = urlsplit(url)
     if p.scheme != "https" or p.username or p.password or p.port not in (None,443):
         return None
@@ -57,9 +57,8 @@ def source_lane(url: str) -> str | None:
     if host in {"theguardian.com","www.theguardian.com"} and not p.query:
         if GUARDIAN_ORIGINAL.fullmatch(path):
             return "original_reporting"
-    if True:
-        extra=extra_lane(url)
-        if extra:return extra
+    extra=extra_lane(url)
+    if extra:return extra
     if host in {"fca.org.uk", "www.fca.org.uk"}:
         if FCA_REPORT.fullmatch(path):
             return "fca_data"
@@ -116,10 +115,8 @@ def source_lane(url: str) -> str | None:
         return "issuer_rns"
     # Additional official issuer/market newsrooms are citation candidates,
     # never automatic trust for general website pages or stale documents.
-    if True:
-        from market_coverage import directory_lane
-        return directory_lane(url)
-    return None
+    from market_coverage import directory_lane
+    return directory_lane(url)
 
 def self_test():
     assert source_lane("https://www.fca.org.uk/news/press-releases/fca-calls-private-market-firms-manage-conflicts-interest-line-rapid-growth") == "fca_release"

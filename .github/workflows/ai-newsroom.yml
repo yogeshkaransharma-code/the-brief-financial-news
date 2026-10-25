@@ -137,7 +137,7 @@ jobs:
           BRIEF_BROWSER_RESULT: ${{ steps.browser.outcome }}
         run: |
           python scripts/finish_run.py
-          git add data/run-history.json
+          git add data/run-history.json data/launch-acceptance.json
           if ! git diff --cached --quiet; then
             git commit -m "Record observed deployment and live reader result"
             git pull --rebase origin main

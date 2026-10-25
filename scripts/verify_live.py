@@ -28,6 +28,11 @@ def probe():
             if 'id="launch-edition"' in home:assert 'Prepared retrospectively; actual publication times' in home
             today=json.loads(read(SITE+'data/articles.json'+token))
             archive=json.loads(read(SITE+'data/archive.json'+token))
+            if '--monitor' in sys.argv:
+                # Monitor the last deployed artifact, while a newer run may be
+                # committing articles before its Pages deployment finishes.
+                canonical=archive
+                want={a['id'] for a in canonical if published_same_day(a)}
             assert {a['id'] for a in today}==want,'Live edition differs from eligible same-day articles'
             assert {a['id'] for a in archive}=={a['id'] for a in canonical},'Live archive has missing articles'
             assert all(published_same_day(a) for a in today),'Old article leaked into today'

@@ -195,6 +195,9 @@ def status_page():
             label=(error.get('source','Source')+': '+error.get('error','Unavailable')) if isinstance(error,dict) else str(error)
             body+='<li>'+esc(label)+'</li>'
         body+='</ul>'
+    acceptance=state.get('launch_acceptance',{})
+    if acceptance:
+        body+='<h2>Launch evidence: '+esc(acceptance.get('result'))+'</h2><p>'+esc(', '.join(acceptance.get('pending',[])).replace('_',' '))+'</p>'
     history=state.get('previous_verified_runs',[])
     if history:
         body+='<h2>Verified run history</h2><table><tr><th>Checked</th><th>Trigger</th><th>Technical result</th><th>Editorial result</th><th>Articles / links</th></tr>'

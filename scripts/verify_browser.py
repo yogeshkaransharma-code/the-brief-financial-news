@@ -27,12 +27,24 @@ def main():
                     assert page.locator('#launch-edition').is_visible()
                     assert a['title'] in page.locator('#launch-edition').inner_text()
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'),'Homepage overflows viewport'
+            assert page.locator('#publisher-desk').is_visible(),'Supplementary desk missing'
+            desktop_links=json.loads((ROOT/'data/headlines.json').read_text())['items'] if (ROOT/'data/headlines.json').exists() else []
+            assert page.locator('#publisher-desk article').count()==len(desktop_links),'Publisher desk missing links'
+            if desktop_links:
+                subject=desktop_links[0]['category']
+                page.locator('#desk-subject').select_option(subject)
+                assert page.locator('#publisher-desk article:visible').count()==sum(x['category']==subject for x in desktop_links)
+                page.locator('#desk-subject').select_option('Everything')
             page.screenshot(path=str(OUT/f'home-{width}.png'),full_page=True)
             page.get_by_role('link',name='Archive',exact=True).click()
             assert 'The archive.' in page.locator('h1').inner_text()
             assert page.locator('article[data-category]').count()==len(articles),'Archive headline count differs'
             if articles:
                 target=articles[0]
+                page.locator('#archive-search').fill(target['title'])
+                assert page.locator('article[data-category]:visible').count()==1,'Archive search failed'
+                page.locator('#archive-category').select_option(target['category'])
+                assert page.locator('article[data-category]:visible').count()==1,'Archive subject filter failed'
                 page.get_by_role('link',name=target['title'],exact=True).click()
                 assert target['title']==page.locator('h1').inner_text()
                 body=page.locator('main article').inner_text()
@@ -45,10 +57,19 @@ def main():
                 page.screenshot(path=str(OUT/f'article-{width}.png'),full_page=True)
                 # Read original source in the actual browser as well as verifying the href.
                 source=context.new_page()
-                response=source.goto(target['url'],wait_until='domcontentloaded',timeout=60000)
-                results.append({'width':width,'article':target['id'],'source_url':target['url'],'source_http':response.status if response else None,'source_heading':source.locator('h1').first.inner_text() if source.locator('h1').count() else None})
-                source.screenshot(path=str(OUT/f'original-source-{width}.png'),full_page=True)
-                if not response or not response.ok:print('COVERAGE_WARNING: original source currently inaccessible; on-site article and source link verified')
+                try:
+                    response=source.goto(target['url'],wait_until='domcontentloaded',timeout=30000)
+                    results.append({'width':width,'article':target['id'],'source_url':target['url'],'source_http':response.status if response else None,'source_heading':source.locator('h1').first.inner_text() if source.locator('h1').count() else None})
+                    source.screenshot(path=str(OUT/f'original-source-{width}.png'),full_page=True)
+                    if not response or not response.ok:print('COVERAGE_WARNING: original source currently inaccessible; on-site article and source link verified')
+                except Exception as exc:
+                    results.append({'width':width,'article':target['id'],'source_url':target['url'],'coverage_warning':type(exc).__name__})
+                    print('COVERAGE_WARNING: source browser access failed; complete on-site article verified')
+                finally:source.close()
+            page.goto(SITE+'sources.html',wait_until='domcontentloaded',timeout=60000)
+            page.locator('#source-search').fill('RSS/Atom')
+            assert page.locator('[data-source-row]:visible').count()>0,'Source registry search failed'
+            assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'),'Source registry overflows viewport'
             page.goto(SITE+'status.html',wait_until='domcontentloaded',timeout=60000)
             status=json.loads((ROOT/'data/status.json').read_text())
             displayed=page.get_by_role('row').filter(has_text='New articles this run').locator('td').inner_text()
