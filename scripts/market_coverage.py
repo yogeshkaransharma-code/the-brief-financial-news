@@ -169,7 +169,7 @@ ORIGINAL_NEWS_PATH = re.compile(
     r"^/(?:news|newsroom|press-releases|press-release|media|media-centre|"
     r"news-and-insights|news-insights|investor-relations)/"
     r"(?:[a-z0-9_-]+/){0,5}[a-z0-9_-]{12,}"
-    r"(?:\\.(?:html|aspx))?/?$", re.I
+    r"(?:\.(?:html|aspx))?/?$", re.I
 )
 
 def directory_lane(url):
