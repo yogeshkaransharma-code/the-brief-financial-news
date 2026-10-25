@@ -10,7 +10,7 @@ from urllib.parse import urlsplit
 from publication_scope import source_lane
 
 MAX_REQUESTS_PER_RUN=6
-MAX_REQUESTS_PER_DAY=20
+MAX_REQUESTS_PER_DAY=24  # Local ceiling, not a claim about Google's project quota.
 MAX_SOURCE_CHARS=30000
 MIN_SOURCE_CHARS=1250
 PACIFIC=ZoneInfo('America/Los_Angeles')

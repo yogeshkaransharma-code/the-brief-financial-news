@@ -19,9 +19,13 @@ def main():
             page.goto(SITE,wait_until='networkidle',timeout=60000)
             assert page.locator('#lead-story').is_visible()
             assert page.locator('#feed .news-item').count()==len(today[:10]),'Visible today count differs'
-            visible=page.locator('#home-view').inner_text()
+            visible='\n'.join(page.locator('#lead-story,#briefing-stories,#feed').all_inner_texts())
             for a in articles:
                 if a not in today:assert a['title'] not in visible,'Old story in today edition'
+            for a in articles:
+                if a.get('retrospective_launch') and page.locator('#launch-edition').count():
+                    assert page.locator('#launch-edition').is_visible()
+                    assert a['title'] in page.locator('#launch-edition').inner_text()
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'),'Homepage overflows viewport'
             page.screenshot(path=str(OUT/f'home-{width}.png'),full_page=True)
             page.get_by_role('link',name='Archive',exact=True).click()

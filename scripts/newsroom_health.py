@@ -37,7 +37,15 @@ def read(path,default):
     except (OSError,ValueError):return default
 
 def main():
-    state=assess(read('data/articles.json',[]),read('generated-drafts/run-report.json',{}),dt.datetime.now(dt.timezone.utc),read('generated-drafts/publication-report.json',{}),read('data/live.json',{}),read('data/launch-test.json',{'result':'NOT_RUN'}))
+    publication=read('generated-drafts/publication-report.json',{})
+    edition=read('data/launch-edition.json',{})
+    edition_new=edition.get('published',[]) if edition.get('run_id')==os.getenv('GITHUB_RUN_ID','local') else []
+    publication['published']=publication.get('published',[])+edition_new
+    state=assess(read('data/articles.json',[]),read('generated-drafts/run-report.json',{}),dt.datetime.now(dt.timezone.utc),publication,read('data/live.json',{}),read('data/launch-test.json',{'result':'NOT_RUN'}))
+    state['launch_edition']=edition
+    state['launch_edition_published_this_run']=len(edition_new)
+    if edition.get('attempted') and edition.get('result') in {'BLOCKED','HELD','STARTED'} and not state['published_this_run']:
+        state['outcome']='BLOCKED'
     ledger=read('data/newsroom-attempts.json',{})
     saved_budget=ledger.get('api_budget',{})
     state['launch_diagnostic_allowance']=ledger.get('launch_diagnostic_allowance',{'limit':2,'requests':0})

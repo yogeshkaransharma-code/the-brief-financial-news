@@ -37,6 +37,14 @@ jobs:
       - name: Validate editorial and failure controls
         if: github.event_name != 'schedule'
         run: python scripts/run_checks.py
+      - name: Publish the authorised Saturday launch edition with real Gemini
+        id: launch_edition
+        continue-on-error: true
+        env:
+          BRIEF_AI_PROVIDER: gemini
+          GEMINI_MODEL: gemini-3.5-flash-lite
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python scripts/publish_launch_edition.py
       - name: Discover original-source leads without AI requests
         id: discovery
         continue-on-error: true
@@ -68,7 +76,7 @@ jobs:
         id: health
         if: always()
         env:
-          BRIEF_PIPELINE_ERROR: ${{ steps.writer.outcome == 'failure' || steps.publisher.outcome == 'failure' || steps.discovery.outcome == 'failure' }}
+          BRIEF_PIPELINE_ERROR: ${{ steps.writer.outcome == 'failure' || steps.publisher.outcome == 'failure' || steps.discovery.outcome == 'failure' || steps.launch_edition.outcome == 'failure' }}
         run: python scripts/newsroom_health.py
       - name: Preserve source evidence and diagnostic reports
         if: always()

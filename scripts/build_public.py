@@ -75,6 +75,9 @@ def standalone_story(a):
     archive_notice = ('<p class="disclosure"><strong>ARCHIVE · Earlier edition.</strong> This is historical reporting, not today’s news.</p>' if archived else "")
     if not a.get("date_evidence"):
         archive_notice += '<p class="disclosure">Legacy report: source dating and claims were screened by the earlier system and have not been revalidated under the current controls. Dates below are retained as originally recorded.</p>'
+    if a.get('retrospective_launch'):
+        archive_notice += '<p class="disclosure"><strong>Saturday launch edition · 24 October 2026.</strong> This report was prepared retrospectively from an announcement issued after 6am UK on Saturday. The publication timestamp below records when The Brief actually published it.</p>'
+    publication_stamp=dt.datetime.fromisoformat(a['published_at'].replace('Z','+00:00')).astimezone(__import__('zoneinfo').ZoneInfo('Europe/London')).strftime('%-d %B %Y, %H:%M %Z')
     return f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{headline} — The Brief</title><meta name="description" content="{description}">
@@ -133,7 +136,7 @@ h1{{font-size:clamp(37px,10vw,48px);letter-spacing:-1px;margin:16px 0}}
 <div class="kicker">{esc(a.get("category",""))} / THE BRIEF ORIGINAL</div>
 <h1>{headline}</h1>
 <p class="intro">{description}</p>
-<div class="meta">Original announcement: <time datetime="{esc(a["dateISO"])}">{esc(news_date)}</time> <span>·</span> Published: <time datetime="{esc(a["published_at"])}">{esc(release_date)}</time> <span>·</span> {esc(a.get("source",""))}</div>
+<div class="meta">Original announcement: <time datetime="{esc(a["dateISO"])}">{esc(news_date)}</time> <span>·</span> Published: <time datetime="{esc(a["published_at"])}">{esc(publication_stamp)}</time> <span>·</span> {esc(a.get("source",""))}</div>
 <div class="article-body">{body}</div>
 <div class="source"><h2>Original evidence</h2>
 <p>This report is based on the named primary document. <a href="{esc(a["url"])}" target="_blank" rel="noopener noreferrer">{esc(a.get("source","Primary source"))} — read the original announcement ↗</a></p></div>
@@ -155,6 +158,8 @@ def archive_page(records,edition=None):
             cards.append('<article data-category="'+esc(a['category'])+'"><span class="kicker">'+esc(a['category'])+'</span><h2><a href="'+prefix+story_href(a)+'">'+esc(a['title'])+'</a></h2><p>'+esc(a['short'])+'</p><small>Original announcement: '+esc(day)+' · Published by The Brief: '+esc(date_in_uk(a['published_at']))+' · '+esc(a['source'])+'</small></article>')
         rows.append('<section><h2 class="edition"><a href="'+prefix+'edition/'+day+'.html">'+esc(day)+' edition ↗</a></h2>'+''.join(cards)+'</section>')
     body='<p class="intro">Earlier developments, kept in their dated editions. Nothing here is presented as today’s news.</p>'
+    if any(a.get('retrospective_launch') for a in records):
+        body+='<p class="note"><strong>Saturday launch edition · 24 October 2026, from 6am UK.</strong> These launch reports were prepared retrospectively. Each article shows the original announcement date and its actual publication timestamp.</p>'
     body+='<p class="note">Reports from the earlier publishing system are retained with their recorded dates and a legacy verification notice. They have not been re-certified under the new controls.</p>'
     body+='<label for="archive-search">Search the archive</label><input id="archive-search" type="search" placeholder="Company, subject or keyword"><label for="archive-category">Subject</label><select id="archive-category"><option>Everything</option>'+''.join('<option>'+x+'</option>' for x in ['Banking','Insurance','Brokers','Pensions','Regulation','Technology'])+'</select><p id="archive-count" role="status">'+str(len(records))+' reports</p>'
     body+=''.join(rows) or '<p>No earlier editions yet.</p>'
@@ -193,6 +198,11 @@ def build():
     # Empty is the correct edition when no verified original development was
     # announced AND published on this same UK date. Never replay old news.
     page = (ROOT / "index.html").read_text(encoding="utf-8")
+    launch=[a for a in archive if a.get('retrospective_launch')]
+    if launch and clock().date()<=dt.date(2026,10,26):
+        cards=''.join('<article style="padding:12px 0"><span class="story-kicker">'+esc(a['category'])+'</span><h2 style="font:500 clamp(28px,4vw,43px)/1.12 Georgia,serif;margin:12px 0"><a href="'+story_href(a)+'">'+esc(a['title'])+'</a></h2><p class="standfirst">'+esc(a['short'])+'</p><a class="cta" href="'+story_href(a)+'">Read the full report ↗</a></article>' for a in launch)
+        panel='<section id="launch-edition" aria-label="Saturday launch edition" style="padding:24px 0 30px;border-bottom:2px solid var(--ink)"><p class="story-kicker">SATURDAY LAUNCH EDITION · 24 OCTOBER 2026</p><p style="font-size:13px;color:var(--muted)">Developments announced from 6am UK on Saturday. Prepared retrospectively; actual publication times are shown on each report.</p>'+cards+'<p><a href="edition/2026-10-24.html">Read Saturday’s edition →</a></p></section>'
+        page=insert_once(page,'<main id="home-view" class="container">','<main id="home-view" class="container">'+panel)
     if OUT.exists():shutil.rmtree(OUT)
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "data").mkdir(exist_ok=True)

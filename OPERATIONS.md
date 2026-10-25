@@ -40,3 +40,9 @@ Result: `data/launch-test.json` records **PASSED**. Gemini 3.5 Flash-Lite return
 This supersedes the earlier uncertainty about whether the existing key could perform writing and claim review. The earlier 20/20 figure was a local request guard, **not evidence that Gemini itself had rejected service**. Aggregate accounting now includes twenty prior production attempts plus two diagnostic calls. The one-time diagnostic allowance is exhausted and cannot silently repeat.
 
 Still open: actual automatic publication of a qualifying same-day development, and four primary indexes denied to the GitHub runner. There was no qualifying development in the early Sunday check. There is no justification for waiting until Monday to investigate or test; no ChatGPT follow-up is enabled. The previously authorised hourly newsroom remains the site's automatic publication mechanism.
+# Saturday launch edition (authorised 25 October)
+
+The owner requested reconstruction from Saturday 24 October at 06:00 UK. A fixed-source launch publisher uses the real Gemini writer and separate statement reviewer, then the same evidence and risk gates. Only this Saturday window is accepted; exact source timestamps are required. The actual publication timestamp is retained. Launch reports are explicitly retrospective and never enter today's feed. The homepage links the launch edition separately through Monday; the archive remains permanent.
+
+The local aggregate request ceiling is now 24 per Pacific quota day, including the two already-recorded diagnostic requests. This allows one production writer/reviewer pair after the 22 recorded calls. It is our ceiling, not evidence of Google's actual project quota. No billing changes, paid-only models, paid grounding, automatic rewrites or model fallback are authorised. A launch attempt is journalled before the first model call and cannot repeat automatically after a hold or failure.
+

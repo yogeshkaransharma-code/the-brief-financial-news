@@ -1,6 +1,7 @@
 """Validate the artifact's edition isolation, full archive and readable story pages."""
 import html
 import json
+import re
 from pathlib import Path
 from same_day_policy import published_same_day
 ROOT=Path(__file__).resolve().parents[1]
@@ -13,11 +14,14 @@ def verify():
     assert {x['id'] for x in edition}=={x['id'] for x in canonical if published_same_day(x)}
     assert {x['id'] for x in archive}=={x['id'] for x in canonical},'Historical articles lost'
     home=(public/'index.html').read_text();archive_html=(public/'archive.html').read_text()
+    current_home=re.sub(r'<section id="launch-edition".*?</section>','',home,flags=re.S)
+    if 'id="launch-edition"' in home:
+        assert 'Prepared retrospectively; actual publication times' in home
     assert 'archive.html' in home and 'status.html' in home
     for a in canonical:
         escaped=html.escape(a['title'],quote=True)
         assert escaped in archive_html,'Archive headline absent'
-        if not published_same_day(a):assert escaped not in home,'Historical headline leaked into today'
+        if not published_same_day(a):assert escaped not in current_home,'Historical headline leaked into today'
         story=(public/'story'/(a['id']+'.html')).read_text()
         assert escaped in story and html.escape(a['url'],quote=True) in story
         assert '<main class="reader"><article>' in story

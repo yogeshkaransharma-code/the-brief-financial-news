@@ -63,6 +63,7 @@ def source_issued_today(item, now=None):
 def published_same_day(item, now=None):
     """Only properly approved articles from TODAY'S actual source-day appear."""
     try:
+        if item.get('retrospective_launch'):return False
         uk_pub=date_in_uk(item["published_at"])
         return (source_issued_today(item,now)
                 and dt.datetime.fromisoformat(str(item["published_at"]).replace("Z","+00:00"))<=clock(now)

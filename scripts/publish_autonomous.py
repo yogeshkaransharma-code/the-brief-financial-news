@@ -36,7 +36,7 @@ HIGH_RISK = re.compile(
 )
 CAUSAL = re.compile(r"\b(?:caused by|resulted in|as a result of|led to)\b", re.I)
 
-def eligible(bundle):
+def eligible(bundle, *, edition_date=None):
     """Return reasons to HOLD; never decide eligibility from a model score."""
     a, audit = bundle.get("draft",{}), bundle.get("audit",{})
     problems=[]
@@ -88,7 +88,20 @@ def eligible(bundle):
         problems.append("Too little original-source evidence for an unattended financial article")
     # Publication MUST occur on the same UK calendar date as the first-party
     # announcement. A fresh AI write-up never refreshes an old source.
-    if not source_issued_today(a,dt.datetime.now(dt.timezone.utc)):
+    date_clock=dt.datetime.now(dt.timezone.utc)
+    if edition_date is not None:
+        # One explicitly authorised retrospective launch edition. This cannot
+        # alter the unattended current-day publisher or backdate publication.
+        if edition_date != '2026-10-24':
+            return ['Only the authorised Saturday launch edition can be reconstructed']
+        date_clock=dt.datetime.fromisoformat('2026-10-24T23:59:59+01:00')
+        if a.get('source_time_precision')!='timestamp' or not a.get('source_published_at'):
+            problems.append('Launch edition requires an exact original source timestamp')
+        else:
+            issued=dt.datetime.fromisoformat(a['source_published_at'].replace('Z','+00:00'))
+            if issued < dt.datetime.fromisoformat('2026-10-24T06:00:00+01:00'):
+                problems.append('Announcement predates the authorised 6am launch window')
+    if not source_issued_today(a,date_clock):
         problems.append("Original announcement is not from TODAY in the UK; old or future news is forbidden")
     if bundle.get("editorial_flags") or bundle.get("revision_history",[])[-1:][0:1] and bundle["revision_history"][-1].get("problems"):
         problems.append("Outstanding disputed claim")
@@ -111,7 +124,7 @@ def eligible(bundle):
         problems.append("Insufficient completed independent evidence challenge")
     return problems
 
-def publish(root=ROOT, folder=None, dry_run=False):
+def publish(root=ROOT, folder=None, dry_run=False, *, edition_date=None):
     root=Path(root)
     folder=Path(folder) if folder else root/"generated-drafts"
     article_path=root/"data/articles.json"
@@ -123,7 +136,7 @@ def publish(root=ROOT, folder=None, dry_run=False):
     seen_url={x.get("url") for x in existing}
     retired_file=root/"data/retired-source-urls.json"
     retired_urls=set(json.loads(retired_file.read_text(encoding="utf-8")).get("urls",[])) if retired_file.exists() else set()
-    report={"policy":POLICY_VERSION,"tested":0,"published":[],"held":[],"mode":"dry_run" if dry_run else "active"}
+    report={"policy":'retrospective-launch-2026-10-24-v1' if edition_date else POLICY_VERSION,"tested":0,"published":[],"held":[],"mode":"dry_run" if dry_run else "active"}
     today_count=sum(date_in_uk(x["published_at"])==clock().date() for x in existing)
     for file in sorted(folder.glob("ai-*.json")):
         bundle=json.loads(file.read_text(encoding="utf-8"))
@@ -136,7 +149,7 @@ def publish(root=ROOT, folder=None, dry_run=False):
         if aid in seen_id or a.get("url") in seen_url:
             report["held"].append({"id":aid,"reason":["Duplicate source/article"]})
             continue
-        reasons=eligible(bundle)
+        reasons=eligible(bundle,edition_date=edition_date)
         if reasons:
             report["held"].append({"id":aid,"reason":reasons})
             continue
@@ -150,10 +163,13 @@ def publish(root=ROOT, folder=None, dry_run=False):
         item["published_at"]=dt.datetime.now(dt.timezone.utc).isoformat()
         item["reviewed_at"]=item["published_at"]
         item["publication"]="The Brief"
+        if edition_date is not None:
+            item['edition_date']=edition_date
+            item['retrospective_launch']=True
         review_record={
             "article_id":aid,"source_url":item["url"],
             "review_mode":"autonomous_low_risk",
-            "automation_policy_version":POLICY_VERSION,
+            "automation_policy_version":'retrospective-launch-2026-10-24-v1' if edition_date else POLICY_VERSION,
             "approved_by_github_actor":"AUTONOMOUS_PIPELINE_NO_HUMAN",
             "approved_at_utc":item["reviewed_at"],
             "reviewed_draft_sha256":bundle["audit"]["draft_sha256"],
@@ -168,6 +184,10 @@ def publish(root=ROOT, folder=None, dry_run=False):
             "editor_notes":"Original regulator or first-party banking/insurance release; machine-screened, not fact-certified by a human editor.",
             "residual_risk":"The AI and source may be wrong; a passing automated check does not prove a claim's meaning.",
         }
+        if edition_date is not None:
+            review_record['edition_date']=edition_date
+            review_record['retrospective_launch']=True
+            review_record['editor_notes']='User-authorised reconstruction of Saturday 24 October from 6am UK. Actual publication timestamp retained; every statement separately machine-screened against the captured original.'
         if not dry_run:
             audit_path.mkdir(parents=True,exist_ok=True)
             (audit_path/(aid+".json")).write_text(json.dumps(review_record,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")

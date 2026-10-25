@@ -37,7 +37,7 @@ def validate(root: Path) -> int:
         if method=="autonomous":
             if audit.get("review_mode")!="autonomous_low_risk":
                 raise ValueError("Automated article lacks source-limited approval record")
-            if audit.get("automation_policy_version") not in {"limited-autonomy-2026-10-23.1","first-party-newsroom-2026-10-23-v1","daily-24-hour-news-2026-10-23-v2","dated-catchup-newsroom-2026-10-24-v3","strict-uk-same-day-original-news-2026-10-24-v4","verified-original-date-2026-10-25-v5"}:
+            if audit.get("automation_policy_version") not in {"limited-autonomy-2026-10-23.1","first-party-newsroom-2026-10-23-v1","daily-24-hour-news-2026-10-23-v2","dated-catchup-newsroom-2026-10-24-v3","strict-uk-same-day-original-news-2026-10-24-v4","verified-original-date-2026-10-25-v5","retrospective-launch-2026-10-24-v1"}:
                 raise ValueError("Unknown machine publication policy")
             if audit.get("automation_policy_version")=="verified-original-date-2026-10-25-v5":
                 from same_day_policy import original_date, date_in_uk
@@ -45,6 +45,18 @@ def validate(root: Path) -> int:
                     raise ValueError("New-policy article has invalid original source date")
                 if audit.get("date_evidence")!=article["date_evidence"] or not audit.get("review_headings"):
                     raise ValueError("Date or heading evidence missing")
+            if audit.get('automation_policy_version')=='retrospective-launch-2026-10-24-v1':
+                import datetime as dt
+                from same_day_policy import original_date
+                issued=dt.datetime.fromisoformat(article['source_published_at'].replace('Z','+00:00'))
+                if (original_date(article).isoformat()!='2026-10-24' or article.get('edition_date')!='2026-10-24'
+                    or not article.get('retrospective_launch') or not audit.get('retrospective_launch')
+                    or audit.get('edition_date')!='2026-10-24' or article.get('source_time_precision')!='timestamp'
+                    or not dt.datetime.fromisoformat('2026-10-24T06:00:00+01:00')<=issued<=dt.datetime.fromisoformat('2026-10-24T23:59:59+01:00')
+                    or dt.datetime.fromisoformat(article['published_at'])<issued
+                    or not article.get('date_evidence') or audit.get('date_evidence')!=article['date_evidence']
+                    or not audit.get('review_headings')):
+                    raise ValueError('Invalid or backdated retrospective launch article')
             if article.get("reviewed_by")!="autonomous-evidence-screening" or audit.get("approved_by_github_actor")!="AUTONOMOUS_PIPELINE_NO_HUMAN":
                 raise ValueError("Automated article falsely claims a human reviewer")
             if "no human review" not in article["editorial_status"].lower():

@@ -3,6 +3,7 @@ import datetime as dt
 import html
 import json
 import os
+import re
 from pathlib import Path
 import sys
 import time
@@ -23,6 +24,8 @@ def probe():
         try:
             token='?check='+str(int(time.time()))
             home=read(SITE+token)
+            current_home=re.sub(r'<section id="launch-edition".*?</section>','',home,flags=re.S)
+            if 'id="launch-edition"' in home:assert 'Prepared retrospectively; actual publication times' in home
             today=json.loads(read(SITE+'data/articles.json'+token))
             archive=json.loads(read(SITE+'data/archive.json'+token))
             assert {a['id'] for a in today}==want,'Live edition differs from eligible same-day articles'
@@ -30,7 +33,7 @@ def probe():
             assert all(published_same_day(a) for a in today),'Old article leaked into today'
             assert 'archive.html' in home,'Archive navigation missing'
             for a in canonical:
-                if a['id'] not in want:assert html.escape(a['title'],quote=True) not in home,'Old headline in today edition'
+                if a['id'] not in want:assert html.escape(a['title'],quote=True) not in current_home,'Old headline in today edition'
             archive_page=read(SITE+'archive.html'+token)
             for a in archive:assert html.escape(a['title'],quote=True) in archive_page,'Archived headline missing'
             tested=[]
