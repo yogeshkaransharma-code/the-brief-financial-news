@@ -2,7 +2,7 @@
   "api_budget": {
     "date": "2026-10-25",
     "limit": 30,
-    "requests": 0,
+    "requests": 3,
     "timezone": "America/Los_Angeles"
   },
   "api_calls": [
@@ -138,10 +138,76 @@
         "serviceTier": "standard",
         "totalTokenCount": 5661
       }
+    },
+    {
+      "at": "2026-10-25T11:28:56.664095+00:00",
+      "prompt_characters": 3686,
+      "purpose": "production",
+      "result": "response_received",
+      "usage": {
+        "candidatesTokenCount": 65,
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 862,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 862
+          }
+        ],
+        "serviceTier": "standard",
+        "totalTokenCount": 927
+      }
+    },
+    {
+      "at": "2026-10-25T11:29:11.665359+00:00",
+      "prompt_characters": 6202,
+      "purpose": "production",
+      "result": "response_received",
+      "usage": {
+        "candidatesTokenCount": 439,
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 1291,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1291
+          }
+        ],
+        "serviceTier": "standard",
+        "totalTokenCount": 1730
+      }
+    },
+    {
+      "at": "2026-10-25T11:29:26.666802+00:00",
+      "prompt_characters": 8043,
+      "purpose": "production",
+      "result": "response_received",
+      "usage": {
+        "candidatesTokenCount": 642,
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 1780,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1780
+          }
+        ],
+        "serviceTier": "standard",
+        "totalTokenCount": 2422
+      }
     }
   ],
   "capacity_recovery_revision": 2,
   "editorial_selections": {
+    "aea56447c0d3a3739cd405170e62baf1ee13f80ab146d981b4cf556600f76970": {
+      "selected": [
+        {
+          "id": "N01",
+          "reason": "Substantive UK banking sector development regarding post-merger integration and workforce restructuring following Nationwide's acquisition of Virgin Money."
+        }
+      ],
+      "skipped": []
+    },
     "f97d4431ddff40da0caf822d3669c0e2133e1c61c81df2c1cd751f047b925d90": {
       "selected": [
         {
@@ -800,6 +866,11 @@
       "attempted_at": "2026-10-24T18:14:23.966045+00:00",
       "last_result": "Single clean draft sent to autonomous publication gate",
       "retry_after": "2026-10-26T06:14:23.966045+00:00"
+    },
+    "https://www.theguardian.com/business/2026/oct/25/nationwide-to-cut-275-jobs-in-latest-round-since-takeover-of-virgin-money": {
+      "attempted_at": "2026-10-25T11:28:36.623939+00:00",
+      "last_result": "Single clean draft sent to autonomous publication gate",
+      "retry_after": "2026-10-26T23:28:36.623939+00:00"
     }
   },
   "version": 1

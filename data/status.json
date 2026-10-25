@@ -1,7 +1,7 @@
 {
-  "checked_at": "2026-10-25T10:34:18.369391+00:00",
+  "checked_at": "2026-10-25T11:29:28.734689+00:00",
   "uk_date": "2026-10-25",
-  "outcome": "DEGRADED",
+  "outcome": "PUBLISHED",
   "launch_test": {
     "version": 1,
     "result": "PASSED",
@@ -33,17 +33,25 @@
       "remaining_today": 0
     }
   },
-  "published_this_run": 0,
-  "genuine_same_day_articles": 0,
+  "published_this_run": 1,
+  "genuine_same_day_articles": 1,
   "editorial_selection": {
-    "result": "NO_VERIFIED_CANDIDATES",
-    "requests": 0,
-    "selected": []
+    "result": "SELECTED",
+    "requests": 1,
+    "cache_key": "aea56447c0d3a3739cd405170e62baf1ee13f80ab146d981b4cf556600f76970",
+    "selected": [
+      {
+        "id": "N01",
+        "reason": "Substantive UK banking sector development regarding post-merger integration and workforce restructuring following Nationwide's acquisition of Virgin Money.",
+        "url": "https://www.theguardian.com/business/2026/oct/25/nationwide-to-cut-275-jobs-in-latest-round-since-takeover-of-virgin-money"
+      }
+    ],
+    "skipped": []
   },
-  "published_total": 11,
-  "last_article_at": "2026-10-25T01:31:29.728819+00:00",
-  "fresh_source_candidates": 0,
-  "machine_screened": 0,
+  "published_total": 12,
+  "last_article_at": "2026-10-25T11:29:28.547719+00:00",
+  "fresh_source_candidates": 1,
+  "machine_screened": 1,
   "primary_indexes_checked": 29,
   "primary_index_failures": 4,
   "feeds_working": 28,
@@ -51,16 +59,23 @@
   "ai_budget": {
     "quota_date": "2026-10-25",
     "quota_timezone": "America/Los_Angeles",
-    "requests_this_run": 0,
-    "requests_today_including_this_run": 0,
+    "requests_this_run": 3,
+    "requests_today_including_this_run": 3,
     "run_limit": 7,
     "daily_limit": 30,
-    "remaining_today": 30,
+    "remaining_today": 27,
     "diagnostic_requests_today": 0,
-    "production_requests_today": 0
+    "production_requests_today": 3
   },
   "quota_pause_until": null,
-  "candidate_outcomes": [],
+  "candidate_outcomes": [
+    {
+      "title": "Nationwide to slash 275 jobs in latest round of cuts since takeover of Virgin Money",
+      "result": "draft saved",
+      "reason": "single independent review passed; publisher still checks publication eligibility",
+      "source": "https://www.theguardian.com/business/2026/oct/25/nationwide-to-cut-275-jobs-in-latest-round-since-takeover-of-virgin-money"
+    }
+  ],
   "discovery_errors": [
     "UK Parliament: HTTPError HTTP Error 403: Forbidden",
     "Allianz UK: HTTPError HTTP Error 403: Forbidden",
@@ -73,7 +88,7 @@
     }
   ],
   "publication_holds": [],
-  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40185295149",
+  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40189002264",
   "launch_edition": {
     "version": 3,
     "edition_date": "2026-10-24",
