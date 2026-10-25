@@ -44,9 +44,13 @@ def probe():
                 assert html.escape(a['url'],quote=True) in story,'Original source link absent'
                 assert all(html.escape(p,quote=True) in story for _,p in a['blocks']),'Full article paragraphs missing'
                 tested.append(a['id'])
+            radar=json.loads(read(SITE+'data/hourly-radar.json'+token))
+            assert radar['uk_date']==clock().date().isoformat(), 'Stale source desk'
+            assert 'id="hourly-radar"' in home,'Hourly source desk missing'
+            assert all(html.escape(a['title'],quote=True) in home for a in radar['items']), 'Source headline missing'
             if not today:assert 'No verified news from today yet' in home,'Empty edition misleading'
             state=json.loads(read(SITE+'data/status.json'+token))
-            assert state.get('outcome') in {'PUBLISHED','NO_QUALIFYING_NEWS','BLOCKED','DEGRADED'},'Unknown newsroom outcome'
+            assert state.get('outcome') in {'PUBLISHED','NO_QUALIFYING_NEWS','RADAR_UPDATED','BLOCKED','DEGRADED'},'Unknown newsroom outcome'
             if '--monitor' in sys.argv:
                 age=dt.datetime.now(dt.timezone.utc)-dt.datetime.fromisoformat(state['checked_at'])
                 assert age<dt.timedelta(hours=3),'Newsroom monitoring stale for more than three hours'
