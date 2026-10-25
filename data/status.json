@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-25T14:31:37.356527+00:00",
+  "checked_at": "2026-10-25T14:33:20.215126+00:00",
   "uk_date": "2026-10-25",
   "outcome": "NO_QUALIFYING_NEWS",
   "editorial_outcome": "NO_QUALIFYING_NEWS",
@@ -29,8 +29,8 @@
   "machine_screened": 0,
   "primary_indexes_checked": 29,
   "primary_index_failures": 4,
-  "feeds_working": 33,
-  "feed_failures": 0,
+  "feeds_working": 32,
+  "feed_failures": 1,
   "ai_budget": {
     "quota_date": "2026-10-25",
     "quota_timezone": "America/Los_Angeles",
@@ -65,15 +65,20 @@
     "UK Parliament: HTTPError HTTP Error 403: Forbidden",
     "Allianz UK: HTTPError HTTP Error 403: Forbidden",
     "Association of British Insurers: HTTPError HTTP Error 403: Forbidden",
-    "Revolut UK: HTTPError HTTP Error 403: Forbidden"
+    "Revolut UK: HTTPError HTTP Error 403: Forbidden",
+    {
+      "source": "Money Marketing",
+      "url": "https://www.moneymarketing.co.uk/feed/",
+      "error": "HTTP Error 403: Forbidden"
+    }
   ],
   "publication_holds": [],
-  "run_id": "40202450356",
-  "event": "schedule",
-  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40202450356",
+  "run_id": "40202746992",
+  "event": "push",
+  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40202746992",
   "publisher_links": 0,
   "discovery_headlines": 7,
-  "publisher_desk_checked_at": "2026-10-25T14:31:25.198894+00:00",
+  "publisher_desk_checked_at": "2026-10-25T14:33:10.104093+00:00",
   "previous_verified_runs": [
     {
       "run_id": "40193630697",
@@ -503,12 +508,39 @@
       "deployment": "success",
       "live_check": "success",
       "browser_check": "success"
+    },
+    {
+      "run_id": "40202450356",
+      "event": "schedule",
+      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40202450356",
+      "editorial_outcome": "NO_QUALIFYING_NEWS",
+      "published_this_run": 0,
+      "publisher_links": 0,
+      "discovery_headlines": 7,
+      "source_coverage_status": "PARTIAL",
+      "fresh_source_candidates": 7,
+      "verified_by_sector": {},
+      "ai_budget": {
+        "quota_date": "2026-10-25",
+        "quota_timezone": "America/Los_Angeles",
+        "requests_this_run": 0,
+        "requests_today_including_this_run": 16,
+        "run_limit": 7,
+        "daily_limit": 30,
+        "remaining_today": 14
+      },
+      "commissioned_stories": [],
+      "checked_at": "2026-10-25T14:32:18.649689+00:00",
+      "technical_status": "LIVE_VERIFIED",
+      "deployment": "success",
+      "live_check": "success",
+      "browser_check": "skipped"
     }
   ],
   "launch_acceptance": {
     "result": "EVIDENCE_PENDING",
     "checks": {
-      "repeated_scheduled_hourly_runs": false,
+      "repeated_scheduled_hourly_runs": true,
       "original_gemini_publication_live_verified": true,
       "worthwhile_same_day_developments_across_sectors": false,
       "article_site_live_verified": true,
@@ -516,10 +548,9 @@
       "latest_run_technically_healthy": true,
       "latest_editorial_run_unblocked": true
     },
-    "verified_scheduled_runs": 1,
+    "verified_scheduled_runs": 2,
     "commissioned_sectors": [],
     "pending": [
-      "repeated_scheduled_hourly_runs",
       "worthwhile_same_day_developments_across_sectors"
     ],
     "note": "Operational evidence checkpoint, not a guarantee of future events or error-free journalism."
