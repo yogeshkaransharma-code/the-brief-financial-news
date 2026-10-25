@@ -66,9 +66,15 @@ def safe_publisher(item):
     expected=PUBLISHERS.get(item.get("source"))
     try:p=urlsplit(item.get("url",""))
     except ValueError:return False
-    return bool(expected and p.scheme=="https" and p.hostname in expected and
+    valid=bool(expected and p.scheme=="https" and p.hostname in expected and
                 not p.username and not p.password and p.port in (None,443)
                 and p.path not in ("","/") and not p.path.endswith("/rss"))
+    if not valid:return False
+    # Guardian Money RSS also publishes relationships/lifestyle columns.
+    # Only financial-news article paths belong in the financial desk.
+    if item.get("source","").startswith("The Guardian"):
+        return p.path.startswith(("/business/","/money/","/uk/business/"))
+    return True
 
 def select(items,articles,now=None,limit=18):
     now=now or dt.datetime.now(dt.timezone.utc)
@@ -124,6 +130,8 @@ def self_test():
     assert select([dict(x,dateISO="2026-10-24",published_at="2026-10-24T07:00:00+00:00",source_published_at="2026-10-24T07:00:00+00:00")],[],n)==[]
     assert not select([dict(x,url="https://theguardian.com.evil.org/business/2026/oct/25/test")],[],n)
     assert not select([dict(x,source="Google News",url="https://news.google.com/rss/articles/foo")],[],n)
+    assert not select([dict(x,title="I gave my ex our house and half my savings but now feel resentful",
+         source="The Guardian Money",url="https://www.theguardian.com/lifeandstyle/2026/oct/25/ex-house-savings")],[],n)
     assert not select([dict(x,title="Travel tips for autumn breaks")],[],n)
     assert not select([dict(x,source_published_at="2026-10-25T13:00:00+00:00")],[],n)
     assert not select([dict(x,url="http://www.theguardian.com/business/2026/oct/25/article")],[],n)
