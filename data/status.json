@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-25T23:27:25.016384+00:00",
+  "checked_at": "2026-10-25T23:28:15.753149+00:00",
   "uk_date": "2026-10-25",
   "outcome": "NO_QUALIFYING_NEWS",
   "editorial_outcome": "NO_QUALIFYING_NEWS",
@@ -29,8 +29,8 @@
   "machine_screened": 0,
   "primary_indexes_checked": 29,
   "primary_index_failures": 4,
-  "feeds_working": 33,
-  "feed_failures": 0,
+  "feeds_working": 32,
+  "feed_failures": 1,
   "ai_budget": {
     "quota_date": "2026-10-25",
     "quota_timezone": "America/Los_Angeles",
@@ -59,42 +59,21 @@
     "UK Parliament: HTTPError HTTP Error 403: Forbidden",
     "Allianz UK: HTTPError HTTP Error 403: Forbidden",
     "Association of British Insurers: HTTPError HTTP Error 403: Forbidden",
-    "Revolut UK: HTTPError HTTP Error 403: Forbidden"
+    "Revolut UK: HTTPError HTTP Error 403: Forbidden",
+    {
+      "source": "Money Marketing",
+      "url": "https://www.moneymarketing.co.uk/feed/",
+      "error": "HTTP Error 403: Forbidden"
+    }
   ],
   "publication_holds": [],
-  "run_id": "40244722285",
-  "event": "schedule",
-  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40244722285",
+  "run_id": "40244844854",
+  "event": "push",
+  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40244844854",
   "publisher_links": 0,
   "discovery_headlines": 8,
-  "publisher_desk_checked_at": "2026-10-25T23:27:15.697240+00:00",
+  "publisher_desk_checked_at": "2026-10-25T23:28:06.850309+00:00",
   "previous_verified_runs": [
-    {
-      "run_id": "40195269422",
-      "event": "push",
-      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40195269422",
-      "editorial_outcome": "NO_QUALIFYING_NEWS",
-      "published_this_run": 0,
-      "publisher_links": 6,
-      "source_coverage_status": "PARTIAL",
-      "fresh_source_candidates": 6,
-      "verified_by_sector": {},
-      "ai_budget": {
-        "quota_date": "2026-10-25",
-        "quota_timezone": "America/Los_Angeles",
-        "requests_this_run": 0,
-        "requests_today_including_this_run": 12,
-        "run_limit": 7,
-        "daily_limit": 30,
-        "remaining_today": 18
-      },
-      "commissioned_stories": [],
-      "checked_at": "2026-10-25T12:57:58.402949+00:00",
-      "technical_status": "LIVE_VERIFIED",
-      "deployment": "success",
-      "live_check": "success",
-      "browser_check": "success"
-    },
     {
       "run_id": "40195518989",
       "event": "push",
@@ -732,6 +711,33 @@
       "deployment": "success",
       "live_check": "success",
       "browser_check": "failure"
+    },
+    {
+      "run_id": "40244722285",
+      "event": "schedule",
+      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40244722285",
+      "editorial_outcome": "NO_QUALIFYING_NEWS",
+      "published_this_run": 0,
+      "publisher_links": 0,
+      "discovery_headlines": 8,
+      "source_coverage_status": "PARTIAL",
+      "fresh_source_candidates": 8,
+      "verified_by_sector": {},
+      "ai_budget": {
+        "quota_date": "2026-10-25",
+        "quota_timezone": "America/Los_Angeles",
+        "requests_this_run": 0,
+        "requests_today_including_this_run": 24,
+        "run_limit": 7,
+        "daily_limit": 30,
+        "remaining_today": 6
+      },
+      "commissioned_stories": [],
+      "checked_at": "2026-10-25T23:27:46.965376+00:00",
+      "technical_status": "LIVE_VERIFIED",
+      "deployment": "success",
+      "live_check": "success",
+      "browser_check": "skipped"
     }
   ],
   "launch_acceptance": {
@@ -742,17 +748,16 @@
       "worthwhile_same_day_developments_across_sectors": false,
       "article_site_live_verified": true,
       "mobile_and_desktop_reading": true,
-      "latest_run_technically_healthy": false,
+      "latest_run_technically_healthy": true,
       "latest_editorial_run_unblocked": true
     },
-    "verified_scheduled_runs": 10,
+    "verified_scheduled_runs": 11,
     "commissioned_sectors": [
       "Banking",
       "Regulation"
     ],
     "pending": [
-      "worthwhile_same_day_developments_across_sectors",
-      "latest_run_technically_healthy"
+      "worthwhile_same_day_developments_across_sectors"
     ],
     "note": "Operational evidence checkpoint, not a guarantee of future events or error-free journalism."
   },
