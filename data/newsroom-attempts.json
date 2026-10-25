@@ -2,7 +2,7 @@
   "api_budget": {
     "date": "2026-10-25",
     "limit": 30,
-    "requests": 15,
+    "requests": 16,
     "timezone": "America/Los_Angeles"
   },
   "api_calls": [
@@ -423,6 +423,25 @@
         "serviceTier": "standard",
         "totalTokenCount": 939
       }
+    },
+    {
+      "at": "2026-10-25T14:26:15.550412+00:00",
+      "prompt_characters": 4016,
+      "purpose": "production",
+      "result": "response_received",
+      "usage": {
+        "candidatesTokenCount": 81,
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 973,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 973
+          }
+        ],
+        "serviceTier": "standard",
+        "totalTokenCount": 1054
+      }
     }
   ],
   "capacity_recovery_revision": 2,
@@ -434,8 +453,8 @@
     },
     "https://www.bbc.co.uk/news/articles/c6gel54940qno": {
       "edition_date": "2026-10-25",
-      "reason": "Human interest/pre-Budget sentiment piece focusing on household finances rather than a concrete UK banking or economic policy announcement.",
-      "source_sha256": "db6bcedbb58f188bd7156f7e0173aa63daf8fd820e199318891c20556e0d3a88"
+      "reason": "Human-interest profile focusing on general cost-of-living pressures and upcoming mortgage rate renewals for a household, lacking substantive institutional financial policy, banking, or corporate developments suitable for a professional financial news publication.",
+      "source_sha256": "06166dfd7d0ff0805a145ea3668a30b613a0bc7f32dacacb8e1d824310ea3bcb"
     },
     "https://www.theguardian.com/money/2026/oct/25/cookie-theft-how-fraudsters-get-the-digital-key-to-your-accounts": {
       "edition_date": "2026-10-25",
@@ -522,6 +541,15 @@
         }
       ],
       "skipped": []
+    },
+    "d27d95091c232197826bab93091b1ceaa45ac13b08706df7a15b47ba5019a0f2": {
+      "selected": [],
+      "skipped": [
+        {
+          "id": "N01",
+          "reason": "Human-interest profile focusing on general cost-of-living pressures and upcoming mortgage rate renewals for a household, lacking substantive institutional financial policy, banking, or corporate developments suitable for a professional financial news publication."
+        }
+      ]
     },
     "efe1e71f3355bc92e76f5399cc1572789152addec732a9cc662f161a0fde576e": {
       "selected": [],
