@@ -1,8 +1,8 @@
 {
-  "checked_at": "2026-10-25T17:29:09.211451+00:00",
+  "checked_at": "2026-10-25T18:32:31.017421+00:00",
   "uk_date": "2026-10-25",
-  "outcome": "NO_QUALIFYING_NEWS",
-  "editorial_outcome": "NO_QUALIFYING_NEWS",
+  "outcome": "BLOCKED",
+  "editorial_outcome": "BLOCKED",
   "technical_status": "AWAITING_LIVE_VERIFICATION",
   "source_coverage_status": "PARTIAL",
   "launch_test": {
@@ -11,21 +11,33 @@
   "published_this_run": 0,
   "genuine_same_day_articles": 4,
   "editorial_selection": {
-    "result": "NO_VERIFIED_CANDIDATES",
-    "requests": 0,
-    "selected": []
+    "result": "SELECTED",
+    "requests": 1,
+    "cache_key": "48d6cd79642e3976f4f122c9bec44c6dfb3efd48caf98ebeb4aed67b8408025a",
+    "selected": [
+      {
+        "id": "N01",
+        "reason": "Substantive bilateral regulatory and financing policy development between the UK and Canada concerning defence financing institutions, offering high reader value for a financial-news publication.",
+        "url": "https://www.gov.uk/government/news/joint-statement-from-hm-treasury-and-department-of-finance-canada",
+        "category": "Regulation"
+      }
+    ],
+    "skipped": []
   },
   "published_total": 15,
   "last_article_at": "2026-10-25T16:31:49.549910+00:00",
-  "fresh_source_candidates": 6,
-  "verified_original_candidates": 0,
+  "fresh_source_candidates": 7,
+  "verified_original_candidates": 1,
   "candidates_by_sector": {
-    "Banking": 4,
+    "Banking": 1,
+    "Regulation": 1,
     "Technology": 1
   },
-  "verified_by_sector": {},
-  "articles_commissioned": 0,
-  "articles_held": 3,
+  "verified_by_sector": {
+    "Regulation": 1
+  },
+  "articles_commissioned": 1,
+  "articles_held": 1,
   "machine_screened": 0,
   "primary_indexes_checked": 29,
   "primary_index_failures": 4,
@@ -34,21 +46,14 @@
   "ai_budget": {
     "quota_date": "2026-10-25",
     "quota_timezone": "America/Los_Angeles",
-    "requests_this_run": 0,
-    "requests_today_including_this_run": 21,
+    "requests_this_run": 3,
+    "requests_today_including_this_run": 24,
     "run_limit": 7,
     "daily_limit": 30,
-    "remaining_today": 9
+    "remaining_today": 6
   },
   "quota_pause_until": null,
   "candidate_outcomes": [
-    {
-      "title": "Emerging Debt Outruns Treasuries as Rich-World Fiscal Fears Grow",
-      "source": "https://www.bloomberg.com/news/articles/2026-10-25/emerging-debt-outruns-treasuries-as-rich-world-fiscal-fears-grow",
-      "result": "held back",
-      "stage": "source",
-      "reason": "HTTP Error 403: Forbidden"
-    },
     {
       "title": "Cookie theft: how fraudsters get the digital key to your accounts",
       "source": "https://www.theguardian.com/money/2026/oct/25/cookie-theft-how-fraudsters-get-the-digital-key-to-your-accounts",
@@ -62,18 +67,11 @@
       "reason": "Focuses on general consumer cost-of-living sentiment rather than a distinct institutional, corporate, or policy development relevant to professional financial readers."
     },
     {
-      "title": "The Cat-and-Mouse Game Between Premium Credit-Card Firms and Points Junkies",
-      "source": "https://www.wsj.com/finance/banking/the-cat-and-mouse-game-between-premium-credit-card-firms-and-points-junkies-8ce2e30a",
-      "result": "held back",
-      "stage": "source",
-      "reason": "HTTP Error 401: HTTP Forbidden"
-    },
-    {
-      "title": "French Bond Rout Puts Crisis at Heart of ECB Succession Endgame",
-      "source": "https://www.bloomberg.com/news/articles/2026-10-25/french-bond-rout-puts-crisis-at-heart-of-ecb-succession-endgame",
-      "result": "held back",
-      "stage": "source",
-      "reason": "HTTP Error 403: Forbidden"
+      "title": "Joint statement from HM Treasury and Department of Finance Canada",
+      "result": "held for review",
+      "reason": "3 editorial flags: The source does not explicitly mention 'defence financing' in the headline or explicitly pledge closer cooperation speci; Section heading not directly backed by a source text statement.; Section heading not directly backed by a source text statement.",
+      "stage": "independent_review",
+      "source": "https://www.gov.uk/government/news/joint-statement-from-hm-treasury-and-department-of-finance-canada"
     }
   ],
   "discovery_errors": [
@@ -83,12 +81,12 @@
     "Revolut UK: HTTPError HTTP Error 403: Forbidden"
   ],
   "publication_holds": [],
-  "run_id": "40216656915",
+  "run_id": "40221662491",
   "event": "schedule",
-  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40216656915",
+  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40221662491",
   "publisher_links": 0,
   "discovery_headlines": 7,
-  "publisher_desk_checked_at": "2026-10-25T17:28:59.531409+00:00",
+  "publisher_desk_checked_at": "2026-10-25T18:31:50.218064+00:00",
   "previous_verified_runs": [
     {
       "run_id": "40193630697",
@@ -637,6 +635,33 @@
       "deployment": "success",
       "live_check": "success",
       "browser_check": "success"
+    },
+    {
+      "run_id": "40216656915",
+      "event": "schedule",
+      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40216656915",
+      "editorial_outcome": "NO_QUALIFYING_NEWS",
+      "published_this_run": 0,
+      "publisher_links": 0,
+      "discovery_headlines": 7,
+      "source_coverage_status": "PARTIAL",
+      "fresh_source_candidates": 6,
+      "verified_by_sector": {},
+      "ai_budget": {
+        "quota_date": "2026-10-25",
+        "quota_timezone": "America/Los_Angeles",
+        "requests_this_run": 0,
+        "requests_today_including_this_run": 21,
+        "run_limit": 7,
+        "daily_limit": 30,
+        "remaining_today": 9
+      },
+      "commissioned_stories": [],
+      "checked_at": "2026-10-25T17:29:42.104309+00:00",
+      "technical_status": "LIVE_VERIFIED",
+      "deployment": "success",
+      "live_check": "success",
+      "browser_check": "skipped"
     }
   ],
   "launch_acceptance": {
@@ -650,7 +675,7 @@
       "latest_run_technically_healthy": true,
       "latest_editorial_run_unblocked": true
     },
-    "verified_scheduled_runs": 4,
+    "verified_scheduled_runs": 5,
     "commissioned_sectors": [
       "Banking"
     ],
