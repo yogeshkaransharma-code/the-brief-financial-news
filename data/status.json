@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-25T13:12:16.350159+00:00",
+  "checked_at": "2026-10-25T13:17:05.317985+00:00",
   "uk_date": "2026-10-25",
   "outcome": "NO_QUALIFYING_NEWS",
   "editorial_outcome": "NO_QUALIFYING_NEWS",
@@ -29,7 +29,7 @@
   "primary_indexes_checked": 29,
   "primary_index_failures": 4,
   "feeds_working": 32,
-  "feed_failures": 0,
+  "feed_failures": 1,
   "ai_budget": {
     "quota_date": "2026-10-25",
     "quota_timezone": "America/Los_Angeles",
@@ -55,17 +55,22 @@
     }
   ],
   "discovery_errors": [
-    "UK Parliament: HTTPError HTTP Error 403: Forbidden",
     "Allianz UK: HTTPError HTTP Error 403: Forbidden",
+    "UK Parliament: HTTPError HTTP Error 403: Forbidden",
     "Association of British Insurers: HTTPError HTTP Error 403: Forbidden",
-    "Revolut UK: HTTPError HTTP Error 403: Forbidden"
+    "Revolut UK: HTTPError HTTP Error 403: Forbidden",
+    {
+      "source": "Money Marketing",
+      "url": "https://www.moneymarketing.co.uk/feed/",
+      "error": "HTTP Error 403: Forbidden"
+    }
   ],
   "publication_holds": [],
-  "run_id": "40196504849",
+  "run_id": "40196873312",
   "event": "push",
-  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40196504849",
+  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40196873312",
   "publisher_links": 6,
-  "publisher_desk_checked_at": "2026-10-25T13:12:07.311535+00:00",
+  "publisher_desk_checked_at": "2026-10-25T13:16:56.484965+00:00",
   "previous_verified_runs": [
     {
       "run_id": "40193630697",
@@ -251,6 +256,32 @@
       },
       "commissioned_stories": [],
       "checked_at": "2026-10-25T13:10:56.246070+00:00",
+      "technical_status": "LIVE_VERIFIED",
+      "deployment": "success",
+      "live_check": "success",
+      "browser_check": "success"
+    },
+    {
+      "run_id": "40196504849",
+      "event": "push",
+      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40196504849",
+      "editorial_outcome": "NO_QUALIFYING_NEWS",
+      "published_this_run": 0,
+      "publisher_links": 6,
+      "source_coverage_status": "PARTIAL",
+      "fresh_source_candidates": 6,
+      "verified_by_sector": {},
+      "ai_budget": {
+        "quota_date": "2026-10-25",
+        "quota_timezone": "America/Los_Angeles",
+        "requests_this_run": 0,
+        "requests_today_including_this_run": 13,
+        "run_limit": 7,
+        "daily_limit": 30,
+        "remaining_today": 17
+      },
+      "commissioned_stories": [],
+      "checked_at": "2026-10-25T13:13:08.076149+00:00",
       "technical_status": "LIVE_VERIFIED",
       "deployment": "success",
       "live_check": "success",
