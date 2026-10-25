@@ -95,14 +95,15 @@ def status_from_url(url, title):
 
 def write_prompt(item, official):
     media = source_lane(item["url"])=="original_reporting"
+    reporter="the BBC" if item.get("source")=="BBC Business" else "The Guardian"
     media_note = (
-        "This is ORIGINAL JOURNALISM BY THE GUARDIAN, not an issuer press release. "
-        "Every relevant claim must be explicitly attributed to The Guardian's reporting, "
+        f"This is ORIGINAL JOURNALISM BY {reporter}, not an issuer press release. "
+        f"Every relevant claim must be explicitly attributed to {reporter}'s reporting, "
         "including the standfirst. Do not turn alleged facts into independently proven facts. "
-        "The Guardian article was first published TODAY, but the underlying event or staff communication "
+        "The journalistic source was first published TODAY, but the underlying event or staff communication "
         "may have occurred on an earlier date; preserve the original distinction. "
         "Never imply the company issued a press release or that you interviewed its spokesperson. "
-        "Do not reproduce the Guardian article or substantial quotations; independently explain the "
+        "Do not reproduce the original article or substantial quotations; independently explain the "
         "reported development using concise, original phrasing and provide a source link. "
         "If claims cannot be supported precisely, avoid them or hold the article. "
         if media else ""
@@ -408,6 +409,9 @@ def self_test():
     assert original_media_candidates([sample_media],dt.datetime(2026,10,25,11,tzinfo=dt.timezone.utc))==[dict(sample_media,kind="original_media_reporting")]
     assert not original_media_candidates([dict(sample_media,dateISO="2026-10-24",published_at="2026-10-24T07:00:00+00:00",source_published_at="2026-10-24T07:00:00+00:00")],dt.datetime(2026,10,25,11,tzinfo=dt.timezone.utc))
     assert status_from_url(guardian,"")=="Original reporting"
+    bbc=dict(sample_media,source="BBC Business",url="https://www.bbc.co.uk/news/articles/c62kep355q02o",
+             title="UK banks prepare for changes ahead of Budget")
+    assert original_media_candidates([bbc],dt.datetime(2026,10,25,11,tzinfo=dt.timezone.utc))==[dict(bbc,kind="original_media_reporting")]
     print("PASS: separate writer schema, sentence coverage and financial token checks")
 
 MEDIA_FOCUS = re.compile(
@@ -421,9 +425,14 @@ def original_media_candidates(items,now,limit=6):
     """Original UK-date journalism; never a recycled RSS refresh."""
     filtered=[]
     for item in items:
-        if item.get("source") not in {"The Guardian Business","The Guardian Money","The Guardian Insurance","The Guardian Banking"} or source_lane(item.get("url",""))!="original_reporting":
+        if item.get("source") not in {"The Guardian Business","The Guardian Money","The Guardian Insurance","The Guardian Banking","BBC Business"} or source_lane(item.get("url",""))!="original_reporting":
             continue
         if not MEDIA_FOCUS.search(item.get("title","")) or not eligible_today(item,now):
+            continue
+        # Opaque BBC article IDs require independent first-published metadata
+        # from the original BBC article; RSS timing is never enough.
+        if item["source"]=="BBC Business":
+            filtered.append(dict(item,kind="original_media_reporting"))
             continue
         from urllib.parse import urlsplit
         match=re.fullmatch(r"/(?:business|money)/(20\d{2})/(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/(\d{1,2})/[a-z0-9-]+/?",urlsplit(item["url"]).path)
