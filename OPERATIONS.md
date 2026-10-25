@@ -78,3 +78,20 @@ The [live deployment and test run 40155384306](https://github.com/yogeshkaransha
 **No qualifying UK-calendar-day announcement was discovered at 02:41 UTC on Sunday 25 October.** There were zero new Gemini requests, zero new Sunday articles and eleven persistent complete archive reports. The full maintenance job was successful but the overall workflow correctly marked itself DEGRADED via the explicit attention step. It would be false to claim end-to-end unattended Sunday publication or five articles/day from this run.
 
 The next acceptance requirement is unchanged: observe and verify a genuinely new qualifying same-day primary announcement progressing automatically through actual Gemini commissioning, writing, independent review, immutable publication, live full-story loading and mobile/desktop browser checks. Source coverage also needs improvement without treating blocked or undated originals as verified.
+
+## Market-wide source expansion — 25 October 2026, 03:07 UTC
+
+Merged [PR #2](https://github.com/yogeshkaransharma-code/the-brief-financial-news/pull/2) as commit `94496c481a222e995119cb3389f26e86310edddc`.
+
+The new `scripts/market_coverage.py` registers **128 named financial-sector organisations** across seven sectors for **recognition of citations to their official domains**. Registration is *not* an hourly polling claim and does not authorise general company pages, social posts, inaccessible sources or unverifiable publication dates. An explicit news/press-release path, complete primary document, source-date proof, Gemini commissioning/writing/review and deterministic publication gate are still necessary.
+
+Direct monitored original-source indexes increased to **29**. Four additional RSS/Atom feeds expanded the collector to **29**. The list includes specialist insurance/reinsurance outlets, insurer and broker corporate announcements, Lloyd's-market trade organisations, and HMRC/ONS government updates.
+
+[End-to-end production run 40156934184](https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40156934184) observed:
+- **21/21 offline check groups passed**, including release URL spoofing, date, provider cap and editorial-hold fixtures.
+- **29/29 RSS/Atom feeds** successfully read; **25/29 first-party indexes** successfully responded. Ageas, LMA, MGAA and Lloyds Bank Retail supplied dated original leads. The same four direct indexes (Parliament, Allianz UK, ABI, Revolut UK) returned HTTP 403.
+- **0** fresh verified originals meeting the strict UK source-publication date on this early Sunday, **0** new Sunday articles, **0** Gemini calls used by this run. Gemini properly reported `NO_VERIFIED_CANDIDATES` instead of inventing a story.
+- **11** complete archived reports retained. Pages deployment and live HTTP full-story probe passed. Actual Chromium mobile (390px) and desktop (1440px) reading checks passed with original Treasury evidence HTTP 200.
+- Main maintenance job succeeded, and the separate DEGRADED attention job deliberately failed because coverage remains incomplete. **This is a healthy fail-closed newsroom infrastructure test, not verified unattended same-day article publication.**
+
+Launch acceptance still requires a genuinely new eligible development going through actual Gemini selection, drafting and claim challenge, autonomous publication and independent live article verification. No claim of blanket coverage of every regulated firm or publisher is justified; work through the market directory by verified official release paths and actual source response evidence.
