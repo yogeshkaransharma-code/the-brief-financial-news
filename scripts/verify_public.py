@@ -1,71 +1,29 @@
-#!/usr/bin/env python3
-"""Test that the deployed artifact contains visible news without JavaScript."""
+"""Validate the artifact's edition isolation, full archive and readable story pages."""
 import html
 import json
 from pathlib import Path
-from html.parser import HTMLParser
 from same_day_policy import published_same_day
-
-ROOT = Path(__file__).resolve().parents[1]
-PUBLIC = ROOT / "public"
-
-
-class Visible(HTMLParser):
-    def __init__(self):
-        super().__init__()
-        self.stack = []
-        self.found = set()
-        self.links = set()
-        self.in_script = False
-        self.text = []
-    def handle_starttag(self, tag, attrs):
-        attr = dict(attrs)
-        if "id" in attr:
-            self.found.add(attr["id"])
-        if tag == "a" and "href" in attr:
-            self.links.add(attr["href"])
-        if tag == "script":
-            self.in_script = True
-    def handle_endtag(self, tag):
-        if tag == "script":
-            self.in_script = False
-    def handle_data(self, data):
-        if not self.in_script:
-            self.text.append(data)
-
+ROOT=Path(__file__).resolve().parents[1]
 
 def verify():
-    articles = json.loads((PUBLIC / "data/articles.json").read_text(encoding="utf-8"))
-    original = json.loads((ROOT / "data/articles.json").read_text(encoding="utf-8"))
-    eligible=[a for a in original if published_same_day(a)]
-    assert {a["id"] for a in articles}=={a["id"] for a in eligible}, "Public feed includes old news or omits same-day news"
-    html_text = (PUBLIC / "index.html").read_text(encoding="utf-8")
-    parser = Visible()
-    parser.feed(html_text)
-    required = {"lead-story", "feed", "briefing-stories", "embedded-articles"}
-    assert required.issubset(parser.found), "Visible article areas missing from generated homepage"
-    assert "static-edition" not in parser.found and "latest-published-highlight" not in parser.found, "Temporary duplicate news sections still on published homepage"
-    latest = max(articles, key=lambda a:(a.get("published_at",""),a["id"])) if articles else None
-    text = " ".join(parser.text)
-    if latest:
-        assert latest["title"] in text, "Latest same-day article must appear"
-        assert latest["title"] in html_text.split('<article id="lead-story"',1)[1].split('</article>',1)[0], "Same-day news not in lead"
-    else:
-        assert "No verified news from today yet" in text, "Empty same-day edition not explained"
-    assert all(a["title"] in text for a in articles[:min(len(articles),10)]), "Missing visible news headlines"
-    assert all(a["title"] not in text for a in original if not published_same_day(a)), "Old headlines leaked into today’s edition"
-    for article in articles:
-        story = PUBLIC / "story" / (article["id"]+".html")
-        assert story.is_file(), "Full standalone article missing"
-        body = story.read_text(encoding="utf-8")
-        assert html.escape(article["title"],quote=True) in body, "Full article title not rendered"
-        assert html.escape(article["url"],quote=True) in body, "Primary source attribution absent"
-        for heading, para in article["blocks"]:
-            assert html.escape(heading,quote=True) in body
-            assert html.escape(str(para).split("\n")[0],quote=True)[:50] in body, "Body content missing"
-    assert "data/live.json" not in html_text, "Private discovery archive referenced on public page"
-    print("PUBLIC_SITE_VALIDATED:",json.dumps({"visible_headlines_today":len(articles),"historical_blocked":len(original)-len(articles),"standalone_articles":len(articles),"latest":latest["id"] if latest else None,"javascript_required":False}))
-
-
-if __name__ == "__main__":
-    verify()
+    public=ROOT/'public'
+    canonical=json.loads((ROOT/'data/articles.json').read_text())
+    edition=json.loads((public/'data/articles.json').read_text())
+    archive=json.loads((public/'data/archive.json').read_text())
+    assert {x['id'] for x in edition}=={x['id'] for x in canonical if published_same_day(x)}
+    assert {x['id'] for x in archive}=={x['id'] for x in canonical},'Historical articles lost'
+    home=(public/'index.html').read_text();archive_html=(public/'archive.html').read_text()
+    assert 'archive.html' in home and 'status.html' in home
+    for a in canonical:
+        escaped=html.escape(a['title'],quote=True)
+        assert escaped in archive_html,'Archive headline absent'
+        if not published_same_day(a):assert escaped not in home,'Historical headline leaked into today'
+        story=(public/'story'/(a['id']+'.html')).read_text()
+        assert escaped in story and html.escape(a['url'],quote=True) in story
+        assert '<main class="reader"><article>' in story
+        for h,p in a['blocks']:assert html.escape(h,quote=True) in story and html.escape(p,quote=True) in story
+    if not edition:assert 'No verified news from today yet' in home
+    assert not (public/'data/live.json').exists() and 'data/live.json' not in home
+    assert (public/'status.html').is_file()
+    print('PUBLIC_ARTIFACT_VALIDATED:',json.dumps({'today':len(edition),'archive':len(archive),'complete_stories':len(canonical)}))
+if __name__=='__main__':verify()

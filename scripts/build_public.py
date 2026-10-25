@@ -10,7 +10,9 @@ import json
 import re
 from pathlib import Path
 from urllib.parse import quote
-from same_day_policy import published_same_day, clock
+from same_day_policy import published_same_day, clock, original_date, date_in_uk
+import shutil
+import datetime as dt
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "public"
@@ -67,8 +69,12 @@ def standalone_story(a):
     headline = esc(a["title"])
     description = esc(a.get("short", ""))
     body = article_body(a)
-    news_date = date.fromisoformat(a["dateISO"][:10]).strftime("%-d %B %Y")
-    release_date = date.fromisoformat(a["published_at"][:10]).strftime("%-d %B %Y")
+    news_date = original_date(a).strftime("%-d %B %Y")
+    release_date = date_in_uk(a["published_at"]).strftime("%-d %B %Y")
+    archived = original_date(a) != clock().date()
+    archive_notice = ('<p class="disclosure"><strong>ARCHIVE · Earlier edition.</strong> This is historical reporting, not today’s news.</p>' if archived else "")
+    if not a.get("date_evidence"):
+        archive_notice += '<p class="disclosure">Legacy report: source dating and claims were screened by the earlier system and have not been revalidated under the current controls. Dates below are retained as originally recorded.</p>'
     return f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{headline} — The Brief</title><meta name="description" content="{description}">
@@ -121,20 +127,57 @@ h1{{font-size:clamp(37px,10vw,48px);letter-spacing:-1px;margin:16px 0}}
 <a class="brand" href="../index.html">THE BRIEF<span>.</span></a>
 <span class="tagline">FINANCIAL NEWS, UNDERSTOOD<br> BANKING · INSURANCE · REGULATION</span>
 </div></header>
-<nav class="navstrip"><div class="navinner"><a href="../index.html">← Latest stories</a><a href="../about.html">About &amp; corrections</a></div></nav>
-<main class="reader">
+<nav class="navstrip"><div class="navinner"><a href="../index.html">← Today</a><a href="../archive.html">Archive</a><a href="../about.html">About &amp; corrections</a></div></nav>
+<main class="reader"><article>
+{archive_notice}
 <div class="kicker">{esc(a.get("category",""))} / THE BRIEF ORIGINAL</div>
 <h1>{headline}</h1>
 <p class="intro">{description}</p>
-<div class="meta">News: {esc(news_date)} <span>·</span> Published: {esc(release_date)} <span>·</span> {esc(a.get("source",""))}</div>
+<div class="meta">Original announcement: <time datetime="{esc(a["dateISO"])}">{esc(news_date)}</time> <span>·</span> Published: <time datetime="{esc(a["published_at"])}">{esc(release_date)}</time> <span>·</span> {esc(a.get("source",""))}</div>
 <div class="article-body">{body}</div>
 <div class="source"><h2>Original evidence</h2>
 <p>This report is based on the named primary document. <a href="{esc(a["url"])}" target="_blank" rel="noopener noreferrer">{esc(a.get("source","Primary source"))} — read the original announcement ↗</a></p></div>
 <p class="disclosure">This article was generated and screened by an automated newsroom using a primary source. It has not been independently reviewed by a human editor. <a href="../about.html">Read our editorial and corrections policy.</a> Not financial advice.</p>
-</main>
+</article></main>
 <footer><a href="../index.html">THE BRIEF.</a> · UK financial news, understood.</footer>
 </body></html>
 """
+
+
+def archive_page(records,edition=None):
+    prefix='../' if edition else ''
+    title=('Edition · '+edition) if edition else 'The archive.'
+    rows=[]
+    for day in sorted({original_date(a).isoformat() for a in records},reverse=True):
+        cards=[]
+        for a in records:
+            if original_date(a).isoformat()!=day:continue
+            cards.append('<article data-category="'+esc(a['category'])+'"><span class="kicker">'+esc(a['category'])+'</span><h2><a href="'+prefix+story_href(a)+'">'+esc(a['title'])+'</a></h2><p>'+esc(a['short'])+'</p><small>Original announcement: '+esc(day)+' · Published by The Brief: '+esc(date_in_uk(a['published_at']))+' · '+esc(a['source'])+'</small></article>')
+        rows.append('<section><h2 class="edition"><a href="'+prefix+'edition/'+day+'.html">'+esc(day)+' edition ↗</a></h2>'+''.join(cards)+'</section>')
+    body='<p class="intro">Earlier developments, kept in their dated editions. Nothing here is presented as today’s news.</p>'
+    body+='<p class="note">Reports from the earlier publishing system are retained with their recorded dates and a legacy verification notice. They have not been re-certified under the new controls.</p>'
+    body+='<label for="archive-search">Search the archive</label><input id="archive-search" type="search" placeholder="Company, subject or keyword"><label for="archive-category">Subject</label><select id="archive-category"><option>Everything</option>'+''.join('<option>'+x+'</option>' for x in ['Banking','Insurance','Brokers','Pensions','Regulation','Technology'])+'</select><p id="archive-count" role="status">'+str(len(records))+' reports</p>'
+    body+=''.join(rows) or '<p>No earlier editions yet.</p>'
+    script="""<script>
+const q=document.querySelector('#archive-search'),c=document.querySelector('#archive-category');
+function filter(){let n=0;document.querySelectorAll('article[data-category]').forEach(a=>{a.hidden=!(a.textContent.toLowerCase().includes(q.value.toLowerCase())&&(c.value==='Everything'||a.dataset.category===c.value));if(!a.hidden)n++});document.querySelectorAll('section').forEach(s=>s.hidden=![...s.querySelectorAll('article')].some(a=>!a.hidden));document.querySelector('#archive-count').textContent=n+' reports'}q.oninput=filter;c.onchange=filter;
+</script>"""
+    return utility_page(title,body,prefix)+script
+
+
+def utility_page(title,body,prefix=''):
+    return '<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+esc(title)+' — The Brief</title><style>'+"""
+:root{--paper:#F8F5EF;--ink:#272323;--accent:#87404B;--rule:#DED8D0}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.65 Arial,sans-serif}a{color:inherit;text-underline-offset:4px;text-decoration-color:var(--accent)}header{border-bottom:1px solid var(--rule);padding:25px max(20px,calc((100% - 1100px)/2));background:#fff}header a{font:bold 40px Georgia,serif;text-decoration:none;white-space:nowrap}nav{display:flex;gap:24px;flex-wrap:wrap;margin-top:18px}nav a{font:600 13px Arial,sans-serif}main{max-width:900px;margin:auto;padding:50px 24px 90px}h1{font:normal clamp(42px,8vw,68px)/1.1 Georgia,serif;letter-spacing:-1.7px}h2{font:normal 28px/1.25 Georgia,serif}article{padding:24px 0;border-bottom:1px solid var(--rule)}article p{color:#665b59}.kicker,label{font:bold 11px Arial,sans-serif;letter-spacing:.1em;color:var(--accent)}small{font-size:12px;color:#6b5f5c}.intro{font:23px/1.5 Georgia,serif}.note{border-left:3px solid var(--accent);padding:12px 18px;background:#F0E7E3;font-size:13px}.edition{border-bottom:2px solid var(--ink);margin-top:40px;padding-bottom:12px}.edition a{font:600 14px Arial,sans-serif}label{display:block;margin:18px 0 6px}input,select{font:16px Arial,sans-serif;width:100%;padding:12px;border:1px solid #bcaeaa;background:#fff;color:var(--ink)}input:focus-visible,a:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:4px}[hidden]{display:none!important}table{width:100%;border-collapse:collapse}td,th{padding:12px;text-align:left;border-bottom:1px solid var(--rule);overflow-wrap:anywhere}footer{background:#30282A;color:#fff;padding:30px;text-align:center;font-size:12px}@media(max-width:520px){main{padding:28px 18px 60px}h1{font-size:43px}h2{font-size:25px}}
+"""+'</style></head><body><header><a href="'+prefix+'index.html">THE BRIEF<span style="color:#87404B">.</span></a><nav aria-label="Primary"><a href="'+prefix+'index.html">Today</a><a href="'+prefix+'archive.html">Archive</a><a href="'+prefix+'about.html">About</a><a href="'+prefix+'status.html">Newsroom status</a></nav></header><main><h1>'+esc(title)+'</h1>'+body+'</main><footer>THE BRIEF. · Financial news, understood.</footer></body></html>'
+
+
+def status_page():
+    path=ROOT/'data/status.json'
+    state=json.loads(path.read_text()) if path.exists() else {'outcome':'UNVERIFIED','checked_at':'No production run recorded'}
+    fields=[('Last check (UTC)',state.get('checked_at')),('UK edition date',state.get('uk_date')),('Newsroom outcome',state.get('outcome')),('New articles this run',state.get('published_this_run',0)),('Articles today',state.get('genuine_same_day_articles',0)),('Primary indexes checked',state.get('primary_indexes_checked',0)),('Primary index failures',state.get('primary_index_failures',0)),('RSS feeds working',state.get('feeds_working',0)),('RSS feed failures',state.get('feed_failures',0)),('AI requests used / daily cap',str(state.get('ai_budget',{}).get('requests_today_including_this_run','unknown'))+' / '+str(state.get('ai_budget',{}).get('daily_limit','unknown'))),('Source candidates found',state.get('fresh_source_candidates',0))]
+    rows=''.join('<tr><th>'+esc(k)+'</th><td>'+esc(v)+'</td></tr>' for k,v in fields)
+    body='<p class="intro">Publication and technical checks are different measures. An empty edition is never counted as successful news publication.</p><table>'+rows+'</table><p class="note">This status describes the recorded run, not a guarantee of continuing service. GitHub schedules can be delayed. If the last check is over three hours old, monitoring is stale.</p><p><a href="https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions">Inspect live workflow results and diagnostic artifacts ↗</a></p>'
+    return utility_page('Inside the newsroom.',body)
 
 
 def build():
@@ -144,6 +187,7 @@ def build():
     # Empty is the correct edition when no verified original development was
     # announced AND published on this same UK date. Never replay old news.
     page = (ROOT / "index.html").read_text(encoding="utf-8")
+    if OUT.exists():shutil.rmtree(OUT)
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "data").mkdir(exist_ok=True)
     (OUT / "story").mkdir(exist_ok=True)
@@ -169,14 +213,14 @@ def build():
         lead = ('<article id="lead-story" class="lead-story"><span class="story-kicker">THE BRIEF / '+
             esc(today)+'</span><h1>No verified news from today yet.</h1>'
             '<p class="standfirst">We have not confirmed a new first-party financial-services announcement '
-            'dated today in the UK. We will not fill today’s edition with yesterday’s news.</p></article>')
+            'dated today in the UK. <a href="archive.html">Read earlier editions in the archive →</a></p></article>')
     page = insert_once(page, '<article id="lead-story" class="lead-story"></article>', lead)
     briefing = ''.join(
         '<div class="briefing-story"><span class="brief-number">0' + str(i+1)
         + '</span><div><span class="story-kind">FULL ARTICLE</span>'
         + '<a href="' + esc(story_href(a)) + '">' + esc(a["title"]) + '</a>'
         + '<p>' + esc(a.get("short", "")[:190]) + '</p></div></div>'
-        for i, a in enumerate(records[1:3])
+        for i, a in enumerate(records[:3])
     )
     if not briefing:
         briefing = '<p>No verified same-day stories to brief yet.</p>'
@@ -209,7 +253,16 @@ def build():
     (OUT / "index.html").write_text(page, encoding="utf-8")
     (OUT / "about.html").write_text((ROOT / "about.html").read_text(encoding="utf-8"), encoding="utf-8")
     (OUT / "data/articles.json").write_text(json.dumps(records, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    for a in records:
+    (OUT / "data/archive.json").write_text(json.dumps(archive,ensure_ascii=False,indent=2)+"\n")
+    (OUT / "archive.html").write_text(archive_page(archive),encoding="utf-8")
+    (OUT / "edition").mkdir(exist_ok=True)
+    for day in sorted({original_date(a).isoformat() for a in archive}):
+        selected=[a for a in archive if original_date(a).isoformat()==day]
+        (OUT / "edition" / (day+".html")).write_text(archive_page(selected,day),encoding="utf-8")
+    status_path=ROOT/"data/status.json"
+    if status_path.exists():shutil.copy2(status_path,OUT/"data/status.json")
+    (OUT/"status.html").write_text(status_page(),encoding="utf-8")
+    for a in archive:
         (OUT / story_href(a)).write_text(standalone_story(a), encoding="utf-8")
 
     # These assertions catch the actual failure the earlier smoke tests missed.
@@ -227,10 +280,11 @@ def build():
         if not (OUT / story_href(a)).is_file():
             raise ValueError("Missing public standalone article: " + a["id"])
     print("PUBLIC_BUILD_OK: " + json.dumps({"articles_today": len(records),
-        "historical_records_excluded":len(archive)-len(records),
-        "latest": latest["id"] if latest else None, "standalone_pages": len(records),
+        "archived_records":len(archive)-len(records),
+        "latest": latest["id"] if latest else None, "standalone_pages": len(archive),
         "pre_rendered_feed": True, "inline_fallback": True}, sort_keys=True))
 
 
 if __name__ == "__main__":
     build()
+

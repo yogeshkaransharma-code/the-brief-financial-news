@@ -1,65 +1,52 @@
-#!/usr/bin/env python3
-"""Independent real-browser check of the rendered public news on mobile.
-
-This checks actual visible text, click-through and article content, not just
-HTTP status or JSON existence. Save screenshots as diagnostic evidence.
-"""
-from __future__ import annotations
+"""Read the actual production site at 390px and 1440px. Evidence is never fixture content."""
 import json
 import os
 from pathlib import Path
-from same_day_policy import published_same_day
 from playwright.sync_api import sync_playwright
-
+from same_day_policy import published_same_day
 ROOT=Path(__file__).resolve().parents[1]
-SITE=os.getenv("BRIEF_SITE_URL","https://yogeshkaransharma-code.github.io/the-brief-financial-news/").rstrip("/")+"/"
-OUT=ROOT/"browser-evidence"
-
+SITE=os.getenv('BRIEF_SITE_URL','https://yogeshkaransharma-code.github.io/the-brief-financial-news/').rstrip('/')+'/'
+OUT=ROOT/'browser-evidence'
 
 def main():
-    archive=json.loads((ROOT/"data/articles.json").read_text(encoding="utf-8"))
-    today=[x for x in archive if published_same_day(x)]
-    latest=max(today,key=lambda x:(x.get("published_at",""),x["id"])) if today else None
-    OUT.mkdir(exist_ok=True)
+    articles=json.loads((ROOT/'data/articles.json').read_text());today=[a for a in articles if published_same_day(a)]
+    OUT.mkdir(exist_ok=True);results=[]
     with sync_playwright() as p:
-        browser=p.chromium.launch(headless=True)
-        context=browser.new_context(viewport={"width":390,"height":844},
-            device_scale_factor=1,is_mobile=True,has_touch=True,
-            color_scheme="light",service_workers="block")
-        page=context.new_page()
-        messages=[]
-        page.on("pageerror",lambda error:messages.append(str(error)[:250]))
-        page.goto(SITE+"?mobile-reader-verification=same-day",
-            wait_until="domcontentloaded",timeout=45000)
-        page.wait_for_timeout(2500)
-        assert page.locator("#static-edition").count()==0,"Old fallback debug box remains"
-        assert page.locator("#lead-story").is_visible(),"Editorial lead not visible"
-        visible=page.locator("#home-view").inner_text()
-        for old in archive:
-            if old["id"] not in {a["id"] for a in today}:
-                assert old["title"] not in visible,"Yesterday's article visible in today's news"
-        if latest:
-            assert latest["title"] in page.locator("#lead-story").inner_text(),"Latest same-day article missing"
-            assert page.locator("#feed .news-item").count()>0,"Same-day feed unexpectedly empty"
-            target=SITE+"story/"+latest["id"]+".html"
-        else:
-            assert "No verified news from today yet" in page.locator("#lead-story").inner_text(),\
-                "Empty daily edition must be explicit and readable"
-            assert page.locator("#feed .news-item").count()==0,\
-                "Yesterday's articles carried over to today's feed"
-            target=None
-        page.screenshot(path=str(OUT/"mobile-home.png"),full_page=True)
-        if target:
-            page.goto(target,wait_until="domcontentloaded",timeout=45000)
-            assert latest["title"] in page.locator("h1").inner_text()
-            assert latest["blocks"][0][0] in page.locator("article").inner_text()
-            page.screenshot(path=str(OUT/"mobile-article.png"),full_page=True)
+        browser=p.chromium.launch()
+        for width in [390,1440]:
+            context=browser.new_context(viewport={'width':width,'height':844},is_mobile=width==390,has_touch=width==390)
+            page=context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
+            page.goto(SITE,wait_until='networkidle',timeout=60000)
+            assert page.locator('#lead-story').is_visible()
+            assert page.locator('#feed .news-item').count()==len(today[:10]),'Visible today count differs'
+            visible=page.locator('#home-view').inner_text()
+            for a in articles:
+                if a not in today:assert a['title'] not in visible,'Old story in today edition'
+            assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'),'Homepage overflows viewport'
+            page.screenshot(path=str(OUT/f'home-{width}.png'),full_page=True)
+            page.get_by_role('link',name='Archive',exact=True).click()
+            assert 'The archive.' in page.locator('h1').inner_text()
+            assert page.locator('article[data-category]').count()==len(articles),'Archive headline count differs'
+            if articles:
+                target=articles[0]
+                page.get_by_role('link',name=target['title'],exact=True).click()
+                assert target['title']==page.locator('h1').inner_text()
+                body=page.locator('main article').inner_text()
+                for heading,text in target['blocks']:
+                    assert heading in body and text in body,'Full reading content missing'
+                original=page.get_by_role('link',name='read the original announcement',exact=False)
+                assert original.get_attribute('href')==target['url'],'Source URL differs'
+                assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'),'Article overflows viewport'
+                page.screenshot(path=str(OUT/f'article-{width}.png'),full_page=True)
+                # Read original source in the actual browser as well as verifying the href.
+                source=context.new_page()
+                response=source.goto(target['url'],wait_until='domcontentloaded',timeout=60000)
+                results.append({'width':width,'article':target['id'],'source_url':target['url'],'source_http':response.status if response else None,'source_heading':source.locator('h1').first.inner_text() if source.locator('h1').count() else None})
+                source.screenshot(path=str(OUT/f'original-source-{width}.png'),full_page=True)
+                assert response and response.ok,'Original evidence is inaccessible to the browser'
+            assert not errors,errors
+            context.close()
         browser.close()
-    assert not messages,"Browser JavaScript errors: "+" | ".join(messages)
-    print("MOBILE_SAME_DAY_OK:",json.dumps({"articles_today":len(today),
-        "old_articles_hidden":len(archive)-len(today),"home":SITE,"story":target}))
-
-
-if __name__=="__main__":
-    main()
-
+    (OUT/'result.json').write_text(json.dumps({'today':len(today),'archive':len(articles),'checks':results},indent=2)+'\n')
+    print('ACTUAL_LIVE_BROWSER_OK:',json.dumps({'today':len(today),'archive':len(articles),'checks':results}))
+if __name__=='__main__':main()

@@ -16,6 +16,9 @@ from publication_scope import source_lane
 from source_retrieval import retrieve_bytes
 
 NEWS_HOSTS = {
+    "www.insurancetimes.co.uk","insurancetimes.co.uk","www.insuranceage.co.uk","insuranceage.co.uk",
+    "www.professionalpensions.com","professionalpensions.com","www.moneymarketing.co.uk","moneymarketing.co.uk",
+    "www.mortgagesolutions.co.uk","mortgagesolutions.co.uk","thepaypers.com","www.thepaypers.com",
     "finextra.com", "www.finextra.com",
     "insurancebusinessmag.com", "www.insurancebusinessmag.com",
     "commercialriskonline.com", "www.commercialriskonline.com",
@@ -109,38 +112,8 @@ def official_headline(markup):
         if 20<=len(headline)<=220:return headline
     return None
 
-def published_date(markup):
-    """Official source metadata only. No dates inherited from news coverage."""
-    soup=BeautifulSoup(markup,"html.parser")
-    candidates=[]
-    for meta in soup.select("meta[content]"):
-        prop=(meta.get("property") or meta.get("name") or meta.get("itemprop") or "").lower()
-        if prop in {"article:published_time","datepublished","datecreated","pubdate","dc.date.issued","dc.date"}:
-            candidates.append(meta.get("content",""))
-    for node in soup.select('time[datetime]')[:8]:
-        candidates.append(node.get("datetime",""))
-    for node in soup.select('script[type="application/ld+json"]')[:6]:
-        try:
-            data=json.loads(node.string or node.get_text())
-            stack=data if isinstance(data,list) else [data]
-            for record in stack:
-                if isinstance(record,dict):
-                    candidates.append(record.get("datePublished",""))
-                    if isinstance(record.get("@graph"),list):
-                        candidates.extend(x.get("datePublished","") for x in record["@graph"] if isinstance(x,dict))
-        except (TypeError,ValueError):
-            pass
-    for raw in candidates:
-        raw=str(raw).strip()
-        if not DATE_RE.match(raw):continue
-        try:
-            stamp=dt.datetime.fromisoformat(raw.replace("Z","+00:00"))
-            precision="timestamp" if "T" in raw and stamp.tzinfo else "date"
-            date=stamp.date().isoformat()
-            return date,(stamp.astimezone(dt.timezone.utc).isoformat() if precision=="timestamp" else date+"T12:00:00+00:00"),precision
-        except ValueError:
-            continue
-    return None
+from source_dates import published_date
+
 
 def get_reputable_page(url):
     if not reputable(url):raise ValueError("Not an approved news lead")
@@ -287,3 +260,4 @@ def self_test():
 
 if __name__=="__main__":
     self_test()
+

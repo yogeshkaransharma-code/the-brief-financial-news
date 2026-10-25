@@ -37,8 +37,14 @@ def validate(root: Path) -> int:
         if method=="autonomous":
             if audit.get("review_mode")!="autonomous_low_risk":
                 raise ValueError("Automated article lacks source-limited approval record")
-            if audit.get("automation_policy_version") not in {"limited-autonomy-2026-10-23.1","first-party-newsroom-2026-10-23-v1","daily-24-hour-news-2026-10-23-v2","dated-catchup-newsroom-2026-10-24-v3","strict-uk-same-day-original-news-2026-10-24-v4"}:
+            if audit.get("automation_policy_version") not in {"limited-autonomy-2026-10-23.1","first-party-newsroom-2026-10-23-v1","daily-24-hour-news-2026-10-23-v2","dated-catchup-newsroom-2026-10-24-v3","strict-uk-same-day-original-news-2026-10-24-v4","verified-original-date-2026-10-25-v5"}:
                 raise ValueError("Unknown machine publication policy")
+            if audit.get("automation_policy_version")=="verified-original-date-2026-10-25-v5":
+                from same_day_policy import original_date, date_in_uk
+                if original_date(article)!=date_in_uk(article["published_at"]) or not article.get("date_evidence"):
+                    raise ValueError("New-policy article has invalid original source date")
+                if audit.get("date_evidence")!=article["date_evidence"] or not audit.get("review_headings"):
+                    raise ValueError("Date or heading evidence missing")
             if article.get("reviewed_by")!="autonomous-evidence-screening" or audit.get("approved_by_github_actor")!="AUTONOMOUS_PIPELINE_NO_HUMAN":
                 raise ValueError("Automated article falsely claims a human reviewer")
             if "no human review" not in article["editorial_status"].lower():
@@ -79,3 +85,4 @@ def validate(root: Path) -> int:
 
 if __name__ == "__main__":
     validate(Path(__file__).resolve().parents[1])
+

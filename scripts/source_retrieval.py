@@ -21,6 +21,8 @@ ALLOWED = {"fca.org.uk", "www.fca.org.uk", "bankofengland.co.uk", "www.bankofeng
            "rathbones.com", "www.rathbones.com",
            "allianz.co.uk", "www.allianz.co.uk", "munichre.com", "www.munichre.com", "www.gov.uk", "gov.uk", "hsbc.com", "www.hsbc.com", "natwestgroup.com", "www.natwestgroup.com", "financial-ombudsman.org.uk", "www.financial-ombudsman.org.uk",
            "abi.org.uk", "www.abi.org.uk", "ukfinance.org.uk", "www.ukfinance.org.uk"}
+from source_registry import EXTRA_HOSTS
+ALLOWED |= EXTRA_HOSTS
 UA = "TheBriefResearch/0.2 (public official documents; editorial attribution)"
 MAX_BYTES = 3_000_000
 MAX_TEXT = 43_000
@@ -66,6 +68,7 @@ class Source:
     evidence_sha256: str
     notes: list[str]
     complete_capture: bool
+    publication_date: tuple | None = None
 
 def html_extract(raw, source_url):
     soup = BeautifulSoup(raw, "html.parser")
@@ -166,11 +169,14 @@ def pdf_extract(raw):
 def read_source(url):
     raw, ctype, final=retrieve_bytes(url)
     notes=[]
+    publication_date=None
     docs=[final]
     if "pdf" in ctype or final.lower().endswith(".pdf"):
         text=pdf_extract(raw)
         extraction="full PDF text (selectable pages)"
     elif "html" in ctype:
+        from source_dates import published_date
+        publication_date=published_date(raw)
         text, links=html_extract(raw, final)
         extraction="HTML main content"
         path=urlsplit(final).path.lower()
@@ -198,7 +204,7 @@ def read_source(url):
                 notes.append("No central PDF identified automatically; verify additional attachments before approval")
     else:
         raise SourceError("Unsupported official document format; no draft")
-    return Source(final,docs,text,extraction,hashlib.sha256(text.encode("utf-8")).hexdigest(),notes,True)
+    return Source(final,docs,text,extraction,hashlib.sha256(text.encode("utf-8")).hexdigest(),notes,True,publication_date)
 
 def self_test():
     assert permitted("https://www.fca.org.uk/news/a")
@@ -220,3 +226,4 @@ def self_test():
 
 if __name__=="__main__":
     self_test()
+

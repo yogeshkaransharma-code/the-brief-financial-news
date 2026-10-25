@@ -1,104 +1,61 @@
-#!/usr/bin/env python3
-"""Make newsroom failures visible without mistaking a successful job for news."""
+"""Durable operational outcome. Deployment success is not publication success."""
 from __future__ import annotations
 import datetime as dt
 import json
 import os
 from pathlib import Path
-from same_day_policy import published_same_day
 import sys
-
+from same_day_policy import published_same_day,clock
 ROOT=Path(__file__).resolve().parents[1]
 
-def assess(article_list,report,now):
-    published=[]
-    for item in article_list:
-        try:
-            stamp=dt.datetime.fromisoformat(str(item["published_at"]).replace("Z","+00:00"))
-            if stamp.tzinfo:published.append(stamp.astimezone(dt.timezone.utc))
-        except (KeyError,ValueError,TypeError):
-            pass
-    published.sort(reverse=True)
-    recent=sum(dt.timedelta()<=now-x<=dt.timedelta(hours=24) for x in published)
-    fresh=report.get("fresh_unpublished_source_candidates",0)
-    available=report.get("available_after_retry_cooldowns",0)
-    screened=report.get("machine_screened",0)
-    quota=report.get("active_quota_pause_until")
-    spend=report.get("api_budget") or {}
-    if fresh==0:
-        state="No verified original announcement dated today in the UK"
-    elif quota:
-        state="API capacity paused"
-    elif spend and spend.get("remaining_today")==0:
-        state="Daily AI request budget exhausted; no more paid calls"
-    elif fresh and not available:
-        state="Source retry holds are excluding all fresh candidates"
-    elif report.get("eligible_for_this_run",0)==0:
-        state="No source eligible for writing in this run"
-    elif screened==0:
-        state="Source reading or independent verification blocked publication"
-    else:
-        state="At least one draft passed machine screening"
-    return {"published_total":len(article_list),"published_last_24h":recent,
-            "genuine_same_day_articles":sum(published_same_day(x,now) for x in article_list),
-            "last_article_at":published[0].isoformat() if published else None,
-            "fresh_source_candidates":fresh,"candidates_after_cooldowns":available,
-            "machine_screened":screened,"traced_originals":report.get("traced_originals",0),
-            "media_leads_in_24h":report.get("media_leads_in_24h",0),
-            "distinct_research_leads_attempted":report.get("distinct_research_leads_attempted",0),
-            "research_checked_this_run":len(report.get("original_source_trace",[])),
-            "status":state,"quota_pause_until":quota,"ai_budget":spend}
+def assess(articles,report,now,publication=None,feeds=None):
+    publication=publication or {};feeds=feeds or {}
+    new=len(publication.get('published',[]))
+    checked=report.get('first_party_indexes_checked',0)
+    failures=len(report.get('first_party_discovery_errors',[]))
+    feed_ok=len(feeds.get('sources_checked',[]));feed_fail=len(feeds.get('errors',[]))
+    if not report or not publication or os.getenv('BRIEF_PIPELINE_ERROR')=='true':outcome='BLOCKED'
+    elif new:outcome='PUBLISHED'
+    elif report.get('fresh_unpublished_source_candidates',0):outcome='BLOCKED'
+    elif failures or feed_fail:outcome='DEGRADED'
+    elif not checked or not feed_ok:outcome='BLOCKED'
+    else:outcome='NO_QUALIFYING_NEWS'
+    return {'checked_at':now.isoformat(),'uk_date':clock(now).date().isoformat(),'outcome':outcome,
+      'published_this_run':new,'genuine_same_day_articles':sum(published_same_day(a,now) for a in articles),
+      'published_total':len(articles),'last_article_at':max((a['published_at'] for a in articles),default=None),
+      'fresh_source_candidates':report.get('fresh_unpublished_source_candidates',0),
+      'machine_screened':report.get('machine_screened',0),'primary_indexes_checked':checked,
+      'primary_index_failures':failures,'feeds_working':feed_ok,'feed_failures':feed_fail,
+      'ai_budget':report.get('api_budget',{}),'quota_pause_until':report.get('active_quota_pause_until'),
+      'candidate_outcomes':report.get('items_checked',[]),'discovery_errors':report.get('first_party_discovery_errors',[])+feeds.get('errors',[]),
+      'publication_holds':publication.get('held',[]),
+      'run_url':'https://github.com/'+os.getenv('GITHUB_REPOSITORY','yogeshkaransharma-code/the-brief-financial-news')+'/actions/runs/'+os.getenv('GITHUB_RUN_ID','')}
+
+def read(path,default):
+    try:return json.loads((ROOT/path).read_text())
+    except (OSError,ValueError):return default
 
 def main():
-    now=dt.datetime.now(dt.timezone.utc)
-    try:articles=json.loads((ROOT/"data/articles.json").read_text(encoding="utf-8"))
-    except (OSError,ValueError,TypeError):articles=[]
-    try:report=json.loads((ROOT/"generated-drafts/run-report.json").read_text(encoding="utf-8"))
-    except (OSError,ValueError,TypeError):report={}
-    state=assess(articles,report,now)
-    print("NEWSROOM_HEALTH: "+json.dumps(state,sort_keys=True))
-    lines=[
-        "## The Brief newsroom health",
-        "",
-        "| Measure | Status |",
-        "| --- | --- |",
-        f"| Published articles | {state['published_total']} |",
-        f"| Published in last 24 hours | {state['published_last_24h']} |",
-        f"| Original source AND publication dated today in UK | {state['genuine_same_day_articles']} |",
-        f"| Most recent publication UTC | {state['last_article_at'] or 'None'} |",
-        f"| Fresh original candidates | {state['fresh_source_candidates']} |",
-        f"| News reports from last 24 hours | {state['media_leads_in_24h']} |",
-        f"| Different media links investigated | {state['distinct_research_leads_attempted']} |",
-        f"| Media links investigated in this run | {state['research_checked_this_run']} |",
-        f"| Original documents traced from news links | {state['traced_originals']} |",
-        f"| After retry holds | {state['candidates_after_cooldowns']} |",
-        f"| Machine-screened new drafts | {state['machine_screened']} |",
-        f"| AI requests in this run | {state['ai_budget'].get('requests_this_run','unknown')} |",
-        f"| AI requests used today / cap | {state['ai_budget'].get('requests_today_including_this_run','unknown')} / {state['ai_budget'].get('daily_limit','unknown')} |",
-        f"| Operational state | {state['status']} |",
-        "",
-        "A green GitHub job alone does not mean an article was published.",
-        "Held drafts stay unpublished until their evidence checks pass.",
-    ]
-    if report.get("original_source_trace"):
-        lines.append("")
-        lines.append("### Source tracing")
-        for item in report["original_source_trace"][:12]:
-            lines.append("- "+str(item.get("result","unresolved"))+": "+str(item.get("headline","source"))[:115])
-    path=os.getenv("GITHUB_STEP_SUMMARY")
+    state=assess(read('data/articles.json',[]),read('generated-drafts/run-report.json',{}),dt.datetime.now(dt.timezone.utc),read('generated-drafts/publication-report.json',{}),read('data/live.json',{}))
+    (ROOT/'data/status.json').write_text(json.dumps(state,ensure_ascii=False,indent=2)+'\n')
+    out=os.getenv('GITHUB_OUTPUT')
+    if out:
+        with open(out,'a') as f:f.write('outcome='+state['outcome']+'\nnew_articles='+str(state['published_this_run'])+'\n')
+    summary='## Newsroom result: '+state['outcome']+'\n\nNew articles actually published: **'+str(state['published_this_run'])+'**. Today’s edition: **'+str(state['genuine_same_day_articles'])+'**.\n\n'
+    summary+='| Measure | Result |\n|---|---|\n'
+    for k in ['primary_indexes_checked','primary_index_failures','feeds_working','feed_failures','fresh_source_candidates','machine_screened','last_article_at']:
+        summary+='| '+k.replace('_',' ')+' | '+str(state[k])+' |\n'
+    summary+='\nNo new article means no successful news publication. Discovery gaps mean coverage is incomplete, not proof nothing happened.\n'
+    for e in state['discovery_errors']:summary+='\n- Discovery issue: '+str(e)
+    for e in state['candidate_outcomes']:summary+='\n- '+str(e.get('title','Pipeline'))+': '+str(e.get('result'))+' — '+str(e.get('reason',''))
+    path=os.getenv('GITHUB_STEP_SUMMARY')
     if path:
-        with open(path,"a",encoding="utf-8") as fh:fh.write("\n".join(lines)+"\n")
-    if state["published_last_24h"]==0:
-        print("::warning::No article has been published in the last 24 hours. The successful workflow only confirms the checks completed.")
-    if state["quota_pause_until"]:
-        print("::warning::Gemini usage capacity is paused until "+str(state["quota_pause_until"]))
+        with open(path,'a') as f:f.write(summary+'\n')
+    print('NEWSROOM_OUTCOME: '+json.dumps(state,sort_keys=True))
 
-if __name__=="__main__":
-    if "--self-test" in sys.argv:
-        n=dt.datetime(2026,10,24,tzinfo=dt.timezone.utc)
-        a=assess([{"published_at":"2026-10-23T18:18:00+00:00"}],
-                 {"fresh_unpublished_source_candidates":4,"available_after_retry_cooldowns":0},n)
-        assert a["published_last_24h"]==1
-        assert a["status"]=="Source retry holds are excluding all fresh candidates"
-        print("PASS: no-new-article status and bounded publication clock")
+if __name__=='__main__':
+    if '--self-test' in sys.argv:
+        n=dt.datetime(2026,10,25,tzinfo=dt.timezone.utc)
+        assert assess([],{},n)['outcome']=='BLOCKED'
+        print('PASS: missing run evidence cannot become publication success')
     else:main()

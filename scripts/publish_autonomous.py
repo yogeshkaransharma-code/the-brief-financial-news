@@ -17,7 +17,7 @@ from urllib.parse import urlsplit
 from editorial_gate import check
 from newsroom_v2 import canonical
 from verify_approved_articles import validate as verify_feed
-from same_day_policy import source_issued_today
+from same_day_policy import source_issued_today, clock, date_in_uk
 from publication_scope import source_lane
 from source_retrieval import permitted
 
@@ -25,8 +25,8 @@ ROOT = Path(__file__).resolve().parents[1]
 ARTICLES = ROOT / "data/articles.json"
 AUDIT_DIR = ROOT / "data/editorial-audits"
 DRAFT_DIR = ROOT / "generated-drafts"
-MAX_ARTICLES = 6
-POLICY_VERSION = "strict-uk-same-day-original-news-2026-10-24-v4"
+MAX_ARTICLES = 10
+POLICY_VERSION = "verified-original-date-2026-10-25-v5"
 # URL-level lanes are shared with candidate selection so Gemini focuses on
 # stories that have a chance of passing the autonomous publication gate.
 HIGH_RISK = re.compile(
@@ -61,8 +61,12 @@ def eligible(bundle):
         problems.append("Government publication status misrepresented")
     if lane in {"fca_release","company_release","industry_release","official_release","issuer_rns","tpr_release","ombudsman_release"} and a.get("status")!="Confirmed announcement":
         problems.append("An official announcement must be labelled as such")
-    if lane and a.get("category") not in {"Banking","Insurance","Technology","Regulation"}:
+    if lane and a.get("category") not in {"Banking","Insurance","Technology","Regulation","Pensions","Brokers"}:
         problems.append("Original source not within financial-services industry category")
+    if not a.get("date_evidence") or audit.get("date_evidence")!=a.get("date_evidence"):
+        problems.append("Missing original-document date evidence")
+    if not audit.get("review_headings"):
+        problems.append("Section headings were not included in independent review")
     if audit.get("pipeline_version")!=2:
         problems.append("Missing independent sentence-level review")
     extraction=audit.get("source_extraction")
@@ -88,7 +92,7 @@ def eligible(bundle):
         problems.append("Original announcement is not from TODAY in the UK; old or future news is forbidden")
     if bundle.get("editorial_flags") or bundle.get("revision_history",[])[-1:][0:1] and bundle["revision_history"][-1].get("problems"):
         problems.append("Outstanding disputed claim")
-    combined="\n".join([a["title"],a["short"]]+[t for _,t in a["blocks"]])
+    combined="\n".join([a["title"],a["short"]]+[v for block in a["blocks"] for v in block])
     if HIGH_RISK.search(combined):
         problems.append("High-risk claim requires human accountability")
     if CAUSAL.search(combined):
@@ -120,6 +124,7 @@ def publish(root=ROOT, folder=None, dry_run=False):
     retired_file=root/"data/retired-source-urls.json"
     retired_urls=set(json.loads(retired_file.read_text(encoding="utf-8")).get("urls",[])) if retired_file.exists() else set()
     report={"policy":POLICY_VERSION,"tested":0,"published":[],"held":[],"mode":"dry_run" if dry_run else "active"}
+    today_count=sum(date_in_uk(x["published_at"])==clock().date() for x in existing)
     for file in sorted(folder.glob("ai-*.json")):
         bundle=json.loads(file.read_text(encoding="utf-8"))
         a=bundle.get("draft") or {}
@@ -135,7 +140,7 @@ def publish(root=ROOT, folder=None, dry_run=False):
         if reasons:
             report["held"].append({"id":aid,"reason":reasons})
             continue
-        if len(report["published"])>=MAX_ARTICLES:
+        if today_count+len(report["published"])>=MAX_ARTICLES:
             report["held"].append({"id":aid,"reason":["Daily original-story cap"]})
             continue
         item=dict(a)
@@ -155,6 +160,10 @@ def publish(root=ROOT, folder=None, dry_run=False):
             "source_snapshot_sha256":bundle["audit"]["source_sha256"],
             "published_article_sha256":canonical(item),
             "source_document_urls":bundle["audit"]["source_document_urls"],
+            "date_evidence":bundle["audit"].get("date_evidence"),
+            "independent_claim_checks":bundle["audit"]["verbatim_source_checks"],
+            "review_headings":True,
+            "workflow_run_url":("https://github.com/"+os.getenv("GITHUB_REPOSITORY","")+"/actions/runs/"+os.getenv("GITHUB_RUN_ID","")),
             "claim_challenge_sentences":bundle["audit"]["sentence_review"]["reviewed"],
             "editor_notes":"Original regulator or first-party banking/insurance release; machine-screened, not fact-certified by a human editor.",
             "residual_risk":"The AI and source may be wrong; a passing automated check does not prove a claim's meaning.",
@@ -167,11 +176,14 @@ def publish(root=ROOT, folder=None, dry_run=False):
         seen_id.add(aid)
         seen_url.add(item["url"])
     if not dry_run and report["published"]:
-        article_path.write_text(json.dumps(existing[:150],ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+        article_path.write_text(json.dumps(existing,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
         verify_feed(root)
     print("AUTONOMOUS_REPORT: "+json.dumps(report,ensure_ascii=False))
     return report
 
 if __name__=="__main__":
     enabled=os.environ.get("AUTO_PUBLICATION_ENABLED")=="1"
-    publish(dry_run=not enabled)
+    report=publish(dry_run=not enabled)
+    DRAFT_DIR.mkdir(exist_ok=True)
+    (DRAFT_DIR/"publication-report.json").write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n")
+

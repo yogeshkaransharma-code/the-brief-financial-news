@@ -17,6 +17,8 @@ MODELS={
     "openai":os.getenv("OPENAI_MODEL","gpt-6-luna"),
     "anthropic":os.getenv("ANTHROPIC_MODEL","claude-haiku-5-5"),
 }
+if PROVIDER != "gemini":
+    raise RuntimeError("Only Gemini is authorised. Paid providers require an explicit reviewed code change.")
 if PROVIDER not in MODELS:
     raise RuntimeError("Unknown BRIEF_AI_PROVIDER (must be gemini, openai or anthropic)")
 ACTIVE_MODEL=PROVIDER+":"+MODELS[PROVIDER]
@@ -93,3 +95,4 @@ def self_test():
 
 if __name__=="__main__":
     self_test()
+

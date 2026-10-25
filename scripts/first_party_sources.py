@@ -7,6 +7,9 @@ from urllib.parse import urljoin,urlsplit
 from bs4 import BeautifulSoup
 from source_retrieval import retrieve_bytes
 from publication_scope import source_lane
+from source_registry import EXTRA_INDEXES
+from same_day_policy import clock
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 INDEXES=(
     ("Aviva","Insurance","https://www.aviva.com/newsroom/"),
@@ -23,6 +26,7 @@ INDEXES=(
     ("Financial Conduct Authority","Regulation","https://www.fca.org.uk/news"),
     ("Bank of England","Banking","https://www.bankofengland.co.uk/news/latest-and-upcoming"),
 )
+INDEXES += EXTRA_INDEXES
 MON={"jan":1,"feb":2,"mar":3,"apr":4,"may":5,"jun":6,"jul":7,"aug":8,"sep":9,"sept":9,"oct":10,"nov":11,"dec":12}
 DATE=re.compile(r"\b([0-3]?\d)\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)[a-z]*\s+(20\d\d)\b",re.I)
 MONTH_FIRST=re.compile(r"\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)[a-z]*\s+([0-3]?\d),?\s+(20\d\d)\b",re.I)
@@ -32,6 +36,8 @@ SLASH_DATE=re.compile(r"\b([0-3]?\d)/([01]?\d)/(20\d\d)\b")
 def official_release(url, source):
     p=urlsplit(url)
     if p.scheme!="https" or p.username or p.password:return False
+    if source in {x[0] for x in EXTRA_INDEXES}:
+        return source_lane(url) is not None
     if source=="Association of British Insurers":
         return source_lane(url)=="industry_release" and p.hostname in {"abi.org.uk","www.abi.org.uk"}
     if source=="UK Finance":
@@ -57,7 +63,7 @@ def official_release(url, source):
     return p.hostname in {"www.lloydsbankinggroup.com","lloydsbankinggroup.com"} and "/media/press-releases/" in p.path and p.path.endswith(".html")
 
 def parse_listing(content,source,section,base,today=None):
-    today=today or dt.datetime.now(dt.timezone.utc).date()
+    today=today or clock().date()
     soup=BeautifulSoup(content,"html.parser")
     found=[]
     for anchor in soup.select("a[href]"):
@@ -70,7 +76,7 @@ def parse_listing(content,source,section,base,today=None):
             if not re.match(r"(?i)^press release\s*\|",title):
                 continue
             title=re.sub(r"(?i)^press release\s*\|\s*\d{1,2}\.\d{1,2}\.20\d{2}\s*","",title).strip()
-        if source in {"Allianz UK","Munich Re","HSBC","NatWest Group","Financial Ombudsman Service"} and (len(title)<25 or title.lower() in {"read more","more information","discover more"}):
+        if (source in {x[0] for x in EXTRA_INDEXES} or source in {"Allianz UK","Munich Re","HSBC","NatWest Group","Financial Ombudsman Service"}) and (len(title)<25 or title.lower() in {"read more","more information","discover more"}):
             node=anchor
             for _ in range(4):
                 node=node.parent if getattr(node,"parent",None) else node
@@ -89,7 +95,7 @@ def parse_listing(content,source,section,base,today=None):
         if not 25<=len(title)<=190 or title.lower() in {"read more","read press release"}:continue
         node=anchor
         date=None
-        for _ in range(4):
+        for _ in range(5):
             if not getattr(node,"parent",None):break
             node=node.parent
             context=" ".join(node.get_text(" ",strip=True).split())[:1100]
@@ -119,7 +125,7 @@ def parse_listing(content,source,section,base,today=None):
                 except ValueError:pass
         if not date or not 0<=(today-date).days<=21:continue
         effective_category=("Insurance" if source=="UK Parliament" and re.search(r"insurance|claims|underwriting|protection",title,re.I) else section)
-        found.append({"title":title,"url":url,"dateISO":date.isoformat(),"published_at":date.isoformat()+"T12:00:00+00:00",
+        found.append({"title":title,"url":url,"dateISO":date.isoformat(),"published_at":date.isoformat(),
                       "source":source,"category":effective_category,"kind":"first_party_announcement","source_time_precision":"date"})
     unique={}
     for entry in found:
@@ -127,20 +133,49 @@ def parse_listing(content,source,section,base,today=None):
     return list(unique.values())
 
 def discover():
-    items=[]
-    problems=[]
-    for source,category,url in INDEXES:
-        try:
-            raw,ctype,final=retrieve_bytes(url)
-            if "html" not in ctype:raise ValueError("Index is not HTML")
-            records=parse_listing(raw,source,category,final)
-            items.extend(records)
-            print(f"FIRST_PARTY_DISCOVERY {source}: {len(records)} recent original announcements")
-        except Exception as e:
-            issue=f"{source}: {type(e).__name__} {str(e)[:100]}"
-            problems.append(issue)
-            print("FIRST_PARTY_BLOCKED "+issue)
+    items=[];problems=[];coverage=[]
+    def fetch(index):
+        source,category,url=index
+        raw,ctype,final=retrieve_bytes(url)
+        if "html" not in ctype:raise ValueError("Index is not HTML")
+        records=parse_listing(raw,source,category,final)
+        # Hydrated or undated card layouts: read up to three release links and
+        # obtain their original dates from the actual documents, without AI.
+        if not records:
+            from source_dates import published_date
+            from source_trace import official_headline
+            soup=BeautifulSoup(raw,"html.parser")
+            urls=list(dict.fromkeys(urljoin(final,a["href"]).split("#")[0] for a in soup.select("a[href]")
+                if official_release(urljoin(final,a["href"]),source) and len(a.get_text(" ",strip=True))>=25))
+            for link in urls[:3]:
+                try:
+                    content,content_type,real=retrieve_bytes(link)
+                    dated=published_date(content);title=official_headline(content)
+                    if dated and title:
+                        day,stamp,precision=dated
+                        if 0<=(clock().date()-dt.date.fromisoformat(day)).days<=21:
+                            records.append({"title":title,"url":real,"dateISO":day,"published_at":stamp,"source_published_at":stamp,"source_time_precision":precision,"source":source,"category":category,"kind":"first_party_announcement"})
+                except Exception:continue
+        return source,records
+    with ThreadPoolExecutor(max_workers=5) as pool:
+        futures={pool.submit(fetch,index):index for index in INDEXES}
+        for future in as_completed(futures):
+            source,category,url=futures[future]
+            try:
+                _,records=future.result();items.extend(records)
+                coverage.append({"source":source,"url":url,"candidates":len(records),"result":"read"})
+                print(f"FIRST_PARTY_DISCOVERY {source}: {len(records)} dated original leads")
+            except Exception as e:
+                issue=f"{source}: {type(e).__name__} {str(e)[:100]}"
+                problems.append(issue);coverage.append({"source":source,"url":url,"result":"failed","reason":str(e)[:140]})
+                print("FIRST_PARTY_BLOCKED "+issue)
+    from pathlib import Path
+    import json
+    out=Path(__file__).resolve().parents[1]/"generated-drafts"
+    out.mkdir(exist_ok=True)
+    (out/"primary-discovery.json").write_text(json.dumps(coverage,ensure_ascii=False,indent=2)+"\n")
     return items,problems
+
 
 def self_test():
     raw=b'''<main><section><h2><a href="/newsroom/news-and-research-overview/news-releases/2026/10/example-insurance-update/">Aviva launches new insurance service for customers</a></h2><p>16 Oct 2026</p></section></main>'''
@@ -188,3 +223,4 @@ def self_test():
 
 if __name__=="__main__":
     self_test()
+

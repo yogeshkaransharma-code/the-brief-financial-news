@@ -40,6 +40,10 @@ def prepared():
     ])
     bundle["captured_source_excerpt"]=captured
     audit["source_sha256"]=hashlib.sha256(captured.encode()).hexdigest()
+    a["source_time_precision"]="date"
+    a["date_evidence"]={"url":url,"value":a["dateISO"],"precision":"date","method":"offline fixture"}
+    audit["date_evidence"]=a["date_evidence"]
+    audit["review_headings"]=True
     audit["source_url"]=url
     audit["article_id"]=a["id"]
     audit["source_title"]=a["title"]
@@ -53,7 +57,7 @@ def prepared():
         {"claim":f"FCA official complaint data section {i} contains reported industry measures",
          "source_excerpt":f"Official financial-services complaints release section {i}. The FCA has published data about"}
         for i in range(1,11)]
-    fields=[a["title"],a["short"]]+[p for h,p in a["blocks"]]
+    fields=[a["title"],a["short"]]+[v for block in a["blocks"] for v in block]
     n=sum(len([x for x in re.split(r"(?<=[.!?])\s+(?=[A-Z0-9£])|\n+",p) if x.strip()]) for p in fields)
     audit["sentence_review"]={"review_schema":"one-verdict-per-sentence-v2","reviewed_sentence_ids":[f"C{i:02}" for i in range(1,n+1)],
                               "total_sentences":n,"reviewed":n,"supported":n,"held":0}
@@ -124,3 +128,4 @@ def main():
 
 if __name__=="__main__":
     main()
+

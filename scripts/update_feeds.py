@@ -14,6 +14,7 @@ import urllib.request
 import urllib.error
 import urllib.parse
 import xml.etree.ElementTree as ET
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from zoneinfo import ZoneInfo
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -71,11 +72,17 @@ FEEDS = [
     ("Bloomberg Markets", "https://feeds.bloomberg.com/markets/news.rss", "Banking"),
     ("Wall Street Journal Markets", "https://feeds.content.dowjones.io/public/rss/RSSMarketsMain", "Banking"),
     ("MarketWatch", "https://feeds.content.dowjones.io/public/rss/mw_topstories", "Banking"),
-    ("The Economist Finance", "https://www.economist.com/finance-and-economics/rss.xml", "Banking"),
+    # Economist RSS requires paid access; not requested on the free unattended path.
     ("Finextra", "https://www.finextra.com/rss/headlines.aspx", "Banking"),
     ("Finextra payments", "https://www.finextra.com/rss/channel.aspx?channel=payments", "Banking"),
     ("Insurance Business UK", "https://www.insurancebusinessmag.com/uk/rss/", "Insurance"),
     ("Commercial Risk", "https://www.commercialriskonline.com/feed/", "Insurance"),
+    ("Insurance Times", "https://www.insurancetimes.co.uk/insurance-times-rss/1388.rss", "Insurance"),
+    ("Insurance Age", "https://www.insuranceage.co.uk/feeds/rss/category/broker", "Brokers"),
+    ("Professional Pensions", "https://www.professionalpensions.com/feeds/rss", "Pensions"),
+    ("Money Marketing", "https://www.moneymarketing.co.uk/feed/", "Pensions"),
+    ("Mortgage Solutions", "https://www.mortgagesolutions.co.uk/feed/", "Banking"),
+    # The Paypers /rss currently returns HTML; do not claim it is a working feed.
     # Artemis serves copyright-only summaries; not suitable for an on-site briefing.
 ]
 
@@ -170,7 +177,7 @@ def parse(xml_bytes, name, fallback):
             if name in GOVERNMENT and len(headline)>=25:
                 summary="Original government announcement. The full official document must be retrieved and verified before reporting."
             else:
-                continue
+                summary="Discovery lead only. Read and verify original evidence before publication."
         published = parse_date(date)
         url = urllib.parse.urlsplit(link)
         if not headline or not published or not (url.scheme == "https" and url.hostname) or url.username or url.password:
@@ -202,30 +209,27 @@ def main():
              or GOVERNMENT_FINANCE_HEADLINE.search(x.get("title","")))
     }
     successes, errors = [], []
-    for name, url, category in FEEDS:
+    def fetch_feed(feed):
+        name,url,category=feed
+        request=urllib.request.Request(url,headers=HEADERS)
         try:
-            request = urllib.request.Request(url, headers=HEADERS)
+            with urllib.request.urlopen(request,timeout=18) as response:raw=response.read(2000000)
+        except urllib.error.HTTPError as exc:
+            if exc.code not in (406,415):raise
+            headers=dict(HEADERS,Accept="*/*")
+            with urllib.request.urlopen(urllib.request.Request(url,headers=headers),timeout=18) as response:raw=response.read(2000000)
+        return parse(raw,name,category)
+    with ThreadPoolExecutor(max_workers=6) as pool:
+        futures={pool.submit(fetch_feed,feed):feed for feed in FEEDS}
+        for future in as_completed(futures):
+            name,url,category=futures[future]
             try:
-                with urllib.request.urlopen(request, timeout=18) as response:
-                    raw = response.read(2000000)
-            except urllib.error.HTTPError as exc:
-                if exc.code not in (406, 415):
-                    raise
-                # Some publishers reject a narrowly specified RSS Accept header.
-                fallback_headers = dict(HEADERS)
-                fallback_headers["Accept"] = "*/*"
-                with urllib.request.urlopen(urllib.request.Request(url, headers=fallback_headers), timeout=18) as response:
-                    raw = response.read(2000000)
-            updates = parse(raw, name, category)
-            if not updates and name not in GOVERNMENT:
-                raise ValueError("No recent usable items")
-            # A government feed can be healthy but have no financial-services
-            # headlines today. This is an empty relevant result, not a failure.
-            seen.update({x["id"]: x for x in updates})
-            successes.append({"name": name, "items": len(updates)})
-        except Exception as exc:
-            errors.append({"source": name, "error": str(exc)[:140]})
-            logging.warning("%s: %s", name, exc)
+                updates=future.result()
+                seen.update({x["id"]:x for x in updates})
+                successes.append({"name":name,"url":url,"items":len(updates)})
+            except Exception as exc:
+                errors.append({"source":name,"url":url,"error":str(exc)[:140]})
+                logging.warning("%s: %s",name,exc)
     if not successes:
         raise SystemExit("All feeds failed; keep existing data unchanged")
     # Preserve primary-source candidates when dozens of commercial publishers
@@ -249,3 +253,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

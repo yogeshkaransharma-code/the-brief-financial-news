@@ -22,7 +22,7 @@ from editorial_gate import check as editorial_check
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "generated-drafts"
-MODEL = os.environ.get("GEMINI_MODEL", "gemini-3.8-flash")
+MODEL = os.environ.get("GEMINI_MODEL", "gemini-3.5-flash-lite")
 KEY = os.environ.get("GEMINI_API_KEY", "")
 MAX_DAILY_DRAFTS = 2
 ALLOWED_HOSTS = {"www.fca.org.uk", "fca.org.uk", "www.bankofengland.co.uk", "bankofengland.co.uk", "www.aviva.com", "aviva.com", "www.lloydsbankinggroup.com", "lloydsbankinggroup.com", "www.standardlifeplc.com", "standardlifeplc.com", "committees.parliament.uk", "publications.parliament.uk", "www.investegate.co.uk", "investegate.co.uk", "thepensionsregulator.gov.uk", "www.thepensionsregulator.gov.uk", "rathbones.com", "www.rathbones.com",
@@ -103,6 +103,13 @@ def norm(value: str) -> str:
     return re.sub(r"\s+", " ", re.sub(r"[^\w\s]", " ", value)).strip()
 
 
+class GeminiAPIError(RuntimeError):
+    def __init__(self,status,details,retry_seconds=None):
+        self.status=status;self.retry_seconds=retry_seconds
+        self.daily=bool(re.search(r"(?i)requestsperday|tokensperday|daily|per day|rpd",details))
+        super().__init__(f"Gemini API HTTP {status}: "+details[:450])
+
+
 def fetch_gemini(prompt: str, model_override: str | None = None) -> dict:
     """Exactly one Gemini HTTP call, with an optional explicitly metered model.
 
@@ -113,7 +120,7 @@ def fetch_gemini(prompt: str, model_override: str | None = None) -> dict:
         raise RuntimeError("Missing GEMINI_API_KEY GitHub Actions secret")
     payload={
         "contents":[{"role":"user","parts":[{"text":prompt}]}],
-        "generationConfig":{"responseMimeType":"application/json","temperature":0.2,"maxOutputTokens":6000}
+        "generationConfig":{"responseMimeType":"application/json","temperature":0.2,"maxOutputTokens":8000}
     }
     # A 429 must not trigger four more quota-consuming attempts on other
     # models. Explicit provider/model selection means exactly one API call.
@@ -130,26 +137,36 @@ def fetch_gemini(prompt: str, model_override: str | None = None) -> dict:
             with urllib.request.urlopen(request,timeout=50) as response:
                 raw=json.loads(response.read(300_000))
         except urllib.error.HTTPError as error:
-            details=error.read(550).decode("utf-8",errors="replace")
-            failures.append(f"{model_name}: HTTP {error.code}: {details[:260]}")
-            # Permanent errors require correction, not arbitrary model retries.
-            if error.code not in (404,429,500,502,503,504):
-                raise RuntimeError(f"Gemini API returned HTTP {error.code}: {details}") from None
-            continue
+            details=error.read(6000).decode("utf-8",errors="replace")
+            retry=None
+            try:retry=float(error.headers.get("Retry-After",""))
+            except (ValueError,TypeError):pass
+            try:
+                decoded=json.loads(details)
+                for detail in decoded.get("error",{}).get("details",[]):
+                    value=detail.get("retryDelay","")
+                    if value.endswith("s"):retry=float(value[:-1])
+                message=decoded.get("error",{}).get("message",details)
+            except (ValueError,TypeError):message=details
+            raise GeminiAPIError(error.code,message,retry) from None
         except (TimeoutError,ConnectionError,urllib.error.URLError) as error:
             failures.append(f"{model_name}: connection unavailable ({type(error).__name__})")
             continue
         content=raw.get("candidates",[{}])[0].get("content",{}).get("parts",[])
-        produced="".join(part.get("text","") for part in content)
+        produced="".join(part.get("text","") for part in content if not part.get("thought"))
+        usage=raw.get("usageMetadata",{})
+        print("GEMINI_USAGE: "+json.dumps({"model":model_name,"prompt_tokens":usage.get("promptTokenCount"),"output_tokens":usage.get("candidatesTokenCount"),"total_tokens":usage.get("totalTokenCount")}))
+        if raw.get("candidates",[{}])[0].get("finishReason") not in (None,"STOP"):
+            raise RuntimeError("Gemini response incomplete/blocked; no JSON repair")
         if not produced:
             failures.append(f"{model_name}: empty response")
             continue
         try:
             data=json.loads(produced)
         except json.JSONDecodeError:
-            from json_repair import loads as repair_loads
-            data=repair_loads(produced)
+            raise RuntimeError("Gemini returned invalid JSON; held without another model request") from None
         if isinstance(data,dict):
+            data["_brief_usage"]={"model":model_name,**usage}
             return data
         failures.append(f"{model_name}: malformed article response")
     raise RuntimeError("All available Gemini models failed; article held: "+"; ".join(failures)[:900])
@@ -406,3 +423,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

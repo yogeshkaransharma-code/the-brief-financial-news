@@ -8,6 +8,7 @@ must still pass. An RSS headline is never sufficient evidence.
 from __future__ import annotations
 import re
 from urllib.parse import urlsplit
+from source_registry import extra_lane
 
 FCA_REPORT = re.compile(r"^/data/(?:complaints-data-\d{4}-h[12]|access-cash-coverage-uk-\d{4}-h[12])/?$", re.I)
 FCA_RELEASE = re.compile(r"^/news/press-releases/[a-z0-9-]+/?$", re.I)
@@ -43,6 +44,9 @@ def source_lane(url: str) -> str | None:
     if p.scheme != "https" or p.username or p.password or p.port not in (None,443):
         return None
     host, path = (p.hostname or "").lower(), p.path
+    if not ADVERSE.search(path.rsplit("/",1)[-1]):
+        extra=extra_lane(url)
+        if extra:return extra
     if host in {"fca.org.uk", "www.fca.org.uk"}:
         if FCA_REPORT.fullmatch(path):
             return "fca_data"
@@ -132,3 +136,4 @@ def self_test():
 
 if __name__ == "__main__":
     self_test()
+

@@ -1,83 +1,57 @@
-#!/usr/bin/env python3
-"""Post-deployment probe: prove that GitHub Pages serves actual readable articles.
-
-An Actions green tick cannot substitute for a visible article. Fail the workflow
-when the public HTML, article archive or full story route is missing or stale.
-"""
+"""Live HTTP evidence: same-day edition AND historical routes. Never equate empty with published."""
 import datetime as dt
 import html
 import json
 import os
-import time
-import urllib.parse
-import urllib.request
 from pathlib import Path
-from same_day_policy import published_same_day, clock
-
-ROOT = Path(__file__).resolve().parents[1]
-SITE = os.getenv("BRIEF_SITE_URL", "https://yogeshkaransharma-code.github.io/the-brief-financial-news/").rstrip("/")+"/"
-
+import sys
+import time
+import urllib.request
+from same_day_policy import published_same_day,clock
+ROOT=Path(__file__).resolve().parents[1]
+SITE=os.getenv('BRIEF_SITE_URL','https://yogeshkaransharma-code.github.io/the-brief-financial-news/').rstrip('/')+'/'
 
 def read(url):
-    request = urllib.request.Request(url, headers={
-        "User-Agent":"TheBriefLiveDeploymentCheck/1.0",
-        "Cache-Control":"no-cache",
-        "Pragma":"no-cache"
-    })
-    with urllib.request.urlopen(request, timeout=15) as response:
-        content = response.read(950_000).decode("utf-8")
-        return content
-
+    req=urllib.request.Request(url,headers={'User-Agent':'TheBrief-LiveHealth/2.0','Cache-Control':'no-cache'})
+    with urllib.request.urlopen(req,timeout=20) as r:return r.read(3000000).decode('utf-8')
 
 def probe():
-    archived=json.loads((ROOT/"data/articles.json").read_text(encoding="utf-8"))
-    expected=[a for a in archived if published_same_day(a)]
-    wanted={a["id"] for a in expected}
-    latest=max(expected,key=lambda a:(a.get("published_at",""),a["id"])) if expected else None
-    key=str(int(dt.datetime.now(dt.timezone.utc).timestamp()))
-    issues=[]
-    for attempt in range(1,13):
+    canonical=json.loads((ROOT/'data/articles.json').read_text())
+    want={a['id'] for a in canonical if published_same_day(a)}
+    failure='No response'
+    for attempt in range(6):
         try:
-            homepage=read(SITE+"?same-day-publication-check="+key+"-"+str(attempt))
-            archive=json.loads(read(SITE+"data/articles.json?same-day-publication-check="+key+"-"+str(attempt)))
-            if not isinstance(archive,list):
-                raise AssertionError("Published public archive must be a JSON list")
-            actual={x.get("id") for x in archive}
-            if actual!=wanted:
-                raise AssertionError("Site has stale stories or is missing approved same-day stories: public="
-                    +str(len(actual))+", eligible="+str(len(wanted)))
-            if 'id="embedded-articles"' not in homepage or '<article id="lead-story"' not in homepage:
-                raise AssertionError("Actual front page or embedded edition missing")
-            if 'id="static-edition"' in homepage or 'id="latest-published-highlight"' in homepage:
-                raise AssertionError("Old temporary duplicate layout is back")
-            for historical in archived:
-                if historical["id"] not in wanted and html.escape(historical["title"],quote=True) in homepage:
-                    raise AssertionError("Historical announcement presented as today: "+historical["id"])
-            if latest:
-                story=read(SITE+"story/"+urllib.parse.quote(latest["id"]+".html")
-                    +"?same-day-publication-check="+key+"-"+str(attempt))
-                hero=homepage.split('<article id="lead-story"',1)[1].split('</article>',1)[0]
-                if html.escape(latest["title"],quote=True) not in hero:
-                    raise AssertionError("Newest same-day report missing from editorial lead")
-                if (html.escape(latest["title"],quote=True) not in story
-                        or html.escape(latest["url"],quote=True) not in story):
-                    raise AssertionError("Full same-day article page or attribution missing")
-            elif "No verified news from today yet" not in homepage:
-                raise AssertionError("Empty UK edition must clearly say no verified same-day news")
-            print("LIVE_SAME_DAY_SITE_OK: "+json.dumps({
-                "uk_date":clock().date().isoformat(),
-                "news_today":len(expected),
-                "historical_excluded":len(archived)-len(expected),
-                "latest":latest["id"] if latest else None,
-                "home":SITE
-            },ensure_ascii=False))
+            token='?check='+str(int(time.time()))
+            home=read(SITE+token)
+            today=json.loads(read(SITE+'data/articles.json'+token))
+            archive=json.loads(read(SITE+'data/archive.json'+token))
+            assert {a['id'] for a in today}==want,'Live edition differs from eligible same-day articles'
+            assert {a['id'] for a in archive}=={a['id'] for a in canonical},'Live archive has missing articles'
+            assert all(published_same_day(a) for a in today),'Old article leaked into today'
+            assert 'archive.html' in home,'Archive navigation missing'
+            for a in canonical:
+                if a['id'] not in want:assert html.escape(a['title'],quote=True) not in home,'Old headline in today edition'
+            archive_page=read(SITE+'archive.html'+token)
+            for a in archive:assert html.escape(a['title'],quote=True) in archive_page,'Archived headline missing'
+            tested=[]
+            selection=today[:1]+([archive[0]] if archive and (not today or archive[0]['id']!=today[0]['id']) else [])
+            for a in selection:
+                story=read(SITE+'story/'+a['id']+'.html'+token)
+                assert html.escape(a['title'],quote=True) in story,'Article heading absent'
+                assert html.escape(a['url'],quote=True) in story,'Original source link absent'
+                assert all(html.escape(p,quote=True) in story for _,p in a['blocks']),'Full article paragraphs missing'
+                tested.append(a['id'])
+            if not today:assert 'No verified news from today yet' in home,'Empty edition misleading'
+            state=json.loads(read(SITE+'data/status.json'+token))
+            assert state.get('outcome') in {'PUBLISHED','NO_QUALIFYING_NEWS','BLOCKED','DEGRADED'},'Unknown newsroom outcome'
+            if '--monitor' in sys.argv:
+                age=dt.datetime.now(dt.timezone.utc)-dt.datetime.fromisoformat(state['checked_at'])
+                assert age<dt.timedelta(hours=3),'Newsroom monitoring stale for more than three hours'
+                assert state['outcome'] not in {'BLOCKED','DEGRADED'},'Latest newsroom outcome needs attention: '+state['outcome']
+            print('LIVE_READER_HTTP_OK: '+json.dumps({'uk_date':clock().date().isoformat(),'today':len(today),'archive':len(archive),'full_articles_tested':tested,'newsroom_outcome':state['outcome'],'publication_success':state['outcome']=='PUBLISHED'}))
             return
-        except Exception as exc:
-            issues.append(type(exc).__name__+": "+str(exc)[:200])
-            print("LIVE_SAME_DAY_RETRY: "+str(attempt)+"/12 "+issues[-1],flush=True)
-            if attempt!=12:time.sleep(8)
-    raise RuntimeError("Actual live site violates same-day-only rule: "+issues[-1])
-
-
-if __name__ == "__main__":
-    probe()
+        except Exception as e:
+            failure=str(e);print('Live check attempt',attempt+1,type(e).__name__,failure,flush=True)
+            if attempt<5:time.sleep(8)
+    raise RuntimeError('Live website verification failed: '+failure)
+if __name__=='__main__':probe()

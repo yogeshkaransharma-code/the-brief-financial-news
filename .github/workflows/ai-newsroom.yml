@@ -1,229 +1,126 @@
-name: Autonomous financial news desk
-# Original first-party financial stories; machine-only verification is source-limited.
-# Recheck fresh primary-source developments throughout the day; hold anything uncertain.
-
+name: The Brief — hourly newsroom and site maintenance
 on:
   push:
     branches: [main]
-    paths:
-      - '.github/workflows/ai-newsroom.yml'
-      - 'scripts/newsroom_v2.py'
-      - 'scripts/publication_scope.py'
-      - 'scripts/publish_autonomous.py'
-      - 'scripts/first_party_sources.py'
-      - 'scripts/source_trace.py'
-      - 'scripts/source_retrieval.py'
-      - 'scripts/ai_newsroom.py'
-      - 'scripts/model_providers.py'
-      - 'scripts/ai_cost_guard.py'
-      - 'scripts/update_feeds.py'
-      - 'scripts/newsroom_health.py'
-      - 'scripts/fresh_sources.py'
-      - 'scripts/same_day_policy.py'
-      - 'scripts/build_public.py'
-      - 'scripts/sync_fallback.py'
+    paths: ['scripts/**', '.github/workflows/ai-newsroom.yml', 'index.html', 'about.html', 'data/articles.json', 'data/corrections.json']
   workflow_dispatch:
   schedule:
-    - cron: '13 * * * *'
-
+    - cron: '11 * * * *'
+    - cron: '2 0,23 * * *'
 permissions:
   contents: write
   pages: write
   id-token: write
-
 concurrency:
-  # Serialize article writes and Pages deployments with the hourly collector.
-  # Neither workflow may publish an older website over fresh articles.
   group: the-brief-pages
   cancel-in-progress: false
-
 jobs:
-  ai-drafts:
+  maintenance:
+    name: Discover, verify and maintain publication
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 25
+    outputs:
+      outcome: ${{ steps.health.outputs.outcome }}
+      new_articles: ${{ steps.health.outputs.new_articles }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Check out official news sources
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-
-      - name: Install official-document parsers
+      - name: Install bounded source parsers
         run: python -m pip install -r scripts/requirements-newsroom.txt
-
-      - name: Refresh fresh financial-news leads
+      - name: Validate editorial and failure controls
+        if: github.event_name != 'schedule'
+        run: python scripts/run_checks.py
+      - name: Discover original-source leads without AI requests
+        id: discovery
+        continue-on-error: true
         run: python scripts/update_feeds.py
-
-      - name: Test draft validation logic
-        run: |
-          python -m py_compile scripts/newsroom_v2.py scripts/publish_autonomous.py scripts/publication_scope.py scripts/source_trace.py scripts/source_retrieval.py scripts/ai_cost_guard.py
-          python scripts/publication_scope.py
-          python scripts/ai_newsroom.py --self-test
-          python scripts/source_retrieval.py
-          python scripts/first_party_sources.py
-          python scripts/source_trace.py
-          python scripts/model_providers.py
-          python scripts/ai_cost_guard.py
-          python scripts/newsroom_health.py --self-test
-          python scripts/same_day_policy.py
-          python scripts/fresh_sources.py
-          python scripts/newsroom_v2.py --self-test
-          python scripts/financial_consistency.py
-
-      - name: Test independent editorial rules
-        run: python scripts/editorial_gate.py --self-test
-
-      - name: Test approved publication without altering the live site
-        run: |
-          python scripts/test_publishing.py
-          python scripts/test_editorial_benchmark.py
-          python scripts/test_autonomous.py
-
-      - name: Generate evidence-backed editorial drafts
+      - name: Read originals, write with Gemini and independently challenge claims
+        id: writer
+        continue-on-error: true
         env:
-          # Explicit provider selection: Gemini stays the free-tier default.
-          # No paid provider is called unless the owner opts in by changing
-          # this repository variable AND saving the matching GitHub secret.
-          BRIEF_AI_PROVIDER: ${{ vars.BRIEF_AI_PROVIDER || 'gemini' }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          BRIEF_AI_PROVIDER: gemini
           GEMINI_MODEL: gemini-3.5-flash-lite
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          OPENAI_MODEL: gpt-6-luna
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          ANTHROPIC_MODEL: claude-haiku-5-5
-        run: |
-          case "$BRIEF_AI_PROVIDER" in
-            gemini) needed="$GEMINI_API_KEY" ;;
-            openai) needed="$OPENAI_API_KEY" ;;
-            anthropic) needed="$ANTHROPIC_API_KEY" ;;
-            *) echo "::error::Unknown BRIEF_AI_PROVIDER"; exit 1 ;;
-          esac
-          if [ -z "$needed" ]; then
-            echo "::error::The selected AI provider's GitHub secret is missing"
-            exit 1
-          fi
-          python scripts/newsroom_v2.py
-
-      - name: Build a readable editorial review packet
-        if: always()
-        run: python scripts/build_review_packet.py
-
-      - name: Archive evidence questions for unpublished stories
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: the-brief-ai-drafts
-          path: generated-drafts/
-          if-no-files-found: warn
-          retention-days: 14
-
-      - name: Publish eligible fresh original financial stories
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python scripts/newsroom_v2.py
+      - name: Apply final original-date and evidence publication gate
+        id: publisher
+        continue-on-error: true
         env:
           AUTO_PUBLICATION_ENABLED: '1'
         run: python scripts/publish_autonomous.py
-
-      - name: Keep canonical repository website and article pages visible
-        run: python scripts/sync_fallback.py
-
-      - name: Validate publication provenance and website
+      - name: Record actual publication outcome and source failures
+        id: health
+        if: always()
+        env:
+          BRIEF_PIPELINE_ERROR: ${{ steps.writer.outcome == 'failure' || steps.publisher.outcome == 'failure' || steps.discovery.outcome == 'failure' }}
+        run: python scripts/newsroom_health.py
+      - name: Preserve source evidence and diagnostic reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: newsroom-evidence-${{ github.run_id }}
+          path: generated-drafts/
+          retention-days: 90
+          if-no-files-found: warn
+      - name: Validate provenance and generate today plus complete archive
         run: |
           python scripts/verify_approved_articles.py
-          python scripts/verify_site.py
-
-      - name: Report whether the newsroom actually produced news
-        if: always()
-        run: python scripts/newsroom_health.py
-
-      - name: Commit approved autonomous articles
-        id: publish
-        run: |
-          git config user.name "The Brief Automated Editorial Desk"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          # The discovery feed is managed by the separate hourly collector.
-          # Discard its ephemeral local refresh before rebasing publication data:
-          # autostashing it can conflict with the collector and lose real articles.
-          git restore --worktree -- data/live.json
-          git add data/articles.json data/newsroom-attempts.json index.html
-          if [ -d story ]; then git add -A story/; fi
-          if [ -d data/editorial-audits ]; then
-            git add data/editorial-audits/
-          fi
-          if git diff --cached --quiet; then
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-            echo "No new articles or attempt history changes. Public site remains unchanged."
-            exit 0
-          fi
-          # Saving retry history is NOT the same as publishing a news story.
-          if git diff --cached --quiet -- data/articles.json; then
-            published_changed=false
-          else
-            published_changed=true
-          fi
-          git commit -m "Save approved financial news and source retry history"
-          for attempt in 1 2 3; do
-            if git push origin HEAD:main; then
-              echo "changed=$published_changed" >> "$GITHUB_OUTPUT"
-              exit 0
-            fi
-            git fetch origin main
-            # A retry-ledger-only update must NEVER break the newsroom because
-            # another run saved fresher retry state. During this rebase, 'ours'
-            # means the latest origin/main state. Only do this when there is
-            # no new published article to preserve.
-            if [ "$published_changed" = false ]; then
-              if ! git rebase -X ours origin/main; then
-                git rebase --abort || true
-                echo "::warning::Retry history conflicted; keeping the remote state without failing the newsdesk"
-                echo "changed=false" >> "$GITHUB_OUTPUT"
-                exit 0
-              fi
-            else
-              # With an actual news article, fail closed if publication data
-              # conflicts rather than silently losing a published story.
-              if ! git rebase origin/main; then
-                git rebase --abort || true
-                echo "::error::Concurrent article edit requires conflict-safe reconciliation"
-                exit 1
-              fi
-            fi
-          done
-          echo "::error::Publication push failed; no page deployment"
-          exit 1
-
-      - name: Remove unpublished drafts before building public website
-        if: steps.publish.outputs.changed == 'true'
-        run: rm -rf generated-drafts
-
-      - name: Build public pages with visible full articles
-        if: steps.publish.outputs.changed == 'true'
-        run: |
+          python scripts/sync_fallback.py
           python scripts/build_public.py
           python scripts/verify_public.py
-
-      - name: Configure GitHub Pages for new articles
-        if: steps.publish.outputs.changed == 'true'
-        uses: actions/configure-pages@v5
+      - name: Save articles, request ledger and truthful status
+        if: always()
+        run: |
+          git config user.name "The Brief Newsroom"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ index.html
+          if ! git diff --cached --quiet; then
+            git commit -m "Record newsroom outcome, evidence approvals and quota usage"
+            git push origin HEAD:main
+          fi
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
         with:
-          enablement: true
-
-      - name: Package website only
-        if: steps.publish.outputs.changed == 'true'
-        uses: actions/upload-pages-artifact@v4
-        with:
-          path: './public'
-
-      - name: Deploy approved autonomous articles
-        if: steps.publish.outputs.changed == 'true'
+          path: public
+      - name: Deploy readable edition, archive and newsroom status
         id: deployment
         uses: actions/deploy-pages@v4
-
-      - name: Verify full article is accessible to public readers
-        if: steps.publish.outputs.changed == 'true'
-        env:
-          BRIEF_SITE_URL: https://yogeshkaransharma-code.github.io/the-brief-financial-news/
+      - name: Verify actual live homepage, archive and original-source links
         run: python scripts/verify_live.py
+      - name: Install browser for actual mobile checks
+        if: steps.health.outputs.new_articles != '0' || github.event_name != 'schedule'
+        run: |
+          python -m pip install playwright
+          python -m playwright install chromium --with-deps
+      - name: Read actual live site on mobile and desktop
+        if: steps.health.outputs.new_articles != '0' || github.event_name != 'schedule'
+        run: python scripts/verify_browser.py
+      - name: Preserve screenshots and browser results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: live-reader-evidence-${{ github.run_id }}
+          path: browser-evidence/
+          retention-days: 30
+          if-no-files-found: ignore
+  publication:
+    name: News published — ${{ needs.maintenance.outputs.new_articles }} new articles
+    needs: maintenance
+    if: needs.maintenance.outputs.outcome == 'PUBLISHED'
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Actual publication verified. ${{ needs.maintenance.outputs.new_articles }} new reports."
+  attention:
+    name: Newsroom needs attention — ${{ needs.maintenance.outputs.outcome }}
+    needs: maintenance
+    if: always() && (needs.maintenance.outputs.outcome == 'BLOCKED' || needs.maintenance.outputs.outcome == 'DEGRADED' || needs.maintenance.result == 'failure')
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "::error::Publication is blocked, discovery is degraded, or live verification failed. Inspect the newsroom summary and evidence artifact. No publication success is claimed."
+          exit 1

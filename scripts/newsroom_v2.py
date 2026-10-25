@@ -14,7 +14,7 @@ import re
 import sys
 from zoneinfo import ZoneInfo
 from urllib.parse import urlsplit
-from ai_newsroom import ROOT, OUTPUT, select_candidates, norm
+from ai_newsroom import ROOT, OUTPUT, select_candidates, norm, GeminiAPIError
 from model_providers import ACTIVE_MODEL as MODEL, PROVIDER, fetch_ai as fetch_gemini
 from ai_cost_guard import CallBudget, BudgetExhausted, preflight_source
 from source_retrieval import read_source, retrieve_bytes, SourceError
@@ -23,8 +23,10 @@ from source_trace import find_originals, published_date
 from fresh_sources import launch_items, eligible_today
 from editorial_gate import check as editorial_check
 from publication_scope import source_lane
+from source_dates import verify_announcement
+from same_day_policy import clock
 
-MAX_CANDIDATES = 12
+MAX_CANDIDATES = 16
 MAX_DRAFTS = 3
 MIN_WORDS = 120
 MAX_WORDS = 950
@@ -110,7 +112,7 @@ def write_prompt(item, official):
         "Create sections based on what the story justifies, not five compulsory headings. "
         "An ideal story covers what happened, useful context, who is affected and what's next "
         "when the source supports those points. A short simple story can have three sections. "
-        "Every sentence must be grounded in the source. Clearly attribute organisational claims. "
+        "Every sentence and section heading must be grounded in the source. Clearly attribute organisational claims. "
         "For insurer/bank company announcements, write 'Aviva says' or 'Lloyds says' "
         "for a company-reported benefit, product claim or projection, and do not "
         "present company publicity as independently confirmed industry fact. "
@@ -192,7 +194,7 @@ def make_article(output,item,official):
     words=sum(len(x[1].split()) for x in blocks)
     if not MIN_WORDS<=words<=MAX_WORDS:
         raise ValueError(f"Article length must serve the story, got {words} words")
-    combined="\n".join([title,summary]+[b[1] for b in blocks])
+    combined="\n".join([title,summary]+[v for block in blocks for v in block])
     if GENERIC.search(combined):
         raise ValueError("Boilerplate corporate phrasing; rewrite")
     story_nums=numeric_tokens(combined)
@@ -216,12 +218,13 @@ def make_article(output,item,official):
     first=summary.strip()
     return {"id":uid,"kind":"original","category":item.get("category","Regulation"),
             "dateISO":item["dateISO"],"date":item["dateISO"],"source":item["source"],
-            "source_published_at":item.get("published_at",item["dateISO"]+"T00:00:00+00:00"),
-            "source_time_precision":item.get("source_time_precision","timestamp"),
+            "source_published_at":item.get("source_published_at",item.get("published_at",item["dateISO"])),
+            "date_evidence":item.get("date_evidence"),
+            "source_time_precision":item.get("source_time_precision","date"),
             "source_url":official.url,"url":official.url,
             "status":status_from_url(item["url"],item["title"]),"title":title.strip(),
             "short":summary.strip(),"quick":summary.strip(),"lead":first,
-            "blocks":blocks,"glossary":glossary,"reading":f"{max(2,round(words/210))} min read",
+            "blocks":blocks,"glossary":[],"reading":f"{max(2,round(words/210))} min read",
             "ai_assisted":True,"editorial_status":"DRAFT: requires human source verification"}
 
 def article_sentences(article):
@@ -229,7 +232,7 @@ def article_sentences(article):
     # and body, including sentences that look like general implications.
     fields=[("headline",article["title"]),("standfirst",article["short"])]
     for heading,body in article["blocks"]:
-        fields.append((heading,body))
+        fields.extend([("section heading",heading),(heading,body)])
     result=[]
     for location,value in fields:
         for line in re.split(r"(?<=[.!?])\s+(?=[A-Z0-9£])|\n+",value):
@@ -320,7 +323,7 @@ def reconcile_reviews(article,official,verdict):
                          "supported":len(exact),"held":len(holds),"review_schema":"one-verdict-per-sentence-v2"}
 
 def build_audit(article,official,item,checks,coverage):
-    return {"pipeline_version":2,"article_id":article["id"],"source_url":article["url"],
+    return {"pipeline_version":2,"review_headings":True,"date_evidence":item.get("date_evidence"),"article_id":article["id"],"source_url":article["url"],
             "source_title":item["title"],"source_sha256":official.evidence_sha256,
             "source_number_tokens":sorted(numeric_tokens(official.text+" "+item["title"]+" "+item["dateISO"])),
             "draft_sha256":canonical(article),"retrieved_at":dt.datetime.now(dt.timezone.utc).isoformat(),
@@ -371,47 +374,9 @@ def main():
         ledger={"version":1,"sources":{}}
     ledger["version"]=1
     attempts=ledger["sources"]
-    meter=CallBudget(ledger,now)
+    meter=CallBudget(ledger,now,path=ledger_path)
     def budgeted_ai(prompt):
-        # Google may return a transient 503 even when free quota is untouched.
-        # The backup uses the SAME user-provided Gemini key and is separately
-        # counted against our strict daily/run limits. No paid provider switch.
-        try:
-            return meter.call(fetch_gemini,prompt)
-        except RuntimeError as exc:
-            transient=any(code in str(exc) for code in ("HTTP 503","HTTP 502","HTTP 504","HTTP 404","TimeoutError","URLError"))
-            if PROVIDER!="gemini" or not transient or meter.remaining()<1:
-                raise
-            backup=("gemini-3.8-flash" if os.environ.get("GEMINI_MODEL")=="gemini-3.5-flash-lite"
-                    else "gemini-3.5-flash-lite")
-            print("GEMINI_CAPACITY_FALLBACK: one separately metered request to "+backup)
-            return meter.call(lambda p: fetch_gemini(p,model_override=backup),prompt)
-    # One-time migration: the writer's malformed-section repair and the
-    # short-consultation linked-PDF reader have now been fixed. Retry only
-    # those old mechanical failures once instead of serving stale cooldowns.
-    # A 503 is provider congestion, not a defect in the source.
-    # Release older long cooldowns from the previous single-model version once.
-    if ledger.get("capacity_recovery_revision",0)<2:
-        for url,record in list(attempts.items()):
-            reason=str(record.get("last_result",""))
-            if ("HTTP 503" in reason or "Article length must serve" in reason
-                    or ("Held after one draft" in reason and source_lane(url) in
-                        {"company_release","industry_release","ombudsman_release"})):
-                del attempts[url]
-        ledger["capacity_recovery_revision"]=2
-    if ledger.get("repair_revision",0)<4:
-        for source_url,record in list(attempts.items()):
-            reason=str(record.get("last_result",""))
-            if "Important chart text exceeds full-source context limit" in reason:
-                del attempts[source_url]
-        ledger["repair_revision"]=4
-    if ledger.get("repair_revision",0)<2:
-        for source_url,record in list(attempts.items()):
-            reason=str(record.get("last_result",""))
-            if ("Article needs coherent sections" in reason
-                    or "Insufficient official article content" in reason):
-                del attempts[source_url]
-        ledger["repair_revision"]=2
+        return meter.call(fetch_gemini,prompt)
     def delay(url,hours,reason):
         attempts[url]={"attempted_at":now.isoformat(),
                        "retry_after":(now+dt.timedelta(hours=hours)).isoformat(),
@@ -447,7 +412,7 @@ def main():
     retired_urls=set(json.loads(retired_path.read_text(encoding="utf-8")).get("urls",[])) if retired_path.exists() else set()
     candidates=[item for item in candidates if item["url"] not in retired_urls and item["url"] not in published_urls]
     known={x["url"] for x in candidates} | published_urls | retired_urls
-    for item in first_party + traced + launch_items(now.date()):
+    for item in first_party + traced + launch_items(clock(now).date()):
         if source_lane(item["url"]) and item["url"] not in known:
             candidates.append(item)
             known.add(item["url"])
@@ -455,7 +420,7 @@ def main():
     # can still cover yesterday's genuinely recent release if the company's
     # own page contains an exact published timestamp. Check a small bounded
     # selection of the most recent such dated first-party announcements.
-    previous_day=(now.date()-dt.timedelta(days=1)).isoformat()
+    previous_day=(clock(now).date()-dt.timedelta(days=1)).isoformat()
     needs_times=[x for x in candidates if x.get("source_time_precision")=="date"
                  and x.get("dateISO")==previous_day]
     needs_times.sort(key=lambda x:(x.get("category")!="Insurance",x.get("title","")))
@@ -496,7 +461,7 @@ def main():
         # Source quality and simple fully readable releases beat ambiguous
         # speeches/PDFs, especially when Gemini budget is nearly exhausted.
         lane_order.get(source_lane(x["url"]),7),
-        0 if (now.date()-dt.date.fromisoformat(x["dateISO"])).days<=1 else 1,
+        0 if (clock(now).date()-dt.date.fromisoformat(x["dateISO"])).days<=1 else 1,
         -dt.date.fromisoformat(x["dateISO"]).toordinal(),
         -int(x.get("priority",0))
     ))
@@ -518,6 +483,7 @@ def main():
         try:
             doc=read_source(item["url"])
             preflight_source(item,doc)
+            item=verify_announcement(item,doc,now)
             stage="writing"
             article=draft_with_source_repair(item,doc,gemini=budgeted_ai)
             stage="independent_review"
@@ -553,16 +519,20 @@ def main():
                 break
             if "HTTP 429" in reason or "quota exceeded" in reason.lower():
                 after=next_quota_check(reason,now)
+                if isinstance(exc,GeminiAPIError):
+                    if exc.daily:after=next_quota_check("daily limit",now)
+                    elif exc.retry_seconds:after=now+dt.timedelta(seconds=max(60,min(exc.retry_seconds,86400)))
                 attempts[item["url"]]={"attempted_at":now.isoformat(),"retry_after":after.isoformat(),
                                        "last_result":"Gemini capacity exhausted"}
                 ledger["quota_pause_until"]=after.isoformat()
                 report.append({"result":"stopped","reason":"Gemini capacity reached; retry after "+after.isoformat()+" while hourly discovery continues"})
                 break
-            if any(code in reason for code in ("HTTP 503","HTTP 502","HTTP 504")):
+            if stage!="source" and (isinstance(exc,GeminiAPIError) or any(code in reason for code in ("HTTP 503","HTTP 502","HTTP 504","TimeoutError","URLError"))):
                 # Provider congestion is not bad source evidence and does not
                 # deserve the old 36-hour lockout.
-                delay(item["url"],1,"Transient Gemini provider overload; retry on next run")
-                continue
+                ledger["quota_pause_until"]=(now+dt.timedelta(hours=1)).isoformat()
+                report.append({"result":"stopped","reason":"Provider unavailable or misconfigured; global circuit opened without model fallback"})
+                break
             long_cooldown=any(t in reason for t in (
                 "HTTP Error 403","Insufficient official article content",
                 "Important chart text exceeds full-source context limit"))
@@ -586,7 +556,8 @@ def main():
         "pipeline":"AI writer and evidence review; autonomous publication restricted to eligible verified sources",
         "model":MODEL,"machine_screened":accepted,
         "api_budget":meter.snapshot(),
-        "ai_policy":"one paid draft request and one paid independent review per development; zero AI rewrites",
+        "ai_policy":"one Gemini draft and separate evidence review; no model fallback or rewrite",
+        "first_party_indexes_checked":len(__import__("first_party_sources").INDEXES),
         "fresh_unpublished_source_candidates":fresh_candidates,
         "available_after_retry_cooldowns":available_after_source_cooldowns,
         "eligible_for_this_run":len(candidates),
@@ -605,3 +576,4 @@ def main():
 
 if __name__=="__main__":
     main()
+

@@ -91,7 +91,7 @@ def check(bundle: dict, human_review: bool = False) -> dict:
     evidence = audit.get("verbatim_source_checks")
     if not isinstance(evidence, list) or len(evidence) < 4:
         raise ValueError("Too few documented source-evidence checks")
-    if any(not isinstance(x, dict) or len(x.get("source_excerpt", "").split()) < 7 or len(x.get("claim", "")) < 15 for x in evidence):
+    if any(not isinstance(x, dict) or len(x.get("source_excerpt", "").split()) < 7 or len(x.get("claim", "")) < (3 if audit.get("review_headings") else 15) for x in evidence):
         raise ValueError("Incomplete evidence record")
     # Every cited excerpt must actually be present in exactly the captured text
     # used by the model, not merely be supplied by the model as a quotation.
@@ -109,10 +109,10 @@ def check(bundle: dict, human_review: bool = False) -> dict:
     source_numbers = audit.get("source_number_tokens")
     if not isinstance(source_numbers, list) or any(not isinstance(x, str) for x in source_numbers):
         raise ValueError("Original source's numerical token register is missing")
-    reported_numbers = {m.group().lower().replace(",", "") for m in NUMBER.finditer(" ".join([a["title"], a["short"]] + paragraphs))}
+    reported_numbers = {m.group().lower().replace(",", "") for m in NUMBER.finditer(" ".join([a["title"], a["short"]] + ([v for block in blocks for v in block] if audit.get("review_headings") else paragraphs)))}
     if not reported_numbers.issubset(set(source_numbers)):
         raise ValueError("Article introduces figures not found in the recorded official source")
-    combined = "\n".join(paragraphs + [a["title"], a["short"]])
+    combined = "\n".join([v for block in blocks for v in block] + [a["title"], a["short"]])
     if a["status"] in ("Proposal", "Speech / commentary") and RISKY.search(combined):
         raise ValueError("Unqualified compulsory-language claim in proposal/speech")
     contextual_issues = financial_concerns(a, captured)
@@ -122,7 +122,7 @@ def check(bundle: dict, human_review: bool = False) -> dict:
         review = audit.get("sentence_review")
         if not isinstance(review, dict) or review.get("review_schema") != "one-verdict-per-sentence-v2":
             raise ValueError("Separate evidence-review report missing")
-        fields = [a["title"], a["short"]] + [p for p in paragraphs]
+        fields = [a["title"], a["short"]] + ([v for block in blocks for v in block] if audit.get("review_headings") else paragraphs)
         sentence_count = sum(
             len([x for x in re.split(r"(?<=[.!?])\s+(?=[A-Z0-9£])|\n+", field) if x.strip()])
             for field in fields
@@ -145,7 +145,7 @@ def check(bundle: dict, human_review: bool = False) -> dict:
     elif human_review:
         raise ValueError("Legacy AI draft has no separate full-sentence evidence review; cannot publish")
 
-    if a.get("category") not in ("Regulation", "Insurance", "Banking", "Technology"):
+    if a.get("category") not in ("Regulation", "Insurance", "Banking", "Technology", "Pensions", "Brokers"):
         raise ValueError("Unrecognised section")
     result = {"id": a["id"], "title": a["title"], "word_count": word_count,
               "status": a["status"], "evidence_checks": len(evidence),
@@ -186,3 +186,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

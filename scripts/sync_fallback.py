@@ -14,7 +14,8 @@ END = "<!-- THEBRIEF_STATIC_END -->"
 
 def sync():
     today=clock().date().strftime("%-d %B %Y")
-    articles=[a for a in valid_articles() if published_same_day(a)]
+    archive=valid_articles()
+    articles=[a for a in archive if published_same_day(a)]
     if articles:
         headlines="".join(
             '<li><a href="'+esc(story_href(a))+'">'+esc(a["title"])+'</a></li>'
@@ -41,11 +42,11 @@ def sync():
         path.write_text(updated,encoding="utf-8")
     story_dir=ROOT/"story"
     story_dir.mkdir(exist_ok=True)
-    live={a["id"]+".html" for a in articles}
+    live={a["id"]+".html" for a in archive}
     for obsolete in story_dir.glob("ai-*.html"):
         if obsolete.name not in live:
             obsolete.unlink()
-    for a in articles:
+    for a in archive:
         story=story_dir/(a["id"]+".html")
         rendered=standalone_story(a)
         if not story.exists() or story.read_text(encoding="utf-8")!=rendered:
@@ -55,3 +56,4 @@ def sync():
 
 if __name__=="__main__":
     sync()
+
