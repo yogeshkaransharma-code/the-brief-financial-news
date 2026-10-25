@@ -34,7 +34,12 @@ def main():
             assert page.locator('a[href="status.html"]').count()==0,'Technical dashboard link leaked'
             page.screenshot(path=str(OUT/f'home-{width}.png'),full_page=True)
             page.locator('.tb-sector-visual[href="archive.html?category=Banking"]').click()
-            assert page.locator('#archive-category').input_value()=='Banking','Banking section filter failed'
+            page.wait_for_load_state('domcontentloaded')
+            try:
+                page.wait_for_function("document.querySelector('#archive-category')?.value === 'Banking'",timeout=9000)
+            except Exception:
+                details=page.evaluate("({href:location.href,select:document.querySelector('#archive-category')?.value,options:[...document.querySelector('#archive-category')?.options||[]].map(x=>x.value),scripts:document.scripts.length,ready:document.readyState})")
+                raise AssertionError('Banking section filter failed: '+str(details))
             assert page.locator('article[data-category="Banking"]:visible').count()>0,'Banking section is empty'
             page.goto(SITE+'archive.html',wait_until='domcontentloaded',timeout=60000)
             assert 'The archive.' in page.locator('h1').inner_text()
