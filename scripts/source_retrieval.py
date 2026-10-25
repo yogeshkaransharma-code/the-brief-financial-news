@@ -27,7 +27,8 @@ from market_coverage import recognised_original_hosts
 ALLOWED |= recognised_original_hosts()
 # Original newspaper reporting is evidence of its attributed reporting,
 # not an official corporate announcement or independent corroboration.
-ALLOWED |= {"www.theguardian.com","theguardian.com"}
+ALLOWED |= {"www.theguardian.com","theguardian.com",
+            "www.bbc.co.uk","bbc.co.uk","www.bbc.com","bbc.com"}
 UA = "TheBriefResearch/0.2 (public official documents; editorial attribution)"
 MAX_BYTES = 3_000_000
 MAX_TEXT = 43_000
