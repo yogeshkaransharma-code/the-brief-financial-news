@@ -43,6 +43,17 @@ def main():
     state['launch_diagnostic_allowance']=ledger.get('launch_diagnostic_allowance',{'limit':2,'requests':0})
     if saved_budget:
         state['ai_budget'].update(requests_today_including_this_run=saved_budget.get('requests',0),daily_limit=saved_budget.get('limit',20),remaining_today=max(0,saved_budget.get('limit',20)-saved_budget.get('requests',0)))
+    from zoneinfo import ZoneInfo
+    quota_day=saved_budget.get('date')
+    diagnostic_today=0
+    for call in ledger.get('api_calls',[]):
+        if call.get('purpose')!='one-time launch diagnostic':continue
+        try:
+            day=dt.datetime.fromisoformat(call['at']).astimezone(ZoneInfo('America/Los_Angeles')).date().isoformat()
+            if day==quota_day:diagnostic_today+=1
+        except (ValueError,KeyError):pass
+    state['ai_budget']['diagnostic_requests_today']=diagnostic_today
+    state['ai_budget']['production_requests_today']=max(0,saved_budget.get('requests',0)-diagnostic_today)
     if state['launch_test'].get('run_id')==os.getenv('GITHUB_RUN_ID','local'):
         state['ai_budget']['requests_this_run']=state['ai_budget'].get('requests_this_run',0)+state['launch_test'].get('requests_this_attempt',0)
     (ROOT/'data/status.json').write_text(json.dumps(state,ensure_ascii=False,indent=2)+'\n')

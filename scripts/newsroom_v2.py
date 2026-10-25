@@ -54,7 +54,7 @@ def recover_official_publication_time(item, now):
     """
     if item.get("source_time_precision") != "date":
         return item
-    if item.get("dateISO") != (now.date()-dt.timedelta(days=1)).isoformat():
+    if item.get("dateISO") != (clock(now).date()-dt.timedelta(days=1)).isoformat():
         return item
     try:
         raw,ctype,final=retrieve_bytes(item["url"])

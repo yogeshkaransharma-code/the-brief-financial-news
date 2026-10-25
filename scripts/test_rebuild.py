@@ -25,6 +25,13 @@ def main():
     assert source_issued_today({'dateISO':'2026-10-24','source_time_precision':'timestamp','source_published_at':'2026-10-24T23:30:00Z'},dt.datetime(2026,10,25,0,15,tzinfo=dt.timezone.utc))
     assert not source_issued_today({'dateISO':'2026-10-24','source_time_precision':'date'},dt.datetime(2026,10,25,0,15,tzinfo=dt.timezone.utc))
     for hour in [0,1,2]:assert clock(dt.datetime(2026,10,25,hour,30,tzinfo=dt.timezone.utc)).date()==dt.date(2026,10,25)
+    import update_feeds
+    rss=b'<rss><channel><item><title>UK regulator announces a financial services reporting update</title><description>A financial services reporting announcement with original evidence to verify.</description><link>https://www.fca.org.uk/news/press-releases/reporting-update</link><pubDate>Sat, 24 Oct 2026 23:30:00 GMT</pubDate></item></channel></rss>'
+    saved_now=update_feeds.NOW
+    update_feeds.NOW=dt.datetime(2026,10,25,0,15,tzinfo=dt.timezone.utc)
+    try:lead=update_feeds.parse(rss,'FCA','Regulation')[0]
+    finally:update_feeds.NOW=saved_now
+    assert source_issued_today(lead,dt.datetime(2026,10,25,0,15,tzinfo=dt.timezone.utc)), 'RSS timestamp lost the UK calendar-day boundary'
     now=dt.datetime.now(dt.timezone.utc)
     report={'first_party_indexes_checked':17,'fresh_unpublished_source_candidates':0}
     pub={'published':[]};feeds={'sources_checked':[{}]}

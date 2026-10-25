@@ -191,7 +191,10 @@ def parse(xml_bytes, name, fallback):
             "excerpt": summary, "url": link, "source": name,
             "category": categorise(headline, fallback),
             "dateISO": published.date().isoformat(),
-            "published_at": published.isoformat(), "status": "Source update",
+            "published_at": published.isoformat(),
+            "source_published_at": published.isoformat(),
+            "source_time_precision": "date" if re.fullmatch(r"20\d{2}-\d{2}-\d{2}",date.strip()) else "timestamp",
+            "status": "Source update",
         })
     return output
 

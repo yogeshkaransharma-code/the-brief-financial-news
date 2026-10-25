@@ -29,3 +29,14 @@ Production run: https://github.com/yogeshkaransharma-code/the-brief-financial-ne
 Keep today's edition isolated; preserve prior editions; aim for five to ten worthwhile reports only when verified developments and free capacity permit. Review the public status and Actions evidence when a source is blocked or a candidate is held. Never solve an empty edition by changing dates, weakening the evidence gate, silently switching providers or enabling billing.
 
 Next acceptance milestone: a genuinely new UK-calendar-day primary announcement passes real Gemini writing and independent challenge, is committed and deployed automatically, and passes the live browser checks. Until then, end-to-end autonomous publication remains an open acceptance item.
+
+## Immediate launch test — completed 25 October, 00:58 UTC
+
+At the owner's request, the deferred ChatGPT follow-up was cancelled and a separately capped two-request diagnostic ran immediately. This did not reset the twenty-request production counter, change billing or publish historical material.
+
+Run: https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40148709835
+Result: `data/launch-test.json` records **PASSED**. Gemini 3.5 Flash-Lite returned a real original draft and a separate review of thirteen statements, with zero unresolved editorial flags. Both requests returned content: 1,501 and 2,160 total tokens respectively. The final gate correctly rejected the genuine 23 October source as stale; it also identified a conservative high-risk hold. The test stayed unpublished. Live deployment and mobile/desktop reading checks passed again.
+
+This supersedes the earlier uncertainty about whether the existing key could perform writing and claim review. The earlier 20/20 figure was a local request guard, **not evidence that Gemini itself had rejected service**. Aggregate accounting now includes twenty prior production attempts plus two diagnostic calls. The one-time diagnostic allowance is exhausted and cannot silently repeat.
+
+Still open: actual automatic publication of a qualifying same-day development, and four primary indexes denied to the GitHub runner. There was no qualifying development in the early Sunday check. There is no justification for waiting until Monday to investigate or test; no ChatGPT follow-up is enabled. The previously authorised hourly newsroom remains the site's automatic publication mechanism.
