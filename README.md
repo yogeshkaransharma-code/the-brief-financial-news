@@ -17,6 +17,16 @@ A UK financial-services publication covering banking, insurance, reinsurance, br
 7. Maintain source-linked headlines internally for discovery and commissioning. The public publication contains complete The Brief articles; external headlines never become artificial article pages or public headline filler.
 8. Deploy real HTML reading pages to GitHub Pages. Check the exact deployment run, all current article bodies, archive access and the original-article homepage. Check mobile and desktop presentation after code changes and new articles, including archive search, subject filters and source-registry search.
 
+## Hourly edition and sector reading desks
+
+Every newsroom run now writes `data/hourly-desk.json` and deploys a complete `hourly.html` briefing page with the actual refresh time. The briefing uses **already approved** full articles and keeps their original dates visible. The hourly briefing is a new edition/checkpoint, **not** a claim that a brand-new article or event occurred every hour. On quiet days, context is explicitly dated; the same-day homepage never republishes an old development as breaking news. No Gemini requests are used to rebuild the briefing.
+
+The homepage has four insurance/banking/broker/regulatory entry points which open appropriately filtered, dated archive reports. Desktop and mobile tests verify the category path, hourly reading page, chronological integrity and source evidence. Original article publication continues through the separate Gemini writer, reviewer and evidence gate.
+
+The commissioning brief is deliberately more commercial: substantive intermediary partnerships, insurer/MGA capacity, underwriting, claims trends, bank operations, market data and leadership changes are eligible, not only major policy statements. An original-date and independently challenged source is still required for any newly authored article.
+
+**Capacity reality:** with a local ceiling of 30 model requests per Pacific quota day and normally two calls per new report (writer plus reviewer), the system cannot promise 24 newly written articles every day. Hourly deployment on GitHub is best-effort and may be delayed. Neither a local request cap nor a successful deployment establishes provider quota, guaranteed genuine news supply, or a permanent exact-time publishing SLA. Do not increase billing, drop source evidence or silently change dates just to meet a posting target.
+
 ## Costs and retries
 
 Only the existing Gemini Actions secret and configured Gemini model are used. No billing settings, paid search or provider fallback are enabled.
