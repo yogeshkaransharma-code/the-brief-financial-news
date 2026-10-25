@@ -7,6 +7,7 @@ checks=[['ai_newsroom.py','--self-test'],['ai_cost_guard.py'],['source_retrieval
 checks.insert(-1,['test_launch_edition.py'])
 checks.insert(-1,['numeric_evidence.py'])
 checks.insert(-1,['market_coverage.py'])
+checks.insert(-1,['hourly_radar.py','--self-test'])
 checks.insert(-1,['test_editorial_selection.py'])
 checks.insert(-1,['test_editorial_omission.py'])
 for c in checks:
