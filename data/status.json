@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-25T13:17:05.317985+00:00",
+  "checked_at": "2026-10-25T13:27:49.172573+00:00",
   "uk_date": "2026-10-25",
   "outcome": "NO_QUALIFYING_NEWS",
   "editorial_outcome": "NO_QUALIFYING_NEWS",
@@ -11,33 +11,52 @@
   "published_this_run": 0,
   "genuine_same_day_articles": 3,
   "editorial_selection": {
-    "result": "NO_VERIFIED_CANDIDATES",
-    "requests": 0,
-    "selected": []
+    "result": "NO_WORTHWHILE_NEWS",
+    "requests": 1,
+    "cache_key": "1b0657b6db6291681997509be1d9f55b9083ba8bed1cccff18356fea80474aaa",
+    "selected": [],
+    "skipped": [
+      {
+        "id": "N01",
+        "reason": "General consumer cybersecurity advice on cookie theft rather than a distinct, substantive corporate financial sector or regulatory policy development.",
+        "url": "https://www.theguardian.com/money/2026/oct/25/cookie-theft-how-fraudsters-get-the-digital-key-to-your-accounts",
+        "category": "Technology"
+      },
+      {
+        "id": "N02",
+        "reason": "Human interest/pre-Budget sentiment piece focusing on household finances rather than a concrete UK banking or economic policy announcement.",
+        "url": "https://www.bbc.co.uk/news/articles/c6gel54940qno",
+        "category": "Banking"
+      }
+    ]
   },
   "published_total": 14,
   "last_article_at": "2026-10-25T12:35:26.192637+00:00",
-  "fresh_source_candidates": 6,
-  "verified_original_candidates": 0,
+  "fresh_source_candidates": 7,
+  "verified_original_candidates": 2,
   "candidates_by_sector": {
-    "Banking": 2
+    "Banking": 2,
+    "Technology": 1
   },
-  "verified_by_sector": {},
+  "verified_by_sector": {
+    "Banking": 1,
+    "Technology": 1
+  },
   "articles_commissioned": 0,
   "articles_held": 0,
   "machine_screened": 0,
   "primary_indexes_checked": 29,
   "primary_index_failures": 4,
-  "feeds_working": 32,
-  "feed_failures": 1,
+  "feeds_working": 33,
+  "feed_failures": 0,
   "ai_budget": {
     "quota_date": "2026-10-25",
     "quota_timezone": "America/Los_Angeles",
-    "requests_this_run": 0,
-    "requests_today_including_this_run": 13,
+    "requests_this_run": 1,
+    "requests_today_including_this_run": 14,
     "run_limit": 7,
     "daily_limit": 30,
-    "remaining_today": 17
+    "remaining_today": 16
   },
   "quota_pause_until": null,
   "candidate_outcomes": [
@@ -46,31 +65,21 @@
       "source": "https://www.bbc.co.uk/news/articles/c62kep355q02o",
       "result": "cached editorial rejection",
       "reason": "Routine pre-Budget commentary and anecdotal employer reactions rather than a substantive corporate, regulatory, or market development."
-    },
-    {
-      "title": "Budget 2026: No more fat to trim for 'squeezed middle'",
-      "source": "https://www.bbc.co.uk/news/articles/c6gel54940qno",
-      "result": "cached editorial rejection",
-      "reason": "Human interest profile on household cost-of-living pressures and upcoming mortgage rate resets, lacking specific institutional banking or economic policy announcements."
     }
   ],
   "discovery_errors": [
-    "Allianz UK: HTTPError HTTP Error 403: Forbidden",
     "UK Parliament: HTTPError HTTP Error 403: Forbidden",
+    "Allianz UK: HTTPError HTTP Error 403: Forbidden",
     "Association of British Insurers: HTTPError HTTP Error 403: Forbidden",
-    "Revolut UK: HTTPError HTTP Error 403: Forbidden",
-    {
-      "source": "Money Marketing",
-      "url": "https://www.moneymarketing.co.uk/feed/",
-      "error": "HTTP Error 403: Forbidden"
-    }
+    "Revolut UK: HTTPError HTTP Error 403: Forbidden"
   ],
   "publication_holds": [],
-  "run_id": "40196873312",
+  "run_id": "40197674789",
   "event": "push",
-  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40196873312",
-  "publisher_links": 6,
-  "publisher_desk_checked_at": "2026-10-25T13:16:56.484965+00:00",
+  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40197674789",
+  "publisher_links": 0,
+  "discovery_headlines": 7,
+  "publisher_desk_checked_at": "2026-10-25T13:27:35.350553+00:00",
   "previous_verified_runs": [
     {
       "run_id": "40193630697",
@@ -286,6 +295,32 @@
       "deployment": "success",
       "live_check": "success",
       "browser_check": "success"
+    },
+    {
+      "run_id": "40196873312",
+      "event": "push",
+      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40196873312",
+      "editorial_outcome": "NO_QUALIFYING_NEWS",
+      "published_this_run": 0,
+      "publisher_links": 6,
+      "source_coverage_status": "PARTIAL",
+      "fresh_source_candidates": 6,
+      "verified_by_sector": {},
+      "ai_budget": {
+        "quota_date": "2026-10-25",
+        "quota_timezone": "America/Los_Angeles",
+        "requests_this_run": 0,
+        "requests_today_including_this_run": 13,
+        "run_limit": 7,
+        "daily_limit": 30,
+        "remaining_today": 17
+      },
+      "commissioned_stories": [],
+      "checked_at": "2026-10-25T13:18:23.067477+00:00",
+      "technical_status": "LIVE_VERIFIED",
+      "deployment": "success",
+      "live_check": "success",
+      "browser_check": "success"
     }
   ],
   "launch_acceptance": {
@@ -294,7 +329,7 @@
       "repeated_scheduled_hourly_runs": false,
       "original_gemini_publication_live_verified": true,
       "worthwhile_same_day_developments_across_sectors": false,
-      "publisher_desk_live_refresh": true,
+      "article_site_live_verified": true,
       "mobile_and_desktop_reading": true,
       "latest_run_technically_healthy": true,
       "latest_editorial_run_unblocked": true

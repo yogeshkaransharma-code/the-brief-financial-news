@@ -2,7 +2,7 @@
   "api_budget": {
     "date": "2026-10-25",
     "limit": 30,
-    "requests": 13,
+    "requests": 14,
     "timezone": "America/Los_Angeles"
   },
   "api_calls": [
@@ -385,6 +385,25 @@
         "serviceTier": "standard",
         "totalTokenCount": 921
       }
+    },
+    {
+      "at": "2026-10-25T13:27:47.612541+00:00",
+      "prompt_characters": 5921,
+      "purpose": "production",
+      "result": "response_received",
+      "usage": {
+        "candidatesTokenCount": 106,
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 1519,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1519
+          }
+        ],
+        "serviceTier": "standard",
+        "totalTokenCount": 1625
+      }
     }
   ],
   "capacity_recovery_revision": 2,
@@ -396,8 +415,13 @@
     },
     "https://www.bbc.co.uk/news/articles/c6gel54940qno": {
       "edition_date": "2026-10-25",
-      "reason": "Human interest profile on household cost-of-living pressures and upcoming mortgage rate resets, lacking specific institutional banking or economic policy announcements.",
-      "source_sha256": "35fcc53f9d189e4977dddddb02f014b112b13ddcac1597255da8d8ff8ee09750"
+      "reason": "Human interest/pre-Budget sentiment piece focusing on household finances rather than a concrete UK banking or economic policy announcement.",
+      "source_sha256": "db6bcedbb58f188bd7156f7e0173aa63daf8fd820e199318891c20556e0d3a88"
+    },
+    "https://www.theguardian.com/money/2026/oct/25/cookie-theft-how-fraudsters-get-the-digital-key-to-your-accounts": {
+      "edition_date": "2026-10-25",
+      "reason": "General consumer cybersecurity advice on cookie theft rather than a distinct, substantive corporate financial sector or regulatory policy development.",
+      "source_sha256": "f3d3e3bc76cc24f6122fdabd668e44482d5c79eb9eebf548418417f7d003b6f3"
     }
   },
   "editorial_selections": {
@@ -411,6 +435,19 @@
         {
           "id": "N02",
           "reason": "Personal finance anecdote regarding household mortgage pressures ahead of the Budget lacks institutional or market-moving significance."
+        }
+      ]
+    },
+    "1b0657b6db6291681997509be1d9f55b9083ba8bed1cccff18356fea80474aaa": {
+      "selected": [],
+      "skipped": [
+        {
+          "id": "N01",
+          "reason": "General consumer cybersecurity advice on cookie theft rather than a distinct, substantive corporate financial sector or regulatory policy development."
+        },
+        {
+          "id": "N02",
+          "reason": "Human interest/pre-Budget sentiment piece focusing on household finances rather than a concrete UK banking or economic policy announcement."
         }
       ]
     },
