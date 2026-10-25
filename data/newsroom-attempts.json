@@ -2,7 +2,7 @@
   "api_budget": {
     "date": "2026-10-25",
     "limit": 30,
-    "requests": 17,
+    "requests": 21,
     "timezone": "America/Los_Angeles"
   },
   "api_calls": [
@@ -461,6 +461,82 @@
         "serviceTier": "standard",
         "totalTokenCount": 985
       }
+    },
+    {
+      "at": "2026-10-25T16:30:59.729686+00:00",
+      "prompt_characters": 6205,
+      "purpose": "production",
+      "result": "response_received",
+      "usage": {
+        "candidatesTokenCount": 125,
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 1583,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1583
+          }
+        ],
+        "serviceTier": "standard",
+        "totalTokenCount": 1708
+      }
+    },
+    {
+      "at": "2026-10-25T16:31:14.733701+00:00",
+      "prompt_characters": 8550,
+      "purpose": "production",
+      "result": "response_received",
+      "usage": {
+        "candidatesTokenCount": 435,
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 1797,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1797
+          }
+        ],
+        "serviceTier": "standard",
+        "totalTokenCount": 2232
+      }
+    },
+    {
+      "at": "2026-10-25T16:31:29.735668+00:00",
+      "prompt_characters": 11936,
+      "purpose": "production",
+      "result": "response_received",
+      "usage": {
+        "candidatesTokenCount": 581,
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 2628,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2628
+          }
+        ],
+        "serviceTier": "standard",
+        "totalTokenCount": 3209
+      }
+    },
+    {
+      "at": "2026-10-25T16:31:44.737614+00:00",
+      "prompt_characters": 11646,
+      "purpose": "production",
+      "result": "response_received",
+      "usage": {
+        "candidatesTokenCount": 507,
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 2540,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2540
+          }
+        ],
+        "serviceTier": "standard",
+        "totalTokenCount": 3047
+      }
     }
   ],
   "capacity_recovery_revision": 2,
@@ -472,8 +548,8 @@
     },
     "https://www.bbc.co.uk/news/articles/c6gel54940qno": {
       "edition_date": "2026-10-25",
-      "reason": "Human-interest profile focusing on general cost-of-living pressures and upcoming mortgage rate renewals for a household, lacking substantive institutional financial policy, banking, or corporate developments suitable for a professional financial news publication.",
-      "source_sha256": "06166dfd7d0ff0805a145ea3668a30b613a0bc7f32dacacb8e1d824310ea3bcb"
+      "reason": "Focuses on general consumer cost-of-living sentiment rather than a distinct institutional, corporate, or policy development relevant to professional financial readers.",
+      "source_sha256": "01618ff5284d0253fd175591ca6bca16e6f139d32a6189907f827e9c69c7ad83"
     },
     "https://www.theguardian.com/money/2026/oct/25/cookie-theft-how-fraudsters-get-the-digital-key-to-your-accounts": {
       "edition_date": "2026-10-25",
@@ -549,6 +625,20 @@
         {
           "id": "N04",
           "reason": "Human interest profile illustrating general cost-of-living and mortgage pressures on households, lacking institutional financial news value."
+        }
+      ]
+    },
+    "7a89080db952dd8b588ef6a2095e6a9b83545262bb3eaadd0a5d0a89f1d64548": {
+      "selected": [
+        {
+          "id": "N01",
+          "reason": "Provides relevant business-level commentary on employment costs, National Insurance, and hiring decisions ahead of the upcoming Budget, aligning with UK financing and investment-policy developments."
+        }
+      ],
+      "skipped": [
+        {
+          "id": "N02",
+          "reason": "Focuses on general consumer cost-of-living sentiment rather than a distinct institutional, corporate, or policy development relevant to professional financial readers."
         }
       ]
     },
@@ -1245,6 +1335,11 @@
       "attempted_at": "2026-10-24T18:03:53.775710+00:00",
       "last_result": "All available Gemini models failed; article held: gemini-3.8-flash: connection unavailable (TimeoutError)",
       "retry_after": "2026-10-26T06:03:53.775710+00:00"
+    },
+    "https://www.bbc.co.uk/news/articles/c62kep355q02o": {
+      "attempted_at": "2026-10-25T16:30:51.730120+00:00",
+      "last_result": "Single clean draft sent to autonomous publication gate",
+      "retry_after": "2026-10-27T04:30:51.730120+00:00"
     },
     "https://www.bbc.co.uk/news/articles/c65yn9p55np2o": {
       "attempted_at": "2026-10-25T12:33:39.994842+00:00",
