@@ -101,6 +101,11 @@ def source_lane(url: str) -> str | None:
         return "company_release"
     if host in {"www.investegate.co.uk", "investegate.co.uk"} and ISSUER_RNS.fullmatch(path):
         return "issuer_rns"
+    # Additional official issuer/market newsrooms are citation candidates,
+    # never automatic trust for general website pages or stale documents.
+    if not ADVERSE.search(path.rsplit("/",1)[-1]):
+        from market_coverage import directory_lane
+        return directory_lane(url)
     return None
 
 def self_test():
