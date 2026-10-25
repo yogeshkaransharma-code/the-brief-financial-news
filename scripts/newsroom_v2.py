@@ -251,8 +251,8 @@ def source_passages(source_text):
     accepts a fabricated quotation or considers the ID alone proof of meaning.
     """
     words=source_text.split()
-    return {f"S{i//20+1:03d}":" ".join(words[i:i+28])
-            for i in range(0,len(words),20) if len(words[i:i+28])>=8}
+    return {f"S{i//60+1:03d}":" ".join(words[i:i+90])
+            for i in range(0,len(words),60) if len(words[i:i+90])>=8}
 
 
 def review_prompt(article,official,sentences):
@@ -309,10 +309,10 @@ def reconcile_reviews(article,official,verdict):
         if rating=="SUPPORTED":
             if isinstance(ref,str) and ref in passages:
                 excerpt=passages[ref]
-            if not isinstance(excerpt,str) or not 7<=len(excerpt.split())<=30 or norm(excerpt) not in norm(official.text):
+            if not isinstance(excerpt,str) or not 7<=len(excerpt.split())<=90 or norm(excerpt) not in norm(official.text):
                 holds.append({"claim_id":claim["id"],"reason":"Cited excerpt absent or unsuitable"})
             else:
-                exact.append({"claim":claim["text"][:300],"source_excerpt":excerpt[:250]})
+                exact.append({"claim":claim["text"][:300],"source_excerpt":excerpt})
         else:
             holds.append({"claim_id":claim["id"],"sentence":claim["text"],"reason":str(response.get("issue") or rating)[:350]})
     if len({norm(x["source_excerpt"]) for x in exact})<4:
