@@ -27,6 +27,7 @@ NEWS_HOSTS = {
     "ft.com", "www.ft.com", "bloomberg.com", "www.bloomberg.com",
     "wsj.com", "www.wsj.com", "marketwatch.com", "www.marketwatch.com",
     "economist.com", "www.economist.com",
+    "reinsurancene.ws","www.reinsurancene.ws","insurancejournal.com","www.insurancejournal.com",
 }
 UA = "TheBrief-SourceResearch/0.3 (citation tracing; no article reproduction)"
 MAX_NEWS_BYTES = 800_000
@@ -34,7 +35,7 @@ REVIEW_LIMIT = 12
 # Prefer developments about banking, insurance and financial policy, not every
 # story carrying a broad "Business" RSS label (restaurants, celebrities, etc).
 FINANCE_HEADLINE = re.compile(
-    r"(?i)\b(bank\w*|insur\w*|broker\w*|mortgage\w*|pension\w*|"
+    r"(?i)\b(bank\w*|insur\w*|reinsur\w*|underwrit\w*|intermediar\w*|mga|broker\w*|mortgage\w*|pension\w*|"
     r"investment\w*|investor\w*|financial|fintech|payments?|"
     r"budget|tax|ftse|lending|credit|savings?|capital markets?|"
     r"fund manager\w*|wealth|stock\w*|equity|interest rates?|"
