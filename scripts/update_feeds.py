@@ -164,7 +164,9 @@ def parse(xml_bytes, name, fallback):
             ns = "{http://www.w3.org/2005/Atom}"
             title = text_of(entry, [ns + "title"])
             description = text_of(entry, [ns + "summary", ns + "content"])
-            date = text_of(entry, [ns + "published", ns + "updated"])
+            original_date = text_of(entry, [ns + "published"])
+            date = original_date or text_of(entry, [ns + "updated"])
+            date_basis = 'published' if original_date else 'modified'
             alternatives = [x.attrib.get("href", "") for x in entry.findall(ns + "link")
                             if x.attrib.get("href") and x.attrib.get("rel", "alternate") in ("alternate", "")]
             link = alternatives[0] if alternatives else ""
@@ -172,6 +174,7 @@ def parse(xml_bytes, name, fallback):
             title = text_of(entry, ["title"])
             description = text_of(entry, ["description"])
             date = text_of(entry, ["pubDate", "{http://purl.org/dc/elements/1.1/}date"])
+            date_basis = 'published'
             link = text_of(entry, ["link"])
         headline = clean(title)[:230]
         summary = clean(description)[:400]
@@ -211,9 +214,17 @@ def parse(xml_bytes, name, fallback):
             "published_at": published.isoformat(),
             "source_published_at": published.isoformat(),
             "source_time_precision": "date" if re.fullmatch(r"20\d{2}-\d{2}-\d{2}",date.strip()) else "timestamp",
+            "discovery_date_basis":date_basis,
             "status": "Source update",
         })
     return output
+
+def canonical_record(item):
+    """Replace cached metadata by original URL even when tracking IDs changed."""
+    from media_sources import canonical_url
+    url=canonical_url(item['url'])
+    return dict(item,url=url,id='feed-'+hashlib.sha256(url.encode()).hexdigest()[:20])
+
 
 def main():
     try:
@@ -222,8 +233,8 @@ def main():
         prior = {"items": []}
     # Keep the archive clear of previous boilerplate and copyright notices.
     seen = {
-        x["id"]: x for x in prior.get("items", [])
-        if x.get("id") and len(x.get("short") or "") >= 45
+        canonical_record(x)["url"]: canonical_record(x) for x in prior.get("items", [])
+        if x.get("id") and x.get("url") and len(x.get("short") or "") >= 45
         and not re.match(r"(?i)^(author\s*:|this content is copyright|copyright notice|read more\b)", x.get("short") or "")
         and (x.get("source") not in GOVERNMENT
              or GOVERNMENT_FINANCE_HEADLINE.search(x.get("title","")))
@@ -245,7 +256,7 @@ def main():
             name,url,category=futures[future]
             try:
                 updates=future.result()
-                seen.update({x["id"]:x for x in updates})
+                seen.update({x["url"]:x for x in updates})
                 successes.append({"name":name,"url":url,"items":len(updates)})
             except Exception as exc:
                 errors.append({"source":name,"url":url,"error":str(exc)[:140]})

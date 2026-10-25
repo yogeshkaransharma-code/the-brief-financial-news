@@ -13,6 +13,7 @@ def select(items,now=None,limit=30):
  seen=set();out=[]
  for raw in items:
   item=dict(raw,url=canonical_url(raw.get('url','')))
+  if item.get('discovery_date_basis')=='modified':continue
   if not source_lane(item['url']) or not relevant(item) or not source_issued_today(item,now):continue
   if publisher(item['url']) and re.search(r'(?i)^(?:how|why|what|should|(?:four|five|six|seven|ten|[0-9]+) ways)\b|\b(?:points junkies|squeezed middle)\b',item.get('title','')):continue
   fingerprint=''.join(c for c in item.get('title','').casefold() if c.isalnum())

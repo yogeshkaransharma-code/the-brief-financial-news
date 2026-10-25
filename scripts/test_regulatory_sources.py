@@ -7,7 +7,7 @@ from regulatory_sources import publication_status,requires_document
 from source_dates import parse,verify_announcement
 from source_retrieval import read_source
 from ai_cost_guard import preflight_source
-from update_feeds import categorise
+from update_feeds import categorise,canonical_record,parse as parse_feed
 
 
 def main():
@@ -33,6 +33,16 @@ def main():
  assert overseas[0]=='2026-10-25'
  assert original_date({'dateISO':overseas[0],'source_published_at':overseas[1],'source_time_precision':overseas[2]})==dt.date(2026,10,25)
  assert categorise('Premium credit-card firms expand rewards','Banking')=='Banking'
+ previous=canonical_record({'id':'old-id','url':'https://www.bbc.co.uk/news/articles/c62kep355q02o?at_medium=RSS','category':'Insurance'})
+ corrected=canonical_record({'id':'new-id','url':'https://www.bbc.co.uk/news/articles/c62kep355q02o','category':'Banking'})
+ cache={previous['url']:previous};cache.update({corrected['url']:corrected})
+ assert len(cache)==1 and next(iter(cache.values()))['category']=='Banking'
+ atom='<feed xmlns="http://www.w3.org/2005/Atom"><entry><title>UK insurers publish financial reporting data</title><summary>A financial reporting development for insurers with original documents to inspect.</summary><link href="https://www.fca.org.uk/data/insurance-reporting-data"/><updated>2026-10-25T09:00:00Z</updated>{published}</entry></feed>'
+ with patch('update_feeds.NOW',dt.datetime(2026,10,25,12,tzinfo=dt.timezone.utc)):
+  modified=parse_feed(atom.format(published='').encode(),'FCA publications','Regulation')[0]
+  original=parse_feed(atom.format(published='<published>2026-10-24T09:00:00Z</published>').encode(),'FCA publications','Regulation')[0]
+ assert modified['discovery_date_basis']=='modified'
+ assert original['discovery_date_basis']=='published' and original['dateISO']=='2026-10-24'
  # A short landing page is not enough: its central document must be fetched.
  pdf='https://www.bankofengland.co.uk/-/media/boe/files/prudential-regulation/consultation-paper/2026/cp1426.pdf'
  page=('<main><h1>CP14/26 reporting consultation</h1><p class="published-date">Published on 25 October 2026</p><a href="'+pdf+'">Download consultation paper</a></main>').encode()

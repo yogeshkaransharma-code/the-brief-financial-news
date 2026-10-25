@@ -27,6 +27,7 @@ def main():
  assert canonical_url('https://news.uk.chubb.com/news-releases?item=12345&utm_source=rss').endswith('?item=12345')
  assert len(original_media_candidates(items,now))==4
  assert len(select(items+items,now))==4
+ assert not select([dict(items[0],discovery_date_basis='modified')],now),'An update timestamp was misrepresented as new publication'
  assert not select([dict(items[0],source_published_at='2026-10-24T09:00:00Z',published_at='2026-10-24T09:00:00Z',dateISO='2026-10-24')],now)
  for title in ['UK leather firm makes wallets','How can I save on bank fees?','My partner wants my pension','Sponsored insurance product launch']:
   assert not relevant({'title':title}),title
