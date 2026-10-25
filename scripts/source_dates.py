@@ -14,11 +14,12 @@ def parse(value):
     try:
         stamp=dt.datetime.fromisoformat(value.replace('Z','+00:00'))
         if 'T' in value and stamp.tzinfo:
-            return stamp.date().isoformat(),stamp.astimezone(dt.timezone.utc).isoformat(),'timestamp'
+            utc_stamp=stamp.astimezone(dt.timezone.utc)
+            return utc_stamp.date().isoformat(),utc_stamp.isoformat(),'timestamp'
     except ValueError:
         pass
     # Only explicit publication elements are passed here, not arbitrary prose.
-    cleaned=re.sub(r'(?i)(st|nd|rd|th)\b','',value)
+    cleaned=re.sub(r'(?i)(?<=\d)(st|nd|rd|th)\b','',value)
     cleaned=re.sub(r'(?i)^(first published|published|publication date|date published)(?:\s+on)?\s*:?\s*','',cleaned)
     for fmt in ('%d %B %Y','%d %b %Y','%B %d, %Y','%d/%m/%Y','%d.%m.%Y'):
         try:

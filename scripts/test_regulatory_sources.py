@@ -25,6 +25,13 @@ def main():
  assert not source_lane(pra.replace('.co.uk/','.co.uk.evil.test/'))
  assert parse('Published on 25 October 2026')==('2026-10-25','2026-10-25','date')
  assert parse('Updated on 25 October 2026') is None
+ assert parse('First published: 21st August 2026')==('2026-08-21','2026-08-21','date')
+ assert parse('2026-10-24T20:30:00-04:00')==('2026-10-25','2026-10-25T00:30:00+00:00','timestamp')
+ from source_dates import published_date
+ from same_day_policy import original_date
+ overseas=published_date('<meta property="article:published_time" content="2026-10-24T20:30:00-04:00">')
+ assert overseas[0]=='2026-10-25'
+ assert original_date({'dateISO':overseas[0],'source_published_at':overseas[1],'source_time_precision':overseas[2]})==dt.date(2026,10,25)
  assert categorise('Premium credit-card firms expand rewards','Banking')=='Banking'
  # A short landing page is not enough: its central document must be fetched.
  pdf='https://www.bankofengland.co.uk/-/media/boe/files/prudential-regulation/consultation-paper/2026/cp1426.pdf'
