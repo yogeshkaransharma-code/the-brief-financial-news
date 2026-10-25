@@ -219,6 +219,16 @@ def self_test():
     boe=b'''<main><article><a href="/news/2026/october/bank-of-england-announces-new-market-guidance">Bank of England announces new market guidance for banks</a><span>22 October 2026</span></article></main>'''
     b=parse_listing(boe,"Bank of England","Banking","https://www.bankofengland.co.uk/news/latest-and-upcoming",today=dt.date(2026,10,24))
     assert len(b)==1 and b[0]["dateISO"]=="2026-10-22",b
+    hiscox=b'''<article><p>24th October 2026</p><h3><a href="/news/press-releases/2026/24-10-26">Hiscox announces new specialist insurance protection for UK businesses</a></h3></article>'''
+    hx=parse_listing(hiscox,"Hiscox Group","Insurance","https://www.hiscoxgroup.com/news/press-releases",today=dt.date(2026,10,25))
+    assert len(hx)==1 and hx[0]["dateISO"]=="2026-10-24",hx
+    assert official_release("https://www.hiscoxgroup.com/news/press-releases/2026/24-10-26","Hiscox Group")
+    assert not official_release("https://www.hiscoxgroup.com.evil.net/news/press-releases/2026/24-10-26","Hiscox Group")
+    chubb=b'''<article><p>Oct 24, 2026</p><h3><a href="/news-releases?item=122864">Chubb introduces updated broker trading terms for UK commercial clients</a></h3></article>'''
+    cx=parse_listing(chubb,"Chubb UK","Insurance","https://news.uk.chubb.com/news-releases",today=dt.date(2026,10,25))
+    assert len(cx)==1 and cx[0]["dateISO"]=="2026-10-24",cx
+    assert not official_release("https://news.uk.chubb.com/news-releases?category=778","Chubb UK")
+    assert not official_release("https://news.uk.chubb.com/news-releases?item=122864&evil=1","Chubb UK")
     print("PASS: first-party regulator, banking and insurance indexed source discovery")
 
 if __name__=="__main__":
