@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-25T19:28:22.019784+00:00",
+  "checked_at": "2026-10-25T20:27:36.811838+00:00",
   "uk_date": "2026-10-25",
   "outcome": "NO_QUALIFYING_NEWS",
   "editorial_outcome": "NO_QUALIFYING_NEWS",
@@ -29,8 +29,8 @@
   "machine_screened": 0,
   "primary_indexes_checked": 29,
   "primary_index_failures": 4,
-  "feeds_working": 32,
-  "feed_failures": 1,
+  "feeds_working": 31,
+  "feed_failures": 2,
   "ai_budget": {
     "quota_date": "2026-10-25",
     "quota_timezone": "America/Los_Angeles",
@@ -64,15 +64,20 @@
       "source": "Insurance Age",
       "url": "https://www.insuranceage.co.uk/feeds/rss/category/broker",
       "error": "not well-formed (invalid token): line 1, column 0"
+    },
+    {
+      "source": "Money Marketing",
+      "url": "https://www.moneymarketing.co.uk/feed/",
+      "error": "HTTP Error 403: Forbidden"
     }
   ],
   "publication_holds": [],
-  "run_id": "40226158992",
+  "run_id": "40230827479",
   "event": "schedule",
-  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40226158992",
+  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40230827479",
   "publisher_links": 0,
   "discovery_headlines": 7,
-  "publisher_desk_checked_at": "2026-10-25T19:28:10.966802+00:00",
+  "publisher_desk_checked_at": "2026-10-25T20:27:25.498124+00:00",
   "previous_verified_runs": [
     {
       "run_id": "40193630697",
@@ -684,6 +689,33 @@
       "deployment": "success",
       "live_check": "success",
       "browser_check": "skipped"
+    },
+    {
+      "run_id": "40226158992",
+      "event": "schedule",
+      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40226158992",
+      "editorial_outcome": "NO_QUALIFYING_NEWS",
+      "published_this_run": 0,
+      "publisher_links": 0,
+      "discovery_headlines": 7,
+      "source_coverage_status": "PARTIAL",
+      "fresh_source_candidates": 7,
+      "verified_by_sector": {},
+      "ai_budget": {
+        "quota_date": "2026-10-25",
+        "quota_timezone": "America/Los_Angeles",
+        "requests_this_run": 0,
+        "requests_today_including_this_run": 24,
+        "run_limit": 7,
+        "daily_limit": 30,
+        "remaining_today": 6
+      },
+      "commissioned_stories": [],
+      "checked_at": "2026-10-25T19:28:34.520068+00:00",
+      "technical_status": "LIVE_VERIFIED",
+      "deployment": "success",
+      "live_check": "success",
+      "browser_check": "skipped"
     }
   ],
   "launch_acceptance": {
@@ -695,16 +727,15 @@
       "article_site_live_verified": true,
       "mobile_and_desktop_reading": true,
       "latest_run_technically_healthy": true,
-      "latest_editorial_run_unblocked": false
+      "latest_editorial_run_unblocked": true
     },
-    "verified_scheduled_runs": 6,
+    "verified_scheduled_runs": 7,
     "commissioned_sectors": [
       "Banking",
       "Regulation"
     ],
     "pending": [
-      "worthwhile_same_day_developments_across_sectors",
-      "latest_editorial_run_unblocked"
+      "worthwhile_same_day_developments_across_sectors"
     ],
     "note": "Operational evidence checkpoint, not a guarantee of future events or error-free journalism."
   },
