@@ -2,10 +2,85 @@
   "api_budget": {
     "date": "2026-10-24",
     "limit": 20,
-    "requests": 20,
+    "requests": 22,
     "timezone": "America/Los_Angeles"
   },
+  "api_calls": [
+    {
+      "at": "2026-10-25T00:57:48.018087+00:00",
+      "prompt_characters": 5581,
+      "purpose": "one-time launch diagnostic",
+      "result": "response_received",
+      "usage": {
+        "candidatesTokenCount": 445,
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 1056,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1056
+          }
+        ],
+        "serviceTier": "standard",
+        "totalTokenCount": 1501
+      }
+    },
+    {
+      "at": "2026-10-25T00:58:03.018827+00:00",
+      "prompt_characters": 8158,
+      "purpose": "one-time launch diagnostic",
+      "result": "response_received",
+      "usage": {
+        "candidatesTokenCount": 597,
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 1563,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1563
+          }
+        ],
+        "serviceTier": "standard",
+        "totalTokenCount": 2160
+      }
+    }
+  ],
   "capacity_recovery_revision": 2,
+  "launch_diagnostic_allowance": {
+    "limit": 2,
+    "requests": 2
+  },
+  "launch_test": {
+    "api_budget": {
+      "daily_limit": 20,
+      "quota_date": "2026-10-24",
+      "quota_timezone": "America/Los_Angeles",
+      "remaining_today": 0,
+      "requests_this_run": 2,
+      "requests_today_including_this_run": 22,
+      "run_limit": 2
+    },
+    "checked_at": "2026-10-25T00:57:47.713543+00:00",
+    "editorial_flags": [],
+    "model": "gemini:gemini-3.5-flash-lite",
+    "old_source_publication_rejected": true,
+    "one_time_diagnostic": true,
+    "original_source_date": "2026-10-23",
+    "publication_gate_holds": [
+      "Original announcement is not from TODAY in the UK; old or future news is forbidden",
+      "High-risk claim requires human accountability"
+    ],
+    "published_articles": 0,
+    "quota_date": "2026-10-24",
+    "requests_this_attempt": 2,
+    "result": "PASSED",
+    "reviewed_sentences": 13,
+    "run_id": "40148709835",
+    "source_url": "https://www.fca.org.uk/news/press-releases/fca-calls-private-market-firms-manage-conflicts-interest-line-rapid-growth",
+    "unpublished_test": true,
+    "version": 1,
+    "writer_and_review_passed": true
+  },
   "repair_revision": 4,
   "research_leads": {
     "https://news.sky.com/story/football-regulator-to-address-efl-clubs-as-quest-for-deal-goes-on-13602023": {

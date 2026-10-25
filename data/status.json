@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-25T00:44:53.254468+00:00",
+  "checked_at": "2026-10-25T00:58:09.005388+00:00",
   "uk_date": "2026-10-25",
   "outcome": "DEGRADED",
   "published_this_run": 0,
@@ -10,13 +10,13 @@
   "machine_screened": 0,
   "primary_indexes_checked": 19,
   "primary_index_failures": 4,
-  "feeds_working": 25,
-  "feed_failures": 0,
+  "feeds_working": 24,
+  "feed_failures": 1,
   "ai_budget": {
     "quota_date": "2026-10-24",
     "quota_timezone": "America/Los_Angeles",
-    "requests_this_run": 0,
-    "requests_today_including_this_run": 20,
+    "requests_this_run": 2,
+    "requests_today_including_this_run": 22,
     "run_limit": 6,
     "daily_limit": 20,
     "remaining_today": 0
@@ -27,8 +27,48 @@
     "UK Parliament: HTTPError HTTP Error 403: Forbidden",
     "Allianz UK: HTTPError HTTP Error 403: Forbidden",
     "Association of British Insurers: HTTPError HTTP Error 403: Forbidden",
-    "Revolut UK: HTTPError HTTP Error 403: Forbidden"
+    "Revolut UK: HTTPError HTTP Error 403: Forbidden",
+    {
+      "source": "Money Marketing",
+      "url": "https://www.moneymarketing.co.uk/feed/",
+      "error": "HTTP Error 403: Forbidden"
+    }
   ],
   "publication_holds": [],
-  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40147873947"
+  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40148709835",
+  "launch_test": {
+    "version": 1,
+    "result": "PASSED",
+    "checked_at": "2026-10-25T00:57:47.713543+00:00",
+    "model": "gemini:gemini-3.5-flash-lite",
+    "source_url": "https://www.fca.org.uk/news/press-releases/fca-calls-private-market-firms-manage-conflicts-interest-line-rapid-growth",
+    "requests_this_attempt": 2,
+    "published_articles": 0,
+    "unpublished_test": true,
+    "run_id": "40148709835",
+    "quota_date": "2026-10-24",
+    "original_source_date": "2026-10-23",
+    "one_time_diagnostic": true,
+    "writer_and_review_passed": true,
+    "old_source_publication_rejected": true,
+    "reviewed_sentences": 13,
+    "editorial_flags": [],
+    "publication_gate_holds": [
+      "Original announcement is not from TODAY in the UK; old or future news is forbidden",
+      "High-risk claim requires human accountability"
+    ],
+    "api_budget": {
+      "quota_date": "2026-10-24",
+      "quota_timezone": "America/Los_Angeles",
+      "requests_this_run": 2,
+      "requests_today_including_this_run": 22,
+      "run_limit": 2,
+      "daily_limit": 20,
+      "remaining_today": 0
+    }
+  },
+  "launch_diagnostic_allowance": {
+    "limit": 2,
+    "requests": 2
+  }
 }
