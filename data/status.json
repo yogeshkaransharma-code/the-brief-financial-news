@@ -1,7 +1,7 @@
 {
-  "checked_at": "2026-10-25T01:03:53.013202+00:00",
+  "checked_at": "2026-10-25T01:21:13.035454+00:00",
   "uk_date": "2026-10-25",
-  "outcome": "DEGRADED",
+  "outcome": "BLOCKED",
   "launch_test": {
     "version": 1,
     "result": "PASSED",
@@ -41,34 +41,54 @@
   "machine_screened": 0,
   "primary_indexes_checked": 19,
   "primary_index_failures": 4,
-  "feeds_working": 24,
-  "feed_failures": 1,
+  "feeds_working": 25,
+  "feed_failures": 0,
   "ai_budget": {
     "quota_date": "2026-10-24",
     "quota_timezone": "America/Los_Angeles",
     "requests_this_run": 0,
-    "requests_today_including_this_run": 22,
+    "requests_today_including_this_run": 23,
     "run_limit": 6,
-    "daily_limit": 20,
-    "remaining_today": 0,
+    "daily_limit": 24,
+    "remaining_today": 1,
     "diagnostic_requests_today": 2,
-    "production_requests_today": 20
+    "production_requests_today": 21
   },
   "quota_pause_until": null,
   "candidate_outcomes": [],
   "discovery_errors": [
-    "Allianz UK: HTTPError HTTP Error 403: Forbidden",
     "UK Parliament: HTTPError HTTP Error 403: Forbidden",
+    "Allianz UK: HTTPError HTTP Error 403: Forbidden",
     "Association of British Insurers: HTTPError HTTP Error 403: Forbidden",
-    "Revolut UK: HTTPError HTTP Error 403: Forbidden",
-    {
-      "source": "Money Marketing",
-      "url": "https://www.moneymarketing.co.uk/feed/",
-      "error": "HTTP Error 403: Forbidden"
-    }
+    "Revolut UK: HTTPError HTTP Error 403: Forbidden"
   ],
   "publication_holds": [],
-  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40149123177",
+  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40150257088",
+  "launch_edition": {
+    "edition_date": "2026-10-24",
+    "window_start": "2026-10-24T06:00:00+01:00",
+    "retrospective": true,
+    "result": "BLOCKED",
+    "published": [],
+    "run_id": "40150257088",
+    "checked_at": "2026-10-25T01:20:57.165710+00:00",
+    "attempted": true,
+    "source_url": "https://www.gov.uk/government/news/chancellor-unveils-britains-ambitious-plan-for-ai",
+    "original_source_time": "2026-10-24T05:00:05+00:00",
+    "model": "gemini:gemini-3.5-flash-lite",
+    "error": "ValueError: Numbers absent from official source: ['100', '120', '15', '165', '18', '200', '23', '30']",
+    "requests_this_attempt": 1,
+    "api_budget": {
+      "quota_date": "2026-10-24",
+      "quota_timezone": "America/Los_Angeles",
+      "requests_this_run": 1,
+      "requests_today_including_this_run": 23,
+      "run_limit": 2,
+      "daily_limit": 24,
+      "remaining_today": 1
+    }
+  },
+  "launch_edition_published_this_run": 0,
   "launch_diagnostic_allowance": {
     "limit": 2,
     "requests": 2
