@@ -217,7 +217,7 @@ function wire(){
  $('article-save').onclick=()=>{if(activeId!=='about')toggleSaved(activeId)};$('article-share').onclick=()=>{const url=location.href;navigator.clipboard?.writeText(url).then(()=>showToast('Article link copied')).catch(()=>showToast('Copy the address from your browser'))||showToast('Copy the address from your browser')};$('article-print').onclick=()=>window.print();$('open-about').onclick=()=>location.href='about.html';$('footer-about').onclick=()=>location.href='about.html';window.addEventListener('hashchange',route)}
 async function loadPublished(){
  const approved=data=>Array.isArray(data)?data.filter(x=>x&&x.id&&x.title&&x.ai_assisted===true
-    &&x.publication_method==='autonomous'&&Array.isArray(x.blocks)&&x.blocks.length>=3&&currentDayArticle(x))
+    &&x.publication_method==='autonomous'&&Array.isArray(x.blocks)&&x.blocks.length>=2&&currentDayArticle(x))
     .map(x=>({...x,kind:'original'})):[];
  // The public HTML carries verified stories as a backup for blocked/stale JSON.
  try{
