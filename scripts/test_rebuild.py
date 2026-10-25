@@ -36,6 +36,8 @@ def main():
     report={'first_party_indexes_checked':17,'fresh_unpublished_source_candidates':0}
     pub={'published':[]};feeds={'sources_checked':[{}]}
     assert assess([],report,now,pub,feeds)['outcome']=='NO_QUALIFYING_NEWS'
+    assert assess([],report,now,pub,feeds,{'result':'FAILED'})['outcome']=='BLOCKED', 'A failed real model test was hidden by an empty news day'
+    assert assess([],report,now,pub,feeds,{'result':'PASSED'})['outcome']=='NO_QUALIFYING_NEWS', 'A passed unpublished test was counted as news publication'
     assert assess([],dict(report,first_party_discovery_errors=['timeout']),now,pub,feeds)['outcome']=='DEGRADED'
     assert assess([],dict(report,fresh_unpublished_source_candidates=1),now,pub,feeds)['outcome']=='BLOCKED'
     base=prepared();a=base['draft']

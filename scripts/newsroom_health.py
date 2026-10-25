@@ -8,7 +8,7 @@ import sys
 from same_day_policy import published_same_day,clock
 ROOT=Path(__file__).resolve().parents[1]
 
-def assess(articles,report,now,publication=None,feeds=None):
+def assess(articles,report,now,publication=None,feeds=None,launch=None):
     publication=publication or {};feeds=feeds or {}
     new=len(publication.get('published',[]))
     checked=report.get('first_party_indexes_checked',0)
@@ -20,8 +20,9 @@ def assess(articles,report,now,publication=None,feeds=None):
     elif failures or feed_fail:outcome='DEGRADED'
     elif not checked or not feed_ok:outcome='BLOCKED'
     else:outcome='NO_QUALIFYING_NEWS'
+    if not new and (launch or {}).get('result') in {'FAILED','HELD','STARTED'}:outcome='BLOCKED'
     return {'checked_at':now.isoformat(),'uk_date':clock(now).date().isoformat(),'outcome':outcome,
-      'published_this_run':new,'genuine_same_day_articles':sum(published_same_day(a,now) for a in articles),
+      'launch_test':launch or {'result':'NOT_RUN'},'published_this_run':new,'genuine_same_day_articles':sum(published_same_day(a,now) for a in articles),
       'published_total':len(articles),'last_article_at':max((a['published_at'] for a in articles),default=None),
       'fresh_source_candidates':report.get('fresh_unpublished_source_candidates',0),
       'machine_screened':report.get('machine_screened',0),'primary_indexes_checked':checked,
@@ -36,8 +37,7 @@ def read(path,default):
     except (OSError,ValueError):return default
 
 def main():
-    state=assess(read('data/articles.json',[]),read('generated-drafts/run-report.json',{}),dt.datetime.now(dt.timezone.utc),read('generated-drafts/publication-report.json',{}),read('data/live.json',{}))
-    state['launch_test']=read('data/launch-test.json',{'result':'NOT_RUN'})
+    state=assess(read('data/articles.json',[]),read('generated-drafts/run-report.json',{}),dt.datetime.now(dt.timezone.utc),read('generated-drafts/publication-report.json',{}),read('data/live.json',{}),read('data/launch-test.json',{'result':'NOT_RUN'}))
     ledger=read('data/newsroom-attempts.json',{})
     saved_budget=ledger.get('api_budget',{})
     state['launch_diagnostic_allowance']=ledger.get('launch_diagnostic_allowance',{'limit':2,'requests':0})
