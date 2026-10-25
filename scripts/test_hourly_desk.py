@@ -11,7 +11,9 @@ base={"id":"ai-12345678901234567890","title":"Approved insurance development",
 historical=make([base],now)
 assert historical["mode"]=="DATED_CONTEXT"
 assert historical["today_count"]==0 and historical["items"][0]["original_date"]=="2026-10-24"
-assert "background, not today's news" in page(historical)
+assert "Earlier reporting" in page(historical)
+assert "2026-10-24" in page(historical)
+assert "25 October" in page(historical)
 today=dict(base,id="ai-aaaaaaaaaaaaaaaaaaaa",dateISO="2026-10-25",published_at="2026-10-25T09:00:00+00:00")
 fresh=make([base,today],now)
 assert fresh["mode"]=="TODAY_VERIFIED" and fresh["today_count"]==1
