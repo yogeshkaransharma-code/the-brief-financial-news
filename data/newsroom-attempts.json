@@ -2,7 +2,7 @@
   "api_budget": {
     "date": "2026-10-25",
     "limit": 30,
-    "requests": 11,
+    "requests": 12,
     "timezone": "America/Los_Angeles"
   },
   "api_calls": [
@@ -347,19 +347,38 @@
         "serviceTier": "standard",
         "totalTokenCount": 1611
       }
+    },
+    {
+      "at": "2026-10-25T12:51:49.409684+00:00",
+      "prompt_characters": 5798,
+      "purpose": "production",
+      "result": "response_received",
+      "usage": {
+        "candidatesTokenCount": 116,
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 1501,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1501
+          }
+        ],
+        "serviceTier": "standard",
+        "totalTokenCount": 1617
+      }
     }
   ],
   "capacity_recovery_revision": 2,
   "editorial_rejections": {
     "https://www.bbc.co.uk/news/articles/c62kep355q02o": {
       "edition_date": "2026-10-25",
-      "reason": "Anecdotal pre-Budget commentary on employer National Insurance and hiring sentiment lacks a specific substantive corporate or market development.",
-      "source_sha256": "cbbf3c7858ab6b406566ae946bea06165e82492e0e73790d1308b67441dfbad0"
+      "reason": "Anecdotal reporting on business sentiment ahead of the Budget lacks a substantive corporate financing or regulatory policy development suitable for a financial-news publication.",
+      "source_sha256": "a2c064a81ce6dea1eae0dcb0fd573e8a87c2a534fdf24c43c2713836cdb67aca"
     },
     "https://www.bbc.co.uk/news/articles/c6gel54940qno": {
       "edition_date": "2026-10-25",
-      "reason": "Personal finance anecdote regarding household mortgage pressures ahead of the Budget lacks institutional or market-moving significance.",
-      "source_sha256": "f311207e4d9536685f5b31f7ec5ae19df8da63a469eb10956a7c8528a1594ec9"
+      "reason": "Human interest profile on household cost-of-living pressures and upcoming mortgage rate resets, lacking specific institutional banking or economic policy announcements.",
+      "source_sha256": "35fcc53f9d189e4977dddddb02f014b112b13ddcac1597255da8d8ff8ee09750"
     }
   },
   "editorial_selections": {
@@ -410,6 +429,19 @@
         }
       ],
       "skipped": []
+    },
+    "efe1e71f3355bc92e76f5399cc1572789152addec732a9cc662f161a0fde576e": {
+      "selected": [],
+      "skipped": [
+        {
+          "id": "N01",
+          "reason": "Anecdotal reporting on business sentiment ahead of the Budget lacks a substantive corporate financing or regulatory policy development suitable for a financial-news publication."
+        },
+        {
+          "id": "N02",
+          "reason": "Human interest profile on household cost-of-living pressures and upcoming mortgage rate resets, lacking specific institutional banking or economic policy announcements."
+        }
+      ]
     },
     "f97d4431ddff40da0caf822d3669c0e2133e1c61c81df2c1cd751f047b925d90": {
       "selected": [
@@ -1074,6 +1106,11 @@
       "attempted_at": "2026-10-25T12:33:39.994842+00:00",
       "last_result": "Held after one draft and one independent review",
       "retry_after": "2026-10-27T00:33:39.994842+00:00"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-25/emerging-debt-outruns-treasuries-as-rich-world-fiscal-fears-grow": {
+      "attempted_at": "2026-10-25T12:51:39.647975+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "retry_after": "2026-10-25T16:51:39.647975+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-25/french-bond-rout-puts-crisis-at-heart-of-ecb-succession-endgame": {
       "attempted_at": "2026-10-25T12:33:39.994842+00:00",
