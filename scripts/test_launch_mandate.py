@@ -46,7 +46,7 @@ def main():
  assert len(ledger['editorial_rejections'])==2
  from launch_acceptance import evaluate
  assert evaluate([])['result']=='EVIDENCE_PENDING'
- one={'run_id':'1','checked_at':now.isoformat(),'event':'push','technical_status':'LIVE_VERIFIED','editorial_outcome':'PUBLISHED','published_this_run':1,'publisher_links':2,'ai_budget':{'requests_this_run':3},'browser_check':'success','commissioned_stories':[{'category':'Banking'},{'category':'Insurance'},{'category':'Pensions'}]}
+ one={'live_check':'success','deployment':'success','run_id':'1','checked_at':now.isoformat(),'event':'push','technical_status':'LIVE_VERIFIED','editorial_outcome':'PUBLISHED','published_this_run':1,'publisher_links':2,'ai_budget':{'requests_this_run':3},'browser_check':'success','commissioned_stories':[{'category':'Banking'},{'category':'Insurance'},{'category':'Pensions'}]}
  assert evaluate([one],now)['result']=='EVIDENCE_PENDING','A technical/code run was mislabelled launch-ready'
  two=dict(one,event='schedule',run_id='2');three=dict(one,event='schedule',run_id='3')
  assert evaluate([one,two,three],now)['result']=='EVIDENCE_COMPLETE'

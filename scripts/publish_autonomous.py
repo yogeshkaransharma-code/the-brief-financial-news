@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
-"""Autonomous *limited-risk* publication gate for The Brief.
+"""Autonomous evidence and provenance gate for The Brief.
 
-It is intentionally NOT a substitute for fact checking. Only FCA official,
-non-legal statistical summary pages with complete captured HTML and 100%
-machine-screened sentences can advance. All other articles stay unpublished.
-Auto articles must be visibly labelled as such, never editor-reviewed.
+Recognised official and original-journalism sources require complete evidence,
+original dates, attribution and a separate review of every claim and heading.
+Unresolved disputed reporting remains held. Articles disclose automated review.
 """
 from __future__ import annotations
 import datetime as dt
@@ -146,7 +145,6 @@ def publish(root=ROOT, folder=None, dry_run=False, *, edition_date=None):
     retired_file=root/"data/retired-source-urls.json"
     retired_urls=set(json.loads(retired_file.read_text(encoding="utf-8")).get("urls",[])) if retired_file.exists() else set()
     report={"policy":'retrospective-launch-2026-10-24-v1' if edition_date else POLICY_VERSION,"tested":0,"published":[],"held":[],"mode":"dry_run" if dry_run else "active"}
-    today_count=sum(date_in_uk(x["published_at"])==clock().date() for x in existing)
     for file in sorted(folder.glob("ai-*.json")):
         bundle=json.loads(file.read_text(encoding="utf-8"))
         a=bundle.get("draft") or {}

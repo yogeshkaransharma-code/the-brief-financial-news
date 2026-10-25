@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Independent publication gate for The Brief.
 
-Draft existence is not publication approval. Publication requires a person to
-review the generated article and its linked official evidence.
+Draft existence is not publication approval. This gate checks captured evidence,
+review coverage and source integrity; the separate publisher applies autonomous
+publication policy. A passing machine check never implies human approval.
 """
 from __future__ import annotations
 

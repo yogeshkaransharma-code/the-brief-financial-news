@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""The Brief newsroom V2: source -> writer -> independent sentence review -> hold/review.
+"""The Brief: original sources -> Gemini commissioning -> writing -> separate claim review.
 
-A separate AI review is an *advisory challenge*, not a journalist's sign-off.
-No AI-driven publication. Never substitute RSS summaries for original sources.
+Clean drafts reach the separate autonomous publisher. Machine evidence checks
+are not a human sign-off. RSS summaries never substitute for captured sources.
 """
 from __future__ import annotations
 import datetime as dt

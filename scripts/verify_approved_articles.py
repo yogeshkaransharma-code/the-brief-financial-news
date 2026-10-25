@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check that every on-site AI article has an auditable, human-approved version."""
+"""Check each published article against its immutable source and approval record."""
 from __future__ import annotations
 import hashlib
 import json

@@ -303,8 +303,9 @@ def build():
     (OUT/'sources.html').write_text(sources_page(),encoding='utf-8')
     headline_path=ROOT/'data/headlines.json'
     if headline_path.exists():shutil.copy2(headline_path,OUT/'data/headlines.json')
-    import os
-    (OUT/'data/build.json').write_text(json.dumps({'run_id':os.getenv('GITHUB_RUN_ID','local'),'source_sha':os.getenv('GITHUB_SHA'),'built_at':dt.datetime.now(dt.timezone.utc).isoformat()})+'\n')
+    import os,subprocess
+    source_sha=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
+    (OUT/'data/build.json').write_text(json.dumps({'run_id':os.getenv('GITHUB_RUN_ID','local'),'source_sha':source_sha,'built_at':dt.datetime.now(dt.timezone.utc).isoformat()})+'\n')
     (OUT / "about.html").write_text((ROOT / "about.html").read_text(encoding="utf-8"), encoding="utf-8")
     (OUT / "data/articles.json").write_text(json.dumps(records, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     (OUT / "data/archive.json").write_text(json.dumps(archive,ensure_ascii=False,indent=2)+"\n")
