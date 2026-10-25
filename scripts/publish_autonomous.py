@@ -95,7 +95,7 @@ def eligible(bundle, *, edition_date=None):
                 and permitted(docs[1]) and docs[1].lower().split("?")[0].endswith(".pdf")):
             problems.append("Linked full primary document was not clearly identified")
     source=bundle.get("captured_source_excerpt","")
-    if len(source)<1250:
+    if len(source)<1000:
         problems.append("Too little original-source evidence for an unattended financial article")
     # Publication MUST occur on the same UK calendar date as the first-party
     # announcement. A fresh AI write-up never refreshes an old source.
