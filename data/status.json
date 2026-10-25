@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-25T14:33:20.215126+00:00",
+  "checked_at": "2026-10-25T15:30:10.163370+00:00",
   "uk_date": "2026-10-25",
   "outcome": "NO_QUALIFYING_NEWS",
   "editorial_outcome": "NO_QUALIFYING_NEWS",
@@ -11,19 +11,30 @@
   "published_this_run": 0,
   "genuine_same_day_articles": 3,
   "editorial_selection": {
-    "result": "NO_VERIFIED_CANDIDATES",
-    "requests": 0,
-    "selected": []
+    "result": "NO_WORTHWHILE_NEWS",
+    "requests": 1,
+    "cache_key": "b5a5812ac7527829f9c5595dd6b9686a3504dc73a37cd599dfa4367bd4fae403",
+    "selected": [],
+    "skipped": [
+      {
+        "id": "N01",
+        "reason": "Anecdotal reporting on pre-Budget business sentiment without a substantive corporate development, policy announcement, or specific financial sector impact.",
+        "url": "https://www.bbc.co.uk/news/articles/c62kep355q02o",
+        "category": "Banking"
+      }
+    ]
   },
   "published_total": 14,
   "last_article_at": "2026-10-25T12:35:26.192637+00:00",
   "fresh_source_candidates": 7,
-  "verified_original_candidates": 0,
+  "verified_original_candidates": 1,
   "candidates_by_sector": {
     "Banking": 2,
     "Technology": 1
   },
-  "verified_by_sector": {},
+  "verified_by_sector": {
+    "Banking": 1
+  },
   "articles_commissioned": 0,
   "articles_held": 0,
   "machine_screened": 0,
@@ -34,20 +45,14 @@
   "ai_budget": {
     "quota_date": "2026-10-25",
     "quota_timezone": "America/Los_Angeles",
-    "requests_this_run": 0,
-    "requests_today_including_this_run": 16,
+    "requests_this_run": 1,
+    "requests_today_including_this_run": 17,
     "run_limit": 7,
     "daily_limit": 30,
-    "remaining_today": 14
+    "remaining_today": 13
   },
   "quota_pause_until": null,
   "candidate_outcomes": [
-    {
-      "title": "Firms 'holding back' on new jobs ahead of Budget",
-      "source": "https://www.bbc.co.uk/news/articles/c62kep355q02o",
-      "result": "cached editorial rejection",
-      "reason": "This is general pre-Budget commentary featuring anecdotal business reactions rather than a substantive policy change, corporate financial result, or regulatory milestone suitable for a credible financial news publication."
-    },
     {
       "title": "Cookie theft: how fraudsters get the digital key to your accounts",
       "source": "https://www.theguardian.com/money/2026/oct/25/cookie-theft-how-fraudsters-get-the-digital-key-to-your-accounts",
@@ -73,12 +78,12 @@
     }
   ],
   "publication_holds": [],
-  "run_id": "40202746992",
-  "event": "push",
-  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40202746992",
+  "run_id": "40207195690",
+  "event": "schedule",
+  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40207195690",
   "publisher_links": 0,
   "discovery_headlines": 7,
-  "publisher_desk_checked_at": "2026-10-25T14:33:10.104093+00:00",
+  "publisher_desk_checked_at": "2026-10-25T15:29:58.072656+00:00",
   "previous_verified_runs": [
     {
       "run_id": "40193630697",
@@ -535,6 +540,33 @@
       "deployment": "success",
       "live_check": "success",
       "browser_check": "skipped"
+    },
+    {
+      "run_id": "40202746992",
+      "event": "push",
+      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40202746992",
+      "editorial_outcome": "NO_QUALIFYING_NEWS",
+      "published_this_run": 0,
+      "publisher_links": 0,
+      "discovery_headlines": 7,
+      "source_coverage_status": "PARTIAL",
+      "fresh_source_candidates": 7,
+      "verified_by_sector": {},
+      "ai_budget": {
+        "quota_date": "2026-10-25",
+        "quota_timezone": "America/Los_Angeles",
+        "requests_this_run": 0,
+        "requests_today_including_this_run": 16,
+        "run_limit": 7,
+        "daily_limit": 30,
+        "remaining_today": 14
+      },
+      "commissioned_stories": [],
+      "checked_at": "2026-10-25T14:35:24.894617+00:00",
+      "technical_status": "LIVE_VERIFIED",
+      "deployment": "success",
+      "live_check": "success",
+      "browser_check": "success"
     }
   ],
   "launch_acceptance": {

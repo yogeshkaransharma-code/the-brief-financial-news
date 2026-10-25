@@ -2,7 +2,7 @@
   "api_budget": {
     "date": "2026-10-25",
     "limit": 30,
-    "requests": 16,
+    "requests": 17,
     "timezone": "America/Los_Angeles"
   },
   "api_calls": [
@@ -442,14 +442,33 @@
         "serviceTier": "standard",
         "totalTokenCount": 1054
       }
+    },
+    {
+      "at": "2026-10-25T15:30:09.134960+00:00",
+      "prompt_characters": 3995,
+      "purpose": "production",
+      "result": "response_received",
+      "usage": {
+        "candidatesTokenCount": 65,
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 920,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 920
+          }
+        ],
+        "serviceTier": "standard",
+        "totalTokenCount": 985
+      }
     }
   ],
   "capacity_recovery_revision": 2,
   "editorial_rejections": {
     "https://www.bbc.co.uk/news/articles/c62kep355q02o": {
       "edition_date": "2026-10-25",
-      "reason": "This is general pre-Budget commentary featuring anecdotal business reactions rather than a substantive policy change, corporate financial result, or regulatory milestone suitable for a credible financial news publication.",
-      "source_sha256": "34ea5db3d56a8726985ee80ca6ae1c662785693852e7ec2e4161611cbf72fd94"
+      "reason": "Anecdotal reporting on pre-Budget business sentiment without a substantive corporate development, policy announcement, or specific financial sector impact.",
+      "source_sha256": "871e99dd7fc50728dbaf6c3ecf83cd1be36713a08fda7e85e3426e3a3909bdb2"
     },
     "https://www.bbc.co.uk/news/articles/c6gel54940qno": {
       "edition_date": "2026-10-25",
@@ -541,6 +560,15 @@
         }
       ],
       "skipped": []
+    },
+    "b5a5812ac7527829f9c5595dd6b9686a3504dc73a37cd599dfa4367bd4fae403": {
+      "selected": [],
+      "skipped": [
+        {
+          "id": "N01",
+          "reason": "Anecdotal reporting on pre-Budget business sentiment without a substantive corporate development, policy announcement, or specific financial sector impact."
+        }
+      ]
     },
     "d27d95091c232197826bab93091b1ceaa45ac13b08706df7a15b47ba5019a0f2": {
       "selected": [],
