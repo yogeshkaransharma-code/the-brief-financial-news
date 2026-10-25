@@ -46,7 +46,15 @@ def eligible(bundle, *, edition_date=None):
         return ["Editorial evidence gate failed: "+str(exc)]
     lane=source_lane(a["url"])
     if not lane:
-        problems.append("Source outside the cautious first-party reporting lanes (or excluded adverse enforcement)")
+        problems.append("Source outside the cautious original reporting lanes (or excluded adverse enforcement)")
+    if lane=="original_reporting":
+        if a.get("status")!="Original reporting":
+            problems.append("Journalist-originated source must be labelled original reporting")
+        if a.get("source")!="The Guardian Business":
+            problems.append("Media source identity does not match the approved original publisher")
+        combined_lead=(a.get("title","")+" "+a.get("short",""))
+        if not re.search(r"(?i)\bthe guardian\b",combined_lead):
+            problems.append("Independent newspaper report must be attributed to The Guardian in the headline or standfirst")
     if lane=="fca_data" and a.get("status")!="Published report":
         problems.append("FCA statistics incorrectly described")
     if lane=="fca_review" and a.get("status")!="Published report":
