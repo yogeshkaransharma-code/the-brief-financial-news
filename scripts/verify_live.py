@@ -37,7 +37,7 @@ def probe():
             archive_page=read(SITE+'archive.html'+token)
             for a in archive:assert html.escape(a['title'],quote=True) in archive_page,'Archived headline missing'
             tested=[]
-            selection=today[:1]+([archive[0]] if archive and (not today or archive[0]['id']!=today[0]['id']) else [])
+            selection=today+([archive[0]] if archive and (not today or archive[0]['id']!=today[0]['id']) else [])
             for a in selection:
                 story=read(SITE+'story/'+a['id']+'.html'+token)
                 assert html.escape(a['title'],quote=True) in story,'Article heading absent'
@@ -46,6 +46,15 @@ def probe():
                 tested.append(a['id'])
             if not today:assert 'No verified news from today yet' in home,'Empty edition misleading'
             state=json.loads(read(SITE+'data/status.json'+token))
+            if os.getenv('GITHUB_RUN_ID') and '--monitor' not in sys.argv:
+                build=json.loads(read(SITE+'data/build.json'+token))
+                assert build['run_id']==os.environ['GITHUB_RUN_ID'],'Live site is still serving an earlier deployment'
+            local_desk=ROOT/'data/headlines.json'
+            if local_desk.exists() and '--monitor' not in sys.argv:
+                desk=json.loads(read(SITE+'data/headlines.json'+token))
+                assert desk==json.loads(local_desk.read_text()),'Publisher desk did not refresh on the live website'
+                for item in desk['items']:
+                    assert html.escape(item['url'],quote=True) in home,'Publisher link missing from homepage'
             assert state.get('outcome') in {'PUBLISHED','NO_QUALIFYING_NEWS','BLOCKED','DEGRADED'},'Unknown newsroom outcome'
             if '--monitor' in sys.argv:
                 age=dt.datetime.now(dt.timezone.utc)-dt.datetime.fromisoformat(state['checked_at'])
@@ -58,3 +67,4 @@ def probe():
             if attempt<5:time.sleep(8)
     raise RuntimeError('Live website verification failed: '+failure)
 if __name__=='__main__':probe()
+

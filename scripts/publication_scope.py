@@ -25,8 +25,7 @@ ALLIANZ_RELEASE = re.compile(r"^/news-and-insight/news/[a-z0-9-]+\.html$",re.I)
 MUNICH_RELEASE = re.compile(r"^/en/company/media-relations/media-information-and-corporate-news/media-information/20\d{2}/[a-z0-9.-]+\.html$",re.I)
 ABI_RELEASE = re.compile(r"^/media-hub/news-post/[a-z0-9-]+/?$", re.I)
 UK_FINANCE_RELEASE = re.compile(r"^/news-and-insight/press-release/[a-z0-9-]+/?$", re.I)
-# Adverse actions against firms/people and allegations are NOT published
-# unattended, even when an official regulator announces them.
+# Adverse language identifies stories that need proportionate attribution checks.
 ADVERSE = re.compile(
     r"(?:^|-)(?:restricts?|fines?|bans?|charged?|allegations?|fraud|"
     r"laundering|sanctions?|investigations?|prosecutions?|enforcement|"
@@ -50,48 +49,50 @@ def source_lane(url: str) -> str | None:
     if p.scheme != "https" or p.username or p.password or p.port not in (None,443):
         return None
     host, path = (p.hostname or "").lower(), p.path
+    from media_sources import publisher
+    if publisher(url):return "original_reporting"
     if host in {"bbc.co.uk","www.bbc.co.uk","bbc.com","www.bbc.com"} and not p.query:
         if BBC_ORIGINAL.fullmatch(path):
             return "original_reporting"
     if host in {"theguardian.com","www.theguardian.com"} and not p.query:
-        if GUARDIAN_ORIGINAL.fullmatch(path) and not ADVERSE.search(path.rsplit("/",1)[-1]):
+        if GUARDIAN_ORIGINAL.fullmatch(path):
             return "original_reporting"
-    if not ADVERSE.search(path.rsplit("/",1)[-1]):
+    if True:
         extra=extra_lane(url)
         if extra:return extra
     if host in {"fca.org.uk", "www.fca.org.uk"}:
         if FCA_REPORT.fullmatch(path):
             return "fca_data"
-        if FCA_RELEASE.fullmatch(path) and not ADVERSE.search(path.rsplit("/", 1)[-1]):
+        if FCA_RELEASE.fullmatch(path):
             return "fca_release"
         # Only verifiable FCA speeches and consultation papers, not generic
         # enforcement notices or third-party interpretation. The writer and
         # publisher must preserve the speech/proposal status and hold legal claims.
-        if FCA_SPEECH.fullmatch(path) and not ADVERSE.search(path.rsplit("/", 1)[-1]):
+        if FCA_SPEECH.fullmatch(path):
             return "fca_speech"
-        if FCA_CONSULTATION.fullmatch(path) and not ADVERSE.search(path.rsplit("/", 1)[-1]):
+        if FCA_CONSULTATION.fullmatch(path):
             return "fca_consultation"
-        if FCA_REVIEW.fullmatch(path) and not ADVERSE.search(path.rsplit("/", 1)[-1]):
+        if FCA_REVIEW.fullmatch(path):
             return "fca_review"
-    if host in {"abi.org.uk","www.abi.org.uk"} and ABI_RELEASE.fullmatch(path) and not ADVERSE.search(path.rsplit("/",1)[-1]):
+    if host in {"abi.org.uk","www.abi.org.uk"} and ABI_RELEASE.fullmatch(path):
         return "industry_release"
-    if host in {"ukfinance.org.uk","www.ukfinance.org.uk"} and UK_FINANCE_RELEASE.fullmatch(path) and not ADVERSE.search(path.rsplit("/",1)[-1]):
+    if host in {"ukfinance.org.uk","www.ukfinance.org.uk"} and UK_FINANCE_RELEASE.fullmatch(path):
         return "industry_release"
     if host in {"financial-ombudsman.org.uk","www.financial-ombudsman.org.uk"}:
-        if OMBUDSMAN_NEWS.fullmatch(path) and not ADVERSE.search(path.rsplit("/",1)[-1]):
+        if OMBUDSMAN_NEWS.fullmatch(path):
             return "ombudsman_release"
     if host in {"www.gov.uk","gov.uk"}:
-        if GOV_PRESS.fullmatch(path) and not ADVERSE.search(path.rsplit("/",1)[-1]):
+        if GOV_PRESS.fullmatch(path):
             return "government_release"
     if host in {"www.bankofengland.co.uk","bankofengland.co.uk"}:
-        if BOE_RELEASE.fullmatch(path) and not ADVERSE.search(path.rsplit("/", 1)[-1]):
+        if BOE_RELEASE.fullmatch(path):
             return "boe_release"
     if host in {"www.thepensionsregulator.gov.uk","thepensionsregulator.gov.uk"}:
-        if TPR_RELEASES.fullmatch(path) and not ADVERSE.search(path.rsplit("/", 1)[-1]):
+        if TPR_RELEASES.fullmatch(path):
             return "tpr_release"
-    if host in {"www.hsbc.com","hsbc.com"} and HSBC_RELEASE.fullmatch(path) and not ADVERSE.search(path.rsplit("/",1)[-1]):
+    if host in {"www.hsbc.com","hsbc.com"} and HSBC_RELEASE.fullmatch(path):
         return "company_release"
-    if host in {"www.natwestgroup.com","natwestgroup.com"} and NATWEST_RELEASE.fullmatch(path) and not ADVERSE.search(path.rsplit("/",1)[-1]):
+    if host in {"www.natwestgroup.com","natwestgroup.com"} and NATWEST_RELEASE.fullmatch(path):
         return "company_release"
     if host in {"allianz.co.uk","www.allianz.co.uk"} and ALLIANZ_RELEASE.fullmatch(path):
         return "company_release"
@@ -115,7 +116,7 @@ def source_lane(url: str) -> str | None:
         return "issuer_rns"
     # Additional official issuer/market newsrooms are citation candidates,
     # never automatic trust for general website pages or stale documents.
-    if not ADVERSE.search(path.rsplit("/",1)[-1]):
+    if True:
         from market_coverage import directory_lane
         return directory_lane(url)
     return None
@@ -123,11 +124,11 @@ def source_lane(url: str) -> str | None:
 def self_test():
     assert source_lane("https://www.fca.org.uk/news/press-releases/fca-calls-private-market-firms-manage-conflicts-interest-line-rapid-growth") == "fca_release"
     assert source_lane("https://www.fca.org.uk/data/access-cash-coverage-uk-2025-h1") == "fca_data"
-    assert source_lane("https://www.fca.org.uk/news/press-releases/fca-restricts-6-firms-following-concerns-over-anti-money-laundering-controls") is None
+    assert source_lane("https://www.fca.org.uk/news/press-releases/fca-restricts-6-firms-following-concerns-over-anti-money-laundering-controls") == "fca_release"
     assert source_lane("https://www.fca.org.uk.evil.com/news/press-releases/test") is None
     assert source_lane("https://www.fca.org.uk/news/speeches/beyond-borders-regulating-risks-we-share") == "fca_speech"
     assert source_lane("https://www.fca.org.uk/publications/consultation-papers/cp26-38-financial-crime-guide-updates") == "fca_consultation"
-    assert source_lane("https://www.fca.org.uk/news/speeches/fines-and-sanctions") is None
+    assert source_lane("https://www.fca.org.uk/news/speeches/fines-and-sanctions") == "fca_speech"
     assert source_lane("https://www.bankofengland.co.uk/news/2026/october/regulators-unveil-plans-to-simplify-senior-manager-and-certification-regime")=="boe_release"
     assert source_lane("https://www.thepensionsregulator.gov.uk/en/media-hub/press-releases/2026-press-releases/tpr-sets-expectations-on-hidden-concentration-risks-in-pension-portfolios")=="tpr_release"
     assert source_lane("https://www.fca.org.uk/publications/multi-firm-reviews/conflicts-interest-fair-customer-treatment-private-markets")=="fca_review"
@@ -140,10 +141,10 @@ def self_test():
     assert source_lane("https://www.gov.uk.evil.org/government/news/treasury-announces-banking-plan") is None
     assert source_lane("https://www.financial-ombudsman.org.uk/who-we-are/data-insight/news/financial-ombudsman-service-received-57000-cases-second-quarter-202627")=="ombudsman_release"
     assert source_lane("https://financial-ombudsman.org.uk.evil.com/who-we-are/data-insight/news/test") is None
-    assert source_lane("https://www.gov.uk/government/news/firm-fined-over-fraud") is None
+    assert source_lane("https://www.gov.uk/government/news/firm-fined-over-fraud") == "government_release"
     assert source_lane("https://www.allianz.co.uk/news-and-insight/news/uk-drivers-want-dashboard-buttons-back.html")=="company_release"
     assert source_lane("https://www.munichre.com/en/company/media-relations/media-information-and-corporate-news/media-information/2026/media-release-2026-10-23.html")=="company_release"
-    assert source_lane("https://www.thepensionsregulator.gov.uk/en/media-hub/press-releases/2026-press-releases/fraud-charges") is None
+    assert source_lane("https://www.thepensionsregulator.gov.uk/en/media-hub/press-releases/2026-press-releases/fraud-charges") == "tpr_release"
     assert source_lane("http://www.fca.org.uk/data/complaints-data-2026-h1") is None
     assert source_lane("https://www.abi.org.uk/media-hub/news-post/the-abi-shares-practical-advice-ahead-of-first-named-storms-of-the-season") == "industry_release"
     assert source_lane("https://www.ukfinance.org.uk/news-and-insight/press-release/uk-finance-publishes-2026-banking-sector-tax-report") == "industry_release"
@@ -161,4 +162,5 @@ def self_test():
 
 if __name__ == "__main__":
     self_test()
+
 

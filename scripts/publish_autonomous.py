@@ -25,8 +25,8 @@ ROOT = Path(__file__).resolve().parents[1]
 ARTICLES = ROOT / "data/articles.json"
 AUDIT_DIR = ROOT / "data/editorial-audits"
 DRAFT_DIR = ROOT / "generated-drafts"
-MAX_ARTICLES = 10
-POLICY_VERSION = "verified-original-date-2026-10-25-v5"
+# Throughput is bounded by the durable Gemini request budget, not an article quota.
+POLICY_VERSION = "newsroom-original-reporting-2026-10-25-v6"
 # URL-level lanes are shared with candidate selection so Gemini focuses on
 # stories that have a chance of passing the autonomous publication gate.
 HIGH_RISK = re.compile(
@@ -50,13 +50,12 @@ def eligible(bundle, *, edition_date=None):
     if lane=="original_reporting":
         if a.get("status")!="Original reporting":
             problems.append("Journalist-originated source must be labelled original reporting")
-        allowed_media={"The Guardian Business","The Guardian Money","The Guardian Insurance",
-                       "The Guardian Banking","BBC Business"}
-        if a.get("source") not in allowed_media:
-            problems.append("Media source identity does not match the approved original publisher")
+        from media_sources import publisher
+        reporter=publisher(a['url'])
         combined_lead=(a.get("title","")+" "+a.get("short",""))
-        attribution=r"(?i)\b(?:the )?bbc\b" if a.get("source")=="BBC Business" else r"(?i)\bthe guardian\b"
-        if not re.search(attribution,combined_lead):
+        if not reporter:
+            problems.append("Unrecognised original publisher")
+        if reporter and not re.search(r'(?i)(?<!\w)'+re.escape(reporter)+r'(?!\w)',combined_lead):
             problems.append("Independent reporter must be attributed in the headline or standfirst")
     if lane=="fca_data" and a.get("status")!="Published report":
         problems.append("FCA statistics incorrectly described")
@@ -95,7 +94,7 @@ def eligible(bundle, *, edition_date=None):
                 and permitted(docs[1]) and docs[1].lower().split("?")[0].endswith(".pdf")):
             problems.append("Linked full primary document was not clearly identified")
     source=bundle.get("captured_source_excerpt","")
-    if len(source)<1000:
+    if len(source)<850:
         problems.append("Too little original-source evidence for an unattended financial article")
     # Publication MUST occur on the same UK calendar date as the first-party
     # announcement. A fresh AI write-up never refreshes an old source.
@@ -118,11 +117,10 @@ def eligible(bundle, *, edition_date=None):
         problems.append("Outstanding disputed claim")
     combined="\n".join([a["title"],a["short"]]+[v for block in a["blocks"] for v in block])
     if HIGH_RISK.search(combined):
-        problems.append("High-risk claim requires human accountability")
-    if CAUSAL.search(combined):
-        problems.append("Potential causal inference outside automated scope")
-    if re.search(r"(?i)\bpercentage[- ]point",combined):
-        problems.append("Percentage-point calculations must be independently reconciled before automation")
+        if lane=='original_reporting':
+            problems.append("Consequential or disputed original reporting needs independent corroboration before autonomous publication")
+        elif not re.search(r'(?i)\b(?:says?|said|announced|reported|according to|found|proposes?|consulting)\b',a['short']):
+            problems.append("Consequential official findings must be explicitly attributed in the standfirst")
     count=sum(len(x.split()) for _,x in a["blocks"])
     if count>700:
         problems.append("Unusually long unattended financial interpretation")
@@ -163,9 +161,6 @@ def publish(root=ROOT, folder=None, dry_run=False, *, edition_date=None):
         reasons=eligible(bundle,edition_date=edition_date)
         if reasons:
             report["held"].append({"id":aid,"reason":reasons})
-            continue
-        if today_count+len(report["published"])>=MAX_ARTICLES:
-            report["held"].append({"id":aid,"reason":["Daily original-story cap"]})
             continue
         item=dict(a)
         item["reviewed_by"]="autonomous-evidence-screening"
@@ -218,4 +213,5 @@ if __name__=="__main__":
     report=publish(dry_run=not enabled)
     DRAFT_DIR.mkdir(exist_ok=True)
     (DRAFT_DIR/"publication-report.json").write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n")
+
 

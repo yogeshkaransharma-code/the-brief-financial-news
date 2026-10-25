@@ -102,8 +102,8 @@ def check(bundle: dict, human_review: bool = False) -> dict:
     if any(normalize(x["source_excerpt"]) not in evidence_source for x in evidence):
         raise ValueError("An evidence quote does not appear in the captured official source excerpt")
     unique_supports = {re.sub(r"\s+", " ", x["source_excerpt"]).casefold().strip() for x in evidence}
-    if len(unique_supports) < 4:
-        raise ValueError("Evidence repeats the same source passage; four distinct excerpts are required")
+    if len(unique_supports) < (2 if audit.get("pipeline_version")==2 else 4):
+        raise ValueError("Evidence repeats the same source passage; distinct supporting excerpts are required")
     unique_claims = {re.sub(r"\s+", " ", x["claim"]).casefold().strip() for x in evidence}
     if len(unique_claims) < 4:
         raise ValueError("Four distinct factual checks are required")
@@ -188,4 +188,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 

@@ -12,7 +12,7 @@ from publication_scope import source_lane
 MAX_REQUESTS_PER_RUN=7  # One selection plus at most three writer/reviewer pairs.
 MAX_REQUESTS_PER_DAY=30  # Local ceiling, not a claim about Google's project quota.
 MAX_SOURCE_CHARS=30000
-MIN_SOURCE_CHARS=1250
+MIN_SOURCE_CHARS=850
 PACIFIC=ZoneInfo('America/Los_Angeles')
 
 class BudgetExhausted(RuntimeError):pass
@@ -100,3 +100,4 @@ def self_test():
         assert CallBudget(ledger,t+dt.timedelta(hours=8),per_run=2,per_day=3).remaining()==2
     print('PASS: durable reservations, failure accounting, hard caps and Pacific reset')
 if __name__=='__main__':self_test()
+

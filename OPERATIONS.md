@@ -108,3 +108,20 @@ A first post-publication mobile test **failed because the browser script expecte
 
 Outstanding limitations: 4 blocked official indexes (403) and intermittent Insurance Age RSS invalid XML. The newest run correctly reports **DEGRADED** because sources remain inaccessible, despite an existing valid same-day article and successful deployment; it must not claim a fresh second publication. Original-media lane currently covers narrowly dated, accessible Guardian Business/Money pages only; extending to BBC or specialist insurance reporters requires comparable verified origin/publication-date and attribution controls. Independent AI checking is machine review, not human certification.
 
+
+
+## Integrated launch mandate — 25 October 2026
+
+The hourly workflow now permits original reporting from the exact publishers and article routes in `scripts/media_sources.py`, in addition to official sources. Recognition is candidate discovery only: full accessible source capture, original publication dating, Gemini commissioning, original writing and a separate complete claim/heading review still precede publication. No login, paywall or access-control bypass is provided. Consequential disputed journalism is held when corroboration is missing; official enforcement findings require explicit attribution. Known industry feeds are no longer forced to locate a corporate press release before reaching Gemini.
+
+The complementary publisher-link desk is built from current dated feeds, screened for financial relevance and obvious features/lifestyle material, deduplicated and visibly labelled. It is separate from the original article feed. Its feed dates do not claim original-document verification. `sources.html` and `data/sources.json` expose configured discovery routes and available observation status.
+
+A blocked individual feed/index produces a coverage warning. Empty/missing execution evidence, a failed pipeline stage, a provider circuit breaker, exhausted editorial budget with work pending, failed deployment or failed live checks remain actionable. The failure job and GitHub notifications are the alert route; no Slack/email integration is assumed.
+
+The original article count has no daily publication ceiling. The existing durable model allowance remains seven requests per run and 30 per Pacific quota day: typically one commissioning call and up to three writer/reviewer pairs. These are expenditure ceilings, not a guarantee of three articles. Per-source retry cooldowns, document-specific editorial rejection caching and unchanged-pool decision caching prevent repeat model spending. Budget pauses are visible and never reset to manufacture throughput.
+
+Every deployment verifies the exact run identifier, live current and archive feeds, every current full article body and refreshed publisher links. Mobile/desktop reading is checked on code deployments and after new articles. An independent hourly live monitor detects stale publication. External-source unavailability is recorded separately from the ability to read The Brief's own article.
+
+`data/run-history.json` records the observed deployment, HTTP reading and browser result after checks finish, separately from editorial output and request usage. The next public status build includes verified history. The current public artifact cannot already contain its own subsequent live-test result; its status labels this timing and links to the workflow.
+
+Launch acceptance still requires observed repeated **scheduled** runs and real editorial output. Offline fixtures, a manual/code-triggered successful run and a source-linked desk refresh do not establish continuous editorial performance. Do not mark that acceptance complete until the run history and evidence support it.

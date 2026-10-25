@@ -36,18 +36,14 @@ jobs:
       - name: Validate editorial and failure controls
         if: github.event_name != 'schedule'
         run: python scripts/run_checks.py
-      - name: Publish the authorised Saturday launch edition with real Gemini
-        id: launch_edition
-        continue-on-error: true
-        env:
-          BRIEF_AI_PROVIDER: gemini
-          GEMINI_MODEL: gemini-3.5-flash-lite
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: python scripts/publish_launch_edition.py
       - name: Discover original-source leads without AI requests
         id: discovery
         continue-on-error: true
         run: python scripts/update_feeds.py
+      - name: Refresh the supplementary publisher-link desk
+        id: headlines
+        continue-on-error: true
+        run: python scripts/headline_desk.py
       - name: Read originals, write with Gemini and independently challenge claims
         id: writer
         continue-on-error: true
@@ -62,20 +58,11 @@ jobs:
         env:
           AUTO_PUBLICATION_ENABLED: '1'
         run: python scripts/publish_autonomous.py
-      - name: Test real Gemini writing and challenge before launch without publishing old news
-        id: launch_test
-        continue-on-error: true
-        env:
-          BRIEF_LAUNCH_DIAGNOSTIC: '1'
-          BRIEF_AI_PROVIDER: gemini
-          GEMINI_MODEL: gemini-3.5-flash-lite
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: python scripts/launch_canary.py
       - name: Record actual publication outcome and source failures
         id: health
         if: always()
         env:
-          BRIEF_PIPELINE_ERROR: ${{ steps.writer.outcome == 'failure' || steps.publisher.outcome == 'failure' || steps.discovery.outcome == 'failure' || steps.launch_edition.outcome == 'failure' }}
+          BRIEF_PIPELINE_ERROR: ${{ failure() || steps.writer.outcome == 'failure' || steps.publisher.outcome == 'failure' || steps.discovery.outcome == 'failure' || steps.headlines.outcome == 'failure' }}
         run: python scripts/newsroom_health.py
       - name: Preserve source evidence and diagnostic reports
         if: always()
@@ -121,6 +108,7 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
       - name: Verify actual live homepage, archive and original-source links
+        id: live
         run: python scripts/verify_live.py
       - name: Install browser for actual mobile checks
         if: steps.health.outputs.new_articles != '0' || github.event_name != 'schedule'
@@ -128,6 +116,7 @@ jobs:
           python -m pip install playwright
           python -m playwright install chromium --with-deps
       - name: Read actual live site on mobile and desktop
+        id: browser
         if: steps.health.outputs.new_articles != '0' || github.event_name != 'schedule'
         run: python scripts/verify_browser.py
       - name: Preserve screenshots and browser results
@@ -138,6 +127,21 @@ jobs:
           path: browser-evidence/
           retention-days: 30
           if-no-files-found: ignore
+      - name: Record deployment and live reading independently of editorial output
+        if: always()
+        env:
+          BRIEF_TECHNICAL_SUCCESS: ${{ steps.deployment.outcome == 'success' && steps.live.outcome == 'success' && (steps.browser.outcome == 'success' || steps.browser.outcome == 'skipped') }}
+          BRIEF_DEPLOYMENT_RESULT: ${{ steps.deployment.outcome }}
+          BRIEF_LIVE_RESULT: ${{ steps.live.outcome }}
+          BRIEF_BROWSER_RESULT: ${{ steps.browser.outcome }}
+        run: |
+          python scripts/finish_run.py
+          git add data/run-history.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Record observed deployment and live reader result"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
   publication:
     name: News published — ${{ needs.maintenance.outputs.new_articles }} new articles
     needs: maintenance
@@ -148,9 +152,10 @@ jobs:
   attention:
     name: Newsroom needs attention — ${{ needs.maintenance.outputs.outcome }}
     needs: maintenance
-    if: always() && (needs.maintenance.outputs.outcome == 'BLOCKED' || needs.maintenance.outputs.outcome == 'DEGRADED' || needs.maintenance.result == 'failure')
+    if: always() && (needs.maintenance.outputs.outcome == 'BLOCKED' || needs.maintenance.result == 'failure')
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "::error::Publication is blocked, discovery is degraded, or live verification failed. Inspect the newsroom summary and evidence artifact. No publication success is claimed."
+          echo "::error::Editorial production is blocked or deployment/live reading failed. Individual source outages are coverage warnings. Inspect the newsroom summary and evidence artifact. No publication success is claimed."
           exit 1
+

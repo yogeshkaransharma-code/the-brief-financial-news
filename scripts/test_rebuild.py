@@ -38,7 +38,8 @@ def main():
     assert assess([],report,now,pub,feeds)['outcome']=='NO_QUALIFYING_NEWS'
     assert assess([],report,now,pub,feeds,{'result':'FAILED'})['outcome']=='BLOCKED', 'A failed real model test was hidden by an empty news day'
     assert assess([],report,now,pub,feeds,{'result':'PASSED'})['outcome']=='NO_QUALIFYING_NEWS', 'A passed unpublished test was counted as news publication'
-    assert assess([],dict(report,first_party_discovery_errors=['timeout']),now,pub,feeds)['outcome']=='DEGRADED'
+    assert assess([],dict(report,first_party_discovery_errors=['timeout']),now,pub,feeds)['outcome']=='NO_QUALIFYING_NEWS'
+    assert assess([],dict(report,first_party_discovery_errors=['timeout']),now,pub,feeds)['source_coverage_status']=='PARTIAL'
     assert assess([],dict(report,fresh_unpublished_source_candidates=1),now,pub,feeds)['outcome']=='BLOCKED'
     base=prepared();a=base['draft']
     doc=SimpleNamespace(url=a['url'],document_urls=[a['url']],text=base['captured_source_excerpt'],evidence_sha256=base['audit']['source_sha256'],extraction='HTML main content',notes=[],publication_date=(a['dateISO'],a['dateISO'],'date'))
@@ -69,3 +70,4 @@ def main():
     assert not ok and auto.eligible(held)
     print('PASS: original-vs-modified dates, DST, failure outcomes, all-heading review, full mocked publication and duplicate prevention')
 if __name__=='__main__':main()
+

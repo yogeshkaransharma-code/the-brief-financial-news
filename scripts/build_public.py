@@ -183,7 +183,7 @@ def utility_page(title,body,prefix=''):
 def status_page():
     path=ROOT/'data/status.json'
     state=json.loads(path.read_text()) if path.exists() else {'outcome':'UNVERIFIED','checked_at':'No production run recorded'}
-    fields=[('Last check (UTC)',state.get('checked_at')),('UK edition date',state.get('uk_date')),('Newsroom outcome',state.get('outcome')),('New articles this run',state.get('published_this_run',0)),('Articles today',state.get('genuine_same_day_articles',0)),('Primary indexes checked',state.get('primary_indexes_checked',0)),('Primary index failures',state.get('primary_index_failures',0)),('RSS feeds working',state.get('feeds_working',0)),('RSS feed failures',state.get('feed_failures',0)),('Production requests / daily cap',str(state.get('ai_budget',{}).get('production_requests_today',state.get('ai_budget',{}).get('requests_today_including_this_run','unknown')))+' / '+str(state.get('ai_budget',{}).get('daily_limit','unknown'))),('One-time diagnostic requests / cap',str(state.get('launch_diagnostic_allowance',{}).get('requests',0))+' / 2'),('Source candidates found',state.get('fresh_source_candidates',0)),('Unpublished real-model test',state.get('launch_test',{}).get('result','NOT_RUN'))]
+    fields=[('Editorial outcome',state.get('editorial_outcome',state.get('outcome'))),('This artifact',state.get('technical_status','See workflow result')),('Publisher links',state.get('publisher_links',0)),('Articles held',state.get('articles_held',0)),('Last check (UTC)',state.get('checked_at')),('UK edition date',state.get('uk_date')),('Newsroom outcome',state.get('outcome')),('New articles this run',state.get('published_this_run',0)),('Articles today',state.get('genuine_same_day_articles',0)),('Primary indexes checked',state.get('primary_indexes_checked',0)),('Primary index failures',state.get('primary_index_failures',0)),('RSS feeds working',state.get('feeds_working',0)),('RSS feed failures',state.get('feed_failures',0)),('Production requests / daily cap',str(state.get('ai_budget',{}).get('production_requests_today',state.get('ai_budget',{}).get('requests_today_including_this_run','unknown')))+' / '+str(state.get('ai_budget',{}).get('daily_limit','unknown'))),('One-time diagnostic requests / cap',str(state.get('launch_diagnostic_allowance',{}).get('requests',0))+' / 2'),('Source candidates found',state.get('fresh_source_candidates',0)),('Unpublished real-model test',state.get('launch_test',{}).get('result','NOT_RUN'))]
     rows=''.join('<tr><th>'+esc(k)+'</th><td>'+esc(v)+'</td></tr>' for k,v in fields)
     selection=state.get('editorial_selection',{})
     rows+='<tr><th>Gemini editorial selection</th><td>'+esc(selection.get('result','NOT_RECORDED'))+'</td></tr>'
@@ -195,7 +195,34 @@ def status_page():
             label=(error.get('source','Source')+': '+error.get('error','Unavailable')) if isinstance(error,dict) else str(error)
             body+='<li>'+esc(label)+'</li>'
         body+='</ul>'
+    history=state.get('previous_verified_runs',[])
+    if history:
+        body+='<h2>Verified run history</h2><table><tr><th>Checked</th><th>Trigger</th><th>Technical result</th><th>Editorial result</th><th>Articles / links</th></tr>'
+        for r in reversed(history):
+            body+='<tr><td><a href="'+esc(r.get('run_url'))+'">'+esc(r.get('checked_at'))+'</a></td><td>'+esc(r.get('event'))+'</td><td>'+esc(r.get('technical_status'))+'</td><td>'+esc(r.get('editorial_outcome'))+'</td><td>'+esc(r.get('published_this_run',0))+' / '+esc(r.get('publisher_links',0))+'</td></tr>'
+        body+='</table>'
+    body+='<p>The current artifact is built before deployment checks. The linked workflow and verified history record the subsequent live result.</p>'
     return utility_page('Inside the newsroom.',body)
+
+
+def publisher_panel():
+    path=ROOT/'data/headlines.json'
+    desk=json.loads(path.read_text()) if path.exists() else {}
+    from same_day_policy import source_issued_today
+    links=[x for x in desk.get('items',[]) if source_issued_today(x)]
+    rows=''.join('<article data-desk-category="'+esc(x['category'])+'" style="padding:16px 0;border-bottom:1px solid var(--rule)"><div class="news-cat">SOURCE-LINKED HEADLINE · '+esc(x['category'])+'</div><h3 style="font:500 25px/1.25 Georgia,serif;margin:8px 0"><a href="'+esc(x['url'])+'" rel="noopener noreferrer" target="_blank">'+esc(x['title'])+' ↗</a></h3><p class="meta">'+esc(x['source'])+' · Publisher feed date: '+esc(x['dateISO'])+'</p></article>' for x in links)
+    return '<section id="publisher-desk" aria-label="Source-linked headlines" style="border-top:2px solid var(--ink);margin:26px 0;padding:24px 0"><span class="section-kicker">THE WIDER NEWS DESK</span><h2 style="font:400 36px Georgia,serif;margin:8px 0">Source-linked headlines</h2><p>Reports at other publishers. These links supplement The Brief’s original articles above. Feed dates have not been independently verified against every article.</p><p class="meta">Desk checked: '+esc(desk.get('checked_at','Not recorded'))+' · <a href="sources.html">Explore our sources</a></p><label for="desk-subject">Subject </label><select id="desk-subject"><option>Everything</option>'+''.join('<option>'+x+'</option>' for x in sorted({x['category'] for x in links}))+'</select><div>'+ (rows or '<p>No qualifying publisher headlines dated today in the latest discovery run.</p>')+'</div><script>document.querySelector("#desk-subject").onchange=function(){document.querySelectorAll("[data-desk-category]").forEach(x=>x.hidden=this.value!=="Everything"&&x.dataset.deskCategory!==this.value)}</script></section>'
+
+
+def sources_page():
+    from source_catalog import catalog
+    data=catalog(ROOT)
+    body='<p class="intro">Search the configured discovery routes. Recognition of a publisher is not proof that its website was successfully read. Blocked sources remain coverage warnings while other routes continue.</p><label for="source-search">Find a publisher, sector or discovery route</label><input id="source-search" type="search" placeholder="Insurance, regulator, RSS…"><div>'
+    for x in data['sources']:
+        body+='<article data-source-row><h2><a href="'+esc(x['url'])+'">'+esc(x['name'])+'</a></h2><p>'+esc(x['category'])+' · '+esc(x['method'])+' · '+esc(x['observed'])+'</p></article>'
+    body+='</div><script>document.querySelector("#source-search").oninput=function(){document.querySelectorAll("[data-source-row]").forEach(x=>x.hidden=!x.textContent.toLowerCase().includes(this.value.toLowerCase()))}</script>'
+    (OUT/'data/sources.json').write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')
+    return utility_page('Our source registry.',body)
 
 
 def build():
@@ -205,11 +232,6 @@ def build():
     # Empty is the correct edition when no verified original development was
     # announced AND published on this same UK date. Never replay old news.
     page = (ROOT / "index.html").read_text(encoding="utf-8")
-    launch=[a for a in archive if a.get('retrospective_launch')]
-    if launch and clock().date()<=dt.date(2026,10,26):
-        cards=''.join('<article style="padding:12px 0"><span class="story-kicker">'+esc(a['category'])+'</span><h2 style="font:500 clamp(28px,4vw,43px)/1.12 Georgia,serif;margin:12px 0"><a href="'+story_href(a)+'">'+esc(a['title'])+'</a></h2><p class="standfirst">'+esc(a['short'])+'</p><a class="cta" href="'+story_href(a)+'">Read the full report ↗</a></article>' for a in launch)
-        panel='<section id="launch-edition" aria-label="Saturday launch edition" style="padding:24px 0 30px;border-bottom:2px solid var(--ink)"><p class="story-kicker">SATURDAY LAUNCH EDITION · 24 OCTOBER 2026</p><p style="font-size:13px;color:var(--muted)">Developments announced from 6am UK on Saturday. Prepared retrospectively; actual publication times are shown on each report.</p>'+cards+'<p><a href="edition/2026-10-24.html">Read Saturday’s edition →</a></p></section>'
-        page=insert_once(page,'<main id="home-view" class="container">','<main id="home-view" class="container">'+panel)
     if OUT.exists():shutil.rmtree(OUT)
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "data").mkdir(exist_ok=True)
@@ -235,7 +257,7 @@ def build():
     else:
         lead = ('<article id="lead-story" class="lead-story"><span class="story-kicker">THE BRIEF / '+
             esc(today)+'</span><h1>No verified news from today yet.</h1>'
-            '<p class="standfirst">We have not confirmed a new first-party financial-services announcement '
+            '<p class="standfirst">We have not approved an original financial-services article based on evidence '
             'dated today in the UK. <a href="archive.html">Read earlier editions in the archive →</a></p></article>')
     page = insert_once(page, '<article id="lead-story" class="lead-story"></article>', lead)
     briefing = ''.join(
@@ -266,14 +288,20 @@ def build():
             + ' · The Brief published: ' + esc(a.get("published_at", "")[:10]) + '</p></div></article>'
         )
     page = insert_once(page, '<div class="feed" id="feed"></div>',
-        '<div class="feed" id="feed">' + ('\n'.join(rows) if rows else '<p class="nothing">No approved first-party reports dated '+esc(today)+' have been published yet.</p>') + '</div>')
+        '<div class="feed" id="feed">' + ('\n'.join(rows) if rows else '<p class="nothing">No approved original reports dated '+esc(today)+' have been published yet.</p>') + '</div>')
     page = insert_once(page, '<div class="news-count" id="news-count"></div>',
         '<div class="news-count" id="news-count">' + str(len(records)) + ' articles</div>')
     payload = json.dumps(records, ensure_ascii=False, separators=(",", ":")).replace("<", "\\u003c")
     page = insert_once(page, '<script type="application/json" id="curated-data">[]</script>',
         '<script type="application/json" id="curated-data">[]</script>\n'
         '<script type="application/json" id="embedded-articles">' + payload + '</script>')
+    page=insert_once(page,'<section id="context" class="understand"',publisher_panel()+'<section id="context" class="understand"')
     (OUT / "index.html").write_text(page, encoding="utf-8")
+    (OUT/'sources.html').write_text(sources_page(),encoding='utf-8')
+    headline_path=ROOT/'data/headlines.json'
+    if headline_path.exists():shutil.copy2(headline_path,OUT/'data/headlines.json')
+    import os
+    (OUT/'data/build.json').write_text(json.dumps({'run_id':os.getenv('GITHUB_RUN_ID','local'),'source_sha':os.getenv('GITHUB_SHA'),'built_at':dt.datetime.now(dt.timezone.utc).isoformat()})+'\n')
     (OUT / "about.html").write_text((ROOT / "about.html").read_text(encoding="utf-8"), encoding="utf-8")
     (OUT / "data/articles.json").write_text(json.dumps(records, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     (OUT / "data/archive.json").write_text(json.dumps(archive,ensure_ascii=False,indent=2)+"\n")
@@ -310,4 +338,5 @@ def build():
 
 if __name__ == "__main__":
     build()
+
 

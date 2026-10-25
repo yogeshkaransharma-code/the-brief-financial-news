@@ -29,6 +29,8 @@ ALLOWED |= recognised_original_hosts()
 # not an official corporate announcement or independent corroboration.
 ALLOWED |= {"www.theguardian.com","theguardian.com",
             "www.bbc.co.uk","bbc.co.uk","www.bbc.com","bbc.com"}
+from media_sources import MEDIA_HOSTS
+ALLOWED |= MEDIA_HOSTS
 UA = "TheBriefResearch/0.2 (public official documents; editorial attribution)"
 MAX_BYTES = 3_000_000
 MAX_TEXT = 43_000
@@ -232,4 +234,5 @@ def self_test():
 
 if __name__=="__main__":
     self_test()
+
 

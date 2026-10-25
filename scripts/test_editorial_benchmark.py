@@ -47,7 +47,7 @@ def main():
         ("invalid retrieval timestamp", lambda b: b["audit"].update(retrieved_at="not-a-date"), "timestamp"),
         ("future publication date", lambda b: b["draft"].update(dateISO=(dt.datetime.now(dt.timezone.utc).date()+dt.timedelta(days=200)).isoformat()), "future"),
         ("unrecognised category", lambda b: b["draft"].update(category="Crypto"), "section"),
-        ("missing full sections", lambda b: b["draft"].update(blocks=b["draft"]["blocks"][:2]), "three coherent explanatory"),
+        ("missing full sections", lambda b: b["draft"].update(blocks=b["draft"]["blocks"][:1]), "two coherent explanatory"),
         ("short summary", lambda b: b["draft"].update(short="Short"), "headline or standfirst"),
         ("tampered after review snapshot", lambda b: b["draft"].update(title="This was quietly changed after drafting"), "Draft content differs", False),
         ("invalid story ID", lambda b: (b["draft"].update(id="ai-invalid"),b["audit"].update(article_id="ai-invalid")), "identity"),
@@ -78,3 +78,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

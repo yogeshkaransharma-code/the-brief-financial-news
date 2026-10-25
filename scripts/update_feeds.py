@@ -141,6 +141,8 @@ def categorise(headline, fallback):
     if fallback == "Regulation":
         return "Regulation"
     s = headline.lower()
+    if re.search(r"\b(pension\w*|retirement|asset manag\w*|wealth manag\w*|fund manag\w*)\b",s):return "Pensions"
+    if re.search(r"\b(broker\w*|intermediar\w*|mga[s]?)\b",s):return "Brokers"
     if re.search(r"\b(fca|pra|regulat\w*|consultation|rulebook|supervis\w*|compliance|enforc\w*|sanction\w*)\b", s):
         return "Regulation"
     if re.search(r"\b(insur\w*|broker\w*|underwrit\w*|reinsur\w*|lloyd.s|mga|claims?|premium\w*|pensions?)\b", s):
@@ -154,6 +156,8 @@ def parse(xml_bytes, name, fallback):
     rss = doc.findall(".//item")
     atom = not bool(rss)
     entries = rss if rss else doc.findall("{http://www.w3.org/2005/Atom}entry")
+    if not rss and doc.tag not in {'{http://www.w3.org/2005/Atom}feed','rss','{http://www.w3.org/1999/02/22-rdf-syntax-ns#}RDF'}:
+        raise ValueError('Response is not an RSS or Atom feed')
     output = []
     for entry in entries[:65]:
         if atom:
@@ -173,7 +177,8 @@ def parse(xml_bytes, name, fallback):
         summary = clean(description)[:400]
         if name in GOVERNMENT and not GOVERNMENT_FINANCE_HEADLINE.search(headline):
             continue
-        if name in BROADER_MEDIA and not FOCUSED_NEWS.search(headline+" "+summary):
+        from media_sources import relevant
+        if name in BROADER_MEDIA and not relevant({'title':headline}):
             continue
         # Some feeds contain only an author line, a copyright notice, or no usable
         # explanation. These aren't useful news briefings for our readers.
@@ -194,7 +199,9 @@ def parse(xml_bytes, name, fallback):
         # Strip BBC's RSS campaign tags only on a canonical BBC /news/articles/ URL.
         if name=="BBC Business" and url.hostname in {"www.bbc.co.uk","bbc.co.uk","www.bbc.com","bbc.com"} and re.fullmatch(r"/news/articles/[a-z0-9]{10,24}/?",url.path,re.I):
             link=urllib.parse.urlunsplit((url.scheme,url.netloc,url.path,"",""))
-        uid = hashlib.sha256(link.split("#")[0].encode()).hexdigest()[:20]
+        from media_sources import canonical_url
+        link=canonical_url(link)
+        uid = hashlib.sha256(link.encode()).hexdigest()[:20]
         output.append({
             "id": "feed-" + uid, "kind": "source",
             "title": headline, "short": summary[:290] if summary else "Read this update at the original publisher.",
@@ -247,9 +254,7 @@ def main():
         raise SystemExit("All feeds failed; keep existing data unchanged")
     # Preserve primary-source candidates when dozens of commercial publishers
     # post in the same hour. They are much more useful than another media lead.
-    recent = sorted(seen.values(),key=lambda x: (
-        x.get("source") in OFFICIAL_FEED_NAMES, x.get("published_at","")
-    ),reverse=True)
+    recent = sorted(seen.values(),key=lambda x: x.get("published_at",""),reverse=True)
     results, fingerprints = [], set()
     for item in recent:
         fp = re.sub(r"[^a-z0-9]", "", item["title"].lower())[:125]
@@ -266,4 +271,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 

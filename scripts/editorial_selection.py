@@ -10,7 +10,8 @@ from ai_newsroom import same_development
 
 def choose(verified,ledger,meter,ai,*,edition_date,max_stories=3):
     if not verified:return [],{'result':'NO_VERIFIED_CANDIDATES','requests':0,'selected':[]}
-    verified=verified[:16]
+    verified=verified[:40]
+    if max_stories<1:return [],{'result':'BUDGET_PAUSED','requests':0,'selected':[],'reason':'Daily/run allowance has no reserved writer and reviewer pair'}
     candidates={f'N{i+1:02}':pair for i,pair in enumerate(verified)}
     evidence=[{'id':ident,'title':item['title'],'source':item['source'],
                'url':doc.url,'original_date':item['dateISO'],'category':item['category'],
@@ -46,6 +47,14 @@ def choose(verified,ledger,meter,ai,*,edition_date,max_stories=3):
         cache[key]={'invalid':str(exc)}
         raise
     cache[key]=response
+    # Persist rejection per document fingerprint, not only per changing pool.
+    # New stories must not cause the same rejected publicity to be re-assessed hourly.
+    rejected=ledger.setdefault('editorial_rejections',{})
+    for row in response['skipped']:
+        item,doc=candidates[row['id']]
+        rejected[item['url']]={'edition_date':edition_date,'source_sha256':doc.evidence_sha256,'reason':row['reason']}
+    for url in list(rejected):
+        if rejected[url].get('edition_date')!=edition_date:del rejected[url]
     for old in list(cache)[:-32]:cache.pop(old)
     return selected,{'result':'SELECTED' if selected else 'NO_WORTHWHILE_NEWS','requests':requests,
                     'cache_key':key,'selected':[dict(row,url=candidates[row['id']][0]['url']) for row in response['selected']],
@@ -67,3 +76,4 @@ def validate_decision(response,candidates,max_stories):
         if any(same_development(item,prior[0]) for prior in selected[:i]):
             raise ValueError('Gemini selected duplicate developments')
     return selected
+
