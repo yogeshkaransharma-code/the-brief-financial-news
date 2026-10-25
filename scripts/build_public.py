@@ -136,7 +136,10 @@ function filter(){let n=0;document.querySelectorAll('article[data-category]').fo
 const requested=new URLSearchParams(location.search).get('category');
 if(requested&&[...c.options].some(o=>o.value===requested)){c.value=requested;filter()}
 </script>"""
-    return utility_page(title,body,prefix)+script
+    page=utility_page(title,body,prefix)
+    if page.count('</body>')!=1:
+        raise ValueError('Archive layout missing closing body')
+    return page.replace('</body>',script+'</body>')
 
 
 def utility_page(title,body,prefix=''):
