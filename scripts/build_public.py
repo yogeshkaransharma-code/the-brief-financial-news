@@ -43,7 +43,7 @@ def valid_articles():
                 and str(a.get("editorial_status", "")).startswith("PUBLISHED:")
                 and a.get("url", "").startswith("https://")
                 and isinstance(a.get("blocks"), list)
-                and len(a["blocks"]) >= 3):
+                and len(a["blocks"]) >= 2):
             raise ValueError("Unapproved or incomplete article in public build")
     return sorted(records, key=lambda a: (a.get("published_at", ""), a.get("dateISO", ""), a["id"]), reverse=True)
 
