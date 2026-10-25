@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-25T13:32:57.732025+00:00",
+  "checked_at": "2026-10-25T14:09:41.266824+00:00",
   "uk_date": "2026-10-25",
   "outcome": "NO_QUALIFYING_NEWS",
   "editorial_outcome": "NO_QUALIFYING_NEWS",
@@ -11,19 +11,30 @@
   "published_this_run": 0,
   "genuine_same_day_articles": 3,
   "editorial_selection": {
-    "result": "NO_VERIFIED_CANDIDATES",
-    "requests": 0,
-    "selected": []
+    "result": "NO_WORTHWHILE_NEWS",
+    "requests": 1,
+    "cache_key": "0e77b98971f7878726cb1608e917acaadfc747b65977a549c2a27f143a9d9ce5",
+    "selected": [],
+    "skipped": [
+      {
+        "id": "N01",
+        "reason": "This is general pre-Budget commentary featuring anecdotal business reactions rather than a substantive policy change, corporate financial result, or regulatory milestone suitable for a credible financial news publication.",
+        "url": "https://www.bbc.co.uk/news/articles/c62kep355q02o",
+        "category": "Banking"
+      }
+    ]
   },
   "published_total": 14,
   "last_article_at": "2026-10-25T12:35:26.192637+00:00",
   "fresh_source_candidates": 7,
-  "verified_original_candidates": 0,
+  "verified_original_candidates": 1,
   "candidates_by_sector": {
     "Banking": 2,
     "Technology": 1
   },
-  "verified_by_sector": {},
+  "verified_by_sector": {
+    "Banking": 1
+  },
   "articles_commissioned": 0,
   "articles_held": 0,
   "machine_screened": 0,
@@ -34,20 +45,14 @@
   "ai_budget": {
     "quota_date": "2026-10-25",
     "quota_timezone": "America/Los_Angeles",
-    "requests_this_run": 0,
-    "requests_today_including_this_run": 14,
+    "requests_this_run": 1,
+    "requests_today_including_this_run": 15,
     "run_limit": 7,
     "daily_limit": 30,
-    "remaining_today": 16
+    "remaining_today": 15
   },
   "quota_pause_until": null,
   "candidate_outcomes": [
-    {
-      "title": "Firms 'holding back' on new jobs ahead of Budget",
-      "source": "https://www.bbc.co.uk/news/articles/c62kep355q02o",
-      "result": "cached editorial rejection",
-      "reason": "Routine pre-Budget commentary and anecdotal employer reactions rather than a substantive corporate, regulatory, or market development."
-    },
     {
       "title": "Cookie theft: how fraudsters get the digital key to your accounts",
       "source": "https://www.theguardian.com/money/2026/oct/25/cookie-theft-how-fraudsters-get-the-digital-key-to-your-accounts",
@@ -62,18 +67,18 @@
     }
   ],
   "discovery_errors": [
-    "Allianz UK: HTTPError HTTP Error 403: Forbidden",
     "UK Parliament: HTTPError HTTP Error 403: Forbidden",
+    "Allianz UK: HTTPError HTTP Error 403: Forbidden",
     "Association of British Insurers: HTTPError HTTP Error 403: Forbidden",
     "Revolut UK: HTTPError HTTP Error 403: Forbidden"
   ],
   "publication_holds": [],
-  "run_id": "40198084209",
-  "event": "schedule",
-  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40198084209",
+  "run_id": "40200885237",
+  "event": "push",
+  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40200885237",
   "publisher_links": 0,
   "discovery_headlines": 7,
-  "publisher_desk_checked_at": "2026-10-25T13:32:47.288045+00:00",
+  "publisher_desk_checked_at": "2026-10-25T14:09:27.963217+00:00",
   "previous_verified_runs": [
     {
       "run_id": "40193630697",
@@ -345,6 +350,33 @@
       "deployment": "success",
       "live_check": "success",
       "browser_check": "success"
+    },
+    {
+      "run_id": "40198084209",
+      "event": "schedule",
+      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40198084209",
+      "editorial_outcome": "NO_QUALIFYING_NEWS",
+      "published_this_run": 0,
+      "publisher_links": 0,
+      "discovery_headlines": 7,
+      "source_coverage_status": "PARTIAL",
+      "fresh_source_candidates": 7,
+      "verified_by_sector": {},
+      "ai_budget": {
+        "quota_date": "2026-10-25",
+        "quota_timezone": "America/Los_Angeles",
+        "requests_this_run": 0,
+        "requests_today_including_this_run": 14,
+        "run_limit": 7,
+        "daily_limit": 30,
+        "remaining_today": 16
+      },
+      "commissioned_stories": [],
+      "checked_at": "2026-10-25T13:33:11.276530+00:00",
+      "technical_status": "LIVE_VERIFIED",
+      "deployment": "success",
+      "live_check": "success",
+      "browser_check": "skipped"
     }
   ],
   "launch_acceptance": {
@@ -358,7 +390,7 @@
       "latest_run_technically_healthy": true,
       "latest_editorial_run_unblocked": true
     },
-    "verified_scheduled_runs": 0,
+    "verified_scheduled_runs": 1,
     "commissioned_sectors": [],
     "pending": [
       "repeated_scheduled_hourly_runs",

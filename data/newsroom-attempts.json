@@ -2,7 +2,7 @@
   "api_budget": {
     "date": "2026-10-25",
     "limit": 30,
-    "requests": 14,
+    "requests": 15,
     "timezone": "America/Los_Angeles"
   },
   "api_calls": [
@@ -404,14 +404,33 @@
         "serviceTier": "standard",
         "totalTokenCount": 1625
       }
+    },
+    {
+      "at": "2026-10-25T14:09:40.291338+00:00",
+      "prompt_characters": 3643,
+      "purpose": "production",
+      "result": "response_received",
+      "usage": {
+        "candidatesTokenCount": 73,
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 866,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 866
+          }
+        ],
+        "serviceTier": "standard",
+        "totalTokenCount": 939
+      }
     }
   ],
   "capacity_recovery_revision": 2,
   "editorial_rejections": {
     "https://www.bbc.co.uk/news/articles/c62kep355q02o": {
       "edition_date": "2026-10-25",
-      "reason": "Routine pre-Budget commentary and anecdotal employer reactions rather than a substantive corporate, regulatory, or market development.",
-      "source_sha256": "42de3c4fd021a1d91624e6daf69486fa66d2146ff3c24346521f63222f89b40f"
+      "reason": "This is general pre-Budget commentary featuring anecdotal business reactions rather than a substantive policy change, corporate financial result, or regulatory milestone suitable for a credible financial news publication.",
+      "source_sha256": "34ea5db3d56a8726985ee80ca6ae1c662785693852e7ec2e4161611cbf72fd94"
     },
     "https://www.bbc.co.uk/news/articles/c6gel54940qno": {
       "edition_date": "2026-10-25",
@@ -435,6 +454,15 @@
         {
           "id": "N02",
           "reason": "Personal finance anecdote regarding household mortgage pressures ahead of the Budget lacks institutional or market-moving significance."
+        }
+      ]
+    },
+    "0e77b98971f7878726cb1608e917acaadfc747b65977a549c2a27f143a9d9ce5": {
+      "selected": [],
+      "skipped": [
+        {
+          "id": "N01",
+          "reason": "This is general pre-Budget commentary featuring anecdotal business reactions rather than a substantive policy change, corporate financial result, or regulatory milestone suitable for a credible financial news publication."
         }
       ]
     },
