@@ -34,7 +34,18 @@ def validate(root: Path) -> int:
         if audit.get("published_article_sha256") != fingerprint(article):
             raise ValueError("Published article changed after editorial approval")
         method=article.get("publication_method","human")
-        if method=="autonomous":
+        if method=='autonomous' and audit.get('review_mode')=='single_pass_source_based':
+            from single_pass import POLICY
+            from same_day_policy import original_date, date_in_uk
+            if audit.get('automation_policy_version')!=POLICY or article.get('independent_review') is not False or audit.get('independent_review') is not False:
+                raise ValueError('Single-pass writing provenance missing')
+            if article.get('reviewed_by') or audit.get('independent_claim_checks') or audit.get('claim_challenge_sentences'):
+                raise ValueError('Single-pass article falsely claims independent review')
+            if original_date(article)!=date_in_uk(article['published_at']) or not article.get('date_evidence') or audit.get('date_evidence')!=article['date_evidence']:
+                raise ValueError('Single-pass article has invalid original source date')
+            if article.get('category') not in {'Insurance','Banking'}:
+                raise ValueError('Single-pass article outside the publication sectors')
+        elif method=="autonomous":
             if audit.get("review_mode")!="autonomous_low_risk":
                 raise ValueError("Automated article lacks source-limited approval record")
             if audit.get("automation_policy_version") not in {"limited-autonomy-2026-10-23.1","first-party-newsroom-2026-10-23-v1","daily-24-hour-news-2026-10-23-v2","dated-catchup-newsroom-2026-10-24-v3","strict-uk-same-day-original-news-2026-10-24-v4","verified-original-date-2026-10-25-v5","retrospective-launch-2026-10-24-v1","newsroom-original-reporting-2026-10-25-v6"}:
@@ -87,7 +98,7 @@ def validate(root: Path) -> int:
         else:
             raise ValueError("Unknown approval mode")
         source_hash_key = "source_evidence_sha256" if method=="ai_source_checked" else "source_snapshot_sha256"
-        if not audit.get("reviewed_draft_sha256") or not audit.get(source_hash_key):
+        if not (audit.get("reviewed_draft_sha256") or audit.get('generated_draft_sha256')) or not audit.get(source_hash_key):
             raise ValueError("Article/source evidence version hashes are absent")
         if len(str(audit.get("editor_notes", ""))) < 35:
             raise ValueError("Meaningful editorial approval notes are absent")
@@ -97,5 +108,6 @@ def validate(root: Path) -> int:
 
 if __name__ == "__main__":
     validate(Path(__file__).resolve().parents[1])
+
 
 

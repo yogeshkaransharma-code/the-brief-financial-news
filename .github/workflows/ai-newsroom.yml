@@ -70,7 +70,7 @@ jobs:
           if test -f /tmp/brief-recovery.zip; then
             python scripts/newsroom_state.py /tmp/brief-recovery.zip generated-drafts
           fi
-      - name: Read originals, write with Gemini and independently challenge claims
+      - name: Read sources and write once with Gemini; no independent AI review
         id: writer
         continue-on-error: true
         env:
@@ -78,7 +78,7 @@ jobs:
           GEMINI_MODEL: gemini-3.5-flash-lite
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: python scripts/newsroom_v2.py
-      - name: Apply final original-date and evidence publication gate
+      - name: Publish complete source-based articles with date and duplicate controls
         id: publisher
         continue-on-error: true
         env:

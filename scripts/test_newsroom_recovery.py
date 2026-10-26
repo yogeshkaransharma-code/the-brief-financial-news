@@ -71,7 +71,7 @@ def main():
   def reader(url):
    if url==blocked['url']:raise HTTPError(url,403,'Forbidden',{},None)
    return copy.deepcopy(docs[url])
-  kwargs=dict(discovery=lambda:([],[]),trace=lambda *a,**k:([],[]),reader=reader,ai=ai,search=lambda *a,**k:[])
+  kwargs=dict(single_pass=False,discovery=lambda:([],[]),trace=lambda *a,**k:([],[]),reader=reader,ai=ai,search=lambda *a,**k:[])
   first=run(root,now,**kwargs)
   assert first['metrics']['source_failures']==1
   assert first['metrics']['articles_drafted']==2 and first['machine_screened']==0

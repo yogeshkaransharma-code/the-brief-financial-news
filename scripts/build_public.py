@@ -44,7 +44,7 @@ def valid_articles():
                 and str(a.get("editorial_status", "")).startswith("PUBLISHED:")
                 and a.get("url", "").startswith("https://")
                 and isinstance(a.get("blocks"), list)
-                and len(a["blocks"]) >= 2):
+                and len(a["blocks"]) >= (1 if a.get('independent_review') is False else 2)):
             raise ValueError("Unapproved or incomplete article in public build")
     return sorted([dict(a, desk_section=desk_for(a), display_glossary=(a.get("glossary") or terms_for(a))) for a in records], key=lambda a: (a.get("published_at", ""), a.get("dateISO", ""), a["id"]), reverse=True)
 
@@ -77,6 +77,8 @@ def standalone_story(a):
     is_media=a.get("status")=="Original reporting"
     source_description=("This article summarises attributed journalism by the named publisher. The Brief has not independently verified every underlying claim." if is_media
         else "This article is based on the original announcement or document below.")
+    disclosure=('Written automatically from the linked source; no separate AI or human editorial review.' if a.get('independent_review') is False
+                else 'Prepared and machine-screened by an automated newsroom; no human editorial review is claimed.')
     terms=a.get("display_glossary") or terms_for(a)
     definitions=(''.join('<dt>'+esc(t)+'</dt><dd>'+esc(d)+'</dd>' for t,d in terms))
     glossary_html=('<section class="tb-glossary"><h2>Jargon, explained.</h2><dl>'+definitions+'</dl></section>' if definitions else '')
@@ -110,7 +112,7 @@ def standalone_story(a):
 <div class="source tb-source-evidence"><h2>Original source</h2>
 <p>{esc(source_description)} This photograph is contextual imagery, not evidence of the reported event.</p>
 <a href="{esc(a['url'])}" target="_blank" rel="noopener noreferrer">{esc(a.get('source','Original publisher'))} — read the original source ↗</a></div>
-<p class="disclosure">Prepared and machine-screened by an automated newsroom; no human editorial review is claimed. <a href="../about.html">Our standards and corrections policy</a>. Not financial advice.</p>
+<p class="disclosure">{esc(disclosure)} <a href="../about.html">Our standards and corrections policy</a>. Not financial advice.</p>
 </article></main>{site_footer("../")}</body></html>"""
 
 
@@ -324,5 +326,6 @@ def build():
 
 if __name__ == "__main__":
     build()
+
 
 

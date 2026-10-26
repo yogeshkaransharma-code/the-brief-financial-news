@@ -37,6 +37,7 @@ ALLOWED |= MEDIA_HOSTS
 UA = "TheBriefResearch/0.2 (public official documents; editorial attribution)"
 MAX_BYTES = 3_000_000
 MAX_TEXT = 43_000
+MIN_CAPTURE_CHARS = 200  # Accept complete short announcements; reject empty/error shells.
 MAX_PDF_PAGES = 35
 
 class SourceError(ValueError):
@@ -90,7 +91,7 @@ def html_extract(raw, source_url):
     # main, which otherwise swamps the real release with duplicate chart data.
     page_main = soup.select_one("main") or soup.select_one('[role="main"]') or soup.body
     article = soup.select_one("main article") or soup.select_one("article")
-    main = (article if article and len(clean_text(article.get_text(" ",strip=True)))>=850
+    main = (article if article and len(clean_text(article.get_text(" ",strip=True)))>=MIN_CAPTURE_CHARS
             else page_main)
     if main is None:
         raise SourceError("No readable official HTML document body")
@@ -105,7 +106,7 @@ def html_extract(raw, source_url):
         seen.add(text)
         parts.append(text)
     text="\n\n".join(parts)
-    if len(text)<850:
+    if len(text)<MIN_CAPTURE_CHARS:
         # Some regulator pages are hydrated outside their template's tiny
         # <main> shell. Use a readable article/body fallback, but never
         # remove the requirement for substantial independently captured text.
@@ -115,7 +116,7 @@ def html_extract(raw, source_url):
         if soup.body is not None:
             alternatives.append(soup.body.get_text(" ",strip=True))
         fallback=max((clean_text(part) for part in alternatives),key=len,default="")
-        if 850<=len(fallback)<=MAX_TEXT and len(fallback)>len(text):
+        if MIN_CAPTURE_CHARS<=len(fallback)<=MAX_TEXT and len(fallback)>len(text):
             text=fallback
     # Company newsrooms put promotional boilerplate, investor disclosures and
     # recommendations after the actual release. Remove unrelated later cards
@@ -135,7 +136,7 @@ def html_extract(raw, source_url):
         if permitted(url) and urlsplit(url).path.lower().endswith(".pdf"):
             label=clean_text(anchor.get_text(" ",strip=True)).lower()
             attachments.append((url,label))
-    if len(text)<850 and not (requires_document(source_url) and attachments):
+    if len(text)<MIN_CAPTURE_CHARS and not (requires_document(source_url) and attachments):
         raise SourceError(f"Insufficient official article content ({len(text)} characters); cannot responsibly draft")
     # Some FCA charts and data widgets render figures inside DIV/SPAN content,
     # not paragraph or table tags. Preserve the *entire* official main text if
@@ -169,7 +170,7 @@ def pdf_extract(raw):
                 raise SourceError(f"PDF page {i} has no usable selectable text")
             pages.append(f"[OFFICIAL PDF, PAGE {i}]\n{extracted}")
         whole="\n\n".join(pages)
-        if len(whole)>MAX_TEXT or len(whole)<850:
+        if len(whole)>MAX_TEXT or len(whole)<MIN_CAPTURE_CHARS:
             raise SourceError("PDF text is too large or thin; no partial AI read")
         return whole
     except SourceError:

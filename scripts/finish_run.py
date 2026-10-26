@@ -7,7 +7,7 @@ root=Path(__file__).resolve().parents[1]
 state_path=root/'data/status.json'
 state=json.loads(state_path.read_text()) if state_path.exists() else {}
 passed=os.getenv('BRIEF_TECHNICAL_SUCCESS')=='true'
-record={k:state.get(k) for k in ['run_id','event','run_url','editorial_outcome','published_this_run','publisher_links','discovery_headlines','source_coverage_status','fresh_source_candidates','verified_by_sector','ai_budget','pipeline_metrics','candidate_outcomes','source_fallbacks']}
+record={k:state.get(k) for k in ['run_id','event','run_url','editorial_outcome','published_this_run','publisher_links','discovery_headlines','source_coverage_status','fresh_source_candidates','verified_by_sector','ai_budget','pipeline_metrics','candidate_outcomes','source_fallbacks','publication_policy','independent_review','articles_ready_to_publish']}
 try:live=json.loads((root/'generated-drafts/live-verification.json').read_text())
 except (OSError,ValueError):live={}
 record['articles_visible_this_run']=len(live.get('new_articles_visible',[])) if passed else 0

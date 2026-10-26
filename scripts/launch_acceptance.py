@@ -14,7 +14,7 @@ def evaluate(history,now=None):
  sectors={story['category'] for r in verified for story in r.get('commissioned_stories',[]) if story.get('category')}
  checks={
   'repeated_scheduled_hourly_runs':len(scheduled)>=2,
-  'original_gemini_publication_live_verified':any(r.get('published_this_run',0)>0 and r.get('ai_budget',{}).get('requests_this_run',0)>=2 and r.get('live_check')=='success' and r.get('deployment')=='success' for r in recent),
+  'original_gemini_publication_live_verified':any(r.get('published_this_run',0)>0 and r.get('ai_budget',{}).get('requests_this_run',0)>=1 and r.get('live_check')=='success' and r.get('deployment')=='success' for r in recent),
   'worthwhile_same_day_developments_across_sectors':{'Insurance','Banking'}<=sectors,
   'article_site_live_verified':any(r.get('live_check')=='success' for r in verified),
   'mobile_and_desktop_reading':any(r.get('browser_check')=='success' for r in verified),
