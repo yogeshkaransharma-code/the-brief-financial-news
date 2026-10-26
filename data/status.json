@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-10-26T05:12:53.605825+00:00",
+  "checked_at": "2026-10-26T06:09:39.523521+00:00",
   "uk_date": "2026-10-26",
   "outcome": "BLOCKED",
   "editorial_outcome": "BLOCKED",
-  "technical_status": "LIVE_VERIFIED",
+  "technical_status": "AWAITING_LIVE_VERIFICATION",
   "source_coverage_status": "PARTIAL",
   "launch_test": {
     "result": "NOT_RUN"
@@ -11,29 +11,77 @@
   "published_this_run": 0,
   "genuine_same_day_articles": 1,
   "editorial_selection": {
-    "result": "NO_VERIFIED_CANDIDATES",
+    "result": "SELECTED",
     "requests": 0,
-    "selected": [],
-    "skipped": []
+    "method": "deterministic-source-supported",
+    "selected": [
+      {
+        "url": "https://www.reinsurancene.ws/verdant-rock-secures-dual-agency-coverage-with-morningstar-dbrs-credit-rating/",
+        "category": "Insurance",
+        "reason": "Relevant current development supported by a complete accessible source"
+      },
+      {
+        "url": "https://www.commercialriskonline.com/buyers-face-mounting-sanction-exclusions-and-dwindling-capacity-for-exposed-risks/",
+        "category": "Insurance",
+        "reason": "Relevant current development supported by a complete accessible source"
+      },
+      {
+        "url": "https://www.insurancejournal.com/news/national/2026/10/26/890235.htm",
+        "category": "Insurance",
+        "reason": "Relevant current development supported by a complete accessible source"
+      },
+      {
+        "url": "https://www.insurancejournal.com/news/national/2026/10/26/890238.htm",
+        "category": "Insurance",
+        "reason": "Relevant current development supported by a complete accessible source"
+      },
+      {
+        "url": "https://www.insurancejournal.com/news/southeast/2026/10/26/890217.htm",
+        "category": "Insurance",
+        "reason": "Relevant current development supported by a complete accessible source"
+      },
+      {
+        "url": "https://www.insurancejournal.com/news/west/2026/10/26/890197.htm",
+        "category": "Insurance",
+        "reason": "Relevant current development supported by a complete accessible source"
+      },
+      {
+        "url": "https://www.insurancejournal.com/news/west/2026/10/26/890186.htm",
+        "category": "Insurance",
+        "reason": "Relevant current development supported by a complete accessible source"
+      },
+      {
+        "url": "https://www.insurancejournal.com/news/east/2026/10/26/890139.htm",
+        "category": "Insurance",
+        "reason": "Relevant current development supported by a complete accessible source"
+      },
+      {
+        "url": "https://www.insurancejournal.com/news/east/2026/10/26/890061.htm",
+        "category": "Insurance",
+        "reason": "Relevant current development supported by a complete accessible source"
+      }
+    ],
+    "skipped": [],
+    "deferred": []
   },
   "published_total": 16,
   "last_article_at": "2026-10-26T02:21:17.535883+00:00",
-  "fresh_source_candidates": 4,
-  "verified_original_candidates": 1,
+  "fresh_source_candidates": 13,
+  "verified_original_candidates": 10,
   "candidates_by_sector": {
-    "Insurance": 1,
+    "Insurance": 10,
     "Banking": 3
   },
   "verified_by_sector": {
-    "Insurance": 1
+    "Insurance": 10
   },
-  "articles_commissioned": 0,
-  "articles_held": 2,
+  "articles_commissioned": 9,
+  "articles_held": 1,
   "machine_screened": 0,
   "primary_indexes_checked": 31,
   "primary_index_failures": 4,
-  "feeds_working": 40,
-  "feed_failures": 1,
+  "feeds_working": 41,
+  "feed_failures": 0,
   "ai_budget": {
     "quota_date": "2026-10-25",
     "quota_timezone": "America/Los_Angeles",
@@ -45,17 +93,17 @@
   },
   "quota_pause_until": null,
   "pipeline_metrics": {
-    "discovered_unique": 498,
-    "outside_uk_date": 231,
-    "irrelevant": 94,
+    "discovered_unique": 505,
+    "outside_uk_date": 225,
+    "irrelevant": 98,
     "already_published_or_retired": 14,
     "unsupported_route": 155,
-    "fresh_relevant_candidates": 4,
-    "sources_successfully_retrieved": 0,
+    "fresh_relevant_candidates": 13,
+    "sources_successfully_retrieved": 9,
     "source_checkpoints_reused": 1,
-    "source_cooldowns": 2,
-    "source_failures": 1,
-    "verified_original_candidates": 1
+    "source_cooldowns": 3,
+    "verified_original_candidates": 10,
+    "model_deferred": 9
   },
   "source_fallbacks": [
     {
@@ -67,11 +115,6 @@
       "source": "https://www.bloomberg.com/news/articles/2026-10-26/asset-manager-australian-dollar-shorts-hit-record-on-risk-off",
       "alternatives_found": 0,
       "result": "No matching alternative in checked sources"
-    },
-    {
-      "source": "https://www.finextra.com/newsarticle/48642/riksbank-reignites-e-krona-debate",
-      "result": "Public alternative search completed",
-      "candidates": 0
     },
     {
       "source": "https://www.finextra.com/newsarticle/48642/riksbank-reignites-e-krona-debate",
@@ -179,37 +222,6 @@
       "source_date": "2026-10-09"
     },
     {
-      "title": "Retirement targets jump 20% as affluent individuals plan for several futures at once",
-      "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/retirement-targets-jump-20-as-affluent-individuals-plan-for-several-futures-at-once",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
-    {
-      "title": "UK Finance publishes 2026 banking sector tax report",
-      "source": "https://www.ukfinance.org.uk/news-and-insight/press-release/uk-finance-publishes-2026-banking-sector-tax-report",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-21"
-    },
-    {
-      "title": "UK Finance Buy-to-Let Update – Q2 2026",
-      "source": "https://www.ukfinance.org.uk/news-and-insight/press-release/uk-finance-buy-let-update-q2-2026",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-21"
-    },
-    {
-      "title": "UK has unique chance to lead reform of global financial standards ahead of G20 presidency, says UK Finance",
-      "source": "https://www.ukfinance.org.uk/news-and-insight/press-release/uk-has-unique-chance-lead-reform-global-financial-standards",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-13"
-    },
-    {
       "title": "FCA calls on private market firms to manage conflicts of interest in line with rapid growth 23/10/2026",
       "source": "https://www.fca.org.uk/news/press-releases/fca-calls-private-market-firms-manage-conflicts-interest-line-rapid-growth",
       "result": "excluded",
@@ -303,6 +315,74 @@
       "reason": "Outside Insurance/Banking or promotional/lifestyle material"
     },
     {
+      "title": "UK Finance publishes 2026 banking sector tax report",
+      "source": "https://www.ukfinance.org.uk/news-and-insight/press-release/uk-finance-publishes-2026-banking-sector-tax-report",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-21"
+    },
+    {
+      "title": "UK Finance Buy-to-Let Update – Q2 2026",
+      "source": "https://www.ukfinance.org.uk/news-and-insight/press-release/uk-finance-buy-let-update-q2-2026",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-21"
+    },
+    {
+      "title": "UK has unique chance to lead reform of global financial standards ahead of G20 presidency, says UK Finance",
+      "source": "https://www.ukfinance.org.uk/news-and-insight/press-release/uk-has-unique-chance-lead-reform-global-financial-standards",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-13"
+    },
+    {
+      "title": "Retirement targets jump 20% as affluent individuals plan for several futures at once",
+      "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/retirement-targets-jump-20-as-affluent-individuals-plan-for-several-futures-at-once",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
+    },
+    {
+      "title": "Lloyds climbs global rankings for AI talent and leadership",
+      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-climbs-global-rankings-for-ai-talent-and-leadership.html",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
+    },
+    {
+      "title": "Lloyds launches Investing in Britain Hub",
+      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-launches-investing-in-britain-hub.html",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
+    },
+    {
+      "title": "Lloyds Banking Group launches Lloyds Auto",
+      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds-banking-group/lloyds-banking-group-launches-lloyds-auto.html",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
+    },
+    {
+      "title": "Lloyds supports second £250 million Blue Bond for Tideway to help protect River Thames",
+      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-supports-second-250m-blue-bond-for-tideway-to-help-protect-river-thames.html",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-15"
+    },
+    {
+      "title": "The UK’s digital money map: regions reveal different routes to financial progress",
+      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds-banking-group/uk-digital-money-map-regions-reveal-different-routes-to-financial-progress.html",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-12"
+    },
+    {
       "title": "Prudential Regulation // Consultation paper 22 October 2026 CP14/26 – Review of the Senior Managers and... CP14/26 – Review of the Senior Managers and Certification Regime (SM&CR) – Phase 2",
       "source": "https://www.bankofengland.co.uk/prudential-regulation/publication/2026/october/review-of-the-smcr-phase-two-consultation-paper",
       "result": "rejected",
@@ -363,49 +443,20 @@
       "reason": "Outside Insurance/Banking or promotional/lifestyle material"
     },
     {
-      "title": "Lloyds climbs global rankings for AI talent and leadership",
-      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-climbs-global-rankings-for-ai-talent-and-leadership.html",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
-    {
-      "title": "Lloyds launches Investing in Britain Hub",
-      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-launches-investing-in-britain-hub.html",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
-    {
-      "title": "Lloyds Banking Group launches Lloyds Auto",
-      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds-banking-group/lloyds-banking-group-launches-lloyds-auto.html",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
-    {
-      "title": "Lloyds supports second £250 million Blue Bond for Tideway to help protect River Thames",
-      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-supports-second-250m-blue-bond-for-tideway-to-help-protect-river-thames.html",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-15"
-    },
-    {
-      "title": "The UK’s digital money map: regions reveal different routes to financial progress",
-      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds-banking-group/uk-digital-money-map-regions-reveal-different-routes-to-financial-progress.html",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-12"
-    },
-    {
       "title": "Ageas UK and esure Boards appoint two Independent Non-Executive Directors",
       "source": "https://www.ageas.co.uk/press-releases/2026-press-releases/ageas-esure-boards-independent-non-executive-directors/",
       "result": "excluded",
       "stage": "eligibility",
       "reason": "Discovery source date is outside the current UK date",
       "source_date": "2026-10-09"
+    },
+    {
+      "title": "Press Release • 6 Oct 2026 BIBA appoints Acrisure UK as Latent Defects Insurance Scheme provider",
+      "source": "https://www.biba.org.uk/press-releases/biba-appoints-acrisure-uk-as-latent-defects-insurance-scheme-provider/",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-06"
     },
     {
       "title": "LMA and IUA launch Joint Healthcare Claims Group to strengthen market expertise",
@@ -430,14 +481,6 @@
       "reason": "Outside Insurance/Banking or promotional/lifestyle material"
     },
     {
-      "title": "Press Release • 6 Oct 2026 BIBA appoints Acrisure UK as Latent Defects Insurance Scheme provider",
-      "source": "https://www.biba.org.uk/press-releases/biba-appoints-acrisure-uk-as-latent-defects-insurance-scheme-provider/",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-06"
-    },
-    {
       "title": "Lloyds backs Stockport with £720k investment in new-look branch",
       "source": "https://www.lloydsbank.com/news-and-insights/2026/lloyds-backs-stockport-with-in-new-look-branch.html",
       "result": "rejected",
@@ -457,14 +500,6 @@
       "result": "rejected",
       "stage": "eligibility",
       "reason": "Outside Insurance/Banking or promotional/lifestyle material"
-    },
-    {
-      "title": "14th October 2026 Starling becomes first bank to train AI model on UK sovereign cloud",
-      "source": "https://www.starlingbank.com/news/starling-backs-uk-sovereign-cloud",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-14"
     },
     {
       "title": "Lawrence Hawkins appointed General Counsel Zurich UK",
@@ -489,6 +524,73 @@
       "stage": "eligibility",
       "reason": "Discovery source date is outside the current UK date",
       "source_date": "2026-10-05"
+    },
+    {
+      "title": "HDI Global Specialty: Beyond Capacity – Building Stronger MGA Relationships",
+      "source": "https://mgaa.co.uk/hdi-global-specialty-beyond-capacity-building-stronger-mga-relationships/",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-21"
+    },
+    {
+      "title": "Polaris: Transforming ProductWriter Learning",
+      "source": "https://mgaa.co.uk/polaris-transforming-productwriter-learning/",
+      "result": "rejected",
+      "stage": "eligibility",
+      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
+    },
+    {
+      "title": "Milliman Launches New Business Advisory Services in the UK with Hire of Two Managing Directors",
+      "source": "https://mgaa.co.uk/milliman-launches-new-business-advisory-services-in-the-uk-with-hire-of-two-managing-directors/",
+      "result": "rejected",
+      "stage": "eligibility",
+      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
+    },
+    {
+      "title": "Recorder: NBS Professional Indemnity now available via API on Recorder",
+      "source": "https://mgaa.co.uk/recorder-nbs-professional-indemnity-now-available-via-api-on-recorder/",
+      "result": "rejected",
+      "stage": "eligibility",
+      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
+    },
+    {
+      "title": "MGAA Ireland Regulatory Update: Key Points for MGAs",
+      "source": "https://mgaa.co.uk/mgaa-ireland-regulatory-update-key-points-for-mgas/",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-09"
+    },
+    {
+      "title": "Euna appoints Steve Morse to Lead Newly Launched Personal Lines Offering",
+      "source": "https://mgaa.co.uk/euna-appoints-steve-morse-to-lead-newly-launched-personal-lines-offering/",
+      "result": "rejected",
+      "stage": "eligibility",
+      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
+    },
+    {
+      "title": "Instant Underwriting launches its first Financial Lines product, Professional Indemnity Insurance, with Irwell Insurance Company Ltd",
+      "source": "https://mgaa.co.uk/instant-underwriting-launches-its-first-financial-lines-product-professional-indemnity-insurance-with-irwell-insurance-company-ltd/",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-06"
+    },
+    {
+      "title": "14th October 2026 Starling becomes first bank to train AI model on UK sovereign cloud",
+      "source": "https://www.starlingbank.com/news/starling-backs-uk-sovereign-cloud",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-14"
+    },
+    {
+      "title": "Partner Insight: Five Forces Shaping the Data Centre Investment Landscape",
+      "source": "https://www.professionalpensions.com/sponsored/4537479/partner-insight-forces-shaping-centre-investment-landscape",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "No reviewed article route in source registry"
     },
     {
       "title": "Partner Insight: The case for UK retail parks",
@@ -1911,14 +2013,6 @@
       "result": "excluded",
       "stage": "eligibility",
       "reason": "No reviewed article route in source registry"
-    },
-    {
-      "title": "Buyers face mounting sanction exclusions and dwindling capacity for exposed risks",
-      "source": "https://www.commercialriskonline.com/buyers-face-mounting-sanction-exclusions-and-dwindling-capacity-for-exposed-risks/",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-23"
     },
     {
       "title": "Access to cash coverage in the UK 2025 H1",
@@ -3443,13 +3537,6 @@
       "reason": "No reviewed article route in source registry"
     },
     {
-      "title": "DXtrade launches white label crypto interface",
-      "source": "https://www.finextra.com/pressarticle/111387/dxtrade-launches-white-label-crypto-interface",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "No reviewed article route in source registry"
-    },
-    {
       "title": "Hurricane Isaias exposed the limits of a quiet season for insurers",
       "source": "https://www.insurancebusinessmag.com/uk/news/catastrophe/hurricane-isaias-exposed-the-limits-of-a-quiet-season-for-insurers-594393.aspx",
       "result": "excluded",
@@ -3538,72 +3625,8 @@
       "source_date": "2026-10-21"
     },
     {
-      "title": "Parametric provider launches data centre suspension cover",
-      "source": "https://www.commercialriskonline.com/parametric-provider-launches-data-centre-suspension-cover/",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-21"
-    },
-    {
       "title": "Top 100 UK Broker Source names Thomas as MD",
       "source": "https://www.insuranceage.co.uk/insight/7959037/top-100-uk-broker-source-names-thomas-as-md",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-21"
-    },
-    {
-      "title": "After the heatwaves: how risk managers should prepare for an uncertain nat cat future",
-      "source": "https://www.commercialriskonline.com/after-the-heatwaves-how-risk-manages-should-prepare-for-an-uncertain-nat-cat-future-2/",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-21"
-    },
-    {
-      "title": "Charities taking on new activities risk outgrowing their insurance",
-      "source": "https://www.insurancebusinessmag.com/uk/news/non-profits/charities-taking-on-new-activities-risk-outgrowing-their-insurance-594363.aspx",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-21"
-    },
-    {
-      "title": "Athletes’ cover gaps tend to stay hidden until they claim",
-      "source": "https://www.insurancebusinessmag.com/uk/news/professional-liability/athletes-cover-gaps-tend-to-stay-hidden-until-they-claim-594361.aspx",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-21"
-    },
-    {
-      "title": "Heat storms have run nonstop since 2008. UK insurers still count them as weather",
-      "source": "https://www.insurancebusinessmag.com/uk/news/catastrophe/heat-storms-have-run-nonstop-since-2008--uk-insurers-still-count-them-as-weather-594359.aspx",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-21"
-    },
-    {
-      "title": "NatWest’s just ordered 30,000 staff back to the office",
-      "source": "https://www.insurancebusinessmag.com/uk/news/breaking-news/natwests-just-ordered-30000-staff-back-to-the-office-594358.aspx",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-21"
-    },
-    {
-      "title": "UK commercial insurance rates fall for eleventh straight quarter",
-      "source": "https://www.insurancebusinessmag.com/uk/news/property-insurance/uk-commercial-insurance-rates-fall-for-eleventh-straight-quarter-594357.aspx",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-21"
-    },
-    {
-      "title": "Chubb flags London market competition as US casualty business flows in",
-      "source": "https://www.insurancebusinessmag.com/uk/news/breaking-news/chubb-flags-london-market-competition-as-us-casualty-business-flows-in-594346.aspx",
       "result": "excluded",
       "stage": "eligibility",
       "reason": "Discovery source date is outside the current UK date",
@@ -3770,6 +3793,33 @@
       "source_date": "2026-10-13"
     },
     {
+      "title": "Verdant Rock secures dual-agency coverage with Morningstar DBRS credit rating",
+      "source": "https://www.reinsurancene.ws/verdant-rock-secures-dual-agency-coverage-with-morningstar-dbrs-credit-rating/",
+      "result": "source verified",
+      "stage": "source",
+      "reason": "Complete captured source; original UK publication date validated",
+      "source_sha256": "cbadb6f280140da20be591645fb1c280b9a70a87f495f2ae8ac82ccb4adb1423",
+      "capture_method": "retrieved"
+    },
+    {
+      "title": "Buyers face mounting sanction exclusions and dwindling capacity for exposed risks",
+      "source": "https://www.commercialriskonline.com/buyers-face-mounting-sanction-exclusions-and-dwindling-capacity-for-exposed-risks/",
+      "result": "source verified",
+      "stage": "source",
+      "reason": "Complete captured source; original UK publication date validated",
+      "source_sha256": "105f2e64d81d5a528e0d55a53dd7ab4f177b4e149a8105c2d31380e324443da3",
+      "capture_method": "retrieved"
+    },
+    {
+      "title": "Hacking Attempts Surge as Companies, Governments Rush to Patch PHP Flaws",
+      "source": "https://www.insurancejournal.com/news/national/2026/10/26/890235.htm",
+      "result": "source verified",
+      "stage": "source",
+      "reason": "Complete captured source; original UK publication date validated",
+      "source_sha256": "6aa0cb8923ad1af69bcf45f98d96bb696b763ba10e68f92fe0979c162e645703",
+      "capture_method": "retrieved"
+    },
+    {
       "title": "Storm Boelo: back-to-back storms test claims and cover",
       "source": "https://www.insurancebusinessmag.com/uk/news/environmental/storm-boelo-backtoback-storms-test-claims-and-cover-594849.aspx",
       "result": "source verified",
@@ -3799,11 +3849,65 @@
     {
       "title": "Riksbank reignites e-krona debate",
       "source": "https://www.finextra.com/newsarticle/48642/riksbank-reignites-e-krona-debate",
-      "result": "held back",
+      "result": "retry deferred",
       "stage": "source",
       "reason": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "retry_after": "2026-10-26T11:12:43.047405+00:00"
+    },
+    {
+      "title": "Transit Systems Weigh Whether to Run Trains Without a Human at the Controls",
+      "source": "https://www.insurancejournal.com/news/national/2026/10/26/890238.htm",
+      "result": "source verified",
+      "stage": "source",
+      "reason": "Complete captured source; original UK publication date validated",
+      "source_sha256": "0f949237c01a35f7da3d65971bd249691d8ca13638b369a1f3a90d5bd718bc3b",
+      "capture_method": "retrieved"
+    },
+    {
+      "title": "Fla. Reforms Cut Property Premiums but Data Show Multifamily Liability Rates Up",
+      "source": "https://www.insurancejournal.com/news/southeast/2026/10/26/890217.htm",
+      "result": "source verified",
+      "stage": "source",
+      "reason": "Complete captured source; original UK publication date validated",
+      "source_sha256": "ffd93b008f7b9b562bbc7edb27281681ed4bfde7dfb1172333392dd9b7e3088a",
+      "capture_method": "retrieved"
+    },
+    {
+      "title": "New Mexico’s Outside Lawyers Could Collect up to $1.27B in Meta Case",
+      "source": "https://www.insurancejournal.com/news/west/2026/10/26/890197.htm",
+      "result": "source verified",
+      "stage": "source",
+      "reason": "Complete captured source; original UK publication date validated",
+      "source_sha256": "ae10befa84aeac82f70687bf0bc3b2b5cd1639686d9f5533600fd62ac71985a4",
+      "capture_method": "retrieved"
+    },
+    {
+      "title": "PG&E Weighs Gas Business Separation Over California Fire Rules",
+      "source": "https://www.insurancejournal.com/news/west/2026/10/26/890186.htm",
+      "result": "source verified",
+      "stage": "source",
+      "reason": "Complete captured source; original UK publication date validated",
+      "source_sha256": "27dd81e8375c61b365bbf93f612e661bb41cae8c641080d8208fb6cd2c7fafc2",
+      "capture_method": "retrieved"
+    },
+    {
+      "title": "Court Rejects Exxon Appeal of $815M Award to Former Mechanic Over Benzene Exposure",
+      "source": "https://www.insurancejournal.com/news/east/2026/10/26/890139.htm",
+      "result": "source verified",
+      "stage": "source",
+      "reason": "Complete captured source; original UK publication date validated",
+      "source_sha256": "8db913403c777ff14e6bac2b0285eb62396bc756e9dc8a8264b5ee70a1b6eddf",
+      "capture_method": "retrieved"
+    },
+    {
+      "title": "Pennsylvania’s Commonwealth University Adds Risk Management/Insurance Program",
+      "source": "https://www.insurancejournal.com/news/east/2026/10/26/890061.htm",
+      "result": "source verified",
+      "stage": "source",
+      "reason": "Complete captured source; original UK publication date validated",
+      "source_sha256": "59176b8494d406209f52574936148324430aa55efb3da607fea2adfffe8ecd44",
+      "capture_method": "retrieved"
     },
     {
       "title": "Storm Boelo: back-to-back storms test claims and cover",
@@ -3812,18 +3916,76 @@
       "stage": "independent_review",
       "reason": "Source numerical register differs from captured source",
       "retry_after": "2026-10-26T07:10:53.726914+00:00"
+    },
+    {
+      "title": "Verdant Rock secures dual-agency coverage with Morningstar DBRS credit rating",
+      "source": "https://www.reinsurancene.ws/verdant-rock-secures-dual-agency-coverage-with-morningstar-dbrs-credit-rating/",
+      "result": "deferred",
+      "stage": "model",
+      "reason": "Reserved draft/review allowance unavailable; checkpoint retained"
+    },
+    {
+      "title": "Buyers face mounting sanction exclusions and dwindling capacity for exposed risks",
+      "source": "https://www.commercialriskonline.com/buyers-face-mounting-sanction-exclusions-and-dwindling-capacity-for-exposed-risks/",
+      "result": "deferred",
+      "stage": "model",
+      "reason": "Reserved draft/review allowance unavailable; checkpoint retained"
+    },
+    {
+      "title": "Hacking Attempts Surge as Companies, Governments Rush to Patch PHP Flaws",
+      "source": "https://www.insurancejournal.com/news/national/2026/10/26/890235.htm",
+      "result": "deferred",
+      "stage": "model",
+      "reason": "Reserved draft/review allowance unavailable; checkpoint retained"
+    },
+    {
+      "title": "Transit Systems Weigh Whether to Run Trains Without a Human at the Controls",
+      "source": "https://www.insurancejournal.com/news/national/2026/10/26/890238.htm",
+      "result": "deferred",
+      "stage": "model",
+      "reason": "Reserved draft/review allowance unavailable; checkpoint retained"
+    },
+    {
+      "title": "Fla. Reforms Cut Property Premiums but Data Show Multifamily Liability Rates Up",
+      "source": "https://www.insurancejournal.com/news/southeast/2026/10/26/890217.htm",
+      "result": "deferred",
+      "stage": "model",
+      "reason": "Reserved draft/review allowance unavailable; checkpoint retained"
+    },
+    {
+      "title": "New Mexico’s Outside Lawyers Could Collect up to $1.27B in Meta Case",
+      "source": "https://www.insurancejournal.com/news/west/2026/10/26/890197.htm",
+      "result": "deferred",
+      "stage": "model",
+      "reason": "Reserved draft/review allowance unavailable; checkpoint retained"
+    },
+    {
+      "title": "PG&E Weighs Gas Business Separation Over California Fire Rules",
+      "source": "https://www.insurancejournal.com/news/west/2026/10/26/890186.htm",
+      "result": "deferred",
+      "stage": "model",
+      "reason": "Reserved draft/review allowance unavailable; checkpoint retained"
+    },
+    {
+      "title": "Court Rejects Exxon Appeal of $815M Award to Former Mechanic Over Benzene Exposure",
+      "source": "https://www.insurancejournal.com/news/east/2026/10/26/890139.htm",
+      "result": "deferred",
+      "stage": "model",
+      "reason": "Reserved draft/review allowance unavailable; checkpoint retained"
+    },
+    {
+      "title": "Pennsylvania’s Commonwealth University Adds Risk Management/Insurance Program",
+      "source": "https://www.insurancejournal.com/news/east/2026/10/26/890061.htm",
+      "result": "deferred",
+      "stage": "model",
+      "reason": "Reserved draft/review allowance unavailable; checkpoint retained"
     }
   ],
   "discovery_errors": [
     "UK Parliament: HTTPError HTTP Error 403: Forbidden",
     "Allianz UK: HTTPError HTTP Error 403: Forbidden",
     "Association of British Insurers: HTTPError HTTP Error 403: Forbidden",
-    "Revolut UK: HTTPError HTTP Error 403: Forbidden",
-    {
-      "source": "Money Marketing",
-      "url": "https://www.moneymarketing.co.uk/feed/",
-      "error": "HTTP Error 403: Forbidden"
-    }
+    "Revolut UK: HTTPError HTTP Error 403: Forbidden"
   ],
   "publication_holds": [
     {
@@ -3833,40 +3995,13 @@
       ]
     }
   ],
-  "run_id": "40272973796",
+  "run_id": "40278144370",
   "event": "schedule",
-  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40272973796",
+  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40278144370",
   "publisher_links": 0,
-  "discovery_headlines": 3,
-  "publisher_desk_checked_at": "2026-10-26T05:12:41.200109+00:00",
+  "discovery_headlines": 11,
+  "publisher_desk_checked_at": "2026-10-26T06:09:20.989879+00:00",
   "previous_verified_runs": [
-    {
-      "run_id": "40240151737",
-      "event": "schedule",
-      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40240151737",
-      "editorial_outcome": "NO_QUALIFYING_NEWS",
-      "published_this_run": 0,
-      "publisher_links": 0,
-      "discovery_headlines": 8,
-      "source_coverage_status": "PARTIAL",
-      "fresh_source_candidates": 8,
-      "verified_by_sector": {},
-      "ai_budget": {
-        "quota_date": "2026-10-25",
-        "quota_timezone": "America/Los_Angeles",
-        "requests_this_run": 0,
-        "requests_today_including_this_run": 24,
-        "run_limit": 7,
-        "daily_limit": 30,
-        "remaining_today": 6
-      },
-      "commissioned_stories": [],
-      "checked_at": "2026-10-25T22:26:23.430480+00:00",
-      "technical_status": "LIVE_VERIFIED",
-      "deployment": "success",
-      "live_check": "success",
-      "browser_check": "skipped"
-    },
     {
       "run_id": "40244482335",
       "event": "push",
@@ -4894,6 +5029,80 @@
         "source:retry deferred": 2,
         "independent_review:retry deferred": 1
       }
+    },
+    {
+      "run_id": "40272973796",
+      "event": "schedule",
+      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40272973796",
+      "editorial_outcome": "BLOCKED",
+      "published_this_run": 0,
+      "publisher_links": 0,
+      "discovery_headlines": 3,
+      "source_coverage_status": "PARTIAL",
+      "fresh_source_candidates": 4,
+      "verified_by_sector": {
+        "Insurance": 1
+      },
+      "ai_budget": {
+        "quota_date": "2026-10-25",
+        "quota_timezone": "America/Los_Angeles",
+        "requests_this_run": 0,
+        "requests_today_including_this_run": 30,
+        "run_limit": 7,
+        "daily_limit": 30,
+        "remaining_today": 0
+      },
+      "pipeline_metrics": {
+        "discovered_unique": 498,
+        "outside_uk_date": 231,
+        "irrelevant": 94,
+        "already_published_or_retired": 14,
+        "unsupported_route": 155,
+        "fresh_relevant_candidates": 4,
+        "sources_successfully_retrieved": 0,
+        "source_checkpoints_reused": 1,
+        "source_cooldowns": 2,
+        "source_failures": 1,
+        "verified_original_candidates": 1
+      },
+      "source_fallbacks": [
+        {
+          "source": "https://www.bbc.co.uk/news/articles/c6x2zrjl7kjno",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.bloomberg.com/news/articles/2026-10-26/asset-manager-australian-dollar-shorts-hit-record-on-risk-off",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.finextra.com/newsarticle/48642/riksbank-reignites-e-krona-debate",
+          "result": "Public alternative search completed",
+          "candidates": 0
+        },
+        {
+          "source": "https://www.finextra.com/newsarticle/48642/riksbank-reignites-e-krona-debate",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        }
+      ],
+      "articles_visible_this_run": 0,
+      "live_article_ids": [],
+      "commissioned_stories": [],
+      "checked_at": "2026-10-26T05:13:06.450175+00:00",
+      "technical_status": "LIVE_VERIFIED",
+      "deployment": "success",
+      "live_check": "success",
+      "browser_check": "skipped",
+      "candidate_outcome_counts": {
+        "eligibility:excluded": 400,
+        "eligibility:rejected": 94,
+        "source:source verified": 1,
+        "source:retry deferred": 2,
+        "source:held back": 1,
+        "independent_review:retry deferred": 1
+      }
     }
   ],
   "launch_acceptance": {
@@ -4921,7 +5130,5 @@
   "launch_diagnostic_allowance": {
     "limit": 2,
     "requests": 2
-  },
-  "articles_visible_this_run": 0,
-  "live_article_ids": []
+  }
 }
