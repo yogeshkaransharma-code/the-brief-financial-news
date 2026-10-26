@@ -165,8 +165,10 @@ def run(root=None,now=None,*,discovery=discover,trace=find_originals,reader=read
         if state.get('status')=='reviewed' and state.get('bundle'):
             atomic_json(out/('ai-'+identity(item['url'])+'.json'),state['bundle'])
             metrics['reviews_recovered']+=1;event(item,'draft recovered','recovery','Saved reviewed bundle sent to the final publication gate');continue
-        if state.get('status')=='held':
+        if state.get('status')=='held' and state.get('review_policy',1)>=2:
             event(item,'held for review','independent_review',state.get('reason','Unsupported claims; unchanged evidence is not rewritten hourly'));continue
+        if state.get('status')=='held':
+            event(item,'review retry','independent_review','One re-review under publisher-provenance policy 2; no claims bypassed')
         if cooling(attempts.get(item['url'],{}),now):
             event(item,'retry deferred',attempts[item['url']].get('stage','model'),attempts[item['url']].get('last_result',''),retry_after=attempts[item['url']].get('retry_after'));continue
         work.append((item,doc))
@@ -192,7 +194,7 @@ def run(root=None,now=None,*,discovery=discover,trace=find_originals,reader=read
             pending.append((item,doc,article));metrics['articles_drafted']+=1
             event(item,'drafted','writing','Original article saved before independent review')
         def reviewed(item,doc,article,bundle,passed):
-            checkpoints.save(item,doc,status='reviewed' if passed else 'held',article=article,bundle=bundle,reason='; '.join(x.get('reason','') for x in bundle.get('editorial_flags',[])))
+            checkpoints.save(item,doc,status='reviewed' if passed else 'held',article=article,bundle=bundle,review_policy=2,reason='; '.join(x.get('reason','') for x in bundle.get('editorial_flags',[])))
             atomic_json(out/(('' if passed else 'HOLD-')+article['id']+'.json'),bundle)
             if passed:
                 attempts.pop(item['url'],None);metrics['articles_passing_review']+=1

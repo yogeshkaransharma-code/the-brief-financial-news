@@ -6,6 +6,8 @@ from ai_newsroom import fetch_gemini,batch_schema,response_object
 def main():
     writing='SOURCE PACKETS: example';review='Return JSON articles (array of {id, reviews})'
     assert batch_schema(writing)['properties']['articles']['items']['required']==['id','article']
+    sections=batch_schema(writing)['properties']['articles']['items']['properties']['article']['properties']['sections']
+    assert sections['minItems']==2 and sections['maxItems']==5
     assert batch_schema(review)['properties']['articles']['items']['required']==['id','reviews']
     assert batch_schema('ordinary single story') is None
     rows=[{'id':'N01','article':{'headline':'Example only'}}]
