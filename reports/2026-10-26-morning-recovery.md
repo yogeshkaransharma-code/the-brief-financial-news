@@ -45,3 +45,20 @@ Run 40287173935 published two further commercial-risk articles (PG&E wildfire li
 The second run confirmed another avoidable review failure: splitting `J. Patrick Gallagher` produced a two-character `J.` claim that the evidence gate rejected as incomplete. A shared, versioned sentence segmenter now preserves initials in both reviewer inputs and final coverage counts, with legacy audit counting retained for existing bundles. A one-time retry clears this precise old error; substantive review is still required. Final deterministic rejections now save the completed review as a held checkpoint instead of repeatedly retrying unchanged content through the model.
 
 A 93-word sourced university insurance-program draft also failed the old 95-word minimum. The consistent minimum is now 80 words, with two coherent sections, every-sentence review, all numeric/attribution checks and full source evidence retained. The writer still targets 120–450 words. This removes a superficial two-word rejection without allowing headline-only publication.
+
+## Final correction and publication outcome
+
+The initials/retained-review corrections passed 30 offline checks plus a full public build in run 40287756070 and were deployed in commit `088bc6f3e89527e26e9a25bb2ad272f2083aa98c`.
+
+Production run 40287882563 published three further supported articles at 07:47 UTC: Gallagher's Mund Group acquisition (recovered draft, newly independently reviewed), CRC Specialty's property-broker appointment, and an APAC reinsurance report. This cycle used two model requests, bringing current-day consumption to 12 of 30, with 18 remaining. It retrieved two new sources and reused six captures while seven other candidates remained in bounded cooldowns.
+
+Across the three morning recovery runs, ten articles were published and one was withdrawn as off-scope: **nine retained genuine new articles**. Including the earlier 02:21 article, the edition contains ten current-day stories. The off-scope withdrawal is explicitly recorded and excluded from this count.
+
+Production run links:
+- https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40286433876
+- https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40287173935
+- https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40287882563
+
+These are push-triggered recovery runs, not evidence of multi-day scheduled publication reliability. Subsequent scheduled production and weekday/weekend monitoring remain necessary. Publisher access restrictions, per-day model capacity and occasional browser source-navigation timeouts remain genuine limitations; none is recorded as new article publication.
+
+Final production verification completed successfully at 07:48:53 UTC: run 40287882563 recorded `LIVE_VERIFIED`, three newly published articles and three newly visible full articles. Together with the prior successful full-page checks, all nine retained morning articles were verified on the production website. Mobile/desktop checks ran; their source-navigation coverage warnings remain in the workflow evidence rather than being treated as publisher-access guarantees.
