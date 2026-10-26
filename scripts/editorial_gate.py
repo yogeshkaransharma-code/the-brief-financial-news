@@ -30,6 +30,17 @@ RISKY = re.compile(
 )
 NUMBER = re.compile(r"(?<![\w])(?:£|\$)?\d+(?:[.,]\d+)*(?:%|bn|m|k)?(?![\w])", re.I)
 
+def has_sector_content(article):
+    """Publisher identity is attribution, not evidence of a story's sector."""
+    from media_sources import FINANCE, PUBLISHERS
+    text = ' '.join([article['title'], article['short']] + [v for block in article['blocks'] for v in block])
+    names = {name for name, _ in PUBLISHERS.values()} | {article.get('source', '')}
+    for name in sorted(names, key=len, reverse=True):
+        if name:
+            text = re.sub(re.escape(name), ' ', text, flags=re.I)
+    return bool(FINANCE.search(text) or re.search(
+        r'\b(?:claims?|liability|policyholders?|premiums?|actuar\w*|solvency|capacity providers?|commercial risks?|risk management|distribution agreements?)\b', text, re.I))
+
 
 def check(bundle: dict, human_review: bool = False) -> dict:
     a = bundle.get("draft")
@@ -79,6 +90,8 @@ def check(bundle: dict, human_review: bool = False) -> dict:
         if not isinstance(block, list) or len(block) != 2 or not all(isinstance(x, str) and x.strip() for x in block):
             raise ValueError("Malformed article section")
         paragraphs.append(block[1])
+    if source_lane(a['url']) == 'original_reporting' and not has_sector_content(a):
+        raise ValueError('Article contains no Insurance or Banking development beyond publisher attribution')
     word_count = sum(len(p.split()) for p in paragraphs)
     if not 95 <= word_count <= 1100:
         raise ValueError(f"Article length inappropriate: {word_count} words")
@@ -160,6 +173,10 @@ def check(bundle: dict, human_review: bool = False) -> dict:
 
 def self_test():
     from editorial_fixtures import make_bundle, resign
+    rail = {'title':'Transit systems consider driverless trains', 'short':'Insurance Journal reports that transport authorities plan new automated rail lines.', 'source':'Insurance Journal', 'blocks':[['Automation','Insurance Journal reports on trains, signalling, unions and railway safety.']]}
+    assert not has_sector_content(rail)
+    rail['blocks'].append(['Insurance implications','Operators face higher liability premiums and revised insurance cover.'])
+    assert has_sector_content(rail)
     # Production source used £17.5M. The writer's case-insensitive register
     # recorded £17.5m, while this gate used to partially match it as £17.
     import hashlib
