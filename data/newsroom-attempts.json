@@ -2,8 +2,8 @@
   "api_budget": {
     "date": "2026-10-26",
     "timezone": "America/Los_Angeles",
-    "requests": 30,
-    "limit": 30
+    "requests": 33,
+    "limit": null
   },
   "api_calls": [
     {
@@ -1262,6 +1262,63 @@
           {
             "modality": "TEXT",
             "tokenCount": 1990
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-26T23:47:38.523988+00:00",
+      "result": "response_received",
+      "prompt_characters": 12480,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 2692,
+        "candidatesTokenCount": 1087,
+        "totalTokenCount": 3779,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2692
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-26T23:47:53.527383+00:00",
+      "result": "response_received",
+      "prompt_characters": 13109,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 2758,
+        "candidatesTokenCount": 779,
+        "totalTokenCount": 3537,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2758
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-26T23:48:08.531383+00:00",
+      "result": "response_received",
+      "prompt_characters": 11065,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 2262,
+        "candidatesTokenCount": 684,
+        "totalTokenCount": 2946,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2262
           }
         ],
         "serviceTier": "standard"
@@ -2763,7 +2820,8 @@
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
       "failures": 5,
-      "policy": "newsroom-recovery-2026-10-26-v1"
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-27T03:47:28.270683+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-26/chinese-conglomerate-huafa-seeks-to-extend-some-debt-payments": {
       "attempted_at": "2026-10-26T10:41:23.275343+00:00",
@@ -2926,22 +2984,22 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.insuranceage.co.uk/insight/7959056/pen-added-to-top-100-brokers-household-panel": {
-      "attempted_at": "2026-10-26T21:38:12.071456+00:00",
-      "retry_after": "2026-10-26T23:38:12.071456+00:00",
+      "attempted_at": "2026-10-26T23:47:28.270683+00:00",
+      "retry_after": "2026-10-27T01:47:28.270683+00:00",
       "last_result": "Original document has no unambiguous publication date; listing/RSS date is insufficient",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
-      "failures": 3,
+      "failures": 4,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T03:33:21.898238+00:00"
+      "alternative_search_after": "2026-10-27T03:47:28.270683+00:00"
     },
     "https://www.insuranceage.co.uk/insight/7959037/top-100-uk-broker-source-names-thomas-as-md": {
-      "attempted_at": "2026-10-26T21:38:12.071456+00:00",
-      "retry_after": "2026-10-26T23:38:12.071456+00:00",
+      "attempted_at": "2026-10-26T23:47:28.270683+00:00",
+      "retry_after": "2026-10-27T01:47:28.270683+00:00",
       "last_result": "Original document has no unambiguous publication date; listing/RSS date is insufficient",
       "classification": "DATE_UNVERIFIED",
       "stage": "alternative_source",
-      "failures": 3,
+      "failures": 4,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-10-26/saudi-aramco-nears-signing-of-10-billion-loan-with-global-banks": {
@@ -3021,14 +3079,14 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.finextra.com/newsarticle/48648/uk-fs-sector-embraces-genai": {
-      "attempted_at": "2026-10-26T17:39:06.103578+00:00",
-      "retry_after": "2026-10-26T23:39:06.103578+00:00",
+      "attempted_at": "2026-10-26T23:47:28.270683+00:00",
+      "retry_after": "2026-10-27T05:47:28.270683+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
+      "failures": 2,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T02:38:15.870222+00:00"
+      "alternative_search_after": "2026-10-27T03:47:28.270683+00:00"
     },
     "https://www.finextra.com/newsarticle/48649/nevis-raises-70m-for-wealth-management-ai-operating-system": {
       "attempted_at": "2026-10-26T18:14:53.835445+00:00",
