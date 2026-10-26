@@ -1,14 +1,14 @@
 {
-  "checked_at": "2026-10-26T07:47:45.076508+00:00",
+  "checked_at": "2026-10-26T07:53:07.708278+00:00",
   "uk_date": "2026-10-26",
-  "outcome": "PUBLISHED",
-  "editorial_outcome": "PUBLISHED",
-  "technical_status": "LIVE_VERIFIED",
+  "outcome": "BLOCKED",
+  "editorial_outcome": "BLOCKED",
+  "technical_status": "AWAITING_LIVE_VERIFICATION",
   "source_coverage_status": "PARTIAL",
   "launch_test": {
     "result": "NOT_RUN"
   },
-  "published_this_run": 3,
+  "published_this_run": 0,
   "genuine_same_day_articles": 10,
   "editorial_selection": {
     "result": "SELECTED",
@@ -16,17 +16,17 @@
     "method": "deterministic-source-supported",
     "selected": [
       {
-        "url": "https://www.reinsurancene.ws/allison-reagan-joins-crc-specialty-as-svp-property-broker/",
+        "url": "https://www.commercialriskonline.com/munich-res-q3-profit-falls-15-despite-lower-major-losses/",
         "category": "Insurance",
         "reason": "Relevant current development supported by a complete accessible source"
       },
       {
-        "url": "https://www.reinsurancene.ws/apac-cedents-are-looking-for-holistic-solutions-beyond-pure-volatility-cover-tony-gallagher-marsh-re/",
+        "url": "https://www.insurancejournal.com/news/national/2026/10/26/890235.htm",
         "category": "Insurance",
         "reason": "Relevant current development supported by a complete accessible source"
       },
       {
-        "url": "https://www.reinsurancene.ws/gallagher-expands-texas-employee-benefits-business-through-mund-group-acquisition/",
+        "url": "https://www.commercialriskonline.com/buyers-face-mounting-sanction-exclusions-and-dwindling-capacity-for-exposed-risks/",
         "category": "Insurance",
         "reason": "Relevant current development supported by a complete accessible source"
       }
@@ -36,18 +36,18 @@
   },
   "published_total": 25,
   "last_article_at": "2026-10-26T07:47:44.954339+00:00",
-  "fresh_source_candidates": 15,
-  "verified_original_candidates": 8,
+  "fresh_source_candidates": 12,
+  "verified_original_candidates": 5,
   "candidates_by_sector": {
-    "Insurance": 8,
-    "Banking": 7
+    "Banking": 7,
+    "Insurance": 5
   },
   "verified_by_sector": {
-    "Insurance": 8
+    "Insurance": 5
   },
   "articles_commissioned": 3,
-  "articles_held": 8,
-  "machine_screened": 3,
+  "articles_held": 14,
+  "machine_screened": 0,
   "primary_indexes_checked": 31,
   "primary_index_failures": 4,
   "feeds_working": 40,
@@ -56,26 +56,25 @@
     "quota_date": "2026-10-26",
     "quota_timezone": "America/Los_Angeles",
     "requests_this_run": 2,
-    "requests_today_including_this_run": 12,
+    "requests_today_including_this_run": 14,
     "run_limit": 7,
     "daily_limit": 30,
-    "remaining_today": 18
+    "remaining_today": 16
   },
   "quota_pause_until": null,
   "pipeline_metrics": {
-    "discovered_unique": 505,
-    "already_published_or_retired": 21,
-    "outside_uk_date": 218,
-    "irrelevant": 98,
+    "discovered_unique": 498,
+    "already_published_or_retired": 24,
+    "outside_uk_date": 215,
+    "irrelevant": 94,
     "unsupported_route": 153,
-    "fresh_relevant_candidates": 15,
-    "sources_successfully_retrieved": 2,
-    "source_checkpoints_reused": 6,
+    "fresh_relevant_candidates": 12,
     "source_cooldowns": 7,
-    "verified_original_candidates": 8,
-    "drafts_recovered": 1,
-    "articles_drafted": 2,
-    "articles_passing_review": 3
+    "sources_successfully_retrieved": 0,
+    "source_checkpoints_reused": 5,
+    "verified_original_candidates": 5,
+    "articles_drafted": 1,
+    "review_rejected": 1
   },
   "source_fallbacks": [
     {
@@ -128,6 +127,73 @@
       "result": "excluded",
       "stage": "eligibility",
       "reason": "Already published or retired"
+    },
+    {
+      "title": "Aviva warns homeowners to batten down the hatches",
+      "source": "https://www.aviva.com/newsroom/news-and-research-overview/news-releases/2026/10/aviva-warns-homeowners-to-batten-down-the-hatches/",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-23"
+    },
+    {
+      "title": "Aviva launches 24/7 cyber safety helpline for Signature home insurance customers",
+      "source": "https://www.aviva.com/newsroom/news-and-research-overview/news-releases/2026/10/aviva-launches-twenty-four-seven-cyber-safety-helpline-for-signature-home-insurance-customers/",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-16"
+    },
+    {
+      "title": "Aviva plc Wealth ‘In Focus’ investor and analyst briefing",
+      "source": "https://www.aviva.com/newsroom/news-and-research-overview/news-releases/2026/10/aviva-plc-wealth-in-focus/",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-16"
+    },
+    {
+      "title": "Building new homes with simple package of flood resilience measures could save £60m over 10 years",
+      "source": "https://www.aviva.com/newsroom/news-and-research-overview/news-releases/2026/10/building-new-homes-with-simple-package-of-flood-resilience-measures-could-save-60m-over-10-years/",
+      "result": "rejected",
+      "stage": "eligibility",
+      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
+    },
+    {
+      "title": "Landlords and tenants urged to stay vigilant as rat and mouse claims spike in autumn",
+      "source": "https://www.aviva.com/newsroom/news-and-research-overview/news-releases/2026/10/landlords-and-tenants-urged-to-stay-vigilant-as-rat-and-mouse-claims-spike-in-autumn/",
+      "result": "rejected",
+      "stage": "eligibility",
+      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
+    },
+    {
+      "title": "Six in 10 self-employed expect to still be working at 66",
+      "source": "https://www.aviva.com/newsroom/news-and-research-overview/news-releases/2026/10/six-in-10-self-employed-expect-to-still-be-working-at-66/",
+      "result": "rejected",
+      "stage": "eligibility",
+      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
+    },
+    {
+      "title": "Stronger menopause support at work can help boost trust, retention and wellbeing",
+      "source": "https://www.aviva.com/newsroom/news-and-research-overview/news-releases/2026/10/stronger-menopause-support-at-work-can-help-boost-trust-retention-and-wellbeing/",
+      "result": "rejected",
+      "stage": "eligibility",
+      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
+    },
+    {
+      "title": "Aviva launches U.S. Specialty Insurance Business",
+      "source": "https://www.aviva.com/newsroom/news-and-research-overview/news-releases/2026/10/aviva-launches-us-specialty-insurance-business/",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-07"
+    },
+    {
+      "title": "Almost eight in ten owners say their pet knows when they’re unhappy",
+      "source": "https://www.aviva.com/newsroom/news-and-research-overview/news-releases/2026/10/almost-eight-in-ten-owners-say-their-pet-knows-when-theyre-unhappy/",
+      "result": "rejected",
+      "stage": "eligibility",
+      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
     },
     {
       "title": "Read more about the 'The Financial Ombudsman Service received 57,000 cases in the second quarter of 2026/27' news item",
@@ -284,120 +350,6 @@
       "reason": "Outside Insurance/Banking or promotional/lifestyle material"
     },
     {
-      "title": "UK Finance publishes 2026 banking sector tax report",
-      "source": "https://www.ukfinance.org.uk/news-and-insight/press-release/uk-finance-publishes-2026-banking-sector-tax-report",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-21"
-    },
-    {
-      "title": "UK Finance Buy-to-Let Update – Q2 2026",
-      "source": "https://www.ukfinance.org.uk/news-and-insight/press-release/uk-finance-buy-let-update-q2-2026",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-21"
-    },
-    {
-      "title": "UK has unique chance to lead reform of global financial standards ahead of G20 presidency, says UK Finance",
-      "source": "https://www.ukfinance.org.uk/news-and-insight/press-release/uk-has-unique-chance-lead-reform-global-financial-standards",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-13"
-    },
-    {
-      "title": "Aviva warns homeowners to batten down the hatches",
-      "source": "https://www.aviva.com/newsroom/news-and-research-overview/news-releases/2026/10/aviva-warns-homeowners-to-batten-down-the-hatches/",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-23"
-    },
-    {
-      "title": "Aviva launches 24/7 cyber safety helpline for Signature home insurance customers",
-      "source": "https://www.aviva.com/newsroom/news-and-research-overview/news-releases/2026/10/aviva-launches-twenty-four-seven-cyber-safety-helpline-for-signature-home-insurance-customers/",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-16"
-    },
-    {
-      "title": "Aviva plc Wealth ‘In Focus’ investor and analyst briefing",
-      "source": "https://www.aviva.com/newsroom/news-and-research-overview/news-releases/2026/10/aviva-plc-wealth-in-focus/",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-16"
-    },
-    {
-      "title": "Building new homes with simple package of flood resilience measures could save £60m over 10 years",
-      "source": "https://www.aviva.com/newsroom/news-and-research-overview/news-releases/2026/10/building-new-homes-with-simple-package-of-flood-resilience-measures-could-save-60m-over-10-years/",
-      "result": "rejected",
-      "stage": "eligibility",
-      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
-    },
-    {
-      "title": "Landlords and tenants urged to stay vigilant as rat and mouse claims spike in autumn",
-      "source": "https://www.aviva.com/newsroom/news-and-research-overview/news-releases/2026/10/landlords-and-tenants-urged-to-stay-vigilant-as-rat-and-mouse-claims-spike-in-autumn/",
-      "result": "rejected",
-      "stage": "eligibility",
-      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
-    },
-    {
-      "title": "Six in 10 self-employed expect to still be working at 66",
-      "source": "https://www.aviva.com/newsroom/news-and-research-overview/news-releases/2026/10/six-in-10-self-employed-expect-to-still-be-working-at-66/",
-      "result": "rejected",
-      "stage": "eligibility",
-      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
-    },
-    {
-      "title": "Stronger menopause support at work can help boost trust, retention and wellbeing",
-      "source": "https://www.aviva.com/newsroom/news-and-research-overview/news-releases/2026/10/stronger-menopause-support-at-work-can-help-boost-trust-retention-and-wellbeing/",
-      "result": "rejected",
-      "stage": "eligibility",
-      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
-    },
-    {
-      "title": "Aviva launches U.S. Specialty Insurance Business",
-      "source": "https://www.aviva.com/newsroom/news-and-research-overview/news-releases/2026/10/aviva-launches-us-specialty-insurance-business/",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-07"
-    },
-    {
-      "title": "Almost eight in ten owners say their pet knows when they’re unhappy",
-      "source": "https://www.aviva.com/newsroom/news-and-research-overview/news-releases/2026/10/almost-eight-in-ten-owners-say-their-pet-knows-when-theyre-unhappy/",
-      "result": "rejected",
-      "stage": "eligibility",
-      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
-    },
-    {
-      "title": "Ageas UK and esure Boards appoint two Independent Non-Executive Directors",
-      "source": "https://www.ageas.co.uk/press-releases/2026-press-releases/ageas-esure-boards-independent-non-executive-directors/",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-09"
-    },
-    {
-      "title": "LMA and IUA launch Joint Healthcare Claims Group to strengthen market expertise",
-      "source": "https://lmalloyds.com/lma-and-iua-launch-joint-healthcare-claims-group-to-strengthen-market-expertise/",
-      "result": "rejected",
-      "stage": "eligibility",
-      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
-    },
-    {
-      "title": "LMA and IUA launch new job simulations to build future talent pipeline in underwriting and operations",
-      "source": "https://lmalloyds.com/lma-and-iua-launch-new-job-simulations-to-build-future-talent-pipeline-in-underwriting-and-operations/",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-05"
-    },
-    {
       "title": "Prudential Regulation // Consultation paper 22 October 2026 CP14/26 – Review of the Senior Managers and... CP14/26 – Review of the Senior Managers and Certification Regime (SM&CR) – Phase 2",
       "source": "https://www.bankofengland.co.uk/prudential-regulation/publication/2026/october/review-of-the-smcr-phase-two-consultation-paper",
       "result": "rejected",
@@ -458,12 +410,51 @@
       "reason": "Outside Insurance/Banking or promotional/lifestyle material"
     },
     {
-      "title": "Press Release • 6 Oct 2026 BIBA appoints Acrisure UK as Latent Defects Insurance Scheme provider",
-      "source": "https://www.biba.org.uk/press-releases/biba-appoints-acrisure-uk-as-latent-defects-insurance-scheme-provider/",
+      "title": "Ageas UK and esure Boards appoint two Independent Non-Executive Directors",
+      "source": "https://www.ageas.co.uk/press-releases/2026-press-releases/ageas-esure-boards-independent-non-executive-directors/",
       "result": "excluded",
       "stage": "eligibility",
       "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-06"
+      "source_date": "2026-10-09"
+    },
+    {
+      "title": "UK Finance publishes 2026 banking sector tax report",
+      "source": "https://www.ukfinance.org.uk/news-and-insight/press-release/uk-finance-publishes-2026-banking-sector-tax-report",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-21"
+    },
+    {
+      "title": "UK Finance Buy-to-Let Update – Q2 2026",
+      "source": "https://www.ukfinance.org.uk/news-and-insight/press-release/uk-finance-buy-let-update-q2-2026",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-21"
+    },
+    {
+      "title": "UK has unique chance to lead reform of global financial standards ahead of G20 presidency, says UK Finance",
+      "source": "https://www.ukfinance.org.uk/news-and-insight/press-release/uk-has-unique-chance-lead-reform-global-financial-standards",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-13"
+    },
+    {
+      "title": "LMA and IUA launch Joint Healthcare Claims Group to strengthen market expertise",
+      "source": "https://lmalloyds.com/lma-and-iua-launch-joint-healthcare-claims-group-to-strengthen-market-expertise/",
+      "result": "rejected",
+      "stage": "eligibility",
+      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
+    },
+    {
+      "title": "LMA and IUA launch new job simulations to build future talent pipeline in underwriting and operations",
+      "source": "https://lmalloyds.com/lma-and-iua-launch-new-job-simulations-to-build-future-talent-pipeline-in-underwriting-and-operations/",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-05"
     },
     {
       "title": "Businesses boost risk management spend but resilience gap remains",
@@ -471,6 +462,14 @@
       "result": "rejected",
       "stage": "eligibility",
       "reason": "Outside Insurance/Banking or promotional/lifestyle material"
+    },
+    {
+      "title": "Press Release • 6 Oct 2026 BIBA appoints Acrisure UK as Latent Defects Insurance Scheme provider",
+      "source": "https://www.biba.org.uk/press-releases/biba-appoints-acrisure-uk-as-latent-defects-insurance-scheme-provider/",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-06"
     },
     {
       "title": "Lloyds backs Stockport with £720k investment in new-look branch",
@@ -526,60 +525,36 @@
       "source_date": "2026-10-14"
     },
     {
-      "title": "HDI Global Specialty: Beyond Capacity – Building Stronger MGA Relationships",
-      "source": "https://mgaa.co.uk/hdi-global-specialty-beyond-capacity-building-stronger-mga-relationships/",
+      "title": "UK Budget Preview: Burnham and Healey’s Grip on Gilts and Business Tested",
+      "source": "https://www.bloomberg.com/news/newsletters/2026-10-26/uk-budget-preview-burnham-and-healey-s-grip-on-gilts-and-business-tested",
       "result": "excluded",
       "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-21"
+      "reason": "No reviewed article route in source registry"
     },
     {
-      "title": "Polaris: Transforming ProductWriter Learning",
-      "source": "https://mgaa.co.uk/polaris-transforming-productwriter-learning/",
-      "result": "rejected",
-      "stage": "eligibility",
-      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
-    },
-    {
-      "title": "Milliman Launches New Business Advisory Services in the UK with Hire of Two Managing Directors",
-      "source": "https://mgaa.co.uk/milliman-launches-new-business-advisory-services-in-the-uk-with-hire-of-two-managing-directors/",
-      "result": "rejected",
-      "stage": "eligibility",
-      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
-    },
-    {
-      "title": "Recorder: NBS Professional Indemnity now available via API on Recorder",
-      "source": "https://mgaa.co.uk/recorder-nbs-professional-indemnity-now-available-via-api-on-recorder/",
-      "result": "rejected",
-      "stage": "eligibility",
-      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
-    },
-    {
-      "title": "MGAA Ireland Regulatory Update: Key Points for MGAs",
-      "source": "https://mgaa.co.uk/mgaa-ireland-regulatory-update-key-points-for-mgas/",
+      "title": "Allison Reagan joins CRC Specialty as SVP, Property Broker",
+      "source": "https://www.reinsurancene.ws/allison-reagan-joins-crc-specialty-as-svp-property-broker/",
       "result": "excluded",
       "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-09"
+      "reason": "Already published or retired"
     },
     {
-      "title": "Euna appoints Steve Morse to Lead Newly Launched Personal Lines Offering",
-      "source": "https://mgaa.co.uk/euna-appoints-steve-morse-to-lead-newly-launched-personal-lines-offering/",
-      "result": "rejected",
-      "stage": "eligibility",
-      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
-    },
-    {
-      "title": "Instant Underwriting launches its first Financial Lines product, Professional Indemnity Insurance, with Irwell Insurance Company Ltd",
-      "source": "https://mgaa.co.uk/instant-underwriting-launches-its-first-financial-lines-product-professional-indemnity-insurance-with-irwell-insurance-company-ltd/",
+      "title": "APAC cedents are looking for holistic solutions beyond pure volatility cover: Tony Gallagher, Marsh Re",
+      "source": "https://www.reinsurancene.ws/apac-cedents-are-looking-for-holistic-solutions-beyond-pure-volatility-cover-tony-gallagher-marsh-re/",
       "result": "excluded",
       "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-06"
+      "reason": "Already published or retired"
     },
     {
       "title": "Insurer tip-off halts £64,800 sheep fraud claim in Devon",
       "source": "https://www.insurancebusinessmag.com/uk/news/claims/insurer-tipoff-halts-64800-sheep-fraud-claim-in-devon-594877.aspx",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
+    },
+    {
+      "title": "Gallagher expands Texas employee benefits business through Mund Group acquisition",
+      "source": "https://www.reinsurancene.ws/gallagher-expands-texas-employee-benefits-business-through-mund-group-acquisition/",
       "result": "excluded",
       "stage": "eligibility",
       "reason": "Already published or retired"
@@ -3533,13 +3508,6 @@
       "reason": "No reviewed article route in source registry"
     },
     {
-      "title": "Pay in Three, Report to the Bureau: Vladyslav Kolodistyi on BNPL, Credit Scores and Consumer",
-      "source": "https://www.finextra.com/blogposting/33116/pay-in-three-report-to-the-bureau-vladyslav-kolodistyi-on-bnpl-credit-scores-and-consumer",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "No reviewed article route in source registry"
-    },
-    {
       "title": "Millions of AI files exposed in leak that caught a sex doll maker’s chatbot",
       "source": "https://www.insurancebusinessmag.com/uk/news/cyber/millions-of-ai-files-exposed-in-leak-that-caught-a-sex-doll-makers-chatbot-594375.aspx",
       "result": "excluded",
@@ -3764,15 +3732,6 @@
       "source_date": "2026-10-13"
     },
     {
-      "title": "Allison Reagan joins CRC Specialty as SVP, Property Broker",
-      "source": "https://www.reinsurancene.ws/allison-reagan-joins-crc-specialty-as-svp-property-broker/",
-      "result": "source verified",
-      "stage": "source",
-      "reason": "Complete captured source; original UK publication date validated",
-      "source_sha256": "d3050585c29658e4da08addc1db2cbe793d5c5900b986f91fe6dd1a43c70b2d5",
-      "capture_method": "retrieved"
-    },
-    {
       "title": "UK Dealers See More Treasury Bills Coming to Cut Debt Costs",
       "source": "https://www.bloomberg.com/news/articles/2026-10-26/uk-dealers-see-more-treasury-bills-coming-to-cut-debt-costs",
       "result": "retry deferred",
@@ -3827,15 +3786,6 @@
       "retry_after": "2026-10-26T11:12:43.047405+00:00"
     },
     {
-      "title": "APAC cedents are looking for holistic solutions beyond pure volatility cover: Tony Gallagher, Marsh Re",
-      "source": "https://www.reinsurancene.ws/apac-cedents-are-looking-for-holistic-solutions-beyond-pure-volatility-cover-tony-gallagher-marsh-re/",
-      "result": "source verified",
-      "stage": "source",
-      "reason": "Complete captured source; original UK publication date validated",
-      "source_sha256": "7f0730bd5d788d1da02b093b604adfd0e00c75555a0a4da5637132f3dcbb6f71",
-      "capture_method": "retrieved"
-    },
-    {
       "title": "World Bank Flags Somalia Low Tax Revenue as Key Fiscal Challenge",
       "source": "https://www.bloomberg.com/news/articles/2026-10-26/world-bank-somalia-low-tax-revenue-key-fiscal-challenge",
       "result": "retry deferred",
@@ -3860,15 +3810,6 @@
       "stage": "source",
       "reason": "Complete captured source; original UK publication date validated",
       "source_sha256": "ae10befa84aeac82f70687bf0bc3b2b5cd1639686d9f5533600fd62ac71985a4",
-      "capture_method": "checkpoint"
-    },
-    {
-      "title": "Gallagher expands Texas employee benefits business through Mund Group acquisition",
-      "source": "https://www.reinsurancene.ws/gallagher-expands-texas-employee-benefits-business-through-mund-group-acquisition/",
-      "result": "source verified",
-      "stage": "source",
-      "reason": "Complete captured source; original UK publication date validated",
-      "source_sha256": "cfa38c2c4c9d2b6d2a55758a5cadde7ee8386d12e2fc7987bbd4615c4c942699",
       "capture_method": "checkpoint"
     },
     {
@@ -3899,43 +3840,12 @@
       "retry_after": "2026-10-26T08:11:01.869477+00:00"
     },
     {
-      "title": "Munich Re’s Q3 profit falls 15% despite lower major losses",
-      "source": "https://www.commercialriskonline.com/munich-res-q3-profit-falls-15-despite-lower-major-losses/",
-      "result": "retry deferred",
-      "stage": "writing",
-      "reason": "Article needs coherent sections, not a rigid template",
-      "retry_after": "2026-10-26T07:48:04.330718+00:00"
-    },
-    {
-      "title": "Hacking Attempts Surge as Companies, Governments Rush to Patch PHP Flaws",
-      "source": "https://www.insurancejournal.com/news/national/2026/10/26/890235.htm",
-      "result": "retry deferred",
-      "stage": "writing",
-      "reason": "Article length must serve the story, got 75 words",
-      "retry_after": "2026-10-26T07:48:04.330718+00:00"
-    },
-    {
-      "title": "Buyers face mounting sanction exclusions and dwindling capacity for exposed risks",
-      "source": "https://www.commercialriskonline.com/buyers-face-mounting-sanction-exclusions-and-dwindling-capacity-for-exposed-risks/",
-      "result": "retry deferred",
-      "stage": "writing",
-      "reason": "Article length must serve the story, got 39 words",
-      "retry_after": "2026-10-26T07:48:04.330718+00:00"
-    },
-    {
       "title": "New Mexico’s Outside Lawyers Could Collect up to $1.27B in Meta Case",
       "source": "https://www.insurancejournal.com/news/west/2026/10/26/890197.htm",
       "result": "retry deferred",
       "stage": "independent_review",
       "reason": "Article contains no Insurance or Banking development beyond publisher attribution",
       "retry_after": "2026-10-26T07:55:18.831813+00:00"
-    },
-    {
-      "title": "Gallagher expands Texas employee benefits business through Mund Group acquisition",
-      "source": "https://www.reinsurancene.ws/gallagher-expands-texas-employee-benefits-business-through-mund-group-acquisition/",
-      "result": "review retry",
-      "stage": "independent_review",
-      "reason": "One re-review under publisher-provenance policy 2; no claims bypassed"
     },
     {
       "title": "Pennsylvania’s Commonwealth University Adds Risk Management/Insurance Program",
@@ -3946,44 +3856,41 @@
       "retry_after": "2026-10-26T07:55:18.831813+00:00"
     },
     {
-      "title": "Allison Reagan joins CRC Specialty as SVP, Property Broker",
-      "source": "https://www.reinsurancene.ws/allison-reagan-joins-crc-specialty-as-svp-property-broker/",
+      "title": "Munich Re’s Q3 profit falls 15% despite lower major losses",
+      "source": "https://www.commercialriskonline.com/munich-res-q3-profit-falls-15-despite-lower-major-losses/",
+      "result": "held back",
+      "stage": "writing",
+      "reason": "Article length must serve the story, got 76 words",
+      "classification": "INVALID_RESPONSE",
+      "retry_after": "2026-10-26T08:22:41.607818+00:00"
+    },
+    {
+      "title": "Hacking Attempts Surge as Companies, Governments Rush to Patch PHP Flaws",
+      "source": "https://www.insurancejournal.com/news/national/2026/10/26/890235.htm",
       "result": "drafted",
       "stage": "writing",
       "reason": "Original article saved before independent review"
     },
     {
-      "title": "APAC cedents are looking for holistic solutions beyond pure volatility cover: Tony Gallagher, Marsh Re",
-      "source": "https://www.reinsurancene.ws/apac-cedents-are-looking-for-holistic-solutions-beyond-pure-volatility-cover-tony-gallagher-marsh-re/",
-      "result": "drafted",
+      "title": "Buyers face mounting sanction exclusions and dwindling capacity for exposed risks",
+      "source": "https://www.commercialriskonline.com/buyers-face-mounting-sanction-exclusions-and-dwindling-capacity-for-exposed-risks/",
+      "result": "held back",
       "stage": "writing",
-      "reason": "Original article saved before independent review"
+      "reason": "Article length must serve the story, got 65 words",
+      "classification": "INVALID_RESPONSE",
+      "retry_after": "2026-10-26T08:22:41.607818+00:00"
     },
     {
-      "title": "Gallagher expands Texas employee benefits business through Mund Group acquisition",
-      "source": "https://www.reinsurancene.ws/gallagher-expands-texas-employee-benefits-business-through-mund-group-acquisition/",
-      "result": "draft saved",
+      "title": "Hacking Attempts Surge as Companies, Governments Rush to Patch PHP Flaws",
+      "source": "https://www.insurancejournal.com/news/national/2026/10/26/890235.htm",
+      "result": "held for review",
       "stage": "independent_review",
-      "reason": "Every sentence passed separate source-evidence review; final publication gate follows"
-    },
-    {
-      "title": "Allison Reagan joins CRC Specialty as SVP, Property Broker",
-      "source": "https://www.reinsurancene.ws/allison-reagan-joins-crc-specialty-as-svp-property-broker/",
-      "result": "draft saved",
-      "stage": "independent_review",
-      "reason": "Every sentence passed separate source-evidence review; final publication gate follows"
-    },
-    {
-      "title": "APAC cedents are looking for holistic solutions beyond pure volatility cover: Tony Gallagher, Marsh Re",
-      "source": "https://www.reinsurancene.ws/apac-cedents-are-looking-for-holistic-solutions-beyond-pure-volatility-cover-tony-gallagher-marsh-re/",
-      "result": "draft saved",
-      "stage": "independent_review",
-      "reason": "Every sentence passed separate source-evidence review; final publication gate follows"
+      "reason": "[{'claim_id': 'C03', 'sentence': 'Emergency Shutdowns and Surging Hacking Attempts', 'reason': 'Section headings do not have a direct source sentence confirming the exact wording used as a heading, although content is supported.'}, {'claim_id': 'C07', 'sentence': 'Industry Response and Implementation Challenges', 'reason': 'Section headings do not have a direct source sentence confirming the exact wording.'}]"
     }
   ],
   "discovery_errors": [
-    "Allianz UK: HTTPError HTTP Error 403: Forbidden",
     "UK Parliament: HTTPError HTTP Error 403: Forbidden",
+    "Allianz UK: HTTPError HTTP Error 403: Forbidden",
     "Association of British Insurers: HTTPError HTTP Error 403: Forbidden",
     "Revolut UK: HTTPError HTTP Error 403: Forbidden",
     {
@@ -4024,7 +3931,25 @@
       ]
     },
     {
+      "id": "ai-8c3221875c4bd941665f",
+      "reason": [
+        "Duplicate source/article"
+      ]
+    },
+    {
       "id": "ai-9aa14c0ec974f8375433",
+      "reason": [
+        "Duplicate source/article"
+      ]
+    },
+    {
+      "id": "ai-9ca8d6a96997fa171816",
+      "reason": [
+        "Duplicate source/article"
+      ]
+    },
+    {
+      "id": "ai-9f29957e387dfa3078bf",
       "reason": [
         "Duplicate source/article"
       ]
@@ -4042,40 +3967,13 @@
       ]
     }
   ],
-  "run_id": "40287882563",
-  "event": "push",
-  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40287882563",
+  "run_id": "40288468596",
+  "event": "schedule",
+  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40288468596",
   "publisher_links": 0,
   "discovery_headlines": 19,
-  "publisher_desk_checked_at": "2026-10-26T07:47:12.796497+00:00",
+  "publisher_desk_checked_at": "2026-10-26T07:52:39.803497+00:00",
   "previous_verified_runs": [
-    {
-      "run_id": "40244934296",
-      "event": "push",
-      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40244934296",
-      "editorial_outcome": "NO_QUALIFYING_NEWS",
-      "published_this_run": 0,
-      "publisher_links": 0,
-      "discovery_headlines": 8,
-      "source_coverage_status": "PARTIAL",
-      "fresh_source_candidates": 8,
-      "verified_by_sector": {},
-      "ai_budget": {
-        "quota_date": "2026-10-25",
-        "quota_timezone": "America/Los_Angeles",
-        "requests_this_run": 0,
-        "requests_today_including_this_run": 24,
-        "run_limit": 7,
-        "daily_limit": 30,
-        "remaining_today": 6
-      },
-      "commissioned_stories": [],
-      "checked_at": "2026-10-25T23:30:15.648838+00:00",
-      "technical_status": "LIVE_VERIFIED",
-      "deployment": "success",
-      "live_check": "success",
-      "browser_check": "success"
-    },
     {
       "run_id": "40245033419",
       "event": "push",
@@ -5581,6 +5479,120 @@
         "independent_review:draft saved": 2,
         "writing:held back": 1
       }
+    },
+    {
+      "run_id": "40287882563",
+      "event": "push",
+      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40287882563",
+      "editorial_outcome": "PUBLISHED",
+      "published_this_run": 3,
+      "publisher_links": 0,
+      "discovery_headlines": 19,
+      "source_coverage_status": "PARTIAL",
+      "fresh_source_candidates": 15,
+      "verified_by_sector": {
+        "Insurance": 8
+      },
+      "ai_budget": {
+        "quota_date": "2026-10-26",
+        "quota_timezone": "America/Los_Angeles",
+        "requests_this_run": 2,
+        "requests_today_including_this_run": 12,
+        "run_limit": 7,
+        "daily_limit": 30,
+        "remaining_today": 18
+      },
+      "pipeline_metrics": {
+        "discovered_unique": 505,
+        "already_published_or_retired": 21,
+        "outside_uk_date": 218,
+        "irrelevant": 98,
+        "unsupported_route": 153,
+        "fresh_relevant_candidates": 15,
+        "sources_successfully_retrieved": 2,
+        "source_checkpoints_reused": 6,
+        "source_cooldowns": 7,
+        "verified_original_candidates": 8,
+        "drafts_recovered": 1,
+        "articles_drafted": 2,
+        "articles_passing_review": 3
+      },
+      "source_fallbacks": [
+        {
+          "source": "https://www.bloomberg.com/news/articles/2026-10-26/uk-dealers-see-more-treasury-bills-coming-to-cut-debt-costs",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.wsj.com/finance/jgb-yields-higher-amid-concerns-about-higher-energy-prices-897f5458",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.bbc.co.uk/news/articles/c6x2zrjl7kjno",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.finextra.com/newsarticle/48642/riksbank-reignites-e-krona-debate",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.bloomberg.com/news/articles/2026-10-26/world-bank-somalia-low-tax-revenue-key-fiscal-challenge",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.bloomberg.com/news/articles/2026-10-26/french-bond-oats-australia-pension-australian-retirement-trust-yields-ecb",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.bloomberg.com/news/articles/2026-10-26/asset-manager-australian-dollar-shorts-hit-record-on-risk-off",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        }
+      ],
+      "articles_visible_this_run": 3,
+      "live_article_ids": [
+        "ai-8c3221875c4bd941665f",
+        "ai-9ca8d6a96997fa171816",
+        "ai-9f29957e387dfa3078bf"
+      ],
+      "commissioned_stories": [
+        {
+          "url": "https://www.reinsurancene.ws/allison-reagan-joins-crc-specialty-as-svp-property-broker/",
+          "category": "Insurance",
+          "reason": "Relevant current development supported by a complete accessible source"
+        },
+        {
+          "url": "https://www.reinsurancene.ws/apac-cedents-are-looking-for-holistic-solutions-beyond-pure-volatility-cover-tony-gallagher-marsh-re/",
+          "category": "Insurance",
+          "reason": "Relevant current development supported by a complete accessible source"
+        },
+        {
+          "url": "https://www.reinsurancene.ws/gallagher-expands-texas-employee-benefits-business-through-mund-group-acquisition/",
+          "category": "Insurance",
+          "reason": "Relevant current development supported by a complete accessible source"
+        }
+      ],
+      "checked_at": "2026-10-26T07:48:53.970066+00:00",
+      "technical_status": "LIVE_VERIFIED",
+      "deployment": "success",
+      "live_check": "success",
+      "browser_check": "success",
+      "candidate_outcome_counts": {
+        "eligibility:excluded": 392,
+        "eligibility:rejected": 98,
+        "source:source verified": 8,
+        "source:retry deferred": 7,
+        "writing:retry deferred": 4,
+        "independent_review:retry deferred": 1,
+        "independent_review:review retry": 1,
+        "writing:drafted": 2,
+        "independent_review:draft saved": 3
+      }
     }
   ],
   "launch_acceptance": {
@@ -5605,11 +5617,5 @@
   "launch_diagnostic_allowance": {
     "limit": 2,
     "requests": 2
-  },
-  "articles_visible_this_run": 3,
-  "live_article_ids": [
-    "ai-8c3221875c4bd941665f",
-    "ai-9ca8d6a96997fa171816",
-    "ai-9f29957e387dfa3078bf"
-  ]
+  }
 }

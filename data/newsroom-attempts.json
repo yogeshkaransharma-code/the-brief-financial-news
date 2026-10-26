@@ -2,7 +2,7 @@
   "api_budget": {
     "date": "2026-10-26",
     "timezone": "America/Los_Angeles",
-    "requests": 12,
+    "requests": 14,
     "limit": 30
   },
   "api_calls": [
@@ -924,6 +924,44 @@
         ],
         "serviceTier": "standard"
       }
+    },
+    {
+      "at": "2026-10-26T07:52:50.420269+00:00",
+      "result": "response_received",
+      "prompt_characters": 19338,
+      "purpose": "production",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 3720,
+        "candidatesTokenCount": 767,
+        "totalTokenCount": 4487,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 3720
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-26T07:53:05.422245+00:00",
+      "result": "response_received",
+      "prompt_characters": 13252,
+      "purpose": "production",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 2631,
+        "candidatesTokenCount": 516,
+        "totalTokenCount": 3147,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2631
+          }
+        ],
+        "serviceTier": "standard"
+      }
     }
   ],
   "capacity_recovery_revision": 2,
@@ -1768,6 +1806,11 @@
       "attempted_at": "2026-10-26T07:47:14.951842+00:00",
       "retry_after": "2026-10-27T08:47:14.951842+00:00",
       "headline": "Allison Reagan joins CRC Specialty as SVP, Property Broker"
+    },
+    "https://www.bloomberg.com/news/newsletters/2026-10-26/uk-budget-preview-burnham-and-healey-s-grip-on-gilts-and-business-tested": {
+      "attempted_at": "2026-10-26T07:52:41.607818+00:00",
+      "retry_after": "2026-10-27T08:52:41.607818+00:00",
+      "headline": "UK Budget Preview: Burnham and Healey’s Grip on Gilts and Business Tested"
     }
   },
   "sources": {
@@ -1952,12 +1995,12 @@
       "alternative_search_after": "2026-10-26T11:33:04.330718+00:00"
     },
     "https://www.commercialriskonline.com/munich-res-q3-profit-falls-15-despite-lower-major-losses/": {
-      "attempted_at": "2026-10-26T07:33:04.330718+00:00",
-      "retry_after": "2026-10-26T07:48:04.330718+00:00",
-      "last_result": "Article needs coherent sections, not a rigid template",
+      "attempted_at": "2026-10-26T07:52:41.607818+00:00",
+      "retry_after": "2026-10-26T08:22:41.607818+00:00",
+      "last_result": "Article length must serve the story, got 76 words",
       "classification": "INVALID_RESPONSE",
       "stage": "writing",
-      "failures": 1,
+      "failures": 2,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.insurancejournal.com/news/national/2026/10/26/890235.htm": {
@@ -1970,12 +2013,12 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.commercialriskonline.com/buyers-face-mounting-sanction-exclusions-and-dwindling-capacity-for-exposed-risks/": {
-      "attempted_at": "2026-10-26T07:33:04.330718+00:00",
-      "retry_after": "2026-10-26T07:48:04.330718+00:00",
-      "last_result": "Article length must serve the story, got 39 words",
+      "attempted_at": "2026-10-26T07:52:41.607818+00:00",
+      "retry_after": "2026-10-26T08:22:41.607818+00:00",
+      "last_result": "Article length must serve the story, got 65 words",
       "classification": "INVALID_RESPONSE",
       "stage": "writing",
-      "failures": 1,
+      "failures": 2,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.insurancejournal.com/news/west/2026/10/26/890197.htm": {
