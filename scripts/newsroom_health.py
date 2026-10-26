@@ -63,7 +63,11 @@ def main():
  ledger=read('data/newsroom-attempts.json',{})
  saved=ledger.get('api_budget',{})
  state['launch_diagnostic_allowance']=ledger.get('launch_diagnostic_allowance',{'limit':2,'requests':0})
- if saved:state['ai_budget'].update(requests_today_including_this_run=saved.get('requests',0),daily_limit=saved.get('limit',30),remaining_today=max(0,saved.get('limit',30)-saved.get('requests',0)))
+ if saved:
+  limit=saved.get('limit')
+  state['ai_budget'].update(requests_today_including_this_run=saved.get('requests',0),daily_limit=limit,
+      remaining_today=None if limit is None else max(0,limit-saved.get('requests',0)),
+      daily_limit_source='provider' if limit is None else 'local')
  (ROOT/'data/status.json').write_text(json.dumps(state,ensure_ascii=False,indent=2)+'\n')
  if os.getenv('GITHUB_OUTPUT'):
   with open(os.environ['GITHUB_OUTPUT'],'a') as f:f.write('outcome='+state['outcome']+'\nnew_articles='+str(state['published_this_run'])+'\n')

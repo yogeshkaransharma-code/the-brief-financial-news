@@ -74,6 +74,29 @@ def main():
   assert run(root,now,**kwargs)['metrics']['unusable_model_responses']==1
   assert run(root,now+dt.timedelta(hours=1),**kwargs)['api_budget']['requests_this_run']==0
   assert len(count)==1
+ # Provider 429 stops this cycle and subsequent cycles during its cooldown.
+ # The removed local 30-call limit must not masquerade as provider exhaustion.
+ from ai_newsroom import GeminiAPIError
+ from ai_cost_guard import PACIFIC
+ with tempfile.TemporaryDirectory() as temp,patch('ai_cost_guard.time.sleep',lambda _:None):
+  root=Path(temp);(root/'data').mkdir();atomic_json(root/'data/articles.json',[]);atomic_json(root/'data/live.json',{'items':items})
+  atomic_json(root/'data/newsroom-attempts.json',{'api_budget':{'date':now.astimezone(PACIFIC).date().isoformat(),'requests':30,'limit':30}})
+  attempts=[]
+  def limited(prompt):
+   attempts.append(prompt);raise GeminiAPIError(429,'Rate limit this minute',retry_seconds=60)
+  kwargs=dict(discovery=lambda:([],[]),trace=lambda *a,**k:([],[]),reader=lambda url:docs[url],ai=limited,search=lambda *a,**k:[])
+  first=run(root,now,**kwargs)
+  assert len(attempts)==1 and first['api_budget']['requests_today_including_this_run']==31
+  assert first['api_budget']['daily_limit'] is None and first['active_quota_pause_until']
+  second=run(root,now+dt.timedelta(minutes=20),**kwargs)
+  assert len(attempts)==1 and second['api_budget']['requests_this_run']==0
+  atomic_json(root/'generated-drafts/publication-report.json',{'published':[],'held':[]})
+  import newsroom_health,io,contextlib
+  with patch('newsroom_health.ROOT',root),contextlib.redirect_stdout(io.StringIO()):
+   newsroom_health.main()
+  status=json.loads((root/'data/status.json').read_text())
+  assert status['ai_budget']['daily_limit'] is None and status['ai_budget']['remaining_today'] is None
+  assert status['ai_budget']['requests_today_including_this_run']==31
  # Complete brief releases need not reach the old 850-character floor.
  body='Aviva has expanded its insurance distribution agreement for eligible commercial customers. Applications remain subject to existing underwriting criteria. The company says brokers can access the service through its established channels. Existing policy terms continue to apply.'
  text,_=html_extract('<main><article><h1>Aviva expands insurance distribution</h1><p>'+body+'</p></article></main>',urls[0])

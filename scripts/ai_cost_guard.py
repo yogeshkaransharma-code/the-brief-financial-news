@@ -9,8 +9,8 @@ from zoneinfo import ZoneInfo
 from urllib.parse import urlsplit
 from publication_scope import source_lane
 
-MAX_REQUESTS_PER_RUN=7  # One selection plus at most three writer/reviewer pairs.
-MAX_REQUESTS_PER_DAY=30  # Local ceiling, not a claim about Google's project quota.
+MAX_REQUESTS_PER_RUN=7  # Bounded work per cycle; independent of daily provider quota.
+MAX_REQUESTS_PER_DAY=None  # Owner removed the artificial daily ceiling; provider quota applies.
 MAX_SOURCE_CHARS=43000  # Matches the full-capture reader; never truncate a document.
 MIN_SOURCE_CHARS=200
 PACIFIC=ZoneInfo('America/Los_Angeles')
@@ -36,7 +36,10 @@ class CallBudget:
             temp=self.path.with_suffix('.tmp')
             temp.write_text(json.dumps(self.ledger,ensure_ascii=False,indent=2,sort_keys=True)+'\n')
             temp.replace(self.path)
-    def remaining(self):return max(0,min(self.per_run-self.run_used,self.per_day-self.daily_used))
+    def remaining(self):
+        remaining=self.per_run-self.run_used
+        if self.per_day is not None:remaining=min(remaining,self.per_day-self.daily_used)
+        return max(0,remaining)
     def call(self,fn,prompt,*,diagnostic=False,purpose='production'):
         if self.path:
             quota_day=self._clock().astimezone(PACIFIC).date().isoformat()
@@ -70,7 +73,9 @@ class CallBudget:
     def snapshot(self):
         return {'quota_date':self.today,'quota_timezone':'America/Los_Angeles','requests_this_run':self.run_used,
                 'requests_today_including_this_run':self.daily_used,'run_limit':self.per_run,'daily_limit':self.per_day,
-                'remaining_today':max(0,self.per_day-self.daily_used)}
+                'remaining_today':None if self.per_day is None else max(0,self.per_day-self.daily_used),
+                'daily_limit_source':'provider' if self.per_day is None else 'local',
+                'remaining_this_run':self.remaining()}
 
 def preflight_source(item,doc):
     if not source_lane(item.get('url','')):raise ValueError('Not a permitted original publication category')
@@ -98,7 +103,18 @@ def self_test():
         assert m.remaining()==0
         assert CallBudget(ledger,t,per_run=2,per_day=3).remaining()==1
         assert CallBudget(ledger,t+dt.timedelta(hours=8),per_run=2,per_day=3).remaining()==2
-    print('PASS: durable reservations, failure accounting, hard caps and Pacific reset')
+    # An existing exhausted 30-request ledger must not block the new default.
+    prior={'api_budget':{'date':'2026-10-24','requests':30,'limit':30}}
+    uncapped=CallBudget(prior,t,per_run=1)
+    assert uncapped.remaining()==1 and uncapped.daily_used==30
+    assert uncapped.call(lambda p:{'ok':True},'fixture')['ok']
+    assert uncapped.daily_used==31 and uncapped.remaining()==0
+    assert prior['api_budget']['limit'] is None
+    assert uncapped.snapshot()['remaining_today'] is None
+    assert uncapped.snapshot()['daily_limit_source']=='provider'
+    resumed=CallBudget(prior,t,per_run=1)
+    assert resumed.remaining()==1 and resumed.daily_used==31
+    print('PASS: provider-controlled daily quota, preserved usage beyond 30, bounded run requests, failure accounting and Pacific reset')
 if __name__=='__main__':self_test()
 
 
