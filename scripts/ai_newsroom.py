@@ -109,6 +109,29 @@ class GeminiAPIError(RuntimeError):
         self.daily=bool(re.search(r"(?i)requestsperday|tokensperday|daily|per day|rpd",details))
         super().__init__(f"Gemini API HTTP {status}: "+details[:450])
 
+def batch_schema(prompt):
+    """Constrain the transport envelope; source/claim checks remain downstream."""
+    string={'type':'STRING'}
+    if 'SOURCE PACKETS:' in prompt:
+        article={'type':'OBJECT','required':['headline','standfirst','sections'],'properties':{
+          'headline':string,'standfirst':string,
+          'sections':{'type':'ARRAY','items':{'type':'OBJECT','required':['heading','text'],'properties':{'heading':string,'text':string}}}}}
+        entry={'type':'OBJECT','required':['id','article'],'properties':{'id':string,'article':article}}
+    elif 'array of {id, reviews}' in prompt:
+        review={'type':'OBJECT','required':['id','verdict','source_id','issue'],'properties':{
+          'id':string,'verdict':{'type':'STRING','enum':['SUPPORTED','UNSUPPORTED','CONTRADICTED','INSUFFICIENT']},'source_id':string,'issue':string}}
+        entry={'type':'OBJECT','required':['id','reviews'],'properties':{'id':string,'reviews':{'type':'ARRAY','items':review}}}
+    else:return None
+    return {'type':'OBJECT','required':['articles'],'properties':{'articles':{'type':'ARRAY','items':entry}}}
+
+def response_object(data,batch=False):
+    # A valid JSON array is a harmless transport variation for numbered
+    # batches. Unknown/malformed IDs and content still fail per-article checks.
+    if batch and isinstance(data,list) and data and all(isinstance(r,dict) and isinstance(r.get('id'),str) for r in data):
+        data={'articles':data}
+    if not isinstance(data,dict):raise ValueError('Gemini response must be a JSON object or a numbered batch')
+    return data
+
 
 def fetch_gemini(prompt: str, model_override: str | None = None) -> dict:
     """Exactly one Gemini HTTP call, with an optional explicitly metered model.
@@ -122,6 +145,8 @@ def fetch_gemini(prompt: str, model_override: str | None = None) -> dict:
         "contents":[{"role":"user","parts":[{"text":prompt}]}],
         "generationConfig":{"responseMimeType":"application/json","temperature":0.2,"maxOutputTokens":8000}
     }
+    schema=batch_schema(prompt)
+    if schema:payload['generationConfig']['responseSchema']=schema
     # A 429 must not trigger four more quota-consuming attempts on other
     # models. Explicit provider/model selection means exactly one API call.
     candidates=[model_override or MODEL]
@@ -165,6 +190,10 @@ def fetch_gemini(prompt: str, model_override: str | None = None) -> dict:
             data=json.loads(produced)
         except json.JSONDecodeError:
             raise RuntimeError("Gemini returned invalid JSON; held without another model request") from None
+        try:data=response_object(data,batch=schema is not None)
+        except ValueError:
+            failures.append(f"{model_name}: malformed article response")
+            continue
         if isinstance(data,dict):
             data["_brief_usage"]={"model":model_name,**usage}
             return data
@@ -423,4 +452,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
