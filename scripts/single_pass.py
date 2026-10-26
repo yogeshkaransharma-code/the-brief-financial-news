@@ -109,6 +109,14 @@ def process(verified,*,root,out,checkpoints,ledger,meter,now,call,event,metrics,
         scoped=state.get('article') or {'title':item['title'],'short':'','source':item['source'],'blocks':[['',doc.text]]}
         if source_lane(item['url'])=='original_reporting' and not has_sector_content(scoped):
             event(item,'outside scope','eligibility','No Insurance/Banking content beyond publisher identity');metrics['outside_sector_content']+=1;continue
+        if state.get('publication_policy')==POLICY and state.get('status') in {'written_response','unusable_response'}:
+            if state['status']=='written_response':
+                try:
+                    ready(item,doc,article_from(state.get('writer_response'),item,doc));metrics['drafts_recovered']+=1
+                    continue
+                except (ValueError,TypeError,KeyError) as error:
+                    state=checkpoints.save(item,doc,status='unusable_response',reason=str(error))
+            event(item,'technical failure retained','writing',state.get('reason','Unusable model response'));continue
         if state.get('publication_policy')==POLICY and state.get('status')=='ready':
             ready(item,doc,state['article']);metrics['drafts_recovered']+=1;continue
         if state.get('article') and state.get('status')!='held':
@@ -119,8 +127,6 @@ def process(verified,*,root,out,checkpoints,ledger,meter,now,call,event,metrics,
             # disputed drafts receive one ordinary source-based writing pass.
             if flags and all('heading' in str(f.get('reason','')).lower() for f in flags):
                 ready(item,doc,state['article']);metrics['drafts_recovered']+=1;continue
-        if state.get('publication_policy')==POLICY and state.get('status')=='unusable_response':
-            event(item,'technical failure retained','writing',state.get('reason','Unusable model response'));continue
         record=attempts.get(item['url'],{})
         # The old writer/reviewer formatting holds do not apply to this policy.
         if record.get('stage') in {'writing','independent_review'} and state.get('publication_policy')!=POLICY:
@@ -136,7 +142,11 @@ def process(verified,*,root,out,checkpoints,ledger,meter,now,call,event,metrics,
             metrics['model_deferred']+=len(batch);continue
         try:response=call(prompt(batch))
         except Exception as error:
-            for item,doc in batch:failure(item,'writing',error)
+            for item,doc in batch:
+                if isinstance(error,ValueError):
+                    checkpoints.save(item,doc,publication_policy=POLICY,status='unusable_response',reason=str(error))
+                    event(item,'technical failure retained','writing',error)
+                else:failure(item,'writing',error)
             from ai_newsroom import GeminiAPIError
             if isinstance(error,GeminiAPIError) and error.status==429:
                 from newsroom_v2 import next_quota_check
