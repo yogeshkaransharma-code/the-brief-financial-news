@@ -349,6 +349,8 @@ def reconcile_reviews(article,official,verdict):
     index={p["id"]:p for p in segments}
     if len(set(x.get("id") for x in rows if isinstance(x,dict)))!=len(rows):
         raise ValueError("Reviewer repeated/missed sentence IDs")
+    if all(isinstance(row,dict) and row.get('id') in index for row in rows):
+        rows=sorted(rows,key=lambda row:list(index).index(row['id']))
     exact=[]
     holds=[]
     passages=source_passages(official.text)
