@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-10-26T02:24:48.505904+00:00",
+  "checked_at": "2026-10-26T03:11:21.297846+00:00",
   "uk_date": "2026-10-26",
   "outcome": "BLOCKED",
   "editorial_outcome": "BLOCKED",
-  "technical_status": "LIVE_VERIFIED",
+  "technical_status": "AWAITING_LIVE_VERIFICATION",
   "source_coverage_status": "PARTIAL",
   "launch_test": {
     "result": "NOT_RUN"
@@ -11,45 +11,59 @@
   "published_this_run": 0,
   "genuine_same_day_articles": 1,
   "editorial_selection": {
-    "result": "NO_VERIFIED_CANDIDATES",
+    "result": "SELECTED",
     "requests": 0,
-    "selected": [],
-    "skipped": []
+    "method": "deterministic-source-supported",
+    "selected": [
+      {
+        "url": "https://www.insurancebusinessmag.com/uk/news/environmental/storm-boelo-backtoback-storms-test-claims-and-cover-594849.aspx",
+        "category": "Insurance",
+        "reason": "Relevant current development supported by a complete accessible source"
+      }
+    ],
+    "skipped": [],
+    "deferred": []
   },
   "published_total": 16,
   "last_article_at": "2026-10-26T02:21:17.535883+00:00",
-  "fresh_source_candidates": 3,
-  "verified_original_candidates": 0,
+  "fresh_source_candidates": 4,
+  "verified_original_candidates": 1,
   "candidates_by_sector": {
+    "Insurance": 1,
     "Banking": 3
   },
-  "verified_by_sector": {},
-  "articles_commissioned": 0,
-  "articles_held": 1,
+  "verified_by_sector": {
+    "Insurance": 1
+  },
+  "articles_commissioned": 1,
+  "articles_held": 2,
   "machine_screened": 0,
   "primary_indexes_checked": 31,
   "primary_index_failures": 4,
-  "feeds_working": 41,
-  "feed_failures": 0,
+  "feeds_working": 32,
+  "feed_failures": 9,
   "ai_budget": {
     "quota_date": "2026-10-25",
     "quota_timezone": "America/Los_Angeles",
-    "requests_this_run": 0,
-    "requests_today_including_this_run": 28,
+    "requests_this_run": 2,
+    "requests_today_including_this_run": 30,
     "run_limit": 7,
     "daily_limit": 30,
-    "remaining_today": 2
+    "remaining_today": 0
   },
   "quota_pause_until": null,
   "pipeline_metrics": {
-    "discovered_unique": 497,
-    "outside_uk_date": 232,
-    "irrelevant": 94,
+    "discovered_unique": 504,
+    "outside_uk_date": 234,
+    "irrelevant": 98,
     "already_published_or_retired": 14,
     "unsupported_route": 154,
-    "fresh_relevant_candidates": 3,
+    "fresh_relevant_candidates": 4,
+    "sources_successfully_retrieved": 1,
+    "source_checkpoints_reused": 0,
     "source_cooldowns": 3,
-    "verified_original_candidates": 0
+    "verified_original_candidates": 1,
+    "articles_drafted": 1
   },
   "source_fallbacks": [
     {
@@ -137,13 +151,6 @@
       "reason": "Outside Insurance/Banking or promotional/lifestyle material"
     },
     {
-      "title": "Retirement targets jump 20% as affluent individuals plan for several futures at once",
-      "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/retirement-targets-jump-20-as-affluent-individuals-plan-for-several-futures-at-once",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
-    {
       "title": "TPR sets expectations on “hidden” concentration risks in pension portfolios",
       "source": "https://www.thepensionsregulator.gov.uk/media-hub/press-releases/2026-press-releases/tpr-sets-expectations-on-hidden-concentration-risks-in-pension-portfolios",
       "result": "excluded",
@@ -173,6 +180,43 @@
       "stage": "eligibility",
       "reason": "Discovery source date is outside the current UK date",
       "source_date": "2026-10-09"
+    },
+    {
+      "title": "Lloyds climbs global rankings for AI talent and leadership",
+      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-climbs-global-rankings-for-ai-talent-and-leadership.html",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
+    },
+    {
+      "title": "Lloyds launches Investing in Britain Hub",
+      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-launches-investing-in-britain-hub.html",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
+    },
+    {
+      "title": "Lloyds Banking Group launches Lloyds Auto",
+      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds-banking-group/lloyds-banking-group-launches-lloyds-auto.html",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
+    },
+    {
+      "title": "Lloyds supports second £250 million Blue Bond for Tideway to help protect River Thames",
+      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-supports-second-250m-blue-bond-for-tideway-to-help-protect-river-thames.html",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-15"
+    },
+    {
+      "title": "The UK’s digital money map: regions reveal different routes to financial progress",
+      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds-banking-group/uk-digital-money-map-regions-reveal-different-routes-to-financial-progress.html",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-12"
     },
     {
       "title": "FCA calls on private market firms to manage conflicts of interest in line with rapid growth 23/10/2026",
@@ -268,43 +312,6 @@
       "reason": "Outside Insurance/Banking or promotional/lifestyle material"
     },
     {
-      "title": "Lloyds climbs global rankings for AI talent and leadership",
-      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-climbs-global-rankings-for-ai-talent-and-leadership.html",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
-    {
-      "title": "Lloyds launches Investing in Britain Hub",
-      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-launches-investing-in-britain-hub.html",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
-    {
-      "title": "Lloyds Banking Group launches Lloyds Auto",
-      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds-banking-group/lloyds-banking-group-launches-lloyds-auto.html",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
-    {
-      "title": "Lloyds supports second £250 million Blue Bond for Tideway to help protect River Thames",
-      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-supports-second-250m-blue-bond-for-tideway-to-help-protect-river-thames.html",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-15"
-    },
-    {
-      "title": "The UK’s digital money map: regions reveal different routes to financial progress",
-      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds-banking-group/uk-digital-money-map-regions-reveal-different-routes-to-financial-progress.html",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-12"
-    },
-    {
       "title": "UK Finance publishes 2026 banking sector tax report",
       "source": "https://www.ukfinance.org.uk/news-and-insight/press-release/uk-finance-publishes-2026-banking-sector-tax-report",
       "result": "excluded",
@@ -335,6 +342,36 @@
       "stage": "eligibility",
       "reason": "Discovery source date is outside the current UK date",
       "source_date": "2026-10-09"
+    },
+    {
+      "title": "Retirement targets jump 20% as affluent individuals plan for several futures at once",
+      "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/retirement-targets-jump-20-as-affluent-individuals-plan-for-several-futures-at-once",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
+    },
+    {
+      "title": "Press Release • 6 Oct 2026 BIBA appoints Acrisure UK as Latent Defects Insurance Scheme provider",
+      "source": "https://www.biba.org.uk/press-releases/biba-appoints-acrisure-uk-as-latent-defects-insurance-scheme-provider/",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-06"
+    },
+    {
+      "title": "LMA and IUA launch Joint Healthcare Claims Group to strengthen market expertise",
+      "source": "https://lmalloyds.com/lma-and-iua-launch-joint-healthcare-claims-group-to-strengthen-market-expertise/",
+      "result": "rejected",
+      "stage": "eligibility",
+      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
+    },
+    {
+      "title": "LMA and IUA launch new job simulations to build future talent pipeline in underwriting and operations",
+      "source": "https://lmalloyds.com/lma-and-iua-launch-new-job-simulations-to-build-future-talent-pipeline-in-underwriting-and-operations/",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-05"
     },
     {
       "title": "Prudential Regulation // Consultation paper 22 October 2026 CP14/26 – Review of the Senior Managers and... CP14/26 – Review of the Senior Managers and Certification Regime (SM&CR) – Phase 2",
@@ -397,29 +434,6 @@
       "reason": "Outside Insurance/Banking or promotional/lifestyle material"
     },
     {
-      "title": "LMA and IUA launch Joint Healthcare Claims Group to strengthen market expertise",
-      "source": "https://lmalloyds.com/lma-and-iua-launch-joint-healthcare-claims-group-to-strengthen-market-expertise/",
-      "result": "rejected",
-      "stage": "eligibility",
-      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
-    },
-    {
-      "title": "LMA and IUA launch new job simulations to build future talent pipeline in underwriting and operations",
-      "source": "https://lmalloyds.com/lma-and-iua-launch-new-job-simulations-to-build-future-talent-pipeline-in-underwriting-and-operations/",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-05"
-    },
-    {
-      "title": "Press Release • 6 Oct 2026 BIBA appoints Acrisure UK as Latent Defects Insurance Scheme provider",
-      "source": "https://www.biba.org.uk/press-releases/biba-appoints-acrisure-uk-as-latent-defects-insurance-scheme-provider/",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-06"
-    },
-    {
       "title": "Businesses boost risk management spend but resilience gap remains",
       "source": "https://www.hiscoxgroup.com/news/press-releases/2026/06-10-26",
       "result": "rejected",
@@ -448,12 +462,56 @@
       "reason": "Outside Insurance/Banking or promotional/lifestyle material"
     },
     {
-      "title": "14th October 2026 Starling becomes first bank to train AI model on UK sovereign cloud",
-      "source": "https://www.starlingbank.com/news/starling-backs-uk-sovereign-cloud",
+      "title": "HDI Global Specialty: Beyond Capacity – Building Stronger MGA Relationships",
+      "source": "https://mgaa.co.uk/hdi-global-specialty-beyond-capacity-building-stronger-mga-relationships/",
       "result": "excluded",
       "stage": "eligibility",
       "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-14"
+      "source_date": "2026-10-21"
+    },
+    {
+      "title": "Polaris: Transforming ProductWriter Learning",
+      "source": "https://mgaa.co.uk/polaris-transforming-productwriter-learning/",
+      "result": "rejected",
+      "stage": "eligibility",
+      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
+    },
+    {
+      "title": "Milliman Launches New Business Advisory Services in the UK with Hire of Two Managing Directors",
+      "source": "https://mgaa.co.uk/milliman-launches-new-business-advisory-services-in-the-uk-with-hire-of-two-managing-directors/",
+      "result": "rejected",
+      "stage": "eligibility",
+      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
+    },
+    {
+      "title": "Recorder: NBS Professional Indemnity now available via API on Recorder",
+      "source": "https://mgaa.co.uk/recorder-nbs-professional-indemnity-now-available-via-api-on-recorder/",
+      "result": "rejected",
+      "stage": "eligibility",
+      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
+    },
+    {
+      "title": "MGAA Ireland Regulatory Update: Key Points for MGAs",
+      "source": "https://mgaa.co.uk/mgaa-ireland-regulatory-update-key-points-for-mgas/",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-09"
+    },
+    {
+      "title": "Euna appoints Steve Morse to Lead Newly Launched Personal Lines Offering",
+      "source": "https://mgaa.co.uk/euna-appoints-steve-morse-to-lead-newly-launched-personal-lines-offering/",
+      "result": "rejected",
+      "stage": "eligibility",
+      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
+    },
+    {
+      "title": "Instant Underwriting launches its first Financial Lines product, Professional Indemnity Insurance, with Irwell Insurance Company Ltd",
+      "source": "https://mgaa.co.uk/instant-underwriting-launches-its-first-financial-lines-product-professional-indemnity-insurance-with-irwell-insurance-company-ltd/",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-06"
     },
     {
       "title": "Lawrence Hawkins appointed General Counsel Zurich UK",
@@ -478,6 +536,14 @@
       "stage": "eligibility",
       "reason": "Discovery source date is outside the current UK date",
       "source_date": "2026-10-05"
+    },
+    {
+      "title": "14th October 2026 Starling becomes first bank to train AI model on UK sovereign cloud",
+      "source": "https://www.starlingbank.com/news/starling-backs-uk-sovereign-cloud",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-14"
     },
     {
       "title": "Healey's Budget needs to sustain the stronger economy through gathering clouds",
@@ -3592,14 +3658,6 @@
       "source_date": "2026-10-21"
     },
     {
-      "title": "Howden expands employee benefits to Sweden",
-      "source": "https://www.commercialriskonline.com/howden-expands-employee-benefits-to-sweden/",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-21"
-    },
-    {
       "title": "JMG-owned Grosvenor recruits new MD from Gallagher",
       "source": "https://www.insuranceage.co.uk/insight/7959032/jmg-owned-grosvenor-recruits-new-md-from-gallagher",
       "result": "excluded",
@@ -3760,6 +3818,15 @@
       "source_date": "2026-10-13"
     },
     {
+      "title": "Storm Boelo: back-to-back storms test claims and cover",
+      "source": "https://www.insurancebusinessmag.com/uk/news/environmental/storm-boelo-backtoback-storms-test-claims-and-cover-594849.aspx",
+      "result": "source verified",
+      "stage": "source",
+      "reason": "Complete captured source; original UK publication date validated",
+      "source_sha256": "04f2b25c7e758cbf82236d002723758bc254fa39abacc2ee999781a4bf274dac",
+      "capture_method": "retrieved"
+    },
+    {
       "title": "What is the Budget and what could be in it?",
       "source": "https://www.bbc.co.uk/news/articles/c6x2zrjl7kjno",
       "result": "retry deferred",
@@ -3785,13 +3852,74 @@
       "reason": "HTTP Error 403: Forbidden",
       "classification": "LEGACY_COOLDOWN",
       "retry_after": "2026-10-26T04:18:32.403356+00:00"
+    },
+    {
+      "title": "Storm Boelo: back-to-back storms test claims and cover",
+      "source": "https://www.insurancebusinessmag.com/uk/news/environmental/storm-boelo-backtoback-storms-test-claims-and-cover-594849.aspx",
+      "result": "drafted",
+      "stage": "writing",
+      "reason": "Original article saved before independent review"
+    },
+    {
+      "title": "Storm Boelo: back-to-back storms test claims and cover",
+      "source": "https://www.insurancebusinessmag.com/uk/news/environmental/storm-boelo-backtoback-storms-test-claims-and-cover-594849.aspx",
+      "result": "held back",
+      "stage": "independent_review",
+      "reason": "Source numerical register differs from captured source",
+      "classification": "EVIDENCE_UNUSABLE",
+      "retry_after": "2026-10-26T07:10:53.726914+00:00"
     }
   ],
   "discovery_errors": [
-    "Allianz UK: HTTPError HTTP Error 403: Forbidden",
     "UK Parliament: HTTPError HTTP Error 403: Forbidden",
+    "Allianz UK: HTTPError HTTP Error 403: Forbidden",
     "Association of British Insurers: HTTPError HTTP Error 403: Forbidden",
-    "Revolut UK: HTTPError HTTP Error 403: Forbidden"
+    "Revolut UK: HTTPError HTTP Error 403: Forbidden",
+    {
+      "source": "Finextra payments",
+      "url": "https://www.finextra.com/rss/channel.aspx?channel=payments",
+      "error": "The read operation timed out"
+    },
+    {
+      "source": "Finextra retail banking",
+      "url": "https://www.finextra.com/rss/channel.aspx?channel=retail",
+      "error": "The read operation timed out"
+    },
+    {
+      "source": "Finextra wholesale banking",
+      "url": "https://www.finextra.com/rss/channel.aspx?channel=wholesale",
+      "error": "The read operation timed out"
+    },
+    {
+      "source": "Finextra market infrastructure",
+      "url": "https://www.finextra.com/rss/channel.aspx?channel=execution",
+      "error": "The read operation timed out"
+    },
+    {
+      "source": "Finextra financial crime",
+      "url": "https://www.finextra.com/rss/channel.aspx?channel=security",
+      "error": "The read operation timed out"
+    },
+    {
+      "source": "Finextra banking regulation",
+      "url": "https://www.finextra.com/rss/channel.aspx?channel=risk",
+      "error": "The read operation timed out"
+    },
+    {
+      "source": "Finextra wealth",
+      "url": "https://www.finextra.com/rss/channel.aspx?channel=wealth",
+      "error": "The read operation timed out"
+    },
+    {
+      "source": "Finextra transaction banking",
+      "url": "https://www.finextra.com/rss/channel.aspx?channel=transaction",
+      "error": "The read operation timed out"
+    },
+    {
+      "source": "Finextra payments and cards",
+      "url": "https://www.finextra.com/rss/channel.aspx?channel=cards",
+      "error": "The read operation timed out"
+    }
   ],
   "publication_holds": [
     {
@@ -3801,49 +3929,13 @@
       ]
     }
   ],
-  "run_id": "40258924445",
-  "event": "push",
-  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40258924445",
+  "run_id": "40262710040",
+  "event": "schedule",
+  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40262710040",
   "publisher_links": 0,
   "discovery_headlines": 3,
-  "publisher_desk_checked_at": "2026-10-26T02:24:37.346990+00:00",
+  "publisher_desk_checked_at": "2026-10-26T03:10:52.050396+00:00",
   "previous_verified_runs": [
-    {
-      "run_id": "40221662491",
-      "event": "schedule",
-      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40221662491",
-      "editorial_outcome": "BLOCKED",
-      "published_this_run": 0,
-      "publisher_links": 0,
-      "discovery_headlines": 7,
-      "source_coverage_status": "PARTIAL",
-      "fresh_source_candidates": 7,
-      "verified_by_sector": {
-        "Regulation": 1
-      },
-      "ai_budget": {
-        "quota_date": "2026-10-25",
-        "quota_timezone": "America/Los_Angeles",
-        "requests_this_run": 3,
-        "requests_today_including_this_run": 24,
-        "run_limit": 7,
-        "daily_limit": 30,
-        "remaining_today": 6
-      },
-      "commissioned_stories": [
-        {
-          "id": "N01",
-          "reason": "Substantive bilateral regulatory and financing policy development between the UK and Canada concerning defence financing institutions, offering high reader value for a financial-news publication.",
-          "url": "https://www.gov.uk/government/news/joint-statement-from-hm-treasury-and-department-of-finance-canada",
-          "category": "Regulation"
-        }
-      ],
-      "checked_at": "2026-10-25T18:33:07.412308+00:00",
-      "technical_status": "LIVE_VERIFIED",
-      "deployment": "success",
-      "live_check": "success",
-      "browser_check": "skipped"
-    },
     {
       "run_id": "40226158992",
       "event": "schedule",
@@ -4702,6 +4794,67 @@
         "recovery:draft recovered": 1,
         "independent_review:draft saved": 1
       }
+    },
+    {
+      "run_id": "40258924445",
+      "event": "push",
+      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40258924445",
+      "editorial_outcome": "BLOCKED",
+      "published_this_run": 0,
+      "publisher_links": 0,
+      "discovery_headlines": 3,
+      "source_coverage_status": "PARTIAL",
+      "fresh_source_candidates": 3,
+      "verified_by_sector": {},
+      "ai_budget": {
+        "quota_date": "2026-10-25",
+        "quota_timezone": "America/Los_Angeles",
+        "requests_this_run": 0,
+        "requests_today_including_this_run": 28,
+        "run_limit": 7,
+        "daily_limit": 30,
+        "remaining_today": 2
+      },
+      "pipeline_metrics": {
+        "discovered_unique": 497,
+        "outside_uk_date": 232,
+        "irrelevant": 94,
+        "already_published_or_retired": 14,
+        "unsupported_route": 154,
+        "fresh_relevant_candidates": 3,
+        "source_cooldowns": 3,
+        "verified_original_candidates": 0
+      },
+      "source_fallbacks": [
+        {
+          "source": "https://www.bbc.co.uk/news/articles/c6x2zrjl7kjno",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.bloomberg.com/news/articles/2026-10-26/asset-manager-australian-dollar-shorts-hit-record-on-risk-off",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.finextra.com/newsarticle/48642/riksbank-reignites-e-krona-debate",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        }
+      ],
+      "articles_visible_this_run": 0,
+      "live_article_ids": [],
+      "commissioned_stories": [],
+      "checked_at": "2026-10-26T02:26:04.384135+00:00",
+      "technical_status": "LIVE_VERIFIED",
+      "deployment": "success",
+      "live_check": "success",
+      "browser_check": "success",
+      "candidate_outcome_counts": {
+        "eligibility:excluded": 400,
+        "eligibility:rejected": 94,
+        "source:retry deferred": 3
+      }
     }
   ],
   "launch_acceptance": {
@@ -4713,23 +4866,21 @@
       "article_site_live_verified": true,
       "mobile_and_desktop_reading": true,
       "latest_run_technically_healthy": true,
-      "latest_editorial_run_unblocked": true
+      "latest_editorial_run_unblocked": false
     },
-    "verified_scheduled_runs": 8,
+    "verified_scheduled_runs": 7,
     "commissioned_sectors": [
-      "Banking",
-      "Regulation"
+      "Banking"
     ],
     "pending": [
       "original_gemini_publication_live_verified",
-      "worthwhile_same_day_developments_across_sectors"
+      "worthwhile_same_day_developments_across_sectors",
+      "latest_editorial_run_unblocked"
     ],
     "note": "Operational evidence checkpoint, not a guarantee of future events or error-free journalism."
   },
   "launch_diagnostic_allowance": {
     "limit": 2,
     "requests": 2
-  },
-  "articles_visible_this_run": 0,
-  "live_article_ids": []
+  }
 }

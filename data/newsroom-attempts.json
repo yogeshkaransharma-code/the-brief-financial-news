@@ -2,7 +2,7 @@
   "api_budget": {
     "date": "2026-10-25",
     "timezone": "America/Los_Angeles",
-    "requests": 28,
+    "requests": 30,
     "limit": 30
   },
   "api_calls": [
@@ -654,6 +654,44 @@
           {
             "modality": "TEXT",
             "tokenCount": 4757
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-26T03:11:04.007620+00:00",
+      "result": "response_received",
+      "prompt_characters": 10256,
+      "purpose": "production",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 2028,
+        "candidatesTokenCount": 521,
+        "totalTokenCount": 2549,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2028
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-26T03:11:19.009325+00:00",
+      "result": "response_received",
+      "prompt_characters": 14637,
+      "purpose": "production",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 3054,
+        "candidatesTokenCount": 757,
+        "totalTokenCount": 3811,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 3054
           }
         ],
         "serviceTier": "standard"
@@ -1600,6 +1638,15 @@
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1",
       "alternative_search_after": "2026-10-26T06:11:01.869477+00:00"
+    },
+    "https://www.insurancebusinessmag.com/uk/news/environmental/storm-boelo-backtoback-storms-test-claims-and-cover-594849.aspx": {
+      "attempted_at": "2026-10-26T03:10:53.726914+00:00",
+      "retry_after": "2026-10-26T07:10:53.726914+00:00",
+      "last_result": "Source numerical register differs from captured source",
+      "classification": "EVIDENCE_UNUSABLE",
+      "stage": "independent_review",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     }
   },
   "version": 2,
