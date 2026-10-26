@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-26T00:18:41.361263+00:00",
+  "checked_at": "2026-10-26T00:53:16.005283+00:00",
   "uk_date": "2026-10-26",
   "outcome": "NO_QUALIFYING_NEWS",
   "editorial_outcome": "NO_QUALIFYING_NEWS",
@@ -19,17 +19,15 @@
   "last_article_at": "2026-10-25T16:31:49.549910+00:00",
   "fresh_source_candidates": 1,
   "verified_original_candidates": 0,
-  "candidates_by_sector": {
-    "Banking": 1
-  },
+  "candidates_by_sector": {},
   "verified_by_sector": {},
   "articles_commissioned": 0,
-  "articles_held": 1,
+  "articles_held": 0,
   "machine_screened": 0,
   "primary_indexes_checked": 29,
   "primary_index_failures": 4,
-  "feeds_working": 40,
-  "feed_failures": 1,
+  "feeds_working": 41,
+  "feed_failures": 0,
   "ai_budget": {
     "quota_date": "2026-10-25",
     "quota_timezone": "America/Los_Angeles",
@@ -40,57 +38,21 @@
     "remaining_today": 6
   },
   "quota_pause_until": null,
-  "candidate_outcomes": [
-    {
-      "title": "Riksbank reignites e-krona debate",
-      "source": "https://www.finextra.com/newsarticle/48642/riksbank-reignites-e-krona-debate",
-      "result": "held back",
-      "stage": "source",
-      "reason": "HTTP Error 403: Forbidden"
-    }
-  ],
+  "candidate_outcomes": [],
   "discovery_errors": [
     "UK Parliament: HTTPError HTTP Error 403: Forbidden",
     "Allianz UK: HTTPError HTTP Error 403: Forbidden",
     "Association of British Insurers: HTTPError HTTP Error 403: Forbidden",
-    "Revolut UK: HTTPError HTTP Error 403: Forbidden",
-    {
-      "source": "Money Marketing",
-      "url": "https://www.moneymarketing.co.uk/feed/",
-      "error": "HTTP Error 403: Forbidden"
-    }
+    "Revolut UK: HTTPError HTTP Error 403: Forbidden"
   ],
   "publication_holds": [],
-  "run_id": "40248699883",
-  "event": "push",
-  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40248699883",
+  "run_id": "40251462218",
+  "event": "schedule",
+  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40251462218",
   "publisher_links": 0,
   "discovery_headlines": 1,
-  "publisher_desk_checked_at": "2026-10-26T00:18:32.245989+00:00",
+  "publisher_desk_checked_at": "2026-10-26T00:53:02.197232+00:00",
   "previous_verified_runs": [
-    {
-      "run_id": "40202031536",
-      "event": "push",
-      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40202031536",
-      "editorial_outcome": "BLOCKED",
-      "published_this_run": 0,
-      "publisher_links": 0,
-      "discovery_headlines": 7,
-      "source_coverage_status": "COMPLETE",
-      "fresh_source_candidates": 0,
-      "verified_by_sector": {},
-      "ai_budget": {
-        "requests_today_including_this_run": 15,
-        "daily_limit": 30,
-        "remaining_today": 15
-      },
-      "commissioned_stories": [],
-      "checked_at": "2026-10-25T14:24:07.575838+00:00",
-      "technical_status": "FAILED",
-      "deployment": "skipped",
-      "live_check": "skipped",
-      "browser_check": "skipped"
-    },
     {
       "run_id": "40202185077",
       "event": "push",
@@ -729,6 +691,33 @@
       "deployment": "skipped",
       "live_check": "skipped",
       "browser_check": "skipped"
+    },
+    {
+      "run_id": "40248699883",
+      "event": "push",
+      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40248699883",
+      "editorial_outcome": "NO_QUALIFYING_NEWS",
+      "published_this_run": 0,
+      "publisher_links": 0,
+      "discovery_headlines": 1,
+      "source_coverage_status": "PARTIAL",
+      "fresh_source_candidates": 1,
+      "verified_by_sector": {},
+      "ai_budget": {
+        "quota_date": "2026-10-25",
+        "quota_timezone": "America/Los_Angeles",
+        "requests_this_run": 0,
+        "requests_today_including_this_run": 24,
+        "run_limit": 7,
+        "daily_limit": 30,
+        "remaining_today": 6
+      },
+      "commissioned_stories": [],
+      "checked_at": "2026-10-26T00:19:23.410787+00:00",
+      "technical_status": "LIVE_VERIFIED",
+      "deployment": "success",
+      "live_check": "success",
+      "browser_check": "success"
     }
   ],
   "launch_acceptance": {
@@ -739,8 +728,8 @@
       "worthwhile_same_day_developments_across_sectors": false,
       "article_site_live_verified": true,
       "mobile_and_desktop_reading": true,
-      "latest_run_technically_healthy": false,
-      "latest_editorial_run_unblocked": false
+      "latest_run_technically_healthy": true,
+      "latest_editorial_run_unblocked": true
     },
     "verified_scheduled_runs": 10,
     "commissioned_sectors": [
@@ -748,9 +737,7 @@
       "Regulation"
     ],
     "pending": [
-      "worthwhile_same_day_developments_across_sectors",
-      "latest_run_technically_healthy",
-      "latest_editorial_run_unblocked"
+      "worthwhile_same_day_developments_across_sectors"
     ],
     "note": "Operational evidence checkpoint, not a guarantee of future events or error-free journalism."
   },
