@@ -1,0 +1,712 @@
+{
+  "version": 2,
+  "note": "Reviewed discovery endpoints and exact article routes. Configuration is not evidence of access. Every article still requires full retrieval, original date and independent review.",
+  "sources": [
+    {
+      "name": "FCA",
+      "url": "https://www.fca.org.uk/news/rss.xml",
+      "desk": "Banking",
+      "internal_category": "Regulation",
+      "method": "feed"
+    },
+    {
+      "name": "FCA publications",
+      "url": "https://www.fca.org.uk/publications/rss.xml",
+      "desk": "Banking",
+      "internal_category": "Regulation",
+      "method": "feed"
+    },
+    {
+      "name": "Bank of England",
+      "url": "https://www.bankofengland.co.uk/rss/news",
+      "desk": "Banking",
+      "internal_category": "Banking",
+      "method": "feed"
+    },
+    {
+      "name": "PRA",
+      "url": "https://www.bankofengland.co.uk/rss/prudential-regulation-publications",
+      "desk": "Banking",
+      "internal_category": "Regulation",
+      "method": "feed"
+    },
+    {
+      "name": "HM Treasury",
+      "url": "https://www.gov.uk/government/organisations/hm-treasury.atom",
+      "desk": "Banking",
+      "internal_category": "Regulation",
+      "method": "feed"
+    },
+    {
+      "name": "HM Revenue & Customs",
+      "url": "https://www.gov.uk/government/organisations/hm-revenue-customs.atom",
+      "desk": "Banking",
+      "internal_category": "Regulation",
+      "method": "feed"
+    },
+    {
+      "name": "Office for National Statistics",
+      "url": "https://www.gov.uk/government/organisations/office-for-national-statistics.atom",
+      "desk": "Banking",
+      "internal_category": "Banking",
+      "method": "feed"
+    },
+    {
+      "name": "Department for Work and Pensions",
+      "url": "https://www.gov.uk/government/organisations/department-for-work-pensions.atom",
+      "desk": "Banking",
+      "internal_category": "Regulation",
+      "method": "feed"
+    },
+    {
+      "name": "Competition and Markets Authority",
+      "url": "https://www.gov.uk/government/organisations/competition-and-markets-authority.atom",
+      "desk": "Banking",
+      "internal_category": "Regulation",
+      "method": "feed"
+    },
+    {
+      "name": "Department for Business and Trade",
+      "url": "https://www.gov.uk/government/organisations/department-for-business-and-trade.atom",
+      "desk": "Banking",
+      "internal_category": "Regulation",
+      "method": "feed"
+    },
+    {
+      "name": "Department for Science, Innovation and Technology",
+      "url": "https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology.atom",
+      "desk": "Banking",
+      "internal_category": "Technology",
+      "method": "feed"
+    },
+    {
+      "name": "BBC Business",
+      "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
+      "desk": "Banking",
+      "internal_category": "Banking",
+      "method": "feed"
+    },
+    {
+      "name": "Sky Business",
+      "url": "https://feeds.skynews.com/feeds/rss/business.xml",
+      "desk": "Banking",
+      "internal_category": "Banking",
+      "method": "feed"
+    },
+    {
+      "name": "The Guardian Business",
+      "url": "https://www.theguardian.com/uk/business/rss",
+      "desk": "Banking",
+      "internal_category": "Banking",
+      "method": "feed"
+    },
+    {
+      "name": "The Guardian Money",
+      "url": "https://www.theguardian.com/money/rss",
+      "desk": "Banking",
+      "internal_category": "Banking",
+      "method": "feed"
+    },
+    {
+      "name": "The Guardian Insurance",
+      "url": "https://www.theguardian.com/business/insurance/rss",
+      "desk": "Insurance",
+      "internal_category": "Insurance",
+      "method": "feed"
+    },
+    {
+      "name": "The Guardian Banking",
+      "url": "https://www.theguardian.com/business/banking/rss",
+      "desk": "Banking",
+      "internal_category": "Banking",
+      "method": "feed"
+    },
+    {
+      "name": "Financial Times",
+      "url": "https://www.ft.com/rss/home",
+      "desk": "Banking",
+      "internal_category": "Banking",
+      "method": "feed"
+    },
+    {
+      "name": "Bloomberg Markets",
+      "url": "https://feeds.bloomberg.com/markets/news.rss",
+      "desk": "Banking",
+      "internal_category": "Banking",
+      "method": "feed"
+    },
+    {
+      "name": "Wall Street Journal Markets",
+      "url": "https://feeds.content.dowjones.io/public/rss/RSSMarketsMain",
+      "desk": "Banking",
+      "internal_category": "Banking",
+      "method": "feed"
+    },
+    {
+      "name": "MarketWatch",
+      "url": "https://feeds.content.dowjones.io/public/rss/mw_topstories",
+      "desk": "Banking",
+      "internal_category": "Banking",
+      "method": "feed"
+    },
+    {
+      "name": "Finextra",
+      "url": "https://www.finextra.com/rss/headlines.aspx",
+      "desk": "Banking",
+      "internal_category": "Banking",
+      "method": "feed"
+    },
+    {
+      "name": "Finextra payments",
+      "url": "https://www.finextra.com/rss/channel.aspx?channel=payments",
+      "desk": "Banking",
+      "internal_category": "Banking",
+      "method": "feed"
+    },
+    {
+      "name": "Insurance Business UK",
+      "url": "https://www.insurancebusinessmag.com/uk/rss/",
+      "desk": "Insurance",
+      "internal_category": "Insurance",
+      "method": "feed"
+    },
+    {
+      "name": "Commercial Risk",
+      "url": "https://www.commercialriskonline.com/feed/",
+      "desk": "Insurance",
+      "internal_category": "Insurance",
+      "method": "feed"
+    },
+    {
+      "name": "Reinsurance News",
+      "url": "https://www.reinsurancene.ws/feed/",
+      "desk": "Insurance",
+      "internal_category": "Insurance",
+      "method": "feed"
+    },
+    {
+      "name": "Insurance Journal",
+      "url": "https://www.insurancejournal.com/rss/news/",
+      "desk": "Insurance",
+      "internal_category": "Insurance",
+      "method": "feed"
+    },
+    {
+      "name": "Insurance Times",
+      "url": "https://www.insurancetimes.co.uk/insurance-times-rss/1388.rss",
+      "desk": "Insurance",
+      "internal_category": "Insurance",
+      "method": "feed"
+    },
+    {
+      "name": "Insurance Age",
+      "url": "https://www.insuranceage.co.uk/feeds/rss/category/broker",
+      "desk": "Insurance",
+      "internal_category": "Brokers",
+      "method": "feed"
+    },
+    {
+      "name": "Professional Pensions",
+      "url": "https://www.professionalpensions.com/feeds/rss",
+      "desk": "Insurance",
+      "internal_category": "Pensions",
+      "method": "feed"
+    },
+    {
+      "name": "Investment Week",
+      "url": "https://www.investmentweek.co.uk/feeds/rss",
+      "desk": "Banking",
+      "internal_category": "Wealth",
+      "method": "feed"
+    },
+    {
+      "name": "Money Marketing",
+      "url": "https://www.moneymarketing.co.uk/feed/",
+      "desk": "Banking",
+      "internal_category": "Wealth",
+      "method": "feed"
+    },
+    {
+      "name": "Mortgage Solutions",
+      "url": "https://www.mortgagesolutions.co.uk/feed/",
+      "desk": "Banking",
+      "internal_category": "Banking",
+      "method": "feed"
+    },
+    {
+      "name": "Finextra retail banking",
+      "url": "https://www.finextra.com/rss/channel.aspx?channel=retail",
+      "desk": "Banking",
+      "internal_category": "Banking",
+      "method": "feed"
+    },
+    {
+      "name": "Finextra wholesale banking",
+      "url": "https://www.finextra.com/rss/channel.aspx?channel=wholesale",
+      "desk": "Banking",
+      "internal_category": "Banking",
+      "method": "feed"
+    },
+    {
+      "name": "Finextra market infrastructure",
+      "url": "https://www.finextra.com/rss/channel.aspx?channel=execution",
+      "desk": "Banking",
+      "internal_category": "Banking",
+      "method": "feed"
+    },
+    {
+      "name": "Finextra banking regulation",
+      "url": "https://www.finextra.com/rss/channel.aspx?channel=risk",
+      "desk": "Banking",
+      "internal_category": "Banking",
+      "method": "feed"
+    },
+    {
+      "name": "Finextra financial crime",
+      "url": "https://www.finextra.com/rss/channel.aspx?channel=security",
+      "desk": "Banking",
+      "internal_category": "Banking",
+      "method": "feed"
+    },
+    {
+      "name": "Finextra wealth",
+      "url": "https://www.finextra.com/rss/channel.aspx?channel=wealth",
+      "desk": "Banking",
+      "internal_category": "Banking",
+      "method": "feed"
+    },
+    {
+      "name": "Finextra transaction banking",
+      "url": "https://www.finextra.com/rss/channel.aspx?channel=transaction",
+      "desk": "Banking",
+      "internal_category": "Banking",
+      "method": "feed"
+    },
+    {
+      "name": "Finextra payments and cards",
+      "url": "https://www.finextra.com/rss/channel.aspx?channel=cards",
+      "desk": "Banking",
+      "internal_category": "Banking",
+      "method": "feed"
+    },
+    {
+      "name": "Aviva",
+      "url": "https://www.aviva.com/newsroom/",
+      "desk": "Insurance",
+      "internal_category": "Insurance",
+      "method": "index"
+    },
+    {
+      "name": "Lloyds Banking Group",
+      "url": "https://www.lloydsbankinggroup.com/media/press-releases.html",
+      "desk": "Banking",
+      "internal_category": "Banking",
+      "method": "index"
+    },
+    {
+      "name": "UK Parliament",
+      "url": "https://committees.parliament.uk/committee/697/financial-services-regulation-committee/news/",
+      "desk": "Banking",
+      "internal_category": "Regulation",
+      "method": "index"
+    },
+    {
+      "name": "The Pensions Regulator",
+      "url": "https://www.thepensionsregulator.gov.uk/media-hub/press-releases",
+      "desk": "Banking",
+      "internal_category": "Regulation",
+      "method": "index"
+    },
+    {
+      "name": "Allianz UK",
+      "url": "https://www.allianz.co.uk/news-and-insight/news.html",
+      "desk": "Insurance",
+      "internal_category": "Insurance",
+      "method": "index"
+    },
+    {
+      "name": "Munich Re",
+      "url": "https://www.munichre.com/en/company/media-relations/media-information-and-corporate-news.html",
+      "desk": "Insurance",
+      "internal_category": "Insurance",
+      "method": "index"
+    },
+    {
+      "name": "HSBC",
+      "url": "https://www.hsbc.com/news-and-views/news/media-releases",
+      "desk": "Banking",
+      "internal_category": "Banking",
+      "method": "index"
+    },
+    {
+      "name": "NatWest Group",
+      "url": "https://www.natwestgroup.com/news-and-insights/news-room/press-releases.html",
+      "desk": "Banking",
+      "internal_category": "Banking",
+      "method": "index"
+    },
+    {
+      "name": "Financial Ombudsman Service",
+      "url": "https://www.financial-ombudsman.org.uk/who-we-are/data-insight/news",
+      "desk": "Banking",
+      "internal_category": "Regulation",
+      "method": "index"
+    },
+    {
+      "name": "Association of British Insurers",
+      "url": "https://www.abi.org.uk/media-hub",
+      "desk": "Insurance",
+      "internal_category": "Insurance",
+      "method": "index"
+    },
+    {
+      "name": "UK Finance",
+      "url": "https://www.ukfinance.org.uk/news-and-insight/press-release",
+      "desk": "Banking",
+      "internal_category": "Banking",
+      "method": "index"
+    },
+    {
+      "name": "Financial Conduct Authority",
+      "url": "https://www.fca.org.uk/news",
+      "desk": "Banking",
+      "internal_category": "Regulation",
+      "method": "index"
+    },
+    {
+      "name": "Bank of England",
+      "url": "https://www.bankofengland.co.uk/news/latest-and-upcoming",
+      "desk": "Banking",
+      "internal_category": "Banking",
+      "method": "index"
+    },
+    {
+      "name": "BIBA",
+      "url": "https://www.biba.org.uk/press-releases/",
+      "desk": "Insurance",
+      "internal_category": "Brokers",
+      "method": "index"
+    },
+    {
+      "name": "Ageas UK",
+      "url": "https://www.ageas.co.uk/press-releases/",
+      "desk": "Insurance",
+      "internal_category": "Insurance",
+      "method": "index"
+    },
+    {
+      "name": "Lloyd's Market Association",
+      "url": "https://lmalloyds.com/insights-resources/press-releases/",
+      "desk": "Insurance",
+      "internal_category": "Insurance",
+      "method": "index"
+    },
+    {
+      "name": "Managing General Agents Association",
+      "url": "https://mgaa.co.uk/news/",
+      "desk": "Insurance",
+      "internal_category": "Brokers",
+      "method": "index"
+    },
+    {
+      "name": "Howden Broking Group",
+      "url": "https://www.howdengroup.com/news-insights",
+      "desk": "Insurance",
+      "internal_category": "Brokers",
+      "method": "index"
+    },
+    {
+      "name": "Gallagher Investor Relations",
+      "url": "https://investor.ajg.com/news/default.aspx",
+      "desk": "Insurance",
+      "internal_category": "Brokers",
+      "method": "index"
+    },
+    {
+      "name": "Hiscox Group",
+      "url": "https://www.hiscoxgroup.com/news/press-releases",
+      "desk": "Insurance",
+      "internal_category": "Insurance",
+      "method": "index"
+    },
+    {
+      "name": "Chubb UK",
+      "url": "https://news.uk.chubb.com/news-releases?category=778",
+      "desk": "Insurance",
+      "internal_category": "Insurance",
+      "method": "index"
+    },
+    {
+      "name": "Admiral Group",
+      "url": "https://www.admiralgroup.co.uk/media/news-releases-and-media-contacts",
+      "desk": "Insurance",
+      "internal_category": "Insurance",
+      "method": "index"
+    },
+    {
+      "name": "Lloyds Bank Retail",
+      "url": "https://www.lloydsbank.com/news-and-insights.html",
+      "desk": "Banking",
+      "internal_category": "Banking",
+      "method": "index"
+    },
+    {
+      "name": "Lloyd's Market",
+      "url": "https://www.lloyds.com/insights/media-centre/press-releases",
+      "desk": "Insurance",
+      "internal_category": "Insurance",
+      "method": "index"
+    },
+    {
+      "name": "Zurich UK",
+      "url": "https://www.zurich.co.uk/media-centre",
+      "desk": "Insurance",
+      "internal_category": "Insurance",
+      "method": "index"
+    },
+    {
+      "name": "AXA UK",
+      "url": "https://www.axa.co.uk/newsroom/",
+      "desk": "Insurance",
+      "internal_category": "Insurance",
+      "method": "index"
+    },
+    {
+      "name": "FSCS",
+      "url": "https://www.fscs.org.uk/news/",
+      "desk": "Banking",
+      "internal_category": "Regulation",
+      "method": "index"
+    },
+    {
+      "name": "Starling Bank",
+      "url": "https://www.starlingbank.com/news/",
+      "desk": "Banking",
+      "internal_category": "Technology",
+      "method": "index"
+    },
+    {
+      "name": "Revolut UK",
+      "url": "https://www.revolut.com/news/",
+      "desk": "Banking",
+      "internal_category": "Technology",
+      "method": "index"
+    },
+    {
+      "name": "QBE Europe",
+      "url": "https://qbeeurope.com/news-and-events/press-releases/",
+      "desk": "Insurance",
+      "internal_category": "Insurance",
+      "method": "index"
+    },
+    {
+      "name": "Beazley",
+      "url": "https://www.beazley.com/en-GB/news-and-events/",
+      "desk": "Insurance",
+      "internal_category": "Insurance",
+      "method": "index"
+    }
+  ],
+  "article_routes": [
+    {
+      "host": "theguardian.com",
+      "name": "The Guardian",
+      "lane": "original_reporting",
+      "pattern": "/(?:business|money|uk-news|politics|technology|global-development|society)/20\\d{2}/[a-z]{3}/\\d{1,2}/[^/]+/?"
+    },
+    {
+      "host": "bbc.co.uk",
+      "name": "BBC",
+      "lane": "original_reporting",
+      "pattern": "/news/articles/[a-z0-9]+/?"
+    },
+    {
+      "host": "bbc.com",
+      "name": "BBC",
+      "lane": "original_reporting",
+      "pattern": "/news/articles/[a-z0-9]+/?"
+    },
+    {
+      "host": "news.sky.com",
+      "name": "Sky News",
+      "lane": "original_reporting",
+      "pattern": "/story/[^/]+-\\d+/?"
+    },
+    {
+      "host": "insurancebusinessmag.com",
+      "name": "Insurance Business",
+      "lane": "original_reporting",
+      "pattern": "/uk/news/[^/]+/[^/]+/?"
+    },
+    {
+      "host": "reinsurancene.ws",
+      "name": "Reinsurance News",
+      "lane": "original_reporting",
+      "pattern": "/[^/]+/?"
+    },
+    {
+      "host": "commercialriskonline.com",
+      "name": "Commercial Risk",
+      "lane": "original_reporting",
+      "pattern": "/[^/]+/?"
+    },
+    {
+      "host": "insurancejournal.com",
+      "name": "Insurance Journal",
+      "lane": "original_reporting",
+      "pattern": "/news/(?:[^/]+/)+[^/]+/?"
+    },
+    {
+      "host": "insurancetimes.co.uk",
+      "name": "Insurance Times",
+      "lane": "original_reporting",
+      "pattern": "/(?:[^/]+/)*[^/]+\\.article"
+    },
+    {
+      "host": "insuranceage.co.uk",
+      "name": "Insurance Age",
+      "lane": "original_reporting",
+      "pattern": "/(?:[^/]+/)+[^/]+/?"
+    },
+    {
+      "host": "finextra.com",
+      "name": "Finextra",
+      "lane": "original_reporting",
+      "pattern": "/newsarticle/\\d+/[^/]+/?"
+    },
+    {
+      "host": "professionalpensions.com",
+      "name": "Professional Pensions",
+      "lane": "original_reporting",
+      "pattern": "/news/\\d+/[^/]+/?"
+    },
+    {
+      "host": "investmentweek.co.uk",
+      "name": "Investment Week",
+      "lane": "original_reporting",
+      "pattern": "/news/\\d+/[^/]+/?"
+    },
+    {
+      "host": "moneymarketing.co.uk",
+      "name": "Money Marketing",
+      "lane": "original_reporting",
+      "pattern": "/(?:news|analysis)/[^/]+/?"
+    },
+    {
+      "host": "mortgagesolutions.co.uk",
+      "name": "Mortgage Solutions",
+      "lane": "original_reporting",
+      "pattern": "/(?:news|news/[^/]+)/20\\d{2}/\\d{2}/\\d{2}/[^/]+/?"
+    },
+    {
+      "host": "ft.com",
+      "name": "Financial Times",
+      "lane": "original_reporting",
+      "pattern": "/content/[a-f0-9-]+/?"
+    },
+    {
+      "host": "bloomberg.com",
+      "name": "Bloomberg",
+      "lane": "original_reporting",
+      "pattern": "/news/articles/20\\d{2}-\\d{2}-\\d{2}/[^/]+/?"
+    },
+    {
+      "host": "wsj.com",
+      "name": "The Wall Street Journal",
+      "lane": "original_reporting",
+      "pattern": "/(?:[^/]+/)+[^/]+/?"
+    },
+    {
+      "host": "biba.org.uk",
+      "lane": "industry_release",
+      "pattern": "/press-releases/[a-z0-9-]+/?"
+    },
+    {
+      "host": "ageas.co.uk",
+      "lane": "company_release",
+      "pattern": "/press-releases/20\\d{2}-press-releases/[a-z0-9-]+/?"
+    },
+    {
+      "host": "lmalloyds.com",
+      "lane": "industry_release",
+      "pattern": "/[a-z0-9-]{24,}/?"
+    },
+    {
+      "host": "mgaa.co.uk",
+      "lane": "industry_release",
+      "pattern": "/[a-z0-9-]{24,}/?"
+    },
+    {
+      "host": "howdengroup.com",
+      "lane": "company_release",
+      "pattern": "/(?:news-insights|news-and-insights)/[a-z0-9-]{12,}/?"
+    },
+    {
+      "host": "investor.ajg.com",
+      "lane": "company_release",
+      "pattern": "/news/news-details/20\\d{2}/[a-z0-9-]+/default\\.aspx"
+    },
+    {
+      "host": "hiscoxgroup.com",
+      "lane": "company_release",
+      "pattern": "/news/press-releases/20\\d{2}/\\d{2}-\\d{2}-\\d{2}/?"
+    },
+    {
+      "host": "news.uk.chubb.com",
+      "lane": "company_release",
+      "pattern": "/news-releases/?"
+    },
+    {
+      "host": "admiralgroup.co.uk",
+      "lane": "company_release",
+      "pattern": "/news-releases/news-release-details/[a-z0-9-]+/?"
+    },
+    {
+      "host": "lloydsbank.com",
+      "lane": "company_release",
+      "pattern": "/news-and-insights/20\\d{2}/[a-z0-9-]+\\.html"
+    },
+    {
+      "host": "lloyds.com",
+      "lane": "industry_release",
+      "pattern": "/insights/media-centre/press-releases/[a-z0-9-]+/?"
+    },
+    {
+      "host": "zurich.co.uk",
+      "lane": "company_release",
+      "pattern": "/media-centre/[a-z0-9-]+(?:/[a-z0-9-]+)?/?"
+    },
+    {
+      "host": "axa.co.uk",
+      "lane": "company_release",
+      "pattern": "/newsroom/media-releases/20\\d{2}/[a-z0-9-]+/?"
+    },
+    {
+      "host": "starlingbank.com",
+      "lane": "company_release",
+      "pattern": "/news/[a-z0-9-]+/?"
+    },
+    {
+      "host": "revolut.com",
+      "lane": "company_release",
+      "pattern": "/news/[a-z0-9_-]+/?"
+    },
+    {
+      "host": "fscs.org.uk",
+      "lane": "official_release",
+      "pattern": "/news/[a-z0-9-]+(?:/[a-z0-9-]+)?/?"
+    },
+    {
+      "host": "qbeeurope.com",
+      "name": "QBE Europe",
+      "lane": "company_release",
+      "pattern": "/news-and-events/press-releases/[a-z0-9-]+/?"
+    },
+    {
+      "host": "beazley.com",
+      "name": "Beazley",
+      "lane": "company_release",
+      "pattern": "/en-GB/news-and-events/[a-z0-9-]+/?"
+    }
+  ]
+}

@@ -62,6 +62,9 @@ def source_lane(url: str) -> str | None:
     if regulatory:return regulatory
     extra=extra_lane(url)
     if extra:return extra
+    from source_registry import registered_lane
+    registered=registered_lane(url)
+    if registered:return registered
     if host in {"fca.org.uk", "www.fca.org.uk"}:
         if FCA_REPORT.fullmatch(path):
             return "fca_data"
@@ -162,5 +165,6 @@ def self_test():
 
 if __name__ == "__main__":
     self_test()
+
 
 

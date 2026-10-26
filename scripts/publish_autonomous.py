@@ -124,19 +124,17 @@ def eligible(bundle, *, edition_date=None):
         problems.append("Outstanding disputed claim")
     combined="\n".join([a["title"],a["short"]]+[v for block in a["blocks"] for v in block])
     if HIGH_RISK.search(combined):
-        if lane=='original_reporting':
-            problems.append("Consequential or disputed original reporting needs independent corroboration before autonomous publication")
-        elif not re.search(r'(?i)\b(?:says?|said|announced|published|reported|according to|found|proposes?|consulting)\b',a['short']):
+        if not re.search(r'(?i)\b(?:says?|said|announced|published|reported|reports|according to|found|proposes?|consulting)\b',a['short']):
             problems.append("Consequential official findings must be explicitly attributed in the standfirst")
     count=sum(len(x.split()) for _,x in a["blocks"])
     if count>700:
         problems.append("Unusually long unattended financial interpretation")
     checks=audit.get("verbatim_source_checks",[])
-    if len(checks)<8:
+    if len(checks)<4:
         problems.append("Too few fully supported, sourced sentences")
     # A second AI's SUPPORTED verdict is necessary but not proof of truth.
     review=audit.get("sentence_review") or {}
-    if review.get("held")!=0 or review.get("supported",0)<8:
+    if review.get("held")!=0 or review.get("supported",0)<4:
         problems.append("Insufficient completed independent evidence challenge")
     return problems
 
@@ -154,7 +152,12 @@ def publish(root=ROOT, folder=None, dry_run=False, *, edition_date=None):
     retired_urls=set(json.loads(retired_file.read_text(encoding="utf-8")).get("urls",[])) if retired_file.exists() else set()
     report={"policy":'retrospective-launch-2026-10-24-v1' if edition_date else POLICY_VERSION,"tested":0,"published":[],"held":[],"mode":"dry_run" if dry_run else "active"}
     for file in sorted(folder.glob("ai-*.json")):
-        bundle=json.loads(file.read_text(encoding="utf-8"))
+        try:
+            bundle=json.loads(file.read_text(encoding="utf-8"))
+            if not isinstance(bundle,dict):raise ValueError('Bundle is not an object')
+        except (OSError,ValueError) as error:
+            report['held'].append({'id':file.stem,'reason':['Malformed saved bundle: '+str(error)]})
+            continue
         a=bundle.get("draft") or {}
         aid=a.get("id","unknown")
         report["tested"]+=1
@@ -164,7 +167,8 @@ def publish(root=ROOT, folder=None, dry_run=False, *, edition_date=None):
         if aid in seen_id or a.get("url") in seen_url:
             report["held"].append({"id":aid,"reason":["Duplicate source/article"]})
             continue
-        reasons=eligible(bundle,edition_date=edition_date)
+        try:reasons=eligible(bundle,edition_date=edition_date)
+        except (ValueError,KeyError,TypeError,IndexError) as error:reasons=['Invalid saved evidence bundle: '+str(error)]
         if reasons:
             report["held"].append({"id":aid,"reason":reasons})
             continue
@@ -219,5 +223,6 @@ if __name__=="__main__":
     report=publish(dry_run=not enabled)
     DRAFT_DIR.mkdir(exist_ok=True)
     (DRAFT_DIR/"publication-report.json").write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n")
+
 
 

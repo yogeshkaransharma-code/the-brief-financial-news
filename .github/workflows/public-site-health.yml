@@ -1,10 +1,14 @@
 name: Independent live publication health
 on:
   workflow_dispatch:
+  workflow_run:
+    workflows: ["The Brief — hourly newsroom and site maintenance"]
+    types: [completed]
   schedule:
-    - cron: '47 * * * *'
+    - cron: '7,27,47 * * * *'
 permissions:
   contents: read
+  actions: write
 jobs:
   live-reader:
     runs-on: ubuntu-latest
@@ -14,6 +18,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Detect delayed, missing or failed newsroom cycles and recover
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python scripts/recover_schedule.py
       - name: Verify live edition, full archive and monitoring freshness
         run: python scripts/verify_live.py --monitor
       - name: Install browser
@@ -31,4 +39,5 @@ jobs:
           path: browser-evidence/
           retention-days: 30
           if-no-files-found: warn
+
 

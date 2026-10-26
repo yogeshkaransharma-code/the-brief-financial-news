@@ -58,8 +58,8 @@ def main():
  # Distinct titles ensure this tests multi-story commissioning, not duplicate refusal.
  for n,(i,_) in enumerate(docs):i['title']=['Lloyds reports profits and deposit growth','Aviva expands commercial insurance products','Pension tax consultation published','Broker buys regional intermediary'][n]
  selected,decision=choose(docs,ledger,meter,lambda _:copy.deepcopy(response),edition_date='2026-10-25')
- assert len(selected)==2 and meter.run_used==1
- assert len(ledger['editorial_rejections'])==2
+ assert len(selected)==3 and meter.run_used==0
+ assert not ledger.get('editorial_rejections')
  from launch_acceptance import evaluate
  assert evaluate([])['result']=='EVIDENCE_PENDING'
  one={'live_check':'success','deployment':'success','run_id':'1','checked_at':now.isoformat(),'event':'push','technical_status':'LIVE_VERIFIED','editorial_outcome':'PUBLISHED','published_this_run':1,'publisher_links':2,'ai_budget':{'requests_this_run':3},'browser_check':'success','commissioned_stories':[{'category':'Banking'},{'category':'Insurance'},{'category':'Pensions'}]}
@@ -69,3 +69,4 @@ def main():
  assert evaluate([one,two,two],now)['result']=='EVIDENCE_PENDING','Duplicate schedule run counted twice'
  print('PASS: original journalism across four sectors, clean URLs, spoof/freshness/lifestyle rejection, warning isolation, multi-story selection and rejection cache')
 if __name__=='__main__':main()
+

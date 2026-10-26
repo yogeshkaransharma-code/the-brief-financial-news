@@ -27,6 +27,8 @@ INDEXES=(
     ("Bank of England","Banking","https://www.bankofengland.co.uk/news/latest-and-upcoming"),
 )
 INDEXES += EXTRA_INDEXES
+from source_registry import configured
+INDEXES=tuple((r['name'],r.get('internal_category',r['desk']),r['url']) for r in configured('index'))
 MON={"jan":1,"feb":2,"mar":3,"apr":4,"may":5,"jun":6,"jul":7,"aug":8,"sep":9,"sept":9,"oct":10,"nov":11,"dec":12}
 DATE=re.compile(r"\b([0-3]?\d)(?:st|nd|rd|th)?\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)[a-z]*\s+(20\d\d)\b",re.I)
 MONTH_FIRST=re.compile(r"\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)[a-z]*\s+([0-3]?\d),?\s+(20\d\d)\b",re.I)
@@ -36,6 +38,10 @@ SLASH_DATE=re.compile(r"\b([0-3]?\d)/([01]?\d)/(20\d\d)\b")
 def official_release(url, source):
     p=urlsplit(url)
     if p.scheme!="https" or p.username or p.password:return False
+    from source_registry import registered_lane
+    registered=next((r for r in configured('index') if r['name']==source),None)
+    if registered and p.hostname.removeprefix('www.')==urlsplit(registered['url']).hostname.removeprefix('www.') and registered_lane(url):
+        return True
     if source in {x[0] for x in EXTRA_INDEXES}:
         return source_lane(url) is not None
     if source=="Association of British Insurers":
@@ -261,3 +267,4 @@ def self_test():
 
 if __name__=="__main__":
     self_test()
+
