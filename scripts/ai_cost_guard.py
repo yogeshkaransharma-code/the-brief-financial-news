@@ -12,7 +12,7 @@ from publication_scope import source_lane
 MAX_REQUESTS_PER_RUN=7  # One selection plus at most three writer/reviewer pairs.
 MAX_REQUESTS_PER_DAY=30  # Local ceiling, not a claim about Google's project quota.
 MAX_SOURCE_CHARS=43000  # Matches the full-capture reader; never truncate a document.
-MIN_SOURCE_CHARS=850
+MIN_SOURCE_CHARS=200
 PACIFIC=ZoneInfo('America/Los_Angeles')
 
 class BudgetExhausted(RuntimeError):pass
@@ -37,7 +37,7 @@ class CallBudget:
             temp.write_text(json.dumps(self.ledger,ensure_ascii=False,indent=2,sort_keys=True)+'\n')
             temp.replace(self.path)
     def remaining(self):return max(0,min(self.per_run-self.run_used,self.per_day-self.daily_used))
-    def call(self,fn,prompt,*,diagnostic=False):
+    def call(self,fn,prompt,*,diagnostic=False,purpose='production'):
         if self.path:
             quota_day=self._clock().astimezone(PACIFIC).date().isoformat()
             if quota_day!=self.today:
@@ -54,7 +54,7 @@ class CallBudget:
             if delay>0:time.sleep(delay)
         self.daily_used+=1;self.run_used+=1
         journal=self.ledger.setdefault('api_calls',[])
-        entry={'at':dt.datetime.now(dt.timezone.utc).isoformat(),'result':'reserved','prompt_characters':len(prompt),'purpose':'one-time launch diagnostic' if diagnostic else 'production'}
+        entry={'at':dt.datetime.now(dt.timezone.utc).isoformat(),'result':'reserved','prompt_characters':len(prompt),'purpose':'one-time launch diagnostic' if diagnostic else purpose}
         journal.append(entry);self.ledger['api_calls']=journal[-100:]
         self._sync()  # reservation survives an exception or interrupted call
         self.last_call=time.monotonic()
@@ -100,4 +100,5 @@ def self_test():
         assert CallBudget(ledger,t+dt.timedelta(hours=8),per_run=2,per_day=3).remaining()==2
     print('PASS: durable reservations, failure accounting, hard caps and Pacific reset')
 if __name__=='__main__':self_test()
+
 

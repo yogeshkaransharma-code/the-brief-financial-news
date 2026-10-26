@@ -115,7 +115,7 @@ def batch_schema(prompt):
     if 'SOURCE PACKETS:' in prompt:
         article={'type':'OBJECT','required':['headline','standfirst','sections'],'properties':{
           'headline':string,'standfirst':string,
-          'sections':{'type':'ARRAY','minItems':2,'maxItems':5,'items':{'type':'OBJECT','required':['heading','text'],'properties':{'heading':string,'text':string}}}}}
+          'sections':{'type':'ARRAY','minItems':1 if prompt.startswith('ONE_PASS_NEWSROOM') else 2,'maxItems':10 if prompt.startswith('ONE_PASS_NEWSROOM') else 5,'items':{'type':'OBJECT','required':['heading','text'],'properties':{'heading':string,'text':string}}}}}
         entry={'type':'OBJECT','required':['id','article'],'properties':{'id':string,'article':article}}
     elif 'array of {id, reviews}' in prompt:
         review={'type':'OBJECT','required':['id','verdict','source_id','issue'],'properties':{

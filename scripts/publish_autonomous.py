@@ -37,6 +37,10 @@ CAUSAL = re.compile(r"\b(?:caused by|resulted in|as a result of|led to)\b", re.I
 
 def eligible(bundle, *, edition_date=None):
     """Return reasons to HOLD; never decide eligibility from a model score."""
+    if bundle.get('audit',{}).get('pipeline_version')==3:
+        from single_pass import eligible as single_pass_eligible
+        if edition_date is not None:return ['Single-pass articles use their actual current source date']
+        return single_pass_eligible(bundle)
     a, audit = bundle.get("draft",{}), bundle.get("audit",{})
     problems=[]
     try:
@@ -193,14 +197,27 @@ def publish(root=ROOT, folder=None, dry_run=False, *, edition_date=None):
             "published_article_sha256":canonical(item),
             "source_document_urls":bundle["audit"]["source_document_urls"],
             "date_evidence":bundle["audit"].get("date_evidence"),
-            "independent_claim_checks":bundle["audit"]["verbatim_source_checks"],
+            "independent_claim_checks":bundle["audit"].get("verbatim_source_checks",[]),
             "review_headings":True,
             "workflow_run_url":("https://github.com/"+os.getenv("GITHUB_REPOSITORY","")+"/actions/runs/"+os.getenv("GITHUB_RUN_ID","")),
-            "claim_challenge_sentences":bundle["audit"]["sentence_review"]["reviewed"],
+            "claim_challenge_sentences":bundle["audit"].get("sentence_review",{}).get("reviewed",0),
             "editorial_omissions":bundle['audit'].get('editorial_omissions',[]),
             "editor_notes":"Original regulator or first-party banking/insurance release; machine-screened, not fact-certified by a human editor.",
             "residual_risk":"The AI and source may be wrong; a passing automated check does not prove a claim's meaning.",
         }
+        if bundle['audit'].get('pipeline_version')==3:
+            from single_pass import POLICY
+            item.pop('reviewed_by',None);item.pop('reviewed_at',None)
+            item['independent_review']=False
+            item['editorial_status']='PUBLISHED: single-pass source-based AI writing; no independent or human review'
+            review_record.update(review_mode='single_pass_source_based',automation_policy_version=POLICY,
+                independent_review=False,independent_claim_checks=[],review_headings=False,claim_challenge_sentences=0,
+                generated_draft_sha256=bundle['audit']['draft_sha256'],published_article_sha256=canonical(item),
+                editor_notes='Original writing from a captured current source. Owner-authorised single writing pass; no separate AI or human editorial review.')
+            review_record.pop('reviewed_draft_sha256',None)
+            review_record['generated_at_utc']=review_record.pop('approved_at_utc')
+            review_record['generation_actor']=review_record.pop('approved_by_github_actor')
+            report['policy']=POLICY
         if edition_date is not None:
             review_record['edition_date']=edition_date
             review_record['retrospective_launch']=True

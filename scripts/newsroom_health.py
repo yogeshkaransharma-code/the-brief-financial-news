@@ -39,7 +39,7 @@ def assess(articles,report,now,publication=None,feeds=None,launch=None):
   'candidates_by_sector':report.get('candidates_by_sector',{}),'verified_by_sector':report.get('verified_by_sector',{}),
   'articles_commissioned':len(report.get('editorial_selection',{}).get('selected',[])),
   'articles_held':len(publication.get('held',[]))+sum(x.get('result') in {'held for review','held back'} for x in report.get('items_checked',[])),
-  'machine_screened':report.get('machine_screened',0),'primary_indexes_checked':checked,
+  'machine_screened':report.get('machine_screened',0),'independent_review':report.get('independent_review',True),'publication_policy':report.get('policy'),'articles_ready_to_publish':report.get('articles_ready_to_publish',0),'primary_indexes_checked':checked,
   'primary_index_failures':failures,'feeds_working':feed_ok,'feed_failures':feed_fail,
   'ai_budget':report.get('api_budget',{}),'quota_pause_until':report.get('active_quota_pause_until'),
   'pipeline_metrics':report.get('metrics',{}),'source_fallbacks':report.get('source_fallbacks',[]),'candidate_outcomes':report.get('items_checked',[]),'discovery_errors':errors,

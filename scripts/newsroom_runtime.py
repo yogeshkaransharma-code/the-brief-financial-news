@@ -28,7 +28,7 @@ def read_json(path,default):
     try:return json.loads(Path(path).read_text())
     except (OSError,ValueError):return default
 
-def run(root=None,now=None,*,discovery=discover,trace=find_originals,reader=read_source,ai=fetch_ai,search=search_alternatives):
+def run(root=None,now=None,*,discovery=discover,trace=find_originals,reader=read_source,ai=fetch_ai,search=search_alternatives,single_pass=True):
     root=Path(root or Path(__file__).resolve().parents[1]);out=root/'generated-drafts'
     out.mkdir(parents=True,exist_ok=True);now=now or dt.datetime.now(dt.timezone.utc)
     events=[];metrics=Counter();checkpoints=Checkpoints(out)
@@ -54,7 +54,7 @@ def run(root=None,now=None,*,discovery=discover,trace=find_originals,reader=read
         rec=defer(attempts,item['url'],error,now,stage);persist()
         event(item,'held back',stage,error,classification=rec['classification'],retry_after=rec['retry_after'])
     def call(prompt):
-        response=meter.call(ai,prompt)
+        response=meter.call(ai,prompt,purpose='single_pass_writing' if single_pass else 'production')
         atomic_json(out/'model-responses'/('response-'+str(meter.run_used)+'.json'),response)
         return response
     items=read_json(root/'data/live.json',{}).get('items',[])
@@ -151,83 +151,88 @@ def run(root=None,now=None,*,discovery=discover,trace=find_originals,reader=read
             checkpoints.save(item,doc,status='captured',article=None,bundle=None)
         verified.append((item,doc));event(item,'source verified','source','Complete captured source; original UK publication date validated',source_sha256=doc.evidence_sha256,capture_method=method)
     metrics['verified_original_candidates']=len(verified)
-    # Recover clean bundles before considering cooldowns or model quota.
-    work=[]
-    for item,doc in verified:
-        state=checkpoints.read(item['url']) or {}
-        if not state.get('article'):
-            from newsroom_v2 import make_article
-            for file in (root/'editorial/draft-recovery').glob('*.json'):
-                recovery=read_json(file,{})
-                if recovery.get('source_url')==item['url'] and recovery.get('source_sha256')==doc.evidence_sha256:
-                    try:
-                        article=make_article(recovery['writer_response'],item,doc)
-                        state=checkpoints.save(item,doc,status='drafted',article=article)
-                        attempts.pop(item['url'],None)
-                        event(item,'draft recovered','recovery','Original saved model response revalidated; independent review still required')
-                    except (ValueError,KeyError,TypeError) as error:
-                        event(item,'recovery held','recovery',error)
-        if state.get('status')=='reviewed' and state.get('bundle'):
-            atomic_json(out/('ai-'+identity(item['url'])+'.json'),state['bundle'])
-            metrics['reviews_recovered']+=1;event(item,'draft recovered','recovery','Saved reviewed bundle sent to the final publication gate');continue
-        if state.get('status')=='held' and state.get('review_policy',1)>=2:
-            event(item,'held for review','independent_review',state.get('reason','Unsupported claims; unchanged evidence is not rewritten hourly'));continue
-        if state.get('status')=='held':
-            event(item,'review retry','independent_review','One re-review under publisher-provenance policy 2; no claims bypassed')
-        if cooling(attempts.get(item['url'],{}),now):
-            event(item,'retry deferred',attempts[item['url']].get('stage','model'),attempts[item['url']].get('last_result',''),retry_after=attempts[item['url']].get('retry_after'));continue
-        work.append((item,doc))
-    selected,selection=choose(work,ledger,meter,ai,edition_date=clock(now).date().isoformat(),max_stories=9)
-    # A bounded batch of three uses one writer and one separate reviewer call.
-    # Already-written articles need only their outstanding review request.
-    model_failures=0
-    for start in range(0,len(selected),3):
-        batch=selected[start:start+3];pending=[];needs=[]
-        for item,doc in batch:
-            saved=checkpoints.read(item['url']) or {}
-            if saved.get('article'):
-                pending.append((item,doc,saved['article']));metrics['drafts_recovered']+=1
-            else:needs.append((item,doc))
-        paused=cooling({'retry_after':ledger.get('quota_pause_until')},now)
-        needed=int(bool(needs))+1
-        if paused or meter.remaining()<needed or model_failures>=2:
-            for item,doc in batch:event(item,'deferred','model','Provider cooldown' if paused else 'Reserved draft/review allowance unavailable; checkpoint retained')
-            metrics['model_deferred']+=len(batch);continue
-        stage='writing'
-        def written(item,doc,article):
-            checkpoints.save(item,doc,status='drafted',article=article)
-            pending.append((item,doc,article));metrics['articles_drafted']+=1
-            event(item,'drafted','writing','Original article saved before independent review')
-        def reviewed(item,doc,article,bundle,passed):
-            checkpoints.save(item,doc,status='reviewed' if passed else 'held',article=article,bundle=bundle,review_policy=2,reason='; '.join(x.get('reason','') for x in bundle.get('editorial_flags',[])))
-            atomic_json(out/(('' if passed else 'HOLD-')+article['id']+'.json'),bundle)
-            if passed:
-                attempts.pop(item['url'],None);metrics['articles_passing_review']+=1
-                event(item,'draft saved','independent_review','Every sentence passed separate source-evidence review; final publication gate follows')
-            else:
-                metrics['review_rejected']+=1;event(item,'held for review','independent_review',bundle.get('editorial_flags'))
-            persist()
-        try:
-            if needs:draft_batch(needs,call,written,failure)
-            stage='independent_review'
-            if pending:review_batch(pending,call,reviewed,failure)
-        except Exception as error:
-            model_failures+=1
-            for item,doc in batch:failure(item,stage,error)
-            if isinstance(error,GeminiAPIError) and error.status==429:
-                from newsroom_v2 import next_quota_check
-                ledger['quota_pause_until']=next_quota_check('daily limit' if error.daily else str(error),now).isoformat()
-            # Continue source/report processing and other bounded batches after
-            # one temporary model error. Completed drafts survive for review.
-            persist()
+    if single_pass:
+        from single_pass import process
+        selection=process(verified,root=root,out=out,checkpoints=checkpoints,ledger=ledger,meter=meter,now=now,call=call,event=event,metrics=metrics,failure=failure,persist=persist)
+        work=verified
+    else:
+        # Recover clean bundles before considering cooldowns or model quota.
+        work=[]
+        for item,doc in verified:
+            state=checkpoints.read(item['url']) or {}
+            if not state.get('article'):
+                from newsroom_v2 import make_article
+                for file in (root/'editorial/draft-recovery').glob('*.json'):
+                    recovery=read_json(file,{})
+                    if recovery.get('source_url')==item['url'] and recovery.get('source_sha256')==doc.evidence_sha256:
+                        try:
+                            article=make_article(recovery['writer_response'],item,doc)
+                            state=checkpoints.save(item,doc,status='drafted',article=article)
+                            attempts.pop(item['url'],None)
+                            event(item,'draft recovered','recovery','Original saved model response revalidated; independent review still required')
+                        except (ValueError,KeyError,TypeError) as error:
+                            event(item,'recovery held','recovery',error)
+            if state.get('status')=='reviewed' and state.get('bundle'):
+                atomic_json(out/('ai-'+identity(item['url'])+'.json'),state['bundle'])
+                metrics['reviews_recovered']+=1;event(item,'draft recovered','recovery','Saved reviewed bundle sent to the final publication gate');continue
+            if state.get('status')=='held' and state.get('review_policy',1)>=2:
+                event(item,'held for review','independent_review',state.get('reason','Unsupported claims; unchanged evidence is not rewritten hourly'));continue
+            if state.get('status')=='held':
+                event(item,'review retry','independent_review','One re-review under publisher-provenance policy 2; no claims bypassed')
+            if cooling(attempts.get(item['url'],{}),now):
+                event(item,'retry deferred',attempts[item['url']].get('stage','model'),attempts[item['url']].get('last_result',''),retry_after=attempts[item['url']].get('retry_after'));continue
+            work.append((item,doc))
+        selected,selection=choose(work,ledger,meter,ai,edition_date=clock(now).date().isoformat(),max_stories=9)
+        # A bounded batch of three uses one writer and one separate reviewer call.
+        # Already-written articles need only their outstanding review request.
+        model_failures=0
+        for start in range(0,len(selected),3):
+            batch=selected[start:start+3];pending=[];needs=[]
+            for item,doc in batch:
+                saved=checkpoints.read(item['url']) or {}
+                if saved.get('article'):
+                    pending.append((item,doc,saved['article']));metrics['drafts_recovered']+=1
+                else:needs.append((item,doc))
+            paused=cooling({'retry_after':ledger.get('quota_pause_until')},now)
+            needed=int(bool(needs))+1
+            if paused or meter.remaining()<needed or model_failures>=2:
+                for item,doc in batch:event(item,'deferred','model','Provider cooldown' if paused else 'Reserved draft/review allowance unavailable; checkpoint retained')
+                metrics['model_deferred']+=len(batch);continue
+            stage='writing'
+            def written(item,doc,article):
+                checkpoints.save(item,doc,status='drafted',article=article)
+                pending.append((item,doc,article));metrics['articles_drafted']+=1
+                event(item,'drafted','writing','Original article saved before independent review')
+            def reviewed(item,doc,article,bundle,passed):
+                checkpoints.save(item,doc,status='reviewed' if passed else 'held',article=article,bundle=bundle,review_policy=2,reason='; '.join(x.get('reason','') for x in bundle.get('editorial_flags',[])))
+                atomic_json(out/(('' if passed else 'HOLD-')+article['id']+'.json'),bundle)
+                if passed:
+                    attempts.pop(item['url'],None);metrics['articles_passing_review']+=1
+                    event(item,'draft saved','independent_review','Every sentence passed separate source-evidence review; final publication gate follows')
+                else:
+                    metrics['review_rejected']+=1;event(item,'held for review','independent_review',bundle.get('editorial_flags'))
+                persist()
+            try:
+                if needs:draft_batch(needs,call,written,failure)
+                stage='independent_review'
+                if pending:review_batch(pending,call,reviewed,failure)
+            except Exception as error:
+                model_failures+=1
+                for item,doc in batch:failure(item,stage,error)
+                if isinstance(error,GeminiAPIError) and error.status==429:
+                    from newsroom_v2 import next_quota_check
+                    ledger['quota_pause_until']=next_quota_check('daily limit' if error.daily else str(error),now).isoformat()
+                # Continue source/report processing and other bounded batches after
+                # one temporary model error. Completed drafts survive for review.
+                persist()
     ledger['sources']={url:value for url,value in attempts.items() if value.get('attempted_at','')>=(now-dt.timedelta(days=7)).isoformat()}
     ledger['version']=2;persist()
     coverage=read_json(out/'primary-discovery.json',[])
     from source_health import update as update_health
     atomic_json(root/'data/source-health.json',update_health(read_json(root/'data/source-health.json',{}),read_json(root/'data/live.json',{}),coverage,events,now))
-    report={'generated_at':now.isoformat(),'policy':POLICY,'model':ACTIVE_MODEL,
-      'machine_screened':metrics['articles_passing_review']+metrics['reviews_recovered'],
-      'api_budget':meter.snapshot(),'metrics':dict(metrics),'ai_policy':'Deterministic commissioning; batched original writing and separate complete sentence review; Gemini only',
+    report={'generated_at':now.isoformat(),'policy':__import__('single_pass').POLICY if single_pass else POLICY,'model':ACTIVE_MODEL,
+      'machine_screened':metrics['articles_passing_review']+metrics['reviews_recovered'],'independent_review':not single_pass,'articles_ready_to_publish':metrics['articles_ready_to_publish'],
+      'api_budget':meter.snapshot(),'metrics':dict(metrics),'ai_policy':'Single-pass source-based writing; no independent AI review' if single_pass else 'Legacy writing plus independent review',
       'first_party_indexes_checked':len(coverage),'first_party_discovery_errors':errors,
       'fresh_unpublished_source_candidates':len(candidates),'available_after_retry_cooldowns':len(work),
       'eligible_for_this_run':len(sampled),'verified_original_candidates':len(verified),
