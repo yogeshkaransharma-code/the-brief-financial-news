@@ -33,6 +33,10 @@ def main():
             return json.loads(data) if data else None
     runs=api('/actions/workflows/ai-newsroom.yml/runs?branch=main&per_page=50')['workflow_runs']
     launch,reason=decision(runs,dt.datetime.now(dt.timezone.utc))
+    if launch and runs and runs[0].get('conclusion')=='failure':
+        jobs=api('/actions/runs/'+str(runs[0]['id'])+'/jobs')['jobs']
+        if any(j.get('name')=='Discover, verify and maintain publication' and j.get('conclusion')=='success' for j in jobs):
+            launch=False;reason='Cycle completed; editorial blockage is recorded and will retry on schedule'
     report={'checked_at':dt.datetime.now(dt.timezone.utc).isoformat(),'dispatch':launch,'reason':reason}
     if launch:api('/actions/workflows/ai-newsroom.yml/dispatches',{'ref':'main'})
     print('SCHEDULE_RECOVERY:',json.dumps(report))
