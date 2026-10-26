@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-26T00:53:16.005283+00:00",
+  "checked_at": "2026-10-26T01:46:37.098996+00:00",
   "uk_date": "2026-10-26",
   "outcome": "NO_QUALIFYING_NEWS",
   "editorial_outcome": "NO_QUALIFYING_NEWS",
@@ -11,16 +11,29 @@
   "published_this_run": 0,
   "genuine_same_day_articles": 0,
   "editorial_selection": {
-    "result": "NO_VERIFIED_CANDIDATES",
-    "requests": 0,
-    "selected": []
+    "result": "NO_WORTHWHILE_NEWS",
+    "requests": 1,
+    "cache_key": "c174c03d81d88f79781c90c6be7911eb391f819820f795199abda95fd95bc766",
+    "selected": [],
+    "skipped": [
+      {
+        "id": "N01",
+        "reason": "Speculative commentary on upcoming fiscal policy and macroeconomics rather than a concrete corporate, regulatory, or operational development for banking or insurance professionals.",
+        "url": "https://www.bbc.co.uk/news/articles/ck87z4ng2l03o",
+        "category": "Banking"
+      }
+    ]
   },
   "published_total": 15,
   "last_article_at": "2026-10-25T16:31:49.549910+00:00",
-  "fresh_source_candidates": 1,
-  "verified_original_candidates": 0,
-  "candidates_by_sector": {},
-  "verified_by_sector": {},
+  "fresh_source_candidates": 2,
+  "verified_original_candidates": 1,
+  "candidates_by_sector": {
+    "Banking": 1
+  },
+  "verified_by_sector": {
+    "Banking": 1
+  },
   "articles_commissioned": 0,
   "articles_held": 0,
   "machine_screened": 0,
@@ -31,57 +44,28 @@
   "ai_budget": {
     "quota_date": "2026-10-25",
     "quota_timezone": "America/Los_Angeles",
-    "requests_this_run": 0,
-    "requests_today_including_this_run": 24,
+    "requests_this_run": 1,
+    "requests_today_including_this_run": 25,
     "run_limit": 7,
     "daily_limit": 30,
-    "remaining_today": 6
+    "remaining_today": 5
   },
   "quota_pause_until": null,
   "candidate_outcomes": [],
   "discovery_errors": [
-    "UK Parliament: HTTPError HTTP Error 403: Forbidden",
     "Allianz UK: HTTPError HTTP Error 403: Forbidden",
+    "UK Parliament: HTTPError HTTP Error 403: Forbidden",
     "Association of British Insurers: HTTPError HTTP Error 403: Forbidden",
     "Revolut UK: HTTPError HTTP Error 403: Forbidden"
   ],
   "publication_holds": [],
-  "run_id": "40251462218",
+  "run_id": "40255830117",
   "event": "schedule",
-  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40251462218",
+  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40255830117",
   "publisher_links": 0,
-  "discovery_headlines": 1,
-  "publisher_desk_checked_at": "2026-10-26T00:53:02.197232+00:00",
+  "discovery_headlines": 2,
+  "publisher_desk_checked_at": "2026-10-26T01:46:25.691949+00:00",
   "previous_verified_runs": [
-    {
-      "run_id": "40202185077",
-      "event": "push",
-      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40202185077",
-      "editorial_outcome": "NO_QUALIFYING_NEWS",
-      "published_this_run": 0,
-      "publisher_links": 0,
-      "discovery_headlines": 7,
-      "source_coverage_status": "PARTIAL",
-      "fresh_source_candidates": 7,
-      "verified_by_sector": {
-        "Banking": 1
-      },
-      "ai_budget": {
-        "quota_date": "2026-10-25",
-        "quota_timezone": "America/Los_Angeles",
-        "requests_this_run": 1,
-        "requests_today_including_this_run": 16,
-        "run_limit": 7,
-        "daily_limit": 30,
-        "remaining_today": 14
-      },
-      "commissioned_stories": [],
-      "checked_at": "2026-10-25T14:27:08.041750+00:00",
-      "technical_status": "LIVE_VERIFIED",
-      "deployment": "success",
-      "live_check": "success",
-      "browser_check": "success"
-    },
     {
       "run_id": "40202443515",
       "event": "push",
@@ -718,6 +702,33 @@
       "deployment": "success",
       "live_check": "success",
       "browser_check": "success"
+    },
+    {
+      "run_id": "40251462218",
+      "event": "schedule",
+      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40251462218",
+      "editorial_outcome": "NO_QUALIFYING_NEWS",
+      "published_this_run": 0,
+      "publisher_links": 0,
+      "discovery_headlines": 1,
+      "source_coverage_status": "PARTIAL",
+      "fresh_source_candidates": 1,
+      "verified_by_sector": {},
+      "ai_budget": {
+        "quota_date": "2026-10-25",
+        "quota_timezone": "America/Los_Angeles",
+        "requests_this_run": 0,
+        "requests_today_including_this_run": 24,
+        "run_limit": 7,
+        "daily_limit": 30,
+        "remaining_today": 6
+      },
+      "commissioned_stories": [],
+      "checked_at": "2026-10-26T00:53:29.411214+00:00",
+      "technical_status": "LIVE_VERIFIED",
+      "deployment": "success",
+      "live_check": "success",
+      "browser_check": "skipped"
     }
   ],
   "launch_acceptance": {
@@ -731,7 +742,7 @@
       "latest_run_technically_healthy": true,
       "latest_editorial_run_unblocked": true
     },
-    "verified_scheduled_runs": 10,
+    "verified_scheduled_runs": 11,
     "commissioned_sectors": [
       "Banking",
       "Regulation"

@@ -2,7 +2,7 @@
   "api_budget": {
     "date": "2026-10-25",
     "limit": 30,
-    "requests": 24,
+    "requests": 25,
     "timezone": "America/Los_Angeles"
   },
   "api_calls": [
@@ -594,24 +594,33 @@
         "serviceTier": "standard",
         "totalTokenCount": 1502
       }
+    },
+    {
+      "at": "2026-10-26T01:46:35.904516+00:00",
+      "prompt_characters": 4737,
+      "purpose": "production",
+      "result": "response_received",
+      "usage": {
+        "candidatesTokenCount": 67,
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 982,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 982
+          }
+        ],
+        "serviceTier": "standard",
+        "totalTokenCount": 1049
+      }
     }
   ],
   "capacity_recovery_revision": 2,
   "editorial_rejections": {
-    "https://www.bbc.co.uk/news/articles/c62kep355q02o": {
-      "edition_date": "2026-10-25",
-      "reason": "Anecdotal reporting on pre-Budget business sentiment without a substantive corporate development, policy announcement, or specific financial sector impact.",
-      "source_sha256": "871e99dd7fc50728dbaf6c3ecf83cd1be36713a08fda7e85e3426e3a3909bdb2"
-    },
-    "https://www.bbc.co.uk/news/articles/c6gel54940qno": {
-      "edition_date": "2026-10-25",
-      "reason": "Focuses on general consumer cost-of-living sentiment rather than a distinct institutional, corporate, or policy development relevant to professional financial readers.",
-      "source_sha256": "01618ff5284d0253fd175591ca6bca16e6f139d32a6189907f827e9c69c7ad83"
-    },
-    "https://www.theguardian.com/money/2026/oct/25/cookie-theft-how-fraudsters-get-the-digital-key-to-your-accounts": {
-      "edition_date": "2026-10-25",
-      "reason": "General consumer cybersecurity advice on cookie theft rather than a distinct, substantive corporate financial sector or regulatory policy development.",
-      "source_sha256": "f3d3e3bc76cc24f6122fdabd668e44482d5c79eb9eebf548418417f7d003b6f3"
+    "https://www.bbc.co.uk/news/articles/ck87z4ng2l03o": {
+      "edition_date": "2026-10-26",
+      "reason": "Speculative commentary on upcoming fiscal policy and macroeconomics rather than a concrete corporate, regulatory, or operational development for banking or insurance professionals.",
+      "source_sha256": "b5f94581b7f3990bbd49f50b5ba55105cc21217ef16b78c7beded212a8398cfd"
     }
   },
   "editorial_selections": {
@@ -723,6 +732,15 @@
         {
           "id": "N01",
           "reason": "Anecdotal reporting on pre-Budget business sentiment without a substantive corporate development, policy announcement, or specific financial sector impact."
+        }
+      ]
+    },
+    "c174c03d81d88f79781c90c6be7911eb391f819820f795199abda95fd95bc766": {
+      "selected": [],
+      "skipped": [
+        {
+          "id": "N01",
+          "reason": "Speculative commentary on upcoming fiscal policy and macroeconomics rather than a concrete corporate, regulatory, or operational development for banking or insurance professionals."
         }
       ]
     },
@@ -849,6 +867,11 @@
       "attempted_at": "2026-10-24T17:59:32.319264+00:00",
       "headline": "What is the Budget and what could be in it?",
       "retry_after": "2026-10-25T18:59:32.319264+00:00"
+    },
+    "https://www.bbc.co.uk/news/articles/ck87z4ng2l03o": {
+      "attempted_at": "2026-10-26T01:46:25.917062+00:00",
+      "headline": "Healey's Budget needs to sustain the stronger economy through gathering clouds",
+      "retry_after": "2026-10-27T02:46:25.917062+00:00"
     },
     "https://www.bbc.co.uk/news/articles/cky83vwnyglno?at_medium=RSS&at_campaign=rss": {
       "attempted_at": "2026-10-24T18:12:08.932052+00:00",
