@@ -1,8 +1,8 @@
 {
   "api_budget": {
-    "date": "2026-10-25",
+    "date": "2026-10-26",
     "timezone": "America/Los_Angeles",
-    "requests": 30,
+    "requests": 6,
     "limit": 30
   },
   "api_calls": [
@@ -692,6 +692,120 @@
           {
             "modality": "TEXT",
             "tokenCount": 3054
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-26T07:33:15.806069+00:00",
+      "result": "response_received",
+      "prompt_characters": 20283,
+      "purpose": "production",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 3960,
+        "candidatesTokenCount": 744,
+        "totalTokenCount": 4704,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 3960
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-26T07:33:30.808559+00:00",
+      "result": "response_received",
+      "prompt_characters": 18936,
+      "purpose": "production",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 3918,
+        "candidatesTokenCount": 1113,
+        "totalTokenCount": 5031,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 3918
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-26T07:33:45.811265+00:00",
+      "result": "response_received",
+      "prompt_characters": 14543,
+      "purpose": "production",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 2789,
+        "candidatesTokenCount": 405,
+        "totalTokenCount": 3194,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2789
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-26T07:34:00.814110+00:00",
+      "result": "response_received",
+      "prompt_characters": 14637,
+      "purpose": "production",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 3054,
+        "candidatesTokenCount": 757,
+        "totalTokenCount": 3811,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 3054
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-26T07:34:15.816714+00:00",
+      "result": "response_received",
+      "prompt_characters": 29132,
+      "purpose": "production",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 5802,
+        "candidatesTokenCount": 1279,
+        "totalTokenCount": 7081,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 5802
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-26T07:34:30.819351+00:00",
+      "result": "response_received",
+      "prompt_characters": 40496,
+      "purpose": "production",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 8406,
+        "candidatesTokenCount": 1707,
+        "totalTokenCount": 10113,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 8406
           }
         ],
         "serviceTier": "standard"
@@ -1525,6 +1639,16 @@
       "attempted_at": "2026-10-26T06:49:02.534221+00:00",
       "retry_after": "2026-10-27T07:49:02.534221+00:00",
       "headline": "World Bank Flags Somalia Low Tax Revenue as Key Fiscal Challenge"
+    },
+    "https://www.wsj.com/finance/jgb-yields-higher-amid-concerns-about-higher-energy-prices-897f5458": {
+      "attempted_at": "2026-10-26T07:33:04.330718+00:00",
+      "retry_after": "2026-10-27T08:33:04.330718+00:00",
+      "headline": "French Bonds May Get Relief After Moody’s Decision to Keep Rating Unchanged"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-26/french-bond-oats-australia-pension-australian-retirement-trust-yields-ecb": {
+      "attempted_at": "2026-10-26T07:33:04.330718+00:00",
+      "retry_after": "2026-10-27T08:33:04.330718+00:00",
+      "headline": "French Bond Rout Draws Australia Pension Into Market Others Shun"
     }
   },
   "sources": {
@@ -1668,15 +1792,6 @@
       "policy": "newsroom-recovery-2026-10-26-v1",
       "alternative_search_after": "2026-10-26T10:49:02.534221+00:00"
     },
-    "https://www.insurancebusinessmag.com/uk/news/environmental/storm-boelo-backtoback-storms-test-claims-and-cover-594849.aspx": {
-      "attempted_at": "2026-10-26T03:10:53.726914+00:00",
-      "retry_after": "2026-10-26T07:10:53.726914+00:00",
-      "last_result": "Source numerical register differs from captured source",
-      "classification": "EVIDENCE_UNUSABLE",
-      "stage": "independent_review",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1"
-    },
     "https://www.bloomberg.com/news/articles/2026-10-26/world-bank-somalia-low-tax-revenue-key-fiscal-challenge": {
       "attempted_at": "2026-10-26T06:49:02.534221+00:00",
       "retry_after": "2026-10-26T12:49:02.534221+00:00",
@@ -1686,6 +1801,63 @@
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1",
       "alternative_search_after": "2026-10-26T10:49:02.534221+00:00"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-26/uk-dealers-see-more-treasury-bills-coming-to-cut-debt-costs": {
+      "attempted_at": "2026-10-26T07:33:04.330718+00:00",
+      "retry_after": "2026-10-26T13:33:04.330718+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-26T11:33:04.330718+00:00"
+    },
+    "https://www.wsj.com/finance/jgb-yields-higher-amid-concerns-about-higher-energy-prices-897f5458": {
+      "attempted_at": "2026-10-26T07:33:04.330718+00:00",
+      "retry_after": "2026-10-26T13:33:04.330718+00:00",
+      "last_result": "HTTP Error 401: HTTP Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-26T11:33:04.330718+00:00"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-26/french-bond-oats-australia-pension-australian-retirement-trust-yields-ecb": {
+      "attempted_at": "2026-10-26T07:33:04.330718+00:00",
+      "retry_after": "2026-10-26T13:33:04.330718+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-26T11:33:04.330718+00:00"
+    },
+    "https://www.commercialriskonline.com/munich-res-q3-profit-falls-15-despite-lower-major-losses/": {
+      "attempted_at": "2026-10-26T07:33:04.330718+00:00",
+      "retry_after": "2026-10-26T07:48:04.330718+00:00",
+      "last_result": "Article needs coherent sections, not a rigid template",
+      "classification": "INVALID_RESPONSE",
+      "stage": "writing",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.insurancejournal.com/news/national/2026/10/26/890235.htm": {
+      "attempted_at": "2026-10-26T07:33:04.330718+00:00",
+      "retry_after": "2026-10-26T07:48:04.330718+00:00",
+      "last_result": "Article length must serve the story, got 75 words",
+      "classification": "INVALID_RESPONSE",
+      "stage": "writing",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.commercialriskonline.com/buyers-face-mounting-sanction-exclusions-and-dwindling-capacity-for-exposed-risks/": {
+      "attempted_at": "2026-10-26T07:33:04.330718+00:00",
+      "retry_after": "2026-10-26T07:48:04.330718+00:00",
+      "last_result": "Article length must serve the story, got 39 words",
+      "classification": "INVALID_RESPONSE",
+      "stage": "writing",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     }
   },
   "version": 2,
