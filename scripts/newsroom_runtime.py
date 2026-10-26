@@ -150,6 +150,18 @@ def run(root=None,now=None,*,discovery=discover,trace=find_originals,reader=read
     work=[]
     for item,doc in verified:
         state=checkpoints.read(item['url']) or {}
+        if not state.get('article'):
+            from newsroom_v2 import make_article
+            for file in (root/'editorial/draft-recovery').glob('*.json'):
+                recovery=read_json(file,{})
+                if recovery.get('source_url')==item['url'] and recovery.get('source_sha256')==doc.evidence_sha256:
+                    try:
+                        article=make_article(recovery['writer_response'],item,doc)
+                        state=checkpoints.save(item,doc,status='drafted',article=article)
+                        attempts.pop(item['url'],None)
+                        event(item,'draft recovered','recovery','Original saved model response revalidated; independent review still required')
+                    except (ValueError,KeyError,TypeError) as error:
+                        event(item,'recovery held','recovery',error)
         if state.get('status')=='reviewed' and state.get('bundle'):
             atomic_json(out/('ai-'+identity(item['url'])+'.json'),state['bundle'])
             metrics['reviews_recovered']+=1;event(item,'draft recovered','recovery','Saved reviewed bundle sent to the final publication gate');continue

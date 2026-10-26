@@ -6,7 +6,7 @@ still requires the separate source-entailment review.
 import re
 from decimal import Decimal
 
-TOKEN=re.compile(r'(?<![\w.])(?P<currency>[£$€])?\s*(?P<value>\d+(?:,\d{3})*(?:\.\d+)?)(?:\s*(?P<scale>billion|million|thousand|bn|m|k)(?!\w))?\s*(?P<percent>%?)(?!\w)',re.I)
+TOKEN=re.compile(r'(?<![\w.])(?P<currency>[£$€])?\s*(?P<value>\d+(?:,\d{3})*(?:\.\d+)?)(?:\s*(?P<scale>billion|million|thousand|bn|m|k)(?!\w))?\s*(?P<percent>%|per\s+cent|percent)?(?!\w)',re.I)
 MULTIPLIERS={'billion':9,'bn':9,'million':6,'m':6,'thousand':3,'k':3,'':0}
 
 def quantities(text):
@@ -14,7 +14,7 @@ def quantities(text):
     for match in TOKEN.finditer(text):
         scale=(match['scale'] or '').lower()
         value=Decimal(match['value'].replace(',',''))*(Decimal(10)**MULTIPLIERS[scale])
-        found.append((value,match['percent'] or '',match['currency'] or '',match.group().strip()))
+        found.append((value,'%' if match['percent'] else '',match['currency'] or '',match.group().strip()))
     return found
 
 def unsupported(text,source):
@@ -29,6 +29,10 @@ def self_test():
     for wrong in ['£101m','£100','100','50','$100m','£30']:
         assert unsupported(wrong,source),wrong
     assert not unsupported('30 firms',source)
+    assert not unsupported('3.5 percent and 3.5 per cent','3.5%')
+    assert unsupported('3.5','3.5%')
+    assert unsupported('3.6 percent','3.5%')
     print('PASS: currency spacing and equivalent units; changed value, currency, scale and percentage rejected')
 
 if __name__=='__main__':self_test()
+
