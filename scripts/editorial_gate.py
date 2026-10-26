@@ -28,7 +28,7 @@ RISKY = re.compile(
     r"(?:now\s+)?in\s+force|effective\s+immediately|"
     r"(?:final|confirmed)\s+rules?\s+(?:now\s+)?apply)\b", re.I
 )
-NUMBER = re.compile(r"(?<![\w])(?:£|\$)?\d+(?:[.,]\d+)*(?:%|bn|m|k)?(?![\w])")
+NUMBER = re.compile(r"(?<![\w])(?:£|\$)?\d+(?:[.,]\d+)*(?:%|bn|m|k)?(?![\w])", re.I)
 
 
 def check(bundle: dict, human_review: bool = False) -> dict:
@@ -160,6 +160,21 @@ def check(bundle: dict, human_review: bool = False) -> dict:
 
 def self_test():
     from editorial_fixtures import make_bundle, resign
+    # Production source used £17.5M. The writer's case-insensitive register
+    # recorded £17.5m, while this gate used to partially match it as £17.
+    import hashlib
+    numeric_bundle = make_bundle()
+    numeric_bundle['captured_source_excerpt'] += ' Insured losses totalled £17.5M and $815M, with 6.3% growth.'
+    numeric_bundle['audit']['source_sha256'] = hashlib.sha256(numeric_bundle['captured_source_excerpt'].encode()).hexdigest()
+    numeric_bundle['audit']['source_number_tokens'] = sorted(set(numeric_bundle['audit']['source_number_tokens']) | {'£17.5m', '$815m', '6.3%'})
+    assert check(numeric_bundle)['needs_human_review']
+    numeric_bundle['audit']['source_number_tokens'].remove('£17.5m')
+    numeric_bundle['audit']['source_number_tokens'].append('£17')
+    try:
+        check(numeric_bundle)
+        raise AssertionError('Incorrect numerical register accepted')
+    except ValueError as exc:
+        assert 'numerical register' in str(exc)
     bundle = make_bundle()
     assert check(bundle)["needs_human_review"]
     bundle["draft"]["status"] = "Confirmed announcement"
@@ -189,5 +204,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
