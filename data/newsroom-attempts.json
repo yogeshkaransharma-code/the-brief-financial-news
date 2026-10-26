@@ -2,7 +2,7 @@
   "api_budget": {
     "date": "2026-10-25",
     "timezone": "America/Los_Angeles",
-    "requests": 27,
+    "requests": 28,
     "limit": 30
   },
   "api_calls": [
@@ -635,6 +635,25 @@
           {
             "modality": "TEXT",
             "tokenCount": 3233
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-26T02:21:15.191971+00:00",
+      "result": "response_received",
+      "prompt_characters": 22462,
+      "purpose": "production",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 4757,
+        "candidatesTokenCount": 622,
+        "totalTokenCount": 5379,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 4757
           }
         ],
         "serviceTier": "standard"
@@ -1581,15 +1600,6 @@
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1",
       "alternative_search_after": "2026-10-26T06:11:01.869477+00:00"
-    },
-    "https://www.bbc.co.uk/news/articles/ck87z4ng2l03o": {
-      "attempted_at": "2026-10-26T02:15:26.898161+00:00",
-      "retry_after": "2026-10-26T06:15:26.898161+00:00",
-      "last_result": "Numbers absent from official source: ['3.5']",
-      "classification": "EVIDENCE_UNUSABLE",
-      "stage": "writing",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1"
     }
   },
   "version": 2,
