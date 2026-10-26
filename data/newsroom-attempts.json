@@ -1,9 +1,9 @@
 {
   "api_budget": {
     "date": "2026-10-25",
-    "limit": 30,
-    "requests": 25,
-    "timezone": "America/Los_Angeles"
+    "timezone": "America/Los_Angeles",
+    "requests": 26,
+    "limit": 30
   },
   "api_calls": [
     {
@@ -613,6 +613,13 @@
         "serviceTier": "standard",
         "totalTokenCount": 1049
       }
+    },
+    {
+      "at": "2026-10-26T02:11:10.791167+00:00",
+      "result": "failed",
+      "prompt_characters": 15745,
+      "purpose": "production",
+      "error_type": "RuntimeError"
     }
   ],
   "capacity_recovery_revision": 2,
@@ -1412,6 +1419,11 @@
       "attempted_at": "2026-10-24T18:12:08.932052+00:00",
       "headline": "Optimum Communications Prepares for Bankruptcy to Implement Deal",
       "retry_after": "2026-10-25T19:12:08.932052+00:00"
+    },
+    "https://www.bbc.co.uk/news/articles/c6x2zrjl7kjno": {
+      "attempted_at": "2026-10-26T02:11:01.869477+00:00",
+      "retry_after": "2026-10-27T03:11:01.869477+00:00",
+      "headline": "What is the Budget and what could be in it?"
     }
   },
   "sources": {
@@ -1488,7 +1500,8 @@
     "https://www.finextra.com/newsarticle/48642/riksbank-reignites-e-krona-debate": {
       "attempted_at": "2026-10-26T00:18:32.403356+00:00",
       "last_result": "HTTP Error 403: Forbidden",
-      "retry_after": "2026-10-26T04:18:32.403356+00:00"
+      "retry_after": "2026-10-26T04:18:32.403356+00:00",
+      "alternative_search_after": "2026-10-26T06:11:01.869477+00:00"
     },
     "https://www.gov.uk/government/news/government-slashes-red-tape-and-tariffs-to-give-businesses-breathing-space": {
       "attempted_at": "2026-10-24T01:58:04.583754+00:00",
@@ -1529,7 +1542,36 @@
       "attempted_at": "2026-10-25T22:26:00.106330+00:00",
       "last_result": "HTTP Error 401: HTTP Forbidden",
       "retry_after": "2026-10-26T02:26:00.106330+00:00"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-26/asset-manager-australian-dollar-shorts-hit-record-on-risk-off": {
+      "attempted_at": "2026-10-26T02:11:01.869477+00:00",
+      "retry_after": "2026-10-26T08:11:01.869477+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-26T06:11:01.869477+00:00"
+    },
+    "https://www.bbc.co.uk/news/articles/c6x2zrjl7kjno": {
+      "attempted_at": "2026-10-26T02:11:01.869477+00:00",
+      "retry_after": "2026-10-26T04:11:01.869477+00:00",
+      "last_result": "Original document was not announced today in the UK",
+      "classification": "DATE_UNVERIFIED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-26T06:11:01.869477+00:00"
+    },
+    "https://www.bbc.co.uk/news/articles/ck87z4ng2l03o": {
+      "attempted_at": "2026-10-26T02:11:01.869477+00:00",
+      "retry_after": "2026-10-26T02:26:01.869477+00:00",
+      "last_result": "All available Gemini models failed; article held: gemini-3.5-flash-lite: malformed article response",
+      "classification": "INVALID_RESPONSE",
+      "stage": "writing",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     }
   },
-  "version": 1
+  "version": 2
 }
