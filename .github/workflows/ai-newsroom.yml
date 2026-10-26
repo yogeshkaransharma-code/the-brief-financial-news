@@ -2,12 +2,13 @@ name: The Brief — hourly newsroom and site maintenance
 on:
   push:
     branches: [main]
-    paths: ['scripts/**', '.github/workflows/ai-newsroom.yml', 'index.html', 'about.html', 'data/articles.json', 'data/corrections.json']
+    paths: ['scripts/**', '.github/workflows/ai-newsroom.yml', 'index.html', 'about.html', 'data/articles.json', 'data/corrections.json', 'data/source-registry.json']
   workflow_dispatch:
   schedule:
-    - cron: '11 * * * *'  # Once per hour UTC; GitHub may delay scheduled jobs
+    - cron: '11,41 * * * *'  # Two opportunities per hour; independent watchdog detects misses
 permissions:
   contents: write
+  actions: read
   pages: write
   id-token: write
 concurrency:
@@ -45,6 +46,30 @@ jobs:
         id: headlines
         continue-on-error: true
         run: python scripts/headline_desk.py
+      - name: Recover saved source captures, drafts and completed reviews
+        continue-on-error: true
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const artifacts = await github.paginate(github.rest.actions.listArtifactsForRepo, {
+              ...context.repo, per_page: 100
+            });
+            const previous = artifacts.filter(a => !a.expired && a.name.startsWith('newsroom-evidence-') &&
+              a.workflow_run?.head_branch === 'main' && a.workflow_run?.id !== context.runId)
+              .sort((a,b) => b.id-a.id)[0];
+            if (previous) {
+              const zip = await github.rest.actions.downloadArtifact({
+                ...context.repo, artifact_id: previous.id, archive_format: 'zip'
+              });
+              fs.writeFileSync('/tmp/brief-recovery.zip', Buffer.from(zip.data));
+              core.info('Recovery artifact: ' + previous.id);
+            }
+      - name: Restore only validated recovery JSON
+        run: |
+          if test -f /tmp/brief-recovery.zip; then
+            python scripts/newsroom_state.py /tmp/brief-recovery.zip generated-drafts
+          fi
       - name: Read originals, write with Gemini and independently challenge claims
         id: writer
         continue-on-error: true
@@ -140,7 +165,7 @@ jobs:
           BRIEF_BROWSER_RESULT: ${{ steps.browser.outcome }}
         run: |
           python scripts/finish_run.py
-          git add data/run-history.json data/launch-acceptance.json
+          git add data/run-history.json data/launch-acceptance.json data/reliability.json data/status.json
           if ! git diff --cached --quiet; then
             git commit -m "Record observed deployment and live reader result"
             git pull --rebase origin main
@@ -162,4 +187,5 @@ jobs:
       - run: |
           echo "::error::Editorial production is blocked or deployment/live reading failed. Individual source outages are coverage warnings. Inspect the newsroom summary and evidence artifact. No publication success is claimed."
           exit 1
+
 

@@ -23,6 +23,8 @@ PUBLISHERS = {
  'bloomberg.com': ('Bloomberg', r'/news/articles/20\d{2}-\d{2}-\d{2}/[^/]+/?'),
  'wsj.com': ('The Wall Street Journal', r'/(?:[^/]+/)+[^/]+/?'),
 }
+from source_registry import registry
+PUBLISHERS.update({r['host']:(r['name'],r['pattern']) for r in registry()['article_routes'] if r['lane']=='original_reporting'})
 MEDIA_HOSTS={h for host in PUBLISHERS for h in (host,'www.'+host)}
 SPECIALIST_HOSTS={'insurancebusinessmag.com','reinsurancene.ws','commercialriskonline.com','insurancejournal.com','insurancetimes.co.uk','insuranceage.co.uk','finextra.com','professionalpensions.com','investmentweek.co.uk','moneymarketing.co.uk','mortgagesolutions.co.uk'}
 TRACKING=re.compile(r'^(?:utm_.*|at_.*|CMP|cmp|mod|rpc|reflink|feedType|feedName)$',re.I)
@@ -71,3 +73,4 @@ def diverse(items,limit):
    if not queues[key]:del queues[key]
    if len(output)>=limit:break
  return output
+

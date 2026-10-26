@@ -1,40 +1,21 @@
-"""Selection calls, exact candidate coverage, cache and refusal tests. No API."""
-import copy
+"""Ordinary verified developments commission without a model significance veto."""
 from types import SimpleNamespace
-from editorial_selection import choose
+from editorial_selection import choose,validate_decision
 from ai_cost_guard import CallBudget
 
 def main():
-    source=SimpleNamespace(url='https://www.fca.org.uk/news/press-releases/report',text='A newly published original financial report.',evidence_sha256='a'*64)
-    item={'url':source.url,'title':'FCA publishes a new financial reporting policy','source':'FCA','category':'Regulation','dateISO':'2026-10-25'}
-    ledger={};meter=CallBudget(ledger)
-    decision={'selected':[{'id':'N01','reason':'Substantive new financial reporting announcement.'}],'skipped':[]}
-    called=[]
-    def ai(prompt):called.append(prompt);return copy.deepcopy(decision)
-    picked,report=choose([(item,source)],ledger,meter,ai,edition_date='2026-10-25')
-    assert len(picked)==1 and len(called)==1 and report['requests']==1
-    _,cached=choose([(item,source)],ledger,meter,ai,edition_date='2026-10-25')
-    assert cached['requests']==0 and len(called)==1
-    assert choose([],ledger,meter,ai,edition_date='2026-10-25')[1]['requests']==0
-    variants=[{'selected':[{'id':'N99','reason':'An invented candidate must be rejected.'}],'skipped':[]},
-              {'selected':[],'skipped':[]},
-              {'selected':decision['selected']*2,'skipped':[]},
-              {'selected':[{'id':'N01','reason':'yes'}],'skipped':[]}]
-    for bad in variants:
-        state={};budget=CallBudget(state)
-        try:choose([(item,source)],state,budget,lambda p:bad,edition_date='2026-10-25')
-        except ValueError:pass
-        else:raise AssertionError('Invalid selection passed')
-        try:choose([(item,source)],state,budget,lambda p:(_ for _ in ()).throw(AssertionError('Repeated bad pool spent another request')),edition_date='2026-10-25')
-        except ValueError:pass
-        else:raise AssertionError('Invalid pool was retried')
-    low=CallBudget({},per_run=2)
-    try:choose([(item,source)],{},low,ai,edition_date='2026-10-25')
-    except ValueError:pass
-    else:raise AssertionError('Selection consumed a reserved writer/reviewer request')
-    assert low.run_used==0
-    rejected={'selected':[],'skipped':[{'id':'N01','reason':'Routine publicity with no substantive new development.'}]}
-    assert not choose([(item,source)],{},CallBudget({}),lambda p:rejected,edition_date='2026-10-25')[0]
-    print('PASS: Gemini selects, can reject all, cannot invent/omit/duplicate sources; cache, invalid-response stop and pair reservation')
-
+ item={'url':'https://www.fca.org.uk/news/press-releases/report','title':'FCA consults on reporting changes for small banks','source':'FCA','category':'Banking','dateISO':'2026-10-26'}
+ doc=SimpleNamespace(url=item['url'],text='Accessible dated original reporting.',evidence_sha256='a'*64)
+ ledger={};meter=CallBudget(ledger,per_run=2)
+ def never(prompt):raise AssertionError('Commissioning wasted a model request')
+ selected,report=choose([(item,doc)],ledger,meter,never,edition_date='2026-10-26')
+ assert len(selected)==1 and meter.run_used==0 and report['requests']==0
+ assert choose([],ledger,meter,never,edition_date='2026-10-26')[0]==[]
+ assert choose([(item,doc)],ledger,meter,never,edition_date='2026-10-26',max_stories=0)[1]['deferred']
+ bad=[{'selected':[{'id':'N99','reason':'Unknown source must fail validation'}],'skipped':[]}, {'selected':[],'skipped':[]}]
+ for response in bad:
+  try:validate_decision(response,{'N01':(item,doc)},3)
+  except ValueError:pass
+  else:raise AssertionError('Invalid legacy selection accepted')
+ print('PASS: deterministic commissioning, no significance threshold, deferred capacity and no model request')
 if __name__=='__main__':main()

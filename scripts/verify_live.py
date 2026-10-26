@@ -75,11 +75,23 @@ def probe():
                 age=dt.datetime.now(dt.timezone.utc)-dt.datetime.fromisoformat(state['checked_at'])
                 assert age<dt.timedelta(hours=3),'Newsroom monitoring stale for more than three hours'
                 assert state['outcome'] not in {'BLOCKED','DEGRADED'},'Latest newsroom outcome needs attention: '+state['outcome']
-            print('LIVE_READER_HTTP_OK: '+json.dumps({'uk_date':clock().date().isoformat(),'today':len(today),'archive':len(archive),'full_articles_tested':tested,'newsroom_outcome':state['outcome'],'publication_success':state['outcome']=='PUBLISHED'}))
+            try:publication=json.loads((ROOT/'generated-drafts/publication-report.json').read_text())
+            except (OSError,ValueError):publication={}
+            expected_new={a['id'] for a in publication.get('published',[])}
+            visible=expected_new & set(tested)
+            assert expected_new<=set(tested),'A newly published full article was not verified live'
+            evidence={'checked_at':dt.datetime.now(dt.timezone.utc).isoformat(),'uk_date':clock().date().isoformat(),
+                      'today':len(today),'archive':len(archive),'full_articles_tested':tested,
+                      'new_articles_visible':sorted(visible),'newsroom_outcome':state['outcome'],
+                      'publication_success':bool(visible)}
+            from newsroom_state import atomic_json
+            atomic_json(ROOT/'generated-drafts/live-verification.json',evidence)
+            print('LIVE_READER_HTTP_OK: '+json.dumps(evidence))
             return
         except Exception as e:
             failure=str(e);print('Live check attempt',attempt+1,type(e).__name__,failure,flush=True)
             if attempt<5:time.sleep(8)
     raise RuntimeError('Live website verification failed: '+failure)
 if __name__=='__main__':probe()
+
 

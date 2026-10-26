@@ -22,6 +22,7 @@ def assess(articles,report,now,publication=None,feeds=None,launch=None):
  if not report or not publication or pipeline_error:outcome='BLOCKED'
  elif selection in {'BLOCKED','BUDGET_PAUSED'} or report.get('active_quota_pause_until'):outcome='BLOCKED'
  elif new:outcome='PUBLISHED'
+ elif report.get('fresh_unpublished_source_candidates',0) and not verified:outcome='BLOCKED'
  elif verified and selection not in {'NO_WORTHWHILE_NEWS'}:outcome='BLOCKED'
  elif not (checked-failures>0 or feed_ok):outcome='BLOCKED'
  else:outcome='NO_QUALIFYING_NEWS'
@@ -41,7 +42,7 @@ def assess(articles,report,now,publication=None,feeds=None,launch=None):
   'machine_screened':report.get('machine_screened',0),'primary_indexes_checked':checked,
   'primary_index_failures':failures,'feeds_working':feed_ok,'feed_failures':feed_fail,
   'ai_budget':report.get('api_budget',{}),'quota_pause_until':report.get('active_quota_pause_until'),
-  'candidate_outcomes':report.get('items_checked',[]),'discovery_errors':errors,
+  'pipeline_metrics':report.get('metrics',{}),'source_fallbacks':report.get('source_fallbacks',[]),'candidate_outcomes':report.get('items_checked',[]),'discovery_errors':errors,
   'publication_holds':publication.get('held',[]),
   'run_id':os.getenv('GITHUB_RUN_ID','local'),'event':os.getenv('GITHUB_EVENT_NAME','local'),
   'run_url':'https://github.com/'+os.getenv('GITHUB_REPOSITORY','yogeshkaransharma-code/the-brief-financial-news')+'/actions/runs/'+os.getenv('GITHUB_RUN_ID','')}
@@ -80,3 +81,4 @@ if __name__=='__main__':
   assert assess([],{},dt.datetime.now(dt.timezone.utc))['outcome']=='BLOCKED'
   print('PASS: missing run evidence is blocked')
  else:main()
+

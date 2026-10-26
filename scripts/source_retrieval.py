@@ -24,6 +24,8 @@ ALLOWED = {"fca.org.uk", "www.fca.org.uk", "bankofengland.co.uk", "www.bankofeng
            "abi.org.uk", "www.abi.org.uk", "ukfinance.org.uk", "www.ukfinance.org.uk"}
 from source_registry import EXTRA_HOSTS
 ALLOWED |= EXTRA_HOSTS
+from source_registry import registered_hosts
+ALLOWED |= registered_hosts()
 from market_coverage import recognised_original_hosts
 ALLOWED |= recognised_original_hosts()
 # Original newspaper reporting is evidence of its attributed reporting,
@@ -235,5 +237,6 @@ def self_test():
 
 if __name__=="__main__":
     self_test()
+
 
 

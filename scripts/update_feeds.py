@@ -130,6 +130,8 @@ def registered_feeds(path=ROOT / "data" / "publisher-feeds.json"):
 # Existing direct regulator, insurer, broker, BBC and trade feeds are retained.
 # The registry extends the feed desk; it is versioned source memory, not AI memory.
 FEEDS.extend(registered_feeds())
+from source_registry import configured
+FEEDS=[(r['name'],r['url'],r.get('internal_category',r['desk'])) for r in configured('feed')]
 
 
 class CleanHTML(HTMLParser):
@@ -347,5 +349,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 

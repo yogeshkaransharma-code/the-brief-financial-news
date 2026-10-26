@@ -1,6 +1,42 @@
 """Curated UK primary newsrooms. Paths are release lanes, not whole-domain trust."""
 import re
 from urllib.parse import urlsplit
+import json
+from pathlib import Path
+from functools import lru_cache
+
+@lru_cache(maxsize=4)
+def registry(path=None):
+ payload=json.loads(Path(path or Path(__file__).resolve().parents[1]/'data/source-registry.json').read_text())
+ if payload.get('version')!=2:raise ValueError('Unsupported central source registry')
+ seen=set()
+ for row in payload['sources']:
+  p=urlsplit(row['url'])
+  if row['desk'] not in {'Insurance','Banking'} or row['method'] not in {'index','feed'}:raise ValueError('Invalid source desk/method')
+  if p.scheme!='https' or not p.hostname or '.' not in p.hostname or p.username or p.password or p.port not in (None,443):raise ValueError('Invalid discovery endpoint')
+  if row['url'] in seen:raise ValueError('Duplicate central source URL')
+  seen.add(row['url'])
+ for route in payload['article_routes']:
+  if not re.fullmatch(r'[a-z0-9]+(?:[.-][a-z0-9]+)+',route['host']):raise ValueError('Invalid reviewed article hostname')
+  re.compile(route['pattern'],re.I)
+ return payload
+
+def configured(method):
+ return [r for r in registry()['sources'] if r['method']==method]
+
+def registered_lane(url):
+ p=urlsplit(url)
+ if p.scheme!='https' or p.username or p.password or p.port not in (None,443):return None
+ host=(p.hostname or '').removeprefix('www.')
+ if p.query:return None
+ for route in registry()['article_routes']:
+  if host==route['host'] and re.fullmatch(route['pattern'],p.path,re.I):return route['lane']
+ return None
+
+def registered_hosts():
+ hosts={r['host'] for r in registry()['article_routes']}
+ hosts|={urlsplit(r['url']).hostname.removeprefix('www.') for r in configured('index')}
+ return {h for host in hosts for h in (host,'www.'+host)}
 
 EXTRA_INDEXES=(
  ('BIBA','Brokers','https://www.biba.org.uk/press-releases/'),
@@ -51,3 +87,4 @@ def extra_lane(url):
   # Other supported newsrooms use clean, non-parameterised article URLs.
   return rule[0] if not p.query else None
  return None
+
