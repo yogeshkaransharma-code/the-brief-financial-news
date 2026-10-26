@@ -100,13 +100,13 @@
     <p id="nothing" class="nothing" hidden>No verified reports dated today in the UK have been published yet.</p>
   </section>
 
-  <section id="context" class="understand" hidden aria-label="Understand the basics">
-  <div class="understand-head"><span class="section-kicker">THE CONTEXT · A NEW SELECTION EVERY TWO DAYS</span>
-  <h2>New to this? Start here<span>.</span></h2>
-  <p>Short explanations of important terms in financial-services reporting.</p>
+  <section id="context" class="understand" aria-label="Understand the basics">
+  <div class="understand-head"><span class="section-kicker">NEW HERE? · THE FINANCIAL BASICS</span>
+  <h2>New here? Start here<span>.</span></h2>
+  <p>One straightforward insurance concept and one banking concept, explained without unnecessary jargon. A fresh pair every two days.</p>
   <p id="explainer-date" class="explainer-date"></p></div>
   <div id="explainer-list" class="explainer-list"></div>
-  <button id="explainer-archive-toggle" class="explainer-archive-toggle" type="button" aria-expanded="false" aria-controls="explainer-archive">Explore all 30 explainers ↓</button>
+  <button id="explainer-archive-toggle" class="explainer-archive-toggle" type="button" aria-expanded="false" aria-controls="explainer-archive">Explore 18 more explanations ↓</button>
   <div id="explainer-archive" class="explainer-list explainer-archive" hidden></div>
 </section>
 </main>
@@ -136,15 +136,15 @@ function renderExplainers(){
  const slot=((Math.floor(today.day/2)%EXPLAINER_GROUPS[0].length)+EXPLAINER_GROUPS[0].length)%EXPLAINER_GROUPS[0].length;
  if(slot===explainerRotation && $('explainer-list').children.length)return;
  explainerRotation=slot;
- const featured=EXPLAINER_GROUPS.map(group=>group[slot]);
- const archive=EXPLAINER_GROUPS.flatMap(group=>group.filter((_,i)=>i!==slot));
+ const featured=EXPLAINER_GROUPS.slice(0,2).map(group=>group[slot]);
+ const archive=EXPLAINER_GROUPS.slice(0,2).flatMap(group=>group.filter((_,i)=>i!==slot));
  $('explainer-list').innerHTML=featured.map(explainerCard).join('');
  $('explainer-archive').innerHTML=archive.map(explainerCard).join('');
  $('explainer-archive').hidden=true;
  $('explainer-archive-toggle').setAttribute('aria-expanded','false');
- $('explainer-archive-toggle').textContent='Explore all 30 explainers ↓';
+ $('explainer-archive-toggle').textContent='Explore 18 more explanations ↓';
  const remaining=2-(today.day%2);
- $('explainer-date').textContent='Three topics selected · Changes in '+(remaining===1?'1 day':'2 days')+' · 30 guides available in the archive';
+ $('explainer-date').textContent='One insurance and one banking explainer · Next selection in '+(remaining===1?'1 day':'2 days')+' · 20 guides in total';
 }
 
 const safe=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));

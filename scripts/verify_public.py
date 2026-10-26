@@ -19,6 +19,8 @@ def verify():
         assert 'Prepared retrospectively; actual publication times' in home
     assert 'insurance.html' in home and 'banking.html' in home
     assert 'status.html' not in home and 'hourly.html' not in home
+    assert '<section id="context" class="understand" aria-label=' in home, 'New here section is absent/hidden'
+    assert 'Explore 18 more explanations' in home, 'Explainer archive link missing'
     for a in canonical:
         escaped=html.escape(a['title'],quote=True)
         assert escaped in archive_html,'Archive headline absent'

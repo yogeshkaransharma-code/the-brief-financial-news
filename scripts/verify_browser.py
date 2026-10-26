@@ -31,6 +31,14 @@ def main():
             assert page.locator('#publisher-desk').count()==0,'External publisher headlines leaked into the publication'
             assert page.locator('.tb-nav a').count()==3,'Navigation is not exactly Insurance, Banking and About'
             assert page.locator('.tb-sector-visual').count()==2,'Insurance and banking imagery missing'
+            assert page.locator('#context').is_visible(), 'New here explainers are hidden'
+            assert page.locator('#explainer-list .explainer').count()==2, 'One explainer per desk is required'
+            assert 'insurance and one banking' in page.locator('#explainer-date').inner_text().lower(), 'Explainer rotation text wrong'
+            page.locator('#explainer-list details').first.locator('summary').click()
+            assert page.locator('#explainer-list details').first.get_attribute('open') is not None, 'First explainer cannot be opened'
+            page.locator('#explainer-archive-toggle').click()
+            assert page.locator('#explainer-archive .explainer:visible').count()==18, 'More explainers fail to expand'
+
             assert page.locator('a[href="status.html"]').count()==0,'Technical dashboard link leaked'
             page.screenshot(path=str(OUT/f'home-{width}.png'),full_page=True)
             page.locator('.tb-sector-visual[href="banking.html"]').click()
