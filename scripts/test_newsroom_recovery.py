@@ -92,6 +92,18 @@ def main():
   assert {a['category'] for a in json.loads((root/'data/articles.json').read_text())}=={'Insurance','Banking'}
   assert not publish(root)['published'],'Recovery duplicated published articles'
   state=Checkpoints(root/'generated-drafts');record=state.read(urls[0]);assert record['status']=='reviewed'
+  assert 'SOURCE PROVENANCE' in calls[-1] and 'publisher' in calls[-1]
+  # A review-policy migration permits exactly one independent re-review;
+  # a persistent unsupported verdict must not burn quota every cycle.
+  atomic_json(root/'data/articles.json',[])
+  for i in range(2):
+   state.save(items[i],docs[urls[i]],status='held',review_policy=1,reason='Old reviewer lacked publisher provenance')
+  third=run(root,now+dt.timedelta(minutes=40),**kwargs)
+  assert third['api_budget']['requests_this_run']==1 and third['machine_screened']==2
+  for i in range(2):
+   state.save(items[i],docs[urls[i]],status='held',review_policy=2,reason='Unsupported substantive claim')
+  fourth=run(root,now+dt.timedelta(minutes=60),**kwargs)
+  assert fourth['api_budget']['requests_this_run']==0 and fourth['machine_screened']==0
  # Source failures are bounded and permanent access denials are not hammered.
  ledger={};record=defer(ledger,'https://example.test',HTTPError('x',403,'Forbidden',{},None),now)
  assert record['classification']=='ACCESS_RESTRICTED' and cooling(record,now+dt.timedelta(hours=5))
