@@ -7,7 +7,7 @@ import tempfile
 from types import SimpleNamespace
 from zoneinfo import ZoneInfo
 import launch_canary as canary
-from ai_cost_guard import CallBudget,BudgetExhausted,MAX_REQUESTS_PER_DAY
+from ai_cost_guard import CallBudget,BudgetExhausted
 from test_autonomous import prepared
 from newsroom_v2 import article_sentences,source_passages
 from same_day_policy import clock
@@ -33,13 +33,13 @@ def main():
     with tempfile.TemporaryDirectory() as folder:
         root=Path(folder);(root/'data').mkdir();(root/'data/articles.json').write_text('[]')
         quota=dt.datetime.now(dt.timezone.utc).astimezone(ZoneInfo('America/Los_Angeles')).date().isoformat()
-        ledger={'sources':{},'api_budget':{'date':quota,'requests':MAX_REQUESTS_PER_DAY,'limit':MAX_REQUESTS_PER_DAY}}
+        ledger={'sources':{},'api_budget':{'date':quota,'requests':30,'limit':None},'quota_pause_until':(dt.datetime.now(dt.timezone.utc)+dt.timedelta(hours=1)).isoformat()}
         (root/'data/newsroom-attempts.json').write_text(json.dumps(ledger))
         r=canary.run(root)
         assert r['result']=='WAITING' and r['requests_this_attempt']==0
         assert json.loads((root/'data/articles.json').read_text())==[]
         assert not list((root/'generated-drafts').glob('ai-*.json')),'Test draft entered publisher input'
-        assert json.loads((root/'data/newsroom-attempts.json').read_text())['api_budget']['requests']==MAX_REQUESTS_PER_DAY
+        assert json.loads((root/'data/newsroom-attempts.json').read_text())['api_budget']['requests']==30
     ledger={'api_budget':{'date':quota,'requests':20,'limit':20}}
     meter=CallBudget(ledger,per_run=2,per_day=20)
     for _ in range(2):meter.call(lambda prompt:{'ok':True},'test',diagnostic=True)
@@ -51,5 +51,5 @@ def main():
     try:CallBudget(ledger,per_day=20).call(lambda prompt:None,'production')
     except BudgetExhausted:pass
     else:raise AssertionError('Diagnostic allowance reset the production cap')
-    print('PASS: two-call real-model test adapter, historical date preserved, stale publication rejected, exhausted allowance untouched and drafts isolated')
+    print('PASS: two-call real-model test adapter, historical date preserved, stale publication rejected, provider cooldown respected, usage untouched and drafts isolated')
 if __name__=='__main__':main()
