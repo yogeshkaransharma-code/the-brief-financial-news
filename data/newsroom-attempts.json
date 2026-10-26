@@ -2,7 +2,7 @@
   "api_budget": {
     "date": "2026-10-26",
     "timezone": "America/Los_Angeles",
-    "requests": 10,
+    "requests": 12,
     "limit": 30
   },
   "api_calls": [
@@ -886,6 +886,44 @@
         ],
         "serviceTier": "standard"
       }
+    },
+    {
+      "at": "2026-10-26T07:47:26.056351+00:00",
+      "result": "response_received",
+      "prompt_characters": 14889,
+      "purpose": "production",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 3032,
+        "candidatesTokenCount": 588,
+        "totalTokenCount": 3620,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 3032
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-26T07:47:41.058956+00:00",
+      "result": "response_received",
+      "prompt_characters": 24884,
+      "purpose": "production",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 5238,
+        "candidatesTokenCount": 1302,
+        "totalTokenCount": 6540,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 5238
+          }
+        ],
+        "serviceTier": "standard"
+      }
     }
   ],
   "capacity_recovery_revision": 2,
@@ -1725,6 +1763,11 @@
       "attempted_at": "2026-10-26T07:33:04.330718+00:00",
       "retry_after": "2026-10-27T08:33:04.330718+00:00",
       "headline": "French Bond Rout Draws Australia Pension Into Market Others Shun"
+    },
+    "https://www.reinsurancene.ws/allison-reagan-joins-crc-specialty-as-svp-property-broker/": {
+      "attempted_at": "2026-10-26T07:47:14.951842+00:00",
+      "retry_after": "2026-10-27T08:47:14.951842+00:00",
+      "headline": "Allison Reagan joins CRC Specialty as SVP, Property Broker"
     }
   },
   "sources": {
@@ -1935,15 +1978,6 @@
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
-    "https://www.reinsurancene.ws/gallagher-expands-texas-employee-benefits-business-through-mund-group-acquisition/": {
-      "attempted_at": "2026-10-26T07:40:18.831813+00:00",
-      "retry_after": "2026-10-26T07:55:18.831813+00:00",
-      "last_result": "Incomplete evidence record",
-      "classification": "INVALID_RESPONSE",
-      "stage": "independent_review",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1"
-    },
     "https://www.insurancejournal.com/news/west/2026/10/26/890197.htm": {
       "attempted_at": "2026-10-26T07:40:18.831813+00:00",
       "retry_after": "2026-10-26T07:55:18.831813+00:00",
@@ -1964,5 +1998,6 @@
     }
   },
   "version": 2,
-  "batch_schema_version": 1
+  "batch_schema_version": 1,
+  "sentence_segmenter": 2
 }
