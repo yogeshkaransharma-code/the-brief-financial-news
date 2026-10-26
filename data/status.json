@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-10-26T02:15:36.299703+00:00",
+  "checked_at": "2026-10-26T02:17:55.970730+00:00",
   "uk_date": "2026-10-26",
   "outcome": "BLOCKED",
   "editorial_outcome": "BLOCKED",
-  "technical_status": "LIVE_VERIFIED",
+  "technical_status": "AWAITING_LIVE_VERIFICATION",
   "source_coverage_status": "PARTIAL",
   "launch_test": {
     "result": "NOT_RUN"
@@ -11,18 +11,10 @@
   "published_this_run": 0,
   "genuine_same_day_articles": 0,
   "editorial_selection": {
-    "result": "SELECTED",
+    "result": "NO_VERIFIED_CANDIDATES",
     "requests": 0,
-    "method": "deterministic-source-supported",
-    "selected": [
-      {
-        "url": "https://www.bbc.co.uk/news/articles/ck87z4ng2l03o",
-        "category": "Banking",
-        "reason": "Relevant current development supported by a complete accessible source"
-      }
-    ],
-    "skipped": [],
-    "deferred": []
+    "selected": [],
+    "skipped": []
   },
   "published_total": 15,
   "last_article_at": "2026-10-25T16:31:49.549910+00:00",
@@ -34,17 +26,17 @@
   "verified_by_sector": {
     "Banking": 1
   },
-  "articles_commissioned": 1,
-  "articles_held": 1,
+  "articles_commissioned": 0,
+  "articles_held": 0,
   "machine_screened": 0,
   "primary_indexes_checked": 31,
-  "primary_index_failures": 4,
-  "feeds_working": 40,
-  "feed_failures": 1,
+  "primary_index_failures": 5,
+  "feeds_working": 41,
+  "feed_failures": 0,
   "ai_budget": {
     "quota_date": "2026-10-25",
     "quota_timezone": "America/Los_Angeles",
-    "requests_this_run": 1,
+    "requests_this_run": 0,
     "requests_today_including_this_run": 27,
     "run_limit": 7,
     "daily_limit": 30,
@@ -53,9 +45,9 @@
   "quota_pause_until": null,
   "pipeline_metrics": {
     "discovered_unique": 497,
-    "already_published_or_retired": 13,
     "outside_uk_date": 232,
     "irrelevant": 94,
+    "already_published_or_retired": 13,
     "unsupported_route": 154,
     "fresh_relevant_candidates": 4,
     "source_cooldowns": 3,
@@ -65,12 +57,12 @@
   },
   "source_fallbacks": [
     {
-      "source": "https://www.bloomberg.com/news/articles/2026-10-26/asset-manager-australian-dollar-shorts-hit-record-on-risk-off",
+      "source": "https://www.bbc.co.uk/news/articles/c6x2zrjl7kjno",
       "alternatives_found": 0,
       "result": "No matching alternative in checked sources"
     },
     {
-      "source": "https://www.bbc.co.uk/news/articles/c6x2zrjl7kjno",
+      "source": "https://www.bloomberg.com/news/articles/2026-10-26/asset-manager-australian-dollar-shorts-hit-record-on-risk-off",
       "alternatives_found": 0,
       "result": "No matching alternative in checked sources"
     },
@@ -81,13 +73,6 @@
     }
   ],
   "candidate_outcomes": [
-    {
-      "title": "Retirement targets jump 20% as affluent individuals plan for several futures at once",
-      "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/retirement-targets-jump-20-as-affluent-individuals-plan-for-several-futures-at-once",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
     {
       "title": "Aviva warns homeowners to batten down the hatches",
       "source": "https://www.aviva.com/newsroom/news-and-research-overview/news-releases/2026/10/aviva-warns-homeowners-to-batten-down-the-hatches/",
@@ -161,6 +146,67 @@
       "result": "excluded",
       "stage": "eligibility",
       "reason": "Already published or retired"
+    },
+    {
+      "title": "Read more about the 'The Financial Ombudsman Service received 57,000 cases in the second quarter of 2026/27' news item",
+      "source": "https://www.financial-ombudsman.org.uk/who-we-are/data-insight/news/financial-ombudsman-service-received-57000-cases-second-quarter-202627",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-22"
+    },
+    {
+      "title": "Read more about the 'Financial Ombudsman Service appoints new Independent Assessor' news item",
+      "source": "https://www.financial-ombudsman.org.uk/who-we-are/data-insight/news/financial-ombudsman-service-appoints-new-independent-assessor",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-13"
+    },
+    {
+      "title": "Read more about the 'FCA appoints chair of the Financial Ombudsman Service' news item",
+      "source": "https://www.financial-ombudsman.org.uk/who-we-are/data-insight/news/fca-appoints-chair-financial-ombudsman-service",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-09"
+    },
+    {
+      "title": "Lloyds climbs global rankings for AI talent and leadership",
+      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-climbs-global-rankings-for-ai-talent-and-leadership.html",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
+    },
+    {
+      "title": "Lloyds launches Investing in Britain Hub",
+      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-launches-investing-in-britain-hub.html",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
+    },
+    {
+      "title": "Lloyds Banking Group launches Lloyds Auto",
+      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds-banking-group/lloyds-banking-group-launches-lloyds-auto.html",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
+    },
+    {
+      "title": "Lloyds supports second £250 million Blue Bond for Tideway to help protect River Thames",
+      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-supports-second-250m-blue-bond-for-tideway-to-help-protect-river-thames.html",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-15"
+    },
+    {
+      "title": "The UK’s digital money map: regions reveal different routes to financial progress",
+      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds-banking-group/uk-digital-money-map-regions-reveal-different-routes-to-financial-progress.html",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-12"
     },
     {
       "title": "FCA calls on private market firms to manage conflicts of interest in line with rapid growth 23/10/2026",
@@ -256,28 +302,11 @@
       "reason": "Outside Insurance/Banking or promotional/lifestyle material"
     },
     {
-      "title": "Read more about the 'The Financial Ombudsman Service received 57,000 cases in the second quarter of 2026/27' news item",
-      "source": "https://www.financial-ombudsman.org.uk/who-we-are/data-insight/news/financial-ombudsman-service-received-57000-cases-second-quarter-202627",
+      "title": "Retirement targets jump 20% as affluent individuals plan for several futures at once",
+      "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/retirement-targets-jump-20-as-affluent-individuals-plan-for-several-futures-at-once",
       "result": "excluded",
       "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-22"
-    },
-    {
-      "title": "Read more about the 'Financial Ombudsman Service appoints new Independent Assessor' news item",
-      "source": "https://www.financial-ombudsman.org.uk/who-we-are/data-insight/news/financial-ombudsman-service-appoints-new-independent-assessor",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-13"
-    },
-    {
-      "title": "Read more about the 'FCA appoints chair of the Financial Ombudsman Service' news item",
-      "source": "https://www.financial-ombudsman.org.uk/who-we-are/data-insight/news/fca-appoints-chair-financial-ombudsman-service",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-09"
+      "reason": "Already published or retired"
     },
     {
       "title": "Prudential Regulation // Consultation paper 22 October 2026 CP14/26 – Review of the Senior Managers and... CP14/26 – Review of the Senior Managers and Certification Regime (SM&CR) – Phase 2",
@@ -287,16 +316,16 @@
       "reason": "Outside Insurance/Banking or promotional/lifestyle material"
     },
     {
-      "title": "Prudential Regulation // Supervisory statement 14 October 2026 SS2/26 – High loan to income lending SS2/26 – High loan to income lending",
-      "source": "https://www.bankofengland.co.uk/prudential-regulation/publication/2026/october/high-loan-to-income-lending-supervisory-statement",
+      "title": "Prudential Regulation // Policy statement 14 October 2026 PS19/26 – High loan to income lending PS19/26 – High loan to income lending",
+      "source": "https://www.bankofengland.co.uk/prudential-regulation/publication/2026/october/high-loan-to-income-lending-policy-statement",
       "result": "excluded",
       "stage": "eligibility",
       "reason": "Discovery source date is outside the current UK date",
       "source_date": "2026-10-14"
     },
     {
-      "title": "Prudential Regulation // Policy statement 14 October 2026 PS19/26 – High loan to income lending PS19/26 – High loan to income lending",
-      "source": "https://www.bankofengland.co.uk/prudential-regulation/publication/2026/october/high-loan-to-income-lending-policy-statement",
+      "title": "Prudential Regulation // Supervisory statement 14 October 2026 SS2/26 – High loan to income lending SS2/26 – High loan to income lending",
+      "source": "https://www.bankofengland.co.uk/prudential-regulation/publication/2026/october/high-loan-to-income-lending-supervisory-statement",
       "result": "excluded",
       "stage": "eligibility",
       "reason": "Discovery source date is outside the current UK date",
@@ -364,43 +393,6 @@
       "source_date": "2026-10-13"
     },
     {
-      "title": "Lloyds climbs global rankings for AI talent and leadership",
-      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-climbs-global-rankings-for-ai-talent-and-leadership.html",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
-    {
-      "title": "Lloyds launches Investing in Britain Hub",
-      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-launches-investing-in-britain-hub.html",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
-    {
-      "title": "Lloyds Banking Group launches Lloyds Auto",
-      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds-banking-group/lloyds-banking-group-launches-lloyds-auto.html",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
-    {
-      "title": "Lloyds supports second £250 million Blue Bond for Tideway to help protect River Thames",
-      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-supports-second-250m-blue-bond-for-tideway-to-help-protect-river-thames.html",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-15"
-    },
-    {
-      "title": "The UK’s digital money map: regions reveal different routes to financial progress",
-      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds-banking-group/uk-digital-money-map-regions-reveal-different-routes-to-financial-progress.html",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-12"
-    },
-    {
       "title": "Ageas UK and esure Boards appoint two Independent Non-Executive Directors",
       "source": "https://www.ageas.co.uk/press-releases/2026-press-releases/ageas-esure-boards-independent-non-executive-directors/",
       "result": "excluded",
@@ -424,19 +416,19 @@
       "source_date": "2026-10-05"
     },
     {
-      "title": "Businesses boost risk management spend but resilience gap remains",
-      "source": "https://www.hiscoxgroup.com/news/press-releases/2026/06-10-26",
-      "result": "rejected",
-      "stage": "eligibility",
-      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
-    },
-    {
       "title": "Press Release • 6 Oct 2026 BIBA appoints Acrisure UK as Latent Defects Insurance Scheme provider",
       "source": "https://www.biba.org.uk/press-releases/biba-appoints-acrisure-uk-as-latent-defects-insurance-scheme-provider/",
       "result": "excluded",
       "stage": "eligibility",
       "reason": "Discovery source date is outside the current UK date",
       "source_date": "2026-10-06"
+    },
+    {
+      "title": "Businesses boost risk management spend but resilience gap remains",
+      "source": "https://www.hiscoxgroup.com/news/press-releases/2026/06-10-26",
+      "result": "rejected",
+      "stage": "eligibility",
+      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
     },
     {
       "title": "Lloyds backs Stockport with £720k investment in new-look branch",
@@ -458,6 +450,14 @@
       "result": "rejected",
       "stage": "eligibility",
       "reason": "Outside Insurance/Banking or promotional/lifestyle material"
+    },
+    {
+      "title": "14th October 2026 Starling becomes first bank to train AI model on UK sovereign cloud",
+      "source": "https://www.starlingbank.com/news/starling-backs-uk-sovereign-cloud",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-14"
     },
     {
       "title": "Lawrence Hawkins appointed General Counsel Zurich UK",
@@ -484,14 +484,6 @@
       "source_date": "2026-10-05"
     },
     {
-      "title": "14th October 2026 Starling becomes first bank to train AI model on UK sovereign cloud",
-      "source": "https://www.starlingbank.com/news/starling-backs-uk-sovereign-cloud",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-14"
-    },
-    {
       "title": "Baht to Rebound on Inflows Into Nation’s Bonds, Analysts Say",
       "source": "https://www.bloomberg.com/news/articles/2026-10-25/baht-to-rebound-on-inflows-into-nation-s-bonds-analysts-say",
       "result": "excluded",
@@ -510,6 +502,14 @@
     {
       "title": "Joint statement from HM Treasury and Department of Finance Canada",
       "source": "https://www.gov.uk/government/news/joint-statement-from-hm-treasury-and-department-of-finance-canada",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-25"
+    },
+    {
+      "title": "FCA proposes scrapping Certification Regime in SM&CR overhaul",
+      "source": "https://www.insurancebusinessmag.com/uk/news/breaking-news/fca-proposes-scrapping-certification-regime-in-smandcr-overhaul-594833.aspx",
       "result": "excluded",
       "stage": "eligibility",
       "reason": "Discovery source date is outside the current UK date",
@@ -3437,14 +3437,6 @@
       "source_date": "2026-10-21"
     },
     {
-      "title": "Interface scheme secures £85m buy-in with PIC",
-      "source": "https://www.professionalpensions.com/news/4537671/interface-scheme-secures-85m-pic",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-21"
-    },
-    {
       "title": "Asian rates fall for 11th consecutive quarter",
       "source": "https://www.commercialriskonline.com/asian-rates-fall-for-11th-consecutive-quarter/",
       "result": "excluded",
@@ -3765,15 +3757,6 @@
       "source_date": "2026-10-13"
     },
     {
-      "title": "Asset Manager Australian Dollar Shorts Hit Record on Risk-Off",
-      "source": "https://www.bloomberg.com/news/articles/2026-10-26/asset-manager-australian-dollar-shorts-hit-record-on-risk-off",
-      "result": "retry deferred",
-      "stage": "source",
-      "reason": "HTTP Error 403: Forbidden",
-      "classification": "ACCESS_RESTRICTED",
-      "retry_after": "2026-10-26T08:11:01.869477+00:00"
-    },
-    {
       "title": "What is the Budget and what could be in it?",
       "source": "https://www.bbc.co.uk/news/articles/c6x2zrjl7kjno",
       "result": "retry deferred",
@@ -3781,6 +3764,15 @@
       "reason": "Original document was not announced today in the UK",
       "classification": "DATE_UNVERIFIED",
       "retry_after": "2026-10-26T04:11:01.869477+00:00"
+    },
+    {
+      "title": "Asset Manager Australian Dollar Shorts Hit Record on Risk-Off",
+      "source": "https://www.bloomberg.com/news/articles/2026-10-26/asset-manager-australian-dollar-shorts-hit-record-on-risk-off",
+      "result": "retry deferred",
+      "stage": "source",
+      "reason": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "retry_after": "2026-10-26T08:11:01.869477+00:00"
     },
     {
       "title": "Riksbank reignites e-krona debate",
@@ -3803,10 +3795,9 @@
     {
       "title": "Healey's Budget needs to sustain the stronger economy through gathering clouds",
       "source": "https://www.bbc.co.uk/news/articles/ck87z4ng2l03o",
-      "result": "held back",
+      "result": "retry deferred",
       "stage": "writing",
       "reason": "Numbers absent from official source: ['3.5']",
-      "classification": "EVIDENCE_UNUSABLE",
       "retry_after": "2026-10-26T06:15:26.898161+00:00"
     }
   ],
@@ -3815,49 +3806,16 @@
     "UK Parliament: HTTPError HTTP Error 403: Forbidden",
     "Association of British Insurers: HTTPError HTTP Error 403: Forbidden",
     "Revolut UK: HTTPError HTTP Error 403: Forbidden",
-    {
-      "source": "Money Marketing",
-      "url": "https://www.moneymarketing.co.uk/feed/",
-      "error": "HTTP Error 403: Forbidden"
-    }
+    "Managing General Agents Association: URLError <urlopen error timed out>"
   ],
   "publication_holds": [],
-  "run_id": "40258171480",
-  "event": "push",
-  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40258171480",
+  "run_id": "40258349119",
+  "event": "workflow_dispatch",
+  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40258349119",
   "publisher_links": 0,
   "discovery_headlines": 3,
-  "publisher_desk_checked_at": "2026-10-26T02:15:25.664932+00:00",
+  "publisher_desk_checked_at": "2026-10-26T02:17:30.525943+00:00",
   "previous_verified_runs": [
-    {
-      "run_id": "40207195690",
-      "event": "schedule",
-      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40207195690",
-      "editorial_outcome": "NO_QUALIFYING_NEWS",
-      "published_this_run": 0,
-      "publisher_links": 0,
-      "discovery_headlines": 7,
-      "source_coverage_status": "PARTIAL",
-      "fresh_source_candidates": 7,
-      "verified_by_sector": {
-        "Banking": 1
-      },
-      "ai_budget": {
-        "quota_date": "2026-10-25",
-        "quota_timezone": "America/Los_Angeles",
-        "requests_this_run": 1,
-        "requests_today_including_this_run": 17,
-        "run_limit": 7,
-        "daily_limit": 30,
-        "remaining_today": 13
-      },
-      "commissioned_stories": [],
-      "checked_at": "2026-10-25T15:30:32.982856+00:00",
-      "technical_status": "LIVE_VERIFIED",
-      "deployment": "success",
-      "live_check": "success",
-      "browser_check": "skipped"
-    },
     {
       "run_id": "40212022623",
       "event": "schedule",
@@ -4597,6 +4555,79 @@
         "source:source verified": 1,
         "writing:retry deferred": 1
       }
+    },
+    {
+      "run_id": "40258171480",
+      "event": "push",
+      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40258171480",
+      "editorial_outcome": "BLOCKED",
+      "published_this_run": 0,
+      "publisher_links": 0,
+      "discovery_headlines": 3,
+      "source_coverage_status": "PARTIAL",
+      "fresh_source_candidates": 4,
+      "verified_by_sector": {
+        "Banking": 1
+      },
+      "ai_budget": {
+        "quota_date": "2026-10-25",
+        "quota_timezone": "America/Los_Angeles",
+        "requests_this_run": 1,
+        "requests_today_including_this_run": 27,
+        "run_limit": 7,
+        "daily_limit": 30,
+        "remaining_today": 3
+      },
+      "pipeline_metrics": {
+        "discovered_unique": 497,
+        "already_published_or_retired": 13,
+        "outside_uk_date": 232,
+        "irrelevant": 94,
+        "unsupported_route": 154,
+        "fresh_relevant_candidates": 4,
+        "source_cooldowns": 3,
+        "sources_successfully_retrieved": 0,
+        "source_checkpoints_reused": 1,
+        "verified_original_candidates": 1
+      },
+      "source_fallbacks": [
+        {
+          "source": "https://www.bloomberg.com/news/articles/2026-10-26/asset-manager-australian-dollar-shorts-hit-record-on-risk-off",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.bbc.co.uk/news/articles/c6x2zrjl7kjno",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.finextra.com/newsarticle/48642/riksbank-reignites-e-krona-debate",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        }
+      ],
+      "articles_visible_this_run": 0,
+      "live_article_ids": [],
+      "commissioned_stories": [
+        {
+          "url": "https://www.bbc.co.uk/news/articles/ck87z4ng2l03o",
+          "category": "Banking",
+          "reason": "Relevant current development supported by a complete accessible source"
+        }
+      ],
+      "checked_at": "2026-10-26T02:16:52.818220+00:00",
+      "technical_status": "LIVE_VERIFIED",
+      "deployment": "success",
+      "live_check": "success",
+      "browser_check": "success",
+      "candidate_outcome_counts": {
+        "eligibility:excluded": 399,
+        "eligibility:rejected": 94,
+        "source:retry deferred": 3,
+        "source:source verified": 1,
+        "writing:held back": 1
+      }
     }
   ],
   "launch_acceptance": {
@@ -4610,7 +4641,7 @@
       "latest_run_technically_healthy": true,
       "latest_editorial_run_unblocked": false
     },
-    "verified_scheduled_runs": 11,
+    "verified_scheduled_runs": 10,
     "commissioned_sectors": [
       "Banking",
       "Regulation"
@@ -4624,7 +4655,5 @@
   "launch_diagnostic_allowance": {
     "limit": 2,
     "requests": 2
-  },
-  "articles_visible_this_run": 0,
-  "live_article_ids": []
+  }
 }
