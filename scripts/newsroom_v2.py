@@ -545,9 +545,10 @@ def main():
     # Prioritise diverse original stories, not a sequence of repeated announcements
     # about the same firm. A fixed launch queue is a one-time seed, not a fallback
     # to old stories when the source feeds run dry.
-    # Prefer unambiguous original reporting lanes over speeches, complex PDFs
-    # and government commentary. Still prioritise the genuinely newer releases.
-    lane_order={"company_release":0,"industry_release":0,"fca_release":1,
+    # Give reputable, full-text original journalism comparable priority to direct issuer
+    # news. Do not force a media story to trace a company release when the
+    # journalist's report is itself the original source; attribution is mandatory.
+    lane_order={"company_release":0,"industry_release":0,"original_reporting":1,"fca_release":1,
                 "ombudsman_release":1,"tpr_release":1,"issuer_rns":1,
                 "fca_data":2,"boe_release":2,"official_release":2,
                 "fca_review":3,"government_release":4,

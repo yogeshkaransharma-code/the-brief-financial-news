@@ -14,6 +14,7 @@ checks.insert(-1,['test_launch_mandate.py'])
 checks.insert(-1,['publication_scope.py'])
 checks.insert(-1,['test_regulatory_sources.py'])
 checks.insert(-1,['test_feed_relevance.py'])
+checks.insert(-1,['test_publisher_feeds.py'])
 checks.insert(-1,['test_hourly_desk.py'])
 for c in checks:
     subprocess.run([sys.executable,str(root/'scripts'/c[0])]+c[1:],check=True,cwd=root)

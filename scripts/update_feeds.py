@@ -95,6 +95,43 @@ FEEDS = [
     # Artemis serves copyright-only summaries; not suitable for an on-site briefing.
 ]
 
+# Persistent publisher catalogue in GitHub. Add reliable sources here instead of
+# editing the core importer every time. Feed names/URLs are strictly validated:
+# a GitHub listing is a discovery route, not permission to publish its contents.
+def registered_feeds(path=ROOT / "data" / "publisher-feeds.json"):
+    from urllib.parse import urlsplit, parse_qs
+    payload=json.loads(path.read_text(encoding="utf-8"))
+    if payload.get("version")!=1 or not isinstance(payload.get("feeds"),list):
+        raise ValueError("Unrecognised publisher feed registry")
+    result=[];names=set();urls=set()
+    approved_channels={"retail","wholesale","execution","risk","security","wealth","transaction","cards",
+                       "payments","ai","markets"}
+    for record in payload["feeds"]:
+        if not isinstance(record,dict):raise ValueError("Invalid publisher record")
+        name,url,category=(record.get("name"),record.get("url"),record.get("category"))
+        if not all(isinstance(x,str) and x for x in (name,url,category)):
+            raise ValueError("Missing publisher details")
+        if category not in {"Insurance","Banking"} or len(name)>90:
+            raise ValueError("Only the two editorial desks are supported")
+        u=urlsplit(url)
+        if not (u.scheme=="https" and u.hostname=="www.finextra.com"
+                and u.path=="/rss/channel.aspx" and not u.fragment and not u.username
+                and not u.password and u.port in (None,443)
+                and set(parse_qs(u.query))=={"channel"}
+                and len(parse_qs(u.query)["channel"])==1
+                and parse_qs(u.query)["channel"][0] in approved_channels):
+            raise ValueError("Feed requires an individually reviewed publisher origin and route: "+url)
+        if name in names or url in urls or any(url==existing[1] for existing in FEEDS):
+            raise ValueError("Duplicate RSS discovery source: "+name)
+        names.add(name);urls.add(url)
+        result.append((name,url,category))
+    return result
+
+# Existing direct regulator, insurer, broker, BBC and trade feeds are retained.
+# The registry extends the feed desk; it is versioned source memory, not AI memory.
+FEEDS.extend(registered_feeds())
+
+
 class CleanHTML(HTMLParser):
     def __init__(self):
         super().__init__(convert_charrefs=True)
@@ -233,6 +270,26 @@ def canonical_record(item):
     return dict(item,url=url,id='feed-'+hashlib.sha256(url.encode()).hexdigest()[:20])
 
 
+def balanced_discovery(items,limit=450):
+    """Keep specialist insurance/broker leads from being evicted by general business RSS.
+
+    All leads retain their real publisher/source date and continue through the
+    original-document fact checks; this only controls which leads survive RSS storage.
+    """
+    ranked=sorted(items,key=lambda x:x.get("published_at",""),reverse=True)
+    picked=[];seen=set()
+    for sector,quota in (("Insurance",95),("Brokers",35)):
+        for item in ranked:
+            if item.get("category")==sector and item.get("url") not in seen:
+                picked.append(item);seen.add(item["url"])
+                if sum(x.get("category")==sector for x in picked)>=quota:break
+    for item in ranked:
+        if len(picked)>=limit:break
+        if item.get("url") not in seen:
+            picked.append(item);seen.add(item["url"])
+    return sorted(picked,key=lambda x:x.get("published_at",""),reverse=True)[:limit]
+
+
 def main():
     try:
         prior = json.loads(DEST.read_text(encoding="utf-8"))
@@ -280,8 +337,9 @@ def main():
             continue
         fingerprints.add(fp)
         results.append(item)
-        if len(results) >= 450:
+        if len(results) >= 2500:
             break
+    results=balanced_discovery(results,450)
     output = {"generated_at": NOW.isoformat(), "sources_checked": successes, "items": results, "errors": errors, "status": "live" if not errors else "partial"}
     DEST.parent.mkdir(parents=True, exist_ok=True)
     DEST.write_text(json.dumps(output, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
