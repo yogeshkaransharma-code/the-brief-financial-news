@@ -29,10 +29,16 @@ def probe():
             today=json.loads(read(SITE+'data/articles.json'+token))
             archive=json.loads(read(SITE+'data/archive.json'+token))
             if '--monitor' in sys.argv:
-                # Monitor the last deployed artifact, while a newer run may be
-                # committing articles before its Pages deployment finishes.
+                # Check the deployed edition against its own build clock.
+                # A 00:03 monitor may see the prior day's valid artifact
+                # before the first scheduled newsroom refresh. That is
+                # NOT evidence of a false-dated article. The existing
+                # three-hour staleness check still catches a stuck handover.
                 canonical=archive
-                want={a['id'] for a in canonical if published_same_day(a)}
+                build_info=json.loads(read(SITE+'data/build.json'+token))
+                artifact_clock=dt.datetime.fromisoformat(build_info['built_at'])
+                assert artifact_clock.tzinfo is not None,'Undated deployed build'
+                want={a['id'] for a in canonical if published_same_day(a,artifact_clock)}
             assert {a['id'] for a in today}==want,'Live edition differs from eligible same-day articles'
             assert {a['id'] for a in archive}=={a['id'] for a in canonical},'Live archive has missing articles'
             assert all(published_same_day(a) for a in today),'Old article leaked into today'
