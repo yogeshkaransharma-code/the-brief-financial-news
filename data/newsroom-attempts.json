@@ -2,7 +2,7 @@
   "api_budget": {
     "date": "2026-10-26",
     "timezone": "America/Los_Angeles",
-    "requests": 6,
+    "requests": 10,
     "limit": 30
   },
   "api_calls": [
@@ -806,6 +806,82 @@
           {
             "modality": "TEXT",
             "tokenCount": 8406
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-26T07:40:30.281196+00:00",
+      "result": "response_received",
+      "prompt_characters": 14825,
+      "purpose": "production",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 3065,
+        "candidatesTokenCount": 631,
+        "totalTokenCount": 3696,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 3065
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-26T07:40:45.283781+00:00",
+      "result": "response_received",
+      "prompt_characters": 24978,
+      "purpose": "production",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 5461,
+        "candidatesTokenCount": 1392,
+        "totalTokenCount": 6853,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 5461
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-26T07:41:00.286568+00:00",
+      "result": "response_received",
+      "prompt_characters": 16294,
+      "purpose": "production",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 3168,
+        "candidatesTokenCount": 612,
+        "totalTokenCount": 3780,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 3168
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-26T07:41:15.289297+00:00",
+      "result": "response_received",
+      "prompt_characters": 12316,
+      "purpose": "production",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 2637,
+        "candidatesTokenCount": 532,
+        "totalTokenCount": 3169,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2637
           }
         ],
         "serviceTier": "standard"
@@ -1854,6 +1930,33 @@
       "attempted_at": "2026-10-26T07:33:04.330718+00:00",
       "retry_after": "2026-10-26T07:48:04.330718+00:00",
       "last_result": "Article length must serve the story, got 39 words",
+      "classification": "INVALID_RESPONSE",
+      "stage": "writing",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.reinsurancene.ws/gallagher-expands-texas-employee-benefits-business-through-mund-group-acquisition/": {
+      "attempted_at": "2026-10-26T07:40:18.831813+00:00",
+      "retry_after": "2026-10-26T07:55:18.831813+00:00",
+      "last_result": "Incomplete evidence record",
+      "classification": "INVALID_RESPONSE",
+      "stage": "independent_review",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.insurancejournal.com/news/west/2026/10/26/890197.htm": {
+      "attempted_at": "2026-10-26T07:40:18.831813+00:00",
+      "retry_after": "2026-10-26T07:55:18.831813+00:00",
+      "last_result": "Article contains no Insurance or Banking development beyond publisher attribution",
+      "classification": "INVALID_RESPONSE",
+      "stage": "independent_review",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.insurancejournal.com/news/east/2026/10/26/890061.htm": {
+      "attempted_at": "2026-10-26T07:40:18.831813+00:00",
+      "retry_after": "2026-10-26T07:55:18.831813+00:00",
+      "last_result": "Article length must serve the story, got 93 words",
       "classification": "INVALID_RESPONSE",
       "stage": "writing",
       "failures": 1,
