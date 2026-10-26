@@ -2,7 +2,7 @@
   "api_budget": {
     "date": "2026-10-26",
     "timezone": "America/Los_Angeles",
-    "requests": 20,
+    "requests": 24,
     "limit": 30
   },
   "api_calls": [
@@ -1076,6 +1076,82 @@
         ],
         "serviceTier": "standard"
       }
+    },
+    {
+      "at": "2026-10-26T09:43:44.470250+00:00",
+      "result": "response_received",
+      "prompt_characters": 24124,
+      "purpose": "production",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 5087,
+        "candidatesTokenCount": 928,
+        "totalTokenCount": 6015,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 5087
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-26T09:43:59.472916+00:00",
+      "result": "response_received",
+      "prompt_characters": 24037,
+      "purpose": "production",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 5424,
+        "candidatesTokenCount": 962,
+        "totalTokenCount": 6386,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 5424
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-26T09:44:14.475632+00:00",
+      "result": "response_received",
+      "prompt_characters": 17580,
+      "purpose": "production",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 3415,
+        "candidatesTokenCount": 677,
+        "totalTokenCount": 4092,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 3415
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-26T09:44:29.478303+00:00",
+      "result": "response_received",
+      "prompt_characters": 23553,
+      "purpose": "production",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 4769,
+        "candidatesTokenCount": 917,
+        "totalTokenCount": 5686,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 4769
+          }
+        ],
+        "serviceTier": "standard"
+      }
     }
   ],
   "capacity_recovery_revision": 2,
@@ -1945,6 +2021,36 @@
       "attempted_at": "2026-10-26T08:46:19.889029+00:00",
       "retry_after": "2026-10-27T09:46:19.889029+00:00",
       "headline": "Chinese Conglomerate Huafa’s Bonds Plunge in Biggest Daily Drop"
+    },
+    "https://www.insurancebusinessmag.com/uk/news/breaking-news/bank-of-england-flags-insurance-gaps-as-a-systemic-economic-concern-594887.aspx": {
+      "attempted_at": "2026-10-26T09:43:30.783600+00:00",
+      "retry_after": "2026-10-27T10:43:30.783600+00:00",
+      "headline": "Bank of England flags insurance gaps as a systemic economic concern"
+    },
+    "https://www.insurancebusinessmag.com/uk/news/mergers-acquisitions/amtrust-acquires-wakam-weeks-after-french-regulator-halted-its-underwriting-594890.aspx": {
+      "attempted_at": "2026-10-26T09:43:30.783600+00:00",
+      "retry_after": "2026-10-27T10:43:30.783600+00:00",
+      "headline": "AmTrust acquires Wakam weeks after French regulator halted its underwriting"
+    },
+    "https://www.reinsurancene.ws/oak-global-bolsters-lloyds-platform-with-senior-risk-and-underwriting-appointments/": {
+      "attempted_at": "2026-10-26T09:43:30.783600+00:00",
+      "retry_after": "2026-10-27T10:43:30.783600+00:00",
+      "headline": "OAK Global bolsters Lloyd’s platform with senior risk and underwriting appointments"
+    },
+    "https://www.theguardian.com/business/live/2026/oct/26/ai-cloud-computing-companies-guppy-level-death-elon-musk-stock-markets-dollar-oil-bond-yieds-latest-news-updates": {
+      "attempted_at": "2026-10-26T09:43:30.783600+00:00",
+      "retry_after": "2026-10-27T10:43:30.783600+00:00",
+      "headline": "AI cloud computing firms face ‘guppy-level death’, Elon Musk warns; French bonds rally after avoiding downgrade – business live"
+    },
+    "https://www.moneymarketing.co.uk/the-morning-briefing-pension-and-tax-rules-discouraging-later-life-working-what-does-fair-value-mean/": {
+      "attempted_at": "2026-10-26T09:43:30.783600+00:00",
+      "retry_after": "2026-10-27T10:43:30.783600+00:00",
+      "headline": "The Morning Briefing: Pension and tax rules discouraging later-life working; What does fair value mean?"
+    },
+    "https://www.moneymarketing.co.uk/one-in-three-britons-say-pension-and-tax-rules-discourage-later-life-working/": {
+      "attempted_at": "2026-10-26T09:43:30.783600+00:00",
+      "retry_after": "2026-10-27T10:43:30.783600+00:00",
+      "headline": "One in three Britons say pension and tax rules discourage later-life working"
     }
   },
   "sources": {
@@ -2026,7 +2132,7 @@
       "stage": "source",
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-26T09:12:43.047405+00:00"
+      "alternative_search_after": "2026-10-26T13:43:30.783600+00:00"
     },
     "https://www.gov.uk/government/news/government-slashes-red-tape-and-tariffs-to-give-businesses-breathing-space": {
       "attempted_at": "2026-10-24T01:58:04.583754+00:00",
@@ -2079,14 +2185,14 @@
       "alternative_search_after": "2026-10-26T12:46:19.889029+00:00"
     },
     "https://www.bbc.co.uk/news/articles/c6x2zrjl7kjno": {
-      "attempted_at": "2026-10-26T06:49:02.534221+00:00",
-      "retry_after": "2026-10-26T08:49:02.534221+00:00",
+      "attempted_at": "2026-10-26T09:43:30.783600+00:00",
+      "retry_after": "2026-10-26T11:43:30.783600+00:00",
       "last_result": "Original document was not announced today in the UK",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
-      "failures": 3,
+      "failures": 4,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-26T10:49:02.534221+00:00"
+      "alternative_search_after": "2026-10-26T13:43:30.783600+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-26/world-bank-somalia-low-tax-revenue-key-fiscal-challenge": {
       "attempted_at": "2026-10-26T06:49:02.534221+00:00",
@@ -2173,6 +2279,25 @@
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1",
       "alternative_search_after": "2026-10-26T12:46:19.889029+00:00"
+    },
+    "https://www.aviva.com/newsroom/news-and-research-overview/news-releases/2026/10/aviva-reunites-customers-with-more-than-one-billion-pounds-in-pension-savings/": {
+      "attempted_at": "2026-10-26T09:43:30.783600+00:00",
+      "retry_after": "2026-10-26T11:43:30.783600+00:00",
+      "last_result": "Original document has no unambiguous publication date; listing/RSS date is insufficient",
+      "classification": "DATE_UNVERIFIED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-26T13:43:30.783600+00:00"
+    },
+    "https://www.investmentweek.co.uk/news/4537828/foresight-environmental-infrastructure-makes-positive-104m-disposal": {
+      "attempted_at": "2026-10-26T09:43:30.783600+00:00",
+      "retry_after": "2026-10-26T09:58:30.783600+00:00",
+      "last_result": "Article length must serve the story, got 62 words",
+      "classification": "INVALID_RESPONSE",
+      "stage": "writing",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     }
   },
   "version": 2,
