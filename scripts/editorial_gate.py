@@ -93,7 +93,7 @@ def check(bundle: dict, human_review: bool = False) -> dict:
     if source_lane(a['url']) == 'original_reporting' and not has_sector_content(a):
         raise ValueError('Article contains no Insurance or Banking development beyond publisher attribution')
     word_count = sum(len(p.split()) for p in paragraphs)
-    if not 95 <= word_count <= 1100:
+    if not 80 <= word_count <= 1100:
         raise ValueError(f"Article length inappropriate: {word_count} words")
     if len(a["title"]) < 22 or len(a["title"]) > 170 or len(a["short"]) < 60:
         raise ValueError("Headline or standfirst fails editorial criteria")
@@ -139,8 +139,9 @@ def check(bundle: dict, human_review: bool = False) -> dict:
         if not isinstance(review, dict) or review.get("review_schema") != "one-verdict-per-sentence-v2":
             raise ValueError("Separate evidence-review report missing")
         fields = [a["title"], a["short"]] + ([v for block in blocks for v in block] if audit.get("review_headings") else paragraphs)
+        from editorial_sentences import split
         sentence_count = sum(
-            len([x for x in re.split(r"(?<=[.!?])\s+(?=[A-Z0-9£])|\n+", field) if x.strip()])
+            len(split(field)) if audit.get('sentence_segmenter')==2 else len([x for x in re.split(r"(?<=[.!?])\s+(?=[A-Z0-9£])|\n+", field) if x.strip()])
             for field in fields
         )
         labels = [f"C{i:02}" for i in range(1, sentence_count + 1)]

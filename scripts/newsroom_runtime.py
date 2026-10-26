@@ -34,6 +34,11 @@ def run(root=None,now=None,*,discovery=discover,trace=find_originals,reader=read
     events=[];metrics=Counter();checkpoints=Checkpoints(out)
     ledger_path=root/'data/newsroom-attempts.json';ledger=read_json(ledger_path,{'version':2,'sources':{}})
     attempts=ledger.setdefault('sources',{});meter=CallBudget(ledger,now,path=ledger_path)
+    if ledger.get('sentence_segmenter')!=2:
+        for url in list(attempts):
+            if attempts[url].get('last_result')=='Incomplete evidence record':
+                attempts.pop(url)
+        ledger['sentence_segmenter']=2
     # One-time recovery from the old transport adapter rejecting JSON arrays.
     # Preserve source checkpoints and the already-charged request reservation.
     if ledger.get('batch_schema_version')!=1:

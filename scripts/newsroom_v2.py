@@ -30,7 +30,7 @@ from numeric_evidence import unsupported as unsupported_quantities
 
 MAX_CANDIDATES = 40
 MAX_DRAFTS = 3
-MIN_WORDS = 95
+MIN_WORDS = 80
 MAX_WORDS = 950
 NUMBER = re.compile(r"(?<![\w])(?:£|\$)?\d+(?:[.,]\d+)*(?:%|bn|m|k)?(?![\w])", re.I)
 GENERIC = re.compile(r"(?i)\b(?:industry participants|financial services professionals are reviewing|in today's evolving landscape|in a significant development)\b")
@@ -145,7 +145,7 @@ def write_prompt(item, official):
         "Return ONLY a JSON object with: "
         "headline (string), standfirst (string), sections (array of 2 to 5 objects, "
         "each with heading and text strings), glossary (array of objects with term/explanation, optional). "
-        "Write around 120–450 words in total for source-supported developments; a tight 95-word article is acceptable when that is all the evidence justifies. Never pad with speculation. "
+        "Write around 120–450 words in total for source-supported developments; a tight 80-word article is acceptable when that is all the evidence justifies. Never pad with speculation. "
         "Prefer crisp paragraphs. Don't reproduce extensive source phrasing. "
         f"\n\nSOURCE TITLE: {item['title']}\nSOURCE DATE: {item['dateISO']}"
         f"\nPRIMARY SOURCE: {official.url}\nDOCUMENTS: {', '.join(official.document_urls)}"
@@ -283,6 +283,7 @@ def make_article(output,item,official):
             "ai_assisted":True,"editorial_status":"DRAFT: requires human source verification"}
 
 def article_sentences(article):
+    from editorial_sentences import split
     # Require explicit review of EVERY sentence in the headline, standfirst
     # and body, including sentences that look like general implications.
     fields=[("headline",article["title"]),("standfirst",article["short"])]
@@ -290,7 +291,7 @@ def article_sentences(article):
         fields.extend([("section heading",heading),(heading,body)])
     result=[]
     for location,value in fields:
-        for line in re.split(r"(?<=[.!?])\s+(?=[A-Z0-9£])|\n+",value):
+        for line in split(value):
             line=line.strip()
             if not line:
                 continue
@@ -385,7 +386,7 @@ def reconcile_reviews(article,official,verdict):
                          "supported":len(exact),"held":len(holds),"review_schema":"one-verdict-per-sentence-v2"}
 
 def build_audit(article,official,item,checks,coverage):
-    return {"pipeline_version":2,"review_headings":True,"date_evidence":item.get("date_evidence"),"article_id":article["id"],"source_url":article["url"],
+    return {"pipeline_version":2,"sentence_segmenter":2,"review_headings":True,"date_evidence":item.get("date_evidence"),"article_id":article["id"],"source_url":article["url"],
             "source_title":item["title"],"source_sha256":official.evidence_sha256,
             "source_number_tokens":sorted(numeric_tokens(official.text+" "+item["title"]+" "+item["dateISO"])),
             "draft_sha256":canonical(article),"retrieved_at":dt.datetime.now(dt.timezone.utc).isoformat(),
