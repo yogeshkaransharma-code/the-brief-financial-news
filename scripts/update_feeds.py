@@ -121,7 +121,7 @@ def registered_feeds(path=ROOT / "data" / "publisher-feeds.json"):
                 and len(parse_qs(u.query)["channel"])==1
                 and parse_qs(u.query)["channel"][0] in approved_channels):
             raise ValueError("Feed requires an individually reviewed publisher origin and route: "+url)
-        if name in names or url in urls or any(url==existing[1] for existing in FEEDS):
+        if name in names or url in urls:
             raise ValueError("Duplicate RSS discovery source: "+name)
         names.add(name);urls.add(url)
         result.append((name,url,category))
