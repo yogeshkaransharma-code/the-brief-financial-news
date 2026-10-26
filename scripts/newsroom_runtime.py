@@ -137,7 +137,7 @@ def run(root=None,now=None,*,discovery=discover,trace=find_originals,reader=read
         seen.add(item['url']);cached=checkpoints.read(item['url'])
         if not cached or cached['document']['evidence_sha256']!=doc.evidence_sha256:
             checkpoints.save(item,doc,status='captured',article=None,bundle=None)
-        verified.append((item,doc));event(item,'source verified','source','Complete captured source; original UK publication date validated',source_sha256=doc.evidence_sha256)
+        verified.append((item,doc));event(item,'source verified','source','Complete captured source; original UK publication date validated',source_sha256=doc.evidence_sha256,capture_method=method)
     metrics['verified_original_candidates']=len(verified)
     # Recover clean bundles before considering cooldowns or model quota.
     work=[]

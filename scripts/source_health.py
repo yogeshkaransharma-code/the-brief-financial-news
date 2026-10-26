@@ -16,7 +16,7 @@ def update(previous,feeds,coverage,events,now):
     for row in events:
         if row.get('stage')!='source' or not row.get('source'):continue
         key='article-host:'+str(urlsplit(row['source']).hostname)
-        if row['result']=='source verified':record(key,True,candidates=1)
+        if row['result']=='source verified' and row.get('capture_method')=='retrieved':record(key,True,candidates=1)
         elif row['result']=='held back':record(key,False,row.get('classification') or row.get('reason'))
     return {'checked_at':now.isoformat(),'sources':records,
             'needs_supplement':[k for k,v in records.items() if v['failures']>=3 and v['failures']>v['successes']*2],
