@@ -98,10 +98,11 @@ def main():
   atomic_json(root/'data/articles.json',[])
   for i in range(2):
    state.save(items[i],docs[urls[i]],status='held',review_policy=1,reason='Old reviewer lacked publisher provenance')
-  third=run(root,now+dt.timedelta(minutes=40),**kwargs)
-  assert third['api_budget']['requests_this_run']==1 and third['machine_screened']==2
-  for i in range(2):
-   state.save(items[i],docs[urls[i]],status='held',review_policy=2,reason='Unsupported substantive claim')
+  with patch('newsroom_batches.check',side_effect=ValueError('Fixture deterministic scope rejection')):
+   third=run(root,now+dt.timedelta(minutes=40),**kwargs)
+  assert third['api_budget']['requests_this_run']==1 and third['machine_screened']==0
+  assert state.read(urls[0])['status']=='held' and state.read(urls[0])['review_policy']==2
+  assert state.read(urls[0])['bundle']['editorial_flags'][0]['type']=='deterministic_check'
   fourth=run(root,now+dt.timedelta(minutes=60),**kwargs)
   assert fourth['api_budget']['requests_this_run']==0 and fourth['machine_screened']==0
  # Source failures are bounded and permanent access denials are not hammered.

@@ -41,6 +41,9 @@ def review_batch(triples,call,on_bundle,on_error):
             checks,flags,coverage=reconcile_reviews(article,doc,matches[0])
             bundle=prepare_bundle(article,build_audit(article,doc,item,checks,coverage),doc,flags)
             bundle['revision_history']=[{'revision':0,'problems':flags,'sentences':coverage['total_sentences']}]
-            if not flags:check(bundle)
+            if not flags:
+                try:check(bundle)
+                except (ValueError,KeyError,TypeError) as error:
+                    flags.append({'reason':str(error),'type':'deterministic_check'})
             on_bundle(item,doc,article,bundle,not bool(flags))
         except Exception as error:on_error(item,'independent_review',error)
