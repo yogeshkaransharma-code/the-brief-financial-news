@@ -131,8 +131,10 @@ def process(verified,*,root,out,checkpoints,ledger,meter,now,call,event,metrics,
         state=checkpoints.read(item['url']) or {}
         # This is sector routing before writing, not a significance/claim review.
         scoped=state.get('article') or {'title':item['title'],'short':'','source':item['source'],'blocks':[['',doc.text]]}
-        if source_lane(item['url'])=='original_reporting' and not has_sector_content(scoped):
-            event(item,'outside scope','eligibility','No Insurance/Banking content beyond publisher identity');metrics['outside_sector_content']+=1;continue
+        from uk_market_scope import named_financial_institution
+        if (source_lane(item['url'])=='original_reporting' and not has_sector_content(scoped)
+                and not named_financial_institution(item.get('title',''))):
+            event(item,'outside scope','eligibility','No Insurance/Banking content beyond publisher identity or recognised firm');metrics['outside_sector_content']+=1;continue
         if state.get('publication_policy')==POLICY and state.get('status') in {'written_response','unusable_response'}:
             if state['status']=='written_response':
                 try:

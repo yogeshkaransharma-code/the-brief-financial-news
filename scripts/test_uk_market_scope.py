@@ -41,6 +41,10 @@ def main():
     assert in_uk_scope(fake,"The UK insurance regulator publishes revised underwriting guidance.")
     regulated=article("FCA warns clone investment provider","",url="https://www.fca.org.uk/news/warnings/example")
     assert uk_market_reason(regulated,"The watchdog issued a warning.")
+    from uk_market_scope import named_financial_institution
+    assert named_financial_institution("Marsh names Andy Start CBE as Senior Advisor")
+    assert named_financial_institution("Aviva appoints commercial insurance director")
+    assert not named_financial_institution("US farm equipment business opens a plant")
     # A worldwide source must not crowd out fresh UK leads merely because its
     # older URL is in cooldown; reserve space for evidenced global UK effects.
     import datetime as dt
