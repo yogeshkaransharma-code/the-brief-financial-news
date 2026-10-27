@@ -20,5 +20,3 @@ jobs:
       - run: |
           python scripts/build_public.py
           python scripts/verify_public.py
-      - name: Probe public LinkedIn search discovery without model calls
-        run: python scripts/linkedin_discovery.py

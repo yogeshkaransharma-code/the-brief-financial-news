@@ -71,7 +71,9 @@ def discover(root,now=None,*,search=search_rows):
     report={'mode':MODE,'limitation':LIMITATION,'checked_at':now.isoformat(),'enabled':bool(config.get('enabled')),
             'queries_checked':0,'queries_failed':0,'index_rows':0,'linkedin_posts_found':0,
             'new_posts_found':0,'resolution_searches':0,'matched_source_candidates':0,'events':[]}
-    if not report['enabled']:return [],report
+    if not report['enabled']:
+        report.update(coverage_status='DISABLED',reason=config.get('disabled_reason','Not configured'))
+        return [],report
     state_path=root/'data/linkedin-discovery.json'
     state=read(state_path,{'queries':{},'leads':{}})
     queries=state.setdefault('queries',{});leads=state.setdefault('leads',{})
@@ -133,26 +135,15 @@ def discover(root,now=None,*,search=search_rows):
 if __name__=='__main__':
     # Read-only live integration probe: no writing model, article publication,
     # LinkedIn HTTP request or durable production state mutation.
-    import tempfile,shutil
+    import tempfile,shutil,sys
     base=Path(__file__).resolve().parents[1]
     with tempfile.TemporaryDirectory() as folder:
         root=Path(folder);(root/'data').mkdir()
         shutil.copyfile(base/'data/source-registry.json',root/'data/source-registry.json')
+        if '--probe' in sys.argv:
+            config=json.loads((root/'data/source-registry.json').read_text())
+            config.setdefault('linkedin_discovery',{})['enabled']=True
+            atomic_json(root/'data/source-registry.json',config)
         items,report=discover(root)
         print('LINKEDIN_PUBLIC_DISCOVERY:',json.dumps(report,ensure_ascii=False))
         print('LINKEDIN_MATCHED_SOURCES:',json.dumps(items,ensure_ascii=False))
-        if not report['linkedin_posts_found']:
-            for query in ['site:linkedin.com/posts insurance','site:linkedin.com/posts bank partnership','"LinkedIn" "Aviva" "insurance"']:
-                try:print('LINKEDIN_SEARCH_DIAGNOSTIC:',json.dumps({'query':query,'rows':search_rows(query)[:5]}))
-                except Exception as error:print('LINKEDIN_SEARCH_DIAGNOSTIC:',str(error))
-            try:
-                from bs4 import BeautifulSoup
-                url='https://html.duckduckgo.com/html/?'+urlencode({'q':'site:linkedin.com/posts insurance partnership'})
-                req=urllib.request.Request(url,headers={'User-Agent':'TheBrief-PublicNewsDiscovery/1.0'})
-                with urllib.request.urlopen(req,timeout=10) as response:
-                    raw=response.read(500000)
-                    print('LINKEDIN_SECOND_INDEX_STATUS:',response.status)
-                soup=BeautifulSoup(raw,'html.parser')
-                print('LINKEDIN_SECOND_INDEX_RESULTS:',json.dumps([{'title':a.get_text(' ',strip=True),'url':a.get('href')} for a in soup.select('a.result__a')][:5]))
-                print('LINKEDIN_SECOND_INDEX_TITLE:',soup.title.get_text(' ',strip=True) if soup.title else '')
-            except Exception as error:print('LINKEDIN_SECOND_INDEX_ERROR:',str(error))

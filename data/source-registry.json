@@ -710,7 +710,7 @@
     }
   ],
   "linkedin_discovery": {
-    "enabled": true,
+    "enabled": false,
     "mode": "public_search_index_only",
     "max_queries_per_run": 4,
     "max_resolutions_per_run": 4,
@@ -746,6 +746,7 @@
         "desk": "Banking",
         "terms": "(FCA OR PRA OR \"Bank of England\") (consultation OR policy OR regulation)"
       }
-    ]
+    ],
+    "disabled_reason": "Live public-index probes returned no usable LinkedIn posts; awaiting a permitted post-discovery feed. No scheduled LinkedIn requests."
   }
 }
