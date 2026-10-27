@@ -71,7 +71,8 @@ def main(_budget):
    audit=json.loads((root/'data/editorial-audits'/(article['id']+'.json')).read_text())
    assert audit['review_mode']=='single_pass_source_based' and not audit['independent_claim_checks']
    page=standalone_story(article)
-   assert 'no separate AI or human editorial review' in page and 'machine-screened' not in page
+   assert 'No separate editorial fact-check has been carried out.' in page
+   assert 'machine-screened' not in page and 'Written automatically' not in page
   # Date/source integrity remains; no fact, heading or word-count review is called.
   state=Checkpoints(root/'generated-drafts').read(urls[0]);bundle=state['bundle']
   assert not eligible(bundle,now)
