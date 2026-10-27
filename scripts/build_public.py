@@ -220,7 +220,8 @@ def desk_topic(a,section):
 
 def desk_page(records,section):
     """One masthead, one editorial grid, subtle separate desk identities."""
-    from site_design import ST_PAULS_PHOTO,CITY_PHOTO,ST_PAULS_CREDIT_URL,CITY_CREDIT_URL
+    from site_design import (ST_PAULS_PHOTO,CITY_PHOTO,BANK_PHOTO,WESTMINSTER_PHOTO,
+                             ST_PAULS_CREDIT_URL,CITY_CREDIT_URL,BANK_CREDIT_URL,WESTMINSTER_CREDIT_URL)
     selected=[a for a in records if a['desk_section']==section]
     desk=section.lower()
     intro=('The latest developments shaping UK insurers, brokers, underwriting, claims and regulation.' if section=='Insurance'
@@ -231,13 +232,16 @@ def desk_page(records,section):
     buttons=['Latest','Regulation','Markets' if section=='Insurance' else 'Economy','Companies']
     if section=='Insurance':buttons.append('People')
     tabs=''.join('<button type="button" class="tb-desk-tab'+(' active' if v=='Latest' else '')+'" data-topic="'+v+'" aria-pressed="'+('true' if v=='Latest' else 'false')+'">'+v+'</button>' for v in buttons)
+    # Use several accredited London images as illustrations, not pseudo-event photography.
+    thumbnail_images=([WESTMINSTER_PHOTO,ST_PAULS_PHOTO,CITY_PHOTO,BANK_PHOTO] if section=='Insurance'
+                      else [BANK_PHOTO,CITY_PHOTO,WESTMINSTER_PHOTO,ST_PAULS_PHOTO])
     cards=[]
     for i,a in enumerate(selected):
         published=dt.datetime.fromisoformat(a['published_at'].replace('Z','+00:00')).astimezone(__import__('zoneinfo').ZoneInfo('Europe/London'))
         stamp=original_date(a).strftime('%-d %b %Y') if original_date(a)!=clock().date() else published.strftime('%H:%M')
         topic=desk_topic(a,section)
         cards.append('<article data-category="'+esc(section)+'" data-topic="'+esc(topic)+'" class="tb-desk-story">'
-            '<a class="tb-desk-image" href="'+story_href(a)+'"><img src="'+esc(image)+'" alt="Illustrative photograph of London, not the event" loading="lazy" decoding="async"></a>'
+            '<a class="tb-desk-image" href="'+story_href(a)+'"><img src="'+esc(thumbnail_images[i%len(thumbnail_images)])+'" alt="Illustrative photograph of London, not the event" loading="lazy" decoding="async"></a>'
             '<div class="tb-desk-story-copy"><span class="tb-desk-category">'+esc(topic)+'</span>'
             '<h2><a href="'+story_href(a)+'">'+esc(a['title'])+'</a></h2>'
             '<p>'+esc(a.get('short',''))+'</p><small>'+esc(a.get('source',''))+' · '+esc(stamp)+'</small></div></article>')
@@ -248,18 +252,38 @@ def desk_page(records,section):
           '<nav class="tb-desk-tabs" aria-label="Browse '+esc(section)+' reports">'+tabs
           +'<a href="archive.html?category='+esc(section)+'">All reports ↗</a></nav>'
           '<div class="tb-desk-stories">'+''.join(cards)+'</div>'
+          '<button type="button" id="tb-desk-more" class="tb-desk-more" hidden>Show more reports ↓</button>'
           '<p class="tb-desk-empty" hidden>No reports match this section yet. <button type="button" id="tb-reset-desk">Show the latest instead</button>.</p>'
+          '<p class="tb-desk-image-credits">Article photographs are illustrative, not pictures of the news events. Image credits: '
+          '<a href="'+WESTMINSTER_CREDIT_URL+'" target="_blank" rel="noopener noreferrer">hozinja</a>, '
+          '<a href="'+ST_PAULS_CREDIT_URL+'" target="_blank" rel="noopener noreferrer">Colin</a>, '
+          '<a href="'+CITY_CREDIT_URL+'" target="_blank" rel="noopener noreferrer">Choinowski</a> and '
+          '<a href="'+BANK_CREDIT_URL+'" target="_blank" rel="noopener noreferrer">Diego Delso</a>, via Wikimedia Commons (CC BY / CC BY-SA).</p>'
           '<p class="tb-desk-older"><a href="archive.html?category='+esc(section)+'">Browse the complete archive ↗</a></p>')
     js="""<script>
-document.querySelectorAll('.tb-desk-tab').forEach(button=>button.addEventListener('click',()=>{
-  const topic=button.dataset.topic;let shown=0;
-  document.querySelectorAll('.tb-desk-tab').forEach(b=>{b.classList.toggle('active',b===button);b.setAttribute('aria-pressed',String(b===button))});
-  document.querySelectorAll('.tb-desk-story').forEach(card=>{
-    card.hidden=topic!=='Latest'&&card.dataset.topic!==topic;if(!card.hidden)shown++;
+const deskCards=[...document.querySelectorAll('.tb-desk-story')];
+let deskTopic='Latest',deskLimit=7;
+function renderDesk(){
+  let matched=0,visible=0;
+  deskCards.forEach(card=>{
+    const eligible=deskTopic==='Latest'||card.dataset.topic===deskTopic;
+    if(eligible)matched++;
+    card.hidden=!(eligible&&matched<=deskLimit);
+    if(!card.hidden)visible++;
   });
-  document.querySelector('.tb-desk-empty').hidden=shown>0;
+  const more=document.querySelector('#tb-desk-more');
+  more.hidden=matched<=deskLimit;
+  more.textContent='Show more reports ↓';
+  document.querySelector('.tb-desk-empty').hidden=matched>0;
+}
+document.querySelectorAll('.tb-desk-tab').forEach(button=>button.addEventListener('click',()=>{
+  deskTopic=button.dataset.topic;deskLimit=7;
+  document.querySelectorAll('.tb-desk-tab').forEach(b=>{b.classList.toggle('active',b===button);b.setAttribute('aria-pressed',String(b===button))});
+  renderDesk();
 }));
+document.querySelector('#tb-desk-more').addEventListener('click',()=>{deskLimit+=7;renderDesk()});
 document.querySelector('#tb-reset-desk').addEventListener('click',()=>document.querySelector('.tb-desk-tab').click());
+renderDesk();
 </script>"""
     return ('<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
         '<meta name="theme-color" content="#261E22"><meta name="description" content="'+esc(intro)+'"><title>'+esc(section)+' — The Brief</title>'
