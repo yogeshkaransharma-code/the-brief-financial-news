@@ -89,8 +89,10 @@ def run(root=None,now=None,*,discovery=discover,trace=find_originals,reader=read
         item['internal_category']=item.get('category');item['category']=desk_for(item)
         candidates.append(item)
     metrics['fresh_relevant_candidates']=len(candidates)
-    # Sample fairly and retain all overflow candidates in the discovery ledger.
-    sampled=diverse(candidates,40)
+    # Spend existing retrieval capacity on accessible UK developments first.
+    # This affects which story we READ next, never the criteria for publication.
+    from uk_market_scope import sample_uk_first
+    sampled=sample_uk_first(candidates,attempts,now,40)
     for item in candidates:
         if item not in sampled:event(item,'deferred','source','Bounded source-read allowance; retained for next run')
     def capture(item):
