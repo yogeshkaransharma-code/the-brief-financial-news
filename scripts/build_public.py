@@ -11,7 +11,7 @@ import re
 from pathlib import Path
 from urllib.parse import quote
 from same_day_policy import published_same_day, clock, original_date, date_in_uk
-from site_design import desk_for, terms_for, header, footer as site_footer, visual
+from site_design import desk_for, terms_for, header, footer as site_footer, visual, ST_PAULS_PHOTO, CITY_PHOTO
 from reader_experience import lead_article, other_briefs
 from reader_analytics import install as install_analytics, token_from_env
 import shutil
@@ -69,61 +69,76 @@ def article_body(a):
     return "\n".join(out)
 
 
-def standalone_story(a):
-    """A complete, source-linked reading page under the shared burgundy masthead."""
-    section=a.get("desk_section") or desk_for(a)
-    news_date=original_date(a).strftime("%-d %B %Y")
+def standout_points(a,limit=3):
+    """Extract short exact statements from the approved article, never invent facts."""
+    values=[]
+    for heading,paragraph in a.get('blocks',[]):
+        text=' '.join(str(paragraph).split())
+        if not text:continue
+        first=re.split(r'(?<=[.!?])\s+(?=[A-Z])',text,maxsplit=1)[0]
+        if len(first)>200:first=' '.join(first[:196].split())+'…'
+        if first and first not in values:values.append(first)
+        if len(values)>=limit:break
+    return values
+
+
+def standalone_story(a,related=None):
+    """Magazine-style sourced article. Sector colour never replaces the shared brand."""
+    section=a.get('desk_section') or desk_for(a)
+    desk=section.lower()
+    news_date=original_date(a).strftime('%-d %B %Y')
     published_local=dt.datetime.fromisoformat(a['published_at'].replace('Z','+00:00')).astimezone(__import__('zoneinfo').ZoneInfo('Europe/London'))
     publication_stamp=published_local.strftime('%-d %B %Y, %H:%M %Z')
-    # One visible calendar date when source and Brief publication fall on the same UK day.
     byline_date=(esc(news_date)+' · '+esc(published_local.strftime('%H:%M %Z')) if original_date(a)==published_local.date()
                  else 'Source: '+esc(news_date)+' · The Brief: '+esc(publication_stamp))
     archived=original_date(a)!=clock().date()
     note=('<p class="archive-note"><strong>ARCHIVE · Earlier edition.</strong> This is earlier reporting, not today’s news.</p>' if archived else '')
-    if not a.get("date_evidence"):
+    if not a.get('date_evidence'):
         note+='<p class="archive-note">Legacy report: the source date and claims have not been revalidated under the current controls.</p>'
-    if a.get("retrospective_launch"):
+    if a.get('retrospective_launch'):
         note+='<p class="archive-note">Saturday launch edition prepared retrospectively; the recorded publication time is accurate.</p>'
     is_media=a.get("status")=="Original reporting"
     source_description=("This article summarises attributed journalism by the named publisher. The Brief has not independently verified every underlying claim." if is_media
         else "This article is based on the original announcement or document below.")
     disclosure=('Based on the linked source. No separate editorial fact-check has been carried out.' if a.get('independent_review') is False
                 else 'This report draws on the linked source. No human editorial approval is claimed.')
-    terms=a.get("display_glossary") or terms_for(a)
-    definitions=(''.join('<dt>'+esc(t)+'</dt><dd>'+esc(d)+'</dd>' for t,d in terms))
+    terms=a.get('display_glossary') or terms_for(a)
+    definitions=''.join('<dt>'+esc(t)+'</dt><dd>'+esc(d)+'</dd>' for t,d in terms)
     glossary_html=('<section class="tb-glossary"><h2>Jargon, explained.</h2><dl>'+definitions+'</dl></section>' if definitions else '')
+    points=standout_points(a)
+    if len(points)<2 and a.get('short'):points.insert(0,a['short'])
+    points_html=''.join('<li>'+esc(x)+'</li>' for x in points)
+    related=[x for x in (related or []) if x.get('id')!=a['id'] and x.get('desk_section')==section][:2]
+    related_html=(''.join('<a href="../'+esc(story_href(x))+'">'+esc(x['title'])+'<span>Read report ↗</span></a>' for x in related))
+    word_count=sum(len(str(para).split()) for _,para in a['blocks'])
+    estimated_minutes=max(1,round(word_count/220))
+    source_color='Insurance' if section=='Insurance' else 'Banking'
     return f"""<!doctype html>
 <html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#332B2E"><meta name="description" content="{esc(a.get('short',''))}">
+<meta name="theme-color" content="#261E22"><meta name="description" content="{esc(a.get('short',''))}">
 <title>{esc(a['title'])} — The Brief</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Newsreader:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/site.css">
-<style>
-.reader{{width:min(100%,840px);margin:auto;padding:44px 28px 95px}}
-.reader .kicker{{font:800 11px var(--sans);letter-spacing:.14em;color:#87404B;text-transform:uppercase}}
-.reader h1{{font:500 clamp(38px,5.1vw,62px)/1.08 var(--display);letter-spacing:-1.45px;margin:18px 0 20px}}
-.reader .intro{{font:400 clamp(19px,2.1vw,24px)/1.46 var(--display);color:#655956;margin:0 0 23px}}
-.reader .meta{{padding:13px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);font:12px/1.7 var(--sans);color:#766a65}}
-.reader .article-body{{font:400 20px/1.72 var(--display);max-width:735px}}
-.reader .article-body h2{{font:500 31px/1.23 var(--display);letter-spacing:-.5px;margin:35px 0 12px}}
-.reader .article-body p{{margin:0 0 23px}}
-.reader .archive-note{{font:13px/1.65 var(--sans);background:#f1e7e3;color:#654d52;border-left:3px solid #87404B;padding:12px 17px}}
-.reader .disclosure{{font:12px/1.7 var(--sans);color:#766966;margin-top:23px}}
-.reader a{{text-underline-offset:4px;text-decoration-color:#b48a91}}
-@media(max-width:600px){{.reader{{padding:30px 19px 70px}}.reader .article-body{{font-size:19px}}.reader .article-body h2{{font-size:26px}}}}
-</style></head>
-<body class="tb-reading-page">{header("../")}
-<main class="reader"><article>{note}<div class="kicker">{esc(section)} / THE BRIEF REPORT</div>
+</head><body class="tb-reading-page tb-{desk}-reading">{header("../",section)}
+<main class="reader"><article>{note}
+<nav class="tb-breadcrumbs" aria-label="Breadcrumbs"><a href="../index.html">Home</a><span>›</span><a href="../{desk}.html">{esc(section)}</a><span>›</span><span>Latest reporting</span></nav>
+<div class="tb-story-layout"><div class="tb-story-main">
+<div class="kicker tb-story-kicker">{esc(section)} <span> / THE BRIEF REPORT</span></div>
 <h1>{esc(a['title'])}</h1><p class="intro">{esc(a.get('short',''))}</p>
-<div class="meta">{byline_date} · {esc(a.get('source',''))}</div>
+<div class="meta">By The Brief · {byline_date} · {esc(a.get('source',''))} · {estimated_minutes} min read</div>
+{visual(section)}
 <div class="article-body">{article_body(a)}</div>
 {glossary_html}
 <div class="source tb-source-evidence"><h2>Original source</h2>
 <p>{esc(source_description)} All consequential claims should be checked against the linked original before making decisions.</p>
 <a href="{esc(a['url'])}" target="_blank" rel="noopener noreferrer">{esc(a.get('source','Original publisher'))} — read the original source ↗</a></div>
 <p class="disclosure">{esc(disclosure)} <a href="../about.html">Our standards and corrections policy</a>. Not financial advice.</p>
+</div><aside class="tb-story-aside" aria-label="Article at a glance">
+<section class="tb-key-points"><h2>Key points</h2><ul>{points_html}</ul></section>
+<section class="tb-uk-context"><h3>The UK connection</h3><p>{esc(a.get('short',''))}</p></section>
+<section class="tb-related"><h3>Read next</h3>{related_html if related_html else '<a href="../'+desk+'.html">More '+esc(section)+' news ↗</a>'}</section>
+</aside></div>
 </article></main>{site_footer("../")}</body></html>"""
-
 
 def archive_page(records,edition=None):
     prefix='../' if edition else ''
@@ -192,22 +207,65 @@ def status_page():
     return utility_page('Inside the newsroom.',body)
 
 
-def desk_page(records,section):
-    """A real, independently addressable Insurance or Banking page."""
-    selected=[a for a in records if a['desk_section']==section]
-    intro=('Underwriting, brokers, insurers, claims, protection and insurance regulation.' if section=='Insurance'
-        else 'Banks, lending, savings, payments, markets and banking regulation.')
-    intro_html='<p class="intro">'+intro+' Read each full article on The Brief, with definitions and the original source linked below.</p>'
-    cards=[]
-    for a in selected:
-        date=original_date(a).strftime('%-d %B %Y')
-        cards.append('<article data-category="'+esc(section)+'"><span class="kicker">'+esc(date)+' · '+esc(a.get('source',''))+'</span>'
-            '<h2><a href="'+story_href(a)+'">'+esc(a['title'])+'</a></h2>'
-            '<p>'+esc(a.get('short',''))+'</p><small><a href="'+story_href(a)+'">Read complete article ↗</a></small></article>')
-    if not selected:cards.append('<p>No approved reports in this section yet. The newsroom continues to check sources.</p>')
-    body=intro_html+'<p class="note">Earlier developments remain dated. We do not label older reporting as breaking news.</p>'+''.join(cards)
-    return utility_page(section+'.',body,active=section)
+def desk_topic(a,section):
+    text=(a.get('title','')+' '+a.get('short','')).lower()
+    if re.search(r'regulat|fca|pra|ombudsman|government|consultation|court|ruling|policy|treasury',text):
+        return 'Regulation'
+    if re.search(r'appoint|names? |promot|chief executive|director|leader|head of',text):
+        return 'People' if section=='Insurance' else 'Companies'
+    if re.search(r'market|premium|reinsur|pricing|rate|profit|investment|capital|claims?|mortgage|lending|inflation|currency|fx',text):
+        return 'Markets' if section=='Insurance' else 'Economy'
+    return 'Companies'
 
+
+def desk_page(records,section):
+    """One masthead, one editorial grid, subtle separate desk identities."""
+    from site_design import ST_PAULS_PHOTO,CITY_PHOTO,ST_PAULS_CREDIT_URL,CITY_CREDIT_URL
+    selected=[a for a in records if a['desk_section']==section]
+    desk=section.lower()
+    intro=('The latest developments shaping UK insurers, brokers, underwriting, claims and regulation.' if section=='Insurance'
+        else 'The latest developments shaping UK banks, lenders, financial markets and the wider economy.')
+    image=ST_PAULS_PHOTO if section=='Insurance' else CITY_PHOTO
+    credit=ST_PAULS_CREDIT_URL if section=='Insurance' else CITY_CREDIT_URL
+    credit_name='Colin' if section=='Insurance' else 'Choinowski'
+    buttons=['Latest','Regulation','Markets' if section=='Insurance' else 'Economy','Companies']
+    if section=='Insurance':buttons.append('People')
+    tabs=''.join('<button type="button" class="tb-desk-tab'+(' active' if v=='Latest' else '')+'" data-topic="'+v+'" aria-pressed="'+('true' if v=='Latest' else 'false')+'">'+v+'</button>' for v in buttons)
+    cards=[]
+    for i,a in enumerate(selected):
+        published=dt.datetime.fromisoformat(a['published_at'].replace('Z','+00:00')).astimezone(__import__('zoneinfo').ZoneInfo('Europe/London'))
+        stamp=original_date(a).strftime('%-d %b %Y') if original_date(a)!=clock().date() else published.strftime('%H:%M')
+        topic=desk_topic(a,section)
+        cards.append('<article data-category="'+esc(section)+'" data-topic="'+esc(topic)+'" class="tb-desk-story">'
+            '<a class="tb-desk-image" href="'+story_href(a)+'"><img src="'+esc(image)+'" alt="Illustrative photograph of London, not the event" loading="lazy" decoding="async"></a>'
+            '<div class="tb-desk-story-copy"><span class="tb-desk-category">'+esc(topic)+'</span>'
+            '<h2><a href="'+story_href(a)+'">'+esc(a['title'])+'</a></h2>'
+            '<p>'+esc(a.get('short',''))+'</p><small>'+esc(a.get('source',''))+' · '+esc(stamp)+'</small></div></article>')
+    body=('<section class="tb-desk-hero"><img src="'+esc(image)+'" alt="London skyline, illustrative sector photography" decoding="async">'
+          '<div class="tb-desk-hero-copy"><span class="tb-desk-label">'+esc(section.upper())+'</span>'
+          '<h1>'+esc(section)+'.</h1><p>'+esc(intro)+'</p><div class="tb-desk-hero-rule"></div></div></section>'
+          '<p class="tb-desk-credit">Illustrative photograph: <a href="'+esc(credit)+'" target="_blank" rel="noopener noreferrer">'+esc(credit_name)+' / Wikimedia Commons</a> · CC BY-SA. Not an event photograph.</p>'
+          '<nav class="tb-desk-tabs" aria-label="Browse '+esc(section)+' reports">'+tabs
+          +'<a href="archive.html?category='+esc(section)+'">All reports ↗</a></nav>'
+          '<div class="tb-desk-stories">'+''.join(cards)+'</div>'
+          '<p class="tb-desk-empty" hidden>No reports match this section yet. <button type="button" id="tb-reset-desk">Show the latest instead</button>.</p>'
+          '<p class="tb-desk-older"><a href="archive.html?category='+esc(section)+'">Browse the complete archive ↗</a></p>')
+    js="""<script>
+document.querySelectorAll('.tb-desk-tab').forEach(button=>button.addEventListener('click',()=>{
+  const topic=button.dataset.topic;let shown=0;
+  document.querySelectorAll('.tb-desk-tab').forEach(b=>{b.classList.toggle('active',b===button);b.setAttribute('aria-pressed',String(b===button))});
+  document.querySelectorAll('.tb-desk-story').forEach(card=>{
+    card.hidden=topic!=='Latest'&&card.dataset.topic!==topic;if(!card.hidden)shown++;
+  });
+  document.querySelector('.tb-desk-empty').hidden=shown>0;
+}));
+document.querySelector('#tb-reset-desk').addEventListener('click',()=>document.querySelector('.tb-desk-tab').click());
+</script>"""
+    return ('<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
+        '<meta name="theme-color" content="#261E22"><meta name="description" content="'+esc(intro)+'"><title>'+esc(section)+' — The Brief</title>'
+        '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Newsreader:wght@400;500;600;700&amp;display=swap" rel="stylesheet">'
+        '<link rel="stylesheet" href="assets/site.css"></head><body class="tb-desk-view tb-'+desk+'-desk">'
+        +header('',section)+'<main class="tb-page tb-desk-page">'+body+'</main>'+site_footer()+js+'</body></html>')
 
 def sources_page():
     from source_catalog import catalog
@@ -250,7 +308,7 @@ def build():
             + esc(story_href(first)) + '">' + esc(first["title"])
             + '</a></h1><p class="standfirst">' + esc(first.get("short")) + '</p>'
             + '<p class="meta">' + esc(first.get('source','')) + ' · ' + esc(dt.datetime.fromisoformat(first['published_at'].replace('Z','+00:00')).astimezone(__import__('zoneinfo').ZoneInfo('Europe/London')).strftime('%H:%M')) + '</p>'
-            + '<p><a class="cta" href="' + esc(story_href(first)) + '">Read the full article ↗</a></p></article>')
+            + '<p><a class="cta" href="' + esc(story_href(first)) + '">Read the full story →</a></p><small class="tb-hero-credit">Illustrative London photograph · <a href="https://commons.wikimedia.org/wiki/File:Big_Ben_after_sunset.jpg" target="_blank" rel="noopener noreferrer">hozinja / Wikimedia Commons, CC BY 2.0</a></small></article>')
     else:
         lead = ('<article id="lead-story" class="lead-story"><span class="story-kicker">THE BRIEF / '+
             esc(today)+'</span><h1>No verified news from today yet.</h1>'
@@ -262,7 +320,7 @@ def build():
         + '</span><div><span class="story-kind">FULL ARTICLE</span>'
         + '<a href="' + esc(story_href(a)) + '">' + esc(a["title"]) + '</a>'
         + '<p>' + esc(a.get("short", "")[:190]) + '</p></div></div>'
-        for i, a in enumerate(other_briefs(records, first))
+        for i, a in enumerate(other_briefs(records, first, limit=5))
     )
     if not briefing:
         briefing = '<p>No verified same-day stories to brief yet.</p>'
@@ -272,7 +330,7 @@ def build():
     rows = []
     for i, a in enumerate(records[:15]):
         rows.append(
-            '<article class="news-item" data-desk="'+esc(a.get('desk_section'))+'"><div class="story-ordinal">' + str(i+1).zfill(2)
+            '<article class="news-item" data-desk="'+esc(a.get('desk_section'))+'"><a class="news-photo" href="'+story_href(a)+'"><img loading="lazy" decoding="async" alt="Illustrative London sector photograph, not the event" src="'+esc(CITY_PHOTO if a.get('desk_section')=='Banking' else ST_PAULS_PHOTO)+'"><span>Sector photograph</span></a><div class="story-ordinal">' + str(i+1).zfill(2)
             + '</div><div><div class="news-cat">' + esc(a.get("desk_section")) + ' · OUR REPORT</div>'
             + '<h3><a href="' + esc(story_href(a)) + '">' + esc(a["title"]) + '</a></h3>'
             + '<p class="summary">' + esc(a.get("short")) + '</p>'
@@ -304,7 +362,7 @@ def build():
     status_path=ROOT/"data/status.json"
     if status_path.exists():shutil.copy2(status_path,OUT/"data/status.json")
     for a in archive:
-        (OUT / story_href(a)).write_text(standalone_story(a), encoding="utf-8")
+        (OUT / story_href(a)).write_text(standalone_story(a,archive), encoding="utf-8")
     privacy_body = (
         '<p class="intro">We want to understand which stories readers find useful without collecting unnecessary information about them.</p>'
         '<h2>Website traffic measurement</h2>'
