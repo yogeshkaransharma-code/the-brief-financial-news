@@ -23,12 +23,13 @@ from source_dates import verify_announcement
 from source_fallback import alternatives, search_alternatives
 from source_retrieval import Source, read_source
 from source_trace import find_originals
+from linkedin_discovery import discover as discover_linkedin
 
 def read_json(path,default):
     try:return json.loads(Path(path).read_text())
     except (OSError,ValueError):return default
 
-def run(root=None,now=None,*,discovery=discover,trace=find_originals,reader=read_source,ai=fetch_ai,search=search_alternatives,single_pass=True):
+def run(root=None,now=None,*,discovery=discover,trace=find_originals,reader=read_source,ai=fetch_ai,search=search_alternatives,single_pass=True,linkedin=discover_linkedin):
     root=Path(root or Path(__file__).resolve().parents[1]);out=root/'generated-drafts'
     out.mkdir(parents=True,exist_ok=True);now=now or dt.datetime.now(dt.timezone.utc)
     events=[];metrics=Counter();checkpoints=Checkpoints(out)
@@ -64,13 +65,18 @@ def run(root=None,now=None,*,discovery=discover,trace=find_originals,reader=read
     # supply only; it never vetoes a credible publisher's own reporting.
     try:traced,trace_events=trace(items,now,limit=12,attempts=ledger.setdefault('research_leads',{}))
     except Exception as error:traced=[];trace_events=[{'result':'trace failed','reason':str(error)}]
+    try:linkedin_items,linkedin_report=linkedin(root,now)
+    except Exception as error:
+        linkedin_items=[];linkedin_report={'coverage_status':'UNAVAILABLE','reason':str(error)[:300]}
+        event({},'LinkedIn discovery unavailable','discovery',error)
     existing=read_json(root/'data/articles.json',[]);published={canonical_url(a['url']) for a in existing}
     retired=set(read_json(root/'data/retired-source-urls.json',{}).get('urls',[]))
     pool={}
-    for raw in first+traced+items:
+    for raw in first+traced+items+linkedin_items:
         if not isinstance(raw,dict) or not raw.get('url'):continue
         item=dict(raw,url=canonical_url(raw['url']))
-        pool.setdefault(item['url'],item)
+        current=pool.setdefault(item['url'],item)
+        current['discovered_via']=list(dict.fromkeys(current.get('discovered_via',[])+item.get('discovered_via',[])))
     metrics['discovered_unique']=len(pool)
     candidates=[]
     for item in pool.values():
@@ -82,13 +88,15 @@ def run(root=None,now=None,*,discovery=discover,trace=find_originals,reader=read
             metrics['irrelevant']+=1;event(item,'rejected','eligibility','Outside Insurance/Banking or promotional/lifestyle material');continue
         # RSS dateModified is only a discovery clue, never proof of freshness.
         # Verify the document itself below even for undated/modified leads.
-        if not eligible_today(item,now):
+        undated_lead=item.get('discovery_method')=='linkedin_public_search' and item.get('source_date_unresolved') is True
+        if not undated_lead and not eligible_today(item,now):
             metrics['outside_uk_date']+=1;event(item,'excluded','eligibility','Discovery source date is outside the current UK date',source_date=item.get('dateISO'));continue
         if any(same_development(item,a) and a.get('dateISO')==item.get('dateISO') for a in existing):
             metrics['published_development']+=1;event(item,'duplicate','eligibility','Same development already published');continue
         item['internal_category']=item.get('category');item['category']=desk_for(item)
         candidates.append(item)
-    metrics['fresh_relevant_candidates']=len(candidates)
+    metrics['undated_source_candidates']=sum(bool(i.get('source_date_unresolved')) for i in candidates)
+    metrics['fresh_relevant_candidates']=len(candidates)-metrics['undated_source_candidates']
     # Sample fairly and retain all overflow candidates in the discovery ledger.
     sampled=diverse(candidates,40)
     for item in candidates:
@@ -97,7 +105,7 @@ def run(root=None,now=None,*,discovery=discover,trace=find_originals,reader=read
         cached=checkpoints.read(item['url'])
         try:
             if cached:
-                doc=Source(**cached['document']);item=verify_announcement(cached['item'],doc,now)
+                doc=Source(**cached['document']);item=verify_announcement(dict(cached['item'],discovered_via=item.get('discovered_via',cached['item'].get('discovered_via',[]))),doc,now)
                 preflight_source(item,doc)
                 return item,doc,None,'checkpoint'
             if cooling(attempts.get(item['url'],{}),now):
@@ -151,6 +159,7 @@ def run(root=None,now=None,*,discovery=discover,trace=find_originals,reader=read
             checkpoints.save(item,doc,status='captured',article=None,bundle=None)
         verified.append((item,doc));event(item,'source verified','source','Complete captured source; original UK publication date validated',source_sha256=doc.evidence_sha256,capture_method=method)
     metrics['verified_original_candidates']=len(verified)
+    linkedin_report['sources_retrieved_and_current']=sum(bool(i.get('discovered_via')) for i,d in verified)
     if single_pass:
         from single_pass import process
         selection=process(verified,root=root,out=out,checkpoints=checkpoints,ledger=ledger,meter=meter,now=now,call=call,event=event,metrics=metrics,failure=failure,persist=persist)
@@ -234,7 +243,9 @@ def run(root=None,now=None,*,discovery=discover,trace=find_originals,reader=read
       'machine_screened':metrics['articles_passing_review']+metrics['reviews_recovered'],'independent_review':not single_pass,'articles_ready_to_publish':metrics['articles_ready_to_publish'],
       'api_budget':meter.snapshot(),'metrics':dict(metrics),'ai_policy':'Single-pass source-based writing; no independent AI review' if single_pass else 'Legacy writing plus independent review',
       'first_party_indexes_checked':len(coverage),'first_party_discovery_errors':errors,
-      'fresh_unpublished_source_candidates':len(candidates),'available_after_retry_cooldowns':len(work),
+      'linkedin_discovery':linkedin_report,
+      'undated_source_candidates':metrics['undated_source_candidates'],
+      'fresh_unpublished_source_candidates':metrics['fresh_relevant_candidates'],'available_after_retry_cooldowns':len(work),
       'eligible_for_this_run':len(sampled),'verified_original_candidates':len(verified),
       'candidates_by_sector':dict(Counter(i['category'] for i in candidates)),
       'verified_by_sector':dict(Counter(i['category'] for i,d in verified)),
@@ -243,6 +254,7 @@ def run(root=None,now=None,*,discovery=discover,trace=find_originals,reader=read
       'items_checked':events}
     atomic_json(out/'run-report.json',report)
     print('NEWSROOM_PIPELINE_METRICS:',json.dumps(report['metrics'],sort_keys=True))
+    print('LINKEDIN_PUBLIC_DISCOVERY:',json.dumps(linkedin_report,ensure_ascii=False))
     print('NEWSROOM_SOURCE_FALLBACKS:',json.dumps(fallback_events,ensure_ascii=False))
     print('NEWSROOM_MODEL_BUDGET:',json.dumps(meter.snapshot()))
     return report
