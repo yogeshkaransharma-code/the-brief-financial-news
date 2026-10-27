@@ -64,7 +64,7 @@ def main():
     ]
     attempts={item["url"]:{"retry_after":"2026-10-28T04:00:00+00:00"} for item in cooled}
     selected=sample_uk_first(cooled+local,attempts,now,limit=4)
-    assert [x["url"] for x in selected]==[x["url"] for x in local], "Cooled international URLs used available UK source slots"
+    assert {x["url"] for x in selected}=={x["url"] for x in local}, "Cooled international URLs used available UK source slots"
     assert discovery_priority(local[0])==2 and discovery_priority(local[1])==2
     assert discovery_priority(local[2])==1 and discovery_priority(local[3])==2
     # The same source-reading budget retains international candidates when
