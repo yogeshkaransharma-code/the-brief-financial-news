@@ -15,7 +15,10 @@ from same_day_policy import clock
 from build_public import standalone_story
 
 
-def main():
+from ai_cost_guard import CallBudget
+
+@patch('newsroom_runtime.CallBudget',side_effect=lambda ledger,now,**kwargs:CallBudget(ledger,now,now_fn=lambda:now,**kwargs))
+def main(_budget):
  now=dt.datetime.now(dt.timezone.utc).replace(hour=12,minute=0,second=0,microsecond=0);day=clock(now).date().isoformat()
  urls=['https://www.aviva.com/newsroom/news-and-research-overview/news-releases/2026/10/distribution-agreement/',
        'https://www.lloydsbankinggroup.com/media/press-releases/2026/business-lending.html']
