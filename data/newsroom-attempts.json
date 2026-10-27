@@ -2,7 +2,7 @@
   "api_budget": {
     "date": "2026-10-27",
     "timezone": "America/Los_Angeles",
-    "requests": 14,
+    "requests": 15,
     "limit": null
   },
   "api_calls": [
@@ -1779,6 +1779,25 @@
         ],
         "serviceTier": "standard"
       }
+    },
+    {
+      "at": "2026-10-27T14:11:20.887003+00:00",
+      "result": "response_received",
+      "prompt_characters": 17041,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 3341,
+        "candidatesTokenCount": 870,
+        "totalTokenCount": 4211,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 3341
+          }
+        ],
+        "serviceTier": "standard"
+      }
     }
   ],
   "capacity_recovery_revision": 2,
@@ -3368,6 +3387,36 @@
       "attempted_at": "2026-10-27T13:29:13.024543+00:00",
       "retry_after": "2026-10-28T14:29:13.024543+00:00",
       "headline": "Noda launches BIN-to-Bank to help online merchants reduce card payment costs"
+    },
+    "https://www.finextra.com/newsarticle/48653/bank-of-england-orders-review-of-revolut-product-approvals---ft": {
+      "attempted_at": "2026-10-27T14:11:07.632660+00:00",
+      "retry_after": "2026-10-28T15:11:07.632660+00:00",
+      "headline": "Bank of England orders review of Revolut product approvals - FT"
+    },
+    "https://www.reinsurancene.ws/anthropic-ipo-puts-ai-liability-risks-for-insurers-under-scrutiny-morningstar-dbrs/": {
+      "attempted_at": "2026-10-27T14:11:07.632660+00:00",
+      "retry_after": "2026-10-28T15:11:07.632660+00:00",
+      "headline": "Anthropic IPO puts AI liability risks for insurers under scrutiny: Morningstar DBRS"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-27/us-new-home-sales-fall-amid-surge-in-mortgage-rates": {
+      "attempted_at": "2026-10-27T14:11:07.632660+00:00",
+      "retry_after": "2026-10-28T15:11:07.632660+00:00",
+      "headline": "US New Home Sales Fall Amid Surge in Mortgage Rates"
+    },
+    "https://www.finextra.com/pressarticle/111452/crown-agents-bank-provides-wholesale-fx-solutions-to-chinas-yeepay": {
+      "attempted_at": "2026-10-27T14:11:07.632660+00:00",
+      "retry_after": "2026-10-28T15:11:07.632660+00:00",
+      "headline": "Crown Agents Bank provides wholesale FX solutions to China's YeePay"
+    },
+    "https://www.finextra.com/pressarticle/111450/mbanq-wins-banking-infrastrucuture-deal-with-haitian-credit-unions": {
+      "attempted_at": "2026-10-27T14:11:07.632660+00:00",
+      "retry_after": "2026-10-28T15:11:07.632660+00:00",
+      "headline": "Mbanq wins banking infrastrucuture deal with Haitian credit unions"
+    },
+    "https://www.finextra.com/blogposting/33310/deep-dive-why-us-banks-are-blocking-third-party-ai-agents": {
+      "attempted_at": "2026-10-27T14:11:07.632660+00:00",
+      "retry_after": "2026-10-28T15:11:07.632660+00:00",
+      "headline": "Deep Dive: Why US banks are blocking third-party AI agents"
     }
   },
   "sources": {
@@ -3853,13 +3902,14 @@
       "alternative_search_after": "2026-10-27T03:08:36.146333+00:00"
     },
     "https://www.professionalpensions.com/news/4045103/people-moves": {
-      "attempted_at": "2026-10-26T23:33:21.898238+00:00",
-      "retry_after": "2026-10-27T01:33:21.898238+00:00",
+      "attempted_at": "2026-10-27T14:11:07.632660+00:00",
+      "retry_after": "2026-10-27T16:11:07.632660+00:00",
       "last_result": "Original document was not announced today in the UK",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
-      "failures": 4,
-      "policy": "newsroom-recovery-2026-10-26-v1"
+      "failures": 5,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-27T18:11:07.632660+00:00"
     },
     "https://www.wsj.com/business/financial-services-roundup-market-talk-8a90f511": {
       "attempted_at": "2026-10-26T16:46:48.943368+00:00",
@@ -4207,6 +4257,26 @@
       "stage": "source",
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-27/us-new-home-sales-fall-amid-surge-in-mortgage-rates": {
+      "attempted_at": "2026-10-27T14:11:07.632660+00:00",
+      "retry_after": "2026-10-27T20:11:07.632660+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-27T18:11:07.632660+00:00"
+    },
+    "https://www.finextra.com/newsarticle/48653/bank-of-england-orders-review-of-revolut-product-approvals---ft": {
+      "attempted_at": "2026-10-27T14:11:07.632660+00:00",
+      "retry_after": "2026-10-27T20:11:07.632660+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-27T18:11:07.632660+00:00"
     }
   },
   "version": 2,
