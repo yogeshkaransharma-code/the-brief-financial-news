@@ -161,3 +161,15 @@ def sample_uk_first(candidates,attempts,now,limit=40):
         remainder=[i for i in pool if i not in selected]
         selected.extend(diverse(remainder,limit-len(selected)))
     return selected
+
+def named_financial_institution(title):
+    """Recognise a sector firm's own announcement without requiring jargon.
+
+    Only a title signal. The source, UK market evidence and original publication
+    date are independently checked before any writing or publishing.
+    """
+    from market_coverage import ORGANISATIONS
+    text=str(title or "")
+    return any(re.search(r"(?<!\w)"+re.escape(name)+r"(?!\w)",text,re.I)
+               for group in ORGANISATIONS.values()
+               for name,host in group if len(name)>=4)
