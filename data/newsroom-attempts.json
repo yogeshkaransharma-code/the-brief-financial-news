@@ -2,29 +2,10 @@
   "api_budget": {
     "date": "2026-10-27",
     "timezone": "America/Los_Angeles",
-    "requests": 29,
+    "requests": 30,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-10-25T11:29:26.666802+00:00",
-      "prompt_characters": 8043,
-      "purpose": "production",
-      "result": "response_received",
-      "usage": {
-        "candidatesTokenCount": 642,
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 1780,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 1780
-          }
-        ],
-        "serviceTier": "standard",
-        "totalTokenCount": 2422
-      }
-    },
     {
       "at": "2026-10-25T12:33:51.961183+00:00",
       "prompt_characters": 12449,
@@ -1889,6 +1870,25 @@
           {
             "modality": "TEXT",
             "tokenCount": 800
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-27T22:10:30.598470+00:00",
+      "result": "response_received",
+      "prompt_characters": 6008,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 1180,
+        "candidatesTokenCount": 268,
+        "totalTokenCount": 1448,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1180
           }
         ],
         "serviceTier": "standard"
@@ -4498,7 +4498,8 @@
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
       "failures": 2,
-      "policy": "newsroom-recovery-2026-10-26-v1"
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-28T02:10:16.473051+00:00"
     },
     "https://www.wsj.com/business/financial-services-roundup-market-talk-43324d13": {
       "attempted_at": "2026-10-27T20:13:44.324972+00:00",
@@ -4569,14 +4570,14 @@
       "alternative_search_after": "2026-10-28T01:42:37.331240+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-27/novogratz-s-galaxy-tops-revenue-estimates-shares-rise": {
-      "attempted_at": "2026-10-27T16:08:50.038969+00:00",
-      "retry_after": "2026-10-27T22:08:50.038969+00:00",
+      "attempted_at": "2026-10-27T22:10:16.473051+00:00",
+      "retry_after": "2026-10-28T04:10:16.473051+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
+      "failures": 2,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T20:08:50.038969+00:00"
+      "alternative_search_after": "2026-10-28T02:10:16.473051+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-27/u-s-bancorp-poised-for-canada-bond-return-after-two-decades": {
       "attempted_at": "2026-10-27T17:21:13.186677+00:00",
@@ -4654,7 +4655,8 @@
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
       "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1"
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-28T02:10:16.473051+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-27/barclays-sees-fx-volatility-staying-elevated-as-dollar-rises": {
       "attempted_at": "2026-10-27T21:40:36.213260+00:00",
