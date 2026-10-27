@@ -2,7 +2,7 @@
   "api_budget": {
     "date": "2026-10-27",
     "timezone": "America/Los_Angeles",
-    "requests": 18,
+    "requests": 19,
     "limit": null
   },
   "api_calls": [
@@ -1855,6 +1855,25 @@
         ],
         "serviceTier": "standard"
       }
+    },
+    {
+      "at": "2026-10-27T15:41:02.912529+00:00",
+      "result": "response_received",
+      "prompt_characters": 4627,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 928,
+        "candidatesTokenCount": 248,
+        "totalTokenCount": 1176,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 928
+          }
+        ],
+        "serviceTier": "standard"
+      }
     }
   ],
   "capacity_recovery_revision": 2,
@@ -3519,6 +3538,11 @@
       "attempted_at": "2026-10-27T15:23:11.859924+00:00",
       "retry_after": "2026-10-28T16:23:11.859924+00:00",
       "headline": "Kenya's I&M Bank selects Otoma for end-to-end payments"
+    },
+    "https://www.finextra.com/newsarticle/48655/ripple-secures-national-bank-charter-inks-deals-with-bny-and-robinhood": {
+      "attempted_at": "2026-10-27T15:40:51.118170+00:00",
+      "retry_after": "2026-10-28T16:40:51.118170+00:00",
+      "headline": "Ripple secures national bank charter; inks deals with BNY and Robinhood"
     }
   },
   "sources": {
@@ -3652,14 +3676,14 @@
       "alternative_search_after": "2026-10-26T12:46:19.889029+00:00"
     },
     "https://www.bbc.co.uk/news/articles/c6x2zrjl7kjno": {
-      "attempted_at": "2026-10-27T13:29:13.024543+00:00",
-      "retry_after": "2026-10-27T15:29:13.024543+00:00",
+      "attempted_at": "2026-10-27T15:40:51.118170+00:00",
+      "retry_after": "2026-10-27T17:40:51.118170+00:00",
       "last_result": "Original document was not announced today in the UK",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
       "failures": 8,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T17:29:13.024543+00:00"
+      "alternative_search_after": "2026-10-27T19:40:51.118170+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-26/world-bank-somalia-low-tax-revenue-key-fiscal-challenge": {
       "attempted_at": "2026-10-26T06:49:02.534221+00:00",
@@ -3937,14 +3961,13 @@
       "alternative_search_after": "2026-10-27T01:09:21.795720+00:00"
     },
     "https://www.wsj.com/buyside/personal-finance/financial-advisors/best-financial-advisors": {
-      "attempted_at": "2026-10-27T13:29:13.024543+00:00",
-      "retry_after": "2026-10-27T15:29:13.024543+00:00",
+      "attempted_at": "2026-10-27T15:40:51.118170+00:00",
+      "retry_after": "2026-10-27T17:40:51.118170+00:00",
       "last_result": "Original document was not announced today in the UK",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
-      "failures": 3,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T17:29:13.024543+00:00"
+      "failures": 4,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.insuranceage.co.uk/insight/7959056/pen-added-to-top-100-brokers-household-panel": {
       "attempted_at": "2026-10-26T23:47:28.270683+00:00",
@@ -4130,40 +4153,39 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-10-27/japan-life-insurers-swap-into-higher-yield-bonds-to-lift-returns": {
-      "attempted_at": "2026-10-27T09:40:34.658688+00:00",
-      "retry_after": "2026-10-27T15:40:34.658688+00:00",
+      "attempted_at": "2026-10-27T15:40:51.118170+00:00",
+      "retry_after": "2026-10-27T21:40:51.118170+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 2,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T18:46:58.134113+00:00"
+      "failures": 3,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-10-27/samsung-life-insurance-south-korea-coupon-note-debt-dollar-bond-sale": {
-      "attempted_at": "2026-10-27T09:40:34.658688+00:00",
-      "retry_after": "2026-10-27T15:40:34.658688+00:00",
+      "attempted_at": "2026-10-27T15:40:51.118170+00:00",
+      "retry_after": "2026-10-27T21:40:51.118170+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 2,
+      "failures": 3,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-10-27/jpmorgan-asset-management-bob-michele-us-bonds-treasury-fed": {
-      "attempted_at": "2026-10-27T09:40:34.658688+00:00",
-      "retry_after": "2026-10-27T15:40:34.658688+00:00",
+      "attempted_at": "2026-10-27T15:40:51.118170+00:00",
+      "retry_after": "2026-10-27T21:40:51.118170+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 2,
+      "failures": 3,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-10-27/msci-indonesian-corporate-bond-sale-kb-bank-moodys-ratings-fitch-prabowo": {
-      "attempted_at": "2026-10-27T09:40:34.658688+00:00",
-      "retry_after": "2026-10-27T15:40:34.658688+00:00",
+      "attempted_at": "2026-10-27T15:40:51.118170+00:00",
+      "retry_after": "2026-10-27T21:40:51.118170+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 2,
+      "failures": 3,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.hsbc.com/news-and-views/news/media-releases/2026/hsbc-holdings-plc-3q-2026-earnings-release": {
@@ -4238,7 +4260,8 @@
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
       "failures": 2,
-      "policy": "newsroom-recovery-2026-10-26-v1"
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-27T19:40:51.118170+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-27/indonesia-10-year-yield-at-four-year-high-on-msci-risk-oil": {
       "attempted_at": "2026-10-27T14:46:58.134113+00:00",
@@ -4250,14 +4273,13 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.wsj.com/finance/investing/ares-private-credit-fund-to-buy-competitor-from-apollo-daecb67c": {
-      "attempted_at": "2026-10-27T09:40:34.658688+00:00",
-      "retry_after": "2026-10-27T15:40:34.658688+00:00",
+      "attempted_at": "2026-10-27T15:40:51.118170+00:00",
+      "retry_after": "2026-10-27T21:40:51.118170+00:00",
       "last_result": "HTTP Error 401: HTTP Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T13:40:34.658688+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.finextra.com/newsarticle/48644/nature-loss-threatens-140-million-jobs-across-europe": {
       "attempted_at": "2026-10-27T10:19:01.500664+00:00",
@@ -4330,14 +4352,13 @@
       "alternative_search_after": "2026-10-27T17:29:13.024543+00:00"
     },
     "https://www.fca.org.uk/news/news-stories/bullseye-financial-ltd-enters-administration": {
-      "attempted_at": "2026-10-27T13:29:13.024543+00:00",
-      "retry_after": "2026-10-27T15:29:13.024543+00:00",
+      "attempted_at": "2026-10-27T15:40:51.118170+00:00",
+      "retry_after": "2026-10-27T17:40:51.118170+00:00",
       "last_result": "Conflicting original publication dates on source page",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T18:23:32.517994+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.wsj.com/economy/central-banking/u-k-fiscal-discipline-in-focus-ahead-of-burnham-governments-first-budget-5fa7e2a9": {
       "attempted_at": "2026-10-27T13:29:13.024543+00:00",
@@ -4407,6 +4428,16 @@
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1",
       "alternative_search_after": "2026-10-27T19:23:11.859924+00:00"
+    },
+    "https://www.finextra.com/newsarticle/48655/ripple-secures-national-bank-charter-inks-deals-with-bny-and-robinhood": {
+      "attempted_at": "2026-10-27T15:40:51.118170+00:00",
+      "retry_after": "2026-10-27T21:40:51.118170+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-27T19:40:51.118170+00:00"
     }
   },
   "version": 2,
