@@ -270,7 +270,7 @@ def build():
             rows.append('<h3 class="date-separator">' + esc(date) + '</h3>')
             prior = date
         rows.append(
-            '<article class="news-item"><div class="story-ordinal">' + str(i+1).zfill(2)
+            '<article class="news-item" data-desk="'+esc(a.get('desk_section'))+'"><div class="story-ordinal">' + str(i+1).zfill(2)
             + '</div><div><div class="news-cat">' + esc(a.get("desk_section")) + ' · OUR REPORT</div>'
             + '<h3><a href="' + esc(story_href(a)) + '">' + esc(a["title"]) + '</a></h3>'
             + '<p class="summary">' + esc(a.get("short")) + '</p>'
