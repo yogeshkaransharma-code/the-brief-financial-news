@@ -14,6 +14,30 @@ def verify():
     assert {x['id'] for x in edition}=={x['id'] for x in canonical if published_same_day(x)}
     assert {x['id'] for x in archive}=={x['id'] for x in canonical},'Historical articles lost'
     home=(public/'index.html').read_text();archive_html=(public/'archive.html').read_text()
+    from reader_experience import lead_article, other_briefs
+    from reader_analytics import token_from_env, BEACON_URL
+    assert (public/'privacy.html').is_file(), 'Privacy page missing'
+    privacy=(public/'privacy.html').read_text(encoding='utf-8')
+    assert 'Cloudflare Web Analytics' in privacy and 'About and corrections page' in privacy
+    assert 'href="privacy.html"' in home, 'Footer has no readable privacy link'
+    assert 'rankHighlights(originals)[0]' in home, 'Client-side homepage ignores UK-focused lead'
+    today_list=[a for a in canonical if published_same_day(a)]
+    today_list.sort(key=lambda a:(a.get('published_at',''),a.get('dateISO',''),a['id']),reverse=True)
+    front_lead=lead_article(today_list)
+    if front_lead:
+        from html import escape
+        hero=home.split('<article id="lead-story"',1)[1].split('</article>',1)[0]
+        assert escape(front_lead['title'],quote=True) in hero, 'Lead has not followed UK relevance ranking'
+        if len(today_list)>1:
+            briefing=home.split('<div id="briefing-stories" class="briefing-stories">',1)[1].split('<a href="#latest"',1)[0]
+            assert escape(front_lead['title'],quote=True) not in briefing, 'Lead repeated in 60-second brief'
+    assert 'data-desk="' in home, 'Sector cues missing from news rows'
+    token=token_from_env()
+    pages=list(public.rglob('*.html'))
+    if token:
+        assert pages and all(page.read_text().count(BEACON_URL)==1 for page in pages), 'Analytics beacon missing from a page'
+    else:
+        assert all(BEACON_URL not in page.read_text() for page in pages), 'Unexpected analytics beacon before owner setup'
     current_home=re.sub(r'<section id="launch-edition".*?</section>','',home,flags=re.S)
     if 'id="launch-edition"' in home:
         assert 'Prepared retrospectively; actual publication times' in home
@@ -28,6 +52,7 @@ def verify():
         story=(public/'story'/(a['id']+'.html')).read_text()
         assert escaped in story and html.escape(a['url'],quote=True) in story
         assert '<main class="reader"><article>' in story
+        assert 'tb-article-visual' not in story, 'Generic unrelated photo in article'
         for h,p in a['blocks']:assert html.escape(h,quote=True) in story and html.escape(p,quote=True) in story
     if not edition:assert 'No verified news from today yet' in home
     assert not (public/'data/live.json').exists() and 'data/live.json' not in home

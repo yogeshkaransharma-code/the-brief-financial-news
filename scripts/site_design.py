@@ -82,4 +82,4 @@ def header(prefix="",active="",with_controls=False):
 
 def footer(prefix="",with_controls=False):
     items=('<button id="footer-about" hidden type="button">About</button><a id="footer-top" href="#home">Back to top ↑</a>' if with_controls else '<a href="'+prefix+'index.html">Back to the latest ↑</a>')
-    return '<footer class="tb-footer"><div class="tb-footer-inner"><div><a class="tb-footer-logo" href="'+prefix+'index.html">THE BRIEF<span>.</span></a><p>Insurance and banking, clearly explained. Not financial advice.</p></div><div class="tb-footer-links"><a href="'+prefix+'archive.html">Earlier reports</a><a href="'+prefix+'about.html">About &amp; corrections</a>'+items+'</div></div></footer>'
+    return '<footer class="tb-footer"><div class="tb-footer-inner"><div><a class="tb-footer-logo" href="'+prefix+'index.html">THE BRIEF<span>.</span></a><p>Insurance and banking, clearly explained. Not financial advice.</p></div><div class="tb-footer-links"><a href="'+prefix+'archive.html">Earlier reports</a><a href="'+prefix+'about.html">About &amp; corrections</a><a href="'+prefix+'privacy.html">Privacy</a>'+items+'</div></div></footer>'

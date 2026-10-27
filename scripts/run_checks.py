@@ -20,6 +20,7 @@ checks.insert(-1,['test_newsroom_recovery.py'])
 checks.insert(-1,['test_batch_transport.py'])
 checks.insert(-1,['editorial_sentences.py'])
 checks.insert(-1,['test_single_pass.py'])
+checks.insert(-1,['test_reader_experience.py'])
 for c in checks:
     subprocess.run([sys.executable,str(root/'scripts'/c[0])]+c[1:],check=True,cwd=root)
 print('OFFLINE_CHECKS_PASSED:',len(checks))

@@ -126,6 +126,8 @@ jobs:
             test "$saved" = true
           fi
       - name: Build and verify the exact reconciled public artifact
+        env:
+          BRIEF_CF_ANALYTICS_TOKEN: ${{ vars.BRIEF_CF_ANALYTICS_TOKEN }}
         run: |
           python scripts/build_public.py
           python scripts/verify_public.py
