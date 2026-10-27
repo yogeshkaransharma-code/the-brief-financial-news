@@ -32,6 +32,22 @@ def verify():
             briefing=home.split('<div id="briefing-stories" class="briefing-stories">',1)[1].split('<a href="#latest"',1)[0]
             assert escape(front_lead['title'],quote=True) not in briefing, 'Lead repeated in 60-second brief'
     assert 'data-desk="' in home, 'Sector cues missing from news rows'
+    # Today's date belongs to the edition header; avoid repeating identical
+    # source/publication calendar dates on every card or lead.
+    assert 'Original news:' not in home and 'The Brief published:' not in home, 'Repeated date metadata on homepage'
+    assert 'class="date-separator"' not in home, 'Daily edition contains duplicate day header'
+    assert "$('edition-date').textContent=d.toLocaleDateString" not in home, 'Masthead reintroduces daily date'
+    assert 'id="issue-date"' in home, 'Edition must retain one readable date'
+    for a in canonical:
+        story=(public/'story'/(a['id']+'.html')).read_text(encoding='utf-8')
+        from same_day_policy import original_date, date_in_uk
+        byline=story.split('<div class="meta">',1)[1].split('</div>',1)[0]
+        if original_date(a)==date_in_uk(a['published_at']):
+            assert byline.count(original_date(a).strftime('%-d %B %Y'))==1, 'Story repeats identical day'
+            assert 'Source:' not in byline and 'The Brief:' not in byline, 'Same-day publication doubles byline'
+        else:
+            assert 'Source:' in byline and 'The Brief:' in byline, 'Different source/publication dates hidden'
+
     token=token_from_env()
     pages=list(public.rglob('*.html'))
     if token:
