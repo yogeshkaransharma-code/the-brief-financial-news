@@ -2,7 +2,7 @@
   "api_budget": {
     "date": "2026-10-27",
     "timezone": "America/Los_Angeles",
-    "requests": 1,
+    "requests": 3,
     "limit": null
   },
   "api_calls": [
@@ -1532,6 +1532,44 @@
         ],
         "serviceTier": "standard"
       }
+    },
+    {
+      "at": "2026-10-27T09:40:47.822346+00:00",
+      "result": "response_received",
+      "prompt_characters": 12629,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 2750,
+        "candidatesTokenCount": 823,
+        "totalTokenCount": 3573,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2750
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-27T09:41:02.826988+00:00",
+      "result": "response_received",
+      "prompt_characters": 13228,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 2889,
+        "candidatesTokenCount": 747,
+        "totalTokenCount": 3636,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2889
+          }
+        ],
+        "serviceTier": "standard"
+      }
     }
   ],
   "capacity_recovery_revision": 2,
@@ -2916,6 +2954,26 @@
       "attempted_at": "2026-10-27T08:43:19.315375+00:00",
       "retry_after": "2026-10-28T09:43:19.315375+00:00",
       "headline": "Indonesia Bond Yield Hits Four-Year High as MSCI Risk, Oil Weigh"
+    },
+    "https://www.theguardian.com/business/2026/oct/27/number-of-uk-businesses-in-financial-distress-at-two-decade-high-budget": {
+      "attempted_at": "2026-10-27T09:40:34.658688+00:00",
+      "retry_after": "2026-10-28T10:40:34.658688+00:00",
+      "headline": "Number of UK businesses in financial distress ‘at two-decade high’"
+    },
+    "https://www.reinsurancene.ws/fortegra-names-guy-house-as-svp-treaty-reinsurance/": {
+      "attempted_at": "2026-10-27T09:40:34.658688+00:00",
+      "retry_after": "2026-10-28T10:40:34.658688+00:00",
+      "headline": "Fortegra names Guy House as SVP, Treaty Reinsurance"
+    },
+    "https://www.reinsurancene.ws/blackrock-survey-highlights-growing-role-of-partnerships-in-insurers-operating-models/": {
+      "attempted_at": "2026-10-27T09:40:34.658688+00:00",
+      "retry_after": "2026-10-28T10:40:34.658688+00:00",
+      "headline": "BlackRock survey highlights growing role of partnerships in insurers’ operating models"
+    },
+    "https://www.wsj.com/finance/investing/ares-private-credit-fund-to-buy-competitor-from-apollo-daecb67c": {
+      "attempted_at": "2026-10-27T09:40:34.658688+00:00",
+      "retry_after": "2026-10-28T10:40:34.658688+00:00",
+      "headline": "Ares Private-Credit Fund to Buy Competitor From Apollo"
     }
   },
   "sources": {
@@ -3526,54 +3584,51 @@
       "alternative_search_after": "2026-10-27T10:09:58.039928+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-27/japan-life-insurers-swap-into-higher-yield-bonds-to-lift-returns": {
-      "attempted_at": "2026-10-27T03:10:01.659421+00:00",
-      "retry_after": "2026-10-27T09:10:01.659421+00:00",
+      "attempted_at": "2026-10-27T09:40:34.658688+00:00",
+      "retry_after": "2026-10-27T15:40:34.658688+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
-      "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T11:48:11.176412+00:00"
-    },
-    "https://www.bloomberg.com/news/articles/2026-10-27/samsung-life-insurance-south-korea-coupon-note-debt-dollar-bond-sale": {
-      "attempted_at": "2026-10-27T03:39:22.622340+00:00",
-      "retry_after": "2026-10-27T09:39:22.622340+00:00",
-      "last_result": "HTTP Error 403: Forbidden",
-      "classification": "ACCESS_RESTRICTED",
-      "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T11:48:11.176412+00:00"
-    },
-    "https://www.bloomberg.com/news/articles/2026-10-27/jpmorgan-asset-management-bob-michele-us-bonds-treasury-fed": {
-      "attempted_at": "2026-10-27T03:39:22.622340+00:00",
-      "retry_after": "2026-10-27T09:39:22.622340+00:00",
-      "last_result": "HTTP Error 403: Forbidden",
-      "classification": "ACCESS_RESTRICTED",
-      "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T07:39:22.622340+00:00"
-    },
-    "https://www.bloomberg.com/news/articles/2026-10-27/msci-indonesian-corporate-bond-sale-kb-bank-moodys-ratings-fitch-prabowo": {
-      "attempted_at": "2026-10-27T03:39:22.622340+00:00",
-      "retry_after": "2026-10-27T09:39:22.622340+00:00",
-      "last_result": "HTTP Error 403: Forbidden",
-      "classification": "ACCESS_RESTRICTED",
-      "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T07:39:22.622340+00:00"
-    },
-    "https://www.hsbc.com/news-and-views/news/media-releases/2026/hsbc-holdings-plc-3q-2026-earnings-release": {
-      "attempted_at": "2026-10-27T06:46:11.040104+00:00",
-      "retry_after": "2026-10-27T08:46:11.040104+00:00",
-      "last_result": "Original document has no unambiguous publication date; listing/RSS date is insufficient",
-      "classification": "DATE_UNVERIFIED",
       "stage": "source",
       "failures": 2,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T10:46:11.040104+00:00"
+      "alternative_search_after": "2026-10-27T13:40:34.658688+00:00"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-27/samsung-life-insurance-south-korea-coupon-note-debt-dollar-bond-sale": {
+      "attempted_at": "2026-10-27T09:40:34.658688+00:00",
+      "retry_after": "2026-10-27T15:40:34.658688+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-27/jpmorgan-asset-management-bob-michele-us-bonds-treasury-fed": {
+      "attempted_at": "2026-10-27T09:40:34.658688+00:00",
+      "retry_after": "2026-10-27T15:40:34.658688+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-27/msci-indonesian-corporate-bond-sale-kb-bank-moodys-ratings-fitch-prabowo": {
+      "attempted_at": "2026-10-27T09:40:34.658688+00:00",
+      "retry_after": "2026-10-27T15:40:34.658688+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.hsbc.com/news-and-views/news/media-releases/2026/hsbc-holdings-plc-3q-2026-earnings-release": {
+      "attempted_at": "2026-10-27T09:40:34.658688+00:00",
+      "retry_after": "2026-10-27T11:40:34.658688+00:00",
+      "last_result": "Original document has no unambiguous publication date; listing/RSS date is insufficient",
+      "classification": "DATE_UNVERIFIED",
+      "stage": "source",
+      "failures": 3,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-27T13:40:34.658688+00:00"
     },
     "https://www.wsj.com/finance/banking/hsbc-quarterly-profit-climbs-plans-1-billion-buyback-1551a999": {
       "attempted_at": "2026-10-27T05:09:40.168448+00:00",
@@ -3653,6 +3708,16 @@
       "stage": "source",
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.wsj.com/finance/investing/ares-private-credit-fund-to-buy-competitor-from-apollo-daecb67c": {
+      "attempted_at": "2026-10-27T09:40:34.658688+00:00",
+      "retry_after": "2026-10-27T15:40:34.658688+00:00",
+      "last_result": "HTTP Error 401: HTTP Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-27T13:40:34.658688+00:00"
     }
   },
   "version": 2,
