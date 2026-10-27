@@ -2,7 +2,7 @@
   "api_budget": {
     "date": "2026-10-26",
     "timezone": "America/Los_Angeles",
-    "requests": 35,
+    "requests": 36,
     "limit": null
   },
   "api_calls": [
@@ -1357,6 +1357,25 @@
           {
             "modality": "TEXT",
             "tokenCount": 3619
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-27T04:13:48.075308+00:00",
+      "result": "response_received",
+      "prompt_characters": 7244,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 1437,
+        "candidatesTokenCount": 500,
+        "totalTokenCount": 1937,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1437
           }
         ],
         "serviceTier": "standard"
@@ -3238,7 +3257,7 @@
       "stage": "source",
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T04:02:27.634935+00:00"
+      "alternative_search_after": "2026-10-27T08:13:34.291366+00:00"
     },
     "https://www.finextra.com/newsarticle/48652/capitalos-raises-219m-for-money-orchestration-layer-for-b2b-platforms": {
       "attempted_at": "2026-10-27T00:02:27.634935+00:00",
@@ -3248,7 +3267,7 @@
       "stage": "source",
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T04:02:27.634935+00:00"
+      "alternative_search_after": "2026-10-27T08:13:34.291366+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-27/japan-life-insurers-swap-into-higher-yield-bonds-to-lift-returns": {
       "attempted_at": "2026-10-27T03:10:01.659421+00:00",
@@ -3289,6 +3308,16 @@
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1",
       "alternative_search_after": "2026-10-27T07:39:22.622340+00:00"
+    },
+    "https://www.hsbc.com/news-and-views/news/media-releases/2026/hsbc-holdings-plc-3q-2026-earnings-release": {
+      "attempted_at": "2026-10-27T04:13:34.291366+00:00",
+      "retry_after": "2026-10-27T06:13:34.291366+00:00",
+      "last_result": "Original document has no unambiguous publication date; listing/RSS date is insufficient",
+      "classification": "DATE_UNVERIFIED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-27T08:13:34.291366+00:00"
     }
   },
   "version": 2,
