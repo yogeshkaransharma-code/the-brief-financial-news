@@ -1,6 +1,6 @@
-# The Brief — Verification and Publication Protocol
+# Proposed Human Verification Protocol — Not Deployed
 
-> Operational update, 25 October 2026: the owner has authorised unattended Gemini publication. Current executable policy and controls are documented in README.md and AUDIT.md. Any older requirement below for routine human sign-off or rolling freshness windows is superseded: original announcement and publication must share the UK calendar date, every generated heading and sentence must pass separate evidence challenge, and uncertain/high-risk material stays held. Machine review must never be described as human approval.
+> **Historical design document, not the live newsroom procedure (27 October 2026).** The current production route uses single-pass source-based Gemini writing plus deterministic source, date, routing and duplicate checks. It does **not** perform a separate AI claim review, human approval or the line-by-line evidence sign-off described below. The human-review workflow here is a proposal for stronger future assurance, and references to mandatory human approval or already deployed claim review are not statements of what is running today. For actual working controls see [Editorial Standards](EDITORIAL_STANDARDS.md) and [README](../README.md).
 **Version:** 1.0 (23 October 2026)  
 **Owner:** The Brief editorial desk  
 **Default publication mode:** HUMAN APPROVAL ONLY. No AI-driven auto-approval.  
