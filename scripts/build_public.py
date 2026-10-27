@@ -317,6 +317,8 @@ def build():
     (OUT / "privacy.html").write_text(utility_page("Privacy and website measurement.", privacy_body), encoding="utf-8")
     analytics_result = install_analytics(OUT, token_from_env())
     print("READER_ANALYTICS:", json.dumps(analytics_result))
+    from seo_metadata import add_search_discovery
+    add_search_discovery(OUT, archive)
 
 
     # These assertions catch the actual failure the earlier smoke tests missed.
