@@ -57,6 +57,7 @@ def article_from(output,item,doc):
             'dateISO':item['dateISO'],'date':item['dateISO'],'source':item['source'],
             'source_published_at':item.get('source_published_at',item.get('published_at',item['dateISO'])),
             'date_evidence':item.get('date_evidence'),'source_time_precision':item.get('source_time_precision','date'),
+            'discovered_via':item.get('discovered_via',[]),
             'source_url':doc.url,'url':doc.url,'status':status_from_url(item['url'],item['title']),
             'title':title,'short':summary,'quick':summary,'lead':summary,'blocks':blocks,'glossary':[],
             'reading':f"{max(1,round(sum(len(p.split()) for _,p in blocks)/210))} min read",
@@ -67,7 +68,7 @@ def bundle_for(article,item,doc):
         'pipeline_version':3,'publication_policy':POLICY,'independent_review':False,
         'article_id':article['id'],'source_url':doc.url,'source_title':item['title'],
         'source_sha256':doc.evidence_sha256,'draft_sha256':canonical(article),
-        'source_document_urls':doc.document_urls,'date_evidence':item.get('date_evidence'),
+        'discovered_via':item.get('discovered_via',[]),'source_document_urls':doc.document_urls,'date_evidence':item.get('date_evidence'),
         'retrieved_at':dt.datetime.now(dt.timezone.utc).isoformat(),'source_extraction':doc.extraction,
         'complete_capture':doc.complete_capture,'source_notes':doc.notes,
         'processing':'One source-based writing pass; no separate claim or heading review.'}}
@@ -96,7 +97,7 @@ def process(verified,*,root,out,checkpoints,ledger,meter,now,call,event,metrics,
     from editorial_gate import has_sector_content
     attempts=ledger.setdefault('sources',{});work=[]
     def ready(item,doc,article):
-        article=dict(article,category=item['category'],independent_review=False)
+        article=dict(article,category=item['category'],independent_review=False,discovered_via=item.get('discovered_via',article.get('discovered_via',[])))
         article['editorial_status']='DRAFT: single-pass source-based writing'
         bundle=bundle_for(article,item,doc)
         checkpoints.save(item,doc,status='ready',article=article,bundle=bundle,publication_policy=POLICY)

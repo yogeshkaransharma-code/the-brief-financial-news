@@ -19,6 +19,14 @@ def registry(path=None):
  for route in payload['article_routes']:
   if not re.fullmatch(r'[a-z0-9]+(?:[.-][a-z0-9]+)+',route['host']):raise ValueError('Invalid reviewed article hostname')
   re.compile(route['pattern'],re.I)
+ config=payload.get('linkedin_discovery',{})
+ if config.get('enabled'):
+  if config.get('mode')!='public_search_index_only':raise ValueError('Unsupported LinkedIn discovery mode')
+  ids=set()
+  for query in config.get('queries',[]):
+   if not query.get('id') or query['id'] in ids:raise ValueError('Missing/duplicate LinkedIn query ID')
+   if query.get('desk') not in {'Insurance','Banking'} or not isinstance(query.get('terms'),str) or not 1<=len(query['terms'])<=300:raise ValueError('Invalid LinkedIn discovery query')
+   ids.add(query['id'])
  return payload
 
 def configured(method):

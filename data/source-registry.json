@@ -708,5 +708,44 @@
       "lane": "company_release",
       "pattern": "/en-GB/news-and-events/[a-z0-9-]+/?"
     }
-  ]
+  ],
+  "linkedin_discovery": {
+    "enabled": true,
+    "mode": "public_search_index_only",
+    "max_queries_per_run": 4,
+    "max_resolutions_per_run": 4,
+    "note": "Search-indexed public LinkedIn post leads only. No personal-feed or authenticated-post access. Full registered source and source date required before writing.",
+    "queries": [
+      {
+        "id": "insurance_appointments",
+        "desk": "Insurance",
+        "terms": "UK (insurer OR broker OR MGA) (appoints OR appointed OR joins)"
+      },
+      {
+        "id": "insurance_deals",
+        "desk": "Insurance",
+        "terms": "UK (insurance OR reinsurance) (partnership OR acquisition OR capacity)"
+      },
+      {
+        "id": "insurance_products",
+        "desk": "Insurance",
+        "terms": "UK (insurer OR underwriting) (launches OR product OR claims)"
+      },
+      {
+        "id": "banking_products",
+        "desk": "Banking",
+        "terms": "UK (bank OR \"building society\") (lending OR mortgage OR savings)"
+      },
+      {
+        "id": "banking_payments",
+        "desk": "Banking",
+        "terms": "UK (payments OR fintech) (partnership OR launch OR acquisition)"
+      },
+      {
+        "id": "banking_regulation",
+        "desk": "Banking",
+        "terms": "(FCA OR PRA OR \"Bank of England\") (consultation OR policy OR regulation)"
+      }
+    ]
+  }
 }

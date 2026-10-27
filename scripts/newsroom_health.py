@@ -43,6 +43,8 @@ def assess(articles,report,now,publication=None,feeds=None,launch=None):
   'primary_index_failures':failures,'feeds_working':feed_ok,'feed_failures':feed_fail,
   'ai_budget':report.get('api_budget',{}),'quota_pause_until':report.get('active_quota_pause_until'),
   'pipeline_metrics':report.get('metrics',{}),'source_fallbacks':report.get('source_fallbacks',[]),'candidate_outcomes':report.get('items_checked',[]),'discovery_errors':errors,
+  'linkedin_discovery':report.get('linkedin_discovery',{'enabled':False}),
+  'undated_source_candidates':report.get('undated_source_candidates',0),
   'publication_holds':publication.get('held',[]),
   'run_id':os.getenv('GITHUB_RUN_ID','local'),'event':os.getenv('GITHUB_EVENT_NAME','local'),
   'run_url':'https://github.com/'+os.getenv('GITHUB_REPOSITORY','yogeshkaransharma-code/the-brief-financial-news')+'/actions/runs/'+os.getenv('GITHUB_RUN_ID','')}

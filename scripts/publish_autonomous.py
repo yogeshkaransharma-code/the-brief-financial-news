@@ -197,6 +197,7 @@ def publish(root=ROOT, folder=None, dry_run=False, *, edition_date=None):
             "published_article_sha256":canonical(item),
             "source_document_urls":bundle["audit"]["source_document_urls"],
             "date_evidence":bundle["audit"].get("date_evidence"),
+            "discovered_via":bundle["audit"].get("discovered_via",[]),
             "independent_claim_checks":bundle["audit"].get("verbatim_source_checks",[]),
             "review_headings":True,
             "workflow_run_url":("https://github.com/"+os.getenv("GITHUB_REPOSITORY","")+"/actions/runs/"+os.getenv("GITHUB_RUN_ID","")),
