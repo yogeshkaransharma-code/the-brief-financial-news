@@ -146,10 +146,16 @@ def run(root=None,now=None,*,discovery=discover,trace=find_originals,reader=read
         metrics['source_checkpoints_reused']+=int(method=='checkpoint')
         if item['url'] in published|retired or item['url'] in seen:
             event(item,'duplicate','source','Canonical source already published or captured');continue
+        from uk_market_scope import uk_market_reason
+        uk_reason=uk_market_reason(item,doc.text)
+        if not uk_reason:
+            metrics['outside_uk_market']+=1
+            event(item,'rejected','uk_market','No evidenced connection to UK insurance or banking market')
+            continue
         seen.add(item['url']);cached=checkpoints.read(item['url'])
         if not cached or cached['document']['evidence_sha256']!=doc.evidence_sha256:
             checkpoints.save(item,doc,status='captured',article=None,bundle=None)
-        verified.append((item,doc));event(item,'source verified','source','Complete captured source; original UK publication date validated',source_sha256=doc.evidence_sha256,capture_method=method)
+        verified.append((item,doc));event(item,'source verified','source','Complete dated source, with '+uk_reason,source_sha256=doc.evidence_sha256,capture_method=method)
     metrics['verified_original_candidates']=len(verified)
     if single_pass:
         from single_pass import process
