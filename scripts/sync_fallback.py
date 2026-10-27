@@ -15,7 +15,8 @@ END = "<!-- THEBRIEF_STATIC_END -->"
 def sync():
     today=clock().date().strftime("%-d %B %Y")
     archive=valid_articles()
-    articles=[a for a in archive if published_same_day(a)]
+    from uk_market_scope import public_article_in_scope
+    articles=[a for a in archive if published_same_day(a) and public_article_in_scope(a)]
     if articles:
         headlines="".join(
             '<li><a href="'+esc(story_href(a))+'">'+esc(a["title"])+'</a></li>'
