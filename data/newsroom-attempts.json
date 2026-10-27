@@ -2,29 +2,10 @@
   "api_budget": {
     "date": "2026-10-27",
     "timezone": "America/Los_Angeles",
-    "requests": 21,
+    "requests": 22,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-10-25T00:58:03.018827+00:00",
-      "prompt_characters": 8158,
-      "purpose": "one-time launch diagnostic",
-      "result": "response_received",
-      "usage": {
-        "candidatesTokenCount": 597,
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 1563,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 1563
-          }
-        ],
-        "serviceTier": "standard",
-        "totalTokenCount": 2160
-      }
-    },
     {
       "at": "2026-10-25T01:20:58.515247+00:00",
       "prompt_characters": 15986,
@@ -1893,6 +1874,25 @@
         ],
         "serviceTier": "standard"
       }
+    },
+    {
+      "at": "2026-10-27T16:22:17.081326+00:00",
+      "result": "response_received",
+      "prompt_characters": 10210,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 2083,
+        "candidatesTokenCount": 449,
+        "totalTokenCount": 2532,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2083
+          }
+        ],
+        "serviceTier": "standard"
+      }
     }
   ],
   "capacity_recovery_revision": 2,
@@ -3572,6 +3572,11 @@
       "attempted_at": "2026-10-27T16:08:50.038969+00:00",
       "retry_after": "2026-10-28T17:08:50.038969+00:00",
       "headline": "Novogratz Says Credit Markets Are Reaching ‘Peak Nervousness’"
+    },
+    "https://www.ft.com/content/4a12c55c-40d1-4e91-990b-3adc51b85912?syn-25a6b1a6=1": {
+      "attempted_at": "2026-10-27T16:22:05.983317+00:00",
+      "retry_after": "2026-10-28T17:22:05.983317+00:00",
+      "headline": "US insurance regulators back down on credit ratings scrutiny"
     }
   },
   "sources": {
@@ -4057,14 +4062,14 @@
       "alternative_search_after": "2026-10-27T03:08:36.146333+00:00"
     },
     "https://www.professionalpensions.com/news/4045103/people-moves": {
-      "attempted_at": "2026-10-27T14:11:07.632660+00:00",
-      "retry_after": "2026-10-27T16:11:07.632660+00:00",
+      "attempted_at": "2026-10-27T16:22:05.983317+00:00",
+      "retry_after": "2026-10-27T18:22:05.983317+00:00",
       "last_result": "Original document was not announced today in the UK",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
-      "failures": 5,
+      "failures": 6,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T18:11:07.632660+00:00"
+      "alternative_search_after": "2026-10-27T20:22:05.983317+00:00"
     },
     "https://www.wsj.com/business/financial-services-roundup-market-talk-8a90f511": {
       "attempted_at": "2026-10-26T16:46:48.943368+00:00",
@@ -4171,7 +4176,7 @@
       "stage": "source",
       "failures": 3,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T16:11:27.429399+00:00"
+      "alternative_search_after": "2026-10-27T20:22:05.983317+00:00"
     },
     "https://www.finextra.com/newsarticle/48652/capitalos-raises-219m-for-money-orchestration-layer-for-b2b-platforms": {
       "attempted_at": "2026-10-27T12:11:27.429399+00:00",
@@ -4314,34 +4319,31 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.finextra.com/newsarticle/48644/nature-loss-threatens-140-million-jobs-across-europe": {
-      "attempted_at": "2026-10-27T10:19:01.500664+00:00",
-      "retry_after": "2026-10-27T16:19:01.500664+00:00",
+      "attempted_at": "2026-10-27T16:22:05.983317+00:00",
+      "retry_after": "2026-10-27T22:22:05.983317+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T18:23:32.517994+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.wsj.com/economy/central-banking/interest-rates-look-kinda-low-39f99f8c": {
-      "attempted_at": "2026-10-27T10:19:01.500664+00:00",
-      "retry_after": "2026-10-27T16:19:01.500664+00:00",
+      "attempted_at": "2026-10-27T16:22:05.983317+00:00",
+      "retry_after": "2026-10-27T22:22:05.983317+00:00",
       "last_result": "HTTP Error 401: HTTP Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T14:19:01.500664+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-10-27/bond-market-gives-initial-nod-to-serbia-s-untested-ballot-winner": {
-      "attempted_at": "2026-10-27T10:19:01.500664+00:00",
-      "retry_after": "2026-10-27T16:19:01.500664+00:00",
+      "attempted_at": "2026-10-27T16:22:05.983317+00:00",
+      "retry_after": "2026-10-27T22:22:05.983317+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T14:19:01.500664+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://news.sky.com/story/major-lender-hsbcs-profits-up-32-as-higher-bank-tax-expected-in-budget-13604238": {
       "attempted_at": "2026-10-27T11:13:19.401206+00:00",
@@ -4371,7 +4373,7 @@
       "stage": "source",
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T16:11:27.429399+00:00"
+      "alternative_search_after": "2026-10-27T20:22:05.983317+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-27/turkish-insurer-sinks-as-top-executives-arrested-in-fund-probe": {
       "attempted_at": "2026-10-27T13:29:13.024543+00:00",
