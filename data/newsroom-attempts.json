@@ -2,7 +2,7 @@
   "api_budget": {
     "date": "2026-10-27",
     "timezone": "America/Los_Angeles",
-    "requests": 17,
+    "requests": 18,
     "limit": null
   },
   "api_calls": [
@@ -1836,6 +1836,25 @@
         ],
         "serviceTier": "standard"
       }
+    },
+    {
+      "at": "2026-10-27T15:23:24.876629+00:00",
+      "result": "response_received",
+      "prompt_characters": 11657,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 2555,
+        "candidatesTokenCount": 578,
+        "totalTokenCount": 3133,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2555
+          }
+        ],
+        "serviceTier": "standard"
+      }
     }
   ],
   "capacity_recovery_revision": 2,
@@ -3465,6 +3484,41 @@
       "attempted_at": "2026-10-27T14:46:58.134113+00:00",
       "retry_after": "2026-10-28T15:46:58.134113+00:00",
       "headline": "Young brokers call for better knowledge retention when senior staff retire"
+    },
+    "https://www.mortgagesolutions.co.uk/specialist-lending/complex-buy-to-let/2026/10/27/lhv-and-chetwood-banks-join-regulators-scale-up-unit-to-drive-growth/": {
+      "attempted_at": "2026-10-27T15:23:11.859924+00:00",
+      "retry_after": "2026-10-28T16:23:11.859924+00:00",
+      "headline": "LHV and Chetwood banks join regulators’ Scale-up Unit to drive growth"
+    },
+    "https://www.reinsurancene.ws/specialty-market-softening-accelerates-as-all-15-material-re-insurance-classes-record-net-rate-declines-wtw/": {
+      "attempted_at": "2026-10-27T15:23:11.859924+00:00",
+      "retry_after": "2026-10-28T16:23:11.859924+00:00",
+      "headline": "Specialty market softening accelerates as all 15 material re/insurance classes record net rate declines: WTW"
+    },
+    "https://www.finextra.com/newsarticle/48654/zafin-to-buy-naehas-to-expand-ai-powered-banking-and-compliance-platform": {
+      "attempted_at": "2026-10-27T15:23:11.859924+00:00",
+      "retry_after": "2026-10-28T16:23:11.859924+00:00",
+      "headline": "Zafin to buy Naehas to expand AI-powered banking and compliance platform"
+    },
+    "https://www.mortgagesolutions.co.uk/specialist-lending/commercial-finance/2026/10/27/lovey-obtains-250-credit-facility-from-pollen-street-capital/": {
+      "attempted_at": "2026-10-27T15:23:11.859924+00:00",
+      "retry_after": "2026-10-28T16:23:11.859924+00:00",
+      "headline": "Lovey obtains £250 credit facility from Pollen Street Capital"
+    },
+    "https://www.finextra.com/videoarticle/3628/can-open-source-drive-secure-ai-innovation-in-banking": {
+      "attempted_at": "2026-10-27T15:23:11.859924+00:00",
+      "retry_after": "2026-10-28T16:23:11.859924+00:00",
+      "headline": "Can Open Source Drive Secure AI Innovation in Banking?"
+    },
+    "https://www.finextra.com/pressarticle/111470/sezzle-applies-for-national-bank-charter": {
+      "attempted_at": "2026-10-27T15:23:11.859924+00:00",
+      "retry_after": "2026-10-28T16:23:11.859924+00:00",
+      "headline": "Sezzle applies for national bank charter"
+    },
+    "https://www.finextra.com/pressarticle/111466/kenyas-im-bank-selects-otoma-for-end-to-end-payments": {
+      "attempted_at": "2026-10-27T15:23:11.859924+00:00",
+      "retry_after": "2026-10-28T16:23:11.859924+00:00",
+      "headline": "Kenya's I&M Bank selects Otoma for end-to-end payments"
     }
   },
   "sources": {
@@ -4243,7 +4297,7 @@
       "stage": "source",
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T15:13:19.401206+00:00"
+      "alternative_search_after": "2026-10-27T19:23:11.859924+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-27/rbi-s-gupta-says-emerging-markets-must-bolster-domestic-finances": {
       "attempted_at": "2026-10-27T11:29:41.687394+00:00",
@@ -4333,6 +4387,26 @@
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1",
       "alternative_search_after": "2026-10-27T18:46:58.134113+00:00"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-27/altice-international-lenders-near-deadline-to-negotiate-rework": {
+      "attempted_at": "2026-10-27T15:23:11.859924+00:00",
+      "retry_after": "2026-10-27T21:23:11.859924+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-27T19:23:11.859924+00:00"
+    },
+    "https://www.finextra.com/newsarticle/48654/zafin-to-buy-naehas-to-expand-ai-powered-banking-and-compliance-platform": {
+      "attempted_at": "2026-10-27T15:23:11.859924+00:00",
+      "retry_after": "2026-10-27T21:23:11.859924+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-27T19:23:11.859924+00:00"
     }
   },
   "version": 2,
