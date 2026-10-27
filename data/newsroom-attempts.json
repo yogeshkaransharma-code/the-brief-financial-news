@@ -2,7 +2,7 @@
   "api_budget": {
     "date": "2026-10-27",
     "timezone": "America/Los_Angeles",
-    "requests": 3,
+    "requests": 5,
     "limit": null
   },
   "api_calls": [
@@ -1570,6 +1570,44 @@
         ],
         "serviceTier": "standard"
       }
+    },
+    {
+      "at": "2026-10-27T10:19:17.327508+00:00",
+      "result": "response_received",
+      "prompt_characters": 12693,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 2741,
+        "candidatesTokenCount": 997,
+        "totalTokenCount": 3738,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2741
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-27T10:19:32.331504+00:00",
+      "result": "response_received",
+      "prompt_characters": 5815,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 1383,
+        "candidatesTokenCount": 428,
+        "totalTokenCount": 1811,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1383
+          }
+        ],
+        "serviceTier": "standard"
+      }
     }
   ],
   "capacity_recovery_revision": 2,
@@ -2974,6 +3012,36 @@
       "attempted_at": "2026-10-27T09:40:34.658688+00:00",
       "retry_after": "2026-10-28T10:40:34.658688+00:00",
       "headline": "Ares Private-Credit Fund to Buy Competitor From Apollo"
+    },
+    "https://www.reinsurancene.ws/client-proximity-increasingly-important-in-varied-emea-reinsurance-market-swiss-res-nikhil-da-victoria-lobo/": {
+      "attempted_at": "2026-10-27T10:19:01.500664+00:00",
+      "retry_after": "2026-10-28T11:19:01.500664+00:00",
+      "headline": "Client proximity increasingly important in varied EMEA reinsurance market: Swiss Re’s Nikhil da Victoria Lobo"
+    },
+    "https://www.marketwatch.com/story/customers-are-chasing-higher-rate-products-and-thats-bad-news-for-banks-like-hsbc-3a6ec793": {
+      "attempted_at": "2026-10-27T10:19:01.500664+00:00",
+      "retry_after": "2026-10-28T11:19:01.500664+00:00",
+      "headline": "Customers are chasing higher-rate products, and that’s bad news for banks like HSBC"
+    },
+    "https://www.wsj.com/economy/central-banking/interest-rates-look-kinda-low-39f99f8c": {
+      "attempted_at": "2026-10-27T10:19:01.500664+00:00",
+      "retry_after": "2026-10-28T11:19:01.500664+00:00",
+      "headline": "Interest Rates Look Kinda Low"
+    },
+    "https://www.insurancebusinessmag.com/uk/news/breaking-news/ardonagh-takes-orvia-brand-global-with-us3bn-mga-platform-595090.aspx": {
+      "attempted_at": "2026-10-27T10:19:01.500664+00:00",
+      "retry_after": "2026-10-28T11:19:01.500664+00:00",
+      "headline": "Ardonagh takes Orvia brand global with US$3bn MGA platform"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-27/bond-market-gives-initial-nod-to-serbia-s-untested-ballot-winner": {
+      "attempted_at": "2026-10-27T10:19:01.500664+00:00",
+      "retry_after": "2026-10-28T11:19:01.500664+00:00",
+      "headline": "Bond Market Gives Initial Nod to Serbia’s Untested Ballot Winner"
+    },
+    "https://www.moneymarketing.co.uk/the-morning-briefing-advice-firms-risk-losing-assets-in-5-5tn-wealth-transfer-tokenisation-can-boost-adviser-capacity-tenfold/": {
+      "attempted_at": "2026-10-27T10:19:01.500664+00:00",
+      "retry_after": "2026-10-28T11:19:01.500664+00:00",
+      "headline": "The Morning Briefing: Advice firms risk losing assets in £5.5tn wealth transfer; Tokenisation can boost adviser capacity tenfold"
     }
   },
   "sources": {
@@ -3718,6 +3786,36 @@
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1",
       "alternative_search_after": "2026-10-27T13:40:34.658688+00:00"
+    },
+    "https://www.finextra.com/newsarticle/48644/nature-loss-threatens-140-million-jobs-across-europe": {
+      "attempted_at": "2026-10-27T10:19:01.500664+00:00",
+      "retry_after": "2026-10-27T16:19:01.500664+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-27T14:19:01.500664+00:00"
+    },
+    "https://www.wsj.com/economy/central-banking/interest-rates-look-kinda-low-39f99f8c": {
+      "attempted_at": "2026-10-27T10:19:01.500664+00:00",
+      "retry_after": "2026-10-27T16:19:01.500664+00:00",
+      "last_result": "HTTP Error 401: HTTP Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-27T14:19:01.500664+00:00"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-27/bond-market-gives-initial-nod-to-serbia-s-untested-ballot-winner": {
+      "attempted_at": "2026-10-27T10:19:01.500664+00:00",
+      "retry_after": "2026-10-27T16:19:01.500664+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-27T14:19:01.500664+00:00"
     }
   },
   "version": 2,
