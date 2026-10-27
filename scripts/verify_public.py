@@ -13,6 +13,29 @@ def verify():
     archive=json.loads((public/'data/archive.json').read_text())
     assert {x['id'] for x in edition}=={x['id'] for x in canonical if published_same_day(x)}
     assert {x['id'] for x in archive}=={x['id'] for x in canonical},'Historical articles lost'
+    # Discoverability is part of the real deployed artifact, not a source-only promise.
+    from xml.etree import ElementTree as ET
+    from seo_metadata import BASE
+    sitemap = public / 'sitemap.xml'
+    assert sitemap.is_file(), 'Missing Google sitemap'
+    root = ET.parse(sitemap).getroot()
+    urls = [node.text for node in root.findall('.//{http://www.sitemaps.org/schemas/sitemap/0.9}loc')]
+    expected = {BASE, BASE+'about.html', BASE+'insurance.html', BASE+'banking.html',
+                BASE+'archive.html', BASE+'sources.html'}
+    expected.update(BASE+'story/'+a['id']+'.html' for a in canonical)
+    expected.update(BASE+'edition/'+day+'.html' for day in {a['dateISO'] for a in canonical})
+    assert set(urls)==expected, 'Sitemap missing or inventing public pages'
+    assert len(urls)==len(set(urls)), 'Duplicate URLs in sitemap'
+    for uri in urls:
+        rel = uri.removeprefix(BASE) or 'index.html'
+        assert uri.startswith(BASE), 'Unexpected sitemap domain'
+        page = (public / rel).read_text(encoding='utf-8')
+        assert '<link rel="canonical" href="'+uri+'">' in page, 'Canonical missing or inconsistent: '+rel
+        assert '<meta property="og:title"' in page, 'Social preview metadata missing: '+rel
+    for a in canonical:
+        story = (public/'story'/(a['id']+'.html')).read_text(encoding='utf-8')
+        assert '"@type":"NewsArticle"' in story and '"citation":' in story, 'Article markup missing'
+        assert '"datePublished":' in story, 'Article publication time missing'
     home=(public/'index.html').read_text();archive_html=(public/'archive.html').read_text()
     current_home=re.sub(r'<section id="launch-edition".*?</section>','',home,flags=re.S)
     if 'id="launch-edition"' in home:
