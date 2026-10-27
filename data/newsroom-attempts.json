@@ -2,29 +2,10 @@
   "api_budget": {
     "date": "2026-10-27",
     "timezone": "America/Los_Angeles",
-    "requests": 24,
+    "requests": 25,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-10-25T01:27:17.233913+00:00",
-      "prompt_characters": 15986,
-      "purpose": "production",
-      "result": "response_received",
-      "usage": {
-        "candidatesTokenCount": 505,
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 3159,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 3159
-          }
-        ],
-        "serviceTier": "standard",
-        "totalTokenCount": 3664
-      }
-    },
     {
       "at": "2026-10-25T01:27:32.235295+00:00",
       "prompt_characters": 24476,
@@ -1893,6 +1874,25 @@
         ],
         "serviceTier": "standard"
       }
+    },
+    {
+      "at": "2026-10-27T18:15:43.245651+00:00",
+      "result": "response_received",
+      "prompt_characters": 10609,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 2044,
+        "candidatesTokenCount": 382,
+        "totalTokenCount": 2426,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2044
+          }
+        ],
+        "serviceTier": "standard"
+      }
     }
   ],
   "capacity_recovery_revision": 2,
@@ -3024,9 +3024,9 @@
       "headline": "Financial Services Roundup: Market Talk"
     },
     "https://www.marketwatch.com/story/you-need-only-watch-episodes-of-judge-judy-im-in-my-70s-why-do-people-keep-making-the-same-avoidable-financial-mistakes-bbf60fe4": {
-      "attempted_at": "2026-10-26T16:46:48.943368+00:00",
-      "retry_after": "2026-10-27T17:46:48.943368+00:00",
-      "headline": "‘You need only watch episodes of Judge Judy’: I’m in my 70s. Why do people keep making the same avoidable financial mistakes?"
+      "attempted_at": "2026-10-27T18:15:32.395456+00:00",
+      "retry_after": "2026-10-28T19:15:32.395456+00:00",
+      "headline": "‘Just watch Judge Judy’: I’m in my 70s. Why do people keep making the same avoidable financial mistakes?"
     },
     "https://www.bloomberg.com/news/articles/2026-10-26/shock-lula-win-derails-6-billion-in-equity-sales-as-banks-reel": {
       "attempted_at": "2026-10-26T16:46:48.943368+00:00",
@@ -3622,6 +3622,16 @@
       "attempted_at": "2026-10-27T17:21:13.186677+00:00",
       "retry_after": "2026-10-28T18:21:13.186677+00:00",
       "headline": "Bond investors are starting to say ‘anything but tech.’ What that means for the AI boom."
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-27/corporate-bond-trading-is-moving-beyond-top-securities-barclays-says": {
+      "attempted_at": "2026-10-27T18:15:32.395456+00:00",
+      "retry_after": "2026-10-28T19:15:32.395456+00:00",
+      "headline": "Corporate-Bond Trading Is Moving Beyond Top Securities, Barclays Says"
+    },
+    "https://www.insurancebusinessmag.com/uk/news/technology/faster-quotes-faster-declines-what-guidewires-hx-deal-could-mean-for-brokers-595138.aspx": {
+      "attempted_at": "2026-10-27T18:15:32.395456+00:00",
+      "retry_after": "2026-10-28T19:15:32.395456+00:00",
+      "headline": "Faster quotes, faster declines? What Guidewire’s hx deal could mean for brokers"
     }
   },
   "sources": {
@@ -3755,14 +3765,14 @@
       "alternative_search_after": "2026-10-26T12:46:19.889029+00:00"
     },
     "https://www.bbc.co.uk/news/articles/c6x2zrjl7kjno": {
-      "attempted_at": "2026-10-27T15:40:51.118170+00:00",
-      "retry_after": "2026-10-27T17:40:51.118170+00:00",
+      "attempted_at": "2026-10-27T18:15:32.395456+00:00",
+      "retry_after": "2026-10-27T20:15:32.395456+00:00",
       "last_result": "Original document was not announced today in the UK",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
       "failures": 8,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T19:40:51.118170+00:00"
+      "alternative_search_after": "2026-10-27T22:15:32.395456+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-26/world-bank-somalia-low-tax-revenue-key-fiscal-challenge": {
       "attempted_at": "2026-10-26T06:49:02.534221+00:00",
@@ -4040,14 +4050,13 @@
       "alternative_search_after": "2026-10-27T01:09:21.795720+00:00"
     },
     "https://www.wsj.com/buyside/personal-finance/financial-advisors/best-financial-advisors": {
-      "attempted_at": "2026-10-27T15:40:51.118170+00:00",
-      "retry_after": "2026-10-27T17:40:51.118170+00:00",
+      "attempted_at": "2026-10-27T18:15:32.395456+00:00",
+      "retry_after": "2026-10-27T20:15:32.395456+00:00",
       "last_result": "Original document was not announced today in the UK",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
-      "failures": 4,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T19:57:08.962374+00:00"
+      "failures": 5,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.insuranceage.co.uk/insight/7959056/pen-added-to-top-100-brokers-household-panel": {
       "attempted_at": "2026-10-26T23:47:28.270683+00:00",
@@ -4176,12 +4185,12 @@
       "alternative_search_after": "2026-10-27T00:08:34.668557+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-26/ai-funding-needs-drive-us-high-grade-bond-sales-to-annual-record": {
-      "attempted_at": "2026-10-27T12:11:27.429399+00:00",
-      "retry_after": "2026-10-27T18:11:27.429399+00:00",
+      "attempted_at": "2026-10-27T18:15:32.395456+00:00",
+      "retry_after": "2026-10-28T00:15:32.395456+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "alternative_source",
-      "failures": 3,
+      "failures": 4,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.insuranceage.co.uk/insight/7959061/ex-broadway-hnw-boss-launches-new-broker": {
@@ -4214,24 +4223,22 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.finextra.com/newsarticle/48650/mastercard-targets-creators-via-mrbeast-partnership": {
-      "attempted_at": "2026-10-27T12:11:27.429399+00:00",
-      "retry_after": "2026-10-27T18:11:27.429399+00:00",
+      "attempted_at": "2026-10-27T18:15:32.395456+00:00",
+      "retry_after": "2026-10-28T00:15:32.395456+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 3,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T20:22:05.983317+00:00"
+      "failures": 4,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.finextra.com/newsarticle/48652/capitalos-raises-219m-for-money-orchestration-layer-for-b2b-platforms": {
-      "attempted_at": "2026-10-27T12:11:27.429399+00:00",
-      "retry_after": "2026-10-27T18:11:27.429399+00:00",
+      "attempted_at": "2026-10-27T18:15:32.395456+00:00",
+      "retry_after": "2026-10-28T00:15:32.395456+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 3,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T20:08:50.038969+00:00"
+      "failures": 4,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-10-27/japan-life-insurers-swap-into-higher-yield-bonds-to-lift-returns": {
       "attempted_at": "2026-10-27T15:40:51.118170+00:00",
@@ -4400,24 +4407,22 @@
       "alternative_search_after": "2026-10-27T21:21:13.186677+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-27/rbi-s-gupta-says-emerging-markets-must-bolster-domestic-finances": {
-      "attempted_at": "2026-10-27T11:29:41.687394+00:00",
-      "retry_after": "2026-10-27T17:29:41.687394+00:00",
+      "attempted_at": "2026-10-27T18:15:32.395456+00:00",
+      "retry_after": "2026-10-28T00:15:32.395456+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T15:29:41.687394+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-10-27/bond-market-doubts-grow-over-gridlock-as-cure-for-deficit-angst": {
-      "attempted_at": "2026-10-27T12:11:27.429399+00:00",
-      "retry_after": "2026-10-27T18:11:27.429399+00:00",
+      "attempted_at": "2026-10-27T18:15:32.395456+00:00",
+      "retry_after": "2026-10-28T00:15:32.395456+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T20:22:05.983317+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-10-27/turkish-insurer-sinks-as-top-executives-arrested-in-fund-probe": {
       "attempted_at": "2026-10-27T13:29:13.024543+00:00",
@@ -4427,17 +4432,16 @@
       "stage": "source",
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T17:29:13.024543+00:00"
+      "alternative_search_after": "2026-10-27T22:15:32.395456+00:00"
     },
     "https://www.fca.org.uk/news/news-stories/bullseye-financial-ltd-enters-administration": {
-      "attempted_at": "2026-10-27T15:40:51.118170+00:00",
-      "retry_after": "2026-10-27T17:40:51.118170+00:00",
+      "attempted_at": "2026-10-27T18:15:32.395456+00:00",
+      "retry_after": "2026-10-27T20:15:32.395456+00:00",
       "last_result": "Conflicting original publication dates on source page",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
-      "failures": 2,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T19:57:08.962374+00:00"
+      "failures": 3,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.wsj.com/economy/central-banking/u-k-fiscal-discipline-in-focus-ahead-of-burnham-governments-first-budget-5fa7e2a9": {
       "attempted_at": "2026-10-27T13:29:13.024543+00:00",
@@ -4538,6 +4542,25 @@
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1",
       "alternative_search_after": "2026-10-27T21:21:13.186677+00:00"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-27/konecta-gets-lender-forbearance-to-negotiate-debt-restructuring": {
+      "attempted_at": "2026-10-27T18:15:32.395456+00:00",
+      "retry_after": "2026-10-28T00:15:32.395456+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-27T22:15:32.395456+00:00"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-27/corporate-bond-trading-is-moving-beyond-top-securities-barclays-says": {
+      "attempted_at": "2026-10-27T18:15:32.395456+00:00",
+      "retry_after": "2026-10-28T00:15:32.395456+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     }
   },
   "version": 2,
