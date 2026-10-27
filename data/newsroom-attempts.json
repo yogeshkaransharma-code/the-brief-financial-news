@@ -1,8 +1,8 @@
 {
   "api_budget": {
-    "date": "2026-10-26",
+    "date": "2026-10-27",
     "timezone": "America/Los_Angeles",
-    "requests": 43,
+    "requests": 1,
     "limit": null
   },
   "api_calls": [
@@ -1513,6 +1513,25 @@
         ],
         "serviceTier": "standard"
       }
+    },
+    {
+      "at": "2026-10-27T07:48:24.450955+00:00",
+      "result": "response_received",
+      "prompt_characters": 6450,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 1641,
+        "candidatesTokenCount": 578,
+        "totalTokenCount": 2219,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1641
+          }
+        ],
+        "serviceTier": "standard"
+      }
     }
   ],
   "capacity_recovery_revision": 2,
@@ -2837,6 +2856,36 @@
       "attempted_at": "2026-10-27T06:46:11.040104+00:00",
       "retry_after": "2026-10-28T07:46:11.040104+00:00",
       "headline": "Partner Insight: Ready for takeoff - the investment case for aircraft leasing"
+    },
+    "https://www.theguardian.com/business/live/2026/oct/27/hsbc-shareholders-profits-surge-32-percent-bank-tax-budget-stock-markets-cost-cutting-latest-news-updates": {
+      "attempted_at": "2026-10-27T07:48:11.176412+00:00",
+      "retry_after": "2026-10-28T08:48:11.176412+00:00",
+      "headline": "HSBC profits surge 32%, sparking fresh calls for bank taxes in the budget – business live"
+    },
+    "https://www.bloomberg.com/news/live-blog/2026-10-27/ftse-100-live-updates-hsbc-anthropic-ai-stocks-pound-gilts-bond-healey-budget-what-s-moving-uk-markets-right-now-markets-today": {
+      "attempted_at": "2026-10-27T07:48:11.176412+00:00",
+      "retry_after": "2026-10-28T08:48:11.176412+00:00",
+      "headline": "FTSE 100 Live: UK Stocks Set to Fall as HSBC Profit Falls Short"
+    },
+    "https://www.reinsurancene.ws/hong-kong-insurance-authority-reports-36-rise-in-gross-premiums-in-h126/": {
+      "attempted_at": "2026-10-27T07:48:11.176412+00:00",
+      "retry_after": "2026-10-28T08:48:11.176412+00:00",
+      "headline": "Hong Kong Insurance Authority reports 36% rise in gross premiums in H1’26"
+    },
+    "https://www.bloomberg.com/news/newsletters/2026-10-27/hsbc-earnings-profit-jump-and-1-billion-buyback-fall-short-of-investors-hopes": {
+      "attempted_at": "2026-10-27T07:48:11.176412+00:00",
+      "retry_after": "2026-10-28T08:48:11.176412+00:00",
+      "headline": "HSBC Earnings: Profit Jump and $1 Billion Buyback Fall Short of Investors Hopes"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-27/french-banks-to-face-investor-scrutiny-over-risks-from-turmoil": {
+      "attempted_at": "2026-10-27T07:48:11.176412+00:00",
+      "retry_after": "2026-10-28T08:48:11.176412+00:00",
+      "headline": "French Banks to Face Investor Scrutiny Over Risks from Turmoil"
+    },
+    "https://www.bloomberg.com/news/videos/2026-10-27/the-china-show-12-27-26-video": {
+      "attempted_at": "2026-10-27T07:48:11.176412+00:00",
+      "retry_after": "2026-10-28T08:48:11.176412+00:00",
+      "headline": "China Bonds Rally As Gloom Deepens Over Stocks"
     }
   },
   "sources": {
@@ -3454,7 +3503,7 @@
       "stage": "source",
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T07:10:01.659421+00:00"
+      "alternative_search_after": "2026-10-27T11:48:11.176412+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-27/samsung-life-insurance-south-korea-coupon-note-debt-dollar-bond-sale": {
       "attempted_at": "2026-10-27T03:39:22.622340+00:00",
@@ -3464,7 +3513,7 @@
       "stage": "source",
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T07:39:22.622340+00:00"
+      "alternative_search_after": "2026-10-27T11:48:11.176412+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-27/jpmorgan-asset-management-bob-michele-us-bonds-treasury-fed": {
       "attempted_at": "2026-10-27T03:39:22.622340+00:00",
@@ -3525,6 +3574,16 @@
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1",
       "alternative_search_after": "2026-10-27T09:09:40.168448+00:00"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-27/french-banks-to-face-investor-scrutiny-over-risks-from-turmoil": {
+      "attempted_at": "2026-10-27T07:48:11.176412+00:00",
+      "retry_after": "2026-10-27T13:48:11.176412+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-27T11:48:11.176412+00:00"
     }
   },
   "version": 2,
