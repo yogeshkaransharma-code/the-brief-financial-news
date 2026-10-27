@@ -2,29 +2,10 @@
   "api_budget": {
     "date": "2026-10-27",
     "timezone": "America/Los_Angeles",
-    "requests": 30,
+    "requests": 31,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-10-25T12:33:51.961183+00:00",
-      "prompt_characters": 12449,
-      "purpose": "production",
-      "result": "response_received",
-      "usage": {
-        "candidatesTokenCount": 261,
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 3253,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 3253
-          }
-        ],
-        "serviceTier": "standard",
-        "totalTokenCount": 3514
-      }
-    },
     {
       "at": "2026-10-25T12:34:06.962772+00:00",
       "prompt_characters": 8344,
@@ -1893,6 +1874,25 @@
         ],
         "serviceTier": "standard"
       }
+    },
+    {
+      "at": "2026-10-27T23:07:56.125112+00:00",
+      "result": "response_received",
+      "prompt_characters": 19338,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 4107,
+        "candidatesTokenCount": 561,
+        "totalTokenCount": 4668,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 4107
+          }
+        ],
+        "serviceTier": "standard"
+      }
     }
   ],
   "capacity_recovery_revision": 2,
@@ -3672,6 +3672,16 @@
       "attempted_at": "2026-10-27T21:40:36.213260+00:00",
       "retry_after": "2026-10-28T22:40:36.213260+00:00",
       "headline": "Ella Baron on the autumn budget – cartoon"
+    },
+    "https://www.bbc.co.uk/news/articles/cr1ex97l1n7yo": {
+      "attempted_at": "2026-10-27T23:07:40.693030+00:00",
+      "retry_after": "2026-10-29T00:07:40.693030+00:00",
+      "headline": "Plaid demands more cash, but how could the Budget affect Wales?"
+    },
+    "https://www.theguardian.com/uk-news/2026/oct/27/john-healey-budget-help-with-cost-of-living-deferring-decisions-on-tax-and-spending": {
+      "attempted_at": "2026-10-27T23:07:40.693030+00:00",
+      "retry_after": "2026-10-29T00:07:40.693030+00:00",
+      "headline": "Chancellor targets cost of living crisis in budget for a ‘difficult moment’"
     }
   },
   "sources": {
@@ -3805,14 +3815,14 @@
       "alternative_search_after": "2026-10-26T12:46:19.889029+00:00"
     },
     "https://www.bbc.co.uk/news/articles/c6x2zrjl7kjno": {
-      "attempted_at": "2026-10-27T20:39:12.265834+00:00",
-      "retry_after": "2026-10-27T22:39:12.265834+00:00",
+      "attempted_at": "2026-10-27T23:07:40.693030+00:00",
+      "retry_after": "2026-10-28T01:07:40.693030+00:00",
       "last_result": "Original document was not announced today in the UK",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
       "failures": 8,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-28T00:39:12.265834+00:00"
+      "alternative_search_after": "2026-10-28T03:07:40.693030+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-26/world-bank-somalia-low-tax-revenue-key-fiscal-challenge": {
       "attempted_at": "2026-10-26T06:49:02.534221+00:00",
@@ -4090,14 +4100,14 @@
       "alternative_search_after": "2026-10-27T01:09:21.795720+00:00"
     },
     "https://www.wsj.com/buyside/personal-finance/financial-advisors/best-financial-advisors": {
-      "attempted_at": "2026-10-27T20:39:12.265834+00:00",
-      "retry_after": "2026-10-27T22:39:12.265834+00:00",
+      "attempted_at": "2026-10-27T23:07:40.693030+00:00",
+      "retry_after": "2026-10-28T01:07:40.693030+00:00",
       "last_result": "Original document was not announced today in the UK",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
-      "failures": 6,
+      "failures": 7,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-28T00:56:40.736666+00:00"
+      "alternative_search_after": "2026-10-28T03:07:40.693030+00:00"
     },
     "https://www.insuranceage.co.uk/insight/7959056/pen-added-to-top-100-brokers-household-panel": {
       "attempted_at": "2026-10-26T23:47:28.270683+00:00",
@@ -4417,32 +4427,30 @@
       "alternative_search_after": "2026-10-28T02:13:32.513218+00:00"
     },
     "https://www.finextra.com/newsarticle/48644/nature-loss-threatens-140-million-jobs-across-europe": {
-      "attempted_at": "2026-10-27T16:22:05.983317+00:00",
-      "retry_after": "2026-10-27T22:22:05.983317+00:00",
+      "attempted_at": "2026-10-27T23:07:40.693030+00:00",
+      "retry_after": "2026-10-28T05:07:40.693030+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 2,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-28T01:51:13.769911+00:00"
+      "failures": 3,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.wsj.com/economy/central-banking/interest-rates-look-kinda-low-39f99f8c": {
-      "attempted_at": "2026-10-27T16:22:05.983317+00:00",
-      "retry_after": "2026-10-27T22:22:05.983317+00:00",
+      "attempted_at": "2026-10-27T23:07:40.693030+00:00",
+      "retry_after": "2026-10-28T05:07:40.693030+00:00",
       "last_result": "HTTP Error 401: HTTP Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 2,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-28T02:13:32.513218+00:00"
+      "failures": 3,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-10-27/bond-market-gives-initial-nod-to-serbia-s-untested-ballot-winner": {
-      "attempted_at": "2026-10-27T16:22:05.983317+00:00",
-      "retry_after": "2026-10-27T22:22:05.983317+00:00",
+      "attempted_at": "2026-10-27T23:07:40.693030+00:00",
+      "retry_after": "2026-10-28T05:07:40.693030+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 2,
+      "failures": 3,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://news.sky.com/story/major-lender-hsbcs-profits-up-32-as-higher-bank-tax-expected-in-budget-13604238": {
@@ -4484,14 +4492,14 @@
       "alternative_search_after": "2026-10-27T22:15:32.395456+00:00"
     },
     "https://www.fca.org.uk/news/news-stories/bullseye-financial-ltd-enters-administration": {
-      "attempted_at": "2026-10-27T20:39:12.265834+00:00",
-      "retry_after": "2026-10-27T22:39:12.265834+00:00",
+      "attempted_at": "2026-10-27T23:07:40.693030+00:00",
+      "retry_after": "2026-10-28T01:07:40.693030+00:00",
       "last_result": "Conflicting original publication dates on source page",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
-      "failures": 4,
+      "failures": 5,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-28T00:41:05.658515+00:00"
+      "alternative_search_after": "2026-10-28T03:07:40.693030+00:00"
     },
     "https://www.wsj.com/economy/central-banking/u-k-fiscal-discipline-in-focus-ahead-of-burnham-governments-first-budget-5fa7e2a9": {
       "attempted_at": "2026-10-27T20:13:44.324972+00:00",
