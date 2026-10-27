@@ -23,7 +23,7 @@ def main(_budget):
  urls=['https://www.aviva.com/newsroom/news-and-research-overview/news-releases/2026/10/distribution-agreement/',
        'https://www.lloydsbankinggroup.com/media/press-releases/2026/business-lending.html']
  items=[{'url':url,'title':title,'source':source,'category':category,'dateISO':day,'source_time_precision':'date','published_at':day}
-        for url,title,source,category in zip(urls,['Aviva expands insurance distribution','Lloyds expands business lending'],['Aviva','Lloyds'],['Insurance','Banking'])]
+        for url,title,source,category in zip(urls,['Aviva expands UK insurance distribution','Lloyds expands UK business lending'],['Aviva','Lloyds'],['Insurance','Banking'])]
  docs={}
  for item,name in zip(items,['insurer-release.html','bank-release.html']):
   raw=(Path(__file__).parent/'fixtures'/name).read_text().replace('__DATE__',day).encode()
