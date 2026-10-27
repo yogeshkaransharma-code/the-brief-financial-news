@@ -77,8 +77,8 @@ def standalone_story(a):
     is_media=a.get("status")=="Original reporting"
     source_description=("This article summarises attributed journalism by the named publisher. The Brief has not independently verified every underlying claim." if is_media
         else "This article is based on the original announcement or document below.")
-    disclosure=('Written automatically from the linked source; no separate AI or human editorial review.' if a.get('independent_review') is False
-                else 'Prepared and machine-screened by an automated newsroom; no human editorial review is claimed.')
+    disclosure=('Based on the linked source. No separate editorial fact-check has been carried out.' if a.get('independent_review') is False
+                else 'This report draws on the linked source. No human editorial approval is claimed.')
     terms=a.get("display_glossary") or terms_for(a)
     definitions=(''.join('<dt>'+esc(t)+'</dt><dd>'+esc(d)+'</dd>' for t,d in terms))
     glossary_html=('<section class="tb-glossary"><h2>Jargon, explained.</h2><dl>'+definitions+'</dl></section>' if definitions else '')

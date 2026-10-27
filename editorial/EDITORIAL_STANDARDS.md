@@ -1,112 +1,78 @@
 # The Brief — Editorial Standards
 
-> Operational update, 25 October 2026: the owner has authorised unattended Gemini publication. Current executable policy and controls are documented in README.md and AUDIT.md. Any older requirement below for routine human sign-off or rolling freshness windows is superseded: original announcement and publication must share the UK calendar date, every generated heading and sentence must pass separate evidence challenge, and uncertain/high-risk material stays held. Machine review must never be described as human approval.
-**Version:** 1.0 (23 October 2026)  
-**Owner:** The Brief editorial desk  
-**Status:** Binding internal editorial policy; not a claim of Reuters/IPSO affiliation or independent accreditation  
-**Applies to:** Every homepage headline, 60-second briefing, explainer, original article, source update, alert, social post, AI-assisted draft and subsequent correction.
+**Current working standards · 27 October 2026**
 
-## 1. Mission and editorial promise
+These standards describe what The Brief aims to publish and what its live automated workflow actually checks. They are not a certification of every published sentence. The current production route is a single source-based Gemini writing pass with deterministic source, UK-date, identity and duplicate controls. There is no separate AI claim-review pass or routine human editorial approval. Never describe these checks as independent fact-checking.
 
-The Brief exists so people working in UK banking and insurance can understand significant industry developments without chasing jargon-heavy documents across multiple websites. Our job is to **report accurately, explain clearly and show why the story matters**. Being first, publishing a high volume of items, gaining clicks or pleasing a source must never outrank accuracy.
+## 1. Our promise
 
-A working reader must be able to distinguish, immediately: (a) what is confirmed; (b) what is proposed; (c) what is an allegation, prediction or someone's opinion; (d) what The Brief has independently checked; and (e) what remains uncertain.
+**Tell people what happened. Help them understand why it matters. Do not pretend to know more than the evidence tells us.**
 
-We aspire to standards informed by Reuters' publicly available standards and the Editors' Code of Practice, notably accuracy, transparent correction, sourcing and clear separation of fact and comment. This does **not** imply membership, endorsement, regulation or certification by either organisation.
+The Brief is a specialist UK insurance and banking publication. It should be useful to underwriters, brokers, intermediaries, claims teams, bankers, relationship managers and interested members of the public. Industry knowledge is an advantage, not an excuse for jargon. Clarity and accuracy matter more than speed, volume or a dramatic headline.
 
-## 2. What is newsworthy
+## 2. A grounded, human British voice
 
-Prioritise **material developments relevant to financial-services work**: regulatory decisions and consultations; insurer underwriting, claims and distribution; broker/intermediary business; banking products, funding, payments and SME relationships; significant results and transactions; consumer outcomes; operational failures; technology with demonstrable financial-services impact; sector employment and leadership where genuinely consequential.
+- Write the way a capable, thoughtful person would explain the story to another person: direct, calm, warm, confident and natural. British spelling, ordinary words and sensible sentence lengths.
+- Lead with the development. No vague scene-setting, exaggerated hooks, self-conscious wit, forced excitement or generic conclusions.
+- Never sound like a press release. Avoid empty phrases such as “significant milestone”, “dynamic landscape”, “game-changing”, “transformative” and “stakeholders” where a clear, specific description would work.
+- Understand commercial realities. Where supported, explain who must make a decision, which firms or customers are affected, what has changed and what follows.
+- Do not assume that every acquisition, partnership, personnel change or product launch transforms an industry. A routine appointment can be a brief item without a grand conclusion.
+- Explain necessary jargon in context, without talking down to experts or newcomers.
+- Do not invent anecdotes, interviews, first-hand experience, quotes, independent opinions, expert reactions or market impact to make prose seem more human.
 
-A company's marketing release is a potential lead, not evidence that its product is transformative. A LinkedIn post may be an early primary statement by an authorised speaker; it is not automatically verified. Check identity, date, context, whether the speaker represents the organisation and whether an official corroborating record exists. Follow platform terms; never present unrestricted LinkedIn monitoring as a deployed feature.
+These requirements are included in the live `scripts/single_pass.py` writing prompt and protected against accidental prompt removal by `scripts/test_single_pass.py`. This is prompt enforcement, **not** a demonstrated factual-accuracy guarantee.
 
-Reject or deprioritise advertorials, thin PR, syndicated duplicates, unverifiable rumours, opinion passed off as fact and recycled announcements masquerading as breaking news.
+## 3. Clear news hierarchy
 
-## 3. Source hierarchy and independence
+The newsroom should ultimately distinguish:
 
-1. **Primary official record:** final regulatory instrument/decision, rulebook, court record, company filing, issuer report, published dataset or original announcement. Preserve exact URL, title, issuing body, publication/update dates, version and retrieval timestamp.
-2. **Direct attributable first-hand statement:** on-the-record spokesperson or authenticated organisational posting; attribute what they claim and independently confirm contested or consequential assertions.
-3. **Credible independent reporting:** useful for discovery, challenge and context, but trace material facts back to their origin where possible. Two outlets copying the same release are one underlying source, not independent confirmation.
-4. **Commentary, analysis or anonymous claims:** clearly labelled, independently corroborated where feasible; otherwise hold or omit.
+- **Major story:** a genuinely consequential development, with space for context supported by the evidence.
+- **Straight news report:** what happened, who is affected and necessary qualifications.
+- **Short news brief:** a routine appointment, launch or limited announcement, reported cleanly and proportionately.
+- **Explainer:** background material that is clearly dated and does not masquerade as new reporting.
+- **Analysis or comment:** visibly identified interpretation, never passed off as established fact.
 
-**Do not claim independence of verification when the only support is a single source.** If a primary source states something about itself, describe it as the organisation's statement, not a universally established conclusion.
+The current source-selection route is deterministic rather than a full editor's significance assessment. Visual ranking and stronger article-type separation are desired improvements, not capabilities already guaranteed in production.
 
-Avoid conflicts of interest and preferential coverage. Advertising, sponsorship, affiliate relationships or personal connections must not control reporting and must be disclosed when material.
+## 4. Sources and attribution
 
-## 4. Non-negotiable accuracy
+- Follow reputable original material, including official regulator publications, filings, company statements and credible original journalism. A newsroom page, RSS listing or syndication item is a lead, not automatically corroboration.
+- Link the underlying source and preserve publisher, original source date and publication date.
+- Attribute a company's figures, forecasts and claims to that company. Do not silently elevate an attributed assertion into independently confirmed fact.
+- A single publisher, however reputable, is still one source. Two outlets repeating the same announcement are not independent confirmation.
+- Never claim that The Brief interviewed anyone, attended an event, saw private records or independently verified information when it did not.
+- Do not copy substantial protected text from other publishers. Write original explanations and respect rights, paywalls and access controls.
 
-- **Facts:** each *material* factual assertion must have an evidence-register entry linking the *specific claim* to its source passage/table and document version; quoted text appearing in a source does not, by itself, prove the draft's interpretation.
-- **Figures:** verify original units, currency, actual number, decimal placement, denominator, exclusions, comparison period and definition. Calculate growth rates independently; distinguish percentage change from percentage-point change. Never change a figure into a new format that changes its precision or meaning.
-- **Regulation:** distinguish *consultation/proposal*, *final decision*, *rule in force*, *regulator speech/opinion*, *supervisory expectation* and *guidance*. Identify regulator, jurisdiction, firms/people actually in scope, comment deadline, commencement date and transitional provisions, if known. Do not imply that a proposal is mandatory today.
-- **Business developments:** distinguish agreement, announcement, approval and completion. Do not claim a transaction is complete merely because it was announced.
-- **Allegations and disputes:** attribute accurately; avoid implied guilt; seek a fair opportunity for affected parties to respond when appropriate. High-risk allegations require qualified human/legal review.
-- **Time and geography:** use exact, source-grounded dates in time-sensitive stories; UK date convention and British spelling. Do not fabricate currentness from the time an RSS feed was polled.
-- **Uncertainty:** when information is genuinely missing, say so precisely or remove the assertion. Do not pad an article with speculative implications.
+## 5. Accuracy requirements for every article
 
-**Hard stop:** a material fact, quotation, figure, date, regulatory status or implication that is contradictory, unsupported or cannot be reviewed stops publication; a numerical aggregate score cannot override this.
+- Distinguish consultations, proposals, announcements, guidance, final decisions and rules already in force. Do not turn a proposal into a legal obligation.
+- Distinguish a signed acquisition agreement from a completed transaction; forecasts from actual results; management claims from external evidence.
+- Preserve financial units, currency, periods, denominators and caveats. A percentage-point increase is not the same as a percentage increase.
+- State a concrete consequence for a broker, insurer, bank, employer or customer only when the retrieved source supports it. Otherwise omit “why it matters”.
+- Use the exact relevant date rather than manufacturing freshness. Today's edition requires the original source date to match the UK publication date.
+- Do not invent what a company “will” do, or what regulators or competitors “are likely” to do, unless that statement is grounded and attributed.
+- Avoid reporting unsupported serious allegations, sensitive personal information or unverified accusations. Those require qualified human judgement before consequential publication.
 
-## 5. Full article structure and reader experience
+The live automated route uses source retrieval and deterministic publication eligibility checks. It **does not** confirm every figure or proposition in an article against an independent claim register. Human auditing or a separate robust review process would be necessary to claim that standard.
 
-The structure is adaptable, not an obligatory word-count template:
+## 6. Reader experience
 
-- **Headline:** one accurate development, no hype, unsupported conclusion, false urgency or invented attribution.
-- **Standfirst:** the main confirmed point and relevant qualification. It must agree with the body.
-- **What happened:** specifics, who acted, when and what document or data confirms it.
-- **What changed from before:** the baseline; do not invent a change when the source only describes a proposal or ongoing process.
-- **Why it matters at work:** concrete and proportionate relevance for underwriters, brokers, claims teams, compliance specialists, relationship managers, employers or customers *only where supported*. Separate evidence from clearly labelled analysis.
-- **Who is affected:** avoid blanket statements about all banks, insurers, workers or customers. State exclusions and thresholds where relevant.
-- **What happens next:** verified dates, next decisions and uncertainties; never invent deadlines.
-- **Useful definitions:** introduce technical terms naturally at first use; a glossary is optional.
-- **Sources and accountability:** clearly linked primary materials, original publisher named and publication/update history.
+Write as much as the source justifies and no more. Small stories should be short. Complex regulatory changes may require greater depth and, if there is not enough reliable source material, restraint rather than filler.
 
-A useful 250-word update is better than 700 words of filler; a complex regulatory story may need well over 700 words. The goal is **complete enough to understand**, not an artificial word quota.
+A good headline states the development accurately. A standfirst adds a meaningful fact or qualification rather than merely repeating the headline. Sections should help orientation, not follow an artificial template.
 
-### Voice and formatting
+The 60-second briefing should summarise published pieces faithfully. It must never introduce new claims, turn a proposal into a decision or present an earlier announcement as a fresh event.
 
-Write **natural British English**: direct, warm, precise, conversational but professional. Lead with the fact, not 'Financial services professionals are reviewing…'. Prefer 'the FCA is consulting' to 'a consultation framework has been initiated'. Explain 'combined ratio' or 'persistency' without pretending the reader is unintelligent. Use digits for financial figures: **£240 million, 1.85 million, 6.3%**. Do not spell out complex amounts as 'two hundred and forty million pounds'. Avoid boilerplate ('stakeholders', 'landscape', 'transformative') and sensation ('shocking', 'massive') unless specifically established.
+## 7. Accountability and corrections
 
-Don't overuse headings or bullets where ordinary explanatory prose works better. Every sentence must add a fact, context, qualification or grounded explanation. The 60-second brief must match an article's verified conclusion, not outrun it.
+We aim to correct material errors visibly, explain what changed and retain relevant source and publication history. Readers can submit a correction request through the public GitHub issue tracker linked on the About page, although that is not yet an ideal reader-facing contact channel.
 
-## 6. AI policy
+The Brief must not imply routine human approval, certification, independent verification or an accreditation it does not have. AI-assisted production is disclosed accurately in our methods information without making software the centre of the publication's identity. Avoid invented human bylines.
 
-AI may discover leads, extract permitted public material, suggest claims, draft, translate jargon and propose edits. It **cannot certify its own accuracy**. The output is a **candidate draft** until reviewed using the Verification and Publication Protocol. Avoid sending confidential client material, personal information or restricted publisher content to an external free API.
+A successful workflow and a functioning webpage establish that publishing worked technically. They do **not** establish that every article is accurate, newsworthy or well written. Periodic human audits, a more accessible corrections channel, better ranking of news importance and stronger independent verification remain necessary improvements.
 
-The fact a generated evidence quote matches source text proves only that the quoted characters were present in the supplied extract. It does **not** establish source authenticity, a claim's truth, the correct denominator, omission of caveats or complete claim coverage.
+## 8. Publishing and costs
 
-An editor must check every material claim, including those in the headline, standfirst, briefing and implied consequences. High-risk financial, legal, regulatory and reputational coverage requires qualified human judgement. A different AI reviewing the first AI does not substitute for human sign-off.
+Retain the existing hourly discovery and publication schedule, existing Gemini provider and existing no-billing policy unless the owner explicitly changes them. Do not add a separate model call merely for stylistic polishing. The current process batches up to three source-based stories into a single writing request and checks the resulting articles for technical/source-date eligibility.
 
-Disclose material AI assistance transparently on published explanatory articles. Do not invent human bylines, first-hand reporting or interviews.
-
-## 7. Copyright, attribution and reuse
-
-Report facts in original language. Attribute discovery and underlying evidence appropriately; link readers to original sources. Do not reproduce complete third-party articles, paywalled reporting or substantial protected expression without licence or a lawful basis. Short quotation must be justified, accurately attributed and reviewed for applicable rights. Respect publisher and platform access conditions and robots guidance where applicable.
-
-## 8. Publication status labels
-
-- **Original reporting / explainer:** approved original full coverage; disclose AI assistance when used.
-- **Attributed source update:** headline/excerpt from a named feed; not represented as an independently checked full article.
-- **Analysis / opinion:** explicitly labelled; facts still checked.
-- **Draft / unverified:** never presented as a public article.
-- **Updated / corrected:** visible timestamp and correction note when material.
-
-## 9. Corrections, fairness and accountability
-
-Retain the original publication version, editor/approval record, linked source snapshot metadata, subsequent edits and the reason for changes. Correct factual errors promptly, visibly and proportionately; a substantive correction must say **what changed and why**. Do not quietly overwrite a materially false claim. If harm is plausible, temporarily unpublish or add a prominent warning pending investigation. Provide a public correction-contact channel before actively promoting the publication; do not invent an address or claim a live channel that has not been established.
-
-Invite a fair response where serious allegations are made. Protect private individuals' information; publication in a public social feed is not blanket permission to republish it.
-
-## 10. Release thresholds and escalation
-
-**Draft passed automated checks ≠ article approved.** The verification record must show all material claims resolved, the article's exact reviewed version, accountable reviewer and approval time. For regulatory interpretations, allegations, legal claims, major results or contested developments, require specialist scrutiny before publication. If the desk cannot meet this threshold, publish nothing rather than an unreliable article.
-
-Review these standards after a material correction, a missed-failure test, major source/API changes and at least quarterly. Record revisions by version.
-
-## References used to inform these standards
-
-- Reuters journalistic standards: https://reutersagency.com/about/standards-values/
-- Reuters Trust Principles: https://reutersagency.com/about/our-trust-principles/
-- IPSO Editors' Code: https://www.ipso.co.uk/editors-code-of-practice/
-- IPSO on AI and accountability: https://www.ipso.co.uk/news-analysis/does-ai-generated-content-change-editorial-standards/
-
-**Companion:** [Verification and Publication Protocol](VERIFICATION_AND_PUBLICATION_PROTOCOL.md).
-
+For the real workflow and its limitations, see [README](../README.md), [single-pass writer](../scripts/single_pass.py) and the [historical proposed human-review protocol](VERIFICATION_AND_PUBLICATION_PROTOCOL.md).
