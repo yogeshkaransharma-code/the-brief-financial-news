@@ -55,6 +55,12 @@ FOREIGN_UK_IMPACT = re.compile(
     r"regulat\w*|pension\w*|acquisition|deal)\b.{0,85}\b(?:UK|U\.K\.|United Kingdom|London)\b",
     re.I)
 
+FOREIGN_UK_ACTION = re.compile(
+    r"\b(?:affect\w*|impact\w*|chang\w*|acquir\w*|purchas\w*|buy\w*|bought|"
+    r"expand\w*|launch\w*|suppl\w*|provid\w*|offer\w*|underwrit\w*|invest\w*|"
+    r"regulat\w*|operat\w*|withdraw\w*|target\w*|reduc\w*|increas\w*|"
+    r"enter\w*|sell\w*|settle\w*|clos\w*|fund\w*|deliver\w*)\b", re.I)
+
 UK_AUTHORITIES = {
     "fca.org.uk", "bankofengland.co.uk", "thepensionsregulator.gov.uk",
     "financial-ombudsman.org.uk", "ukfinance.org.uk", "abi.org.uk"
@@ -84,8 +90,12 @@ def uk_market_reason(item, source_text=""):
     if FOREIGN_HEADLINE.search(title):
         # A comparison or passing reference to London is insufficient. Only
         # evidence that the foreign development operates in/affects UK markets.
-        if FOREIGN_UK_IMPACT.search(short) or FOREIGN_UK_IMPACT.search(excerpt[:1300]):
-            return "Overseas development with explicitly evidenced UK-market connection"
+        # Reject incidental comparative mentions of British markets.
+        for section in (short, excerpt[:1300]):
+            for match in FOREIGN_UK_IMPACT.finditer(section):
+                neighbourhood=section[max(0,match.start()-95):match.end()+95]
+                if FOREIGN_UK_ACTION.search(neighbourhood):
+                    return "Overseas development with explicitly evidenced UK-market consequence"
         return ""
     if UK.search(title):
         return "UK financial-market subject identified in headline"
