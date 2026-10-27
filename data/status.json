@@ -1,46 +1,36 @@
 {
-  "checked_at": "2026-10-27T04:13:50.807129+00:00",
+  "checked_at": "2026-10-27T05:09:50.885875+00:00",
   "uk_date": "2026-10-27",
-  "outcome": "PUBLISHED",
-  "editorial_outcome": "PUBLISHED",
-  "technical_status": "LIVE_VERIFIED",
+  "outcome": "BLOCKED",
+  "editorial_outcome": "BLOCKED",
+  "technical_status": "AWAITING_LIVE_VERIFICATION",
   "source_coverage_status": "PARTIAL",
   "launch_test": {
     "result": "NOT_RUN"
   },
-  "published_this_run": 1,
+  "published_this_run": 0,
   "genuine_same_day_articles": 5,
   "editorial_selection": {
-    "result": "SELECTED",
+    "result": "NO_VERIFIED_CANDIDATES",
     "requests": 0,
-    "method": "deterministic-source-supported",
-    "selected": [
-      {
-        "url": "https://www.insurancebusinessmag.com/uk/news/environmental/storm-boelo-cleanup-puts-business-interruption-in-focus-595011.aspx",
-        "category": "Insurance",
-        "reason": "Relevant current development supported by a complete accessible source"
-      }
-    ],
-    "skipped": [],
-    "deferred": []
+    "selected": [],
+    "skipped": []
   },
   "published_total": 50,
   "last_article_at": "2026-10-27T04:13:50.657888+00:00",
-  "fresh_source_candidates": 8,
-  "verified_original_candidates": 1,
+  "fresh_source_candidates": 10,
+  "verified_original_candidates": 0,
   "candidates_by_sector": {
-    "Banking": 6,
-    "Insurance": 2
-  },
-  "verified_by_sector": {
+    "Banking": 9,
     "Insurance": 1
   },
-  "articles_commissioned": 1,
-  "articles_held": 36,
+  "verified_by_sector": {},
+  "articles_commissioned": 0,
+  "articles_held": 40,
   "machine_screened": 0,
   "independent_review": false,
   "publication_policy": "newsroom-single-pass-2026-10-26-v1",
-  "articles_ready_to_publish": 1,
+  "articles_ready_to_publish": 0,
   "primary_indexes_checked": 31,
   "primary_index_failures": 4,
   "feeds_working": 41,
@@ -48,35 +38,46 @@
   "ai_budget": {
     "quota_date": "2026-10-26",
     "quota_timezone": "America/Los_Angeles",
-    "requests_this_run": 1,
+    "requests_this_run": 0,
     "requests_today_including_this_run": 36,
     "run_limit": 7,
     "daily_limit": null,
     "remaining_today": null,
     "daily_limit_source": "provider",
-    "remaining_this_run": 6
+    "remaining_this_run": 7
   },
   "quota_pause_until": null,
   "pipeline_metrics": {
     "discovered_unique": 511,
-    "outside_uk_date": 228,
+    "outside_uk_date": 224,
     "irrelevant": 70,
-    "already_published_or_retired": 47,
-    "unsupported_route": 158,
-    "fresh_relevant_candidates": 8,
-    "source_cooldowns": 6,
-    "sources_successfully_retrieved": 1,
-    "source_checkpoints_reused": 0,
-    "source_failures": 1,
-    "verified_original_candidates": 1,
-    "articles_ready_to_publish": 1,
-    "articles_drafted": 1
+    "already_published_or_retired": 48,
+    "unsupported_route": 159,
+    "fresh_relevant_candidates": 10,
+    "source_failures": 3,
+    "source_cooldowns": 7,
+    "verified_original_candidates": 0
   },
   "source_fallbacks": [
     {
-      "source": "https://www.bloomberg.com/news/articles/2026-10-27/samsung-life-insurance-south-korea-coupon-note-debt-dollar-bond-sale",
-      "alternatives_found": 0,
-      "result": "No matching alternative in checked sources"
+      "source": "https://www.wsj.com/finance/banking/hsbc-quarterly-profit-climbs-plans-1-billion-buyback-1551a999",
+      "result": "Public alternative search completed",
+      "candidates": 1
+    },
+    {
+      "source": "https://www.wsj.com/finance/banking/hsbc-quarterly-profit-climbs-plans-1-billion-buyback-1551a999",
+      "alternatives_found": 1,
+      "result": "Alternative retrieval attempted"
+    },
+    {
+      "source": "https://www.bloomberg.com/news/articles/2026-10-27/hsbc-1-billion-buyback-third-quarter-earnings-profit-growth-misses-estimates",
+      "result": "Public alternative search completed",
+      "candidates": 1
+    },
+    {
+      "source": "https://www.bloomberg.com/news/articles/2026-10-27/hsbc-1-billion-buyback-third-quarter-earnings-profit-growth-misses-estimates",
+      "alternatives_found": 1,
+      "result": "Alternative retrieval attempted"
     },
     {
       "source": "https://www.bloomberg.com/news/articles/2026-10-27/japan-life-insurers-swap-into-higher-yield-bonds-to-lift-returns",
@@ -85,21 +86,21 @@
     },
     {
       "source": "https://www.finextra.com/newsarticle/48650/mastercard-targets-creators-via-mrbeast-partnership",
-      "result": "Public alternative search completed",
-      "candidates": 0
-    },
-    {
-      "source": "https://www.finextra.com/newsarticle/48650/mastercard-targets-creators-via-mrbeast-partnership",
       "alternatives_found": 0,
       "result": "No matching alternative in checked sources"
     },
     {
       "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/hsbc-holdings-plc-3q-2026-earnings-release",
-      "result": "Public alternative search completed",
-      "candidates": 0
+      "alternatives_found": 0,
+      "result": "No matching alternative in checked sources"
     },
     {
-      "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/hsbc-holdings-plc-3q-2026-earnings-release",
+      "source": "https://www.bloomberg.com/news/articles/2026-10-27/samsung-life-insurance-south-korea-coupon-note-debt-dollar-bond-sale",
+      "alternatives_found": 0,
+      "result": "No matching alternative in checked sources"
+    },
+    {
+      "source": "https://www.finextra.com/newsarticle/48652/capitalos-raises-219m-for-money-orchestration-layer-for-b2b-platforms",
       "alternatives_found": 0,
       "result": "No matching alternative in checked sources"
     },
@@ -109,17 +110,17 @@
       "result": "No matching alternative in checked sources"
     },
     {
-      "source": "https://www.finextra.com/newsarticle/48652/capitalos-raises-219m-for-money-orchestration-layer-for-b2b-platforms",
-      "result": "Public alternative search completed",
-      "candidates": 0
-    },
-    {
-      "source": "https://www.finextra.com/newsarticle/48652/capitalos-raises-219m-for-money-orchestration-layer-for-b2b-platforms",
+      "source": "https://www.bloomberg.com/news/articles/2026-10-27/msci-indonesian-corporate-bond-sale-kb-bank-moodys-ratings-fitch-prabowo",
       "alternatives_found": 0,
       "result": "No matching alternative in checked sources"
     },
     {
-      "source": "https://www.bloomberg.com/news/articles/2026-10-27/msci-indonesian-corporate-bond-sale-kb-bank-moodys-ratings-fitch-prabowo",
+      "source": "https://www.bloomberg.com/news/articles/2026-10-27/china-5-year-yield-hits-record-low-on-pboc-s-cash-injection",
+      "result": "Public alternative search completed",
+      "candidates": 0
+    },
+    {
+      "source": "https://www.bloomberg.com/news/articles/2026-10-27/china-5-year-yield-hits-record-low-on-pboc-s-cash-injection",
       "alternatives_found": 0,
       "result": "No matching alternative in checked sources"
     }
@@ -319,42 +320,6 @@
       "reason": "Outside Insurance/Banking or promotional/lifestyle material"
     },
     {
-      "title": "Lloyds uses agentic AI platform to strengthen customer fraud support",
-      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-strengthens-fraud-support-agentic-ai.html",
-      "result": "rejected",
-      "stage": "eligibility",
-      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
-    },
-    {
-      "title": "Lloyds climbs global rankings for AI talent and leadership",
-      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-climbs-global-rankings-for-ai-talent-and-leadership.html",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
-    {
-      "title": "Lloyds launches Investing in Britain Hub",
-      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-launches-investing-in-britain-hub.html",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
-    {
-      "title": "Lloyds Banking Group launches Lloyds Auto",
-      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds-banking-group/lloyds-banking-group-launches-lloyds-auto.html",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
-    {
-      "title": "Lloyds supports second £250 million Blue Bond for Tideway to help protect River Thames",
-      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-supports-second-250m-blue-bond-for-tideway-to-help-protect-river-thames.html",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-15"
-    },
-    {
       "title": "Prudential Regulation // Consultation paper 22 October 2026 CP14/26 – Review of the Senior Managers and... CP14/26 – Review of the Senior Managers and Certification Regime (SM&CR) – Phase 2",
       "source": "https://www.bankofengland.co.uk/prudential-regulation/publication/2026/october/review-of-the-smcr-phase-two-consultation-paper",
       "result": "rejected",
@@ -415,6 +380,42 @@
       "reason": "Outside Insurance/Banking or promotional/lifestyle material"
     },
     {
+      "title": "Lloyds uses agentic AI platform to strengthen customer fraud support",
+      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-strengthens-fraud-support-agentic-ai.html",
+      "result": "rejected",
+      "stage": "eligibility",
+      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
+    },
+    {
+      "title": "Lloyds climbs global rankings for AI talent and leadership",
+      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-climbs-global-rankings-for-ai-talent-and-leadership.html",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
+    },
+    {
+      "title": "Lloyds launches Investing in Britain Hub",
+      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-launches-investing-in-britain-hub.html",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
+    },
+    {
+      "title": "Lloyds Banking Group launches Lloyds Auto",
+      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds-banking-group/lloyds-banking-group-launches-lloyds-auto.html",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
+    },
+    {
+      "title": "Lloyds supports second £250 million Blue Bond for Tideway to help protect River Thames",
+      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-supports-second-250m-blue-bond-for-tideway-to-help-protect-river-thames.html",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-15"
+    },
+    {
       "title": "Cash ISA Transfer Performance Q3 2026",
       "source": "https://www.ukfinance.org.uk/news-and-insight/press-release/cash-isa-transfer-performance-q3-2026",
       "result": "rejected",
@@ -446,19 +447,19 @@
       "source_date": "2026-10-13"
     },
     {
+      "title": "Retirement targets jump 20% as affluent individuals plan for several futures at once",
+      "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/retirement-targets-jump-20-as-affluent-individuals-plan-for-several-futures-at-once",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
+    },
+    {
       "title": "Ageas UK and esure Boards appoint two Independent Non-Executive Directors",
       "source": "https://www.ageas.co.uk/press-releases/2026-press-releases/ageas-esure-boards-independent-non-executive-directors/",
       "result": "excluded",
       "stage": "eligibility",
       "reason": "Discovery source date is outside the current UK date",
       "source_date": "2026-10-09"
-    },
-    {
-      "title": "Retirement targets jump 20% as affluent individuals plan for several futures at once",
-      "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/retirement-targets-jump-20-as-affluent-individuals-plan-for-several-futures-at-once",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
     },
     {
       "title": "The LMA: Making the Market a Better Place",
@@ -509,30 +510,6 @@
       "result": "rejected",
       "stage": "eligibility",
       "reason": "Outside Insurance/Banking or promotional/lifestyle material"
-    },
-    {
-      "title": "Lawrence Hawkins appointed General Counsel Zurich UK",
-      "source": "https://www.zurich.co.uk/media-centre/lawrence-hawkins-appointed-general-counsel",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-21"
-    },
-    {
-      "title": "New captive regime “has potential to strengthen the UK’s position as a leading global insurance centre”",
-      "source": "https://www.zurich.co.uk/media-centre/uk-captive-insurance-regime",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-14"
-    },
-    {
-      "title": "14th October 2026 Starling becomes first bank to train AI model on UK sovereign cloud",
-      "source": "https://www.starlingbank.com/news/starling-backs-uk-sovereign-cloud",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-14"
     },
     {
       "title": "Majesco: The Insurance Alignment Gap: Where Insurer Priorities and Customer Protection Needs Converge…and Diverge",
@@ -611,6 +588,37 @@
       "source_date": "2026-10-06"
     },
     {
+      "title": "14th October 2026 Starling becomes first bank to train AI model on UK sovereign cloud",
+      "source": "https://www.starlingbank.com/news/starling-backs-uk-sovereign-cloud",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-14"
+    },
+    {
+      "title": "Lawrence Hawkins appointed General Counsel Zurich UK",
+      "source": "https://www.zurich.co.uk/media-centre/lawrence-hawkins-appointed-general-counsel",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-21"
+    },
+    {
+      "title": "New captive regime “has potential to strengthen the UK’s position as a leading global insurance centre”",
+      "source": "https://www.zurich.co.uk/media-centre/uk-captive-insurance-regime",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-14"
+    },
+    {
+      "title": "HSBC quarterly profits surge 32% amid cost cutting",
+      "source": "https://www.ft.com/content/fd23db26-a45b-4a98-b771-4234a30b7937?syn-25a6b1a6=1",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "No reviewed article route in source registry"
+    },
+    {
       "title": "BlackRock's Rieder on Global Bonds, AI",
       "source": "https://www.bloomberg.com/news/videos/2026-10-27/blackrock-s-rieder-on-global-bonds-ai-video",
       "result": "excluded",
@@ -620,6 +628,13 @@
     {
       "title": "Healey pledges cheaper marmalade and gherkins in pre-Budget package of 'everyday fixes'",
       "source": "https://www.bbc.co.uk/news/articles/c6d93gq1xdgno",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
+    },
+    {
+      "title": "Storm Boelo clean-up puts business interruption in focus",
+      "source": "https://www.insurancebusinessmag.com/uk/news/environmental/storm-boelo-cleanup-puts-business-interruption-in-focus-595011.aspx",
       "result": "excluded",
       "stage": "eligibility",
       "reason": "Already published or retired"
@@ -3667,38 +3682,6 @@
       "source_date": "2026-10-23"
     },
     {
-      "title": "CP26/38: Financial Crime Guide updates",
-      "source": "https://www.fca.org.uk/publications/consultation-papers/cp26-38-financial-crime-guide-updates",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-23"
-    },
-    {
-      "title": "Lords tell FCA to move faster on home and travel insurance",
-      "source": "https://www.insurancebusinessmag.com/uk/news/property-insurance/lords-tell-fca-to-move-faster-on-home-and-travel-insurance-594663.aspx",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-23"
-    },
-    {
-      "title": "Insurance moves: Acrisure, Price Forbes, MSIG UK, Pinion and Shepherds Friendly",
-      "source": "https://www.insurancebusinessmag.com/uk/news/breaking-news/insurance-moves-acrisure-price-forbes-msig-uk-pinion-and-shepherds-friendly-594664.aspx",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-23"
-    },
-    {
-      "title": "UK P&I and TT Club complete Thomas Miller buyout ahead of merger",
-      "source": "https://www.insurancebusinessmag.com/uk/news/mergers-acquisitions/uk-pandi-and-tt-club-complete-thomas-miller-buyout-ahead-of-merger-594661.aspx",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-23"
-    },
-    {
       "title": "Acrisure recruits ex-Cobra boss Tedstone as UK Retail CEO",
       "source": "https://www.insuranceage.co.uk/insight/7959042/acrisure-recruits-ex-cobra-boss-tedstone-as-uk-retail-ceo",
       "result": "excluded",
@@ -3875,13 +3858,31 @@
       "source_date": "2026-10-14"
     },
     {
-      "title": "Samsung Life Prices Record Dollar Bond as Investors Defy Turmoil",
-      "source": "https://www.bloomberg.com/news/articles/2026-10-27/samsung-life-insurance-south-korea-coupon-note-debt-dollar-bond-sale",
-      "result": "retry deferred",
+      "title": "HSBC Quarterly Profit Climbs, Plans $1 Billion Buyback",
+      "source": "https://www.wsj.com/finance/banking/hsbc-quarterly-profit-climbs-plans-1-billion-buyback-1551a999",
+      "result": "held back",
+      "stage": "source",
+      "reason": "HTTP Error 401: HTTP Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "retry_after": "2026-10-27T11:09:40.168448+00:00"
+    },
+    {
+      "title": "HSBC Quarterly Profit Growth Misses, Sets $1 Billion Buyback",
+      "source": "https://www.bloomberg.com/news/articles/2026-10-27/hsbc-1-billion-buyback-third-quarter-earnings-profit-growth-misses-estimates",
+      "result": "held back",
+      "stage": "alternative_source",
+      "reason": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "retry_after": "2026-10-27T11:09:40.168448+00:00"
+    },
+    {
+      "title": "HSBC Quarterly Profit Growth Misses, Sets $1 Billion Buyback",
+      "source": "https://www.bloomberg.com/news/articles/2026-10-27/hsbc-1-billion-buyback-third-quarter-earnings-profit-growth-misses-estimates",
+      "result": "held back",
       "stage": "source",
       "reason": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
-      "retry_after": "2026-10-27T09:39:22.622340+00:00"
+      "retry_after": "2026-10-27T11:09:40.168448+00:00"
     },
     {
       "title": "Japan Life Insurers Swap Into Higher-Yield Bonds to Lift Returns",
@@ -3891,15 +3892,6 @@
       "reason": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "retry_after": "2026-10-27T09:10:01.659421+00:00"
-    },
-    {
-      "title": "Storm Boelo clean-up puts business interruption in focus",
-      "source": "https://www.insurancebusinessmag.com/uk/news/environmental/storm-boelo-cleanup-puts-business-interruption-in-focus-595011.aspx",
-      "result": "source verified",
-      "stage": "source",
-      "reason": "Complete captured source; original UK publication date validated",
-      "source_sha256": "14516ac60918efae6617f0a82cc8cec1bd93b2037a9cb5e18beb164fe02ed07e",
-      "capture_method": "retrieved"
     },
     {
       "title": "Mastercard targets creators via MrBeast partnership",
@@ -3913,15 +3905,15 @@
     {
       "title": "HSBC Holdings plc 3Q 2026 Earnings Release",
       "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/hsbc-holdings-plc-3q-2026-earnings-release",
-      "result": "held back",
+      "result": "retry deferred",
       "stage": "source",
       "reason": "Original document has no unambiguous publication date; listing/RSS date is insufficient",
       "classification": "DATE_UNVERIFIED",
       "retry_after": "2026-10-27T06:13:34.291366+00:00"
     },
     {
-      "title": "JPMorgan’s Michele Sees US Bonds Returning 7%-8% Over 12 Months",
-      "source": "https://www.bloomberg.com/news/articles/2026-10-27/jpmorgan-asset-management-bob-michele-us-bonds-treasury-fed",
+      "title": "Samsung Life Prices Record Dollar Bond as Investors Defy Turmoil",
+      "source": "https://www.bloomberg.com/news/articles/2026-10-27/samsung-life-insurance-south-korea-coupon-note-debt-dollar-bond-sale",
       "result": "retry deferred",
       "stage": "source",
       "reason": "HTTP Error 403: Forbidden",
@@ -3938,6 +3930,15 @@
       "retry_after": "2026-10-27T06:02:27.634935+00:00"
     },
     {
+      "title": "JPMorgan’s Michele Sees US Bonds Returning 7%-8% Over 12 Months",
+      "source": "https://www.bloomberg.com/news/articles/2026-10-27/jpmorgan-asset-management-bob-michele-us-bonds-treasury-fed",
+      "result": "retry deferred",
+      "stage": "source",
+      "reason": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "retry_after": "2026-10-27T09:39:22.622340+00:00"
+    },
+    {
       "title": "MSCI Fallout Widens With Indonesian Corporate Bond Sale Shelved",
       "source": "https://www.bloomberg.com/news/articles/2026-10-27/msci-indonesian-corporate-bond-sale-kb-bank-moodys-ratings-fitch-prabowo",
       "result": "retry deferred",
@@ -3947,11 +3948,13 @@
       "retry_after": "2026-10-27T09:39:22.622340+00:00"
     },
     {
-      "title": "Storm Boelo clean-up puts business interruption in focus",
-      "source": "https://www.insurancebusinessmag.com/uk/news/environmental/storm-boelo-cleanup-puts-business-interruption-in-focus-595011.aspx",
-      "result": "ready to publish",
-      "stage": "writing",
-      "reason": "Source-based article complete; no independent AI review requested"
+      "title": "China’s 5-Year Government Bond Yield Trades Near Record Low",
+      "source": "https://www.bloomberg.com/news/articles/2026-10-27/china-5-year-yield-hits-record-low-on-pboc-s-cash-injection",
+      "result": "held back",
+      "stage": "source",
+      "reason": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "retry_after": "2026-10-27T11:09:40.168448+00:00"
     }
   ],
   "discovery_errors": [
@@ -3987,6 +3990,12 @@
     },
     {
       "id": "ai-1984f0f5a7e670e40291",
+      "reason": [
+        "Duplicate source/article"
+      ]
+    },
+    {
+      "id": "ai-19ad77b092206c5b5f47",
       "reason": [
         "Duplicate source/article"
       ]
@@ -4172,220 +4181,13 @@
       ]
     }
   ],
-  "run_id": "40448526522",
+  "run_id": "40453696490",
   "event": "schedule",
-  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40448526522",
+  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40453696490",
   "publisher_links": 0,
-  "discovery_headlines": 8,
-  "publisher_desk_checked_at": "2026-10-27T04:13:31.397306+00:00",
+  "discovery_headlines": 11,
+  "publisher_desk_checked_at": "2026-10-27T05:09:38.122055+00:00",
   "previous_verified_runs": [
-    {
-      "run_id": "40309313841",
-      "event": "schedule",
-      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40309313841",
-      "editorial_outcome": "PUBLISHED",
-      "published_this_run": 4,
-      "publisher_links": 0,
-      "discovery_headlines": 30,
-      "source_coverage_status": "PARTIAL",
-      "fresh_source_candidates": 31,
-      "verified_by_sector": {
-        "Insurance": 10,
-        "Banking": 5
-      },
-      "ai_budget": {
-        "quota_date": "2026-10-26",
-        "quota_timezone": "America/Los_Angeles",
-        "requests_this_run": 6,
-        "requests_today_including_this_run": 30,
-        "run_limit": 7,
-        "daily_limit": 30,
-        "remaining_today": 0
-      },
-      "pipeline_metrics": {
-        "discovered_unique": 506,
-        "already_published_or_retired": 32,
-        "outside_uk_date": 199,
-        "irrelevant": 95,
-        "unsupported_route": 149,
-        "fresh_relevant_candidates": 31,
-        "sources_successfully_retrieved": 10,
-        "source_checkpoints_reused": 5,
-        "source_failures": 7,
-        "source_cooldowns": 9,
-        "verified_original_candidates": 15,
-        "articles_drafted": 5,
-        "review_rejected": 1,
-        "articles_passing_review": 4
-      },
-      "source_fallbacks": [
-        {
-          "source": "https://www.wsj.com/economy/central-banking/treasury-yields-turn-slightly-higher-french-bonds-outperform-2fd1aaa0",
-          "result": "Public alternative search completed",
-          "candidates": 0
-        },
-        {
-          "source": "https://www.wsj.com/economy/central-banking/treasury-yields-turn-slightly-higher-french-bonds-outperform-2fd1aaa0",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.fca.org.uk/data/flood-risk-exposure-mortgages-england",
-          "result": "Public alternative search completed",
-          "candidates": 0
-        },
-        {
-          "source": "https://www.fca.org.uk/data/flood-risk-exposure-mortgages-england",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.bloomberg.com/news/articles/2026-10-26/chinese-conglomerate-huafa-seeks-to-extend-some-debt-payments",
-          "result": "Public alternative search completed",
-          "candidates": 0
-        },
-        {
-          "source": "https://www.bloomberg.com/news/articles/2026-10-26/chinese-conglomerate-huafa-seeks-to-extend-some-debt-payments",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.finextra.com/newsarticle/48642/riksbank-reignites-e-krona-debate",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.aviva.com/newsroom/news-and-research-overview/news-releases/2026/10/aviva-reunites-customers-with-more-than-one-billion-pounds-in-pension-savings/",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.bbc.co.uk/news/articles/c6x2zrjl7kjno",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.wsj.com/finance/jgb-yields-higher-amid-concerns-about-higher-energy-prices-897f5458",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.bloomberg.com/news/articles/2026-10-26/ai-agents-seen-taking-credit-trading-work-from-humans-over-time",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.professionalpensions.com/news/4032156/tender-watch-pensions-industry",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.bloomberg.com/news/articles/2026-10-26/french-markets-rebound-after-nation-avoids-moody-s-downgrade",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.professionalpensions.com/news/4057232/live-blog-pensions-news-digest",
-          "alternatives_found": 1,
-          "result": "Alternative retrieval attempted"
-        },
-        {
-          "source": "https://www.bloomberg.com/news/articles/2026-10-26/chinese-conglomerate-huafa-s-bonds-plunge-in-biggest-daily-drop",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.bloomberg.com/news/articles/2026-10-26/uk-dealers-see-more-treasury-bills-coming-to-cut-debt-costs",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.bloomberg.com/news/articles/2026-10-26/world-bank-somalia-low-tax-revenue-key-fiscal-challenge",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.bloomberg.com/news/articles/2026-10-26/french-bond-oats-australia-pension-australian-retirement-trust-yields-ecb",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.bloomberg.com/news/articles/2026-10-26/asset-manager-australian-dollar-shorts-hit-record-on-risk-off",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        }
-      ],
-      "articles_visible_this_run": 4,
-      "live_article_ids": [
-        "ai-17470c0ae704dd48a76f",
-        "ai-1984f0f5a7e670e40291",
-        "ai-51f7cd601a137f683766",
-        "ai-e4958f8e39394c600b65"
-      ],
-      "commissioned_stories": [
-        {
-          "url": "https://www.commercialriskonline.com/japan-prepares-domestic-captive-regime/",
-          "category": "Insurance",
-          "reason": "Relevant current development supported by a complete accessible source"
-        },
-        {
-          "url": "https://www.reinsurancene.ws/lm-re-to-tackle-missing-data-in-parametric-cover-with-celest-science-collaboration/",
-          "category": "Insurance",
-          "reason": "Relevant current development supported by a complete accessible source"
-        },
-        {
-          "url": "https://www.commercialriskonline.com/japan-to-simulate-ai-cyberattacks-following-php-vulnerabilities/",
-          "category": "Banking",
-          "reason": "Relevant current development supported by a complete accessible source"
-        },
-        {
-          "url": "https://www.bbc.co.uk/news/articles/ck98zp7zeq65o",
-          "category": "Banking",
-          "reason": "Relevant current development supported by a complete accessible source"
-        },
-        {
-          "url": "https://www.professionalpensions.com/news/4537836/schemes-overpaying-tax-db-surplus-refunds-advisers",
-          "category": "Banking",
-          "reason": "Relevant current development supported by a complete accessible source"
-        },
-        {
-          "url": "https://www.insurancebusinessmag.com/uk/news/professional-liability/ate-insurers-likely-to-wait-out-man-city-appeal-before-backing-compensation-claims-594896.aspx",
-          "category": "Insurance",
-          "reason": "Relevant current development supported by a complete accessible source"
-        },
-        {
-          "url": "https://www.investmentweek.co.uk/news/4537828/foresight-environmental-infrastructure-makes-positive-104m-disposal",
-          "category": "Banking",
-          "reason": "Relevant current development supported by a complete accessible source"
-        },
-        {
-          "url": "https://www.commercialriskonline.com/starr-opens-milan-office-as-part-of-european-expansion/",
-          "category": "Insurance",
-          "reason": "Relevant current development supported by a complete accessible source"
-        },
-        {
-          "url": "https://www.reinsurancene.ws/reinsurance-impact-of-civil-unrest-in-france-likely-to-be-small-am-best/",
-          "category": "Insurance",
-          "reason": "Relevant current development supported by a complete accessible source"
-        }
-      ],
-      "checked_at": "2026-10-26T10:57:33.113050+00:00",
-      "technical_status": "LIVE_VERIFIED",
-      "deployment": "success",
-      "live_check": "success",
-      "browser_check": "success",
-      "candidate_outcome_counts": {
-        "eligibility:excluded": 380,
-        "eligibility:rejected": 95,
-        "source:source verified": 15,
-        "source:held back": 7,
-        "source:retry deferred": 9,
-        "independent_review:held for review": 3,
-        "writing:held back": 4,
-        "writing:drafted": 5,
-        "independent_review:draft saved": 4
-      }
-    },
     {
       "run_id": "40317218662",
       "event": "schedule",
@@ -8675,6 +8477,125 @@
         "source:source verified": 3,
         "writing:ready to publish": 3
       }
+    },
+    {
+      "run_id": "40448526522",
+      "event": "schedule",
+      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40448526522",
+      "editorial_outcome": "PUBLISHED",
+      "published_this_run": 1,
+      "publisher_links": 0,
+      "discovery_headlines": 8,
+      "source_coverage_status": "PARTIAL",
+      "fresh_source_candidates": 8,
+      "verified_by_sector": {
+        "Insurance": 1
+      },
+      "ai_budget": {
+        "quota_date": "2026-10-26",
+        "quota_timezone": "America/Los_Angeles",
+        "requests_this_run": 1,
+        "requests_today_including_this_run": 36,
+        "run_limit": 7,
+        "daily_limit": null,
+        "remaining_today": null,
+        "daily_limit_source": "provider",
+        "remaining_this_run": 6
+      },
+      "pipeline_metrics": {
+        "discovered_unique": 511,
+        "outside_uk_date": 228,
+        "irrelevant": 70,
+        "already_published_or_retired": 47,
+        "unsupported_route": 158,
+        "fresh_relevant_candidates": 8,
+        "source_cooldowns": 6,
+        "sources_successfully_retrieved": 1,
+        "source_checkpoints_reused": 0,
+        "source_failures": 1,
+        "verified_original_candidates": 1,
+        "articles_ready_to_publish": 1,
+        "articles_drafted": 1
+      },
+      "source_fallbacks": [
+        {
+          "source": "https://www.bloomberg.com/news/articles/2026-10-27/samsung-life-insurance-south-korea-coupon-note-debt-dollar-bond-sale",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.bloomberg.com/news/articles/2026-10-27/japan-life-insurers-swap-into-higher-yield-bonds-to-lift-returns",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.finextra.com/newsarticle/48650/mastercard-targets-creators-via-mrbeast-partnership",
+          "result": "Public alternative search completed",
+          "candidates": 0
+        },
+        {
+          "source": "https://www.finextra.com/newsarticle/48650/mastercard-targets-creators-via-mrbeast-partnership",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/hsbc-holdings-plc-3q-2026-earnings-release",
+          "result": "Public alternative search completed",
+          "candidates": 0
+        },
+        {
+          "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/hsbc-holdings-plc-3q-2026-earnings-release",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.bloomberg.com/news/articles/2026-10-27/jpmorgan-asset-management-bob-michele-us-bonds-treasury-fed",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.finextra.com/newsarticle/48652/capitalos-raises-219m-for-money-orchestration-layer-for-b2b-platforms",
+          "result": "Public alternative search completed",
+          "candidates": 0
+        },
+        {
+          "source": "https://www.finextra.com/newsarticle/48652/capitalos-raises-219m-for-money-orchestration-layer-for-b2b-platforms",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.bloomberg.com/news/articles/2026-10-27/msci-indonesian-corporate-bond-sale-kb-bank-moodys-ratings-fitch-prabowo",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        }
+      ],
+      "publication_policy": "newsroom-single-pass-2026-10-26-v1",
+      "independent_review": false,
+      "articles_ready_to_publish": 1,
+      "articles_visible_this_run": 1,
+      "live_article_ids": [
+        "ai-19ad77b092206c5b5f47"
+      ],
+      "commissioned_stories": [
+        {
+          "url": "https://www.insurancebusinessmag.com/uk/news/environmental/storm-boelo-cleanup-puts-business-interruption-in-focus-595011.aspx",
+          "category": "Insurance",
+          "reason": "Relevant current development supported by a complete accessible source"
+        }
+      ],
+      "checked_at": "2026-10-27T04:14:56.405267+00:00",
+      "technical_status": "LIVE_VERIFIED",
+      "deployment": "success",
+      "live_check": "success",
+      "browser_check": "success",
+      "candidate_outcome_counts": {
+        "eligibility:excluded": 433,
+        "eligibility:rejected": 70,
+        "source:retry deferred": 6,
+        "source:source verified": 1,
+        "source:held back": 1,
+        "writing:ready to publish": 1
+      }
     }
   ],
   "launch_acceptance": {
@@ -8699,9 +8620,5 @@
   "launch_diagnostic_allowance": {
     "limit": 2,
     "requests": 2
-  },
-  "articles_visible_this_run": 1,
-  "live_article_ids": [
-    "ai-19ad77b092206c5b5f47"
-  ]
+  }
 }
