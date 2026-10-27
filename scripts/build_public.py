@@ -48,7 +48,11 @@ def valid_articles():
                 and isinstance(a.get("blocks"), list)
                 and len(a["blocks"]) >= (1 if a.get('independent_review') is False else 2)):
             raise ValueError("Unapproved or incomplete article in public build")
-    return sorted([dict(a, desk_section=desk_for(a), display_glossary=(a.get("glossary") or terms_for(a))) for a in records], key=lambda a: (a.get("published_at", ""), a.get("dateISO", ""), a["id"]), reverse=True)
+    # Preserve the full signed article ledger internally; never expose
+    # unrelated overseas news on today's page, desks, archives or story URLs.
+    from uk_market_scope import public_article_in_scope
+    scoped=[a for a in records if public_article_in_scope(a)]
+    return sorted([dict(a, desk_section=desk_for(a), display_glossary=(a.get("glossary") or terms_for(a))) for a in scoped], key=lambda a: (a.get("published_at", ""), a.get("dateISO", ""), a["id"]), reverse=True)
 
 
 def story_href(a):
