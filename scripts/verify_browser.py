@@ -5,6 +5,7 @@ from pathlib import Path
 from playwright.sync_api import sync_playwright
 from same_day_policy import published_same_day
 from site_design import desk_for
+from uk_market_scope import public_article_in_scope
 ROOT=Path(__file__).resolve().parents[1]
 SITE=os.getenv('BRIEF_SITE_URL','https://yogeshkaransharma-code.github.io/the-brief-financial-news/').rstrip('/')+'/'
 OUT=ROOT/'browser-evidence'
