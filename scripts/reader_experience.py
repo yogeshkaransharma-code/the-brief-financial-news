@@ -8,7 +8,7 @@ import re
 UK = re.compile(r"\b(?:UK|United Kingdom|British|Britain|England|English|Scottish|Scotland|Welsh|Wales|Northern Ireland|London|Manchester|Birmingham|Leeds|Bristol|FCA|PRA|Bank of England|Financial Ombudsman|Lloyd['’]?s of London|UK Budget)\b", re.I)
 BIG = re.compile(r"\b(?:regulator|regulation|consultation|court rules|court ruling|acquisition|merger|earnings|results|profit|capital|underwriting|claims|insolvenc|business lending|interest rates|FCA|PRA|financial distress)\b", re.I)
 ROUTINE = re.compile(r"\b(?:appoints|appointed|promotion|promotes|names|webinar|award|shortlist|demo day)\b", re.I)
-FOREIGN = re.compile(r"\b(?:US|U\\.S\\.|American|Florida|Georgia|California|New York|Utah|Boston|Hong Kong|APAC|Asia-Pacific)\b", re.I)
+FOREIGN = re.compile(r"\b(?:US|U\.S\.|American|Florida|Georgia|California|New York|Utah|Boston|Hong Kong|APAC|Asia-Pacific)\b", re.I)
 
 def priority(a):
     """Evidence-based UK/title relevance; small boost for substantive headlines."""
