@@ -127,7 +127,8 @@ jobs:
           fi
       - name: Build and verify the exact reconciled public artifact
         env:
-          BRIEF_CF_ANALYTICS_TOKEN: ${{ vars.BRIEF_CF_ANALYTICS_TOKEN }}
+          # Public Cloudflare site beacon ID from owner's dashboard; not an API secret.
+          BRIEF_CF_ANALYTICS_TOKEN: '846ee3304ea145b6a4ba99d81a7e9761'
         run: |
           python scripts/build_public.py
           python scripts/verify_public.py
