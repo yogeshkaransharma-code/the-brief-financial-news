@@ -2,29 +2,10 @@
   "api_budget": {
     "date": "2026-10-27",
     "timezone": "America/Los_Angeles",
-    "requests": 20,
+    "requests": 21,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-10-25T00:57:48.018087+00:00",
-      "prompt_characters": 5581,
-      "purpose": "one-time launch diagnostic",
-      "result": "response_received",
-      "usage": {
-        "candidatesTokenCount": 445,
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 1056,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 1056
-          }
-        ],
-        "serviceTier": "standard",
-        "totalTokenCount": 1501
-      }
-    },
     {
       "at": "2026-10-25T00:58:03.018827+00:00",
       "prompt_characters": 8158,
@@ -1893,6 +1874,25 @@
         ],
         "serviceTier": "standard"
       }
+    },
+    {
+      "at": "2026-10-27T16:09:04.414484+00:00",
+      "result": "response_received",
+      "prompt_characters": 4360,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 882,
+        "candidatesTokenCount": 207,
+        "totalTokenCount": 1089,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 882
+          }
+        ],
+        "serviceTier": "standard"
+      }
     }
   ],
   "capacity_recovery_revision": 2,
@@ -3562,6 +3562,16 @@
       "attempted_at": "2026-10-27T15:40:51.118170+00:00",
       "retry_after": "2026-10-28T16:40:51.118170+00:00",
       "headline": "Ripple secures national bank charter; inks deals with BNY and Robinhood"
+    },
+    "https://www.reinsurancene.ws/amynta-group-completes-acquisition-of-specialty-mgu-southern-states-underwriters/": {
+      "attempted_at": "2026-10-27T16:08:50.038969+00:00",
+      "retry_after": "2026-10-28T17:08:50.038969+00:00",
+      "headline": "Amynta Group completes acquisition of specialty MGU Southern States Underwriters"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-27/novogratz-s-galaxy-tops-revenue-estimates-shares-rise": {
+      "attempted_at": "2026-10-27T16:08:50.038969+00:00",
+      "retry_after": "2026-10-28T17:08:50.038969+00:00",
+      "headline": "Novogratz Says Credit Markets Are Reaching ‘Peak Nervousness’"
     }
   },
   "sources": {
@@ -4170,7 +4180,8 @@
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
       "failures": 3,
-      "policy": "newsroom-recovery-2026-10-26-v1"
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-27T20:08:50.038969+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-27/japan-life-insurers-swap-into-higher-yield-bonds-to-lift-returns": {
       "attempted_at": "2026-10-27T15:40:51.118170+00:00",
@@ -4399,7 +4410,8 @@
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
       "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1"
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-27T20:08:50.038969+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-27/us-new-home-sales-fall-amid-surge-in-mortgage-rates": {
       "attempted_at": "2026-10-27T14:11:07.632660+00:00",
@@ -4460,6 +4472,16 @@
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1",
       "alternative_search_after": "2026-10-27T19:40:51.118170+00:00"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-27/novogratz-s-galaxy-tops-revenue-estimates-shares-rise": {
+      "attempted_at": "2026-10-27T16:08:50.038969+00:00",
+      "retry_after": "2026-10-27T22:08:50.038969+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-27T20:08:50.038969+00:00"
     }
   },
   "version": 2,
