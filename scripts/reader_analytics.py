@@ -24,7 +24,7 @@ def token_from_env():
 def beacon(token):
     if not token:return ""
     # Site token is intentionally public and appears in HTML, never as a credential.
-    return '<script defer src="' + BEACON_URL + '" data-cf-beacon=\'{"token":"' + html.escape(token, quote=True) + '"}\'></script>'
+    return '<script type="module" src="' + BEACON_URL + '" data-cf-beacon=\'{"token":"' + html.escape(token, quote=True) + '"}\'></script>'
 
 def install(public_dir, token):
     pages = sorted(Path(public_dir).rglob("*.html"))
@@ -33,7 +33,8 @@ def install(public_dir, token):
     snippet = beacon(token)
     for page in pages:
         content = page.read_text(encoding="utf-8")
-        if content.count("</head>") != 1 or BEACON_URL in content:
-            raise ValueError("Analytics needs exactly one clean head tag: " + str(page))
-        page.write_text(content.replace("</head>", snippet + "\n</head>", 1), encoding="utf-8")
+        if content.count("</body>") != 1 or BEACON_URL in content:
+            raise ValueError("Analytics needs exactly one clean body tag: " + str(page))
+        # Cloudflare's manual snippet belongs just before the closing body tag.
+        page.write_text(content.replace("</body>", snippet + "\n</body>", 1), encoding="utf-8")
     return {"mode":"enabled", "pages":len(pages)}
