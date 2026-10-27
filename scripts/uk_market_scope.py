@@ -42,6 +42,19 @@ UK_EFFECT = re.compile(
     r"pension\w*|underwriting|headquarter\w*|based)\b.{0,85}"
     r"\b(?:UK|U\.K\.|United Kingdom|British|Britain|English|Scottish|Welsh|London|Lloyd['’]s)\b",
     re.I)
+# For events centred overseas, the nationality of a global firm is not
+# enough: only UK operations, UK customers, UK market rules or London-market
+# capacity/pricing count as a demonstrable British-market consequence.
+FOREIGN_UK_IMPACT = re.compile(
+    r"\\b(?:UK|U\\.K\\.|United Kingdom|London)(?:-based)?\\b.{0,85}"
+    r"\\b(?:market|insur\\w*|broker\\w*|bank\\w*|business\\w*|customer\\w*|"
+    r"operation\\w*|policy|cover|capacity|underwriting|pricing|distribution|lending|"
+    r"regulat\\w*|pension\\w*|acquisition|deal|based)\\b"
+    r"|\\b(?:market|insur\\w*|broker\\w*|bank\\w*|business\\w*|customer\\w*|"
+    r"operation\\w*|policy|cover|capacity|underwriting|pricing|distribution|lending|"
+    r"regulat\\w*|pension\\w*|acquisition|deal)\\b.{0,85}\\b(?:UK|U\\.K\\.|United Kingdom|London)\\b",
+    re.I)
+
 UK_AUTHORITIES = {
     "fca.org.uk", "bankofengland.co.uk", "thepensionsregulator.gov.uk",
     "financial-ombudsman.org.uk", "ukfinance.org.uk", "abi.org.uk"
@@ -71,7 +84,7 @@ def uk_market_reason(item, source_text=""):
     if FOREIGN_HEADLINE.search(title) and not UK.search(title):
         # A comparison or passing reference to London is insufficient. Only
         # evidence that the foreign development operates in/affects UK markets.
-        if UK_EFFECT.search(short) or UK_EFFECT.search(excerpt[:1300]):
+        if FOREIGN_UK_IMPACT.search(short) or FOREIGN_UK_IMPACT.search(excerpt[:1300]):
             return "Overseas development with explicitly evidenced UK-market connection"
         return ""
     if UK.search(title):
