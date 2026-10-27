@@ -34,5 +34,8 @@ def main():
             text=file.read_text()
             assert text.count("cloudflareinsights.com/beacon.min.js")==1
             assert 'data-cf-beacon=' in text
+            assert '<script type="module"' in text, 'Cloudflare requires modern module beacon'
+            assert text.index('cloudflareinsights.com/beacon.min.js') < text.index('</body>'), 'Beacon after body end'
+            assert text.index('cloudflareinsights.com/beacon.min.js') > text.index('</head>'), 'Beacon should be in body'
     print("PASS: grounded UK lead, distinct briefings, invalid token rejection, site-wide opt-in analytics")
 if __name__=="__main__":main()
