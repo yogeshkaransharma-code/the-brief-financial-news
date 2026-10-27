@@ -92,7 +92,9 @@ def verify():
         story=(public/'story'/(a['id']+'.html')).read_text()
         assert escaped in story and html.escape(a['url'],quote=True) in story
         assert '<main class="reader"><article>' in story
-        assert 'tb-article-visual' not in story, 'Generic unrelated photo in article'
+        if 'tb-article-visual' in story:
+            assert 'sector illustration, not event evidence' in story, 'Illustrative image not clearly distinguished from reporting'
+            assert '<figcaption>' in story and 'Wikimedia Commons' in story, 'Illustrative image lacks licensing/attribution'
         for h,p in a['blocks']:assert html.escape(h,quote=True) in story and html.escape(p,quote=True) in story
     if not edition:assert 'No verified news from today yet' in home
     assert not (public/'data/live.json').exists() and 'data/live.json' not in home
