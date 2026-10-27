@@ -2,7 +2,7 @@
   "api_budget": {
     "date": "2026-10-27",
     "timezone": "America/Los_Angeles",
-    "requests": 15,
+    "requests": 17,
     "limit": null
   },
   "api_calls": [
@@ -1798,6 +1798,44 @@
         ],
         "serviceTier": "standard"
       }
+    },
+    {
+      "at": "2026-10-27T14:47:19.126963+00:00",
+      "result": "response_received",
+      "prompt_characters": 14467,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 3015,
+        "candidatesTokenCount": 834,
+        "totalTokenCount": 3849,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 3015
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-27T14:47:34.132303+00:00",
+      "result": "response_received",
+      "prompt_characters": 6178,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 1193,
+        "candidatesTokenCount": 188,
+        "totalTokenCount": 1381,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1193
+          }
+        ],
+        "serviceTier": "standard"
+      }
     }
   ],
   "capacity_recovery_revision": 2,
@@ -3417,6 +3455,16 @@
       "attempted_at": "2026-10-27T14:11:07.632660+00:00",
       "retry_after": "2026-10-28T15:11:07.632660+00:00",
       "headline": "Deep Dive: Why US banks are blocking third-party AI agents"
+    },
+    "https://www.professionalpensions.com/news/4537940/mixed-concern-tax-relief-backdoor-uk-investment": {
+      "attempted_at": "2026-10-27T14:46:58.134113+00:00",
+      "retry_after": "2026-10-28T15:46:58.134113+00:00",
+      "headline": "Mixed concern over tax relief being used as a 'backdoor' to UK investment"
+    },
+    "https://www.insuranceage.co.uk/insight/7959064/young-brokers-call-for-better-knowledge-retention-when-senior-staff-retire": {
+      "attempted_at": "2026-10-27T14:46:58.134113+00:00",
+      "retry_after": "2026-10-28T15:46:58.134113+00:00",
+      "headline": "Young brokers call for better knowledge retention when senior staff retire"
     }
   },
   "sources": {
@@ -4035,7 +4083,7 @@
       "stage": "source",
       "failures": 2,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T13:40:34.658688+00:00"
+      "alternative_search_after": "2026-10-27T18:46:58.134113+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-27/samsung-life-insurance-south-korea-coupon-note-debt-dollar-bond-sale": {
       "attempted_at": "2026-10-27T09:40:34.658688+00:00",
@@ -4112,44 +4160,40 @@
       "alternative_search_after": "2026-10-27T11:48:11.176412+00:00"
     },
     "https://www.wsj.com/finance/stocks/nikkei-rises-1-7-led-by-chip-related-stocks-a902969d": {
-      "attempted_at": "2026-10-27T08:43:19.315375+00:00",
-      "retry_after": "2026-10-27T14:43:19.315375+00:00",
+      "attempted_at": "2026-10-27T14:46:58.134113+00:00",
+      "retry_after": "2026-10-27T20:46:58.134113+00:00",
       "last_result": "HTTP Error 401: HTTP Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T12:43:19.315375+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-10-27/european-stocks-pulled-lower-by-banks-as-hsbc-results-disappoint": {
-      "attempted_at": "2026-10-27T08:43:19.315375+00:00",
-      "retry_after": "2026-10-27T14:43:19.315375+00:00",
+      "attempted_at": "2026-10-27T14:46:58.134113+00:00",
+      "retry_after": "2026-10-27T20:46:58.134113+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T12:43:19.315375+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.wsj.com/finance/currencies/asian-currencies-consolidate-as-focus-turns-to-fed-decision-0d81a31b": {
-      "attempted_at": "2026-10-27T08:43:19.315375+00:00",
-      "retry_after": "2026-10-27T14:43:19.315375+00:00",
+      "attempted_at": "2026-10-27T14:46:58.134113+00:00",
+      "retry_after": "2026-10-27T20:46:58.134113+00:00",
       "last_result": "HTTP Error 401: HTTP Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T12:43:19.315375+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-10-27/indonesia-10-year-yield-at-four-year-high-on-msci-risk-oil": {
-      "attempted_at": "2026-10-27T08:43:19.315375+00:00",
-      "retry_after": "2026-10-27T14:43:19.315375+00:00",
+      "attempted_at": "2026-10-27T14:46:58.134113+00:00",
+      "retry_after": "2026-10-27T20:46:58.134113+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T15:29:41.687394+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.wsj.com/finance/investing/ares-private-credit-fund-to-buy-competitor-from-apollo-daecb67c": {
       "attempted_at": "2026-10-27T09:40:34.658688+00:00",
@@ -4248,7 +4292,8 @@
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
       "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1"
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-27T18:46:58.134113+00:00"
     },
     "https://www.wsj.com/business/financial-services-roundup-market-talk-43324d13": {
       "attempted_at": "2026-10-27T13:29:13.024543+00:00",
@@ -4278,6 +4323,16 @@
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1",
       "alternative_search_after": "2026-10-27T18:11:07.632660+00:00"
+    },
+    "https://www.insuranceage.co.uk/insight/7959064/young-brokers-call-for-better-knowledge-retention-when-senior-staff-retire": {
+      "attempted_at": "2026-10-27T14:46:58.134113+00:00",
+      "retry_after": "2026-10-27T16:46:58.134113+00:00",
+      "last_result": "Original document has no unambiguous publication date; listing/RSS date is insufficient",
+      "classification": "DATE_UNVERIFIED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-27T18:46:58.134113+00:00"
     }
   },
   "version": 2,
