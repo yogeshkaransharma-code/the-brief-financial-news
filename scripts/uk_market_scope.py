@@ -66,6 +66,8 @@ def uk_market_reason(item, source_text=""):
         return ""
     if host in UK_AUTHORITIES:
         return "UK financial authority publication"
+    if source_text and not UK.search(excerpt[:2200]):
+        return ""  # UK assertion in a candidate headline alone is not evidence
     if FOREIGN_HEADLINE.search(title) and not UK.search(title):
         # A comparison or passing reference to London is insufficient. Only
         # evidence that the foreign development operates in/affects UK markets.
