@@ -115,3 +115,49 @@ def public_article_in_scope(article):
     blocks=article.get("blocks") or []
     body=" ".join(str(x[1]) for x in blocks if isinstance(x,list) and len(x)>1)
     return in_uk_scope(article,body)
+
+# Discovery priority is NOT editorial approval. Headlines from recognised UK
+# financial firms and UK specialist publications should be read before general
+# international feeds, but all must still establish a factual UK connection.
+UK_BUSINESS = re.compile(
+    r"\b(?:Aviva|NatWest|Barclays|HSBC|Lloyds Banking|Nationwide|Legal & General|"
+    r"Royal London|M&G|Quilter|Admiral|Direct Line|Hiscox|Beazley|Ardonagh|"
+    r"Howden|BIBA|British Insurance Brokers|ABI|FCA|PRA|FSCS|"
+    r"Bank of England|UK Finance|UK Budget|HM Treasury)\b", re.I)
+UK_TRADE_PUBLISHERS = {
+    "Insurance Business UK", "Insurance Times", "Insurance Age",
+    "Professional Pensions", "Investment Week", "Money Marketing",
+    "Mortgage Solutions", "The Guardian Banking", "The Guardian Insurance",
+    "The Guardian Money", "BBC Business", "Sky Business"
+}
+
+def discovery_priority(item):
+    """Rank which source to READ first; never determine publication eligibility."""
+    title=str(item.get("title") or "")
+    host=(urlsplit(str(item.get("url") or "")).hostname or "").lower().removeprefix("www.")
+    if host in UK_AUTHORITIES or UK.search(title) or UK_BUSINESS.search(title):
+        return 2
+    if str(item.get("source") or "") in UK_TRADE_PUBLISHERS:
+        return 1
+    return 0
+
+def sample_uk_first(candidates,attempts,now,limit=40):
+    """Use source-read budget on fresh UK leads before cooling/global leads.
+
+    Leave some places for international developments that truly affect UK
+    markets. Reuse existing fair-source ordering within each priority group.
+    """
+    from newsroom_state import cooling
+    from media_sources import diverse
+    eligible=[item for item in candidates if not cooling(attempts.get(item["url"],{}),now)]
+    cooling_items=[item for item in candidates if cooling(attempts.get(item["url"],{}),now)]
+    priorities=[ [i for i in eligible if discovery_priority(i)==score] for score in (2,1,0) ]
+    selected=[]
+    for pool,quota in zip(priorities,(28,8,4)):
+        selected.extend(diverse(pool,min(quota,limit-len(selected))))
+    # Unused slots return to UK sources before exhausting general coverage.
+    for pool in priorities+[cooling_items]:
+        if len(selected)>=limit:break
+        remainder=[i for i in pool if i not in selected]
+        selected.extend(diverse(remainder,limit-len(selected)))
+    return selected
