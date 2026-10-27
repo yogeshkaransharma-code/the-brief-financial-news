@@ -28,7 +28,9 @@ def verify():
         from html import escape
         hero=home.split('<article id="lead-story"',1)[1].split('</article>',1)[0]
         assert escape(front_lead['title'],quote=True) in hero, 'Lead has not followed UK relevance ranking'
-        briefing=home.split('<div id="briefing-stories" class="briefing-stories">',1)[1].split('</div></aside>',1)[0] if False else ''
+        if len(today_list)>1:
+            briefing=home.split('<div id="briefing-stories" class="briefing-stories">',1)[1].split('<a href="#latest"',1)[0]
+            assert escape(front_lead['title'],quote=True) not in briefing, 'Lead repeated in 60-second brief'
     assert 'data-desk="' in home, 'Sector cues missing from news rows'
     token=token_from_env()
     pages=list(public.rglob('*.html'))
