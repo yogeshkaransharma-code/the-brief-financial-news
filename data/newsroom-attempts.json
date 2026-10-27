@@ -2,7 +2,7 @@
   "api_budget": {
     "date": "2026-10-26",
     "timezone": "America/Los_Angeles",
-    "requests": 39,
+    "requests": 41,
     "limit": null
   },
   "api_calls": [
@@ -1437,6 +1437,44 @@
         ],
         "serviceTier": "standard"
       }
+    },
+    {
+      "at": "2026-10-27T06:10:10.903635+00:00",
+      "result": "response_received",
+      "prompt_characters": 12524,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 2587,
+        "candidatesTokenCount": 899,
+        "totalTokenCount": 3486,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2587
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-27T06:10:25.906411+00:00",
+      "result": "response_received",
+      "prompt_characters": 6340,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 1420,
+        "candidatesTokenCount": 704,
+        "totalTokenCount": 2124,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1420
+          }
+        ],
+        "serviceTier": "standard"
+      }
     }
   ],
   "capacity_recovery_revision": 2,
@@ -2731,6 +2769,16 @@
       "attempted_at": "2026-10-27T05:37:56.349814+00:00",
       "retry_after": "2026-10-28T06:37:56.349814+00:00",
       "headline": "People Moves: Velocity CEO Rothfuss to Join Selective Insurance"
+    },
+    "https://www.theguardian.com/commentisfree/2026/oct/27/andy-burnham-budget-banks-billions-prime-minister": {
+      "attempted_at": "2026-10-27T06:09:58.039928+00:00",
+      "retry_after": "2026-10-28T07:09:58.039928+00:00",
+      "headline": "My advice for Burnham’s first budget? Hit the banks – and hit them hard | Polly Toynbee"
+    },
+    "https://www.reinsurancene.ws/reinsurance-flexibility-and-ai-create-new-opportunities-for-apac-insurers-gallagher-re/": {
+      "attempted_at": "2026-10-27T06:09:58.039928+00:00",
+      "retry_after": "2026-10-28T07:09:58.039928+00:00",
+      "headline": "Reinsurance flexibility and AI create new opportunities for APAC insurers: Gallagher Re"
     }
   },
   "sources": {
@@ -3283,14 +3331,13 @@
       "alternative_search_after": "2026-10-27T00:08:34.668557+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-26/ai-funding-needs-drive-us-high-grade-bond-sales-to-annual-record": {
-      "attempted_at": "2026-10-26T20:08:34.668557+00:00",
-      "retry_after": "2026-10-27T02:08:34.668557+00:00",
+      "attempted_at": "2026-10-27T06:09:58.039928+00:00",
+      "retry_after": "2026-10-27T12:09:58.039928+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
-      "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T00:08:34.668557+00:00"
+      "stage": "alternative_source",
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.insuranceage.co.uk/insight/7959061/ex-broadway-hnw-boss-launches-new-broker": {
       "attempted_at": "2026-10-26T22:08:46.265090+00:00",
@@ -3322,24 +3369,24 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.finextra.com/newsarticle/48650/mastercard-targets-creators-via-mrbeast-partnership": {
-      "attempted_at": "2026-10-27T00:02:27.634935+00:00",
-      "retry_after": "2026-10-27T06:02:27.634935+00:00",
+      "attempted_at": "2026-10-27T06:09:58.039928+00:00",
+      "retry_after": "2026-10-27T12:09:58.039928+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
+      "failures": 2,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T08:13:34.291366+00:00"
+      "alternative_search_after": "2026-10-27T10:09:58.039928+00:00"
     },
     "https://www.finextra.com/newsarticle/48652/capitalos-raises-219m-for-money-orchestration-layer-for-b2b-platforms": {
-      "attempted_at": "2026-10-27T00:02:27.634935+00:00",
-      "retry_after": "2026-10-27T06:02:27.634935+00:00",
+      "attempted_at": "2026-10-27T06:09:58.039928+00:00",
+      "retry_after": "2026-10-27T12:09:58.039928+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
+      "failures": 2,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T08:13:34.291366+00:00"
+      "alternative_search_after": "2026-10-27T10:09:58.039928+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-27/japan-life-insurers-swap-into-higher-yield-bonds-to-lift-returns": {
       "attempted_at": "2026-10-27T03:10:01.659421+00:00",
