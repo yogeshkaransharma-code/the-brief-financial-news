@@ -2,48 +2,10 @@
   "api_budget": {
     "date": "2026-10-27",
     "timezone": "America/Los_Angeles",
-    "requests": 22,
+    "requests": 24,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-10-25T01:20:58.515247+00:00",
-      "prompt_characters": 15986,
-      "purpose": "production",
-      "result": "response_received",
-      "usage": {
-        "candidatesTokenCount": 491,
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 3159,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 3159
-          }
-        ],
-        "serviceTier": "standard",
-        "totalTokenCount": 3650
-      }
-    },
-    {
-      "at": "2026-10-25T01:27:02.232321+00:00",
-      "prompt_characters": 3509,
-      "purpose": "production",
-      "result": "response_received",
-      "usage": {
-        "candidatesTokenCount": 61,
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 783,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 783
-          }
-        ],
-        "serviceTier": "standard",
-        "totalTokenCount": 844
-      }
-    },
     {
       "at": "2026-10-25T01:27:17.233913+00:00",
       "prompt_characters": 15986,
@@ -1893,6 +1855,44 @@
         ],
         "serviceTier": "standard"
       }
+    },
+    {
+      "at": "2026-10-27T17:21:27.391547+00:00",
+      "result": "response_received",
+      "prompt_characters": 17496,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 3500,
+        "candidatesTokenCount": 1110,
+        "totalTokenCount": 4610,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 3500
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-27T17:21:42.397253+00:00",
+      "result": "response_received",
+      "prompt_characters": 15165,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 3153,
+        "candidatesTokenCount": 794,
+        "totalTokenCount": 3947,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 3153
+          }
+        ],
+        "serviceTier": "standard"
+      }
     }
   ],
   "capacity_recovery_revision": 2,
@@ -3577,6 +3577,51 @@
       "attempted_at": "2026-10-27T16:22:05.983317+00:00",
       "retry_after": "2026-10-28T17:22:05.983317+00:00",
       "headline": "US insurance regulators back down on credit ratings scrutiny"
+    },
+    "https://www.reinsurancene.ws/eu-unveils-climate-resilience-framework-with-re-insurance-protection-gap-in-focus/": {
+      "attempted_at": "2026-10-27T17:21:13.186677+00:00",
+      "retry_after": "2026-10-28T18:21:13.186677+00:00",
+      "headline": "EU unveils climate resilience framework with re/insurance protection gap in focus"
+    },
+    "https://www.mortgagesolutions.co.uk/mortgage-news/2026/10/27/six-building-societies-chosen-for-regulators-scale-up-unit/": {
+      "attempted_at": "2026-10-27T17:21:13.186677+00:00",
+      "retry_after": "2026-10-28T18:21:13.186677+00:00",
+      "headline": "Six building societies chosen for regulators’ Scale-up Unit"
+    },
+    "https://www.insurancejournal.com/news/international/2026/10/27/890438.htm": {
+      "attempted_at": "2026-10-27T17:21:13.186677+00:00",
+      "retry_after": "2026-10-28T18:21:13.186677+00:00",
+      "headline": "PHP Security Flaws Highlight Potential Systemic Risk Aggregation for Cyber Insurers"
+    },
+    "https://www.finextra.com/pressarticle/111473/anthropic-expands-claude-for-financial-advisors-with-ne-integrations": {
+      "attempted_at": "2026-10-27T17:21:13.186677+00:00",
+      "retry_after": "2026-10-28T18:21:13.186677+00:00",
+      "headline": "Anthropic expands Claude for Financial Advisors with ne integrations"
+    },
+    "https://www.mortgagesolutions.co.uk/green-mortgages/2026/10/27/tandem-bank-among-first-to-support-warm-homes-loan-scheme/": {
+      "attempted_at": "2026-10-27T17:21:13.186677+00:00",
+      "retry_after": "2026-10-28T18:21:13.186677+00:00",
+      "headline": "Tandem Bank among first to support Warm Homes Loan Scheme"
+    },
+    "https://www.mortgagesolutions.co.uk/mortgage-news/2026/10/27/pepper-cuts-rates-by-up-to-117bps-for-recent-credit-blips-clydesdale-ups-pt-rates-round-up/": {
+      "attempted_at": "2026-10-27T17:21:13.186677+00:00",
+      "retry_after": "2026-10-28T18:21:13.186677+00:00",
+      "headline": "Pepper cuts rates by up to 117bps for recent credit blips; Clydesdale ups PT rates – round-up"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-27/u-s-bancorp-poised-for-canada-bond-return-after-two-decades": {
+      "attempted_at": "2026-10-27T17:21:13.186677+00:00",
+      "retry_after": "2026-10-28T18:21:13.186677+00:00",
+      "headline": "U.S. Bancorp Poised for Canada Bond Return After Two Decades"
+    },
+    "https://www.mortgagesolutions.co.uk/mortgage-news/2026/10/27/skipton-bs-extends-mortgage-offers-to-nine-months/": {
+      "attempted_at": "2026-10-27T17:21:13.186677+00:00",
+      "retry_after": "2026-10-28T18:21:13.186677+00:00",
+      "headline": "Skipton BS extends mortgage offers to nine months"
+    },
+    "https://www.marketwatch.com/story/ai-debt-trouble-could-help-feds-warsh-get-his-way-with-fewer-rate-hikes-b3dc4525": {
+      "attempted_at": "2026-10-27T17:21:13.186677+00:00",
+      "retry_after": "2026-10-28T18:21:13.186677+00:00",
+      "headline": "Bond investors are starting to say ‘anything but tech.’ What that means for the AI boom."
     }
   },
   "sources": {
@@ -4226,31 +4271,30 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.hsbc.com/news-and-views/news/media-releases/2026/hsbc-holdings-plc-3q-2026-earnings-release": {
-      "attempted_at": "2026-10-27T14:23:32.517994+00:00",
-      "retry_after": "2026-10-27T16:23:32.517994+00:00",
+      "attempted_at": "2026-10-27T17:21:13.186677+00:00",
+      "retry_after": "2026-10-27T19:21:13.186677+00:00",
       "last_result": "Original document has no unambiguous publication date; listing/RSS date is insufficient",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
-      "failures": 5,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T18:23:32.517994+00:00"
+      "failures": 6,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.wsj.com/finance/banking/hsbc-quarterly-profit-climbs-plans-1-billion-buyback-1551a999": {
-      "attempted_at": "2026-10-27T11:13:19.401206+00:00",
-      "retry_after": "2026-10-27T17:13:19.401206+00:00",
+      "attempted_at": "2026-10-27T17:21:13.186677+00:00",
+      "retry_after": "2026-10-27T23:21:13.186677+00:00",
       "last_result": "HTTP Error 401: HTTP Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 2,
+      "failures": 3,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-10-27/hsbc-1-billion-buyback-third-quarter-earnings-profit-growth-misses-estimates": {
-      "attempted_at": "2026-10-27T11:13:19.401206+00:00",
-      "retry_after": "2026-10-27T17:13:19.401206+00:00",
+      "attempted_at": "2026-10-27T17:21:13.186677+00:00",
+      "retry_after": "2026-10-27T23:21:13.186677+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 4,
+      "failures": 6,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-10-27/china-5-year-yield-hits-record-low-on-pboc-s-cash-injection": {
@@ -4346,14 +4390,14 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://news.sky.com/story/major-lender-hsbcs-profits-up-32-as-higher-bank-tax-expected-in-budget-13604238": {
-      "attempted_at": "2026-10-27T11:13:19.401206+00:00",
-      "retry_after": "2026-10-27T17:13:19.401206+00:00",
+      "attempted_at": "2026-10-27T17:21:13.186677+00:00",
+      "retry_after": "2026-10-27T23:21:13.186677+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
+      "failures": 2,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T19:23:11.859924+00:00"
+      "alternative_search_after": "2026-10-27T21:21:13.186677+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-27/rbi-s-gupta-says-emerging-markets-must-bolster-domestic-finances": {
       "attempted_at": "2026-10-27T11:29:41.687394+00:00",
@@ -4436,14 +4480,14 @@
       "alternative_search_after": "2026-10-27T18:11:07.632660+00:00"
     },
     "https://www.insuranceage.co.uk/insight/7959064/young-brokers-call-for-better-knowledge-retention-when-senior-staff-retire": {
-      "attempted_at": "2026-10-27T14:46:58.134113+00:00",
-      "retry_after": "2026-10-27T16:46:58.134113+00:00",
+      "attempted_at": "2026-10-27T17:21:13.186677+00:00",
+      "retry_after": "2026-10-27T19:21:13.186677+00:00",
       "last_result": "Original document has no unambiguous publication date; listing/RSS date is insufficient",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
-      "failures": 1,
+      "failures": 2,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T18:46:58.134113+00:00"
+      "alternative_search_after": "2026-10-27T21:21:13.186677+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-27/altice-international-lenders-near-deadline-to-negotiate-rework": {
       "attempted_at": "2026-10-27T15:23:11.859924+00:00",
@@ -4484,6 +4528,16 @@
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1",
       "alternative_search_after": "2026-10-27T20:08:50.038969+00:00"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-27/u-s-bancorp-poised-for-canada-bond-return-after-two-decades": {
+      "attempted_at": "2026-10-27T17:21:13.186677+00:00",
+      "retry_after": "2026-10-27T23:21:13.186677+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-27T21:21:13.186677+00:00"
     }
   },
   "version": 2,
