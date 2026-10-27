@@ -46,13 +46,13 @@ UK_EFFECT = re.compile(
 # enough: only UK operations, UK customers, UK market rules or London-market
 # capacity/pricing count as a demonstrable British-market consequence.
 FOREIGN_UK_IMPACT = re.compile(
-    r"\\b(?:UK|U\\.K\\.|United Kingdom|London)(?:-based)?\\b.{0,85}"
-    r"\\b(?:market|insur\\w*|broker\\w*|bank\\w*|business\\w*|customer\\w*|"
-    r"operation\\w*|policy|cover|capacity|underwriting|pricing|distribution|lending|"
-    r"regulat\\w*|pension\\w*|acquisition|deal|based)\\b"
-    r"|\\b(?:market|insur\\w*|broker\\w*|bank\\w*|business\\w*|customer\\w*|"
-    r"operation\\w*|policy|cover|capacity|underwriting|pricing|distribution|lending|"
-    r"regulat\\w*|pension\\w*|acquisition|deal)\\b.{0,85}\\b(?:UK|U\\.K\\.|United Kingdom|London)\\b",
+    r"\b(?:UK|U\.K\.|United Kingdom|London)(?:-based)?\b.{0,85}"
+    r"\b(?:market|insur\w*|broker\w*|bank\w*|business\w*|customer\w*|"
+    r"operation\w*|policy|cover|capacity|underwriting|pricing|distribution|lending|"
+    r"regulat\w*|pension\w*|acquisition|deal|based)\b"
+    r"|\b(?:market|insur\w*|broker\w*|bank\w*|business\w*|customer\w*|"
+    r"operation\w*|policy|cover|capacity|underwriting|pricing|distribution|lending|"
+    r"regulat\w*|pension\w*|acquisition|deal)\b.{0,85}\b(?:UK|U\.K\.|United Kingdom|London)\b",
     re.I)
 
 UK_AUTHORITIES = {
