@@ -2,29 +2,10 @@
   "api_budget": {
     "date": "2026-10-27",
     "timezone": "America/Los_Angeles",
-    "requests": 28,
+    "requests": 29,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-10-25T11:29:11.665359+00:00",
-      "prompt_characters": 6202,
-      "purpose": "production",
-      "result": "response_received",
-      "usage": {
-        "candidatesTokenCount": 439,
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 1291,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 1291
-          }
-        ],
-        "serviceTier": "standard",
-        "totalTokenCount": 1730
-      }
-    },
     {
       "at": "2026-10-25T11:29:26.666802+00:00",
       "prompt_characters": 8043,
@@ -1893,6 +1874,25 @@
         ],
         "serviceTier": "standard"
       }
+    },
+    {
+      "at": "2026-10-27T20:13:56.545765+00:00",
+      "result": "response_received",
+      "prompt_characters": 4235,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 800,
+        "candidatesTokenCount": 160,
+        "totalTokenCount": 960,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 800
+          }
+        ],
+        "serviceTier": "standard"
+      }
     }
   ],
   "capacity_recovery_revision": 2,
@@ -3647,6 +3647,26 @@
       "attempted_at": "2026-10-27T19:23:12.958178+00:00",
       "retry_after": "2026-10-28T20:23:12.958178+00:00",
       "headline": "£50k of pandemic cover, £8m in losses: restaurant group's broker negligence claim survives"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-27/banks-eye-21-billion-of-bonds-for-broadcom-chip-financing-deal": {
+      "attempted_at": "2026-10-27T20:13:44.324972+00:00",
+      "retry_after": "2026-10-28T21:13:44.324972+00:00",
+      "headline": "Banks Eye $21 Billion of Bonds For Broadcom Chip-Financing Deal"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-27/banks-ease-loan-approvals-to-weather-australia-property-slump": {
+      "attempted_at": "2026-10-27T20:13:44.324972+00:00",
+      "retry_after": "2026-10-28T21:13:44.324972+00:00",
+      "headline": "Banks Ease Loan Approvals to Weather Australia Property Slump"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-27/indicted-ex-fund-manager-can-sue-jefferies-for-costs-court-says": {
+      "attempted_at": "2026-10-27T20:13:44.324972+00:00",
+      "retry_after": "2026-10-28T21:13:44.324972+00:00",
+      "headline": "Indicted Ex-Fund Manager Can Sue Jefferies for Costs, Court Says"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-27/pdvsa-bonds-deemed-valid-in-us-ruling-amid-battle-for-citgo": {
+      "attempted_at": "2026-10-27T20:13:44.324972+00:00",
+      "retry_after": "2026-10-28T21:13:44.324972+00:00",
+      "headline": "PDVSA Bonds Deemed Valid in US Ruling Amid Battle for Citgo"
     }
   },
   "sources": {
@@ -4219,14 +4239,13 @@
       "alternative_search_after": "2026-10-27T02:08:46.265090+00:00"
     },
     "https://www.wsj.com/tech/ai/banks-blackstone-form-63-billion-financing-vehicle-for-broadcom-ai-tech-0438f6d2": {
-      "attempted_at": "2026-10-26T21:09:21.795720+00:00",
-      "retry_after": "2026-10-27T03:09:21.795720+00:00",
+      "attempted_at": "2026-10-27T20:13:44.324972+00:00",
+      "retry_after": "2026-10-28T02:13:44.324972+00:00",
       "last_result": "HTTP Error 401: HTTP Forbidden",
       "classification": "ACCESS_RESTRICTED",
-      "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T01:09:21.795720+00:00"
+      "stage": "alternative_source",
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-10-25/lula-wins-a-record-fourth-term-in-brazil-in-a-surprise-comeback": {
       "attempted_at": "2026-10-26T23:08:36.146333+00:00",
@@ -4460,44 +4479,41 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.wsj.com/economy/central-banking/u-k-fiscal-discipline-in-focus-ahead-of-burnham-governments-first-budget-5fa7e2a9": {
-      "attempted_at": "2026-10-27T13:29:13.024543+00:00",
-      "retry_after": "2026-10-27T19:29:13.024543+00:00",
+      "attempted_at": "2026-10-27T20:13:44.324972+00:00",
+      "retry_after": "2026-10-28T02:13:44.324972+00:00",
       "last_result": "HTTP Error 401: HTTP Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T18:46:58.134113+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.wsj.com/business/financial-services-roundup-market-talk-43324d13": {
-      "attempted_at": "2026-10-27T13:29:13.024543+00:00",
-      "retry_after": "2026-10-27T19:29:13.024543+00:00",
+      "attempted_at": "2026-10-27T20:13:44.324972+00:00",
+      "retry_after": "2026-10-28T02:13:44.324972+00:00",
       "last_result": "HTTP Error 401: HTTP Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
+      "failures": 2,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T20:08:50.038969+00:00"
+      "alternative_search_after": "2026-10-28T00:13:44.324972+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-27/us-new-home-sales-fall-amid-surge-in-mortgage-rates": {
-      "attempted_at": "2026-10-27T14:11:07.632660+00:00",
-      "retry_after": "2026-10-27T20:11:07.632660+00:00",
+      "attempted_at": "2026-10-27T20:13:44.324972+00:00",
+      "retry_after": "2026-10-28T02:13:44.324972+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T18:11:07.632660+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.finextra.com/newsarticle/48653/bank-of-england-orders-review-of-revolut-product-approvals---ft": {
-      "attempted_at": "2026-10-27T14:11:07.632660+00:00",
-      "retry_after": "2026-10-27T20:11:07.632660+00:00",
+      "attempted_at": "2026-10-27T20:13:44.324972+00:00",
+      "retry_after": "2026-10-28T02:13:44.324972+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T18:11:07.632660+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.insuranceage.co.uk/insight/7959064/young-brokers-call-for-better-knowledge-retention-when-senior-staff-retire": {
       "attempted_at": "2026-10-27T19:23:12.958178+00:00",
@@ -4572,6 +4588,53 @@
     "https://www.bloomberg.com/news/articles/2026-10-27/corporate-bond-trading-is-moving-beyond-top-securities-barclays-says": {
       "attempted_at": "2026-10-27T18:15:32.395456+00:00",
       "retry_after": "2026-10-28T00:15:32.395456+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-27/banks-eye-21-billion-of-bonds-for-broadcom-chip-financing-deal": {
+      "attempted_at": "2026-10-27T20:13:44.324972+00:00",
+      "retry_after": "2026-10-28T02:13:44.324972+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-28T00:13:44.324972+00:00"
+    },
+    "https://www.finextra.com/newsarticle/48657/visa-and-mastercard-face-potential-uk-suit-over-card-fees": {
+      "attempted_at": "2026-10-27T20:13:44.324972+00:00",
+      "retry_after": "2026-10-28T02:13:44.324972+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-28T00:13:44.324972+00:00"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-27/banks-ease-loan-approvals-to-weather-australia-property-slump": {
+      "attempted_at": "2026-10-27T20:13:44.324972+00:00",
+      "retry_after": "2026-10-28T02:13:44.324972+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-27/indicted-ex-fund-manager-can-sue-jefferies-for-costs-court-says": {
+      "attempted_at": "2026-10-27T20:13:44.324972+00:00",
+      "retry_after": "2026-10-28T02:13:44.324972+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-27/pdvsa-bonds-deemed-valid-in-us-ruling-amid-battle-for-citgo": {
+      "attempted_at": "2026-10-27T20:13:44.324972+00:00",
+      "retry_after": "2026-10-28T02:13:44.324972+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
