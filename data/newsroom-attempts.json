@@ -2,7 +2,7 @@
   "api_budget": {
     "date": "2026-10-26",
     "timezone": "America/Los_Angeles",
-    "requests": 33,
+    "requests": 34,
     "limit": null
   },
   "api_calls": [
@@ -1323,6 +1323,25 @@
         ],
         "serviceTier": "standard"
       }
+    },
+    {
+      "at": "2026-10-27T00:02:40.700979+00:00",
+      "result": "response_received",
+      "prompt_characters": 9558,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 2402,
+        "candidatesTokenCount": 542,
+        "totalTokenCount": 2944,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2402
+          }
+        ],
+        "serviceTier": "standard"
+      }
     }
   ],
   "capacity_recovery_revision": 2,
@@ -2557,6 +2576,16 @@
       "attempted_at": "2026-10-26T22:38:15.870222+00:00",
       "retry_after": "2026-10-27T23:38:15.870222+00:00",
       "headline": "Healey vows cheaper marmalade and gherkins in pre-Budget package of 'everyday fixes'"
+    },
+    "https://www.bbc.co.uk/news/articles/cmx235r9wr3yo": {
+      "attempted_at": "2026-10-27T00:02:27.634935+00:00",
+      "retry_after": "2026-10-28T01:02:27.634935+00:00",
+      "headline": "'I'm a single mum on £41,000 and limit my weekly shop to £40.' What do you want from the Budget?"
+    },
+    "https://www.finextra.com/pressarticle/111448/rimes-and-fundguard-partner-on-investment-accounting": {
+      "attempted_at": "2026-10-27T00:02:27.634935+00:00",
+      "retry_after": "2026-10-28T01:02:27.634935+00:00",
+      "headline": "Rimes and FundGuard partner on investment accounting"
     }
   },
   "sources": {
@@ -3146,6 +3175,26 @@
       "stage": "alternative_source",
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.finextra.com/newsarticle/48650/mastercard-targets-creators-via-mrbeast-partnership": {
+      "attempted_at": "2026-10-27T00:02:27.634935+00:00",
+      "retry_after": "2026-10-27T06:02:27.634935+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-27T04:02:27.634935+00:00"
+    },
+    "https://www.finextra.com/newsarticle/48652/capitalos-raises-219m-for-money-orchestration-layer-for-b2b-platforms": {
+      "attempted_at": "2026-10-27T00:02:27.634935+00:00",
+      "retry_after": "2026-10-27T06:02:27.634935+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-27T04:02:27.634935+00:00"
     }
   },
   "version": 2,
