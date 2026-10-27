@@ -4,16 +4,18 @@
 
 Track real readership rather than confusing article counts or GitHub Actions runs with traffic. No public vanity counter, tracking cookies, chargeable service, or fabricated historical data.
 
-The website has **optional Cloudflare Web Analytics support**. The deployment injects Cloudflare's official beacon into every real HTML page only when the site owner supplies a token. A blank token means tracking is **OFF** and no figures will appear.
+The owner has created a free Cloudflare Web Analytics site for the hostname `yogeshkaransharma-code.github.io` and supplied its public beacon token. That 32-character site identifier has been connected to the **production GitHub Pages build** via `.github/workflows/ai-newsroom.yml`. It is an identifier embedded in public HTML, **not** a Cloudflare API key, account credential or secret.
 
-## Connect it (owner's free Cloudflare account)
+## How to view readership
 
-1. Sign in to [Cloudflare](https://dash.cloudflare.com/) and open **Web Analytics**.
-2. Choose **Add a site**. For this GitHub Pages publication, the hostname is `yogeshkaransharma-code.github.io`. You do **not** need to move DNS or migrate hosting.
-3. In **Manage site**, copy the `data-cf-beacon` **token** from Cloudflare's JavaScript snippet. It is a public 32-character hexadecimal site identifier, *not* your Cloudflare API key.
-4. In the GitHub repository, open **Settings → Secrets and variables → Actions → Variables**. Add a repository variable named `BRIEF_CF_ANALYTICS_TOKEN` with just the token.
-5. Run **The Brief — hourly newsroom and site maintenance** once (or use the next normal deployment). The build inserts the Cloudflare beacon into the homepage, article pages, About, archive and section pages.
-6. Check the public page source for `static.cloudflareinsights.com/beacon.min.js`, then open Cloudflare **Web Analytics** for the visitor dashboard. Data begins after the tracking beacon is live; earlier traffic cannot be reconstructed.
+1. Open [Cloudflare Web Analytics](https://dash.cloudflare.com/) in the owner's account.
+2. Select the site for `yogeshkaransharma-code.github.io`.
+3. Review visits, page views, top pages, referrers and countries over the last 24 hours, 7 days or a longer period.
+4. Test by opening [The Brief](https://yogeshkaransharma-code.github.io/the-brief-financial-news/) in a normal browser with no tracking blocker. Data may take a few minutes to appear.
+
+No further GitHub variable or manual insertion is necessary for this connected site. The next successfully deployed public build contains one Cloudflare module beacon per HTML page, just before the closing `</body>` tag. New articles automatically inherit it.
+
+**Important:** analytics only counts visits made *after* the production beacon is live. Earlier visits cannot be reconstructed. The dashboard initially showing zero or “not enough data” is expected before the site receives measured traffic.
 
 ### What the owner can monitor
 
@@ -32,6 +34,4 @@ The published [Privacy page](https://yogeshkaransharma-code.github.io/the-brief-
 
 ## Verification
 
-The static build fails for malformed tokens and checks that every page has exactly one beacon when configured. When unconfigured, tests assert no beacon appears anywhere. The HTML output is rebuilt on each newsroom deployment, so new articles automatically inherit measurement after connection.
-
-No Cloudflare token has been added by ChatGPT and no traffic has been measured by this change alone.
+The static build fails for malformed tokens and checks that every page has exactly one beacon when configured. The HTML output is rebuilt on each newsroom deployment, so every new article inherits measurement. This identifies the tracking code's installation, not confirmed visits or traffic totals.
