@@ -2,67 +2,10 @@
   "api_budget": {
     "date": "2026-10-27",
     "timezone": "America/Los_Angeles",
-    "requests": 25,
+    "requests": 28,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-10-25T01:27:32.235295+00:00",
-      "prompt_characters": 24476,
-      "purpose": "production",
-      "result": "response_received",
-      "usage": {
-        "candidatesTokenCount": 835,
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 5001,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 5001
-          }
-        ],
-        "serviceTier": "standard",
-        "totalTokenCount": 5836
-      }
-    },
-    {
-      "at": "2026-10-25T01:31:26.214922+00:00",
-      "prompt_characters": 24111,
-      "purpose": "production",
-      "result": "response_received",
-      "usage": {
-        "candidatesTokenCount": 732,
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 4929,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 4929
-          }
-        ],
-        "serviceTier": "standard",
-        "totalTokenCount": 5661
-      }
-    },
-    {
-      "at": "2026-10-25T11:28:56.664095+00:00",
-      "prompt_characters": 3686,
-      "purpose": "production",
-      "result": "response_received",
-      "usage": {
-        "candidatesTokenCount": 65,
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 862,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 862
-          }
-        ],
-        "serviceTier": "standard",
-        "totalTokenCount": 927
-      }
-    },
     {
       "at": "2026-10-25T11:29:11.665359+00:00",
       "prompt_characters": 6202,
@@ -1893,6 +1836,63 @@
         ],
         "serviceTier": "standard"
       }
+    },
+    {
+      "at": "2026-10-27T19:23:30.487933+00:00",
+      "result": "response_received",
+      "prompt_characters": 15717,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 3379,
+        "candidatesTokenCount": 744,
+        "totalTokenCount": 4123,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 3379
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-27T19:23:45.493227+00:00",
+      "result": "response_received",
+      "prompt_characters": 15703,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 3294,
+        "candidatesTokenCount": 828,
+        "totalTokenCount": 4122,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 3294
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-27T19:24:00.499620+00:00",
+      "result": "response_received",
+      "prompt_characters": 7259,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 1410,
+        "candidatesTokenCount": 338,
+        "totalTokenCount": 1748,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1410
+          }
+        ],
+        "serviceTier": "standard"
+      }
     }
   ],
   "capacity_recovery_revision": 2,
@@ -3054,8 +3054,8 @@
       "headline": "Mariner Re launches with $750m TIAA investment to support Symetra’s annuity growth"
     },
     "https://www.marketwatch.com/story/meet-the-financial-literacy-teacher-who-helps-high-school-students-open-their-own-roth-iras-652d56a8": {
-      "attempted_at": "2026-10-26T17:39:06.103578+00:00",
-      "retry_after": "2026-10-27T18:39:06.103578+00:00",
+      "attempted_at": "2026-10-27T19:23:12.958178+00:00",
+      "retry_after": "2026-10-28T20:23:12.958178+00:00",
       "headline": "Meet the financial-literacy teacher who helps high-school students open their own Roth IRAs"
     },
     "https://www.marketwatch.com/story/is-it-curtains-for-cola-saving-social-security-could-mean-changing-the-cost-of-living-adjustment-867c6bd8": {
@@ -3632,6 +3632,21 @@
       "attempted_at": "2026-10-27T18:15:32.395456+00:00",
       "retry_after": "2026-10-28T19:15:32.395456+00:00",
       "headline": "Faster quotes, faster declines? What Guidewire’s hx deal could mean for brokers"
+    },
+    "https://www.theguardian.com/uk-news/2026/oct/27/budget-2026-six-charts-underpin-chancellor-decisions-john-healey": {
+      "attempted_at": "2026-10-27T19:23:12.958178+00:00",
+      "retry_after": "2026-10-28T20:23:12.958178+00:00",
+      "headline": "Budget 2026: six charts that reveal the economic realities facing the chancellor"
+    },
+    "https://www.insurancejournal.com/news/international/2026/10/27/890516.htm": {
+      "attempted_at": "2026-10-27T19:23:12.958178+00:00",
+      "retry_after": "2026-10-28T20:23:12.958178+00:00",
+      "headline": "Turkish Insurer Sinks as Top Executives Arrested in Fund Probe"
+    },
+    "https://www.insurancebusinessmag.com/uk/news/legal-insights/50k-of-pandemic-cover-8m-in-losses-restaurant-groups-broker-negligence-claim-survives-595132.aspx": {
+      "attempted_at": "2026-10-27T19:23:12.958178+00:00",
+      "retry_after": "2026-10-28T20:23:12.958178+00:00",
+      "headline": "£50k of pandemic cover, £8m in losses: restaurant group's broker negligence claim survives"
     }
   },
   "sources": {
@@ -4116,14 +4131,14 @@
       "alternative_search_after": "2026-10-27T03:08:36.146333+00:00"
     },
     "https://www.professionalpensions.com/news/4045103/people-moves": {
-      "attempted_at": "2026-10-27T16:22:05.983317+00:00",
-      "retry_after": "2026-10-27T18:22:05.983317+00:00",
+      "attempted_at": "2026-10-27T19:23:12.958178+00:00",
+      "retry_after": "2026-10-27T21:23:12.958178+00:00",
       "last_result": "Original document was not announced today in the UK",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
-      "failures": 6,
+      "failures": 7,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T20:22:05.983317+00:00"
+      "alternative_search_after": "2026-10-27T23:23:12.958178+00:00"
     },
     "https://www.wsj.com/business/financial-services-roundup-market-talk-8a90f511": {
       "attempted_at": "2026-10-26T16:46:48.943368+00:00",
@@ -4229,7 +4244,8 @@
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
       "failures": 4,
-      "policy": "newsroom-recovery-2026-10-26-v1"
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-27T23:23:12.958178+00:00"
     },
     "https://www.finextra.com/newsarticle/48652/capitalos-raises-219m-for-money-orchestration-layer-for-b2b-platforms": {
       "attempted_at": "2026-10-27T18:15:32.395456+00:00",
@@ -4278,12 +4294,12 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.hsbc.com/news-and-views/news/media-releases/2026/hsbc-holdings-plc-3q-2026-earnings-release": {
-      "attempted_at": "2026-10-27T17:21:13.186677+00:00",
-      "retry_after": "2026-10-27T19:21:13.186677+00:00",
+      "attempted_at": "2026-10-27T19:23:12.958178+00:00",
+      "retry_after": "2026-10-27T21:23:12.958178+00:00",
       "last_result": "Original document has no unambiguous publication date; listing/RSS date is insufficient",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
-      "failures": 6,
+      "failures": 7,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.wsj.com/finance/banking/hsbc-quarterly-profit-climbs-plans-1-billion-buyback-1551a999": {
@@ -4484,14 +4500,14 @@
       "alternative_search_after": "2026-10-27T18:11:07.632660+00:00"
     },
     "https://www.insuranceage.co.uk/insight/7959064/young-brokers-call-for-better-knowledge-retention-when-senior-staff-retire": {
-      "attempted_at": "2026-10-27T17:21:13.186677+00:00",
-      "retry_after": "2026-10-27T19:21:13.186677+00:00",
+      "attempted_at": "2026-10-27T19:23:12.958178+00:00",
+      "retry_after": "2026-10-27T21:23:12.958178+00:00",
       "last_result": "Original document has no unambiguous publication date; listing/RSS date is insufficient",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
-      "failures": 2,
+      "failures": 3,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T21:21:13.186677+00:00"
+      "alternative_search_after": "2026-10-27T23:23:12.958178+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-27/altice-international-lenders-near-deadline-to-negotiate-rework": {
       "attempted_at": "2026-10-27T15:23:11.859924+00:00",
