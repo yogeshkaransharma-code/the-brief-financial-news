@@ -5,12 +5,15 @@ from pathlib import Path
 from playwright.sync_api import sync_playwright
 from same_day_policy import published_same_day
 from site_design import desk_for
+from uk_market_scope import public_article_in_scope
 ROOT=Path(__file__).resolve().parents[1]
 SITE=os.getenv('BRIEF_SITE_URL','https://yogeshkaransharma-code.github.io/the-brief-financial-news/').rstrip('/')+'/'
 OUT=ROOT/'browser-evidence'
 
 def main():
-    articles=json.loads((ROOT/'data/articles.json').read_text());today=[a for a in articles if published_same_day(a)]
+    all_articles=json.loads((ROOT/'data/articles.json').read_text())
+    articles=[a for a in all_articles if public_article_in_scope(a)]
+    today=[a for a in articles if published_same_day(a)]
     OUT.mkdir(exist_ok=True);results=[]
     with sync_playwright() as p:
         browser=p.chromium.launch()

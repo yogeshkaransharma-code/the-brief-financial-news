@@ -8,7 +8,10 @@ ROOT=Path(__file__).resolve().parents[1]
 
 def verify():
     public=ROOT/'public'
-    canonical=json.loads((ROOT/'data/articles.json').read_text())
+    all_articles=json.loads((ROOT/'data/articles.json').read_text())
+    from uk_market_scope import public_article_in_scope
+    canonical=[a for a in all_articles if public_article_in_scope(a)]
+    assert len(all_articles)>=len(canonical), 'Signed archive ledger was modified'
     edition=json.loads((public/'data/articles.json').read_text())
     archive=json.loads((public/'data/archive.json').read_text())
     assert {x['id'] for x in edition}=={x['id'] for x in canonical if published_same_day(x)}
