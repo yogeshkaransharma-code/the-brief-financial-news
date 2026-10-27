@@ -2,7 +2,7 @@
   "api_budget": {
     "date": "2026-10-26",
     "timezone": "America/Los_Angeles",
-    "requests": 34,
+    "requests": 35,
     "limit": null
   },
   "api_calls": [
@@ -1342,6 +1342,25 @@
         ],
         "serviceTier": "standard"
       }
+    },
+    {
+      "at": "2026-10-27T03:39:34.341374+00:00",
+      "result": "response_received",
+      "prompt_characters": 17580,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 3619,
+        "candidatesTokenCount": 1236,
+        "totalTokenCount": 4855,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 3619
+          }
+        ],
+        "serviceTier": "standard"
+      }
     }
   ],
   "capacity_recovery_revision": 2,
@@ -2596,6 +2615,31 @@
       "attempted_at": "2026-10-27T03:10:01.659421+00:00",
       "retry_after": "2026-10-28T04:10:01.659421+00:00",
       "headline": "BlackRock's Rieder on Global Bonds, AI"
+    },
+    "https://www.insurancebusinessmag.com/uk/news/claims/one-fake-death-four-insurers-data-sharing-exposes-funeral-fraud-595007.aspx": {
+      "attempted_at": "2026-10-27T03:39:22.622340+00:00",
+      "retry_after": "2026-10-28T04:39:22.622340+00:00",
+      "headline": "One fake death, four insurers: Data sharing exposes funeral fraud"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-27/samsung-life-insurance-south-korea-coupon-note-debt-dollar-bond-sale": {
+      "attempted_at": "2026-10-27T03:39:22.622340+00:00",
+      "retry_after": "2026-10-28T04:39:22.622340+00:00",
+      "headline": "Samsung Life Prices Record Dollar Bond as Investors Defy Turmoil"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-27/jpmorgan-asset-management-bob-michele-us-bonds-treasury-fed": {
+      "attempted_at": "2026-10-27T03:39:22.622340+00:00",
+      "retry_after": "2026-10-28T04:39:22.622340+00:00",
+      "headline": "JPMorgan’s Michele Sees US Bonds Returning 7%-8% Over 12 Months"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-27/msci-indonesian-corporate-bond-sale-kb-bank-moodys-ratings-fitch-prabowo": {
+      "attempted_at": "2026-10-27T03:39:22.622340+00:00",
+      "retry_after": "2026-10-28T04:39:22.622340+00:00",
+      "headline": "MSCI Fallout Widens With Indonesian Corporate Bond Sale Shelved"
+    },
+    "https://www.insurancebusinessmag.com/uk/news/auto-motor/fast-fleet-policy-changes-now-business-critical-brokers-say-595006.aspx": {
+      "attempted_at": "2026-10-27T03:39:22.622340+00:00",
+      "retry_after": "2026-10-28T04:39:22.622340+00:00",
+      "headline": "Fast fleet policy changes now business critical, brokers say"
     }
   },
   "sources": {
@@ -3215,6 +3259,36 @@
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1",
       "alternative_search_after": "2026-10-27T07:10:01.659421+00:00"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-27/samsung-life-insurance-south-korea-coupon-note-debt-dollar-bond-sale": {
+      "attempted_at": "2026-10-27T03:39:22.622340+00:00",
+      "retry_after": "2026-10-27T09:39:22.622340+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-27T07:39:22.622340+00:00"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-27/jpmorgan-asset-management-bob-michele-us-bonds-treasury-fed": {
+      "attempted_at": "2026-10-27T03:39:22.622340+00:00",
+      "retry_after": "2026-10-27T09:39:22.622340+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-27T07:39:22.622340+00:00"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-27/msci-indonesian-corporate-bond-sale-kb-bank-moodys-ratings-fitch-prabowo": {
+      "attempted_at": "2026-10-27T03:39:22.622340+00:00",
+      "retry_after": "2026-10-27T09:39:22.622340+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-27T07:39:22.622340+00:00"
     }
   },
   "version": 2,
