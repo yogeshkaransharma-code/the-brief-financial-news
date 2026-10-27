@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-10-27T02:34:16.173211+00:00",
+  "checked_at": "2026-10-27T03:10:15.444370+00:00",
   "uk_date": "2026-10-27",
   "outcome": "BLOCKED",
   "editorial_outcome": "BLOCKED",
-  "technical_status": "LIVE_VERIFIED",
+  "technical_status": "AWAITING_LIVE_VERIFICATION",
   "source_coverage_status": "PARTIAL",
   "launch_test": {
     "result": "NOT_RUN"
@@ -18,14 +18,15 @@
   },
   "published_total": 46,
   "last_article_at": "2026-10-27T00:02:43.193949+00:00",
-  "fresh_source_candidates": 2,
+  "fresh_source_candidates": 3,
   "verified_original_candidates": 0,
   "candidates_by_sector": {
+    "Insurance": 1,
     "Banking": 2
   },
   "verified_by_sector": {},
   "articles_commissioned": 0,
-  "articles_held": 32,
+  "articles_held": 33,
   "machine_screened": 0,
   "independent_review": false,
   "publication_policy": "newsroom-single-pass-2026-10-26-v1",
@@ -48,15 +49,26 @@
   "quota_pause_until": null,
   "pipeline_metrics": {
     "discovered_unique": 510,
-    "already_published_or_retired": 44,
     "outside_uk_date": 234,
-    "irrelevant": 73,
-    "unsupported_route": 157,
-    "fresh_relevant_candidates": 2,
+    "irrelevant": 71,
+    "already_published_or_retired": 44,
+    "unsupported_route": 158,
+    "fresh_relevant_candidates": 3,
+    "source_failures": 1,
     "source_cooldowns": 2,
     "verified_original_candidates": 0
   },
   "source_fallbacks": [
+    {
+      "source": "https://www.bloomberg.com/news/articles/2026-10-27/japan-life-insurers-swap-into-higher-yield-bonds-to-lift-returns",
+      "result": "Public alternative search completed",
+      "candidates": 0
+    },
+    {
+      "source": "https://www.bloomberg.com/news/articles/2026-10-27/japan-life-insurers-swap-into-higher-yield-bonds-to-lift-returns",
+      "alternatives_found": 0,
+      "result": "No matching alternative in checked sources"
+    },
     {
       "source": "https://www.finextra.com/newsarticle/48650/mastercard-targets-creators-via-mrbeast-partnership",
       "alternatives_found": 0,
@@ -69,13 +81,6 @@
     }
   ],
   "candidate_outcomes": [
-    {
-      "title": "Retirement targets jump 20% as affluent individuals plan for several futures at once",
-      "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/retirement-targets-jump-20-as-affluent-individuals-plan-for-several-futures-at-once",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
     {
       "title": "Aviva reunites customers with more than £1.1 billion in pension savings",
       "source": "https://www.aviva.com/newsroom/news-and-research-overview/news-releases/2026/10/aviva-reunites-customers-with-more-than-one-billion-pounds-in-pension-savings/",
@@ -154,6 +159,13 @@
     {
       "title": "TPR sets expectations on “hidden” concentration risks in pension portfolios",
       "source": "https://www.thepensionsregulator.gov.uk/media-hub/press-releases/2026-press-releases/tpr-sets-expectations-on-hidden-concentration-risks-in-pension-portfolios",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
+    },
+    {
+      "title": "Retirement targets jump 20% as affluent individuals plan for several futures at once",
+      "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/retirement-targets-jump-20-as-affluent-individuals-plan-for-several-futures-at-once",
       "result": "excluded",
       "stage": "eligibility",
       "reason": "Already published or retired"
@@ -270,66 +282,6 @@
       "source_date": "2026-10-09"
     },
     {
-      "title": "Prudential Regulation // Consultation paper 22 October 2026 CP14/26 – Review of the Senior Managers and... CP14/26 – Review of the Senior Managers and Certification Regime (SM&CR) – Phase 2",
-      "source": "https://www.bankofengland.co.uk/prudential-regulation/publication/2026/october/review-of-the-smcr-phase-two-consultation-paper",
-      "result": "rejected",
-      "stage": "eligibility",
-      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
-    },
-    {
-      "title": "Prudential Regulation // Supervisory statement 14 October 2026 SS2/26 – High loan to income lending SS2/26 – High loan to income lending",
-      "source": "https://www.bankofengland.co.uk/prudential-regulation/publication/2026/october/high-loan-to-income-lending-supervisory-statement",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-14"
-    },
-    {
-      "title": "Prudential Regulation // Policy statement 14 October 2026 PS19/26 – High loan to income lending PS19/26 – High loan to income lending",
-      "source": "https://www.bankofengland.co.uk/prudential-regulation/publication/2026/october/high-loan-to-income-lending-policy-statement",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-14"
-    },
-    {
-      "title": "News // News release 22 October 2026 Regulators unveil plans to simplify Senior... Regulators unveil plans to simplify Senior Manager and Certification Regime",
-      "source": "https://www.bankofengland.co.uk/news/2026/october/regulators-unveil-plans-to-simplify-senior-manager-and-certification-regime",
-      "result": "rejected",
-      "stage": "eligibility",
-      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
-    },
-    {
-      "title": "News // News 15 October 2026 David Roberts CV and questionnaire for the... David Roberts CV and questionnaire for the Treasury Select Committee",
-      "source": "https://www.bankofengland.co.uk/news/2026/october/david-roberts-tsc-reappointment",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-15"
-    },
-    {
-      "title": "News // News release 09 October 2026 CMORG holds sector-wide cloud outage simulation... CMORG holds sector-wide cloud outage simulation exercise",
-      "source": "https://www.bankofengland.co.uk/news/2026/october/cmorg-holds-sector-wide-cloud-outage-simulation-exercise",
-      "result": "rejected",
-      "stage": "eligibility",
-      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
-    },
-    {
-      "title": "News 08 October 2026 Bank of England announces the four animals... Bank of England announces the four animals that will feature on our next series of banknotes",
-      "source": "https://www.bankofengland.co.uk/news/2026/october/boe-announces-the-four-animals-that-will-feature-on-next-series-of-banknotes",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-08"
-    },
-    {
-      "title": "News // News release 07 October 2026 Regulatory thresholds set to shift to automatic... Regulatory thresholds set to shift to automatic increases",
-      "source": "https://www.bankofengland.co.uk/news/2026/october/regulatory-thresholds-set-to-shift-to-automatic-increases",
-      "result": "rejected",
-      "stage": "eligibility",
-      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
-    },
-    {
       "title": "Lloyds uses agentic AI platform to strengthen customer fraud support",
       "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-strengthens-fraud-support-agentic-ai.html",
       "result": "rejected",
@@ -422,6 +374,66 @@
     {
       "title": "LMA and IUA launch Joint Healthcare Claims Group to strengthen market expertise",
       "source": "https://lmalloyds.com/lma-and-iua-launch-joint-healthcare-claims-group-to-strengthen-market-expertise/",
+      "result": "rejected",
+      "stage": "eligibility",
+      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
+    },
+    {
+      "title": "Prudential Regulation // Consultation paper 22 October 2026 CP14/26 – Review of the Senior Managers and... CP14/26 – Review of the Senior Managers and Certification Regime (SM&CR) – Phase 2",
+      "source": "https://www.bankofengland.co.uk/prudential-regulation/publication/2026/october/review-of-the-smcr-phase-two-consultation-paper",
+      "result": "rejected",
+      "stage": "eligibility",
+      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
+    },
+    {
+      "title": "Prudential Regulation // Policy statement 14 October 2026 PS19/26 – High loan to income lending PS19/26 – High loan to income lending",
+      "source": "https://www.bankofengland.co.uk/prudential-regulation/publication/2026/october/high-loan-to-income-lending-policy-statement",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-14"
+    },
+    {
+      "title": "Prudential Regulation // Supervisory statement 14 October 2026 SS2/26 – High loan to income lending SS2/26 – High loan to income lending",
+      "source": "https://www.bankofengland.co.uk/prudential-regulation/publication/2026/october/high-loan-to-income-lending-supervisory-statement",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-14"
+    },
+    {
+      "title": "News // News release 22 October 2026 Regulators unveil plans to simplify Senior... Regulators unveil plans to simplify Senior Manager and Certification Regime",
+      "source": "https://www.bankofengland.co.uk/news/2026/october/regulators-unveil-plans-to-simplify-senior-manager-and-certification-regime",
+      "result": "rejected",
+      "stage": "eligibility",
+      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
+    },
+    {
+      "title": "News // News 15 October 2026 David Roberts CV and questionnaire for the... David Roberts CV and questionnaire for the Treasury Select Committee",
+      "source": "https://www.bankofengland.co.uk/news/2026/october/david-roberts-tsc-reappointment",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-15"
+    },
+    {
+      "title": "News // News release 09 October 2026 CMORG holds sector-wide cloud outage simulation... CMORG holds sector-wide cloud outage simulation exercise",
+      "source": "https://www.bankofengland.co.uk/news/2026/october/cmorg-holds-sector-wide-cloud-outage-simulation-exercise",
+      "result": "rejected",
+      "stage": "eligibility",
+      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
+    },
+    {
+      "title": "News 08 October 2026 Bank of England announces the four animals... Bank of England announces the four animals that will feature on our next series of banknotes",
+      "source": "https://www.bankofengland.co.uk/news/2026/october/boe-announces-the-four-animals-that-will-feature-on-next-series-of-banknotes",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-08"
+    },
+    {
+      "title": "News // News release 07 October 2026 Regulatory thresholds set to shift to automatic... Regulatory thresholds set to shift to automatic increases",
+      "source": "https://www.bankofengland.co.uk/news/2026/october/regulatory-thresholds-set-to-shift-to-automatic-increases",
       "result": "rejected",
       "stage": "eligibility",
       "reason": "Outside Insurance/Banking or promotional/lifestyle material"
@@ -553,6 +565,13 @@
       "stage": "eligibility",
       "reason": "Discovery source date is outside the current UK date",
       "source_date": "2026-10-14"
+    },
+    {
+      "title": "BlackRock's Rieder on Global Bonds, AI",
+      "source": "https://www.bloomberg.com/news/videos/2026-10-27/blackrock-s-rieder-on-global-bonds-ai-video",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "No reviewed article route in source registry"
     },
     {
       "title": "Healey pledges cheaper marmalade and gherkins in pre-Budget package of 'everyday fixes'",
@@ -3662,20 +3681,6 @@
       "source_date": "2026-10-22"
     },
     {
-      "title": "CP26/37: Senior Managers and Certification Regime (SM&CR) Review: Phase 2",
-      "source": "https://www.fca.org.uk/publications/consultation-papers/cp26-37-senior-managers-certification-regime-review-phase-2",
-      "result": "rejected",
-      "stage": "eligibility",
-      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
-    },
-    {
-      "title": "Meta’s Hunt for AI Capital Strikes a Raw Nerve on Wall Street",
-      "source": "https://www.wsj.com/finance/stocks/metas-hunt-for-ai-capital-strikes-a-raw-nerve-on-wall-street-e2de1601",
-      "result": "rejected",
-      "stage": "eligibility",
-      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
-    },
-    {
       "title": "Acrisure recruits ex-Cobra boss Tedstone as UK Retail CEO",
       "source": "https://www.insuranceage.co.uk/insight/7959042/acrisure-recruits-ex-cobra-boss-tedstone-as-uk-retail-ceo",
       "result": "excluded",
@@ -3858,6 +3863,15 @@
       "stage": "eligibility",
       "reason": "Discovery source date is outside the current UK date",
       "source_date": "2026-10-13"
+    },
+    {
+      "title": "Japan Life Insurers Swap Into Higher-Yield Bonds to Lift Returns",
+      "source": "https://www.bloomberg.com/news/articles/2026-10-27/japan-life-insurers-swap-into-higher-yield-bonds-to-lift-returns",
+      "result": "held back",
+      "stage": "source",
+      "reason": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "retry_after": "2026-10-27T09:10:01.659421+00:00"
     },
     {
       "title": "Mastercard targets creators via MrBeast partnership",
@@ -4083,122 +4097,13 @@
       ]
     }
   ],
-  "run_id": "40439142832",
+  "run_id": "40442605504",
   "event": "schedule",
-  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40439142832",
+  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40442605504",
   "publisher_links": 0,
-  "discovery_headlines": 4,
-  "publisher_desk_checked_at": "2026-10-27T02:34:01.285763+00:00",
+  "discovery_headlines": 5,
+  "publisher_desk_checked_at": "2026-10-27T03:09:59.092232+00:00",
   "previous_verified_runs": [
-    {
-      "run_id": "40288468596",
-      "event": "schedule",
-      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40288468596",
-      "editorial_outcome": "BLOCKED",
-      "published_this_run": 0,
-      "publisher_links": 0,
-      "discovery_headlines": 19,
-      "source_coverage_status": "PARTIAL",
-      "fresh_source_candidates": 12,
-      "verified_by_sector": {
-        "Insurance": 5
-      },
-      "ai_budget": {
-        "quota_date": "2026-10-26",
-        "quota_timezone": "America/Los_Angeles",
-        "requests_this_run": 2,
-        "requests_today_including_this_run": 14,
-        "run_limit": 7,
-        "daily_limit": 30,
-        "remaining_today": 16
-      },
-      "pipeline_metrics": {
-        "discovered_unique": 498,
-        "already_published_or_retired": 24,
-        "outside_uk_date": 215,
-        "irrelevant": 94,
-        "unsupported_route": 153,
-        "fresh_relevant_candidates": 12,
-        "source_cooldowns": 7,
-        "sources_successfully_retrieved": 0,
-        "source_checkpoints_reused": 5,
-        "verified_original_candidates": 5,
-        "articles_drafted": 1,
-        "review_rejected": 1
-      },
-      "source_fallbacks": [
-        {
-          "source": "https://www.bloomberg.com/news/articles/2026-10-26/uk-dealers-see-more-treasury-bills-coming-to-cut-debt-costs",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.wsj.com/finance/jgb-yields-higher-amid-concerns-about-higher-energy-prices-897f5458",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.bbc.co.uk/news/articles/c6x2zrjl7kjno",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.finextra.com/newsarticle/48642/riksbank-reignites-e-krona-debate",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.bloomberg.com/news/articles/2026-10-26/world-bank-somalia-low-tax-revenue-key-fiscal-challenge",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.bloomberg.com/news/articles/2026-10-26/french-bond-oats-australia-pension-australian-retirement-trust-yields-ecb",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.bloomberg.com/news/articles/2026-10-26/asset-manager-australian-dollar-shorts-hit-record-on-risk-off",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        }
-      ],
-      "articles_visible_this_run": 0,
-      "live_article_ids": [],
-      "commissioned_stories": [
-        {
-          "url": "https://www.commercialriskonline.com/munich-res-q3-profit-falls-15-despite-lower-major-losses/",
-          "category": "Insurance",
-          "reason": "Relevant current development supported by a complete accessible source"
-        },
-        {
-          "url": "https://www.insurancejournal.com/news/national/2026/10/26/890235.htm",
-          "category": "Insurance",
-          "reason": "Relevant current development supported by a complete accessible source"
-        },
-        {
-          "url": "https://www.commercialriskonline.com/buyers-face-mounting-sanction-exclusions-and-dwindling-capacity-for-exposed-risks/",
-          "category": "Insurance",
-          "reason": "Relevant current development supported by a complete accessible source"
-        }
-      ],
-      "checked_at": "2026-10-26T07:53:21.707518+00:00",
-      "technical_status": "LIVE_VERIFIED",
-      "deployment": "success",
-      "live_check": "success",
-      "browser_check": "skipped",
-      "candidate_outcome_counts": {
-        "eligibility:excluded": 392,
-        "eligibility:rejected": 94,
-        "source:retry deferred": 7,
-        "source:source verified": 5,
-        "independent_review:retry deferred": 1,
-        "writing:retry deferred": 1,
-        "writing:held back": 2,
-        "writing:drafted": 1,
-        "independent_review:held for review": 1
-      }
-    },
     {
       "run_id": "40294567628",
       "event": "schedule",
@@ -8740,6 +8645,67 @@
         "eligibility:rejected": 73,
         "source:retry deferred": 2
       }
+    },
+    {
+      "run_id": "40439142832",
+      "event": "schedule",
+      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40439142832",
+      "editorial_outcome": "BLOCKED",
+      "published_this_run": 0,
+      "publisher_links": 0,
+      "discovery_headlines": 4,
+      "source_coverage_status": "PARTIAL",
+      "fresh_source_candidates": 2,
+      "verified_by_sector": {},
+      "ai_budget": {
+        "quota_date": "2026-10-26",
+        "quota_timezone": "America/Los_Angeles",
+        "requests_this_run": 0,
+        "requests_today_including_this_run": 34,
+        "run_limit": 7,
+        "daily_limit": null,
+        "remaining_today": null,
+        "daily_limit_source": "provider",
+        "remaining_this_run": 7
+      },
+      "pipeline_metrics": {
+        "discovered_unique": 510,
+        "already_published_or_retired": 44,
+        "outside_uk_date": 234,
+        "irrelevant": 73,
+        "unsupported_route": 157,
+        "fresh_relevant_candidates": 2,
+        "source_cooldowns": 2,
+        "verified_original_candidates": 0
+      },
+      "source_fallbacks": [
+        {
+          "source": "https://www.finextra.com/newsarticle/48650/mastercard-targets-creators-via-mrbeast-partnership",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.finextra.com/newsarticle/48652/capitalos-raises-219m-for-money-orchestration-layer-for-b2b-platforms",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        }
+      ],
+      "publication_policy": "newsroom-single-pass-2026-10-26-v1",
+      "independent_review": false,
+      "articles_ready_to_publish": 0,
+      "articles_visible_this_run": 0,
+      "live_article_ids": [],
+      "commissioned_stories": [],
+      "checked_at": "2026-10-27T02:35:07.884595+00:00",
+      "technical_status": "LIVE_VERIFIED",
+      "deployment": "success",
+      "live_check": "success",
+      "browser_check": "skipped",
+      "candidate_outcome_counts": {
+        "eligibility:excluded": 435,
+        "eligibility:rejected": 73,
+        "source:retry deferred": 2
+      }
     }
   ],
   "launch_acceptance": {
@@ -8766,7 +8732,5 @@
   "launch_diagnostic_allowance": {
     "limit": 2,
     "requests": 2
-  },
-  "articles_visible_this_run": 0,
-  "live_article_ids": []
+  }
 }
