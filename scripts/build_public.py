@@ -69,7 +69,11 @@ def standalone_story(a):
     """A complete, source-linked reading page under the shared burgundy masthead."""
     section=a.get("desk_section") or desk_for(a)
     news_date=original_date(a).strftime("%-d %B %Y")
-    publication_stamp=dt.datetime.fromisoformat(a['published_at'].replace('Z','+00:00')).astimezone(__import__('zoneinfo').ZoneInfo('Europe/London')).strftime('%-d %B %Y, %H:%M %Z')
+    published_local=dt.datetime.fromisoformat(a['published_at'].replace('Z','+00:00')).astimezone(__import__('zoneinfo').ZoneInfo('Europe/London'))
+    publication_stamp=published_local.strftime('%-d %B %Y, %H:%M %Z')
+    # One visible calendar date when source and Brief publication fall on the same UK day.
+    byline_date=(esc(news_date)+' · '+esc(published_local.strftime('%H:%M %Z')) if original_date(a)==published_local.date()
+                 else 'Source: '+esc(news_date)+' · The Brief: '+esc(publication_stamp))
     archived=original_date(a)!=clock().date()
     note=('<p class="archive-note"><strong>ARCHIVE · Earlier edition.</strong> This is earlier reporting, not today’s news.</p>' if archived else '')
     if not a.get("date_evidence"):
@@ -107,7 +111,7 @@ def standalone_story(a):
 <body class="tb-reading-page">{header("../")}
 <main class="reader"><article>{note}<div class="kicker">{esc(section)} / THE BRIEF REPORT</div>
 <h1>{esc(a['title'])}</h1><p class="intro">{esc(a.get('short',''))}</p>
-<div class="meta">Original source date: <time datetime="{esc(a['dateISO'])}">{esc(news_date)}</time> · Published by The Brief: <time datetime="{esc(a['published_at'])}">{esc(publication_stamp)}</time> · {esc(a.get('source',''))}</div>
+<div class="meta">{byline_date} · {esc(a.get('source',''))}</div>
 <div class="article-body">{article_body(a)}</div>
 {glossary_html}
 <div class="source tb-source-evidence"><h2>Original source</h2>
@@ -125,8 +129,8 @@ def archive_page(records,edition=None):
         cards=[]
         for a in records:
             if original_date(a).isoformat()!=day:continue
-            cards.append('<article data-category="'+esc(a['desk_section'])+'"><span class="kicker">'+esc(a['desk_section'])+'</span><h2><a href="'+prefix+story_href(a)+'">'+esc(a['title'])+'</a></h2><p>'+esc(a['short'])+'</p><small>Original announcement: '+esc(day)+' · Published by The Brief: '+esc(date_in_uk(a['published_at']))+' · '+esc(a['source'])+'</small></article>')
-        rows.append('<section><h2 class="edition"><a href="'+prefix+'edition/'+day+'.html">'+esc(day)+' edition ↗</a></h2>'+''.join(cards)+'</section>')
+            cards.append('<article data-category="'+esc(a['desk_section'])+'"><span class="kicker">'+esc(a['desk_section'])+'</span><h2><a href="'+prefix+story_href(a)+'">'+esc(a['title'])+'</a></h2><p>'+esc(a['short'])+'</p><small>'+esc(a['source'])+(' · Published by The Brief: '+esc(date_in_uk(a['published_at'])) if date_in_uk(a['published_at'])!=original_date(a) else '')+'</small></article>')
+        rows.append('<section>'+('' if edition else '<h2 class="edition"><a href="'+prefix+'edition/'+day+'.html">'+esc(day)+' edition ↗</a></h2>')+''.join(cards)+'</section>')
     body='<p class="intro">Earlier developments, kept in their dated editions. Nothing here is presented as today’s news.</p>'
     if any(a.get('retrospective_launch') for a in records):
         body+='<p class="note"><strong>Saturday launch edition · 24 October 2026, from 6am UK.</strong> These launch reports were prepared retrospectively. Each article shows the original announcement date and its actual publication timestamp.</p>'
@@ -195,7 +199,7 @@ def desk_page(records,section):
         date=original_date(a).strftime('%-d %B %Y')
         cards.append('<article data-category="'+esc(section)+'"><span class="kicker">'+esc(date)+' · '+esc(a.get('source',''))+'</span>'
             '<h2><a href="'+story_href(a)+'">'+esc(a['title'])+'</a></h2>'
-            '<p>'+esc(a.get('short',''))+'</p><small>Original news: '+esc(date)+' · <a href="'+story_href(a)+'">Read complete article ↗</a></small></article>')
+            '<p>'+esc(a.get('short',''))+'</p><small><a href="'+story_href(a)+'">Read complete article ↗</a></small></article>')
     if not selected:cards.append('<p>No approved reports in this section yet. The newsroom continues to check sources.</p>')
     body=intro_html+'<p class="note">Earlier developments remain dated. We do not label older reporting as breaking news.</p>'+''.join(cards)
     return utility_page(section+'.',body,active=section)
@@ -241,8 +245,7 @@ def build():
             + esc(first.get("desk_section")) + ' / THE LEAD STORY</span><h1><a href="'
             + esc(story_href(first)) + '">' + esc(first["title"])
             + '</a></h1><p class="standfirst">' + esc(first.get("short")) + '</p>'
-            + '<p class="meta">Original news: ' + esc(first.get("dateISO"))
-            + ' · The Brief published: ' + esc(first.get("published_at", "")[:10]) + '</p>'
+            + '<p class="meta">' + esc(first.get('source','')) + ' · ' + esc(dt.datetime.fromisoformat(first['published_at'].replace('Z','+00:00')).astimezone(__import__('zoneinfo').ZoneInfo('Europe/London')).strftime('%H:%M')) + '</p>'
             + '<p><a class="cta" href="' + esc(story_href(first)) + '">Read the full article ↗</a></p></article>')
     else:
         lead = ('<article id="lead-story" class="lead-story"><span class="story-kicker">THE BRIEF / '+
@@ -263,19 +266,13 @@ def build():
         '<div id="briefing-stories" class="briefing-stories"></div>',
         '<div id="briefing-stories" class="briefing-stories">' + briefing + '</div>')
     rows = []
-    prior = ""
     for i, a in enumerate(records[:15]):
-        date = str(a.get("dateISO", ""))[:10]
-        if date != prior:
-            rows.append('<h3 class="date-separator">' + esc(date) + '</h3>')
-            prior = date
         rows.append(
             '<article class="news-item" data-desk="'+esc(a.get('desk_section'))+'"><div class="story-ordinal">' + str(i+1).zfill(2)
             + '</div><div><div class="news-cat">' + esc(a.get("desk_section")) + ' · OUR REPORT</div>'
             + '<h3><a href="' + esc(story_href(a)) + '">' + esc(a["title"]) + '</a></h3>'
             + '<p class="summary">' + esc(a.get("short")) + '</p>'
-            + '<p class="meta">Original news: ' + esc(date)
-            + ' · The Brief published: ' + esc(a.get("published_at", "")[:10]) + '</p></div></article>'
+            + '<p class="meta">' + esc(a.get('source','')) + ' · ' + esc(dt.datetime.fromisoformat(a['published_at'].replace('Z','+00:00')).astimezone(__import__('zoneinfo').ZoneInfo('Europe/London')).strftime('%H:%M')) + '</p></div></article>'
         )
     page = insert_once(page, '<div class="feed" id="feed"></div>',
         '<div class="feed" id="feed">' + ('\n'.join(rows) if rows else '<p class="nothing">No approved original reports dated '+esc(today)+' have been published yet.</p>') + '</div>')
