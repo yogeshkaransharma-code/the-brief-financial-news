@@ -17,7 +17,11 @@ def read(url):
     with urllib.request.urlopen(req,timeout=20) as r:return r.read(3000000).decode('utf-8')
 
 def probe():
-    canonical=json.loads((ROOT/'data/articles.json').read_text())
+    from uk_market_scope import public_article_in_scope
+    all_articles=json.loads((ROOT/'data/articles.json').read_text())
+    # Verify the public UK-only edition against the exact same eligibility
+    # rules used by build_public, not against the full private audit ledger.
+    canonical=[a for a in all_articles if public_article_in_scope(a)]
     want={a['id'] for a in canonical if published_same_day(a)}
     failure='No response'
     for attempt in range(6):
