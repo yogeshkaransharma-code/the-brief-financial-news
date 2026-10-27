@@ -2,7 +2,7 @@
   "api_budget": {
     "date": "2026-10-27",
     "timezone": "America/Los_Angeles",
-    "requests": 8,
+    "requests": 9,
     "limit": null
   },
   "api_calls": [
@@ -1665,6 +1665,25 @@
         ],
         "serviceTier": "standard"
       }
+    },
+    {
+      "at": "2026-10-27T11:29:51.357129+00:00",
+      "result": "response_received",
+      "prompt_characters": 25684,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 5398,
+        "candidatesTokenCount": 1005,
+        "totalTokenCount": 6403,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 5398
+          }
+        ],
+        "serviceTier": "standard"
+      }
     }
   ],
   "capacity_recovery_revision": 2,
@@ -3149,6 +3168,11 @@
       "attempted_at": "2026-10-27T11:13:19.401206+00:00",
       "retry_after": "2026-10-28T12:13:19.401206+00:00",
       "headline": "Longer shifts and a changing mix of work are reshaping how brokers place taxi risk"
+    },
+    "https://www.marketwatch.com/story/ai-stocks-havent-played-by-the-normal-valuation-rules-now-that-rates-are-higher-they-may-have-to-says-ubs-f8c78948": {
+      "attempted_at": "2026-10-27T11:29:41.687394+00:00",
+      "retry_after": "2026-10-28T12:29:41.687394+00:00",
+      "headline": "AI stocks haven’t played by the normal valuation rules. Now that rates are higher, they may have to, says UBS"
     }
   },
   "sources": {
@@ -3756,7 +3780,7 @@
       "stage": "source",
       "failures": 2,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-27T10:09:58.039928+00:00"
+      "alternative_search_after": "2026-10-27T15:29:41.687394+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-27/japan-life-insurers-swap-into-higher-yield-bonds-to-lift-returns": {
       "attempted_at": "2026-10-27T09:40:34.658688+00:00",
@@ -3879,7 +3903,8 @@
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
       "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1"
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-27T15:29:41.687394+00:00"
     },
     "https://www.wsj.com/finance/investing/ares-private-credit-fund-to-buy-competitor-from-apollo-daecb67c": {
       "attempted_at": "2026-10-27T09:40:34.658688+00:00",
@@ -3930,6 +3955,16 @@
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1",
       "alternative_search_after": "2026-10-27T15:13:19.401206+00:00"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-27/rbi-s-gupta-says-emerging-markets-must-bolster-domestic-finances": {
+      "attempted_at": "2026-10-27T11:29:41.687394+00:00",
+      "retry_after": "2026-10-27T17:29:41.687394+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-27T15:29:41.687394+00:00"
     }
   },
   "version": 2,
