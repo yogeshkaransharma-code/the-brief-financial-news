@@ -304,6 +304,9 @@ def build():
     for a in archive:
         (OUT / story_href(a)).write_text(standalone_story(a), encoding="utf-8")
 
+    from seo_metadata import add_search_discovery
+    add_search_discovery(OUT, archive)
+
     # These assertions catch the actual failure the earlier smoke tests missed.
     built = (OUT / "index.html").read_text(encoding="utf-8")
     if records and not all(x["title"].replace("&", "&amp;") in built for x in records[:5]):
