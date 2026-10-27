@@ -107,6 +107,9 @@ def eligible(bundle,now=None):
         problems.append('Source capture missing or damaged')
     if not source_lane(a.get('url','')) or a.get('category') not in {'Insurance','Banking'}:
         problems.append('Outside the registered Insurance/Banking source scope')
+    from uk_market_scope import in_uk_scope
+    if not in_uk_scope(a,source):
+        problems.append('No evidenced UK insurance or banking market connection')
     if not a.get('date_evidence') or a['date_evidence']!=audit.get('date_evidence') or not source_issued_today(a,now):
         problems.append('Source is not current UK-date news')
     return problems
