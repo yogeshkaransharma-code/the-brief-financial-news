@@ -6,7 +6,18 @@ from __future__ import annotations
 import html
 import re
 
-INSURANCE_PHOTO="https://assets.lloyds.com/media/132451df-42c2-4426-9aca-3a7d5549a8a1/Lloyds_Underwriting-Room_3_Landscape.jpg"
+# Shared, attributed London imagery. Editorial decoration, never an event photo.
+WESTMINSTER_PHOTO="https://upload.wikimedia.org/wikipedia/commons/f/fc/Big_Ben_after_sunset.jpg"
+WESTMINSTER_CREDIT="hozinja / Wikimedia Commons · CC BY 2.0"
+WESTMINSTER_CREDIT_URL="https://commons.wikimedia.org/wiki/File:Big_Ben_after_sunset.jpg"
+ST_PAULS_PHOTO="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/St_Paul%27s_Cathedral_from_Tate_Modern_2018-01-31.jpg/960px-St_Paul%27s_Cathedral_from_Tate_Modern_2018-01-31.jpg"
+ST_PAULS_CREDIT="Colin / Wikimedia Commons · CC BY-SA"
+ST_PAULS_CREDIT_URL="https://commons.wikimedia.org/wiki/File:St_Paul%27s_Cathedral_from_Tate_Modern_2018-01-31.jpg"
+CITY_PHOTO="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Skyline_of_London_in_September_2024.jpg/960px-Skyline_of_London_in_September_2024.jpg"
+CITY_CREDIT="Choinowski / Wikimedia Commons · CC BY-SA 4.0"
+CITY_CREDIT_URL="https://commons.wikimedia.org/wiki/File:Skyline_of_London_in_September_2024.jpg"
+
+INSURANCE_PHOTO=ST_PAULS_PHOTO
 BANK_PHOTO="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Banco_de_Inglaterra%2C_Londres%2C_Inglaterra%2C_2014-08-11%2C_DD_141_%28cropped%29.JPG/960px-Banco_de_Inglaterra%2C_Londres%2C_Inglaterra%2C_2014-08-11%2C_DD_141_%28cropped%29.JPG"
 BANK_CREDIT="Diego Delso, delso.photo · CC BY-SA"
 BANK_CREDIT_URL="https://commons.wikimedia.org/wiki/File:Banco_de_Inglaterra,_Londres,_Inglaterra,_2014-08-11,_DD_141_(cropped).JPG"
@@ -65,12 +76,12 @@ def terms_for(a,limit=4):
 
 def credit(section):
     if section=="Insurance":
-        return 'Photograph: <a href="'+LLOYDS_CREDIT_URL+'" target="_blank" rel="noopener noreferrer">Lloyd’s media gallery</a> · sector illustration, not event evidence'
+        return 'Photograph: <a href="'+ST_PAULS_CREDIT_URL+'" target="_blank" rel="noopener noreferrer">'+ST_PAULS_CREDIT+'</a> · sector illustration, not event evidence'
     return 'Photograph: <a href="'+BANK_CREDIT_URL+'" target="_blank" rel="noopener noreferrer">'+BANK_CREDIT+'</a> · sector illustration, not event evidence'
 
 def visual(section,*,css_class="tb-article-visual"):
     src=INSURANCE_PHOTO if section=="Insurance" else BANK_PHOTO
-    alt="Lloyd’s of London underwriting room" if section=="Insurance" else "The Bank of England building in London"
+    alt="St Paul's Cathedral and the City of London" if section=="Insurance" else "The Bank of England building in London"
     return '<figure class="'+css_class+'"><img src="'+html.escape(src,quote=True)+'" alt="'+alt+'" loading="lazy" decoding="async"><figcaption>'+credit(section)+'</figcaption></figure>'
 
 def header(prefix="",active="",with_controls=False):
