@@ -32,6 +32,15 @@ def main(_budget):
  def ai(prompt):
   calls.append(prompt)
   assert prompt.startswith('ONE_PASS_NEWSROOM')
+  # These are safeguards against prompt drift, not proof of the model's factual accuracy.
+  for required in (
+   'source-grounded UK financial news', 'knowledgeable, considerate British reporter',
+   'commercially aware', 'Human means clarity and judgement',
+   'no clickbait', 'never invent an impact', 'ONLY where the source',
+   'proposals from final rules', 'do not represent a single source',
+   'Do not invent unsupported assertions',
+  ):
+   assert required.casefold() in prompt.casefold(),required
   packets=json.loads(prompt.split('SOURCE PACKETS:\n')[1]);assert len(packets)==2
   for packet in packets:assert packet['source_text']==docs[packet['url']].text
   return {'articles':[{'id':f'N{i+1:02}','article':{'headline':item['title'],'standfirst':'New service available.',
