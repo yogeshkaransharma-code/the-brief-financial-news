@@ -54,6 +54,27 @@ def verify():
         assert pages and all(page.read_text().count(BEACON_URL)==1 for page in pages), 'Analytics beacon missing from a page'
     else:
         assert all(BEACON_URL not in page.read_text() for page in pages), 'Unexpected analytics beacon before owner setup'
+    from xml.etree import ElementTree as ET
+    from seo_metadata import BASE
+    sitemap = public / 'sitemap.xml'
+    assert sitemap.is_file(), 'Missing public sitemap'
+    assert (public/'robots.txt').is_file() and BASE+'sitemap.xml' in (public/'robots.txt').read_text(), 'Missing sitemap discovery hint'
+    root = ET.parse(sitemap).getroot()
+    urls = [node.text for node in root.findall('.//{http://www.sitemaps.org/schemas/sitemap/0.9}loc')]
+    expected = {BASE, BASE+'about.html', BASE+'insurance.html', BASE+'banking.html',
+                BASE+'archive.html', BASE+'sources.html',BASE+'privacy.html'}
+    expected.update(BASE+'story/'+a['id']+'.html' for a in canonical)
+    expected.update(BASE+'edition/'+day+'.html' for day in {a['dateISO'] for a in canonical})
+    assert set(urls)==expected and len(urls)==len(set(urls)), 'Sitemap routes do not match real pages'
+    for uri in urls:
+        assert uri.startswith(BASE), 'Wrong sitemap host'
+        relative=uri.removeprefix(BASE) or 'index.html'
+        document=(public/relative).read_text(encoding='utf-8')
+        assert '<link rel="canonical" href="'+uri+'">' in document, 'Canonical mismatch: '+relative
+        assert '<meta property="og:title"' in document, 'Missing readable share title: '+relative
+    for a in canonical:
+        document=(public/'story'/(a['id']+'.html')).read_text(encoding='utf-8')
+        assert '"@type":"NewsArticle"' in document and '"citation":' in document, 'NewsArticle source metadata missing'
     current_home=re.sub(r'<section id="launch-edition".*?</section>','',home,flags=re.S)
     if 'id="launch-edition"' in home:
         assert 'Prepared retrospectively; actual publication times' in home
