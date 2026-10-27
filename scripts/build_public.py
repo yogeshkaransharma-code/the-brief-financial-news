@@ -12,6 +12,8 @@ from pathlib import Path
 from urllib.parse import quote
 from same_day_policy import published_same_day, clock, original_date, date_in_uk
 from site_design import desk_for, terms_for, header, footer as site_footer, visual
+from reader_experience import lead_article, other_briefs
+from reader_analytics import install as install_analytics, token_from_env
 import shutil
 import datetime as dt
 
@@ -106,11 +108,10 @@ def standalone_story(a):
 <main class="reader"><article>{note}<div class="kicker">{esc(section)} / THE BRIEF REPORT</div>
 <h1>{esc(a['title'])}</h1><p class="intro">{esc(a.get('short',''))}</p>
 <div class="meta">Original source date: <time datetime="{esc(a['dateISO'])}">{esc(news_date)}</time> · Published by The Brief: <time datetime="{esc(a['published_at'])}">{esc(publication_stamp)}</time> · {esc(a.get('source',''))}</div>
-{visual(section)}
 <div class="article-body">{article_body(a)}</div>
 {glossary_html}
 <div class="source tb-source-evidence"><h2>Original source</h2>
-<p>{esc(source_description)} This photograph is contextual imagery, not evidence of the reported event.</p>
+<p>{esc(source_description)} All consequential claims should be checked against the linked original before making decisions.</p>
 <a href="{esc(a['url'])}" target="_blank" rel="noopener noreferrer">{esc(a.get('source','Original publisher'))} — read the original source ↗</a></div>
 <p class="disclosure">{esc(disclosure)} <a href="../about.html">Our standards and corrections policy</a>. Not financial advice.</p>
 </article></main>{site_footer("../")}</body></html>"""
@@ -227,7 +228,7 @@ def build():
 
     page = insert_once(page,"<!-- HOURLY_DESK_INSERT -->","")
     latest = records[0] if records else None
-    first = latest
+    first = lead_article(records)
     # The repository retains a source-mode backup for broken JavaScript.
     # The published build already contains real, readable lead/feed HTML,
     # so NEVER copy the duplicate emergency article-list box into Pages.
@@ -254,7 +255,7 @@ def build():
         + '</span><div><span class="story-kind">FULL ARTICLE</span>'
         + '<a href="' + esc(story_href(a)) + '">' + esc(a["title"]) + '</a>'
         + '<p>' + esc(a.get("short", "")[:190]) + '</p></div></div>'
-        for i, a in enumerate(records[:3])
+        for i, a in enumerate(other_briefs(records, first))
     )
     if not briefing:
         briefing = '<p>No verified same-day stories to brief yet.</p>'
@@ -303,6 +304,23 @@ def build():
     if status_path.exists():shutil.copy2(status_path,OUT/"data/status.json")
     for a in archive:
         (OUT / story_href(a)).write_text(standalone_story(a), encoding="utf-8")
+    privacy_body = (
+        '<p class="intro">We want to understand which stories readers find useful without collecting unnecessary information about them.</p>'
+        '<h2>Website traffic measurement</h2>'
+        '<p>We use Cloudflare Web Analytics once the site owner has connected the service. It measures aggregated page views, visitor estimates, popular pages, broad geographic areas and referral sources. '
+        'Cloudflare states that its Web Analytics service does not use cookies or collect visitors’ personal data. '
+        'These statistics are estimates, not an exact count of every human reader. Browser blocking and automated traffic can affect measurements.</p>'
+        '<p>Until analytics is configured and the optional beacon is active, no audience figures are collected by this feature and we cannot reconstruct earlier visits.</p>'
+        '<h2>On-device reading preferences</h2>'
+        '<p>Saved stories and followed desk preferences may be stored in your browser so the reading experience works on that device. '
+        'We do not receive those lists through the analytics setup.</p>'
+        '<h2>Questions and corrections</h2>'
+        '<p>For a question about this website, or to report a factual error, see our <a href="about.html">About and corrections page</a>.</p>'
+    )
+    (OUT / "privacy.html").write_text(utility_page("Privacy and website measurement.", privacy_body), encoding="utf-8")
+    analytics_result = install_analytics(OUT, token_from_env())
+    print("READER_ANALYTICS:", json.dumps(analytics_result))
+
 
     # These assertions catch the actual failure the earlier smoke tests missed.
     built = (OUT / "index.html").read_text(encoding="utf-8")
