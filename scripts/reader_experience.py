@@ -11,20 +11,33 @@ ROUTINE = re.compile(r"\b(?:appoints|appointed|promotion|promotes|names|webinar|
 FOREIGN = re.compile(r"\b(?:US|U\.S\.|American|Florida|Georgia|California|New York|Utah|Boston|Hong Kong|APAC|Asia-Pacific)\b", re.I)
 
 def priority(a):
-    """Evidence-based UK/title relevance; small boost for substantive headlines."""
+    """Presentation-only proxy for practical UK significance, not fact-checking.
+
+    A regulator's name alone does not make a routine announcement the lead.
+    Evidence of wider customer or commercial impact counts more, while a
+    small appointment cannot automatically outrank substantive market news.
+    """
     title = str(a.get("title", ""))
     summary = str(a.get("short", ""))
     source = str(a.get("source", ""))
+    status = str(a.get("status", ""))
     points = 0
-    if UK.search(title):points += 14
-    elif UK.search(summary):points += 5
+    if UK.search(title):
+        points += 7
+    elif UK.search(summary):
+        points += 3
+    if re.search(r"\b(?:interest rates?|lending costs?|capital requirements?|new rules?|final rules?|regulatory change|claims costs?|profit warning|earnings|financial results|losses|underwriting|premiums?|reinsurance|merger|acquisition|insolvency|funding|business lending|customer redress)\b", title, re.I):
+        points += 7
+    if re.search(r"\b(?:customers?|policyholders?|borrowers?|brokers?|businesses|firms|households|employers|employees|lenders)\b", summary, re.I):
+        points += 3
     if re.search(r"\b(?:Financial Conduct Authority|Prudential Regulation Authority|Bank of England|FCA|PRA)\b", source, re.I):
-        points += 12
-    if BIG.search(title):points += 4
-    if ROUTINE.search(title):points -= 5
-    if FOREIGN.search(title) and not UK.search(title):points -= 4
-    # In particular, do not replace a newer relevant report with a much older one:
-    # the caller already supplies published articles from a single UK calendar day.
+        points += 2
+    if re.search(r"\b(?:published policy|confirmed announcement)\b", status, re.I):
+        points += 2
+    if ROUTINE.search(title):
+        points -= 11
+    if FOREIGN.search(title) and not UK.search(title):
+        points -= 6
     return points
 
 def lead_article(articles):
@@ -33,8 +46,23 @@ def lead_article(articles):
     return max(enumerate(articles), key=lambda pair:(priority(pair[1]), -pair[0]))[1]
 
 def other_briefs(articles, lead, limit=3):
-    if lead is None:return []
-    picks = [a for a in articles if a["id"] != lead["id"]]
-    # Preference for useful distinct sectors in short briefings, not artificial quotas.
-    chosen = picks[:limit]
-    return chosen if chosen else [lead]
+    """Up to three *other* reports, with both desks represented when available.
+
+    Do not repeat the hero or manufacture extra stories on a quiet news day.
+    Preserve the supplied newest-first order except when making room for
+    the other sector, and never fill space with archive articles.
+    """
+    if lead is None or limit <= 0:
+        return []
+    eligible = [a for a in articles if a["id"] != lead["id"]]
+    picked = eligible[:limit]
+    lead_sector = lead.get("desk_section") or lead.get("category")
+    if picked and lead_sector:
+        other = next((a for a in eligible
+                      if (a.get("desk_section") or a.get("category")) in {"Insurance", "Banking"}
+                      and (a.get("desk_section") or a.get("category")) != lead_sector), None)
+        if other is not None and all(a["id"] != other["id"] for a in picked):
+            picked[-1] = other
+            keep = {a["id"] for a in picked}
+            picked = [a for a in eligible if a["id"] in keep]
+    return picked

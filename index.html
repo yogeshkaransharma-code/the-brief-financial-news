@@ -194,19 +194,22 @@ function goHome(){location.hash='home';}
 function displayHome(){activeId='';$('home-view').hidden=false;$('article-view').hidden=true;document.title='The Brief — Insurance and banking, clearly.';window.scrollTo(0,scrollBefore)}
 function usefulSummary(s){const value=String(s.quick||s.short||s.excerpt||'').trim();return /^(author\s*:|this content is copyright|copyright notice|read more\b)/i.test(value)?'':value}
 function highlightScore(s){
- // Presentation-only prioritisation; no claim that relevance has been independently reviewed.
- const title=String(s.title||''),summary=String(s.short||''),source=String(s.source||'');
+ // Lightweight, explainable UK editorial triage, not a claim of human review.
+ const title=String(s.title||''),summary=String(s.short||''),source=String(s.source||''),status=String(s.status||'');
  const uk=/\b(?:UK|United Kingdom|British|Britain|England|English|Scottish|Scotland|Welsh|Wales|Northern Ireland|London|Manchester|Birmingham|Leeds|Bristol|FCA|PRA|Bank of England|Financial Ombudsman|Lloyd['’]?s of London|UK Budget)\b/i;
- const big=/\b(?:regulator|regulation|consultation|court rules|court ruling|acquisition|merger|earnings|results|profit|capital|underwriting|claims|insolvenc|business lending|interest rates|FCA|PRA|financial distress)\b/i;
+ const substantive=/\b(?:interest rates?|lending costs?|capital requirements?|new rules?|final rules?|regulatory change|claims costs?|profit warning|earnings|financial results|losses|underwriting|premiums?|reinsurance|merger|acquisition|insolvency|funding|business lending|customer redress)\b/i;
+ const audience=/\b(?:customers?|policyholders?|borrowers?|brokers?|businesses|firms|households|employers|employees|lenders)\b/i;
  const routine=/\b(?:appoints|appointed|promotion|promotes|names|webinar|award|shortlist|demo day)\b/i;
  const foreign=/\b(?:US|U\.S\.|American|Florida|Georgia|California|New York|Utah|Boston|Hong Kong|APAC|Asia-Pacific)\b/i;
  let points=0;
- if(uk.test(title))points+=14;
- else if(uk.test(summary))points+=5;
- if(/\b(?:Financial Conduct Authority|Prudential Regulation Authority|Bank of England|FCA|PRA)\b/i.test(source))points+=12;
- if(big.test(title))points+=4;
- if(routine.test(title))points-=5;
- if(foreign.test(title)&&!uk.test(title))points-=4;
+ if(uk.test(title))points+=7;
+ else if(uk.test(summary))points+=3;
+ if(substantive.test(title))points+=7;
+ if(audience.test(summary))points+=3;
+ if(/\b(?:Financial Conduct Authority|Prudential Regulation Authority|Bank of England|FCA|PRA)\b/i.test(source))points+=2;
+ if(/\b(?:published policy|confirmed announcement)\b/i.test(status))points+=2;
+ if(routine.test(title))points-=11;
+ if(foreign.test(title)&&!uk.test(title))points-=6;
  return points;
 }
 function rankHighlights(items){return [...items].sort((a,b)=>highlightScore(b)-highlightScore(a)||reportTime(b)-reportTime(a))}
@@ -229,8 +232,21 @@ function renderTop(){
  $('freshness').textContent='Latest article · '+new Date(latestPublication.published_at).toLocaleString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',timeZone:'Europe/London'});
  $('lead-story').innerHTML=`<span class="story-kicker">${safe(lead.desk_section||lead.category)} / THE LEAD STORY</span><h1><button type="button" class="headline-btn" data-open="${safe(lead.id)}">${safe(lead.title)}</button></h1><p class="standfirst">${safe(usefulSummary(lead))}</p><div class="meta">${meta(lead)}</div><button class="cta" type="button" data-open="${safe(lead.id)}">Read the full story →</button><small class="tb-hero-credit">Illustrative London photograph · <a href="https://commons.wikimedia.org/wiki/File:Big_Ben_after_sunset.jpg" target="_blank" rel="noopener noreferrer">hozinja / Wikimedia Commons, CC BY 2.0</a></small>`;
  const eligibleBriefs=originals.filter(item=>item.id!==lead.id && (briefingCategory==='All'||(item.desk_section||item.category)===briefingCategory));
- const picks=(eligibleBriefs.length?eligibleBriefs.slice(0,5):briefingCategory==='All'?[lead]:[]); // Avoid duplicating the lead when alternatives exist.
- $('briefing-stories').innerHTML=picks.length?picks.map((item,i)=>`<div class="briefing-story"><span class="brief-number">${new Date(item.published_at).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:'Europe/London'})}</span><div><span class="story-kind">FULL ARTICLE</span><button type="button" data-open="${safe(item.id)}">${safe(item.title)}</button><p>${safe(usefulSummary(item).slice(0,140))}</p></div></div>`).join(''):'<p class="tb-briefing-empty">No stories in this desk today.</p>';
+ let picks=eligibleBriefs.slice(0,3);
+ // Keep the lead distinct and show both sectors when today's available reports allow it.
+ if(briefingCategory==='All' && picks.length){
+   const leadDesk=lead.desk_section||lead.category;
+   const opposite=eligibleBriefs.find(item=>(item.desk_section||item.category)!==leadDesk);
+   if(opposite && !picks.some(item=>item.id===opposite.id)){
+     picks[picks.length-1]=opposite;
+     const ids=new Set(picks.map(item=>item.id));
+     picks=eligibleBriefs.filter(item=>ids.has(item.id));
+   }
+ }
+ $('briefing-stories').innerHTML=picks.length?picks.map(item=>{
+   const takeaway=String(item.reader_takeaway||'').trim();
+   return `<div class="briefing-story"><span class="brief-number">${new Date(item.published_at).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:'Europe/London'})}</span><div><span class="story-kind">FULL ARTICLE</span><button type="button" data-open="${safe(item.id)}">${safe(item.title)}</button><p>${safe(usefulSummary(item))}</p>${takeaway?`<p><strong>Why it matters:</strong> ${safe(takeaway)}</p>`:''}</div></div>`;
+ }).join(''):'<p class="tb-briefing-empty">'+(briefingCategory==='All'?'Our lead story is today’s only published report. No other developments have been added.':'No other stories in this desk today.')+'</p>';
 }
 function matchingItems(){let items=allItems();if(category!=='All')items=items.filter(s=>(s.desk_section||s.category)===category);if(savedOnly)items=items.filter(s=>saved.has(s.id));if(followingOnly)items=items.filter(s=>following.has(s.desk_section||s.category));if(query){const q=query.toLocaleLowerCase();items=items.filter(s=>[s.title,s.short,s.excerpt,s.source,s.category,(s.blocks||[]).map(x=>x.join(' ')).join(' ')].join(' ').toLowerCase().includes(q))}return items}
 function renderFeed(){const items=matchingItems();$('news-count').textContent=`${items.length} ${items.length===1?'article':'articles'}`;

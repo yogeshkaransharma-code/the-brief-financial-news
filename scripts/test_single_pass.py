@@ -38,12 +38,13 @@ def main(_budget):
    'commercially aware', 'Human means clarity and judgement',
    'no clickbait', 'never invent an impact', 'ONLY where the source',
    'proposals from final rules', 'do not represent a single source',
-   'Do not invent unsupported assertions',
+   'Do not invent unsupported assertions', 'reader_takeaway',
   ):
    assert required.casefold() in prompt.casefold(),required
   packets=json.loads(prompt.split('SOURCE PACKETS:\n')[1]);assert len(packets)==2
   for packet in packets:assert packet['source_text']==docs[packet['url']].text
   return {'articles':[{'id':f'N{i+1:02}','article':{'headline':item['title'],'standfirst':'New service available.',
+    'reader_takeaway':'Eligible customers can access the service through existing distribution channels.',
     'sections':[{'heading':'What changes','text':f"{item['source']} says the expanded service is available to eligible customers through its existing distribution channels. Applications remain subject to assessment and acceptance criteria. Existing contractual terms determine the insurance cover or finance available."}]}} for i,item in enumerate(items)]}
  with tempfile.TemporaryDirectory() as temp,patch('ai_cost_guard.time.sleep',lambda _:None),patch('newsroom_batches.review_batch',side_effect=AssertionError('Forbidden reviewer call')),patch('publish_autonomous.check',side_effect=AssertionError('Legacy editorial veto called')):
   root=Path(temp);(root/'data').mkdir();atomic_json(root/'data/articles.json',[])
@@ -68,11 +69,13 @@ def main(_budget):
   for article in articles:
    assert len(article['blocks'])==1 and len(article['blocks'][0][1].split())<80
    assert article['independent_review'] is False and 'reviewed_by' not in article
+   assert article['reader_takeaway'].startswith('Eligible customers can access'), 'Grounded reader takeaway lost'
    audit=json.loads((root/'data/editorial-audits'/(article['id']+'.json')).read_text())
    assert audit['review_mode']=='single_pass_source_based' and not audit['independent_claim_checks']
    page=standalone_story(article)
    assert 'No separate editorial fact-check has been carried out.' in page
    assert 'machine-screened' not in page and 'Written automatically' not in page
+   assert '<h3>Why it matters</h3>' in page, 'Grounded reader context missing from article'
   # Date/source integrity remains; no fact, heading or word-count review is called.
   state=Checkpoints(root/'generated-drafts').read(urls[0]);bundle=state['bundle']
   assert not eligible(bundle,now)
