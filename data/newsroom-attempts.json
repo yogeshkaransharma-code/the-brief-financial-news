@@ -2,29 +2,10 @@
   "api_budget": {
     "date": "2026-10-28",
     "timezone": "America/Los_Angeles",
-    "requests": 2,
+    "requests": 3,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-10-25T12:34:36.966654+00:00",
-      "prompt_characters": 10594,
-      "purpose": "production",
-      "result": "response_received",
-      "usage": {
-        "candidatesTokenCount": 487,
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 2132,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 2132
-          }
-        ],
-        "serviceTier": "standard",
-        "totalTokenCount": 2619
-      }
-    },
     {
       "at": "2026-10-25T12:34:51.969172+00:00",
       "prompt_characters": 15039,
@@ -1889,6 +1870,25 @@
           {
             "modality": "TEXT",
             "tokenCount": 912
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-28T09:50:43.501001+00:00",
+      "result": "response_received",
+      "prompt_characters": 6949,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 1427,
+        "candidatesTokenCount": 207,
+        "totalTokenCount": 1634,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1427
           }
         ],
         "serviceTier": "standard"
@@ -3802,6 +3802,31 @@
       "attempted_at": "2026-10-28T08:52:07.037910+00:00",
       "retry_after": "2026-10-29T09:52:07.037910+00:00",
       "headline": "Nordea: Investors should still care about the energy transition"
+    },
+    "https://www.reinsurancene.ws/renre-trims-property-book-as-underwriting-result-offsets-losses-in-casualty-and-specialty-segment/": {
+      "attempted_at": "2026-10-28T09:50:06.540866+00:00",
+      "retry_after": "2026-10-29T10:50:06.540866+00:00",
+      "headline": "RenRe trims property book as underwriting result offsets losses in casualty and specialty segment"
+    },
+    "https://www.wsj.com/finance/banking/ai-boom-drives-a-jump-in-lending-but-bankers-still-sound-cautious-78bd7a58": {
+      "attempted_at": "2026-10-28T09:50:06.540866+00:00",
+      "retry_after": "2026-10-29T10:50:06.540866+00:00",
+      "headline": "AI Boom Drives a Jump in Lending, but Bankers Still Sound Cautious"
+    },
+    "https://www.wsj.com/real-estate/home-buyers-who-enjoyed-cheap-adjustable-mortgages-are-now-getting-a-nasty-shock-6c5cf3fe": {
+      "attempted_at": "2026-10-28T09:50:06.540866+00:00",
+      "retry_after": "2026-10-29T10:50:06.540866+00:00",
+      "headline": "Home Buyers Who Enjoyed Cheap Adjustable Mortgages Are Now Getting a Nasty Shock"
+    },
+    "https://www.marketwatch.com/story/we-are-in-our-70s-should-we-pay-off-our-2-5-mortgage-or-build-up-our-savings-5a35e9c1": {
+      "attempted_at": "2026-10-28T09:50:06.540866+00:00",
+      "retry_after": "2026-10-29T10:50:06.540866+00:00",
+      "headline": "We are in our 70s. Should we pay off our 2.5% mortgage or build up our savings?"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-28/turkey-cancels-license-of-brokerage-at-heart-of-fund-crisis": {
+      "attempted_at": "2026-10-28T09:50:06.540866+00:00",
+      "retry_after": "2026-10-29T10:50:06.540866+00:00",
+      "headline": "Turkey Cancels License of Brokerage at Heart of Fund Crisis"
     }
   },
   "sources": {
@@ -3935,14 +3960,14 @@
       "alternative_search_after": "2026-10-26T12:46:19.889029+00:00"
     },
     "https://www.bbc.co.uk/news/articles/c6x2zrjl7kjno": {
-      "attempted_at": "2026-10-28T06:52:08.336000+00:00",
-      "retry_after": "2026-10-28T08:52:08.336000+00:00",
+      "attempted_at": "2026-10-28T09:50:06.540866+00:00",
+      "retry_after": "2026-10-28T11:50:06.540866+00:00",
       "last_result": "Original document was not announced today in the UK",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
       "failures": 8,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-28T10:52:08.336000+00:00"
+      "alternative_search_after": "2026-10-28T13:50:06.540866+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-26/world-bank-somalia-low-tax-revenue-key-fiscal-challenge": {
       "attempted_at": "2026-10-26T06:49:02.534221+00:00",
@@ -4106,13 +4131,14 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.professionalpensions.com/news/4057232/live-blog-pensions-news-digest": {
-      "attempted_at": "2026-10-26T10:41:23.275343+00:00",
-      "retry_after": "2026-10-26T12:41:23.275343+00:00",
+      "attempted_at": "2026-10-28T09:50:06.540866+00:00",
+      "retry_after": "2026-10-28T11:50:06.540866+00:00",
       "last_result": "Original document was not announced today in the UK",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-28T13:50:06.540866+00:00"
     },
     "https://www.commercialriskonline.com/starr-opens-milan-office-as-part-of-european-expansion/": {
       "attempted_at": "2026-10-26T10:41:23.275343+00:00",
@@ -4815,24 +4841,22 @@
       "alternative_search_after": "2026-10-28T12:52:07.037910+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-28/us-friendly-nations-slash-treasury-purchases-by-60-led-by-asia": {
-      "attempted_at": "2026-10-28T03:45:10.072987+00:00",
-      "retry_after": "2026-10-28T09:45:10.072987+00:00",
+      "attempted_at": "2026-10-28T09:50:06.540866+00:00",
+      "retry_after": "2026-10-28T15:50:06.540866+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-28T11:58:18.626515+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-10-28/chinese-government-to-speed-bond-sales-to-stimulate-growth": {
-      "attempted_at": "2026-10-28T03:45:10.072987+00:00",
-      "retry_after": "2026-10-28T09:45:10.072987+00:00",
+      "attempted_at": "2026-10-28T09:50:06.540866+00:00",
+      "retry_after": "2026-10-28T15:50:06.540866+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-28T12:00:42.001135+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.wsj.com/finance/banking/standard-chartered-quarterly-net-profit-jumps-raises-income-guidance-22a84a62": {
       "attempted_at": "2026-10-28T05:43:10.287764+00:00",
@@ -4922,6 +4946,43 @@
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1",
       "alternative_search_after": "2026-10-28T12:52:07.037910+00:00"
+    },
+    "https://www.wsj.com/finance/banking/ai-boom-drives-a-jump-in-lending-but-bankers-still-sound-cautious-78bd7a58": {
+      "attempted_at": "2026-10-28T09:50:06.540866+00:00",
+      "retry_after": "2026-10-28T15:50:06.540866+00:00",
+      "last_result": "HTTP Error 401: HTTP Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-28T13:50:06.540866+00:00"
+    },
+    "https://www.wsj.com/real-estate/home-buyers-who-enjoyed-cheap-adjustable-mortgages-are-now-getting-a-nasty-shock-6c5cf3fe": {
+      "attempted_at": "2026-10-28T09:50:06.540866+00:00",
+      "retry_after": "2026-10-28T15:50:06.540866+00:00",
+      "last_result": "HTTP Error 401: HTTP Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-28/turkey-cancels-license-of-brokerage-at-heart-of-fund-crisis": {
+      "attempted_at": "2026-10-28T09:50:06.540866+00:00",
+      "retry_after": "2026-10-28T15:50:06.540866+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.commercialriskonline.com/indian-insurance-managers-enjoy-falling-rates-and-plenty-of-capacity/": {
+      "attempted_at": "2026-10-28T09:50:06.540866+00:00",
+      "retry_after": "2026-10-28T10:05:06.540866+00:00",
+      "last_result": "The read operation timed out",
+      "classification": "TEMPORARY_FAILURE",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     }
   },
   "version": 2,
