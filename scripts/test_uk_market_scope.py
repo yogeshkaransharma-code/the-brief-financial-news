@@ -12,6 +12,12 @@ def main():
         article("Guidewire agrees to buy hyperexponential for US$1.7 billion",
             "Guidewire will acquire the London-based pricing and underwriting platform."),
         article("UK bank changes mortgage rates", "The UK lender updated mortgages."),
+        article("Chancellor announces plans for cash ISA allowances",
+            "The Chancellor is expected to retain the cash ISA allowance.",
+            body="The Treasury said the cash ISA allowance will remain available to British savers."),
+        article("Chancellor delivers Budget with pledges on living costs and ISAs",
+            "The Chancellor announced support on household energy bills and ISAs.",
+            body="The government dropped plans to cut the Cash ISA allowance from £20,000 to £12,000."),
         article("International insurer expands UK underwriting capacity",
             "The insurer will add UK underwriting capacity for London market brokers."),
         article("San Francisco MGA seeks London market capacity",
@@ -34,6 +40,8 @@ def main():
                 body="UK-based LRQA acquired a Hong Kong supply chain auditing firm to expand in Asia."),
         article("UK publisher reports Texas lawsuit","The Texas Attorney General has sued a company.","https://www.insurancebusinessmag.com/uk/news/industry/texas-lawsuit.aspx"),
         article("Aviva opens US specialty insurance unit","The British insurer says the new unit operates in California."),
+        article("US fiscal budget includes new savings products","The American government revised its local tax-free accounts.",
+                body="The American budget concerns savings accounts in California, not UK cash ISAs."),
         article("US insurer reports results", "Markets in the United Kingdom also have insurers."),
     ]
     for row in yes:

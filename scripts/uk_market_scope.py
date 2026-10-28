@@ -21,7 +21,7 @@ UK = re.compile(
 FINANCE = re.compile(
     r"\b(?:insur\w*|broker\w*|underwrit\w*|reinsur\w*|MGA|Lloyd['’]s|pension\w*|"
     r"bank\w*|lending|loan\w*|mortgage\w*|credit|finance|financ\w*|payment\w*|"
-    r"investment\w*|asset manager\w*|fund\w*|wealth|tax\w*|Budget|regulat\w*|"
+    r"investment\w*|asset manager\w*|fund\w*|wealth|tax\w*|Budget|ISAs?|Chancellor|Treasury|regulat\w*|"
     r"claims?|premiums?|interest rates?|econom\w*|inflation|savings?|business\w*)\b",re.I)
 # A clear foreign subject cannot borrow an incidental mention of the UK.
 FOREIGN_HEADLINE = re.compile(
@@ -61,6 +61,14 @@ FOREIGN_UK_ACTION = re.compile(
     r"regulat\w*|operat\w*|withdraw\w*|target\w*|reduc\w*|increas\w*|"
     r"enter\w*|sell\w*|settle\w*|clos\w*|fund\w*|deliver\w*|seek\w*|secur\w*)\b", re.I)
 
+# Cash ISAs and the British fiscal institutions behind UK Budget decisions are
+# domestic financial subjects even when a journalist's headline omits "UK".
+# They must be evidenced in the report itself, not merely appended by AI.
+UK_FINANCIAL_POLICY = re.compile(
+    r"\b(?:cash\s+ISAs?|ISAs?|ISA\s+allowance|individual\s+savings\s+accounts?|"
+    r"HM\s+Treasury|Chancellor\s+of\s+the\s+Exchequer)\b",re.I
+)
+
 UK_AUTHORITIES = {
     "fca.org.uk", "bankofengland.co.uk", "thepensionsregulator.gov.uk",
     "financial-ombudsman.org.uk", "ukfinance.org.uk", "abi.org.uk"
@@ -85,7 +93,7 @@ def uk_market_reason(item, source_text=""):
         return ""
     if host in UK_AUTHORITIES:
         return "UK financial authority publication"
-    if source_text and not UK.search(excerpt[:2200]):
+    if source_text and not (UK.search(excerpt[:2200]) or UK_FINANCIAL_POLICY.search(excerpt[:2200])):
         return ""  # UK assertion in a candidate headline alone is not evidence
     if FOREIGN_HEADLINE.search(title):
         # A comparison or passing reference to London is insufficient. Only
@@ -97,6 +105,8 @@ def uk_market_reason(item, source_text=""):
                 if FOREIGN_UK_ACTION.search(neighbourhood):
                     return "Overseas development with explicitly evidenced UK-market consequence"
         return ""
+    if UK_FINANCIAL_POLICY.search(title_short) and (not source_text or UK_FINANCIAL_POLICY.search(excerpt[:2200])):
+        return "UK-specific savings product or Treasury policy established in the report"
     if UK.search(title):
         return "UK financial-market subject identified in headline"
     if UK_EFFECT.search(short):
