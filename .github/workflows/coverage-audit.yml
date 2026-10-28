@@ -39,7 +39,11 @@ jobs:
           git config user.name "The Brief Coverage Audit"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/coverage-audit.json
-          git commit -m "Record independent publisher coverage comparison"
+          if git diff --cached --quiet; then
+            echo "Coverage audit unchanged; nothing to commit."
+            exit 0
+          fi
+          git commit -m "Record independent publisher coverage comparison [skip ci]"
           for attempt in 1 2 3; do
             git pull --rebase origin main
             if git push origin HEAD:main; then
