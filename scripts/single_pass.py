@@ -23,7 +23,7 @@ def prompt(pairs):
         'ONE_PASS_NEWSROOM\n'
         'Read each complete source once and write one original, source-grounded UK financial news article per supplied ID. '
         'Return each ID once in JSON: {"articles":[{"id":"N01","article":{"headline":"...",'
-        '"standfirst":"...","sections":[{"heading":"...","text":"..."}]}}]}. '
+        '"standfirst":"...","reader_takeaway":"...","sections":[{"heading":"...","text":"..."}]}}]}. '
         'You are writing for people who work in UK insurance and banking and for interested newcomers. '
         'Write like a knowledgeable, considerate British reporter explaining something to a real person: '
         'clear, calm, direct, approachable and commercially aware. Never try to sound clever, grand, corporate, '
@@ -37,6 +37,11 @@ def prompt(pairs):
         'give major regulatory, underwriting, distribution, banking, claims or transaction developments fuller explanation '
         'when the source supports it. No fixed word count: typically 120–300 words for a substantive source, '
         'and shorter for a small announcement. Never pad, paraphrase the same fact repeatedly, or force multiple sections. '
+        'Provide an optional reader_takeaway of at most 25 words: a distinct, practical, source-grounded explanation '
+        'of why this particular development matters, not a repeated headline. Return an empty string when the '
+        'source does not establish such a consequence. Do not add commentary to manufacture a takeaway. '
+        'In the article body, make the development clear first, then its supported implications and any '
+        'confirmed next step. Use a natural heading for these only when the evidence warrants it. '
         'Explain who is affected and why it matters in practical commercial or customer terms ONLY where the source '
         'actually supports that consequence. If not established, leave it out. Never invent an impact, forecast, '
         'competitive consequence, industry consensus, reaction, next step, quote, interview, figure or historical context. '
@@ -72,6 +77,10 @@ def article_from(output,item,doc):
     summary=output.get('standfirst',output.get('short'))
     if not isinstance(summary,str) or not summary.strip():summary=re.split(r'(?<=[.!?])\s+',blocks[0][1])[0]
     summary=summary.strip()
+    takeaway=output.get('reader_takeaway','')
+    if not isinstance(takeaway,str) or len(takeaway.split())>25:
+        takeaway=''
+    takeaway=takeaway.strip()
     attribution=publisher(item['url']) or item['source']
     if attribution.casefold() not in summary.casefold():summary=f'According to {attribution}, '+summary[0].lower()+summary[1:]
     return {'id':'ai-'+identity(item['url']),'kind':'original','category':item['category'],
@@ -79,7 +88,8 @@ def article_from(output,item,doc):
             'source_published_at':item.get('source_published_at',item.get('published_at',item['dateISO'])),
             'date_evidence':item.get('date_evidence'),'source_time_precision':item.get('source_time_precision','date'),
             'source_url':doc.url,'url':doc.url,'status':status_from_url(item['url'],item['title']),
-            'title':title,'short':summary,'quick':summary,'lead':summary,'blocks':blocks,'glossary':[],
+            'title':title,'short':summary,'quick':summary,'lead':summary,'reader_takeaway':takeaway,
+            'blocks':blocks,'glossary':[],
             'reading':f"{max(1,round(sum(len(p.split()) for _,p in blocks)/210))} min read",
             'ai_assisted':True,'independent_review':False,'editorial_status':'DRAFT: single-pass source-based writing'}
 
