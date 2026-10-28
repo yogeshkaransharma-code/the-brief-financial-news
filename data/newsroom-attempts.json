@@ -2,29 +2,10 @@
   "api_budget": {
     "date": "2026-10-28",
     "timezone": "America/Los_Angeles",
-    "requests": 6,
+    "requests": 7,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-10-25T12:41:00.347330+00:00",
-      "prompt_characters": 5798,
-      "purpose": "production",
-      "result": "response_received",
-      "usage": {
-        "candidatesTokenCount": 104,
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 1507,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 1507
-          }
-        ],
-        "serviceTier": "standard",
-        "totalTokenCount": 1611
-      }
-    },
     {
       "at": "2026-10-25T12:51:49.409684+00:00",
       "prompt_characters": 5798,
@@ -1889,6 +1870,25 @@
           {
             "modality": "TEXT",
             "tokenCount": 1997
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-28T14:55:10.842404+00:00",
+      "result": "response_received",
+      "prompt_characters": 17703,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 3903,
+        "candidatesTokenCount": 903,
+        "totalTokenCount": 4806,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 3903
           }
         ],
         "serviceTier": "standard"
@@ -4022,6 +4022,66 @@
       "attempted_at": "2026-10-28T13:58:56.571433+00:00",
       "retry_after": "2026-10-29T14:58:56.571433+00:00",
       "headline": "Healey confirms plan to protect low-income pensioners from tax bill"
+    },
+    "https://www.bloomberg.com/news/videos/2026-10-28/uk-budget-lacked-big-picture-themes-rbc-capital-says-video": {
+      "attempted_at": "2026-10-28T14:54:39.219215+00:00",
+      "retry_after": "2026-10-29T15:54:39.219215+00:00",
+      "headline": "UK Budget Lacked 'Big Picture Themes,' RBC Capital Says"
+    },
+    "https://www.theguardian.com/business/2026/oct/28/obr-slashes-uk-growth-forecast-for-2027-despite-healey-budget-measures": {
+      "attempted_at": "2026-10-28T14:54:39.219215+00:00",
+      "retry_after": "2026-10-29T15:54:39.219215+00:00",
+      "headline": "OBR slashes UK growth forecast for 2027 despite Healey’s budget measures"
+    },
+    "https://www.bloomberg.com/news/videos/2026-10-28/healey-raises-uk-banks-tax-vows-to-keep-finances-stable-video": {
+      "attempted_at": "2026-10-28T14:54:39.219215+00:00",
+      "retry_after": "2026-10-29T15:54:39.219215+00:00",
+      "headline": "Healey Raises UK Banks Tax, Vows to Keep Finances Stable"
+    },
+    "https://www.professionalpensions.com/news/4538013/budget-26-government-remove-tax-rule-lump-sum-death-benefits": {
+      "attempted_at": "2026-10-28T14:54:39.219215+00:00",
+      "retry_after": "2026-10-29T15:54:39.219215+00:00",
+      "headline": "Budget 26: Government to remove two-year tax rule on lump sum death benefits"
+    },
+    "https://www.professionalpensions.com/news/4538009/budget-26-government-confirms-changes-hmrc-terminal-illness-definition": {
+      "attempted_at": "2026-10-28T14:54:39.219215+00:00",
+      "retry_after": "2026-10-29T15:54:39.219215+00:00",
+      "headline": "Budget 26: Government confirms changes to HMRC terminal illness definition"
+    },
+    "https://www.professionalpensions.com/news/4538007/budget-26-government-confirms-changes-dc-consolidation-retirement-frameworks": {
+      "attempted_at": "2026-10-28T14:54:39.219215+00:00",
+      "retry_after": "2026-10-29T15:54:39.219215+00:00",
+      "headline": "Budget 26: Government confirms changes for DC consolidation and retirement frameworks"
+    },
+    "https://www.insurancejournal.com/news/national/2026/10/28/890610.htm": {
+      "attempted_at": "2026-10-28T14:54:39.219215+00:00",
+      "retry_after": "2026-10-29T15:54:39.219215+00:00",
+      "headline": "Trucking Companies Confront Mounting Diesel, Insurance, Debt Costs"
+    },
+    "https://www.reinsurancene.ws/diversification-a-key-driver-of-strong-reinsurance-organic-growth-aons-marcell/": {
+      "attempted_at": "2026-10-28T14:54:39.219215+00:00",
+      "retry_after": "2026-10-29T15:54:39.219215+00:00",
+      "headline": "Diversification a key driver of strong reinsurance organic growth: Aon’s Marcell"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-28/barclays-turns-to-insurers-to-hedge-billions-of-data-center-debt": {
+      "attempted_at": "2026-10-28T14:54:39.219215+00:00",
+      "retry_after": "2026-10-29T15:54:39.219215+00:00",
+      "headline": "Barclays Turns to Insurers to Hedge Billions of Data Center Debt"
+    },
+    "https://news.sky.com/story/jpmorgan-chase-faces-100m-plus-tax-bill-from-healey-raid-13604869": {
+      "attempted_at": "2026-10-28T14:54:39.219215+00:00",
+      "retry_after": "2026-10-29T15:54:39.219215+00:00",
+      "headline": "JPMorgan Chase faces £100m-plus tax bill from Healey raid"
+    },
+    "https://www.finextra.com/pressarticle/111483/handelsbanken-norway-taps-tieto-banktech-for-asset-management-portal": {
+      "attempted_at": "2026-10-28T14:54:39.219215+00:00",
+      "retry_after": "2026-10-29T15:54:39.219215+00:00",
+      "headline": "Handelsbanken Norway taps Tieto Banktech for asset management portal"
+    },
+    "https://www.finextra.com/pressarticle/111480/singapore-payments-network-appoints-ceo-and-board": {
+      "attempted_at": "2026-10-28T14:54:39.219215+00:00",
+      "retry_after": "2026-10-29T15:54:39.219215+00:00",
+      "headline": "Singapore Payments Network appoints CEO and board"
     }
   },
   "sources": {
@@ -4155,14 +4215,14 @@
       "alternative_search_after": "2026-10-26T12:46:19.889029+00:00"
     },
     "https://www.bbc.co.uk/news/articles/c6x2zrjl7kjno": {
-      "attempted_at": "2026-10-28T12:53:24.350826+00:00",
-      "retry_after": "2026-10-28T14:53:24.350826+00:00",
+      "attempted_at": "2026-10-28T14:54:39.219215+00:00",
+      "retry_after": "2026-10-28T16:54:39.219215+00:00",
       "last_result": "Original document was not announced today in the UK",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
       "failures": 8,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-28T16:53:24.350826+00:00"
+      "alternative_search_after": "2026-10-28T18:54:39.219215+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-26/world-bank-somalia-low-tax-revenue-key-fiscal-challenge": {
       "attempted_at": "2026-10-26T06:49:02.534221+00:00",
@@ -4326,14 +4386,13 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.professionalpensions.com/news/4057232/live-blog-pensions-news-digest": {
-      "attempted_at": "2026-10-28T12:53:24.350826+00:00",
-      "retry_after": "2026-10-28T14:53:24.350826+00:00",
+      "attempted_at": "2026-10-28T14:54:39.219215+00:00",
+      "retry_after": "2026-10-28T16:54:39.219215+00:00",
       "last_result": "Original document was not announced today in the UK",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
-      "failures": 3,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-28T16:53:24.350826+00:00"
+      "failures": 4,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.commercialriskonline.com/starr-opens-milan-office-as-part-of-european-expansion/": {
       "attempted_at": "2026-10-26T10:41:23.275343+00:00",
@@ -4507,14 +4566,13 @@
       "alternative_search_after": "2026-10-27T03:08:36.146333+00:00"
     },
     "https://www.professionalpensions.com/news/4045103/people-moves": {
-      "attempted_at": "2026-10-27T23:42:11.323286+00:00",
-      "retry_after": "2026-10-28T01:42:11.323286+00:00",
+      "attempted_at": "2026-10-28T14:54:39.219215+00:00",
+      "retry_after": "2026-10-28T16:54:39.219215+00:00",
       "last_result": "Original document was not announced today in the UK",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
       "failures": 8,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-28T03:42:11.323286+00:00"
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.wsj.com/business/financial-services-roundup-market-talk-8a90f511": {
       "attempted_at": "2026-10-26T16:46:48.943368+00:00",
@@ -5117,24 +5175,22 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.finextra.com/newsarticle/48658/clearstream-makes-tokenised-fund-distribution-move": {
-      "attempted_at": "2026-10-28T08:52:07.037910+00:00",
-      "retry_after": "2026-10-28T14:52:07.037910+00:00",
+      "attempted_at": "2026-10-28T14:54:39.219215+00:00",
+      "retry_after": "2026-10-28T20:54:39.219215+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-28T12:52:07.037910+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.finextra.com/newsarticle/48656/zumo-and-quantum-chain-partner-up-to-fight-quantum-threats": {
-      "attempted_at": "2026-10-28T08:52:07.037910+00:00",
-      "retry_after": "2026-10-28T14:52:07.037910+00:00",
+      "attempted_at": "2026-10-28T14:54:39.219215+00:00",
+      "retry_after": "2026-10-28T20:54:39.219215+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-28T12:52:07.037910+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.wsj.com/finance/banking/ai-boom-drives-a-jump-in-lending-but-bankers-still-sound-cautious-78bd7a58": {
       "attempted_at": "2026-10-28T09:50:06.540866+00:00",
@@ -5319,14 +5375,13 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.insuranceage.co.uk/insight/7959069/mbp-takes-minority-stake-in-ps32m-gwp-broker": {
-      "attempted_at": "2026-10-28T12:53:24.350826+00:00",
-      "retry_after": "2026-10-28T14:53:24.350826+00:00",
+      "attempted_at": "2026-10-28T14:54:39.219215+00:00",
+      "retry_after": "2026-10-28T16:54:39.219215+00:00",
       "last_result": "Original document has no unambiguous publication date; listing/RSS date is insufficient",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-28T16:53:24.350826+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-10-28/trans-oil-bonds-drop-as-agricultural-firm-delays-audited-results": {
       "attempted_at": "2026-10-28T12:53:24.350826+00:00",
@@ -5386,6 +5441,35 @@
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1",
       "alternative_search_after": "2026-10-28T17:58:56.571433+00:00"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-28/barclays-turns-to-insurers-to-hedge-billions-of-data-center-debt": {
+      "attempted_at": "2026-10-28T14:54:39.219215+00:00",
+      "retry_after": "2026-10-28T20:54:39.219215+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-28T18:54:39.219215+00:00"
+    },
+    "https://news.sky.com/story/jpmorgan-chase-faces-100m-plus-tax-bill-from-healey-raid-13604869": {
+      "attempted_at": "2026-10-28T14:54:39.219215+00:00",
+      "retry_after": "2026-10-28T20:54:39.219215+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-28T18:54:39.219215+00:00"
+    },
+    "https://www.finextra.com/newsarticle/48662/coinbase-says-customer-contact-data-exposed-in-third-party-breach": {
+      "attempted_at": "2026-10-28T14:54:39.219215+00:00",
+      "retry_after": "2026-10-28T20:54:39.219215+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     }
   },
   "version": 2,
