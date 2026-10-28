@@ -24,7 +24,12 @@ def main():
             assert page.locator('#lead-story').is_visible()
             assert 'The 60-second Brief' in page.locator('#briefing-title').inner_text(), 'The agreed quick-catch-up label is not visible'
             assert 'Latest reporting' in page.locator('#latest h2').inner_text(), 'The agreed reporting list is not visible'
-            assert page.locator('.tb-sector-visual strong').all_inner_texts()==['Explore Insurance.','Explore Banking.'], 'Desk gateways are stale'
+            assert page.locator('.tb-sector-visual').count()==0, 'Duplicate sector banners still clutter the homepage'
+            assert page.locator('#briefing-tabs,#chips').count()==0, 'Duplicate sector-choice controls remain'
+            assert page.locator('#feed .news-photo').count()==0, 'Generic stock image thumbnails still compete with news'
+            assert page.locator('.tb-nav a').all_inner_texts()==['Home','Insurance','Banking','About'], 'Unified navigation is missing'
+            assert page.locator('.tb-nav a[aria-current="page"]').inner_text()=='Home', 'Home navigation state is missing'
+            assert page.evaluate("getComputedStyle(document.querySelector('.tb-nav')).display")=='flex', 'Navigation ribbon is not laid out as a single unit'
             assert page.locator('#feed .news-item').count()==len(today[:10]),'Visible today count differs'
             visible='\n'.join(page.locator('#lead-story,#briefing-stories,#feed').all_inner_texts())
             for a in articles:
@@ -36,7 +41,7 @@ def main():
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'),'Homepage overflows viewport'
             assert page.locator('#publisher-desk').count()==0,'External publisher headlines leaked into the publication'
             assert page.locator('.tb-nav a').count()==4,'Navigation must include Home, Insurance, Banking and About'
-            assert page.locator('.tb-sector-visual').count()==2,'Insurance and banking imagery missing'
+            assert page.locator('.tb-sector-visual').count()==0,'Repeated desk panels still exist'
             assert page.locator('#context').is_visible(), 'New here explainers are hidden'
             assert page.locator('#explainer-list .explainer').count()==2, 'One explainer per desk is required'
             assert 'insurance and one banking' in page.locator('#explainer-date').inner_text().lower(), 'Explainer rotation text wrong'
@@ -47,7 +52,10 @@ def main():
 
             assert page.locator('a[href="status.html"]').count()==0,'Technical dashboard link leaked'
             page.screenshot(path=str(OUT/f'home-{width}.png'),full_page=True)
-            page.locator('.tb-sector-visual[href="banking.html"]').click()
+            if today and width==390:
+                assert page.evaluate("getComputedStyle(document.querySelector('#feed')).gridTemplateColumns.split(' ').length")==1, 'Mobile Latest Reporting is not one readable column'
+                assert page.evaluate("parseFloat(getComputedStyle(document.querySelector('#feed .news-item h3')).fontSize)")>=24, 'Mobile headlines are too small'
+            page.locator('.tb-nav a[href="banking.html"]').click()
             assert page.locator('h1').inner_text()=='Banking.','Banking page missing'
             assert page.locator('article[data-category="Banking"]').count()==sum(desk_for(a)=='Banking' for a in today),'Banking page has missing or misplaced reports'
             assert page.locator('article[data-category="Insurance"]').count()==0,'Insurance articles wrongly shown under banking'
@@ -95,7 +103,8 @@ def main():
             assert page.locator('[data-source-row]:visible').count()>0,'Source registry search failed'
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'),'Source registry overflows viewport'
             page.goto(SITE+'about.html',wait_until='domcontentloaded',timeout=60000)
-            assert page.locator('.tb-nav a').count()==3
+            assert page.locator('.tb-nav a').count()==4
+            assert page.locator('.tb-nav a[aria-current="page"]').inner_text()=='About'
             assert page.locator('a[href="status.html"]').count()==0
             assert page.locator('.tb-about-images img').count()==2
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'),'About page overflows viewport'

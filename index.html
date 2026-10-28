@@ -68,8 +68,8 @@
 <body class="tb-home">
 <a class="skip" href="#latest">Skip to the news</a>
 <header class="tb-header"><div class="tb-utility"><div class="tb-utility-inner"><span><i class="tb-utility-marker"></i> THE UK INSURANCE &amp; BANKING DESK</span><span id="edition-date">INDEPENDENT UK NEWS</span></div></div>
-<div class="tb-mast"><div><a class="tb-logo" href="#home" id="logo">THE BRIEF<span>.</span></a><p class="tb-tag">UK FINANCIAL NEWS</p></div>
-<nav class="tb-nav" aria-label="Primary navigation"><a href="index.html" aria-current="page">Home</a><a href="insurance.html">Insurance</a><a href="banking.html">Banking</a><a href="about.html">About</a><button id="search-toggle" aria-label="Search articles" title="Search articles" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg></button><button id="saved-toggle" hidden type="button">Saved <span id="saved-number">0</span></button></nav></div><div class="tb-divider"></div><span id="freshness" hidden></span></header>
+<div class="tb-mast"><div class="tb-brand"><a class="tb-logo" href="#home" id="logo">THE BRIEF<span>.</span></a><p class="tb-tag">INSURANCE AND BANKING, CLEARLY EXPLAINED.</p></div></div>
+<nav class="tb-nav tb-section-nav" aria-label="Primary navigation"><a href="index.html" aria-current="page">Home</a><a href="insurance.html">Insurance</a><a href="banking.html">Banking</a><a href="about.html">About</a><button id="search-toggle" aria-label="Search articles" title="Search articles" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg></button><button id="saved-toggle" hidden type="button">Saved <span id="saved-number">0</span></button></nav><div class="tb-divider"></div><span id="freshness" hidden></span></header>
 <div id="search-panel" class="search-panel" hidden><div class="container search-inner"><label for="search" class="sr-only">Search all stories</label><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 5 5"/></svg><input id="search" type="search" placeholder="Search companies, subjects or headlines" autocomplete="off"><button type="button" id="clear-search">Clear</button></div></div>
 <main id="home-view" class="container">
   <div class="issue-heading"><span>THE DAILY EDITION</span><span id="issue-date">TODAY</span></div>
@@ -82,22 +82,16 @@
     <aside class="one-minute" id="briefing" aria-labelledby="briefing-title">
       <div class="minute-head"><div><span class="minute-kicker">TODAY IN 60 SECONDS</span><h2 id="briefing-title">The 60-second Brief<span>.</span></h2></div><span class="clock-icon" aria-hidden="true">↗</span></div>
       <p class="minute-intro">The developments worth your attention, in a minute.</p>
-      <div class="tb-briefing-tabs" id="briefing-tabs" aria-label="Filter latest stories"><button type="button" class="active" aria-pressed="true" data-briefing-filter="All">All</button><button type="button" aria-pressed="false" data-briefing-filter="Insurance">Insurance</button><button type="button" aria-pressed="false" data-briefing-filter="Banking">Banking</button></div><div id="briefing-stories" class="briefing-stories"></div>
+      <div id="briefing-stories" class="briefing-stories"></div>
       <a href="#latest" class="minute-footer">Read the full reports <span aria-hidden="true">↗</span></a>
     </aside>
   </section>
-  <div class="tb-intro-band" aria-label="The two editorial sections"><span>EXPLORE THE TWO DESKS</span><span>ONE PUBLICATION. TWO SPECIALISMS.</span></div>
-  <section class="tb-sector-visuals" aria-label="Insurance and banking reporting">
-    <div><a class="tb-sector-visual" href="insurance.html"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/St_Paul%27s_Cathedral_from_Tate_Modern_2018-01-31.jpg/960px-St_Paul%27s_Cathedral_from_Tate_Modern_2018-01-31.jpg" loading="lazy" decoding="async" alt="St Paul’s Cathedral in the City of London"><span class="tb-sector-overlay"><small>INSURANCE</small><strong>Explore Insurance.</strong><em>Regulation, markets and the people shaping UK insurance.</em><span class="tb-arrow" aria-hidden="true">↗</span></span></a><p class="tb-photo-credit">Image: <a href="https://commons.wikimedia.org/wiki/File:St_Paul%27s_Cathedral_from_Tate_Modern_2018-01-31.jpg" target="_blank" rel="noopener noreferrer">Colin / Wikimedia Commons · CC BY-SA</a> · illustrative photo, not event evidence</p></div>
-    <div><a class="tb-sector-visual" href="banking.html"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Skyline_of_London_in_September_2024.jpg/960px-Skyline_of_London_in_September_2024.jpg" loading="lazy" decoding="async" alt="The City of London financial skyline"><span class="tb-sector-overlay"><small>BANKING</small><strong>Explore Banking.</strong><em>UK banks, lenders, the economy and financial markets.</em><span class="tb-arrow" aria-hidden="true">↗</span></span></a><p class="tb-photo-credit">Image: <a href="https://commons.wikimedia.org/wiki/File:Skyline_of_London_in_September_2024.jpg" target="_blank" rel="noopener noreferrer">Choinowski / Wikimedia Commons · CC BY-SA 4.0</a> · sector illustration</p></div>
-  </section>
   <section id="latest" class="news-section" aria-label="Latest news">
-    <div class="news-heading"><div><span class="section-kicker">THE REPORTING DESK</span><h2>Latest reporting<span>.</span></h2><p>Today’s UK insurance and banking reports. Read the full story, understand why it matters, and check the original source.</p></div><div class="news-count" id="news-count"></div></div>
-    <div class="filterbar" aria-label="Filter news"><div class="chips" id="chips"><button type="button" class="chip active" data-category="All">Everything</button><button type="button" class="chip" data-category="Insurance">Insurance</button><button type="button" class="chip" data-category="Banking">Banking</button></div><select id="order" aria-label="Sort stories"><option value="newest">Newest first</option><option value="oldest">Oldest first</option></select></div>
+    <div class="news-heading"><div><span class="section-kicker">THE REPORTING DESK</span><h2>Latest reporting<span>.</span></h2><p>The full stories across UK insurance and banking. Choose a headline, understand the context and check its original source.</p></div><div class="reporting-tools"><div class="news-count" id="news-count"></div><label for="order" class="sr-only">Sort reporting</label><select id="order" aria-label="Sort reporting"><option value="newest">Newest first</option><option value="oldest">Oldest first</option></select></div></div>
     <div id="special-filter-note" class="filter-note" hidden></div>
     <div class="news-grid"><div class="feed" id="feed"></div><aside class="desk-side" hidden><div class="sidebar-box"><span class="section-kicker">YOUR READING DESK</span><h3>Keep the useful stuff.</h3><p>Save a story to come back to it. Follow a subject and we'll keep it to hand on this device.</p><div id="follow-buttons" class="follow-buttons"></div><button class="textlink" id="following-toggle">Show my followed subjects →</button></div><div class="sidebar-box quiet"><span class="section-kicker">HOW WE WORK</span><h3>Clear reporting, properly sourced.</h3><p>Every published story has a named source. We explain our reporting method and limitations on the About page.</p><button class="textlink" id="open-about">About The Brief →</button></div></aside></div>
     <button id="show-more" type="button" class="more-button" hidden>More stories <span>↓</span></button>
-    <p id="nothing" class="nothing" hidden>No verified reports dated today in the UK have been published yet.</p>
+    <p id="nothing" class="nothing" hidden>No reports published today. <a href="archive.html">Read earlier editions</a>.</p>
   </section>
 
   <section id="context" class="understand" aria-label="Understand the basics">
@@ -213,28 +207,21 @@ function highlightScore(s){
  return points;
 }
 function rankHighlights(items){return [...items].sort((a,b)=>highlightScore(b)-highlightScore(a)||reportTime(b)-reportTime(a))}
-let briefingCategory='All';
-$('briefing-tabs').addEventListener('click',e=>{
- const button=e.target.closest('[data-briefing-filter]');if(!button)return;
- briefingCategory=button.dataset.briefingFilter;
- $('briefing-tabs').querySelectorAll('button').forEach(x=>{const active=x===button;x.classList.toggle('active',active);x.setAttribute('aria-pressed',String(active))});
- renderTop();
-});
 function renderTop(){
  const originals=sortItems(published.filter(x=>x.ai_assisted&&x.publication_method==='autonomous'&&currentDayArticle(x)));
  const lead=rankHighlights(originals)[0];
  if(!lead){
-   $('lead-story').innerHTML='<span class="story-kicker">THE BRIEF / YOUR UK FINANCIAL DESK</span><h1>UK insurance and banking. Understood.</h1><p class="standfirst">No verified same-day reports have been published yet. While the newsroom looks for today’s developments, explore the financial basics.</p><a class="cta" href="#context">Start with the essentials →</a>';
-   $('briefing-stories').innerHTML='<div class="tb-empty-guide"><p>No UK-market report has been published today.</p><a href="#context"><b>INSURANCE</b><span>Understand brokers, underwriting and cover →</span></a><a href="#context"><b>BANKING</b><span>Understand lending, savings and interest rates →</span></a><a href="archive.html"><b>EARLIER REPORTS</b><span>Explore clearly dated previous editions →</span></a></div>';
+   $('lead-story').innerHTML='<span class="story-kicker">THE BRIEF / YOUR UK FINANCIAL DESK</span><h1>Understand the news that shapes your money.</h1><p class="standfirst">Today’s lead report is still being prepared. Explore earlier reporting or build your financial knowledge below.</p><a class="cta" href="archive.html">Explore earlier reporting →</a>';
+   $('briefing-stories').innerHTML='<div class="tb-empty-guide"><p>While today’s briefing is being prepared:</p><a href="archive.html"><b>ARCHIVE</b><span>Read previous editions →</span></a><a href="#context"><b>EXPLAINERS</b><span>Understand financial basics →</span></a></div>';
    return;
  }
  const latestPublication=[...originals].sort((a,b)=>reportTime(b)-reportTime(a))[0];
  $('freshness').textContent='Latest article · '+new Date(latestPublication.published_at).toLocaleString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',timeZone:'Europe/London'});
- $('lead-story').innerHTML=`<span class="story-kicker">${safe(lead.desk_section||lead.category)} / THE LEAD STORY</span><h1><button type="button" class="headline-btn" data-open="${safe(lead.id)}">${safe(lead.title)}</button></h1><p class="standfirst">${safe(usefulSummary(lead))}</p><div class="meta">${meta(lead)}</div><button class="cta" type="button" data-open="${safe(lead.id)}">Read the full story →</button><small class="tb-hero-credit">Illustrative London photograph · <a href="https://commons.wikimedia.org/wiki/File:Big_Ben_after_sunset.jpg" target="_blank" rel="noopener noreferrer">hozinja / Wikimedia Commons, CC BY 2.0</a></small>`;
- const eligibleBriefs=originals.filter(item=>item.id!==lead.id && (briefingCategory==='All'||(item.desk_section||item.category)===briefingCategory));
+ $('lead-story').innerHTML=`<span class="story-kicker">${safe(lead.desk_section||lead.category)} / THE LEAD STORY</span><h1><button type="button" class="headline-btn" data-open="${safe(lead.id)}">${safe(lead.title)}</button></h1><p class="standfirst">${safe(usefulSummary(lead))}</p><div class="meta">${meta(lead)}</div><button class="cta" type="button" data-open="${safe(lead.id)}">Read the full story →</button>`;
+ const eligibleBriefs=originals.filter(item=>item.id!==lead.id);
  let picks=eligibleBriefs.slice(0,3);
  // Keep the lead distinct and show both sectors when today's available reports allow it.
- if(briefingCategory==='All' && picks.length){
+ if(picks.length){
    const leadDesk=lead.desk_section||lead.category;
    const opposite=eligibleBriefs.find(item=>(item.desk_section||item.category)!==leadDesk);
    if(opposite && !picks.some(item=>item.id===opposite.id)){
@@ -246,19 +233,13 @@ function renderTop(){
  $('briefing-stories').innerHTML=picks.length?picks.map(item=>{
    const takeaway=String(item.reader_takeaway||'').trim();
    return `<div class="briefing-story"><span class="brief-number">${new Date(item.published_at).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:'Europe/London'})}</span><div><span class="story-kind">FULL ARTICLE</span><button type="button" data-open="${safe(item.id)}">${safe(item.title)}</button><p>${safe(usefulSummary(item))}</p>${takeaway?`<p><strong>Why it matters:</strong> ${safe(takeaway)}</p>`:''}</div></div>`;
- }).join(''):'<p class="tb-briefing-empty">'+(briefingCategory==='All'?'Our lead story is today’s only published report. No other developments have been added.':'No other stories in this desk today.')+'</p>';
+ }).join(''):'<p class="tb-briefing-empty">Our lead story is today’s only published report. No other developments have been added.</p>';
 }
 function matchingItems(){let items=allItems();if(category!=='All')items=items.filter(s=>(s.desk_section||s.category)===category);if(savedOnly)items=items.filter(s=>saved.has(s.id));if(followingOnly)items=items.filter(s=>following.has(s.desk_section||s.category));if(query){const q=query.toLocaleLowerCase();items=items.filter(s=>[s.title,s.short,s.excerpt,s.source,s.category,(s.blocks||[]).map(x=>x.join(' ')).join(' ')].join(' ').toLowerCase().includes(q))}return items}
 function renderFeed(){const items=matchingItems();$('news-count').textContent=`${items.length} ${items.length===1?'article':'articles'}`;
  const rows=items.slice(0,limit).map((s,i)=>{
     const desk=(s.desk_section||s.category)==='Banking'?'Banking':'Insurance';
-    const photos=[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Banco_de_Inglaterra%2C_Londres%2C_Inglaterra%2C_2014-08-11%2C_DD_141_%28cropped%29.JPG/960px-Banco_de_Inglaterra%2C_Londres%2C_Inglaterra%2C_2014-08-11%2C_DD_141_%28cropped%29.JPG',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Skyline_of_London_in_September_2024.jpg/960px-Skyline_of_London_in_September_2024.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/St_Paul%27s_Cathedral_from_Tate_Modern_2018-01-31.jpg/960px-St_Paul%27s_Cathedral_from_Tate_Modern_2018-01-31.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/f/fc/Big_Ben_after_sunset.jpg'];
-    const imageSrc=photos[i%photos.length];
-    return `<article class="news-item" data-desk="${safe(desk)}"><a href="story/${encodeURIComponent(s.id)}.html" class="news-photo"><img src="${imageSrc}" alt="Illustrative London sector photograph, not a picture of this event" loading="lazy" decoding="async"><span>Sector photograph</span></a><div class="story-ordinal">${String(i+1).padStart(2,'0')}</div><div><div class="news-cat">${safe(s.desk_section||s.category)} &nbsp;·&nbsp; <span class="story-kind ${s.kind==='original'?'':'source'}">${s.kind==='original'?'OUR REPORT':'SOURCE UPDATE'}</span> ${isNew(s)?'<span class="new-chip">NEW</span>':''}</div><h3><button class="headline-btn" type="button" data-open="${safe(s.id)}">${safe(s.title)}</button></h3><p class="summary">${safe(s.short||s.excerpt||'Source update available to read.')}</p><div class="meta">${meta(s)}</div></div><button aria-label="${saved.has(s.id)?'Remove saved story':'Save story'}" title="${saved.has(s.id)?'Remove saved':'Save for later'}" class="news-bookmark ${saved.has(s.id)?'on':''}" type="button" data-save="${safe(s.id)}">${saved.has(s.id)?'★':'☆'}</button></article>`}).join('');
+    return `<article class="news-item" data-desk="${safe(desk)}"><div class="story-ordinal">${String(i+1).padStart(2,'0')}</div><div><div class="news-cat">${safe(s.desk_section||s.category)} &nbsp;·&nbsp; <span class="story-kind ${s.kind==='original'?'':'source'}">${s.kind==='original'?'OUR REPORT':'SOURCE UPDATE'}</span> ${isNew(s)?'<span class="new-chip">NEW</span>':''}</div><h3><button class="headline-btn" type="button" data-open="${safe(s.id)}">${safe(s.title)}</button></h3><p class="summary">${safe(s.short||s.excerpt||'Source update available to read.')}</p><div class="meta">${meta(s)}</div></div><button aria-label="${saved.has(s.id)?'Remove saved story':'Save story'}" title="${saved.has(s.id)?'Remove saved':'Save for later'}" class="news-bookmark ${saved.has(s.id)?'on':''}" type="button" data-save="${safe(s.id)}">${saved.has(s.id)?'★':'☆'}</button></article>`}).join('');
  $('feed').innerHTML=rows;$('nothing').hidden=items.length>0;$('show-more').hidden=items.length<=limit;
  const note=$('special-filter-note');note.hidden=!(savedOnly||followingOnly);note.textContent=savedOnly?'Showing saved stories on this device. Select “Saved” again to see everything.':'Showing the subjects you follow on this device. Select “Show all news” to reset.';
  document.querySelectorAll('[data-category]').forEach(b=>{b.classList.toggle('active',b.dataset.category===category);b.setAttribute('aria-pressed',String(b.dataset.category===category))});
