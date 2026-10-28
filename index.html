@@ -246,7 +246,7 @@ function renderTop(){
  $('briefing-stories').innerHTML=picks.length?picks.map(item=>{
    const takeaway=String(item.reader_takeaway||'').trim();
    return `<div class="briefing-story"><span class="brief-number">${new Date(item.published_at).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:'Europe/London'})}</span><div><span class="story-kind">FULL ARTICLE</span><button type="button" data-open="${safe(item.id)}">${safe(item.title)}</button><p>${safe(usefulSummary(item))}</p>${takeaway?`<p><strong>Why it matters:</strong> ${safe(takeaway)}</p>`:''}</div></div>`;
- }).join('):'<p class="tb-briefing-empty">'+(briefingCategory==='All'?'Our lead story is today’s only published report. No other developments have been added.':'No other stories in this desk today.')+'</p>';
+ }).join(''):'<p class="tb-briefing-empty">'+(briefingCategory==='All'?'Our lead story is today’s only published report. No other developments have been added.':'No other stories in this desk today.')+'</p>';
 }
 function matchingItems(){let items=allItems();if(category!=='All')items=items.filter(s=>(s.desk_section||s.category)===category);if(savedOnly)items=items.filter(s=>saved.has(s.id));if(followingOnly)items=items.filter(s=>following.has(s.desk_section||s.category));if(query){const q=query.toLocaleLowerCase();items=items.filter(s=>[s.title,s.short,s.excerpt,s.source,s.category,(s.blocks||[]).map(x=>x.join(' ')).join(' ')].join(' ').toLowerCase().includes(q))}return items}
 function renderFeed(){const items=matchingItems();$('news-count').textContent=`${items.length} ${items.length===1?'article':'articles'}`;
