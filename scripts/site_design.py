@@ -85,10 +85,10 @@ def visual(section,*,css_class="tb-article-visual"):
     return '<figure class="'+css_class+'"><img src="'+html.escape(src,quote=True)+'" alt="'+alt+'" loading="lazy" decoding="async"><figcaption>'+credit(section)+'</figcaption></figure>'
 
 def header(prefix="",active="",with_controls=False):
-    nav="".join('<a href="'+prefix+target+'"'+(' aria-current="page"' if active==name else '')+'>'+name+'</a>' for name,target in (("Insurance","insurance.html"),("Banking","banking.html"),("About","about.html")))
+    nav="".join('<a href="'+prefix+target+'"'+(' aria-current="page"' if active==name else '')+'>'+name+'</a>' for name,target in (("Home","index.html"),("Insurance","insurance.html"),("Banking","banking.html"),("About","about.html")))
     controls=('<button id="search-toggle" aria-label="Search articles" title="Search articles" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg></button><button hidden id="saved-toggle" type="button">Saved <span id="saved-number">0</span></button>' if with_controls else "")
     return ('<header class="tb-header"><div class="tb-utility"><div class="tb-utility-inner"><span><i class="tb-utility-marker"></i> THE UK INSURANCE &amp; BANKING DESK</span><span id="edition-date">INDEPENDENT UK NEWS</span></div></div>'
-    '<div class="tb-mast"><div><a class="tb-logo" href="'+prefix+'index.html"'+(' id="logo"' if with_controls else '')+'>THE BRIEF<span>.</span></a><p class="tb-tag">INSURANCE. BANKING. UNDERSTOOD.</p></div>'
+    '<div class="tb-mast"><div><a class="tb-logo" href="'+prefix+'index.html"'+(' id="logo"' if with_controls else '')+'>THE BRIEF<span>.</span></a><p class="tb-tag">UK FINANCIAL NEWS</p></div>'
     '<nav class="tb-nav" aria-label="Primary navigation">'+nav+controls+'</nav></div><div class="tb-divider"></div><span id="freshness" hidden></span></header>')
 
 def footer(prefix="",with_controls=False):
