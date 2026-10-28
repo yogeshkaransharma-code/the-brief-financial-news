@@ -35,7 +35,7 @@ def verify():
         scripts=re.findall(r'<script([^>]*)>(.*?)</script>', home, flags=re.S|re.I)
         with tempfile.TemporaryDirectory() as tmp:
             for i,(attrs,source) in enumerate(scripts):
-                if 'application/json' in attrs or not source.strip():continue
+                if re.search(r'type\s*=\s*["\'][^"\']*json',attrs,re.I) or not source.strip():continue
                 path=Path(tmp)/(f'home-{i}.js')
                 path.write_text(source,encoding='utf-8')
                 result=subprocess.run([node,'--check',str(path)],capture_output=True,text=True)
