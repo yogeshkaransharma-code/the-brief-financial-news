@@ -96,7 +96,7 @@ def verify():
             assert 'sector illustration, not event evidence' in story, 'Illustrative image not clearly distinguished from reporting'
             assert '<figcaption>' in story and 'commons.wikimedia.org' in story, 'Illustrative image lacks licensing/attribution'
         for h,p in a['blocks']:assert html.escape(h,quote=True) in story and html.escape(p,quote=True) in story
-    if not edition:assert 'No verified news from today yet' in home
+    if not edition:assert 'No verified same-day reports have been published yet' in home and 'Start with the essentials' in home, 'Empty edition must remain truthful and provide useful reading'
     assert not (public/'data/live.json').exists() and 'data/live.json' not in home
     assert not (public/'status.html').exists(), 'Internal newsroom dashboard accidentally published'
     assert not (public/'hourly.html').exists(), 'Duplicate hourly reading page was published'
