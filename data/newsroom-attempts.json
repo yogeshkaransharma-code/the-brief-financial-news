@@ -2,29 +2,10 @@
   "api_budget": {
     "date": "2026-10-28",
     "timezone": "America/Los_Angeles",
-    "requests": 5,
+    "requests": 6,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-10-25T12:35:21.975015+00:00",
-      "prompt_characters": 10815,
-      "purpose": "production",
-      "result": "response_received",
-      "usage": {
-        "candidatesTokenCount": 816,
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 2344,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 2344
-          }
-        ],
-        "serviceTier": "standard",
-        "totalTokenCount": 3160
-      }
-    },
     {
       "at": "2026-10-25T12:41:00.347330+00:00",
       "prompt_characters": 5798,
@@ -1893,6 +1874,25 @@
         ],
         "serviceTier": "standard"
       }
+    },
+    {
+      "at": "2026-10-28T12:53:41.367781+00:00",
+      "result": "response_received",
+      "prompt_characters": 9477,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 1997,
+        "candidatesTokenCount": 281,
+        "totalTokenCount": 2278,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1997
+          }
+        ],
+        "serviceTier": "standard"
+      }
     }
   ],
   "capacity_recovery_revision": 2,
@@ -2694,9 +2694,9 @@
       "retry_after": "2026-10-25T19:12:08.932052+00:00"
     },
     "https://www.bbc.co.uk/news/articles/c6x2zrjl7kjno": {
-      "attempted_at": "2026-10-27T11:13:19.401206+00:00",
-      "retry_after": "2026-10-28T12:13:19.401206+00:00",
-      "headline": "What is the Budget and what could be in it?"
+      "attempted_at": "2026-10-28T12:53:24.350826+00:00",
+      "retry_after": "2026-10-29T13:53:24.350826+00:00",
+      "headline": "Energy bill help, minimum wage rise and bank taxes - what could be in the Budget?"
     },
     "https://www.reinsurancene.ws/verdant-rock-secures-dual-agency-coverage-with-morningstar-dbrs-credit-rating/": {
       "attempted_at": "2026-10-26T06:09:23.440140+00:00",
@@ -3927,6 +3927,51 @@
       "attempted_at": "2026-10-28T11:42:59.656335+00:00",
       "retry_after": "2026-10-29T12:42:59.656335+00:00",
       "headline": "Mortgage professionals invited to join Mortgage Solutions’ Movember campaign"
+    },
+    "https://www.theguardian.com/uk-news/live/2026/oct/28/budget-2026-latest-updates-john-healey-andy-burnham-labour-uk-politics": {
+      "attempted_at": "2026-10-28T12:53:24.350826+00:00",
+      "retry_after": "2026-10-29T13:53:24.350826+00:00",
+      "headline": "Budget 2026 live: Healey delivers first budget of Burnham’s government"
+    },
+    "https://www.theguardian.com/uk-news/2026/oct/28/budget-2026-key-points-john-healey": {
+      "attempted_at": "2026-10-28T12:53:24.350826+00:00",
+      "retry_after": "2026-10-29T13:53:24.350826+00:00",
+      "headline": "Budget 2026: key points at a glance"
+    },
+    "https://www.reinsurancene.ws/falvey-insurance-reshapes-finance-leadership-and-expands-cargo-underwriting-team/": {
+      "attempted_at": "2026-10-28T12:53:24.350826+00:00",
+      "retry_after": "2026-10-29T13:53:24.350826+00:00",
+      "headline": "Falvey Insurance reshapes finance leadership and expands cargo underwriting team"
+    },
+    "https://www.insurancejournal.com/news/international/2026/10/28/890561.htm": {
+      "attempted_at": "2026-10-28T12:53:24.350826+00:00",
+      "retry_after": "2026-10-29T13:53:24.350826+00:00",
+      "headline": "Korea Financial Firms Hit By More Hacks as Asia Breaches Grow"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-28/trans-oil-bonds-drop-as-agricultural-firm-delays-audited-results": {
+      "attempted_at": "2026-10-28T12:53:24.350826+00:00",
+      "retry_after": "2026-10-29T13:53:24.350826+00:00",
+      "headline": "Trans-Oil Bonds Drop as Agricultural Firm Delays Audited Results"
+    },
+    "https://www.insuranceage.co.uk/insight/7959069/mbp-takes-minority-stake-in-ps32m-gwp-broker": {
+      "attempted_at": "2026-10-28T12:53:24.350826+00:00",
+      "retry_after": "2026-10-29T13:53:24.350826+00:00",
+      "headline": "MBP takes minority stake in £32m GWP broker"
+    },
+    "https://www.finextra.com/newsarticle/48659/zencom-and-mastercard-expand-pay-by-bank-for-merchants-and-consumers-across-europe": {
+      "attempted_at": "2026-10-28T12:53:24.350826+00:00",
+      "retry_after": "2026-10-29T13:53:24.350826+00:00",
+      "headline": "Zen.com and Mastercard expand Pay By Bank for merchants and consumers across Europe"
+    },
+    "https://www.finextra.com/blogposting/33324/why-fintech-growth-depends-more-on-infrastructure-than-innovation": {
+      "attempted_at": "2026-10-28T12:53:24.350826+00:00",
+      "retry_after": "2026-10-29T13:53:24.350826+00:00",
+      "headline": "Why Fintech Growth Depends More on Infrastructure Than Innovation"
+    },
+    "https://www.finextra.com/blogposting/33320/from-credit-history-to-financial-reality-the-next-evolution-of-lending-decisions": {
+      "attempted_at": "2026-10-28T12:53:24.350826+00:00",
+      "retry_after": "2026-10-29T13:53:24.350826+00:00",
+      "headline": "From Credit History to Financial Reality: The Next Evolution of Lending Decisions"
     }
   },
   "sources": {
@@ -4060,14 +4105,14 @@
       "alternative_search_after": "2026-10-26T12:46:19.889029+00:00"
     },
     "https://www.bbc.co.uk/news/articles/c6x2zrjl7kjno": {
-      "attempted_at": "2026-10-28T09:50:06.540866+00:00",
-      "retry_after": "2026-10-28T11:50:06.540866+00:00",
+      "attempted_at": "2026-10-28T12:53:24.350826+00:00",
+      "retry_after": "2026-10-28T14:53:24.350826+00:00",
       "last_result": "Original document was not announced today in the UK",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
       "failures": 8,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-28T13:50:06.540866+00:00"
+      "alternative_search_after": "2026-10-28T16:53:24.350826+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-26/world-bank-somalia-low-tax-revenue-key-fiscal-challenge": {
       "attempted_at": "2026-10-26T06:49:02.534221+00:00",
@@ -4231,14 +4276,14 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.professionalpensions.com/news/4057232/live-blog-pensions-news-digest": {
-      "attempted_at": "2026-10-28T09:50:06.540866+00:00",
-      "retry_after": "2026-10-28T11:50:06.540866+00:00",
+      "attempted_at": "2026-10-28T12:53:24.350826+00:00",
+      "retry_after": "2026-10-28T14:53:24.350826+00:00",
       "last_result": "Original document was not announced today in the UK",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
-      "failures": 2,
+      "failures": 3,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-28T13:50:06.540866+00:00"
+      "alternative_search_after": "2026-10-28T16:53:24.350826+00:00"
     },
     "https://www.commercialriskonline.com/starr-opens-milan-office-as-part-of-european-expansion/": {
       "attempted_at": "2026-10-26T10:41:23.275343+00:00",
@@ -4958,14 +5003,13 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.wsj.com/finance/banking/standard-chartered-quarterly-net-profit-jumps-raises-income-guidance-22a84a62": {
-      "attempted_at": "2026-10-28T05:43:10.287764+00:00",
-      "retry_after": "2026-10-28T11:43:10.287764+00:00",
+      "attempted_at": "2026-10-28T12:53:24.350826+00:00",
+      "retry_after": "2026-10-28T18:53:24.350826+00:00",
       "last_result": "HTTP Error 401: HTTP Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-28T09:43:10.287764+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-10-28/korea-financial-firms-hit-by-more-hacks-as-asia-breaches-grow": {
       "attempted_at": "2026-10-28T05:43:10.287764+00:00",
@@ -4978,34 +5022,31 @@
       "alternative_search_after": "2026-10-28T09:43:10.287764+00:00"
     },
     "https://www.wsj.com/finance/banking/ubs-profit-climbs-as-wealth-management-inflows-increase-868e9b5f": {
-      "attempted_at": "2026-10-28T06:52:08.336000+00:00",
-      "retry_after": "2026-10-28T12:52:08.336000+00:00",
+      "attempted_at": "2026-10-28T12:53:24.350826+00:00",
+      "retry_after": "2026-10-28T18:53:24.350826+00:00",
       "last_result": "HTTP Error 401: HTTP Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-28T10:52:08.336000+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-10-28/jpmorgan-private-bank-s-tang-sees-more-downside-risk-for-gold": {
-      "attempted_at": "2026-10-28T06:52:08.336000+00:00",
-      "retry_after": "2026-10-28T12:52:08.336000+00:00",
+      "attempted_at": "2026-10-28T12:53:24.350826+00:00",
+      "retry_after": "2026-10-28T18:53:24.350826+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-28T10:52:08.336000+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-10-28/deutsche-bank-s-fixed-income-trading-meets-estimate-in-quarter": {
-      "attempted_at": "2026-10-28T06:52:08.336000+00:00",
-      "retry_after": "2026-10-28T12:52:08.336000+00:00",
+      "attempted_at": "2026-10-28T12:53:24.350826+00:00",
+      "retry_after": "2026-10-28T18:53:24.350826+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-28T11:58:18.626515+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.wsj.com/finance/investing/u-s-treasury-yields-rise-ahead-of-federal-reserve-interest-rate-decision-b1f7ef58": {
       "attempted_at": "2026-10-28T07:58:18.626515+00:00",
@@ -5163,16 +5204,6 @@
       "policy": "newsroom-recovery-2026-10-26-v1",
       "alternative_search_after": "2026-10-28T15:15:37.432814+00:00"
     },
-    "https://www.investmentweek.co.uk/news/4537955/budget-26-chancellor-promises-breathing-space-maiden-budget-amid-global-uncertainty": {
-      "attempted_at": "2026-10-28T11:15:37.432814+00:00",
-      "retry_after": "2026-10-28T11:30:37.432814+00:00",
-      "last_result": "HTTP Error 503: Service Unavailable",
-      "classification": "TEMPORARY_FAILURE",
-      "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-28T15:15:37.432814+00:00"
-    },
     "https://news.sky.com/story/ex-city-minister-raises-millions-for-ai-insurance-start-up-i23-13604753": {
       "attempted_at": "2026-10-28T11:42:59.656335+00:00",
       "retry_after": "2026-10-28T17:42:59.656335+00:00",
@@ -5234,6 +5265,34 @@
       "retry_after": "2026-10-28T15:42:59.656335+00:00",
       "last_result": "Insufficient official article content (0 characters); cannot responsibly draft",
       "classification": "EVIDENCE_UNUSABLE",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.insuranceage.co.uk/insight/7959069/mbp-takes-minority-stake-in-ps32m-gwp-broker": {
+      "attempted_at": "2026-10-28T12:53:24.350826+00:00",
+      "retry_after": "2026-10-28T14:53:24.350826+00:00",
+      "last_result": "Original document has no unambiguous publication date; listing/RSS date is insufficient",
+      "classification": "DATE_UNVERIFIED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-28T16:53:24.350826+00:00"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-28/trans-oil-bonds-drop-as-agricultural-firm-delays-audited-results": {
+      "attempted_at": "2026-10-28T12:53:24.350826+00:00",
+      "retry_after": "2026-10-28T18:53:24.350826+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.finextra.com/newsarticle/48659/zencom-and-mastercard-expand-pay-by-bank-for-merchants-and-consumers-across-europe": {
+      "attempted_at": "2026-10-28T12:53:24.350826+00:00",
+      "retry_after": "2026-10-28T18:53:24.350826+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
       "stage": "source",
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1"
