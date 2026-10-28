@@ -80,7 +80,7 @@ UK_SPECIALIST_HOSTS = {
 }
 UK_POLICY = re.compile(
     r"\b(?:OBR|Office for Budget Responsibility|HMRC|HM Treasury|"
-    r"Chancellor of the Exchequer|cash ISAs?|individual savings accounts?|"
+    r"Chancellor of the Exchequer|ISAs?|individual savings accounts?|"
     r"VCTs?|venture capital trusts?|pension triple lock|"
     r"Mineworkers.? Pension Scheme|Pension Protection Fund)\b", re.I)
 
