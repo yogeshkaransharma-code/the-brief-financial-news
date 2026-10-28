@@ -229,8 +229,21 @@ function renderTop(){
  $('freshness').textContent='Latest article · '+new Date(latestPublication.published_at).toLocaleString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',timeZone:'Europe/London'});
  $('lead-story').innerHTML=`<span class="story-kicker">${safe(lead.desk_section||lead.category)} / THE LEAD STORY</span><h1><button type="button" class="headline-btn" data-open="${safe(lead.id)}">${safe(lead.title)}</button></h1><p class="standfirst">${safe(usefulSummary(lead))}</p><div class="meta">${meta(lead)}</div><button class="cta" type="button" data-open="${safe(lead.id)}">Read the full story →</button><small class="tb-hero-credit">Illustrative London photograph · <a href="https://commons.wikimedia.org/wiki/File:Big_Ben_after_sunset.jpg" target="_blank" rel="noopener noreferrer">hozinja / Wikimedia Commons, CC BY 2.0</a></small>`;
  const eligibleBriefs=originals.filter(item=>item.id!==lead.id && (briefingCategory==='All'||(item.desk_section||item.category)===briefingCategory));
- const picks=(eligibleBriefs.length?eligibleBriefs.slice(0,5):briefingCategory==='All'?[lead]:[]); // Avoid duplicating the lead when alternatives exist.
- $('briefing-stories').innerHTML=picks.length?picks.map((item,i)=>`<div class="briefing-story"><span class="brief-number">${new Date(item.published_at).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:'Europe/London'})}</span><div><span class="story-kind">FULL ARTICLE</span><button type="button" data-open="${safe(item.id)}">${safe(item.title)}</button><p>${safe(usefulSummary(item).slice(0,140))}</p></div></div>`).join(''):'<p class="tb-briefing-empty">No stories in this desk today.</p>';
+ let picks=eligibleBriefs.slice(0,3);
+ // Keep the lead distinct and show both sectors when today's available reports allow it.
+ if(briefingCategory==='All' && picks.length){
+   const leadDesk=lead.desk_section||lead.category;
+   const opposite=eligibleBriefs.find(item=>(item.desk_section||item.category)!==leadDesk);
+   if(opposite && !picks.some(item=>item.id===opposite.id)){
+     picks[picks.length-1]=opposite;
+     const ids=new Set(picks.map(item=>item.id));
+     picks=eligibleBriefs.filter(item=>ids.has(item.id));
+   }
+ }
+ $('briefing-stories').innerHTML=picks.length?picks.map(item=>{
+   const takeaway=String(item.reader_takeaway||'').trim();
+   return `<div class="briefing-story"><span class="brief-number">${new Date(item.published_at).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:'Europe/London'})}</span><div><span class="story-kind">FULL ARTICLE</span><button type="button" data-open="${safe(item.id)}">${safe(item.title)}</button><p>${safe(usefulSummary(item))}</p>${takeaway?`<p><strong>Why it matters:</strong> ${safe(takeaway)}</p>`:''}</div></div>`;
+ }).join('):'<p class="tb-briefing-empty">'+(briefingCategory==='All'?'Our lead story is today’s only published report. No other developments have been added.':'No other stories in this desk today.')+'</p>';
 }
 function matchingItems(){let items=allItems();if(category!=='All')items=items.filter(s=>(s.desk_section||s.category)===category);if(savedOnly)items=items.filter(s=>saved.has(s.id));if(followingOnly)items=items.filter(s=>following.has(s.desk_section||s.category));if(query){const q=query.toLocaleLowerCase();items=items.filter(s=>[s.title,s.short,s.excerpt,s.source,s.category,(s.blocks||[]).map(x=>x.join(' ')).join(' ')].join(' ').toLowerCase().includes(q))}return items}
 function renderFeed(){const items=matchingItems();$('news-count').textContent=`${items.length} ${items.length===1?'article':'articles'}`;
