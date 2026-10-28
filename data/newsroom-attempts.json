@@ -2,29 +2,10 @@
   "api_budget": {
     "date": "2026-10-28",
     "timezone": "America/Los_Angeles",
-    "requests": 25,
+    "requests": 26,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-10-26T03:11:19.009325+00:00",
-      "result": "response_received",
-      "prompt_characters": 14637,
-      "purpose": "production",
-      "usage": {
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 3054,
-        "candidatesTokenCount": 757,
-        "totalTokenCount": 3811,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 3054
-          }
-        ],
-        "serviceTier": "standard"
-      }
-    },
     {
       "at": "2026-10-26T07:33:15.806069+00:00",
       "result": "response_received",
@@ -1881,6 +1862,25 @@
         ],
         "serviceTier": "standard"
       }
+    },
+    {
+      "at": "2026-10-28T20:43:17.610710+00:00",
+      "result": "response_received",
+      "prompt_characters": 26605,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 5917,
+        "candidatesTokenCount": 774,
+        "totalTokenCount": 6691,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 5917
+          }
+        ],
+        "serviceTier": "standard"
+      }
     }
   ],
   "capacity_recovery_revision": 2,
@@ -3632,8 +3632,8 @@
       "headline": "Turkish Insurer Sinks as Top Executives Arrested in Fund Probe"
     },
     "https://www.insurancebusinessmag.com/uk/news/legal-insights/50k-of-pandemic-cover-8m-in-losses-restaurant-groups-broker-negligence-claim-survives-595132.aspx": {
-      "attempted_at": "2026-10-27T19:23:12.958178+00:00",
-      "retry_after": "2026-10-28T20:23:12.958178+00:00",
+      "attempted_at": "2026-10-28T20:42:58.737233+00:00",
+      "retry_after": "2026-10-29T21:42:58.737233+00:00",
       "headline": "£50k of pandemic cover, £8m in losses: restaurant group's broker negligence claim survives"
     },
     "https://www.bloomberg.com/news/articles/2026-10-27/banks-eye-21-billion-of-bonds-for-broadcom-chip-financing-deal": {
@@ -4310,6 +4310,46 @@
       "attempted_at": "2026-10-28T19:48:25.819557+00:00",
       "retry_after": "2026-10-29T20:48:25.819557+00:00",
       "headline": "Stock Market Today: Interest Rates Hold Steady; Two Officials Sought Hike"
+    },
+    "https://www.theguardian.com/uk-news/2026/oct/28/budget-2026-healey-hikes-taxes-on-banks-and-landlords-to-fund-100-handouts-to-20m-households": {
+      "attempted_at": "2026-10-28T20:42:58.737233+00:00",
+      "retry_after": "2026-10-29T21:42:58.737233+00:00",
+      "headline": "Budget 2026: Healey hikes taxes on banks and landlords to fund £100 handouts to 20m households"
+    },
+    "https://www.bbc.co.uk/news/articles/cqpvgxz3y49go": {
+      "attempted_at": "2026-10-28T20:42:58.737233+00:00",
+      "retry_after": "2026-10-29T21:42:58.737233+00:00",
+      "headline": "Healey unveils £100 for energy bills and bank tax in first Budget"
+    },
+    "https://www.theguardian.com/politics/2026/oct/28/budget-john-crace-dr-death-doing-no-harm": {
+      "attempted_at": "2026-10-28T20:42:58.737233+00:00",
+      "retry_after": "2026-10-29T21:42:58.737233+00:00",
+      "headline": "He promised fresh hope and delivered doom, but Dr Death’s budget succeeds in doing no harm | John Crace"
+    },
+    "https://www.wsj.com/finance/stocks/u-s-stocks-up-treasury-yields-mixed-after-fed-hold-0766f105": {
+      "attempted_at": "2026-10-28T20:42:58.737233+00:00",
+      "retry_after": "2026-10-29T21:42:58.737233+00:00",
+      "headline": "U.S. Stocks Up, Treasury Yields Mixed After Fed Hold"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-28/global-bond-sales-shatter-record-fueled-by-ai-borrowing-binge": {
+      "attempted_at": "2026-10-28T20:42:58.737233+00:00",
+      "retry_after": "2026-10-29T21:42:58.737233+00:00",
+      "headline": "Global Bond Sales Shatter Record, Fueled by AI Borrowing Binge"
+    },
+    "https://www.marketwatch.com/story/the-cost-of-money-itself-is-on-the-ballot-as-voters-struggle-with-pricey-car-loans-mortgages-and-credit-card-debt-c2cd83a0": {
+      "attempted_at": "2026-10-28T20:42:58.737233+00:00",
+      "retry_after": "2026-10-29T21:42:58.737233+00:00",
+      "headline": "The cost of money itself is on the ballot as voters struggle with pricey car loans, mortgages and credit-card debt"
+    },
+    "https://www.marketwatch.com/story/why-did-the-fed-hold-off-on-raising-interest-rates-warsh-says-its-because-an-information-rich-period-is-coming-098ced8d": {
+      "attempted_at": "2026-10-28T20:42:58.737233+00:00",
+      "retry_after": "2026-10-29T21:42:58.737233+00:00",
+      "headline": "Why did the Fed hold off on raising interest rates? Warsh says it’s because an ‘information rich’ period is coming."
+    },
+    "https://www.finextra.com/pressarticle/111497/sme-lender-lovey-secures-250m-senior-secured-credit-facility": {
+      "attempted_at": "2026-10-28T20:42:58.737233+00:00",
+      "retry_after": "2026-10-29T21:42:58.737233+00:00",
+      "headline": "SME lender Lovey secures £250m senior secured credit facility"
     }
   },
   "sources": {
@@ -5383,12 +5423,12 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.wsj.com/finance/investing/u-s-treasury-yields-rise-ahead-of-federal-reserve-interest-rate-decision-b1f7ef58": {
-      "attempted_at": "2026-10-28T13:58:56.571433+00:00",
-      "retry_after": "2026-10-28T19:58:56.571433+00:00",
+      "attempted_at": "2026-10-28T20:42:58.737233+00:00",
+      "retry_after": "2026-10-29T02:42:58.737233+00:00",
       "last_result": "HTTP Error 401: HTTP Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 2,
+      "failures": 3,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://news.sky.com/story/money-live-personal-finance-consumer-interest-rate-mortgages-savings-careers-jobs-tips-sky-news-latest-13040934": {
@@ -5517,8 +5557,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.commercialriskonline.com/hartford-q3-profit-rises-23-while-core-earnings-decline/": {
-      "attempted_at": "2026-10-28T15:52:45.055569+00:00",
-      "retry_after": "2026-10-28T19:52:45.055569+00:00",
+      "attempted_at": "2026-10-28T20:42:58.737233+00:00",
+      "retry_after": "2026-10-29T00:42:58.737233+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -5606,24 +5646,22 @@
       "alternative_search_after": "2026-10-28T23:48:25.819557+00:00"
     },
     "https://www.finextra.com/newsarticle/48661/wealthsimple-hits-c138bn-valuation": {
-      "attempted_at": "2026-10-28T13:58:56.571433+00:00",
-      "retry_after": "2026-10-28T19:58:56.571433+00:00",
+      "attempted_at": "2026-10-28T20:42:58.737233+00:00",
+      "retry_after": "2026-10-29T02:42:58.737233+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-28T17:58:56.571433+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-10-28/world-bank-raises-commodity-price-outlook-citing-war-and-el-nino": {
-      "attempted_at": "2026-10-28T13:58:56.571433+00:00",
-      "retry_after": "2026-10-28T19:58:56.571433+00:00",
+      "attempted_at": "2026-10-28T20:42:58.737233+00:00",
+      "retry_after": "2026-10-29T02:42:58.737233+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-28T17:58:56.571433+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-10-28/barclays-turns-to-insurers-to-hedge-billions-of-data-center-debt": {
       "attempted_at": "2026-10-28T14:54:39.219215+00:00",
@@ -5706,8 +5744,8 @@
       "alternative_search_after": "2026-10-28T19:45:55.775653+00:00"
     },
     "https://www.insurancejournal.com/news/national/2026/10/28/890591.htm": {
-      "attempted_at": "2026-10-28T19:48:25.819557+00:00",
-      "retry_after": "2026-10-28T23:48:25.819557+00:00",
+      "attempted_at": "2026-10-28T20:42:58.737233+00:00",
+      "retry_after": "2026-10-29T00:42:58.737233+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -5722,8 +5760,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.commercialriskonline.com/aons-revenue-up-3-in-third-quarter/": {
-      "attempted_at": "2026-10-28T19:48:25.819557+00:00",
-      "retry_after": "2026-10-28T23:48:25.819557+00:00",
+      "attempted_at": "2026-10-28T20:42:58.737233+00:00",
+      "retry_after": "2026-10-29T00:42:58.737233+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -5738,8 +5776,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.theguardian.com/business/2026/oct/28/fed-interest-rates-midterms": {
-      "attempted_at": "2026-10-28T19:48:25.819557+00:00",
-      "retry_after": "2026-10-28T23:48:25.819557+00:00",
+      "attempted_at": "2026-10-28T20:42:58.737233+00:00",
+      "retry_after": "2026-10-29T00:42:58.737233+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -5792,8 +5830,8 @@
       "alternative_search_after": "2026-10-28T19:52:45.055569+00:00"
     },
     "https://www.reinsurancene.ws/the-baldwin-groups-total-revenue-reaches-480-3m-in-q326/": {
-      "attempted_at": "2026-10-28T15:52:45.055569+00:00",
-      "retry_after": "2026-10-28T19:52:45.055569+00:00",
+      "attempted_at": "2026-10-28T20:42:58.737233+00:00",
+      "retry_after": "2026-10-29T00:42:58.737233+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -5808,8 +5846,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.commercialriskonline.com/mapfre-global-risks-sees-premiums-drop-in-softening-market/": {
-      "attempted_at": "2026-10-28T15:52:45.055569+00:00",
-      "retry_after": "2026-10-28T19:52:45.055569+00:00",
+      "attempted_at": "2026-10-28T20:42:58.737233+00:00",
+      "retry_after": "2026-10-29T00:42:58.737233+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -5824,15 +5862,15 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.insurancejournal.com/news/international/2026/10/28/890589.htm": {
-      "attempted_at": "2026-10-28T15:52:45.055569+00:00",
-      "retry_after": "2026-10-28T19:52:45.055569+00:00",
+      "attempted_at": "2026-10-28T20:42:58.737233+00:00",
+      "retry_after": "2026-10-29T00:42:58.737233+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.reinsurancene.ws/marsh-names-kristof-de-bremme-as-incoming-ceo-of-marsh-netherlands/": {
-      "attempted_at": "2026-10-28T15:52:45.055569+00:00",
-      "retry_after": "2026-10-28T19:52:45.055569+00:00",
+      "attempted_at": "2026-10-28T20:42:58.737233+00:00",
+      "retry_after": "2026-10-29T00:42:58.737233+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -5847,8 +5885,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.insurancejournal.com/news/midwest/2026/10/28/890652.htm": {
-      "attempted_at": "2026-10-28T19:48:25.819557+00:00",
-      "retry_after": "2026-10-28T23:48:25.819557+00:00",
+      "attempted_at": "2026-10-28T20:42:58.737233+00:00",
+      "retry_after": "2026-10-29T00:42:58.737233+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -5943,15 +5981,15 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.theguardian.com/uk-news/2026/oct/28/budget-2026-calculator-find-out-if-you-are-better-or-worse-off": {
-      "attempted_at": "2026-10-28T19:48:25.819557+00:00",
-      "retry_after": "2026-10-28T23:48:25.819557+00:00",
+      "attempted_at": "2026-10-28T20:42:58.737233+00:00",
+      "retry_after": "2026-10-29T00:42:58.737233+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.reinsurancene.ws/property-cat-rate-declines-to-slow-at-jan-1-supply-of-capital-now-much-more-disciplined-renre-cuo/": {
-      "attempted_at": "2026-10-28T19:48:25.819557+00:00",
-      "retry_after": "2026-10-28T23:48:25.819557+00:00",
+      "attempted_at": "2026-10-28T20:42:58.737233+00:00",
+      "retry_after": "2026-10-29T00:42:58.737233+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -6171,6 +6209,45 @@
       "attempted_at": "2026-10-28T19:48:25.819557+00:00",
       "retry_after": "2026-10-29T01:48:25.819557+00:00",
       "last_result": "HTTP Error 401: HTTP Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.wsj.com/finance/stocks/u-s-stocks-up-treasury-yields-mixed-after-fed-hold-0766f105": {
+      "attempted_at": "2026-10-28T20:42:58.737233+00:00",
+      "retry_after": "2026-10-29T02:42:58.737233+00:00",
+      "last_result": "HTTP Error 401: HTTP Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-29T00:42:58.737233+00:00"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-28/global-bond-sales-shatter-record-fueled-by-ai-borrowing-binge": {
+      "attempted_at": "2026-10-28T20:42:58.737233+00:00",
+      "retry_after": "2026-10-29T02:42:58.737233+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-29T00:42:58.737233+00:00"
+    },
+    "https://www.finextra.com/pressarticle/111497/sme-lender-lovey-secures-250m-senior-secured-credit-facility": {
+      "attempted_at": "2026-10-28T20:42:58.737233+00:00",
+      "retry_after": "2026-10-29T02:42:58.737233+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-29T00:42:58.737233+00:00"
+    },
+    "https://www.finextra.com/pressarticle/111496/equilend-1source-dlt-platform-adds-goldman-sachs": {
+      "attempted_at": "2026-10-28T20:42:58.737233+00:00",
+      "retry_after": "2026-10-29T02:42:58.737233+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
       "failures": 1,
