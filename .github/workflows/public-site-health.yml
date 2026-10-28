@@ -1,11 +1,11 @@
 name: Independent live publication health
 on:
   workflow_dispatch:
-  workflow_run:
-    workflows: ["The Brief — hourly newsroom and site maintenance"]
-    types: [completed]
+  # The primary twice-hourly publisher already verifies its own live deployment.
+  # Independent monitoring every two hours is a backup, not another
+  # two alerts per publisher run. Editorial holds do not fail this check.
   schedule:
-    - cron: '7,27,47 * * * *'
+    - cron: '17 */2 * * *'
 permissions:
   contents: read
   actions: write

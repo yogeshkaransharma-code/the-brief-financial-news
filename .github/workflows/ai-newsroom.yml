@@ -112,7 +112,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/ index.html
           if ! git diff --cached --quiet; then
-            git commit -m "Record newsroom outcome, evidence approvals and quota usage"
+            git commit -m "Record newsroom outcome, evidence approvals and quota usage [skip ci]"
             saved=false
             for attempt in 1 2 3; do
               if git push origin HEAD:main; then
@@ -170,7 +170,7 @@ jobs:
           python scripts/finish_run.py
           git add data/run-history.json data/launch-acceptance.json data/reliability.json data/status.json
           if ! git diff --cached --quiet; then
-            git commit -m "Record observed deployment and live reader result"
+            git commit -m "Record observed deployment and live reader result [skip ci]"
             git pull --rebase origin main
             git push origin HEAD:main
           fi
@@ -181,14 +181,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "Actual publication verified. ${{ needs.maintenance.outputs.new_articles }} new reports."
-  attention:
-    name: Newsroom needs attention — ${{ needs.maintenance.outputs.outcome }}
-    needs: maintenance
-    if: always() && (needs.maintenance.outputs.outcome == 'BLOCKED' || needs.maintenance.result == 'failure')
-    runs-on: ubuntu-latest
-    steps:
-      - run: |
-          echo "::error::Editorial production is blocked or deployment/live reading failed. Individual source outages are coverage warnings. Inspect the newsroom summary and evidence artifact. No publication success is claimed."
-          exit 1
+  # Editorial holds are preserved in data/status.json and run history.
+  # Do not manufacture a failing Actions job for a correctly held article.
+  # A genuinely failed build, deployment or live check still fails maintenance.
 
 
