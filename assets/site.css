@@ -746,3 +746,14 @@ body.tb-home .news-item .news-cat{font-size:9px!important}
   body.tb-home .tb-sector-visual,body.tb-home .tb-sector-overlay{min-height:157px!important}
   .tb-desk-hero{height:250px}
 }
+
+/* On an honest no-news day, keep the editorial welcome worth reading. */
+body.tb-home .lead-story .cta[href="#context"]{margin-top:20px!important;text-decoration:none;display:inline-flex}
+.tb-empty-guide{padding-top:2px}
+.tb-empty-guide>p{font:12px/1.5 var(--sans);color:#72635C;margin:7px 0 16px}
+.tb-empty-guide>a{display:grid;grid-template-columns:72px 1fr;gap:10px;align-items:start;text-decoration:none;border-top:1px solid #E0D4CB;padding:12px 0;color:#281F20}
+.tb-empty-guide>a b{font:800 9px/1.4 var(--sans);letter-spacing:.08em;color:#792D42}
+.tb-empty-guide>a:nth-of-type(2) b{color:#31566B}
+.tb-empty-guide>a span{font:600 14px/1.32 var(--display)}
+.tb-empty-guide>a:hover span{text-decoration:underline;text-underline-offset:3px}
+@media(max-width:480px){.tb-empty-guide>a{grid-template-columns:67px 1fr}.tb-empty-guide>a span{font-size:13px}}
