@@ -334,10 +334,10 @@ def build():
             + '<p class="meta">' + esc(first.get('source','')) + ' · ' + esc(dt.datetime.fromisoformat(first['published_at'].replace('Z','+00:00')).astimezone(__import__('zoneinfo').ZoneInfo('Europe/London')).strftime('%H:%M')) + '</p>'
             + '<p><a class="cta" href="' + esc(story_href(first)) + '">Read the full story →</a></p><small class="tb-hero-credit">Illustrative London photograph · <a href="https://commons.wikimedia.org/wiki/File:Big_Ben_after_sunset.jpg" target="_blank" rel="noopener noreferrer">hozinja / Wikimedia Commons, CC BY 2.0</a></small></article>')
     else:
-        lead = ('<article id="lead-story" class="lead-story"><span class="story-kicker">THE BRIEF / '+
-            esc(today)+'</span><h1>No verified news from today yet.</h1>'
-            '<p class="standfirst">We have not approved an original financial-services article based on evidence '
-            'dated today in the UK. <a href="archive.html">Read earlier editions in the archive →</a></p></article>')
+        lead = ('<article id="lead-story" class="lead-story"><span class="story-kicker">THE BRIEF / YOUR UK FINANCIAL DESK</span>'
+            '<h1>UK insurance and banking. Understood.</h1>'
+            '<p class="standfirst">No verified same-day reports have been published yet. While the newsroom looks for today’s developments, explore the financial basics.</p>'
+            '<a class="cta" href="#context">Start with the essentials →</a></article>')
     page = insert_once(page, '<article id="lead-story" class="lead-story"></article>', lead)
     briefing = ''.join(
         '<div class="briefing-story"><span class="brief-number">0' + str(i+1)
@@ -347,7 +347,10 @@ def build():
         for i, a in enumerate(other_briefs(records, first, limit=5))
     )
     if not briefing:
-        briefing = '<p>No verified same-day stories to brief yet.</p>'
+        briefing = ('<div class="tb-empty-guide"><p>No UK-market report has been published today.</p>'
+            '<a href="#context"><b>INSURANCE</b><span>Understand brokers, underwriting and cover →</span></a>'
+            '<a href="#context"><b>BANKING</b><span>Understand lending, savings and interest rates →</span></a>'
+            '<a href="archive.html"><b>EARLIER REPORTS</b><span>Explore clearly dated previous editions →</span></a></div>')
     page = insert_once(page,
         '<div id="briefing-stories" class="briefing-stories"></div>',
         '<div id="briefing-stories" class="briefing-stories">' + briefing + '</div>')
