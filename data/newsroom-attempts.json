@@ -2,29 +2,10 @@
   "api_budget": {
     "date": "2026-10-28",
     "timezone": "America/Los_Angeles",
-    "requests": 3,
+    "requests": 4,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-10-25T12:34:51.969172+00:00",
-      "prompt_characters": 15039,
-      "purpose": "production",
-      "result": "response_received",
-      "usage": {
-        "candidatesTokenCount": 642,
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 3161,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 3161
-          }
-        ],
-        "serviceTier": "standard",
-        "totalTokenCount": 3803
-      }
-    },
     {
       "at": "2026-10-25T12:35:06.971138+00:00",
       "prompt_characters": 8450,
@@ -1889,6 +1870,25 @@
           {
             "modality": "TEXT",
             "tokenCount": 1427
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-28T10:09:27.971280+00:00",
+      "result": "response_received",
+      "prompt_characters": 18267,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 3766,
+        "candidatesTokenCount": 513,
+        "totalTokenCount": 4279,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 3766
           }
         ],
         "serviceTier": "standard"
@@ -3827,6 +3827,36 @@
       "attempted_at": "2026-10-28T09:50:06.540866+00:00",
       "retry_after": "2026-10-29T10:50:06.540866+00:00",
       "headline": "Turkey Cancels License of Brokerage at Heart of Fund Crisis"
+    },
+    "https://www.insurancebusinessmag.com/uk/news/breaking-news/the-san-francisco-mga-shopping-london-for-ai-agent-capacity-595246.aspx": {
+      "attempted_at": "2026-10-28T10:08:21.275437+00:00",
+      "retry_after": "2026-10-29T11:08:21.275437+00:00",
+      "headline": "The San Francisco MGA shopping London for AI agent capacity"
+    },
+    "https://www.wsj.com/finance/investing/u-s-treasury-yields-rise-ahead-of-federal-reserve-interest-rate-decision-b1f7ef58": {
+      "attempted_at": "2026-10-28T10:08:21.275437+00:00",
+      "retry_after": "2026-10-29T11:08:21.275437+00:00",
+      "headline": "Global Government Bond Yields Rise Ahead of Fed Decision, U.K. Budget"
+    },
+    "https://www.theguardian.com/money/2026/oct/28/healey-poised-to-overturn-cut-to-cash-isa-allowance-in-first-budget": {
+      "attempted_at": "2026-10-28T10:08:21.275437+00:00",
+      "retry_after": "2026-10-29T11:08:21.275437+00:00",
+      "headline": "Healey poised to overturn cut to cash Isa allowance in first budget"
+    },
+    "https://www.bbc.co.uk/news/videos/c65ynlg4rxvqo": {
+      "attempted_at": "2026-10-28T10:08:21.275437+00:00",
+      "retry_after": "2026-10-29T11:08:21.275437+00:00",
+      "headline": "Former Conservative chancellor unsure Budget will 'fix big problems'"
+    },
+    "https://www.commercialriskonline.com/growth-for-global-marine-insurance-but-market-remains-soft-says-iumi/": {
+      "attempted_at": "2026-10-28T10:08:21.275437+00:00",
+      "retry_after": "2026-10-29T11:08:21.275437+00:00",
+      "headline": "Growth for global marine insurance but market remains soft, says IUMI"
+    },
+    "https://www.reinsurancene.ws/archs-reinsurance-unit-delivers-393m-underwriting-profit-in-q326-despite-lower-premiums/": {
+      "attempted_at": "2026-10-28T10:08:21.275437+00:00",
+      "retry_after": "2026-10-29T11:08:21.275437+00:00",
+      "headline": "Arch’s reinsurance unit delivers $393m underwriting profit in Q3’26 despite lower premiums"
     }
   },
   "sources": {
@@ -4986,6 +5016,16 @@
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1",
       "alternative_search_after": "2026-10-28T13:52:06.533726+00:00"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-28/sandoz-warns-eu-may-scrap-antibiotic-protection-risking-plant": {
+      "attempted_at": "2026-10-28T10:08:21.275437+00:00",
+      "retry_after": "2026-10-28T16:08:21.275437+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-28T14:08:21.275437+00:00"
     }
   },
   "version": 2,
