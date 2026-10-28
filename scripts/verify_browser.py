@@ -32,7 +32,7 @@ def main():
                     assert a['title'] in page.locator('#launch-edition').inner_text()
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'),'Homepage overflows viewport'
             assert page.locator('#publisher-desk').count()==0,'External publisher headlines leaked into the publication'
-            assert page.locator('.tb-nav a').count()==3,'Navigation is not exactly Insurance, Banking and About'
+            assert page.locator('.tb-nav a').count()==4,'Navigation must include Home, Insurance, Banking and About'
             assert page.locator('.tb-sector-visual').count()==2,'Insurance and banking imagery missing'
             assert page.locator('#context').is_visible(), 'New here explainers are hidden'
             assert page.locator('#explainer-list .explainer').count()==2, 'One explainer per desk is required'
