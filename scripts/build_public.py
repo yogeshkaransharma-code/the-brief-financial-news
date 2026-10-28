@@ -342,12 +342,12 @@ def build():
             + esc(story_href(first)) + '">' + esc(first["title"])
             + '</a></h1><p class="standfirst">' + esc(first.get("short")) + '</p>'
             + '<p class="meta">' + esc(first.get('source','')) + ' · ' + esc(dt.datetime.fromisoformat(first['published_at'].replace('Z','+00:00')).astimezone(__import__('zoneinfo').ZoneInfo('Europe/London')).strftime('%H:%M')) + '</p>'
-            + '<p><a class="cta" href="' + esc(story_href(first)) + '">Read the full story →</a></p><small class="tb-hero-credit">Illustrative London photograph · <a href="https://commons.wikimedia.org/wiki/File:Big_Ben_after_sunset.jpg" target="_blank" rel="noopener noreferrer">hozinja / Wikimedia Commons, CC BY 2.0</a></small></article>')
+            + '<p><a class="cta" href="' + esc(story_href(first)) + '">Read the full story →</a></p></article>')
     else:
         lead = ('<article id="lead-story" class="lead-story"><span class="story-kicker">THE BRIEF / YOUR UK FINANCIAL DESK</span>'
-            '<h1>UK insurance and banking. Understood.</h1>'
-            '<p class="standfirst">No verified same-day reports have been published yet. While the newsroom looks for today’s developments, explore the financial basics.</p>'
-            '<a class="cta" href="#context">Start with the essentials →</a></article>')
+            '<h1>Understand the news that shapes your money.</h1>'
+            '<p class="standfirst">Today’s lead report is still being prepared. Explore earlier reporting or build your financial knowledge below.</p>'
+            '<a class="cta" href="archive.html">Explore earlier reporting →</a></article>')
     page = insert_once(page, '<article id="lead-story" class="lead-story"></article>', lead)
     briefing = ''.join(
         '<div class="briefing-story"><span class="brief-number">0' + str(i+1)
@@ -361,24 +361,23 @@ def build():
     if first and not briefing:
         briefing='<p class="tb-briefing-empty">Our lead story is today’s only published report. No other developments have been added.</p>'
     if not briefing:
-        briefing = ('<div class="tb-empty-guide"><p>No UK-market report has been published today.</p>'
-            '<a href="#context"><b>INSURANCE</b><span>Understand brokers, underwriting and cover →</span></a>'
-            '<a href="#context"><b>BANKING</b><span>Understand lending, savings and interest rates →</span></a>'
-            '<a href="archive.html"><b>EARLIER REPORTS</b><span>Explore clearly dated previous editions →</span></a></div>')
+        briefing = ('<div class="tb-empty-guide"><p>While today’s briefing is being prepared:</p>'
+            '<a href="archive.html"><b>ARCHIVE</b><span>Read previous editions →</span></a>'
+            '<a href="#context"><b>EXPLAINERS</b><span>Understand financial basics →</span></a></div>')
     page = insert_once(page,
         '<div id="briefing-stories" class="briefing-stories"></div>',
         '<div id="briefing-stories" class="briefing-stories">' + briefing + '</div>')
     rows = []
     for i, a in enumerate(records[:15]):
         rows.append(
-            '<article class="news-item" data-desk="'+esc(a.get('desk_section'))+'"><a class="news-photo" href="'+story_href(a)+'"><img loading="lazy" decoding="async" alt="Illustrative London sector photograph, not the event" src="'+esc([BANK_PHOTO, CITY_PHOTO, ST_PAULS_PHOTO, WESTMINSTER_PHOTO][i % 4])+'"><span>Sector photograph</span></a><div class="story-ordinal">' + str(i+1).zfill(2)
+            '<article class="news-item" data-desk="'+esc(a.get('desk_section'))+'"><div class="story-ordinal">' + str(i+1).zfill(2)
             + '</div><div><div class="news-cat">' + esc(a.get("desk_section")) + ' · OUR REPORT</div>'
             + '<h3><a href="' + esc(story_href(a)) + '">' + esc(a["title"]) + '</a></h3>'
             + '<p class="summary">' + esc(a.get("short")) + '</p>'
             + '<p class="meta">' + esc(a.get('source','')) + ' · ' + esc(dt.datetime.fromisoformat(a['published_at'].replace('Z','+00:00')).astimezone(__import__('zoneinfo').ZoneInfo('Europe/London')).strftime('%H:%M')) + '</p></div></article>'
         )
     page = insert_once(page, '<div class="feed" id="feed"></div>',
-        '<div class="feed" id="feed">' + ('\n'.join(rows) if rows else '<p class="nothing">No approved original reports dated '+esc(today)+' have been published yet.</p>') + '</div>')
+        '<div class="feed" id="feed">' + ('\n'.join(rows) if rows else '<p class="nothing">No reports published today. <a href="archive.html">Read earlier editions</a>.</p>') + '</div>')
     page = insert_once(page, '<div class="news-count" id="news-count"></div>',
         '<div class="news-count" id="news-count">' + str(len(records)) + ' articles</div>')
     payload = json.dumps(records, ensure_ascii=False, separators=(",", ":")).replace("<", "\\u003c")

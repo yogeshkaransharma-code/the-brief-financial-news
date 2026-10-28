@@ -29,7 +29,13 @@ def verify():
     assert 'rankHighlights(originals)[0]' in home, 'Client-side homepage ignores UK-focused lead'
     assert 'eligibleBriefs.slice(0,3)' in home, 'Client-side catch-up has grown beyond three stories'
     assert 'The 60-second Brief' in home and 'Latest reporting' in home, 'Approved reader-facing headings missing'
-    assert 'Explore Insurance.' in home and 'Explore Banking.' in home, 'Sector gateways still misleadingly promise fresh reports'
+    assert 'tb-section-nav' in home and home.count('<nav class="tb-nav tb-section-nav"')==1, 'Homepage must have one primary section ribbon'
+    assert 'tb-sector-visuals' not in home and 'tb-intro-band' not in home, 'Duplicate desk panels remain on homepage'
+    assert 'id="briefing-tabs"' not in home and 'id="chips"' not in home, 'Duplicate Insurance and Banking filters remain'
+    assert 'class="news-photo"' not in home, 'Repeated generic photography still dominates the article feed'
+    assert 'href="insurance.html"' in home and 'href="banking.html"' in home, 'Primary desk navigation missing'
+    assert '<select id="order"' in home, 'Reader cannot sort Latest Reporting'
+    assert home.index('<nav class="tb-nav tb-section-nav"') < home.index('<section class="top-layout"') < home.index('<section id="latest"') < home.index('<section id="context"'), 'Reader journey is out of order'
     assert 'if(resetDesk)resetDesk.addEventListener' in (ROOT/'scripts/build_public.py').read_text(), 'Quiet desks bind a missing reset button'
 
     # HTML builds can pass while the inline homepage script has a parse error.
@@ -45,9 +51,8 @@ def verify():
                 result=subprocess.run([node,'--check',str(path)],capture_output=True,text=True)
                 assert result.returncode==0, 'Invalid homepage JavaScript: '+result.stderr[:1800]
 
-    # Preserve the approved reader journey: lead/catch-up, desk gateways,
-    # latest reporting, then the rotating educational introduction.
-    markers=['<section class="top-layout"', '<section class="tb-sector-visuals"',
+    # One navigation system leads into the cover, reporting and learning.
+    markers=['<nav class="tb-nav tb-section-nav"', '<section class="top-layout"',
              '<section id="latest" class="news-section"', '<section id="context" class="understand"']
     positions=[home.index(marker) for marker in markers]
     assert positions==sorted(positions), 'Approved homepage reading order changed'
@@ -123,17 +128,19 @@ def verify():
             assert 'sector illustration, not event evidence' in story, 'Illustrative image not clearly distinguished from reporting'
             assert '<figcaption>' in story and 'commons.wikimedia.org' in story, 'Illustrative image lacks licensing/attribution'
         for h,p in a['blocks']:assert html.escape(h,quote=True) in story and html.escape(p,quote=True) in story
-    if not edition:assert 'No verified same-day reports have been published yet' in home and 'Start with the essentials' in home, 'Empty edition must remain truthful and provide useful reading'
+    if not edition:assert 'Today’s lead report is still being prepared' in home and 'Explore earlier reporting' in home, 'Empty edition must be truthful with a useful next action'
     assert not (public/'data/live.json').exists() and 'data/live.json' not in home
     assert not (public/'status.html').exists(), 'Internal newsroom dashboard accidentally published'
     assert not (public/'hourly.html').exists(), 'Duplicate hourly reading page was published'
     assert (public/'assets/site.css').is_file(), 'Shared burgundy stylesheet absent'
     assert (public/'about.html').is_file() and (public/'sources.html').is_file()
+    assert 'tb-section-nav' in (public/'about.html').read_text(), 'About masthead differs from the publication'
     for section in ['Insurance','Banking']:
         path=public/(section.lower()+'.html')
         page=path.read_text(encoding='utf-8')
         assert '<h1>'+section+'.</h1>' in page
         assert 'class="tb-header"' in page and 'status.html' not in page
+        assert 'tb-section-nav' in page and page.count('<nav class="tb-nav tb-section-nav"')==1, 'Desk does not share new masthead ribbon'
         matches=[a for a in archive if a['desk_section']==section and published_same_day(a)]
         older=[a for a in archive if a['desk_section']==section and not published_same_day(a)]
         for article in matches:assert html.escape(article['title'],quote=True) in page
