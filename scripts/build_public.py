@@ -291,7 +291,8 @@ document.querySelectorAll('.tb-desk-tab').forEach(button=>button.addEventListene
   renderDesk();
 }));
 document.querySelector('#tb-desk-more').addEventListener('click',()=>{deskLimit+=7;renderDesk()});
-document.querySelector('#tb-reset-desk').addEventListener('click',()=>document.querySelector('.tb-desk-tab').click());
+const resetDesk=document.querySelector('#tb-reset-desk');
+if(resetDesk)resetDesk.addEventListener('click',()=>document.querySelector('.tb-desk-tab').click());
 renderDesk();
 </script>"""
     return ('<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
