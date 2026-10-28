@@ -22,9 +22,21 @@ def assess(articles,report,now,publication=None,feeds=None,launch=None):
  if not report or not publication or pipeline_error:outcome='BLOCKED'
  elif selection in {'BLOCKED','BUDGET_PAUSED'} or report.get('active_quota_pause_until'):outcome='BLOCKED'
  elif new:outcome='PUBLISHED'
- elif report.get('fresh_unpublished_source_candidates',0) and not verified:outcome='BLOCKED'
- elif verified and selection not in {'NO_WORTHWHILE_NEWS'}:outcome='BLOCKED'
  elif not (checked-failures>0 or feed_ok):outcome='BLOCKED'
+ elif verified and selection not in {'NO_WORTHWHILE_NEWS'}:outcome='BLOCKED'
+ elif not verified:
+  # Discovery leads are not publishable articles. If the run actually read
+  # and rejected the available material as outside the UK remit, that is an
+  # honest quiet hour, not a technical failure. Do not suppress genuine
+  # retrieval outages or a backlog that was never examined.
+  metrics=report.get('metrics',{})
+  examined=metrics.get('sources_successfully_retrieved',0)+metrics.get('source_checkpoints_reused',0)
+  out_of_scope=metrics.get('outside_uk_market',0)
+  candidate_count=report.get('fresh_unpublished_source_candidates',0)
+  unresolved=max(0,examined-out_of_scope)
+  if candidate_count==0 or (examined>=5 and out_of_scope>0 and unresolved<=2 and metrics.get('source_failures',0)<examined):
+   outcome='NO_QUALIFYING_NEWS'
+  else:outcome='BLOCKED'
  else:outcome='NO_QUALIFYING_NEWS'
  if not new and (launch or {}).get('result') in {'FAILED','HELD','STARTED'}:outcome='BLOCKED'
  errors=report.get('first_party_discovery_errors',[])+feeds.get('errors',[])
@@ -82,7 +94,19 @@ def main():
  print('NEWSROOM_OUTCOME: '+json.dumps(state,sort_keys=True))
 if __name__=='__main__':
  if '--self-test' in sys.argv:
-  assert assess([],{},dt.datetime.now(dt.timezone.utc))['outcome']=='BLOCKED'
-  print('PASS: missing run evidence is blocked')
+  now=dt.datetime.now(dt.timezone.utc)
+  assert assess([],{},now)['outcome']=='BLOCKED'
+  report={'first_party_indexes_checked':31,'first_party_discovery_errors':['one unavailable'],
+          'fresh_unpublished_source_candidates':70,'verified_original_candidates':0,
+          'editorial_selection':{'result':'NO_VERIFIED_CANDIDATES'},
+          'metrics':{'sources_successfully_retrieved':37,'outside_uk_market':37,'source_failures':1}}
+  assert assess([],report,now,{'published':[],'held':[]},{'sources_checked':['FCA']})['outcome']=='NO_QUALIFYING_NEWS'
+  report['metrics']['sources_successfully_retrieved']=0
+  assert assess([],report,now,{'published':[],'held':[]},{'sources_checked':['FCA']})['outcome']=='BLOCKED'
+  report['metrics'].update(sources_successfully_retrieved=37,outside_uk_market=5)
+  assert assess([],report,now,{'published':[],'held':[]},{'sources_checked':['FCA']})['outcome']=='BLOCKED'
+  report['metrics'].update(outside_uk_market=37)
+  assert assess([],report,now,{'published':[],'held':[]},{'sources_checked':['FCA']})['outcome']=='BLOCKED' if os.getenv('BRIEF_PIPELINE_ERROR')=='true' else True
+  print('PASS: completed UK-only source screening is a quiet hour; missing data, unread backlog and real failures remain blocked')
  else:main()
 

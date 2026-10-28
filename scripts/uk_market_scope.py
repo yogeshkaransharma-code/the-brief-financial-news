@@ -26,7 +26,7 @@ FINANCE = re.compile(
 # A clear foreign subject cannot borrow an incidental mention of the UK.
 FOREIGN_HEADLINE = re.compile(
     r"\b(?:US|U\.S\.|American|United States|Iowa|Texas|Florida|Georgia|California|New York|"
-    r"Boston|Utah|Philippines|Hong Kong|India|Indian|Italian|Italy|Turkish|T[uü]rkiye|Turkey|"
+    r"Boston|Utah|Bermuda|Cayman Islands|Singapore|Dubai|United Arab Emirates|UAE|Canada|Canadian|San Francisco|Philippines|Hong Kong|India|Indian|Italian|Italy|Turkish|T[uü]rkiye|Turkey|"
     r"France|French|Oman|South Korea|Korean|APAC|Asia-Pacific|Mexico|Gulf of Mexico|"
     r"Middle East|European Commission|European Union|EU|Africa|African|Australia|"
     r"Japan|Japanese|Saudi|Iran|Iranian|New Jersey|Strait of Hormuz)\b",re.I)
@@ -49,7 +49,7 @@ FOREIGN_UK_IMPACT = re.compile(
     r"\b(?:UK|U\.K\.|United Kingdom|London)(?:-based)?\b.{0,85}"
     r"\b(?:market|insur\w*|broker\w*|bank\w*|business\w*|customer\w*|"
     r"operation\w*|policy|cover|capacity|underwriting|pricing|distribution|lending|"
-    r"regulat\w*|pension\w*|acquisition|deal|based)\b"
+    r"regulat\w*|pension\w*|acquisition|deal)\b"
     r"|\b(?:market|insur\w*|broker\w*|bank\w*|business\w*|customer\w*|"
     r"operation\w*|policy|cover|capacity|underwriting|pricing|distribution|lending|"
     r"regulat\w*|pension\w*|acquisition|deal)\b.{0,85}\b(?:UK|U\.K\.|United Kingdom|London)\b",
@@ -59,7 +59,7 @@ FOREIGN_UK_ACTION = re.compile(
     r"\b(?:affect\w*|impact\w*|chang\w*|acquir\w*|purchas\w*|buy\w*|bought|"
     r"expand\w*|launch\w*|suppl\w*|provid\w*|offer\w*|underwrit\w*|invest\w*|"
     r"regulat\w*|operat\w*|withdraw\w*|target\w*|reduc\w*|increas\w*|"
-    r"enter\w*|sell\w*|settle\w*|clos\w*|fund\w*|deliver\w*)\b", re.I)
+    r"enter\w*|sell\w*|settle\w*|clos\w*|fund\w*|deliver\w*|seek\w*|secur\w*)\b", re.I)
 
 UK_AUTHORITIES = {
     "fca.org.uk", "bankofengland.co.uk", "thepensionsregulator.gov.uk",

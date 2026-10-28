@@ -45,7 +45,7 @@ def main(_budget):
   for packet in packets:assert packet['source_text']==docs[packet['url']].text
   return {'articles':[{'id':f'N{i+1:02}','article':{'headline':item['title'],'standfirst':'New service available.',
     'reader_takeaway':'Eligible customers can access the service through existing distribution channels.',
-    'sections':[{'heading':'What changes','text':f"{item['source']} says the expanded service is available to eligible customers through its existing distribution channels. Applications remain subject to assessment and acceptance criteria. Existing contractual terms determine the insurance cover or finance available."}]}} for i,item in enumerate(items)]}
+    'sections':[{'heading':'What changes','text':f"{item['source']} says the expanded UK service is available to eligible customers through existing distribution channels in the United Kingdom. Applications remain subject to assessment and acceptance criteria. Existing contractual terms determine the UK insurance cover or finance available."}]}} for i,item in enumerate(items)]}
  with tempfile.TemporaryDirectory() as temp,patch('ai_cost_guard.time.sleep',lambda _:None),patch('newsroom_batches.review_batch',side_effect=AssertionError('Forbidden reviewer call')),patch('publish_autonomous.check',side_effect=AssertionError('Legacy editorial veto called')):
   root=Path(temp);(root/'data').mkdir();atomic_json(root/'data/articles.json',[])
   blocked=dict(items[1],url='https://www.finextra.com/newsarticle/50000/a-distinct-payments-development',source='Finextra',title='Distinct payments development')

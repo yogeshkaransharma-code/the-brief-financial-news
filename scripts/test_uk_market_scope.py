@@ -14,6 +14,9 @@ def main():
         article("UK bank changes mortgage rates", "The UK lender updated mortgages."),
         article("International insurer expands UK underwriting capacity",
             "The insurer will add UK underwriting capacity for London market brokers."),
+        article("San Francisco MGA seeks London market capacity",
+            "The US insurer is seeking underwriting capacity from London market partners for UK businesses.",
+            body="The San Francisco startup is seeking capacity from London market insurers to provide cover for UK clients."),
         article("Pensions contributions face change","British pension savers would see an increase in contributions."),
     ]
     no=[
@@ -23,6 +26,12 @@ def main():
         article("Lockton appoints new US casualty leader","Lockton named a leader for its American division."),
         article("European Commission unveils climate insurance programme","EU businesses will be affected."),
         article("Hong Kong insurer reports premium growth","Hong Kong premiums rose."),
+        article("Jeremy England Lee moves to Lockton Re Bermuda as Chairman",
+                "A Bermuda appointment. The executive started at Lloyd's in 1978.",
+                body="The new leader will relocate to Bermuda. His career began at Lloyd's in London."),
+        article("LRQA acquires Hong Kong-based Omega Compliance",
+                "UK-based global company LRQA expands its Asian operations.",
+                body="UK-based LRQA acquired a Hong Kong supply chain auditing firm to expand in Asia."),
         article("UK publisher reports Texas lawsuit","The Texas Attorney General has sued a company.","https://www.insurancebusinessmag.com/uk/news/industry/texas-lawsuit.aspx"),
         article("Aviva opens US specialty insurance unit","The British insurer says the new unit operates in California."),
         article("US insurer reports results", "Markets in the United Kingdom also have insurers."),
