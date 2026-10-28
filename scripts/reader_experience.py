@@ -33,8 +33,23 @@ def lead_article(articles):
     return max(enumerate(articles), key=lambda pair:(priority(pair[1]), -pair[0]))[1]
 
 def other_briefs(articles, lead, limit=3):
-    if lead is None:return []
-    picks = [a for a in articles if a["id"] != lead["id"]]
-    # Preference for useful distinct sectors in short briefings, not artificial quotas.
-    chosen = picks[:limit]
-    return chosen if chosen else [lead]
+    """Up to three *other* reports, with both desks represented when available.
+
+    Do not repeat the hero or manufacture extra stories on a quiet news day.
+    Preserve the supplied newest-first order except when making room for
+    the other sector, and never fill space with archive articles.
+    """
+    if lead is None or limit <= 0:
+        return []
+    eligible = [a for a in articles if a["id"] != lead["id"]]
+    picked = eligible[:limit]
+    lead_sector = lead.get("desk_section") or lead.get("category")
+    if picked and lead_sector:
+        other = next((a for a in eligible
+                      if (a.get("desk_section") or a.get("category")) in {"Insurance", "Banking"}
+                      and (a.get("desk_section") or a.get("category")) != lead_sector), None)
+        if other is not None and all(a["id"] != other["id"] for a in picked):
+            picked[-1] = other
+            keep = {a["id"] for a in picked}
+            picked = [a for a in eligible if a["id"] in keep]
+    return picked
