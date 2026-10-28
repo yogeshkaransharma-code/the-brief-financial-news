@@ -162,6 +162,7 @@ def run(root=None,now=None,*,discovery=discover,trace=find_originals,reader=read
                 'stage':'scope','classification':'OUTSIDE_UK_SCOPE','last_result':'No UK financial connection in complete source'}
             persist()
             continue
+        if attempts.get(item['url'],{}).get('stage')=='scope':attempts.pop(item['url'],None)
         item=dict(item,uk_market_basis=uk_reason)
         seen.add(item['url']);cached=checkpoints.read(item['url'])
         if not cached or cached['document']['evidence_sha256']!=doc.evidence_sha256:

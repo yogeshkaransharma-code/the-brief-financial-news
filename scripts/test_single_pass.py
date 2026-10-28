@@ -113,6 +113,20 @@ def main(_budget):
   status=json.loads((root/'data/status.json').read_text())
   assert status['ai_budget']['daily_limit'] is None and status['ai_budget']['remaining_today'] is None
   assert status['ai_budget']['requests_today_including_this_run']==31
+ # Scope decisions retain the full source, and a newly eligible cached
+ # source resumes without another download or a second model review.
+ with tempfile.TemporaryDirectory() as temp,patch('ai_cost_guard.time.sleep',lambda _:None):
+  root=Path(temp);(root/'data').mkdir();atomic_json(root/'data/articles.json',[])
+  atomic_json(root/'data/live.json',{'items':items})
+  reads=[]
+  def cached_reader(url):reads.append(url);return copy.deepcopy(docs[url])
+  kwargs=dict(discovery=lambda:([],[]),trace=lambda *a,**k:([],[]),reader=cached_reader,ai=ai,search=lambda *a,**k:[])
+  with patch('uk_market_scope.uk_market_reason',return_value=''):
+   held=run(root,now,**kwargs)
+  assert held['metrics']['outside_uk_market']==2 and held['api_budget']['requests_this_run']==0
+  resumed=run(root,now+dt.timedelta(minutes=1),**kwargs)
+  assert len(reads)==2 and resumed['metrics']['source_checkpoints_reused']==2
+  assert resumed['articles_ready_to_publish']==2 and resumed['api_budget']['requests_this_run']==1
  # Complete brief releases need not reach the old 850-character floor.
  body='Aviva has expanded its insurance distribution agreement for eligible commercial customers. Applications remain subject to existing underwriting criteria. The company says brokers can access the service through its established channels. Existing policy terms continue to apply.'
  text,_=html_extract('<main><article><h1>Aviva expands insurance distribution</h1><p>'+body+'</p></article></main>',urls[0])
