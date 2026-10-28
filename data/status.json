@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-10-28T11:14:09.127440+00:00",
+  "checked_at": "2026-10-28T11:16:00.463003+00:00",
   "uk_date": "2026-10-28",
   "outcome": "BLOCKED",
   "editorial_outcome": "BLOCKED",
-  "technical_status": "FAILED",
+  "technical_status": "AWAITING_LIVE_VERIFICATION",
   "source_coverage_status": "PARTIAL",
   "launch_test": {
     "result": "NOT_RUN"
@@ -18,23 +18,23 @@
   },
   "published_total": 149,
   "last_article_at": "2026-10-28T11:12:01.774262+00:00",
-  "fresh_source_candidates": 56,
+  "fresh_source_candidates": 57,
   "verified_original_candidates": 0,
   "candidates_by_sector": {
-    "Insurance": 33,
+    "Insurance": 34,
     "Banking": 23
   },
   "verified_by_sector": {},
   "articles_commissioned": 0,
-  "articles_held": 135,
+  "articles_held": 137,
   "machine_screened": 0,
   "independent_review": false,
   "publication_policy": "newsroom-single-pass-2026-10-26-v1",
   "articles_ready_to_publish": 0,
   "primary_indexes_checked": 31,
-  "primary_index_failures": 5,
-  "feeds_working": 41,
-  "feed_failures": 0,
+  "primary_index_failures": 4,
+  "feeds_working": 40,
+  "feed_failures": 1,
   "ai_budget": {
     "quota_date": "2026-10-28",
     "quota_timezone": "America/Los_Angeles",
@@ -48,20 +48,41 @@
   },
   "quota_pause_until": null,
   "pipeline_metrics": {
-    "discovered_unique": 510,
+    "discovered_unique": 512,
     "irrelevant": 27,
-    "outside_uk_date": 137,
+    "outside_uk_date": 139,
     "already_published_or_retired": 117,
-    "unsupported_route": 172,
+    "unsupported_route": 171,
     "published_development": 1,
-    "fresh_relevant_candidates": 56,
-    "sources_successfully_retrieved": 34,
+    "fresh_relevant_candidates": 57,
+    "sources_successfully_retrieved": 33,
     "source_checkpoints_reused": 0,
-    "outside_uk_market": 34,
-    "source_cooldowns": 6,
+    "outside_uk_market": 33,
+    "source_failures": 2,
+    "source_cooldowns": 5,
     "verified_original_candidates": 0
   },
   "source_fallbacks": [
+    {
+      "source": "https://www.professionalpensions.com/news/4537984/government-change-course-paying-mineworkers-surplus-reports",
+      "result": "Public alternative search completed",
+      "candidates": 0
+    },
+    {
+      "source": "https://www.professionalpensions.com/news/4537984/government-change-course-paying-mineworkers-surplus-reports",
+      "alternatives_found": 0,
+      "result": "No matching alternative in checked sources"
+    },
+    {
+      "source": "https://www.investmentweek.co.uk/news/4537955/budget-26-chancellor-promises-breathing-space-maiden-budget-amid-global-uncertainty",
+      "result": "Public alternative search completed",
+      "candidates": 0
+    },
+    {
+      "source": "https://www.investmentweek.co.uk/news/4537955/budget-26-chancellor-promises-breathing-space-maiden-budget-amid-global-uncertainty",
+      "alternatives_found": 0,
+      "result": "No matching alternative in checked sources"
+    },
     {
       "source": "https://www.wsj.com/finance/currencies/asian-currencies-consolidate-ahead-of-fed-decision-28baaa62",
       "alternatives_found": 1,
@@ -84,11 +105,6 @@
     },
     {
       "source": "https://www.insuranceage.co.uk/broker/7959068/superscript-secures-lloyds-bank-sme-insurance-partnership",
-      "alternatives_found": 0,
-      "result": "No matching alternative in checked sources"
-    },
-    {
-      "source": "https://www.bloomberg.com/news/articles/2026-10-28/turkey-cancels-license-of-brokerage-at-heart-of-fund-crisis",
       "alternatives_found": 0,
       "result": "No matching alternative in checked sources"
     }
@@ -179,108 +195,6 @@
     {
       "title": "TPR sets expectations on “hidden” concentration risks in pension portfolios",
       "source": "https://www.thepensionsregulator.gov.uk/media-hub/press-releases/2026-press-releases/tpr-sets-expectations-on-hidden-concentration-risks-in-pension-portfolios",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
-    {
-      "title": "HSBC Holdings plc 3Q 2026 Earnings Release",
-      "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/hsbc-holdings-plc-3q-2026-earnings-release",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-27"
-    },
-    {
-      "title": "Retirement targets jump 20% as affluent individuals plan for several futures at once",
-      "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/retirement-targets-jump-20-as-affluent-individuals-plan-for-several-futures-at-once",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
-    {
-      "title": "Bullseye Financial Ltd enters administration 27/10/2026",
-      "source": "https://www.fca.org.uk/news/news-stories/bullseye-financial-ltd-enters-administration",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-27"
-    },
-    {
-      "title": "Defence SMEs need banking services that work 26/10/2026",
-      "source": "https://www.fca.org.uk/news/blogs/defence-smes-need-banking-services-work",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-26"
-    },
-    {
-      "title": "Chandler King (City) Limited enters creditors’ voluntary liquidation 26/10/2026",
-      "source": "https://www.fca.org.uk/news/news-stories/chandler-king-enters-creditors-voluntary-liquidation",
-      "result": "rejected",
-      "stage": "eligibility",
-      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
-    },
-    {
-      "title": "FCA calls on private market firms to manage conflicts of interest in line with rapid growth 23/10/2026",
-      "source": "https://www.fca.org.uk/news/press-releases/fca-calls-private-market-firms-manage-conflicts-interest-line-rapid-growth",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
-    {
-      "title": "Beyond borders: Regulating the risks we share 23/10/2026",
-      "source": "https://www.fca.org.uk/news/speeches/beyond-borders-regulating-risks-we-share",
-      "result": "rejected",
-      "stage": "eligibility",
-      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
-    },
-    {
-      "title": "FCA restricts 6 firms following concerns over anti-money laundering controls 23/10/2026",
-      "source": "https://www.fca.org.uk/news/press-releases/fca-restricts-6-firms-following-concerns-over-anti-money-laundering-controls",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-23"
-    },
-    {
-      "title": "Market integrity in a digital age 22/10/2026",
-      "source": "https://www.fca.org.uk/news/speeches/market-integrity-digital-age",
-      "result": "rejected",
-      "stage": "eligibility",
-      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
-    },
-    {
-      "title": "Leeds office move 22/10/2026",
-      "source": "https://www.fca.org.uk/news/news-stories/leeds-office-move",
-      "result": "rejected",
-      "stage": "eligibility",
-      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
-    },
-    {
-      "title": "Reshaping regulation, deliberately 21/10/2026",
-      "source": "https://www.fca.org.uk/news/speeches/reshaping-regulation-deliberately",
-      "result": "rejected",
-      "stage": "eligibility",
-      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
-    },
-    {
-      "title": "Former chief executive banned after misconduct led to £4m losses in high-risk investments 21/10/2026",
-      "source": "https://www.fca.org.uk/news/press-releases/former-chief-executive-banned-after-misconduct-led-4m-losses-high-risk-investments",
-      "result": "rejected",
-      "stage": "eligibility",
-      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
-    },
-    {
-      "title": "Mobile Savings Plan (new)",
-      "source": "https://www.fca.org.uk/news/warnings/mobile-savings-plan",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
-    {
-      "title": "pinnaclesweb.com (clone of FCA Registered firm) (new)",
-      "source": "https://www.fca.org.uk/news/warnings/pinnacleswebcom-clone-fca-registered-firm",
       "result": "excluded",
       "stage": "eligibility",
       "reason": "Already published or retired"
@@ -377,6 +291,93 @@
       "source_date": "2026-10-15"
     },
     {
+      "title": "Bullseye Financial Ltd enters administration 27/10/2026",
+      "source": "https://www.fca.org.uk/news/news-stories/bullseye-financial-ltd-enters-administration",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-27"
+    },
+    {
+      "title": "Defence SMEs need banking services that work 26/10/2026",
+      "source": "https://www.fca.org.uk/news/blogs/defence-smes-need-banking-services-work",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-26"
+    },
+    {
+      "title": "Chandler King (City) Limited enters creditors’ voluntary liquidation 26/10/2026",
+      "source": "https://www.fca.org.uk/news/news-stories/chandler-king-enters-creditors-voluntary-liquidation",
+      "result": "rejected",
+      "stage": "eligibility",
+      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
+    },
+    {
+      "title": "FCA calls on private market firms to manage conflicts of interest in line with rapid growth 23/10/2026",
+      "source": "https://www.fca.org.uk/news/press-releases/fca-calls-private-market-firms-manage-conflicts-interest-line-rapid-growth",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
+    },
+    {
+      "title": "Beyond borders: Regulating the risks we share 23/10/2026",
+      "source": "https://www.fca.org.uk/news/speeches/beyond-borders-regulating-risks-we-share",
+      "result": "rejected",
+      "stage": "eligibility",
+      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
+    },
+    {
+      "title": "FCA restricts 6 firms following concerns over anti-money laundering controls 23/10/2026",
+      "source": "https://www.fca.org.uk/news/press-releases/fca-restricts-6-firms-following-concerns-over-anti-money-laundering-controls",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-23"
+    },
+    {
+      "title": "Market integrity in a digital age 22/10/2026",
+      "source": "https://www.fca.org.uk/news/speeches/market-integrity-digital-age",
+      "result": "rejected",
+      "stage": "eligibility",
+      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
+    },
+    {
+      "title": "Leeds office move 22/10/2026",
+      "source": "https://www.fca.org.uk/news/news-stories/leeds-office-move",
+      "result": "rejected",
+      "stage": "eligibility",
+      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
+    },
+    {
+      "title": "Reshaping regulation, deliberately 21/10/2026",
+      "source": "https://www.fca.org.uk/news/speeches/reshaping-regulation-deliberately",
+      "result": "rejected",
+      "stage": "eligibility",
+      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
+    },
+    {
+      "title": "Former chief executive banned after misconduct led to £4m losses in high-risk investments 21/10/2026",
+      "source": "https://www.fca.org.uk/news/press-releases/former-chief-executive-banned-after-misconduct-led-4m-losses-high-risk-investments",
+      "result": "rejected",
+      "stage": "eligibility",
+      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
+    },
+    {
+      "title": "Mobile Savings Plan (new)",
+      "source": "https://www.fca.org.uk/news/warnings/mobile-savings-plan",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
+    },
+    {
+      "title": "pinnaclesweb.com (clone of FCA Registered firm) (new)",
+      "source": "https://www.fca.org.uk/news/warnings/pinnacleswebcom-clone-fca-registered-firm",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
+    },
+    {
       "title": "Prudential Regulation // Consultation paper 22 October 2026 CP14/26 – Review of the Senior Managers and... CP14/26 – Review of the Senior Managers and Certification Regime (SM&CR) – Phase 2",
       "source": "https://www.bankofengland.co.uk/prudential-regulation/publication/2026/october/review-of-the-smcr-phase-two-consultation-paper",
       "result": "rejected",
@@ -384,16 +385,16 @@
       "reason": "Outside Insurance/Banking or promotional/lifestyle material"
     },
     {
-      "title": "Prudential Regulation // Supervisory statement 14 October 2026 SS2/26 – High loan to income lending SS2/26 – High loan to income lending",
-      "source": "https://www.bankofengland.co.uk/prudential-regulation/publication/2026/october/high-loan-to-income-lending-supervisory-statement",
+      "title": "Prudential Regulation // Policy statement 14 October 2026 PS19/26 – High loan to income lending PS19/26 – High loan to income lending",
+      "source": "https://www.bankofengland.co.uk/prudential-regulation/publication/2026/october/high-loan-to-income-lending-policy-statement",
       "result": "excluded",
       "stage": "eligibility",
       "reason": "Discovery source date is outside the current UK date",
       "source_date": "2026-10-14"
     },
     {
-      "title": "Prudential Regulation // Policy statement 14 October 2026 PS19/26 – High loan to income lending PS19/26 – High loan to income lending",
-      "source": "https://www.bankofengland.co.uk/prudential-regulation/publication/2026/october/high-loan-to-income-lending-policy-statement",
+      "title": "Prudential Regulation // Supervisory statement 14 October 2026 SS2/26 – High loan to income lending SS2/26 – High loan to income lending",
+      "source": "https://www.bankofengland.co.uk/prudential-regulation/publication/2026/october/high-loan-to-income-lending-supervisory-statement",
       "result": "excluded",
       "stage": "eligibility",
       "reason": "Discovery source date is outside the current UK date",
@@ -437,6 +438,21 @@
       "reason": "Outside Insurance/Banking or promotional/lifestyle material"
     },
     {
+      "title": "HSBC Holdings plc 3Q 2026 Earnings Release",
+      "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/hsbc-holdings-plc-3q-2026-earnings-release",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-27"
+    },
+    {
+      "title": "Retirement targets jump 20% as affluent individuals plan for several futures at once",
+      "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/retirement-targets-jump-20-as-affluent-individuals-plan-for-several-futures-at-once",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
+    },
+    {
       "title": "Ageas UK and esure Boards appoint two Independent Non-Executive Directors",
       "source": "https://www.ageas.co.uk/press-releases/2026-press-releases/ageas-esure-boards-independent-non-executive-directors/",
       "result": "excluded",
@@ -471,6 +487,30 @@
       "result": "rejected",
       "stage": "eligibility",
       "reason": "Outside Insurance/Banking or promotional/lifestyle material"
+    },
+    {
+      "title": "Lawrence Hawkins appointed General Counsel Zurich UK",
+      "source": "https://www.zurich.co.uk/media-centre/lawrence-hawkins-appointed-general-counsel",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-21"
+    },
+    {
+      "title": "New captive regime “has potential to strengthen the UK’s position as a leading global insurance centre”",
+      "source": "https://www.zurich.co.uk/media-centre/uk-captive-insurance-regime",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-14"
+    },
+    {
+      "title": "14th October 2026 Starling becomes first bank to train AI model on UK sovereign cloud",
+      "source": "https://www.starlingbank.com/news/starling-backs-uk-sovereign-cloud",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-14"
     },
     {
       "title": "HSB Cyber Exchange 2026: What Cybercriminals Know that Insurers Don’t",
@@ -547,14 +587,6 @@
       "result": "rejected",
       "stage": "eligibility",
       "reason": "Outside Insurance/Banking or promotional/lifestyle material"
-    },
-    {
-      "title": "14th October 2026 Starling becomes first bank to train AI model on UK sovereign cloud",
-      "source": "https://www.starlingbank.com/news/starling-backs-uk-sovereign-cloud",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-14"
     },
     {
       "title": "People Moves: Standard Life makes senior PRT hire",
@@ -3238,13 +3270,6 @@
       "reason": "No reviewed article route in source registry"
     },
     {
-      "title": "Equity release lending slips as advisers report shrinking LTVs",
-      "source": "https://www.mortgagesolutions.co.uk/mortgage-news/2026/10/26/equity-release-lending-slips-as-advisers-report-shrinking-ltvs/",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "No reviewed article route in source registry"
-    },
-    {
       "title": "Allison Reagan joins CRC Specialty as SVP, Property Broker",
       "source": "https://www.reinsurancene.ws/allison-reagan-joins-crc-specialty-as-svp-property-broker/",
       "result": "excluded",
@@ -3438,6 +3463,13 @@
       "reason": "Bounded source-read allowance; retained for next run"
     },
     {
+      "title": "Turkey Cancels License of Brokerage at Heart of Fund Crisis",
+      "source": "https://www.bloomberg.com/news/articles/2026-10-28/turkey-cancels-license-of-brokerage-at-heart-of-fund-crisis",
+      "result": "deferred",
+      "stage": "source",
+      "reason": "Bounded source-read allowance; retained for next run"
+    },
+    {
       "title": "Clearstream makes tokenised fund distribution move",
       "source": "https://www.finextra.com/newsarticle/48658/clearstream-makes-tokenised-fund-distribution-move",
       "result": "deferred",
@@ -3531,16 +3563,20 @@
     {
       "title": "Government could change course on paying back Mineworkers' surplus, say reports",
       "source": "https://www.professionalpensions.com/news/4537984/government-change-course-paying-mineworkers-surplus-reports",
-      "result": "rejected",
-      "stage": "uk_market",
-      "reason": "No evidenced connection to UK insurance or banking market"
+      "result": "held back",
+      "stage": "source",
+      "reason": "HTTP Error 503: Service Unavailable",
+      "classification": "TEMPORARY_FAILURE",
+      "retry_after": "2026-10-28T11:30:37.432814+00:00"
     },
     {
       "title": "Budget 26: Chancellor promises 'breathing space' in maiden Budget amid global uncertainty",
       "source": "https://www.investmentweek.co.uk/news/4537955/budget-26-chancellor-promises-breathing-space-maiden-budget-amid-global-uncertainty",
-      "result": "rejected",
-      "stage": "uk_market",
-      "reason": "No evidenced connection to UK insurance or banking market"
+      "result": "held back",
+      "stage": "source",
+      "reason": "HTTP Error 503: Service Unavailable",
+      "classification": "TEMPORARY_FAILURE",
+      "retry_after": "2026-10-28T11:30:37.432814+00:00"
     },
     {
       "title": "From Saltburn to The Traitors, screen fame’s risks outlast the shoot for heritage owners",
@@ -3578,6 +3614,13 @@
       "reason": "No evidenced connection to UK insurance or banking market"
     },
     {
+      "title": "Can AI Replace Government Jobs? The World Is Watching the Dutch.",
+      "source": "https://www.insurancejournal.com/news/international/2026/10/28/890529.htm",
+      "result": "rejected",
+      "stage": "uk_market",
+      "reason": "No evidenced connection to UK insurance or banking market"
+    },
+    {
       "title": "Mapfre Re’s 9M’26 profit climbs 11.8% to €286m",
       "source": "https://www.reinsurancene.ws/mapfre-res-9m26-profit-climbs-11-8-to-e286m/",
       "result": "rejected",
@@ -3594,13 +3637,6 @@
     {
       "title": "Fed set to hold interest rates steady in last decision before midterms",
       "source": "https://www.theguardian.com/business/2026/oct/28/fed-interest-rates-midterms",
-      "result": "rejected",
-      "stage": "uk_market",
-      "reason": "No evidenced connection to UK insurance or banking market"
-    },
-    {
-      "title": "Chancellor abolishes standing charges on gas bills to make payments fairer",
-      "source": "https://www.gov.uk/government/news/chancellor-abolishes-standing-charges-on-gas-bills-to-make-payments-fairer",
       "result": "rejected",
       "stage": "uk_market",
       "reason": "No evidenced connection to UK insurance or banking market"
@@ -3629,6 +3665,13 @@
     {
       "title": "From heritage office to growth engine: HDI Hong Kong’s next chapter",
       "source": "https://www.commercialriskonline.com/from-heritage-office-to-growth-engine-hdi-hong-kongs-next-chapter/",
+      "result": "rejected",
+      "stage": "uk_market",
+      "reason": "No evidenced connection to UK insurance or banking market"
+    },
+    {
+      "title": "Chancellor abolishes standing charges on gas bills to make payments fairer",
+      "source": "https://www.gov.uk/government/news/chancellor-abolishes-standing-charges-on-gas-bills-to-make-payments-fairer",
       "result": "rejected",
       "stage": "uk_market",
       "reason": "No evidenced connection to UK insurance or banking market"
@@ -3803,15 +3846,6 @@
       "reason": "Original document has no unambiguous publication date; listing/RSS date is insufficient",
       "classification": "DATE_UNVERIFIED",
       "retry_after": "2026-10-28T13:10:49.593374+00:00"
-    },
-    {
-      "title": "Turkey Cancels License of Brokerage at Heart of Fund Crisis",
-      "source": "https://www.bloomberg.com/news/articles/2026-10-28/turkey-cancels-license-of-brokerage-at-heart-of-fund-crisis",
-      "result": "retry deferred",
-      "stage": "source",
-      "reason": "HTTP Error 403: Forbidden",
-      "classification": "ACCESS_RESTRICTED",
-      "retry_after": "2026-10-28T15:50:06.540866+00:00"
     }
   ],
   "discovery_errors": [
@@ -3819,7 +3853,11 @@
     "Allianz UK: HTTPError HTTP Error 403: Forbidden",
     "Association of British Insurers: HTTPError HTTP Error 403: Forbidden",
     "Revolut UK: HTTPError HTTP Error 403: Forbidden",
-    "Zurich UK: HTTPError HTTP Error 503: Service Unavailable"
+    {
+      "source": "Insurance Age",
+      "url": "https://www.insuranceage.co.uk/feeds/rss/category/broker",
+      "error": "not well-formed (invalid token): line 1, column 0"
+    }
   ],
   "publication_holds": [
     {
@@ -4633,69 +4671,13 @@
       ]
     }
   ],
-  "run_id": "40678248550",
-  "event": "workflow_dispatch",
-  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40678248550",
+  "run_id": "40678436536",
+  "event": "push",
+  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40678436536",
   "publisher_links": 0,
   "discovery_headlines": 30,
-  "publisher_desk_checked_at": "2026-10-28T11:13:41.287676+00:00",
+  "publisher_desk_checked_at": "2026-10-28T11:15:35.180057+00:00",
   "previous_verified_runs": [
-    {
-      "run_id": "40606261635",
-      "event": "schedule",
-      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40606261635",
-      "editorial_outcome": "BLOCKED",
-      "published_this_run": 0,
-      "publisher_links": 0,
-      "discovery_headlines": 2,
-      "source_coverage_status": "PARTIAL",
-      "fresh_source_candidates": 1,
-      "verified_by_sector": {},
-      "ai_budget": {
-        "quota_date": "2026-10-27",
-        "quota_timezone": "America/Los_Angeles",
-        "requests_this_run": 0,
-        "requests_today_including_this_run": 31,
-        "run_limit": 7,
-        "daily_limit": null,
-        "remaining_today": null,
-        "daily_limit_source": "provider",
-        "remaining_this_run": 7
-      },
-      "pipeline_metrics": {
-        "discovered_unique": 509,
-        "outside_uk_date": 181,
-        "irrelevant": 35,
-        "already_published_or_retired": 134,
-        "unsupported_route": 158,
-        "fresh_relevant_candidates": 1,
-        "source_cooldowns": 1,
-        "verified_original_candidates": 0
-      },
-      "source_fallbacks": [
-        {
-          "source": "https://www.bbc.co.uk/news/articles/c6x2zrjl7kjno",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        }
-      ],
-      "publication_policy": "newsroom-single-pass-2026-10-26-v1",
-      "independent_review": false,
-      "articles_ready_to_publish": 0,
-      "articles_visible_this_run": 0,
-      "live_article_ids": [],
-      "commissioned_stories": [],
-      "checked_at": "2026-10-28T00:04:00.715992+00:00",
-      "technical_status": "LIVE_VERIFIED",
-      "deployment": "success",
-      "live_check": "success",
-      "browser_check": "skipped",
-      "candidate_outcome_counts": {
-        "eligibility:excluded": 473,
-        "eligibility:rejected": 35,
-        "source:retry deferred": 1
-      }
-    },
     {
       "run_id": "40610682926",
       "event": "push",
@@ -6763,6 +6745,94 @@
         "alternative_source:held back": 1,
         "writing:ready to publish": 1
       }
+    },
+    {
+      "run_id": "40678248550",
+      "event": "workflow_dispatch",
+      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40678248550",
+      "editorial_outcome": "BLOCKED",
+      "published_this_run": 0,
+      "publisher_links": 0,
+      "discovery_headlines": 30,
+      "source_coverage_status": "PARTIAL",
+      "fresh_source_candidates": 56,
+      "verified_by_sector": {},
+      "ai_budget": {
+        "quota_date": "2026-10-28",
+        "quota_timezone": "America/Los_Angeles",
+        "requests_this_run": 0,
+        "requests_today_including_this_run": 5,
+        "run_limit": 7,
+        "daily_limit": null,
+        "remaining_today": null,
+        "daily_limit_source": "provider",
+        "remaining_this_run": 7
+      },
+      "pipeline_metrics": {
+        "discovered_unique": 510,
+        "irrelevant": 27,
+        "outside_uk_date": 137,
+        "already_published_or_retired": 117,
+        "unsupported_route": 172,
+        "published_development": 1,
+        "fresh_relevant_candidates": 56,
+        "sources_successfully_retrieved": 34,
+        "source_checkpoints_reused": 0,
+        "outside_uk_market": 34,
+        "source_cooldowns": 6,
+        "verified_original_candidates": 0
+      },
+      "source_fallbacks": [
+        {
+          "source": "https://www.wsj.com/finance/currencies/asian-currencies-consolidate-ahead-of-fed-decision-28baaa62",
+          "alternatives_found": 1,
+          "result": "Alternative retrieval attempted"
+        },
+        {
+          "source": "https://www.commercialriskonline.com/growth-for-global-marine-insurance-but-market-remains-soft-says-iumi/",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.bloomberg.com/news/articles/2026-10-28/sandoz-warns-eu-may-scrap-antibiotic-protection-risking-plant",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.bbc.co.uk/news/articles/c6x2zrjl7kjno",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.insuranceage.co.uk/broker/7959068/superscript-secures-lloyds-bank-sme-insurance-partnership",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.bloomberg.com/news/articles/2026-10-28/turkey-cancels-license-of-brokerage-at-heart-of-fund-crisis",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        }
+      ],
+      "publication_policy": "newsroom-single-pass-2026-10-26-v1",
+      "independent_review": false,
+      "articles_ready_to_publish": 0,
+      "articles_visible_this_run": 0,
+      "live_article_ids": [],
+      "commissioned_stories": [],
+      "checked_at": "2026-10-28T11:15:05.270584+00:00",
+      "technical_status": "FAILED",
+      "deployment": "success",
+      "live_check": "success",
+      "browser_check": "failure",
+      "candidate_outcome_counts": {
+        "eligibility:rejected": 27,
+        "eligibility:excluded": 426,
+        "eligibility:duplicate": 1,
+        "source:deferred": 16,
+        "uk_market:rejected": 34,
+        "source:retry deferred": 6
+      }
     }
   ],
   "launch_acceptance": {
@@ -6774,20 +6844,19 @@
       "article_site_live_verified": true,
       "mobile_and_desktop_reading": true,
       "latest_run_technically_healthy": false,
-      "latest_editorial_run_unblocked": true
+      "latest_editorial_run_unblocked": false
     },
-    "verified_scheduled_runs": 9,
+    "verified_scheduled_runs": 8,
     "commissioned_sectors": [],
     "pending": [
       "worthwhile_same_day_developments_across_sectors",
-      "latest_run_technically_healthy"
+      "latest_run_technically_healthy",
+      "latest_editorial_run_unblocked"
     ],
     "note": "Operational evidence checkpoint, not a guarantee of future events or error-free journalism."
   },
   "launch_diagnostic_allowance": {
     "limit": 2,
     "requests": 2
-  },
-  "articles_visible_this_run": 0,
-  "live_article_ids": []
+  }
 }
