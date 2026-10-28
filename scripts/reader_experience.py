@@ -11,20 +11,33 @@ ROUTINE = re.compile(r"\b(?:appoints|appointed|promotion|promotes|names|webinar|
 FOREIGN = re.compile(r"\b(?:US|U\.S\.|American|Florida|Georgia|California|New York|Utah|Boston|Hong Kong|APAC|Asia-Pacific)\b", re.I)
 
 def priority(a):
-    """Evidence-based UK/title relevance; small boost for substantive headlines."""
+    """Presentation-only proxy for practical UK significance, not fact-checking.
+
+    A regulator's name alone does not make a routine announcement the lead.
+    Evidence of wider customer or commercial impact counts more, while a
+    small appointment cannot automatically outrank substantive market news.
+    """
     title = str(a.get("title", ""))
     summary = str(a.get("short", ""))
     source = str(a.get("source", ""))
+    status = str(a.get("status", ""))
     points = 0
-    if UK.search(title):points += 14
-    elif UK.search(summary):points += 5
+    if UK.search(title):
+        points += 7
+    elif UK.search(summary):
+        points += 3
+    if re.search(r"\b(?:interest rates?|lending costs?|capital requirements?|new rules?|final rules?|regulatory change|claims costs?|profit warning|earnings|financial results|losses|underwriting|premiums?|reinsurance|merger|acquisition|insolvency|funding|business lending|customer redress)\b", title, re.I):
+        points += 7
+    if re.search(r"\b(?:customers?|policyholders?|borrowers?|brokers?|businesses|firms|households|employers|employees|lenders)\b", summary, re.I):
+        points += 3
     if re.search(r"\b(?:Financial Conduct Authority|Prudential Regulation Authority|Bank of England|FCA|PRA)\b", source, re.I):
-        points += 12
-    if BIG.search(title):points += 4
-    if ROUTINE.search(title):points -= 5
-    if FOREIGN.search(title) and not UK.search(title):points -= 4
-    # In particular, do not replace a newer relevant report with a much older one:
-    # the caller already supplies published articles from a single UK calendar day.
+        points += 2
+    if re.search(r"\b(?:published policy|confirmed announcement)\b", status, re.I):
+        points += 2
+    if ROUTINE.search(title):
+        points -= 11
+    if FOREIGN.search(title) and not UK.search(title):
+        points -= 6
     return points
 
 def lead_article(articles):
