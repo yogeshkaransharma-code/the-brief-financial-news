@@ -36,6 +36,16 @@ def verify():
     assert 'tb-sector-visuals' not in home and 'tb-intro-band' not in home, 'Duplicate desk panels remain on homepage'
     assert 'id="briefing-tabs"' not in home and 'id="chips"' not in home, 'Duplicate Insurance and Banking filters remain'
     assert 'class="news-photo"' not in home, 'Repeated generic photography still dominates the article feed'
+    assert 'tb-lead-art' in home and 'tb-report-art' in home, 'Curated homepage photography is missing'
+    # The homepage embeds JavaScript templates as well as pre-rendered HTML.
+    # Count only the actual server-rendered DOM, not strings in the script.
+    rendered=home.split('<script type="application/json" id="curated-data"',1)[0]
+    if edition:
+        assert rendered.count('class="tb-lead-art"')==1, 'Exactly one lead illustration must be present'
+        assert rendered.count('class="tb-report-art"')==min(2,len(edition)-1), 'Supporting photography must remain selective'
+        assert 'not the news event' in rendered and 'commons.wikimedia.org' in rendered, 'Illustration disclosure or credits missing'
+    else:
+        assert 'class="tb-lead-art"' not in rendered, 'Empty editions should not imply that a news event happened'
     assert 'href="insurance.html"' in home and 'href="banking.html"' in home, 'Primary desk navigation missing'
     assert '<select id="order"' in home, 'Reader cannot sort Latest Reporting'
     assert home.index('<nav class="tb-nav tb-section-nav"') < home.index('<section class="top-layout"') < home.index('<section id="latest"') < home.index('<section id="context"'), 'Reader journey is out of order'
