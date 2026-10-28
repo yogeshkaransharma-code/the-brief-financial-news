@@ -22,6 +22,9 @@ def main():
             page=context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
             page.goto(SITE,wait_until='networkidle',timeout=60000)
             assert page.locator('#lead-story').is_visible()
+            assert 'The 60-second Brief' in page.locator('#briefing-title').inner_text(), 'The agreed quick-catch-up label is not visible'
+            assert 'Latest reporting' in page.locator('#latest h2').inner_text(), 'The agreed reporting list is not visible'
+            assert page.locator('.tb-sector-visual strong').all_inner_texts()==['Explore Insurance.','Explore Banking.'], 'Desk gateways are stale'
             assert page.locator('#feed .news-item').count()==len(today[:10]),'Visible today count differs'
             visible='\n'.join(page.locator('#lead-story,#briefing-stories,#feed').all_inner_texts())
             for a in articles:
@@ -49,11 +52,13 @@ def main():
             assert page.locator('article[data-category="Banking"]').count()==sum(desk_for(a)=='Banking' for a in today),'Banking page has missing or misplaced reports'
             assert page.locator('article[data-category="Insurance"]').count()==0,'Insurance articles wrongly shown under banking'
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'),'Banking page overflows'
+            assert not errors, 'Banking desk JavaScript error: '+repr(errors)
             page.screenshot(path=str(OUT/f'banking-{width}.png'),full_page=True)
             page.goto(SITE+'insurance.html',wait_until='domcontentloaded',timeout=60000)
             assert page.locator('h1').inner_text()=='Insurance.'
             assert page.locator('article[data-category="Insurance"]').count()==sum(desk_for(a)=='Insurance' for a in today)
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'),'Insurance page overflows'
+            assert not errors, 'Insurance desk JavaScript error: '+repr(errors)
             page.screenshot(path=str(OUT/f'insurance-{width}.png'),full_page=True)
             page.goto(SITE+'archive.html',wait_until='domcontentloaded',timeout=60000)
             assert 'The archive.' in page.locator('h1').inner_text()

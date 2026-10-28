@@ -28,6 +28,10 @@ def verify():
     assert 'href="privacy.html"' in home, 'Footer has no readable privacy link'
     assert 'rankHighlights(originals)[0]' in home, 'Client-side homepage ignores UK-focused lead'
     assert 'eligibleBriefs.slice(0,3)' in home, 'Client-side catch-up has grown beyond three stories'
+    assert 'The 60-second Brief' in home and 'Latest reporting' in home, 'Approved reader-facing headings missing'
+    assert 'Explore Insurance.' in home and 'Explore Banking.' in home, 'Sector gateways still misleadingly promise fresh reports'
+    assert 'if(resetDesk)resetDesk.addEventListener' in (ROOT/'scripts/build_public.py').read_text(), 'Quiet desks bind a missing reset button'
+
     # HTML builds can pass while the inline homepage script has a parse error.
     # GitHub-hosted CI has Node; locally the check is skipped if unavailable.
     node=shutil.which('node')
@@ -138,6 +142,8 @@ def verify():
         assert 'tb-desk-edition-note' in page and 'Earlier editions' in page, 'Desk does not explain date separation'
         if not matches:
             assert ('No '+section.lower()+' reports have been published today.') in page, 'Quiet desk has no honest empty state'
+            assert 'id="tb-reset-desk"' not in page, 'No-news desk unexpectedly has a reset control'
+        assert 'if(resetDesk)resetDesk.addEventListener' in page, 'Desk script might attach events to a missing reset button'
 
     for a in archive:
         assert a['desk_section'] in {'Insurance','Banking'}, 'Third public category leaked'
