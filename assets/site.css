@@ -675,3 +675,74 @@ body.tb-banking-reading .tb-source-evidence{background:#E9EFF2;border-left-color
 .tb-banking-desk .tb-desk-more{color:#31566B}
 .tb-desk-image-credits{font:10px/1.65 var(--sans)!important;color:#786D66!important;max-width:990px;margin:18px 0!important}
 .tb-desk-image-credits a{color:inherit;text-underline-offset:3px}
+
+/* Fidelity pass for the approved five-screen editorial concept: a compact
+   paper-like masthead, stronger news hierarchy, real desk-specific accents. */
+.tb-header .tb-mast{padding:18px 27px 7px!important;gap:0 20px}
+.tb-header .tb-logo{font:700 clamp(37px,3.75vw,51px)/.98 var(--display)!important;letter-spacing:-2px!important}
+.tb-header .tb-tag{font:750 9px/1.3 var(--sans)!important;letter-spacing:.10em!important;color:#D5BDB8!important}
+.tb-header .tb-nav{gap:36px;margin-top:9px;align-items:center}
+.tb-header .tb-nav a{font-size:12px!important;padding:7px 0 11px!important}
+.tb-header .tb-nav a[href$="index.html"][aria-current=page]{color:#EFBBAE!important;border-bottom:2px solid #E5B6A6!important}
+body.tb-home .issue-heading{padding:11px 0 10px;margin-top:0!important}
+body.tb-home .top-layout{grid-template-columns:minmax(0,1.26fr) minmax(330px,.71fr);padding:10px 0 13px}
+body.tb-home .lead-story{min-height:410px!important;padding:105px 28px 25px!important}
+body.tb-home .lead-story h1{font-size:clamp(32px,3.05vw,45px)!important;letter-spacing:-.9px!important;line-height:1.075!important;margin:13px 0 9px!important}
+body.tb-home .lead-story .standfirst{font:400 13px/1.48 var(--sans)!important}
+body.tb-home .lead-story .cta{font-size:11px!important}
+body.tb-home .one-minute{padding:17px 18px 12px!important;background:#FFF9F1!important}
+body.tb-home .one-minute .minute-head{margin-bottom:3px}
+body.tb-home .one-minute .minute-kicker{font-size:9px!important;letter-spacing:.07em!important}
+body.tb-home .one-minute h2{font:600 20px/1.12 var(--display)!important;margin:3px 0 6px!important}
+body.tb-home .one-minute .minute-intro{font-size:10px!important}
+.tb-briefing-tabs{display:flex;gap:5px;margin:9px 0 5px;align-items:center}
+.tb-briefing-tabs button{background:#F1E6DC;border:0;border-radius:2px;color:#563F3C;padding:6px 9px;font:750 10px var(--sans);cursor:pointer}
+.tb-briefing-tabs button.active{background:#702D42;color:#FFF9F1}
+.tb-briefing-tabs button:focus-visible{outline:2px solid #456277;outline-offset:2px}
+body.tb-home .one-minute .briefing-story{grid-template-columns:39px 1fr;gap:8px;padding:8px 0!important}
+body.tb-home .one-minute .brief-number{font:700 9px/1.4 var(--sans)!important;color:#654F4D!important;padding-top:2px}
+body.tb-home .one-minute .briefing-story a,
+body.tb-home .one-minute .briefing-story button{font:600 13px/1.23 var(--display)!important}
+body.tb-home .one-minute .minute-footer{font-size:10px!important;margin-top:10px!important}
+.tb-briefing-empty{font:12px/1.4 var(--sans);color:#685B57}
+body.tb-home .tb-sector-visuals{padding:7px 0 15px!important}
+body.tb-home .tb-sector-visual,body.tb-home .tb-sector-overlay{min-height:190px!important}
+body.tb-home .tb-sector-overlay{padding:18px 22px!important}
+body.tb-home .tb-sector-visual strong{font-size:clamp(25px,2.25vw,34px)!important;max-width:240px}
+body.tb-home .news-heading{margin-top:0;padding-bottom:9px!important}
+body.tb-home .news-heading h2{font-size:22px!important}
+body.tb-home .news-item .news-photo{height:124px}
+body.tb-home .news-item .news-photo span{display:none}
+body.tb-home .news-item h3{font-size:clamp(17px,1.6vw,21px)!important;line-height:1.17!important}
+body.tb-home .news-item .summary{font-size:12px!important}
+body.tb-home .news-item .news-cat{font-size:9px!important}
+.tb-desk-hero{height:350px}
+.tb-desk-hero-copy{padding:34px 42px}
+.tb-desk-story-copy h2{font-size:clamp(21px,2vw,28px)!important}
+.tb-desk-story-copy p{color:#635851!important}
+/* Never display a broken white image area when external Wikimedia services
+   rate-limit; a muted sectional surface remains legible without loading. */
+.tb-desk-image,.news-photo{background:linear-gradient(140deg,#DAC8C1,#AB8E85)!important}
+.tb-banking-desk .tb-desk-image{background:linear-gradient(140deg,#D8E3EA,#8BA5B5)!important}
+@media(max-width:720px){
+  .tb-header .tb-mast{padding:16px 16px 6px!important}
+  .tb-header .tb-logo{font-size:39px!important}
+  .tb-header .tb-nav{gap:17px;margin-top:7px}
+  .tb-header .tb-nav a{font-size:11px!important;padding:9px 0!important}
+  body.tb-home .top-layout{grid-template-columns:1fr}
+  body.tb-home .lead-story{min-height:325px!important;padding:102px 21px 22px!important}
+  body.tb-home .lead-story h1{font-size:clamp(29px,7vw,38px)!important}
+  body.tb-home .one-minute{padding:18px 20px!important}
+  .tb-briefing-tabs{gap:7px;margin:9px 0 4px}
+  body.tb-home .tb-sector-visual,body.tb-home .tb-sector-overlay{min-height:180px!important}
+  .tb-desk-hero{height:305px}
+}
+@media(max-width:480px){
+  .tb-header .tb-logo{font-size:35px!important}
+  .tb-header .tb-nav{gap:13px}
+  .tb-header .tb-nav a{font-size:11px!important}
+  body.tb-home .lead-story h1{font-size:31px!important}
+  body.tb-home .news-item .news-photo{height:100px}
+  body.tb-home .tb-sector-visual,body.tb-home .tb-sector-overlay{min-height:157px!important}
+  .tb-desk-hero{height:250px}
+}
