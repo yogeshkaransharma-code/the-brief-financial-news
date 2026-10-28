@@ -45,7 +45,7 @@ def probe():
                 want={a['id'] for a in canonical if published_same_day(a,artifact_clock)}
             assert {a['id'] for a in today}==want,'Live edition differs from eligible same-day articles'
             assert {a['id'] for a in archive}=={a['id'] for a in canonical},'Live archive has missing articles'
-            assert all(published_same_day(a) for a in today),'Old article leaked into today'
+            assert all(published_same_day(a,artifact_clock if '--monitor' in sys.argv else None) for a in today),'Old article leaked into today'
             assert 'archive.html' in home,'Archive navigation missing'
             for a in canonical:
                 if a['id'] not in want:assert html.escape(a['title'],quote=True) not in current_home,'Old headline in today edition'
@@ -59,7 +59,8 @@ def probe():
                 assert html.escape(a['url'],quote=True) in story,'Original source link absent'
                 assert all(html.escape(p,quote=True) in story for _,p in a['blocks']),'Full article paragraphs missing'
                 tested.append(a['id'])
-            if not today:assert 'No verified same-day reports have been published yet' in home and 'Start with the essentials' in home,'Empty edition misleading'
+            if not today:
+                assert 'Today’s lead report is still being prepared' in home and 'Explore earlier reporting' in home, 'Empty edition must provide an honest next action'
             assert 'insurance.html' in home and 'banking.html' in home,'Section navigation missing'
             assert 'href="status.html"' not in home and 'href="hourly.html"' not in home,'Internal/duplicate pages still linked'
             assert '.tb-sector-visual' in read(SITE+'assets/site.css'+token),'Shared visual identity missing'
