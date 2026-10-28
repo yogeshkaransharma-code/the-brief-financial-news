@@ -105,6 +105,11 @@ def standalone_story(a,related=None):
     terms=a.get('display_glossary') or terms_for(a)
     definitions=''.join('<dt>'+esc(t)+'</dt><dd>'+esc(d)+'</dd>' for t,d in terms)
     glossary_html=('<section class="tb-glossary"><h2>Jargon, explained.</h2><dl>'+definitions+'</dl></section>' if definitions else '')
+    # Legacy stories lack a distinct, source-grounded consequence. Never
+    # repeat the standfirst and call it new UK-specific context.
+    takeaway=(a.get('reader_takeaway') or '').strip()
+    context_box=('<section class="tb-uk-context"><h3>Why it matters</h3><p>'
+                 +esc(takeaway)+'</p></section>' if takeaway else '')
     points=standout_points(a)
     if len(points)<2 and a.get('short'):points.insert(0,a['short'])
     points_html=''.join('<li>'+esc(x)+'</li>' for x in points)
@@ -135,7 +140,7 @@ def standalone_story(a,related=None):
 <p class="disclosure">{esc(disclosure)} <a href="../about.html">Our standards and corrections policy</a>. Not financial advice.</p>
 </div><aside class="tb-story-aside" aria-label="Article at a glance">
 <section class="tb-key-points"><h2>Key points</h2><ul>{points_html}</ul></section>
-<section class="tb-uk-context"><h3>The UK connection</h3><p>{esc(a.get('short',''))}</p></section>
+{context_box}
 <section class="tb-related"><h3>Read next</h3>{related_html if related_html else '<a href="../'+desk+'.html">More '+esc(section)+' news ↗</a>'}</section>
 </aside></div>
 </article></main>{site_footer("../")}</body></html>"""
@@ -222,7 +227,8 @@ def desk_page(records,section):
     """One masthead, one editorial grid, subtle separate desk identities."""
     from site_design import (ST_PAULS_PHOTO,CITY_PHOTO,BANK_PHOTO,WESTMINSTER_PHOTO,
                              ST_PAULS_CREDIT_URL,CITY_CREDIT_URL,BANK_CREDIT_URL,WESTMINSTER_CREDIT_URL)
-    selected=[a for a in records if a['desk_section']==section]
+    # Today's desk is distinct from previous dated editions.
+    selected=[a for a in records if a['desk_section']==section and published_same_day(a)]
     desk=section.lower()
     intro=('The latest developments shaping UK insurers, brokers, underwriting, claims and regulation.' if section=='Insurance'
         else 'The latest developments shaping UK banks, lenders, financial markets and the wider economy.')
@@ -251,9 +257,12 @@ def desk_page(records,section):
           '<p class="tb-desk-credit">Illustrative photograph: <a href="'+esc(credit)+'" target="_blank" rel="noopener noreferrer">'+esc(credit_name)+' / Wikimedia Commons</a> · CC BY-SA. Not an event photograph.</p>'
           '<nav class="tb-desk-tabs" aria-label="Browse '+esc(section)+' reports">'+tabs
           +'<a href="archive.html?category='+esc(section)+'">All reports ↗</a></nav>'
+          '<p class="tb-desk-edition-note">Today’s '+esc(section.lower())+' reports only · '+esc(clock().strftime('%-d %B %Y'))+'. <a href="archive.html?category='+esc(section)+'">Earlier editions</a>.</p>'
           '<div class="tb-desk-stories">'+''.join(cards)+'</div>'
           '<button type="button" id="tb-desk-more" class="tb-desk-more" hidden>Show more reports ↓</button>'
-          '<p class="tb-desk-empty" hidden>No reports match this section yet. <button type="button" id="tb-reset-desk">Show the latest instead</button>.</p>'
+          '<p class="tb-desk-empty"'+('' if not selected else ' hidden')+'>'
+          + ('No '+esc(section.lower())+' reports have been published today. <a href="archive.html?category='+esc(section)+'">Browse earlier editions</a>.' if not selected else 'No reports match this topic today. <button type="button" id="tb-reset-desk">Show all today’s reports</button>.')
+          + '</p>'
           '<p class="tb-desk-image-credits">Article photographs are illustrative, not pictures of the news events. Image credits: '
           '<a href="'+WESTMINSTER_CREDIT_URL+'" target="_blank" rel="noopener noreferrer">hozinja</a>, '
           '<a href="'+ST_PAULS_CREDIT_URL+'" target="_blank" rel="noopener noreferrer">Colin</a>, '
@@ -343,9 +352,13 @@ def build():
         '<div class="briefing-story"><span class="brief-number">0' + str(i+1)
         + '</span><div><span class="story-kind">FULL ARTICLE</span>'
         + '<a href="' + esc(story_href(a)) + '">' + esc(a["title"]) + '</a>'
-        + '<p>' + esc(a.get("short", "")[:190]) + '</p></div></div>'
-        for i, a in enumerate(other_briefs(records, first, limit=5))
+        + '<p>' + esc(a.get("short", "")) + '</p>'
+        + ('<p><strong>Why it matters:</strong> '+esc(a["reader_takeaway"])+'</p>' if a.get("reader_takeaway") else '')
+        + '</div></div>'
+        for i, a in enumerate(other_briefs(records, first, limit=3))
     )
+    if first and not briefing:
+        briefing='<p class="tb-briefing-empty">Our lead story is today’s only published report. No other developments have been added.</p>'
     if not briefing:
         briefing = ('<div class="tb-empty-guide"><p>No UK-market report has been published today.</p>'
             '<a href="#context"><b>INSURANCE</b><span>Understand brokers, underwriting and cover →</span></a>'
