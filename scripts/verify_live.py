@@ -59,7 +59,7 @@ def probe():
                 assert html.escape(a['url'],quote=True) in story,'Original source link absent'
                 assert all(html.escape(p,quote=True) in story for _,p in a['blocks']),'Full article paragraphs missing'
                 tested.append(a['id'])
-            if not today:assert 'No verified news from today yet' in home,'Empty edition misleading'
+            if not today:assert 'No verified same-day reports have been published yet' in home and 'Start with the essentials' in home,'Empty edition misleading'
             assert 'insurance.html' in home and 'banking.html' in home,'Section navigation missing'
             assert 'href="status.html"' not in home and 'href="hourly.html"' not in home,'Internal/duplicate pages still linked'
             assert '.tb-sector-visual' in read(SITE+'assets/site.css'+token),'Shared visual identity missing'
