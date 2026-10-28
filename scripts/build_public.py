@@ -11,7 +11,7 @@ import re
 from pathlib import Path
 from urllib.parse import quote
 from same_day_policy import published_same_day, clock, original_date, date_in_uk
-from site_design import desk_for, terms_for, header, footer as site_footer, visual, ST_PAULS_PHOTO, CITY_PHOTO
+from site_design import desk_for, terms_for, header, footer as site_footer, visual, ST_PAULS_PHOTO, CITY_PHOTO, BANK_PHOTO, WESTMINSTER_PHOTO
 from reader_experience import lead_article, other_briefs
 from reader_analytics import install as install_analytics, token_from_env
 import shutil
@@ -354,7 +354,7 @@ def build():
     rows = []
     for i, a in enumerate(records[:15]):
         rows.append(
-            '<article class="news-item" data-desk="'+esc(a.get('desk_section'))+'"><a class="news-photo" href="'+story_href(a)+'"><img loading="lazy" decoding="async" alt="Illustrative London sector photograph, not the event" src="'+esc(CITY_PHOTO if a.get('desk_section')=='Banking' else ST_PAULS_PHOTO)+'"><span>Sector photograph</span></a><div class="story-ordinal">' + str(i+1).zfill(2)
+            '<article class="news-item" data-desk="'+esc(a.get('desk_section'))+'"><a class="news-photo" href="'+story_href(a)+'"><img loading="lazy" decoding="async" alt="Illustrative London sector photograph, not the event" src="'+esc([BANK_PHOTO, CITY_PHOTO, ST_PAULS_PHOTO, WESTMINSTER_PHOTO][i % 4])+'"><span>Sector photograph</span></a><div class="story-ordinal">' + str(i+1).zfill(2)
             + '</div><div><div class="news-cat">' + esc(a.get("desk_section")) + ' · OUR REPORT</div>'
             + '<h3><a href="' + esc(story_href(a)) + '">' + esc(a["title"]) + '</a></h3>'
             + '<p class="summary">' + esc(a.get("short")) + '</p>'
