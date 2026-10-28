@@ -221,8 +221,8 @@ function renderTop(){
  const originals=sortItems(published.filter(x=>x.ai_assisted&&x.publication_method==='autonomous'&&currentDayArticle(x)));
  const lead=rankHighlights(originals)[0];
  if(!lead){
-   $('lead-story').innerHTML='<span class="story-kicker">THE BRIEF / TODAY</span><h1>No verified news from today yet.</h1><p class="standfirst">We have not confirmed a new first-party financial-services announcement dated today in the UK. <a href="archive.html">Read earlier editions in the archive →</a></p>';
-   $('briefing-stories').innerHTML=`<p>No verified same-day stories to brief yet.</p>`;
+   $('lead-story').innerHTML='<span class="story-kicker">THE BRIEF / YOUR UK FINANCIAL DESK</span><h1>UK insurance and banking. Understood.</h1><p class="standfirst">No verified same-day reports have been published yet. While the newsroom looks for today’s developments, explore the financial basics.</p><a class="cta" href="#context">Start with the essentials →</a>';
+   $('briefing-stories').innerHTML='<div class="tb-empty-guide"><p>No UK-market report has been published today.</p><a href="#context"><b>INSURANCE</b><span>Understand brokers, underwriting and cover →</span></a><a href="#context"><b>BANKING</b><span>Understand lending, savings and interest rates →</span></a><a href="archive.html"><b>EARLIER REPORTS</b><span>Explore clearly dated previous editions →</span></a></div>';
    return;
  }
  const latestPublication=[...originals].sort((a,b)=>reportTime(b)-reportTime(a))[0];
