@@ -194,19 +194,22 @@ function goHome(){location.hash='home';}
 function displayHome(){activeId='';$('home-view').hidden=false;$('article-view').hidden=true;document.title='The Brief — Insurance and banking, clearly.';window.scrollTo(0,scrollBefore)}
 function usefulSummary(s){const value=String(s.quick||s.short||s.excerpt||'').trim();return /^(author\s*:|this content is copyright|copyright notice|read more\b)/i.test(value)?'':value}
 function highlightScore(s){
- // Presentation-only prioritisation; no claim that relevance has been independently reviewed.
- const title=String(s.title||''),summary=String(s.short||''),source=String(s.source||'');
+ // Lightweight, explainable UK editorial triage, not a claim of human review.
+ const title=String(s.title||''),summary=String(s.short||''),source=String(s.source||''),status=String(s.status||'');
  const uk=/\b(?:UK|United Kingdom|British|Britain|England|English|Scottish|Scotland|Welsh|Wales|Northern Ireland|London|Manchester|Birmingham|Leeds|Bristol|FCA|PRA|Bank of England|Financial Ombudsman|Lloyd['’]?s of London|UK Budget)\b/i;
- const big=/\b(?:regulator|regulation|consultation|court rules|court ruling|acquisition|merger|earnings|results|profit|capital|underwriting|claims|insolvenc|business lending|interest rates|FCA|PRA|financial distress)\b/i;
+ const substantive=/\b(?:interest rates?|lending costs?|capital requirements?|new rules?|final rules?|regulatory change|claims costs?|profit warning|earnings|financial results|losses|underwriting|premiums?|reinsurance|merger|acquisition|insolvency|funding|business lending|customer redress)\b/i;
+ const audience=/\b(?:customers?|policyholders?|borrowers?|brokers?|businesses|firms|households|employers|employees|lenders)\b/i;
  const routine=/\b(?:appoints|appointed|promotion|promotes|names|webinar|award|shortlist|demo day)\b/i;
  const foreign=/\b(?:US|U\.S\.|American|Florida|Georgia|California|New York|Utah|Boston|Hong Kong|APAC|Asia-Pacific)\b/i;
  let points=0;
- if(uk.test(title))points+=14;
- else if(uk.test(summary))points+=5;
- if(/\b(?:Financial Conduct Authority|Prudential Regulation Authority|Bank of England|FCA|PRA)\b/i.test(source))points+=12;
- if(big.test(title))points+=4;
- if(routine.test(title))points-=5;
- if(foreign.test(title)&&!uk.test(title))points-=4;
+ if(uk.test(title))points+=7;
+ else if(uk.test(summary))points+=3;
+ if(substantive.test(title))points+=7;
+ if(audience.test(summary))points+=3;
+ if(/\b(?:Financial Conduct Authority|Prudential Regulation Authority|Bank of England|FCA|PRA)\b/i.test(source))points+=2;
+ if(/\b(?:published policy|confirmed announcement)\b/i.test(status))points+=2;
+ if(routine.test(title))points-=11;
+ if(foreign.test(title)&&!uk.test(title))points-=6;
  return points;
 }
 function rankHighlights(items){return [...items].sort((a,b)=>highlightScore(b)-highlightScore(a)||reportTime(b)-reportTime(a))}
