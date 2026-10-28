@@ -13,9 +13,19 @@ def main():
     ]
     assert lead_article(items)["id"]=="2"
     assert all(x["id"]!="2" for x in other_briefs(items,items[1])), "Briefing repeats the lead"
-    assert other_briefs(items[:1],items[0])==items[:1], "Quiet edition must still show the one story"
+    assert other_briefs(items[:1],items[0])==[], "Do not duplicate the only lead story"
     assert lead_article([]) is None
     assert priority(items[1]) > priority(items[0])
+    across=[
+        {"id":"lead","title":"UK insurer reports a policy change","category":"Insurance"},
+        {"id":"next1","title":"First follow-up","category":"Insurance"},
+        {"id":"next2","title":"Second follow-up","category":"Insurance"},
+        {"id":"next3","title":"Third follow-up","category":"Insurance"},
+        {"id":"bank","title":"UK lender's results","category":"Banking"},
+    ]
+    chosen=other_briefs(across,across[0])
+    assert len(chosen)==3 and {a["id"] for a in chosen}=={"next1","next2","bank"}, "Other sector should get a place"
+    assert all(a["id"]!="lead" for a in chosen)
     with patch.dict("os.environ",{TOKEN_NAME:""},clear=False):
         assert token_from_env()==""
     with patch.dict("os.environ",{TOKEN_NAME:"not-a-token"},clear=False):
