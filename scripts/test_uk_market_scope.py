@@ -25,6 +25,26 @@ def main():
             body="The San Francisco startup is seeking capacity from London market insurers to provide cover for UK clients."),
         article("Pensions contributions face change","British pension savers would see an increase in contributions."),
     ]
+    # Real production rejection shapes: domestic Budget/pension reporting,
+    # ordinary announcements and a UK effect deep in the complete source.
+    yes.extend([
+        article("Budget 26: Government changes DC consolidation",
+            "The Budget changes defined contribution pension arrangements.",
+            url="https://www.professionalpensions.com/news/4538007/budget-pensions"),
+        article("Budget 26: VCT tax relief unchanged",
+            "VCT investors retain the existing tax relief.",
+            url="https://www.investmentweek.co.uk/news/4537995/budget-vct"),
+        article("Tax treatment of pension death benefits changes",
+            "HMRC announced the tax treatment for pension benefits."),
+        article("Reinsurance capacity agreement announced", "A capacity agreement was announced.",
+            body=("The reinsurer outlined its distribution arrangements. "*90)+"The agreement provides cover for UK commercial customers."),
+        article("US insurer launches new distribution arrangement", "The insurer announced a new distribution arrangement.",
+            body=("The insurer outlined underwriting arrangements. "*90)+"The insurer will provide cover to UK businesses."),
+    ])
+    for row in yes[-2:]:
+        assert in_uk_scope(row,row["blocks"][0][1]), "Full-source UK connection was ignored"
+    # These two deliberately have no UK signal in their discovery snippets.
+    late_source_yes=yes[-2:];yes=yes[:-2]
     no=[
         article("Fire and explosion occur at Quaker Oats plant in Iowa","A blaze occurred in Cedar Rapids."),
         article("California regulator sets up biodiversity and insurance risk commission","California is examining insured losses."),
@@ -50,6 +70,14 @@ def main():
     for row in no:
         assert not in_uk_scope(row,row["short"]),("Unrelated overseas story accepted",row["title"])
         assert not public_article_in_scope(row),("Unrelated overseas story public",row["title"])
+    from media_sources import relevant
+    assert relevant({"title":"Jewellery-loss claims jump during Halloween week",
+        "url":"https://www.aviva.com/newsroom/news-and-research-overview/news-releases/2026/10/claims/"})
+    assert relevant({"title":"Lloyds uses AI to strengthen customer fraud support",
+        "url":"https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/fraud.html"})
+    from publication_scope import source_lane
+    assert source_lane("https://www.finextra.com/pressarticle/111487/payments-partnership")
+    for row in late_source_yes:assert public_article_in_scope(row)
     unknown=article("Insurer changes intermediary model","A new distribution arrangement was introduced.")
     assert not in_uk_scope(unknown, "Insurer changes intermediary model worldwide.")
     assert in_uk_scope(unknown, "The UK insurance market will receive a new intermediary distribution arrangement.")

@@ -14,7 +14,7 @@ PUBLISHERS = {
  'insurancejournal.com': ('Insurance Journal', r'/news/(?:[^/]+/)+[^/]+/?'),
  'insurancetimes.co.uk': ('Insurance Times', r'/(?:[^/]+/)*[^/]+\.article'),
  'insuranceage.co.uk': ('Insurance Age', r'/(?:[^/]+/)+[^/]+/?'),
- 'finextra.com': ('Finextra', r'/newsarticle/\d+/[^/]+/?'),
+ 'finextra.com': ('Finextra', r'/(?:newsarticle|pressarticle)/\d+/[^/]+/?'),
  'professionalpensions.com': ('Professional Pensions', r'/news/\d+/[^/]+/?'),
  'investmentweek.co.uk': ('Investment Week', r'/news/\d+/[^/]+/?'),
  'moneymarketing.co.uk': ('Money Marketing', r'/(?:news|analysis)/[^/]+/?'),
@@ -43,7 +43,7 @@ def publisher(url):
  except ValueError:pass
  return None
 
-FINANCE=re.compile(r"\b(?:banks?|banking|building societ\w*|insur\w*|reinsur\w*|broker\w*|underwrit\w*|mga[s]?|lloyd['’]s|london market|pension\w*|protection|employee benefits|mortgage\w*|lend\w*|credit|financ\w*|fintech|payment\w*|asset manag\w*|wealth manag\w*|investment fund\w*|fund manag\w*|savings?|fca|pra|treasury|central bank\w*|interest rates?|capital markets?|bond markets?|bonds?|gilts?|budget|fiscal|taxation|tax policy|consumer duty)\b",re.I)
+FINANCE=re.compile(r"\b(?:banks?|banking|building societ\w*|insur\w*|reinsur\w*|broker\w*|underwrit\w*|mga[s]?|lloyd['’]s|london market|pension\w*|protection|employee benefits|mortgage\w*|lend\w*|credit|financ\w*|fintech|payment\w*|asset manag\w*|wealth manag\w*|investment fund\w*|fund manag\w*|savings?|fca|pra|treasury|central bank\w*|interest rates?|capital markets?|bond markets?|bonds?|gilts?|budget|fiscal|taxation|tax policy|consumer duty|claims?|fraud|scams?|retirement|retirements|savers|savings|capital|solvency)\b",re.I)
 LIFESTYLE=re.compile(r"\b(?:ask (?:our|the)|your problems|dear (?:[a-z]+)|money hacks|best buys?|how (?:can|do|to)|should i|my (?:wife|husband|partner)|travel tips|horoscope|crossword|win a|sponsored|advertorial|partner content)\b",re.I)
 
 def relevant(item):
@@ -54,7 +54,11 @@ def relevant(item):
  if host in SPECIALIST_HOSTS and publisher(url):
   return not bool(re.search(r'(?i)\b(?:sponsored|advertorial|partner content)\b',title))
  if host=='theguardian.com' and urlsplit(url).path.startswith('/money/') and re.search(r'(?i)\b(?:fraudsters?|bank accounts?|account theft|scams?)\b',title):return True
- if LIFESTYLE.search(title):return False
+ # Admit ordinary announcements from registered financial institutions;
+ # headlines need not spell out the sector or its significance.
+ from publication_scope import source_lane
+ if source_lane(url) and not publisher(url):return True
+ if LIFESTYLE.search(title) and not FINANCE.search(title):return False
  if FINANCE.search(title):return True
  # Recognise firms in headlines, not incidental references in related-story summaries.
  from market_coverage import ORGANISATIONS

@@ -148,12 +148,21 @@ def run(root=None,now=None,*,discovery=discover,trace=find_originals,reader=read
         metrics['source_checkpoints_reused']+=int(method=='checkpoint')
         if item['url'] in published|retired or item['url'] in seen:
             event(item,'duplicate','source','Canonical source already published or captured');continue
+        # Preserve every complete dated capture before relevance selection.
+        # Rejected or deferred leads must not be downloaded again next cycle.
+        cached=checkpoints.read(item['url'])
+        if not cached or cached['document']['evidence_sha256']!=doc.evidence_sha256:
+            checkpoints.save(item,doc,status='captured',article=None,bundle=None)
         from uk_market_scope import uk_market_reason
         uk_reason=uk_market_reason(item,doc.text)
         if not uk_reason:
             metrics['outside_uk_market']+=1
-            event(item,'rejected','uk_market','No evidenced connection to UK insurance or banking market')
+            event(item,'rejected','uk_market','No UK insurance or banking connection in the complete source')
+            attempts[item['url']]={'attempted_at':now.isoformat(),'retry_after':(now+dt.timedelta(hours=4)).isoformat(),
+                'stage':'scope','classification':'OUTSIDE_UK_SCOPE','last_result':'No UK financial connection in complete source'}
+            persist()
             continue
+        item=dict(item,uk_market_basis=uk_reason)
         seen.add(item['url']);cached=checkpoints.read(item['url'])
         if not cached or cached['document']['evidence_sha256']!=doc.evidence_sha256:
             checkpoints.save(item,doc,status='captured',article=None,bundle=None)
