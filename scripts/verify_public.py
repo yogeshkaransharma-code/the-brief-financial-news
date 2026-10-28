@@ -27,6 +27,9 @@ def verify():
     assert 'Cloudflare Web Analytics' in privacy and 'About and corrections page' in privacy
     assert 'href="privacy.html"' in home, 'Footer has no readable privacy link'
     assert 'rankHighlights(originals)[0]' in home, 'Client-side homepage ignores UK-focused lead'
+    # Single-pass original reports can legitimately have one substantive body section.
+    # A stricter browser-only requirement silently hides published articles.
+    assert 'Array.isArray(x.blocks)&&x.blocks.length>=1&&currentDayArticle(x)' in home, 'Homepage drops approved single-section reporting'
     assert 'eligibleBriefs.slice(0,3)' in home, 'Client-side catch-up has grown beyond three stories'
     assert 'The 60-second Brief' in home and 'Latest reporting' in home, 'Approved reader-facing headings missing'
     assert 'tb-section-nav' in home and home.count('<nav class="tb-nav tb-section-nav"')==1, 'Homepage must have one primary section ribbon'
