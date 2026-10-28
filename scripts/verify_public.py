@@ -38,7 +38,8 @@ def verify():
                 if 'application/json' in attrs or not source.strip():continue
                 path=Path(tmp)/(f'home-{i}.js')
                 path.write_text(source,encoding='utf-8')
-                subprocess.run([node,'--check',str(path)],check=True,capture_output=True,text=True)
+                result=subprocess.run([node,'--check',str(path)],capture_output=True,text=True)
+                assert result.returncode==0, 'Invalid homepage JavaScript: '+result.stderr[:1800]
 
     # Preserve the approved reader journey: lead/catch-up, desk gateways,
     # latest reporting, then the rotating educational introduction.
