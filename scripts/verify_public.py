@@ -24,6 +24,7 @@ def verify():
     assert 'Cloudflare Web Analytics' in privacy and 'About and corrections page' in privacy
     assert 'href="privacy.html"' in home, 'Footer has no readable privacy link'
     assert 'rankHighlights(originals)[0]' in home, 'Client-side homepage ignores UK-focused lead'
+    assert 'eligibleBriefs.slice(0,3)' in home, 'Client-side catch-up has grown beyond three stories'
     today_list=[a for a in canonical if published_same_day(a)]
     today_list.sort(key=lambda a:(a.get('published_at',''),a.get('dateISO',''),a['id']),reverse=True)
     front_lead=lead_article(today_list)
@@ -107,9 +108,13 @@ def verify():
         page=path.read_text(encoding='utf-8')
         assert '<h1>'+section+'.</h1>' in page
         assert 'class="tb-header"' in page and 'status.html' not in page
-        matches=[a for a in archive if a['desk_section']==section]
+        matches=[a for a in archive if a['desk_section']==section and published_same_day(a)]
+        older=[a for a in archive if a['desk_section']==section and not published_same_day(a)]
         for article in matches:assert html.escape(article['title'],quote=True) in page
+        for article in older:assert html.escape(article['title'],quote=True) not in page, 'Archive item leaked into today’s desk'
         assert page.count('<article data-category=')==len(matches)
+        assert 'tb-desk-edition-note' in page and 'Earlier editions' in page, 'Desk does not explain date separation'
+        assert ('No '+section.lower()+' reports have been published today.') in page if not matches else True
 
     for a in archive:
         assert a['desk_section'] in {'Insurance','Banking'}, 'Third public category leaked'
