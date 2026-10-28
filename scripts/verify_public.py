@@ -25,6 +25,12 @@ def verify():
     assert 'href="privacy.html"' in home, 'Footer has no readable privacy link'
     assert 'rankHighlights(originals)[0]' in home, 'Client-side homepage ignores UK-focused lead'
     assert 'eligibleBriefs.slice(0,3)' in home, 'Client-side catch-up has grown beyond three stories'
+    # Preserve the approved reader journey: lead/catch-up, desk gateways,
+    # latest reporting, then the rotating educational introduction.
+    markers=['<section class="top-layout"', '<section class="tb-sector-visuals"',
+             '<section id="latest" class="news-section"', '<section id="context" class="understand"']
+    positions=[home.index(marker) for marker in markers]
+    assert positions==sorted(positions), 'Approved homepage reading order changed'
     today_list=[a for a in canonical if published_same_day(a)]
     today_list.sort(key=lambda a:(a.get('published_at',''),a.get('dateISO',''),a['id']),reverse=True)
     front_lead=lead_article(today_list)
@@ -114,7 +120,8 @@ def verify():
         for article in older:assert html.escape(article['title'],quote=True) not in page, 'Archive item leaked into today’s desk'
         assert page.count('<article data-category=')==len(matches)
         assert 'tb-desk-edition-note' in page and 'Earlier editions' in page, 'Desk does not explain date separation'
-        assert ('No '+section.lower()+' reports have been published today.') in page if not matches else True
+        if not matches:
+            assert ('No '+section.lower()+' reports have been published today.') in page, 'Quiet desk has no honest empty state'
 
     for a in archive:
         assert a['desk_section'] in {'Insurance','Banking'}, 'Third public category leaked'
