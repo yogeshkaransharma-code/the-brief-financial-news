@@ -2,124 +2,10 @@
   "api_budget": {
     "date": "2026-10-28",
     "timezone": "America/Los_Angeles",
-    "requests": 8,
+    "requests": 14,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-10-25T13:09:08.896754+00:00",
-      "prompt_characters": 3588,
-      "purpose": "production",
-      "result": "response_received",
-      "usage": {
-        "candidatesTokenCount": 61,
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 860,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 860
-          }
-        ],
-        "serviceTier": "standard",
-        "totalTokenCount": 921
-      }
-    },
-    {
-      "at": "2026-10-25T13:27:47.612541+00:00",
-      "prompt_characters": 5921,
-      "purpose": "production",
-      "result": "response_received",
-      "usage": {
-        "candidatesTokenCount": 106,
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 1519,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 1519
-          }
-        ],
-        "serviceTier": "standard",
-        "totalTokenCount": 1625
-      }
-    },
-    {
-      "at": "2026-10-25T14:09:40.291338+00:00",
-      "prompt_characters": 3643,
-      "purpose": "production",
-      "result": "response_received",
-      "usage": {
-        "candidatesTokenCount": 73,
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 866,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 866
-          }
-        ],
-        "serviceTier": "standard",
-        "totalTokenCount": 939
-      }
-    },
-    {
-      "at": "2026-10-25T14:26:15.550412+00:00",
-      "prompt_characters": 4016,
-      "purpose": "production",
-      "result": "response_received",
-      "usage": {
-        "candidatesTokenCount": 81,
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 973,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 973
-          }
-        ],
-        "serviceTier": "standard",
-        "totalTokenCount": 1054
-      }
-    },
-    {
-      "at": "2026-10-25T15:30:09.134960+00:00",
-      "prompt_characters": 3995,
-      "purpose": "production",
-      "result": "response_received",
-      "usage": {
-        "candidatesTokenCount": 65,
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 920,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 920
-          }
-        ],
-        "serviceTier": "standard",
-        "totalTokenCount": 985
-      }
-    },
-    {
-      "at": "2026-10-25T16:30:59.729686+00:00",
-      "prompt_characters": 6205,
-      "purpose": "production",
-      "result": "response_received",
-      "usage": {
-        "candidatesTokenCount": 125,
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 1583,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 1583
-          }
-        ],
-        "serviceTier": "standard",
-        "totalTokenCount": 1708
-      }
-    },
     {
       "at": "2026-10-25T16:31:14.733701+00:00",
       "prompt_characters": 8550,
@@ -1879,6 +1765,108 @@
       "at": "2026-10-28T15:46:15.956236+00:00",
       "result": "failed",
       "prompt_characters": 23763,
+      "purpose": "single_pass_writing",
+      "error_type": "GeminiAPIError"
+    },
+    {
+      "at": "2026-10-28T15:53:18.254354+00:00",
+      "result": "response_received",
+      "prompt_characters": 18631,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 3908,
+        "candidatesTokenCount": 960,
+        "totalTokenCount": 4868,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 3908
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-28T15:53:39.151272+00:00",
+      "result": "response_received",
+      "prompt_characters": 21606,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 4494,
+        "candidatesTokenCount": 672,
+        "totalTokenCount": 5166,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 4494
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-28T15:54:11.048409+00:00",
+      "result": "response_received",
+      "prompt_characters": 19115,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 4090,
+        "candidatesTokenCount": 660,
+        "totalTokenCount": 4750,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 4090
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-28T15:54:34.367775+00:00",
+      "result": "response_received",
+      "prompt_characters": 13833,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 3010,
+        "candidatesTokenCount": 710,
+        "totalTokenCount": 3720,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 3010
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-28T15:55:00.422796+00:00",
+      "result": "response_received",
+      "prompt_characters": 18125,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 3610,
+        "candidatesTokenCount": 603,
+        "totalTokenCount": 4213,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 3610
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-28T15:55:15.429237+00:00",
+      "result": "failed",
+      "prompt_characters": 25207,
       "purpose": "single_pass_writing",
       "error_type": "GeminiAPIError"
     }
@@ -4130,6 +4118,31 @@
       "attempted_at": "2026-10-28T15:45:55.775653+00:00",
       "retry_after": "2026-10-29T16:45:55.775653+00:00",
       "headline": "Firms object to share being part of OKX-ICE tokenised stock trading venture"
+    },
+    "https://www.insurancebusinessmag.com/uk/news/breaking-news/biba-calls-for-ipt-freeze-as-budget-leaves-health-cover-taxed-like-car-insurance-595316.aspx": {
+      "attempted_at": "2026-10-28T15:52:45.055569+00:00",
+      "retry_after": "2026-10-29T16:52:45.055569+00:00",
+      "headline": "BIBA calls for IPT freeze as Budget leaves health cover taxed like car insurance"
+    },
+    "https://www.mortgagesolutions.co.uk/mortgage-news/2026/10/28/autumn-budget-2026-ftb-isa-set-to-launch-in-april-2029/": {
+      "attempted_at": "2026-10-28T15:52:45.055569+00:00",
+      "retry_after": "2026-10-29T16:52:45.055569+00:00",
+      "headline": "Autumn Budget 2026: FTB ISA set to launch in April 2029"
+    },
+    "https://www.professionalpensions.com/news/4538041/budget-26-industry-welcomes-quiet-low-key-budget-pensions": {
+      "attempted_at": "2026-10-28T15:52:45.055569+00:00",
+      "retry_after": "2026-10-29T16:52:45.055569+00:00",
+      "headline": "Budget 26: Industry welcomes 'quiet' and 'low-key' Budget for pensions"
+    },
+    "https://www.mortgagesolutions.co.uk/mortgage-news/2026/10/28/autumn-budget-2026-your-first-home-available-up-to-650000-details-revealed/": {
+      "attempted_at": "2026-10-28T15:52:45.055569+00:00",
+      "retry_after": "2026-10-29T16:52:45.055569+00:00",
+      "headline": "Autumn Budget 2026: Your First Home available up to £650,000 – details revealed"
+    },
+    "https://www.mortgagesolutions.co.uk/mortgage-news/2026/10/28/mansion-tax-homeowners-to-learn-their-charge-and-band-by-next-autumn/": {
+      "attempted_at": "2026-10-28T15:52:45.055569+00:00",
+      "retry_after": "2026-10-29T16:52:45.055569+00:00",
+      "headline": "Mansion tax homeowners to learn their charge and band by next autumn"
     }
   },
   "sources": {
@@ -5139,12 +5152,12 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-10-28/us-friendly-nations-slash-treasury-purchases-by-60-led-by-asia": {
-      "attempted_at": "2026-10-28T09:50:06.540866+00:00",
-      "retry_after": "2026-10-28T15:50:06.540866+00:00",
+      "attempted_at": "2026-10-28T15:52:45.055569+00:00",
+      "retry_after": "2026-10-28T21:52:45.055569+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 2,
+      "failures": 3,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-10-28/chinese-government-to-speed-bond-sales-to-stimulate-growth": {
@@ -5240,34 +5253,31 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.wsj.com/finance/banking/ai-boom-drives-a-jump-in-lending-but-bankers-still-sound-cautious-78bd7a58": {
-      "attempted_at": "2026-10-28T09:50:06.540866+00:00",
-      "retry_after": "2026-10-28T15:50:06.540866+00:00",
+      "attempted_at": "2026-10-28T15:52:45.055569+00:00",
+      "retry_after": "2026-10-28T21:52:45.055569+00:00",
       "last_result": "HTTP Error 401: HTTP Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-28T13:50:06.540866+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.wsj.com/real-estate/home-buyers-who-enjoyed-cheap-adjustable-mortgages-are-now-getting-a-nasty-shock-6c5cf3fe": {
-      "attempted_at": "2026-10-28T09:50:06.540866+00:00",
-      "retry_after": "2026-10-28T15:50:06.540866+00:00",
+      "attempted_at": "2026-10-28T15:52:45.055569+00:00",
+      "retry_after": "2026-10-28T21:52:45.055569+00:00",
       "last_result": "HTTP Error 401: HTTP Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-28T13:52:06.533726+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-10-28/turkey-cancels-license-of-brokerage-at-heart-of-fund-crisis": {
-      "attempted_at": "2026-10-28T09:50:06.540866+00:00",
-      "retry_after": "2026-10-28T15:50:06.540866+00:00",
+      "attempted_at": "2026-10-28T15:52:45.055569+00:00",
+      "retry_after": "2026-10-28T21:52:45.055569+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-28T13:52:06.533726+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.commercialriskonline.com/indian-insurance-managers-enjoy-falling-rates-and-plenty-of-capacity/": {
       "attempted_at": "2026-10-28T11:42:59.656335+00:00",
@@ -5346,16 +5356,6 @@
       "failures": 2,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
-    "https://www.professionalpensions.com/news/4537984/government-change-course-paying-mineworkers-surplus-reports": {
-      "attempted_at": "2026-10-28T11:15:37.432814+00:00",
-      "retry_after": "2026-10-28T11:30:37.432814+00:00",
-      "last_result": "HTTP Error 503: Service Unavailable",
-      "classification": "TEMPORARY_FAILURE",
-      "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-28T15:15:37.432814+00:00"
-    },
     "https://news.sky.com/story/ex-city-minister-raises-millions-for-ai-insurance-start-up-i23-13604753": {
       "attempted_at": "2026-10-28T11:42:59.656335+00:00",
       "retry_after": "2026-10-28T17:42:59.656335+00:00",
@@ -5367,14 +5367,11 @@
       "alternative_search_after": "2026-10-28T15:42:59.656335+00:00"
     },
     "https://www.commercialriskonline.com/hartford-q3-profit-rises-23-while-core-earnings-decline/": {
-      "attempted_at": "2026-10-28T11:42:59.656335+00:00",
-      "retry_after": "2026-10-28T15:42:59.656335+00:00",
-      "last_result": "Insufficient official article content (0 characters); cannot responsibly draft",
-      "classification": "EVIDENCE_UNUSABLE",
-      "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-28T15:42:59.656335+00:00"
+      "attempted_at": "2026-10-28T15:52:45.055569+00:00",
+      "retry_after": "2026-10-28T19:52:45.055569+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
     },
     "https://www.commercialriskonline.com/from-heritage-office-to-growth-engine-hdi-hong-kongs-next-chapter/": {
       "attempted_at": "2026-10-28T11:42:59.656335+00:00",
@@ -5656,6 +5653,118 @@
     "https://www.professionalpensions.com/news/4538013/budget-26-government-remove-tax-rule-lump-sum-death-benefits": {
       "attempted_at": "2026-10-28T15:45:55.775653+00:00",
       "retry_after": "2026-10-28T16:00:55.775653+00:00",
+      "last_result": "Gemini API HTTP 503: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+      "classification": "TEMPORARY_FAILURE",
+      "stage": "writing",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.professionalpensions.com/news/4538041/budget-26-industry-welcomes-quiet-low-key-budget-pensions": {
+      "attempted_at": "2026-10-28T15:52:45.055569+00:00",
+      "retry_after": "2026-10-28T16:07:45.055569+00:00",
+      "last_result": "HTTP Error 503: Service Unavailable",
+      "classification": "TEMPORARY_FAILURE",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-28T19:52:45.055569+00:00"
+    },
+    "https://www.finextra.com/pressarticle/111482/scotiabank-revamps-app": {
+      "attempted_at": "2026-10-28T15:52:45.055569+00:00",
+      "retry_after": "2026-10-28T21:52:45.055569+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-28T19:52:45.055569+00:00"
+    },
+    "https://www.finextra.com/pressarticle/111481/archax-brings-perpetual-tokenised-government-bill-product-to-eurozone": {
+      "attempted_at": "2026-10-28T15:52:45.055569+00:00",
+      "retry_after": "2026-10-28T21:52:45.055569+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-28T19:52:45.055569+00:00"
+    },
+    "https://www.reinsurancene.ws/the-baldwin-groups-total-revenue-reaches-480-3m-in-q326/": {
+      "attempted_at": "2026-10-28T15:52:45.055569+00:00",
+      "retry_after": "2026-10-28T19:52:45.055569+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.finextra.com/pressarticle/111480/singapore-payments-network-appoints-ceo-and-board": {
+      "attempted_at": "2026-10-28T15:52:45.055569+00:00",
+      "retry_after": "2026-10-28T21:52:45.055569+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.commercialriskonline.com/mapfre-global-risks-sees-premiums-drop-in-softening-market/": {
+      "attempted_at": "2026-10-28T15:52:45.055569+00:00",
+      "retry_after": "2026-10-28T19:52:45.055569+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.finextra.com/pressarticle/111475/syfe-appoints-jaclyn-kaur-as-head-of-wealth-advisory-singapore": {
+      "attempted_at": "2026-10-28T15:52:45.055569+00:00",
+      "retry_after": "2026-10-28T21:52:45.055569+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.insurancejournal.com/news/international/2026/10/28/890589.htm": {
+      "attempted_at": "2026-10-28T15:52:45.055569+00:00",
+      "retry_after": "2026-10-28T19:52:45.055569+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.reinsurancene.ws/marsh-names-kristof-de-bremme-as-incoming-ceo-of-marsh-netherlands/": {
+      "attempted_at": "2026-10-28T15:52:45.055569+00:00",
+      "retry_after": "2026-10-28T19:52:45.055569+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.finextra.com/pressarticle/111479/digital-asset-self-custodial-platform-bron-joins-hashgraph-association": {
+      "attempted_at": "2026-10-28T15:52:45.055569+00:00",
+      "retry_after": "2026-10-28T21:52:45.055569+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.insurancebusinessmag.com/uk/news/breaking-news/mapfre-posts-924m-profit-as-north-america-bets-pay-off-595240.aspx": {
+      "attempted_at": "2026-10-28T15:52:45.055569+00:00",
+      "retry_after": "2026-10-28T16:07:45.055569+00:00",
+      "last_result": "Gemini API HTTP 503: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+      "classification": "TEMPORARY_FAILURE",
+      "stage": "writing",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.insurancebusinessmag.com/uk/news/breaking-news/minings-soft-market-window-is-open-but-the-risks-arent-soft-595232.aspx": {
+      "attempted_at": "2026-10-28T15:52:45.055569+00:00",
+      "retry_after": "2026-10-28T16:07:45.055569+00:00",
+      "last_result": "Gemini API HTTP 503: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+      "classification": "TEMPORARY_FAILURE",
+      "stage": "writing",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.insurancebusinessmag.com/uk/news/breaking-news/84-expect-retirements-to-hit-client-capability-but-just-11-have-a-knowledgetransfer-plan-595226.aspx": {
+      "attempted_at": "2026-10-28T15:52:45.055569+00:00",
+      "retry_after": "2026-10-28T16:07:45.055569+00:00",
       "last_result": "Gemini API HTTP 503: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
       "classification": "TEMPORARY_FAILURE",
       "stage": "writing",
