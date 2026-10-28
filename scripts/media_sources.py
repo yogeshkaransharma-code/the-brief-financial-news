@@ -57,8 +57,11 @@ def relevant(item):
  # Admit ordinary announcements from registered financial institutions;
  # headlines need not spell out the sector or its significance.
  from publication_scope import source_lane
- if source_lane(url) and not publisher(url):return True
- if LIFESTYLE.search(title) and not FINANCE.search(title):return False
+ from market_coverage import ORGANISATIONS
+ from uk_market_scope import UK_AUTHORITIES
+ financial_hosts={domain for entries in ORGANISATIONS.values() for _,domain in entries}|UK_AUTHORITIES
+ if source_lane(url) and host in financial_hosts:return True
+ if LIFESTYLE.search(title):return False
  if FINANCE.search(title):return True
  # Recognise firms in headlines, not incidental references in related-story summaries.
  from market_coverage import ORGANISATIONS
