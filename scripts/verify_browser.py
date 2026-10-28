@@ -27,6 +27,11 @@ def main():
             assert page.locator('.tb-sector-visual').count()==0, 'Duplicate sector banners still clutter the homepage'
             assert page.locator('#briefing-tabs,#chips').count()==0, 'Duplicate sector-choice controls remain'
             assert page.locator('#feed .news-photo').count()==0, 'Generic stock image thumbnails still compete with news'
+            if today:
+                assert page.locator('#lead-story .tb-lead-art img').count()==1, 'Lead story has lost editorial photography'
+                assert page.locator('#feed .tb-report-art img').count()==min(2,max(0,len(today)-1)), 'Supporting pictures should be selective'
+                assert page.locator('#feed .tb-report-art figcaption a').count()==min(2,max(0,len(today)-1)), 'Picture credits missing'
+            assert page.locator('.tb-sector-visual').count()==0, 'Duplicate navigation banners returned'
             assert page.locator('.tb-nav a').all_inner_texts()==['Home','Insurance','Banking','About'], 'Unified navigation is missing'
             assert page.locator('.tb-nav a[aria-current="page"]').inner_text()=='Home', 'Home navigation state is missing'
             assert page.evaluate("getComputedStyle(document.querySelector('.tb-nav')).display")=='flex', 'Navigation ribbon is not laid out as a single unit'

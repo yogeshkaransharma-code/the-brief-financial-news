@@ -23,6 +23,33 @@ BANK_CREDIT="Diego Delso, delso.photo · CC BY-SA"
 BANK_CREDIT_URL="https://commons.wikimedia.org/wiki/File:Banco_de_Inglaterra,_Londres,_Inglaterra,_2014-08-11,_DD_141_(cropped).JPG"
 LLOYDS_CREDIT_URL="https://www.lloyds.com/insights/media-centre/photo-gallery"
 
+# Verified reusable context photographs. Never claim that a historical building
+# photograph shows the current news event; always credit the photographer.
+LLOYDS_BUILDING_PHOTO="https://upload.wikimedia.org/wikipedia/commons/d/d3/LloydsOfLondon.JPG"
+LLOYDS_BUILDING_CREDIT="Atak Kara / Wikimedia Commons · CC BY 3.0"
+LLOYDS_BUILDING_CREDIT_URL="https://commons.wikimedia.org/wiki/File:LloydsOfLondon.JPG"
+
+def home_photo_for(article):
+    """A source-credited illustrative setting, not a purported event photograph.
+
+    For imagery tied to an actual development, the newsroom would need an
+    independently licensed/verified photo. Do not borrow publisher images.
+    """
+    title=str(article.get("title","")).lower()
+    if re.search(r"\b(?:fca|bank of england|interest rate|lending|bank|savings plan|mortgage)\b",title):
+        image=(BANK_PHOTO,"The Bank of England in London",BANK_CREDIT,BANK_CREDIT_URL)
+    elif re.search(r"\b(?:chancellor|budget|parliament|treasury|government|tax)\b",title):
+        image=(WESTMINSTER_PHOTO,"The Palace of Westminster in London",WESTMINSTER_CREDIT,WESTMINSTER_CREDIT_URL)
+    elif re.search(r"\b(?:reinsur|underwriting|lloyd|broker)\w*\b",title):
+        image=(LLOYDS_BUILDING_PHOTO,"The Lloyd's building in London",LLOYDS_BUILDING_CREDIT,LLOYDS_BUILDING_CREDIT_URL)
+    elif re.search(r"\b(?:insurance|insurer|pension|claims?|annuit|protection)\w*\b",title):
+        image=(ST_PAULS_PHOTO,"St Paul's Cathedral and London's financial district",ST_PAULS_CREDIT,ST_PAULS_CREDIT_URL)
+    else:
+        image=(CITY_PHOTO,"The City of London skyline",CITY_CREDIT,CITY_CREDIT_URL)
+    src,alt,credit,url=image
+    return {"src":src,"alt":alt+" — illustrative, not the reported event",
+            "credit":credit,"credit_url":url}
+
 INSURANCE_TERMS=r"\b(?:insur\w*|underwrit\w*|reinsur\w*|broker\w*|mga|claims?|premium\w*|protection|annuit\w*|solvency|pension provider|standard life|gwp)\b"
 BANK_TERMS=r"\b(?:bank\w*|lending|mortgage\w*|deposits?|interest rates?|building societ\w*|payments?|liquidit\w*|capital|asset management|wealth|market\w*|credit|borrow\w*)\b"
 

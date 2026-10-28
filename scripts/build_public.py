@@ -11,7 +11,7 @@ import re
 from pathlib import Path
 from urllib.parse import quote
 from same_day_policy import published_same_day, clock, original_date, date_in_uk
-from site_design import desk_for, terms_for, header, footer as site_footer, visual, ST_PAULS_PHOTO, CITY_PHOTO, BANK_PHOTO, WESTMINSTER_PHOTO
+from site_design import desk_for, terms_for, header, footer as site_footer, visual, home_photo_for, ST_PAULS_PHOTO, CITY_PHOTO, BANK_PHOTO, WESTMINSTER_PHOTO
 from reader_experience import lead_article, other_briefs
 from reader_analytics import install as install_analytics, token_from_env
 import shutil
@@ -314,7 +314,7 @@ def sources_page():
 
 def build():
     archive = valid_articles()
-    records = [a for a in archive if published_same_day(a)]
+    records = [dict(a, home_image=home_photo_for(a)) for a in archive if published_same_day(a)]
     today = clock().date().strftime("%-d %B %Y")
     # Empty is the correct edition when no verified original development was
     # announced AND published on this same UK date. Never replay old news.
@@ -329,6 +329,14 @@ def build():
     page = insert_once(page,"<!-- HOURLY_DESK_INSERT -->","")
     latest = records[0] if records else None
     first = lead_article(records)
+    featured_ids={a["id"] for a in [r for r in records if first is None or r["id"]!=first["id"]][:2]}
+    def art_credit(a, large=False):
+        photo=a["home_image"]
+        caption='<figcaption>Illustrative photograph, not the news event · <a href="'+esc(photo["credit_url"])+'" target="_blank" rel="noopener noreferrer">'+esc(photo["credit"])+'</a></figcaption>'
+        image='<img src="'+esc(photo["src"])+'" alt="'+esc(photo["alt"])+'" decoding="async"'+(' fetchpriority="high"' if large else ' loading="lazy"')+'>'
+        if large:
+            return '<figure class="tb-lead-art">'+image+caption+'</figure>'
+        return '<figure class="tb-report-art"><a href="'+esc(story_href(a))+'" aria-label="Read report: '+esc(a["title"])+'">'+image+'</a>'+caption+'</figure>'
     # The repository retains a source-mode backup for broken JavaScript.
     # The published build already contains real, readable lead/feed HTML,
     # so NEVER copy the duplicate emergency article-list box into Pages.
@@ -337,12 +345,12 @@ def build():
     if removed != 1 or "THEBRIEF_STATIC_START" in page or 'id="static-edition"' in page:
         raise ValueError("Could not remove duplicate repository-only safety section")
     if first:
-        lead = ('<article id="lead-story" class="lead-story"><span class="story-kicker">'
+        lead = ('<article id="lead-story" class="lead-story with-photo"><span class="story-kicker">'
             + esc(first.get("desk_section")) + ' / THE LEAD STORY</span><h1><a href="'
             + esc(story_href(first)) + '">' + esc(first["title"])
             + '</a></h1><p class="standfirst">' + esc(first.get("short")) + '</p>'
             + '<p class="meta">' + esc(first.get('source','')) + ' · ' + esc(dt.datetime.fromisoformat(first['published_at'].replace('Z','+00:00')).astimezone(__import__('zoneinfo').ZoneInfo('Europe/London')).strftime('%H:%M')) + '</p>'
-            + '<p><a class="cta" href="' + esc(story_href(first)) + '">Read the full story →</a></p></article>')
+            + '<p><a class="cta" href="' + esc(story_href(first)) + '">Read the full story →</a></p>'+art_credit(first,large=True)+'</article>')
     else:
         lead = ('<article id="lead-story" class="lead-story"><span class="story-kicker">THE BRIEF / YOUR UK FINANCIAL DESK</span>'
             '<h1>Understand the news that shapes your money.</h1>'
@@ -369,8 +377,9 @@ def build():
         '<div id="briefing-stories" class="briefing-stories">' + briefing + '</div>')
     rows = []
     for i, a in enumerate(records[:15]):
+        featured=a["id"] in featured_ids
         rows.append(
-            '<article class="news-item" data-desk="'+esc(a.get('desk_section'))+'"><div class="story-ordinal">' + str(i+1).zfill(2)
+            '<article class="news-item'+(' has-photo' if featured else '')+'" data-desk="'+esc(a.get('desk_section'))+'">'+(art_credit(a) if featured else '')+'<div class="story-ordinal">' + str(i+1).zfill(2)
             + '</div><div><div class="news-cat">' + esc(a.get("desk_section")) + ' · OUR REPORT</div>'
             + '<h3><a href="' + esc(story_href(a)) + '">' + esc(a["title"]) + '</a></h3>'
             + '<p class="summary">' + esc(a.get("short")) + '</p>'
