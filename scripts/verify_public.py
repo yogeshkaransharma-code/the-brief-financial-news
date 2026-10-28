@@ -2,6 +2,9 @@
 import html
 import json
 import re
+import shutil
+import subprocess
+import tempfile
 from pathlib import Path
 from same_day_policy import published_same_day
 ROOT=Path(__file__).resolve().parents[1]
@@ -25,6 +28,18 @@ def verify():
     assert 'href="privacy.html"' in home, 'Footer has no readable privacy link'
     assert 'rankHighlights(originals)[0]' in home, 'Client-side homepage ignores UK-focused lead'
     assert 'eligibleBriefs.slice(0,3)' in home, 'Client-side catch-up has grown beyond three stories'
+    # HTML builds can pass while the inline homepage script has a parse error.
+    # GitHub-hosted CI has Node; locally the check is skipped if unavailable.
+    node=shutil.which('node')
+    if node:
+        scripts=re.findall(r'<script([^>]*)>(.*?)</script>', home, flags=re.S|re.I)
+        with tempfile.TemporaryDirectory() as tmp:
+            for i,(attrs,source) in enumerate(scripts):
+                if 'application/json' in attrs or not source.strip():continue
+                path=Path(tmp)/(f'home-{i}.js')
+                path.write_text(source,encoding='utf-8')
+                subprocess.run([node,'--check',str(path)],check=True,capture_output=True,text=True)
+
     # Preserve the approved reader journey: lead/catch-up, desk gateways,
     # latest reporting, then the rotating educational introduction.
     markers=['<section class="top-layout"', '<section class="tb-sector-visuals"',
