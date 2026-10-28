@@ -2,29 +2,10 @@
   "api_budget": {
     "date": "2026-10-28",
     "timezone": "America/Los_Angeles",
-    "requests": 4,
+    "requests": 5,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-10-25T12:35:06.971138+00:00",
-      "prompt_characters": 8450,
-      "purpose": "production",
-      "result": "response_received",
-      "usage": {
-        "candidatesTokenCount": 374,
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 1738,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 1738
-          }
-        ],
-        "serviceTier": "standard",
-        "totalTokenCount": 2112
-      }
-    },
     {
       "at": "2026-10-25T12:35:21.975015+00:00",
       "prompt_characters": 10815,
@@ -1889,6 +1870,25 @@
           {
             "modality": "TEXT",
             "tokenCount": 3766
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-28T11:11:49.638205+00:00",
+      "result": "response_received",
+      "prompt_characters": 6008,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 1282,
+        "candidatesTokenCount": 165,
+        "totalTokenCount": 1447,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1282
           }
         ],
         "serviceTier": "standard"
@@ -3877,6 +3877,31 @@
       "attempted_at": "2026-10-28T10:47:07.923970+00:00",
       "retry_after": "2026-10-29T11:47:07.923970+00:00",
       "headline": "Fed set to hold interest rates steady in last decision before midterms"
+    },
+    "https://www.mortgagesolutions.co.uk/mortgage-news/2026/10/28/eight-in-10-landlords-fear-tax-hikes-in-budget/": {
+      "attempted_at": "2026-10-28T11:10:49.593374+00:00",
+      "retry_after": "2026-10-29T12:10:49.593374+00:00",
+      "headline": "Eight in 10 landlords fear tax hikes in Budget"
+    },
+    "https://www.wsj.com/finance/currencies/asian-currencies-consolidate-ahead-of-fed-decision-28baaa62": {
+      "attempted_at": "2026-10-28T11:10:49.593374+00:00",
+      "retry_after": "2026-10-29T12:10:49.593374+00:00",
+      "headline": "Sterling Could Fall if U.K. Budget Disappoints"
+    },
+    "https://www.mortgagesolutions.co.uk/mortgage-news/2026/10/28/santander-uks-gross-mortgage-lending-jumps-to-23-4bn/": {
+      "attempted_at": "2026-10-28T11:10:49.593374+00:00",
+      "retry_after": "2026-10-29T12:10:49.593374+00:00",
+      "headline": "Santander UK’s gross mortgage lending jumps to £23.4bn"
+    },
+    "https://www.insuranceage.co.uk/broker/7959068/superscript-secures-lloyds-bank-sme-insurance-partnership": {
+      "attempted_at": "2026-10-28T11:10:49.593374+00:00",
+      "retry_after": "2026-10-29T12:10:49.593374+00:00",
+      "headline": "Superscript secures Lloyds Bank SME insurance partnership"
+    },
+    "https://www.finextra.com/pressarticle/111475/syfe-appoints-jaclyn-kaur-as-head-of-wealth-advisory-singapore": {
+      "attempted_at": "2026-10-28T11:10:49.593374+00:00",
+      "retry_after": "2026-10-29T12:10:49.593374+00:00",
+      "headline": "Syfe appoints Jaclyn Kaur as head of wealth advisory Singapore"
     }
   },
   "sources": {
@@ -4597,14 +4622,13 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.wsj.com/finance/currencies/asian-currencies-consolidate-as-focus-turns-to-fed-decision-0d81a31b": {
-      "attempted_at": "2026-10-27T20:56:40.736666+00:00",
-      "retry_after": "2026-10-28T02:56:40.736666+00:00",
+      "attempted_at": "2026-10-28T11:10:49.593374+00:00",
+      "retry_after": "2026-10-28T17:10:49.593374+00:00",
       "last_result": "HTTP Error 401: HTTP Forbidden",
       "classification": "ACCESS_RESTRICTED",
-      "stage": "source",
-      "failures": 3,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-28T00:56:40.736666+00:00"
+      "stage": "alternative_source",
+      "failures": 4,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-10-27/indonesia-10-year-yield-at-four-year-high-on-msci-risk-oil": {
       "attempted_at": "2026-10-27T20:56:40.736666+00:00",
@@ -5028,14 +5052,13 @@
       "alternative_search_after": "2026-10-28T13:52:06.533726+00:00"
     },
     "https://www.commercialriskonline.com/indian-insurance-managers-enjoy-falling-rates-and-plenty-of-capacity/": {
-      "attempted_at": "2026-10-28T09:50:06.540866+00:00",
-      "retry_after": "2026-10-28T10:05:06.540866+00:00",
+      "attempted_at": "2026-10-28T11:10:49.593374+00:00",
+      "retry_after": "2026-10-28T11:40:49.593374+00:00",
       "last_result": "The read operation timed out",
       "classification": "TEMPORARY_FAILURE",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-28T13:52:06.533726+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-10-28/sandoz-warns-eu-may-scrap-antibiotic-protection-risking-plant": {
       "attempted_at": "2026-10-28T10:08:21.275437+00:00",
@@ -5066,6 +5089,45 @@
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1",
       "alternative_search_after": "2026-10-28T14:47:07.923970+00:00"
+    },
+    "https://www.insuranceage.co.uk/broker/7959068/superscript-secures-lloyds-bank-sme-insurance-partnership": {
+      "attempted_at": "2026-10-28T11:10:49.593374+00:00",
+      "retry_after": "2026-10-28T13:10:49.593374+00:00",
+      "last_result": "Original document has no unambiguous publication date; listing/RSS date is insufficient",
+      "classification": "DATE_UNVERIFIED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-28T15:10:49.593374+00:00"
+    },
+    "https://www.wsj.com/finance/currencies/asian-currencies-consolidate-ahead-of-fed-decision-28baaa62": {
+      "attempted_at": "2026-10-28T11:10:49.593374+00:00",
+      "retry_after": "2026-10-28T17:10:49.593374+00:00",
+      "last_result": "HTTP Error 401: HTTP Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-28T15:10:49.593374+00:00"
+    },
+    "https://www.commercialriskonline.com/growth-for-global-marine-insurance-but-market-remains-soft-says-iumi/": {
+      "attempted_at": "2026-10-28T11:10:49.593374+00:00",
+      "retry_after": "2026-10-28T11:25:49.593374+00:00",
+      "last_result": "The read operation timed out",
+      "classification": "TEMPORARY_FAILURE",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-28T15:10:49.593374+00:00"
+    },
+    "https://www.commercialriskonline.com/just-15-8-of-italian-smes-had-mandatory-nat-cat-cover-in-april-says-moodys/": {
+      "attempted_at": "2026-10-28T11:10:49.593374+00:00",
+      "retry_after": "2026-10-28T11:25:49.593374+00:00",
+      "last_result": "The read operation timed out",
+      "classification": "TEMPORARY_FAILURE",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     }
   },
   "version": 2,
