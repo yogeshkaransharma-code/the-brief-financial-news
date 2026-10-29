@@ -124,8 +124,9 @@ function explainerCard(s, featured=false){
  const media=desk==='insurance'
   ?{url:'https://commons.wikimedia.org/wiki/Special:FilePath/Insurance_Law_and_Practice.jpg?width=600',credit:'Energyme / Wikimedia Commons · CC BY-SA 4.0',ref:'https://commons.wikimedia.org/wiki/File:Insurance_Law_and_Practice.jpg',alt:'An insurance reference book on a shelf'}
   :{url:'https://commons.wikimedia.org/wiki/Special:FilePath/Analyzing_Financial_Data_(5099605109).jpg?width=600',credit:'Dave Dugdale / Wikimedia Commons · CC BY-SA 2.0',ref:'https://commons.wikimedia.org/wiki/File:Analyzing_Financial_Data_(5099605109).jpg',alt:'A calculator, pen and financial records'};
- const image=featured?'<figure class="tb-guide-photo tb-guide-photo-'+desk+'"><img src="'+media.url+'" alt="'+safe(media.alt)+'" loading="lazy" decoding="async"><figcaption>Illustrative · <a href="'+media.ref+'" target="_blank" rel="noopener noreferrer">'+safe(media.credit)+'</a></figcaption></figure>':'';
- return '<article class="explainer'+(featured?' tb-explainer-featured':'')+'" data-desk="'+safe(s.category)+'">'+image+'<div class="tb-guide-copy"><span class="section-kicker">'+safe(s.category)+'</span><h3>'+safe(s.title)+'</h3><p>'+safe(s.summary)+'</p><details><summary>Understand in a minute →</summary><p>'+safe(s.body)+'</p></details></div></article>';
+ const image=featured?'<figure class="tb-guide-photo tb-guide-photo-'+desk+'"><img src="'+media.url+'" alt="'+safe(media.alt)+'" loading="lazy" decoding="async"></figure>':'';
+ const credit=featured?'<small class="tb-guide-credit">Illustrative photograph · <a href="'+media.ref+'" target="_blank" rel="noopener noreferrer">'+safe(media.credit)+'</a></small>':'';
+ return '<article class="explainer'+(featured?' tb-explainer-featured':'')+'" data-desk="'+safe(s.category)+'">'+image+'<div class="tb-guide-copy"><span class="section-kicker">'+safe(s.category)+'</span><h3>'+safe(s.title)+'</h3><p>'+safe(s.summary)+'</p><details><summary>Understand in a minute →</summary><p>'+safe(s.body)+'</p></details></div>'+credit+'</article>';
 }
 function renderExplainers(){
  const today=ukDayInfo();
