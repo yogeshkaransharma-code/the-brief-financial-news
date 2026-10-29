@@ -203,6 +203,9 @@ def main():
             assert page.evaluate('getComputedStyle(document.querySelector(".tb-header")).backgroundColor')==baseline['background'], 'About masthead differs'
             assert page.locator('a[href="status.html"]').count()==0
             assert page.locator('.tb-about-images img').count()==2
+            about_sources=page.locator('section[aria-labelledby="report-heading"]').inner_text()
+            assert 'Every report names its source' in about_sources, 'About source explanation is missing'
+            assert 'do not routinely receive a separate editorial review' not in about_sources, 'About still carries redundant review disclaimer'
             # About-page quote must never escape the dark panel, especially at
             # intermediate laptop widths where the two-column layout narrows.
             for about_width in ([width,800,1024] if width==1440 else [width]):

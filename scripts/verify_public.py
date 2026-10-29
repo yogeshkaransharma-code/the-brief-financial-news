@@ -155,6 +155,11 @@ def verify():
     assert (public/'assets/site.css').is_file(), 'Shared burgundy stylesheet absent'
     assert (public/'about.html').is_file() and (public/'sources.html').is_file()
     assert 'tb-section-nav' in (public/'about.html').read_text(), 'About masthead differs from the publication'
+    about=(public/'about.html').read_text(encoding='utf-8')
+    assert 'Before publication, we check source availability, dates, UK relevance and duplication.' in about, 'Source checks are not explained'
+    assert 'reports do not routinely receive a separate editorial review' not in about, 'About repeats an unhelpful editorial disclaimer'
+    assert 'do not claim to have interviewed people' not in about, 'About repeats an unnecessary defensive disclaimer'
+    assert 'Every report names its source' in about, 'Source attribution promise missing'
     for section in ['Insurance','Banking']:
         path=public/(section.lower()+'.html')
         page=path.read_text(encoding='utf-8')

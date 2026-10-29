@@ -85,10 +85,9 @@ def standalone_story(a,related=None):
     if a.get('retrospective_launch'):
         note+='<p class="archive-note">Saturday launch edition prepared retrospectively; the recorded publication time is accurate.</p>'
     is_media=a.get("status")=="Original reporting"
-    source_description=("This article summarises attributed journalism by the named publisher. The Brief has not independently verified every underlying claim." if is_media
-        else "This article is based on the original announcement or document below.")
-    disclosure=('Based on the linked source. No separate editorial fact-check has been carried out.' if a.get('independent_review') is False
-                else 'This report draws on the linked source. No human editorial approval is claimed.')
+    source_description=("This article draws on reporting by the named publisher, with the original article linked below." if is_media
+        else "This article is based on the original announcement or document linked below.")
+    disclosure='A source-based report, with attribution to the original material.'
     terms=a.get('display_glossary') or terms_for(a)
     definitions=''.join('<dt>'+esc(t)+'</dt><dd>'+esc(d)+'</dd>' for t,d in terms)
     glossary_html=('<section class="tb-glossary"><h2>Jargon, explained.</h2><dl>'+definitions+'</dl></section>' if definitions else '')
@@ -126,7 +125,7 @@ def standalone_story(a,related=None):
 <div class="article-body">{article_body(a)}</div>
 {glossary_html}
 <div class="source tb-source-evidence"><h2>Original source</h2>
-<p>{esc(source_description)} All consequential claims should be checked against the linked original before making decisions.</p>
+<p>{esc(source_description)} You can follow the link to check the underlying detail.</p>
 <a href="{esc(a['url'])}" target="_blank" rel="noopener noreferrer">{esc(a.get('source','Original publisher'))} — read the original source ↗</a></div>
 <p class="disclosure">{esc(disclosure)} <a href="../about.html">Our standards and corrections policy</a>. Not financial advice.</p>
 </div><aside class="tb-story-aside" aria-label="Article at a glance">
