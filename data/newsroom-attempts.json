@@ -2,29 +2,10 @@
   "api_budget": {
     "date": "2026-10-29",
     "timezone": "America/Los_Angeles",
-    "requests": 2,
+    "requests": 3,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-10-26T07:41:15.289297+00:00",
-      "result": "response_received",
-      "prompt_characters": 12316,
-      "purpose": "production",
-      "usage": {
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 2637,
-        "candidatesTokenCount": 532,
-        "totalTokenCount": 3169,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 2637
-          }
-        ],
-        "serviceTier": "standard"
-      }
-    },
     {
       "at": "2026-10-26T07:47:26.056351+00:00",
       "result": "response_received",
@@ -1877,6 +1858,25 @@
           {
             "modality": "TEXT",
             "tokenCount": 3467
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-29T09:52:04.039892+00:00",
+      "result": "response_received",
+      "prompt_characters": 15716,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 3412,
+        "candidatesTokenCount": 745,
+        "totalTokenCount": 4157,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 3412
           }
         ],
         "serviceTier": "standard"
@@ -4500,6 +4500,36 @@
       "attempted_at": "2026-10-29T08:54:59.477002+00:00",
       "retry_after": "2026-10-30T09:54:59.477002+00:00",
       "headline": "European office deals fall to lowest since financial crisis as debt costs bite"
+    },
+    "https://www.theguardian.com/business/live/2026/oct/29/healeys-cost-living-support-package-badly-targeted-resolution-foundation-shell-oil-profit-latest-live-updates": {
+      "attempted_at": "2026-10-29T09:51:45.015545+00:00",
+      "retry_after": "2026-10-30T10:51:45.015545+00:00",
+      "headline": "UK government borrowing costs fall as City welcomes ‘no harm’ budget – business live"
+    },
+    "https://news.sky.com/story/budget-winners-and-losers-banks-booze-and-savers-in-the-firing-line-13605213": {
+      "attempted_at": "2026-10-29T09:51:45.015545+00:00",
+      "retry_after": "2026-10-30T10:51:45.015545+00:00",
+      "headline": "Budget winners and losers: Banks, booze and savers in the firing line"
+    },
+    "https://www.reinsurancene.ws/markel-insurance-lifts-underwriting-profit-55-in-9m26-as-cor-falls-to-92/": {
+      "attempted_at": "2026-10-29T09:51:45.015545+00:00",
+      "retry_after": "2026-10-30T10:51:45.015545+00:00",
+      "headline": "Markel Insurance lifts underwriting profit 55% in 9M’26 as CoR falls to 92%"
+    },
+    "https://www.reinsurancene.ws/everest-posts-q326-underwriting-loss-amid-casualty-reinsurance-reserve-strengthening/": {
+      "attempted_at": "2026-10-29T09:51:45.015545+00:00",
+      "retry_after": "2026-10-30T10:51:45.015545+00:00",
+      "headline": "Everest posts Q3’26 underwriting loss amid casualty reinsurance reserve strengthening"
+    },
+    "https://www.moneymarketing.co.uk/the-morning-briefing-treasury-to-investigate-barriers-to-financial-services-career-progression/": {
+      "attempted_at": "2026-10-29T09:51:45.015545+00:00",
+      "retry_after": "2026-10-30T10:51:45.015545+00:00",
+      "headline": "The Morning Briefing: Treasury to investigate barriers to financial services career progression"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-29/bank-assets-in-india-hub-that-competes-with-singapore-jump-60": {
+      "attempted_at": "2026-10-29T09:51:45.015545+00:00",
+      "retry_after": "2026-10-30T10:51:45.015545+00:00",
+      "headline": "Bank Assets in India Hub That Competes With Singapore Jump 60%"
     }
   },
   "sources": {
@@ -6434,102 +6464,102 @@
       "alternative_search_after": "2026-10-29T12:54:59.477002+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-29/japan-s-two-year-bond-sale-demand-stronger-than-12-month-average": {
-      "attempted_at": "2026-10-29T03:46:46.968702+00:00",
-      "retry_after": "2026-10-29T09:46:46.968702+00:00",
+      "attempted_at": "2026-10-29T09:51:45.015545+00:00",
+      "retry_after": "2026-10-29T15:51:45.015545+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
+      "failures": 2,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-29T12:00:28.517257+00:00"
+      "alternative_search_after": "2026-10-29T13:51:45.015545+00:00"
     },
     "https://www.insurancejournal.com/news/national/2026/10/29/890656.htm": {
-      "attempted_at": "2026-10-29T08:54:59.477002+00:00",
-      "retry_after": "2026-10-29T12:54:59.477002+00:00",
+      "attempted_at": "2026-10-29T09:51:45.015545+00:00",
+      "retry_after": "2026-10-29T13:51:45.015545+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/national/2026/10/29/890676.htm": {
-      "attempted_at": "2026-10-29T08:54:59.477002+00:00",
-      "retry_after": "2026-10-29T12:54:59.477002+00:00",
+      "attempted_at": "2026-10-29T09:51:45.015545+00:00",
+      "retry_after": "2026-10-29T13:51:45.015545+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/east/2026/10/29/890445.htm": {
-      "attempted_at": "2026-10-29T08:54:59.477002+00:00",
-      "retry_after": "2026-10-29T12:54:59.477002+00:00",
+      "attempted_at": "2026-10-29T09:51:45.015545+00:00",
+      "retry_after": "2026-10-29T13:51:45.015545+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/east/2026/10/29/890646.htm": {
-      "attempted_at": "2026-10-29T08:54:59.477002+00:00",
-      "retry_after": "2026-10-29T12:54:59.477002+00:00",
+      "attempted_at": "2026-10-29T09:51:45.015545+00:00",
+      "retry_after": "2026-10-29T13:51:45.015545+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/east/2026/10/29/890614.htm": {
-      "attempted_at": "2026-10-29T08:54:59.477002+00:00",
-      "retry_after": "2026-10-29T12:54:59.477002+00:00",
+      "attempted_at": "2026-10-29T09:51:45.015545+00:00",
+      "retry_after": "2026-10-29T13:51:45.015545+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/west/2026/10/29/890657.htm": {
-      "attempted_at": "2026-10-29T08:54:59.477002+00:00",
-      "retry_after": "2026-10-29T12:54:59.477002+00:00",
+      "attempted_at": "2026-10-29T09:51:45.015545+00:00",
+      "retry_after": "2026-10-29T13:51:45.015545+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/west/2026/10/29/889839.htm": {
-      "attempted_at": "2026-10-29T08:54:59.477002+00:00",
-      "retry_after": "2026-10-29T12:54:59.477002+00:00",
+      "attempted_at": "2026-10-29T09:51:45.015545+00:00",
+      "retry_after": "2026-10-29T13:51:45.015545+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/national/2026/10/29/890687.htm": {
-      "attempted_at": "2026-10-29T08:54:59.477002+00:00",
-      "retry_after": "2026-10-29T12:54:59.477002+00:00",
+      "attempted_at": "2026-10-29T09:51:45.015545+00:00",
+      "retry_after": "2026-10-29T13:51:45.015545+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/west/2026/10/29/890663.htm": {
-      "attempted_at": "2026-10-29T08:54:59.477002+00:00",
-      "retry_after": "2026-10-29T12:54:59.477002+00:00",
+      "attempted_at": "2026-10-29T09:51:45.015545+00:00",
+      "retry_after": "2026-10-29T13:51:45.015545+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.commercialriskonline.com/arch-q3-profits-fall-as-iran-war-adds-to-cat-losses/": {
-      "attempted_at": "2026-10-29T08:54:59.477002+00:00",
-      "retry_after": "2026-10-29T12:54:59.477002+00:00",
+      "attempted_at": "2026-10-29T09:51:45.015545+00:00",
+      "retry_after": "2026-10-29T13:51:45.015545+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.reinsurancene.ws/cfc-launches-executive-cyber-protection-for-sme-leaders-and-upgraded-ai-cover/": {
-      "attempted_at": "2026-10-29T08:54:59.477002+00:00",
-      "retry_after": "2026-10-29T12:54:59.477002+00:00",
+      "attempted_at": "2026-10-29T09:51:45.015545+00:00",
+      "retry_after": "2026-10-29T13:51:45.015545+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.reinsurancene.ws/chubb-appoints-lucas-scortecci-as-head-of-financial-lines-for-cemena/": {
-      "attempted_at": "2026-10-29T08:54:59.477002+00:00",
-      "retry_after": "2026-10-29T12:54:59.477002+00:00",
+      "attempted_at": "2026-10-29T09:51:45.015545+00:00",
+      "retry_after": "2026-10-29T13:51:45.015545+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.commercialriskonline.com/parametric-solution-for-gaps-in-builders-risk-coverage-irmi-panel/": {
-      "attempted_at": "2026-10-29T08:54:59.477002+00:00",
-      "retry_after": "2026-10-29T12:54:59.477002+00:00",
+      "attempted_at": "2026-10-29T09:51:45.015545+00:00",
+      "retry_after": "2026-10-29T13:51:45.015545+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -6545,15 +6575,15 @@
       "alternative_search_after": "2026-10-29T12:00:28.517257+00:00"
     },
     "https://www.reinsurancene.ws/elseco-opens-singapore-office-to-be-led-by-lisa-leow/": {
-      "attempted_at": "2026-10-29T08:54:59.477002+00:00",
-      "retry_after": "2026-10-29T12:54:59.477002+00:00",
+      "attempted_at": "2026-10-29T09:51:45.015545+00:00",
+      "retry_after": "2026-10-29T13:51:45.015545+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.commercialriskonline.com/modern-warehouses-testing-fire-protection-limits/": {
-      "attempted_at": "2026-10-29T08:54:59.477002+00:00",
-      "retry_after": "2026-10-29T12:54:59.477002+00:00",
+      "attempted_at": "2026-10-29T09:51:45.015545+00:00",
+      "retry_after": "2026-10-29T13:51:45.015545+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -6569,8 +6599,8 @@
       "alternative_search_after": "2026-10-29T12:54:59.477002+00:00"
     },
     "https://www.commercialriskonline.com/property-owners-invest-in-resilience-but-insurers-slow-to-recognise-efforts/": {
-      "attempted_at": "2026-10-29T08:54:59.477002+00:00",
-      "retry_after": "2026-10-29T12:54:59.477002+00:00",
+      "attempted_at": "2026-10-29T09:51:45.015545+00:00",
+      "retry_after": "2026-10-29T13:51:45.015545+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -6586,15 +6616,56 @@
       "alternative_search_after": "2026-10-29T12:54:59.477002+00:00"
     },
     "https://www.commercialriskonline.com/construction-market-reforms-to-follow-wang-fuk-report/": {
-      "attempted_at": "2026-10-29T08:54:59.477002+00:00",
-      "retry_after": "2026-10-29T12:54:59.477002+00:00",
+      "attempted_at": "2026-10-29T09:51:45.015545+00:00",
+      "retry_after": "2026-10-29T13:51:45.015545+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.commercialriskonline.com/construction-safety-challenged-by-knowledge-gap-agrees-irmi-panel/": {
-      "attempted_at": "2026-10-29T08:54:59.477002+00:00",
-      "retry_after": "2026-10-29T12:54:59.477002+00:00",
+      "attempted_at": "2026-10-29T09:51:45.015545+00:00",
+      "retry_after": "2026-10-29T13:51:45.015545+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://news.sky.com/story/budget-winners-and-losers-banks-booze-and-savers-in-the-firing-line-13605213": {
+      "attempted_at": "2026-10-29T09:51:45.015545+00:00",
+      "retry_after": "2026-10-29T15:51:45.015545+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-29T13:51:45.015545+00:00"
+    },
+    "https://www.investmentweek.co.uk/news/4538059/us-federal-reserve-holds-rates-december-hike-table": {
+      "attempted_at": "2026-10-29T09:51:45.015545+00:00",
+      "retry_after": "2026-10-29T13:51:45.015545+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.reinsurancene.ws/markel-insurance-lifts-underwriting-profit-55-in-9m26-as-cor-falls-to-92/": {
+      "attempted_at": "2026-10-29T09:51:45.015545+00:00",
+      "retry_after": "2026-10-29T13:51:45.015545+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-29/bank-assets-in-india-hub-that-competes-with-singapore-jump-60": {
+      "attempted_at": "2026-10-29T09:51:45.015545+00:00",
+      "retry_after": "2026-10-29T15:51:45.015545+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-29T13:51:45.015545+00:00"
+    },
+    "https://www.reinsurancene.ws/everest-posts-q326-underwriting-loss-amid-casualty-reinsurance-reserve-strengthening/": {
+      "attempted_at": "2026-10-29T09:51:45.015545+00:00",
+      "retry_after": "2026-10-29T13:51:45.015545+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
