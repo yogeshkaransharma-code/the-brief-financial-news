@@ -144,19 +144,41 @@ def archive_page(records,edition=None):
         cards=[]
         for a in records:
             if original_date(a).isoformat()!=day:continue
-            cards.append('<article data-category="'+esc(a['desk_section'])+'"><span class="kicker">'+esc(a['desk_section'])+'</span><h2><a href="'+prefix+story_href(a)+'">'+esc(a['title'])+'</a></h2><p>'+esc(a['short'])+'</p><small>'+esc(a['source'])+(' · Published by The Brief: '+esc(date_in_uk(a['published_at'])) if date_in_uk(a['published_at'])!=original_date(a) else '')+'</small></article>')
+            search_text=' '.join([str(a.get(k,'')) for k in ('title','short','source','desk_section')] + [str(piece) for block in a.get('blocks',[]) if isinstance(block,(list,tuple)) for piece in block])
+            cards.append('<article data-category="'+esc(a['desk_section'])+'" data-search="'+esc(search_text)+'"><span class="kicker">'+esc(a['desk_section'])+'</span><h2><a href="'+prefix+story_href(a)+'">'+esc(a['title'])+'</a></h2><p>'+esc(a['short'])+'</p><small>'+esc(a['source'])+(' · Published by The Brief: '+esc(date_in_uk(a['published_at'])) if date_in_uk(a['published_at'])!=original_date(a) else '')+'</small></article>')
         rows.append('<section>'+('' if edition else '<h2 class="edition"><a href="'+prefix+'edition/'+day+'.html">'+esc(day)+' edition ↗</a></h2>')+''.join(cards)+'</section>')
     body='<p class="intro">Earlier developments, kept in their dated editions. Nothing here is presented as today’s news.</p>'
     if any(a.get('retrospective_launch') for a in records):
         body+='<p class="note"><strong>Saturday launch edition · 24 October 2026, from 6am UK.</strong> These launch reports were prepared retrospectively. Each article shows the original announcement date and its actual publication timestamp.</p>'
     body+='<p class="note">Reports from the earlier publishing system are retained with their recorded dates and a legacy verification notice. They have not been re-certified under the new controls.</p>'
     body+='<label for="archive-search">Search the archive</label><input id="archive-search" type="search" placeholder="Company, subject or keyword"><label for="archive-category">Subject</label><select id="archive-category"><option>Everything</option>'+''.join('<option>'+x+'</option>' for x in ['Insurance','Banking'])+'</select><p id="archive-count" role="status">'+str(len(records))+' reports</p>'
-    body+=''.join(rows) or '<p>No earlier editions yet.</p>'
+    body+='<div id="archive-list">'+(''.join(rows) or '<p>No earlier editions yet.</p>')+'</div><p id="archive-empty" role="status" hidden>No matching reports. Try another company, subject or keyword.</p>'
     script="""<script>
 const q=document.querySelector('#archive-search'),c=document.querySelector('#archive-category');
-function filter(){let n=0;document.querySelectorAll('article[data-category]').forEach(a=>{a.hidden=!(a.textContent.toLowerCase().includes(q.value.toLowerCase())&&(c.value==='Everything'||a.dataset.category===c.value));if(!a.hidden)n++});document.querySelectorAll('section').forEach(s=>s.hidden=![...s.querySelectorAll('article')].some(a=>!a.hidden));document.querySelector('#archive-count').textContent=n+' reports'}q.oninput=filter;c.onchange=filter;
-const requested=new URLSearchParams(location.search).get('category');
-if(requested&&[...c.options].some(o=>o.value===requested)){c.value=requested;filter()}
+const count=document.querySelector('#archive-count'),empty=document.querySelector('#archive-empty');
+const cards=[...document.querySelectorAll('#archive-list article[data-category]')];
+function filter(){
+ const terms=q.value.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean);
+ let n=0;
+ cards.forEach(a=>{
+  const words=(a.dataset.search||a.textContent).toLocaleLowerCase();
+  const visible=terms.every(term=>words.includes(term))&&(c.value==='Everything'||a.dataset.category===c.value);
+  a.hidden=!visible;if(visible)n++;
+ });
+ document.querySelectorAll('#archive-list>section').forEach(s=>{
+  s.hidden=![...s.querySelectorAll('article[data-category]')].some(a=>!a.hidden);
+ });
+ count.textContent=n+' '+(n===1?'report':'reports');
+ empty.hidden=n!==0;
+}
+q.addEventListener('input',filter);c.addEventListener('change',filter);
+const params=new URLSearchParams(location.search);
+const requested=params.get('category');
+if(requested&&[...c.options].some(o=>o.value===requested))c.value=requested;
+const query=params.get('q');
+if(query)q.value=query.slice(0,200);
+filter();
+if(query||params.has('search')){q.focus({preventScroll:true});q.scrollIntoView({block:'start'});}
 </script>"""
     page=utility_page(title,body,prefix)
     if page.count('</body>')!=1:

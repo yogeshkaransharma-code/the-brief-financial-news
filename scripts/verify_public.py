@@ -49,6 +49,10 @@ def verify():
         assert 'class="tb-lead-art"' in rendered and 'not today’s news event' in rendered, 'Quiet editions need credited non-event cover photography'
     assert 'href="insurance.html"' in home and 'href="banking.html"' in home, 'Primary desk navigation missing'
     assert '<select id="order"' in home, 'Reader cannot sort Latest Reporting'
+    assert 'id="site-search-form" action="archive.html" method="get"' in home, 'Homepage search is not linked to entire archive'
+    assert 'name="q"' in home and 'type="submit" class="search-submit"' in home, 'Search form cannot be submitted'
+    assert 'data-search="' in archive_html and 'params.get(\'q\')' in archive_html, 'Archive does not index article text or accept search queries'
+    assert 'id="archive-empty"' in archive_html, 'Search has no empty-state message'
     assert home.index('<nav class="tb-nav tb-section-nav"') < home.index('<section class="top-layout"') < home.index('<section id="latest"') < home.index('<section id="context"'), 'Reader journey is out of order'
     assert 'if(resetDesk)resetDesk.addEventListener' in (ROOT/'scripts/build_public.py').read_text(), 'Quiet desks bind a missing reset button'
 

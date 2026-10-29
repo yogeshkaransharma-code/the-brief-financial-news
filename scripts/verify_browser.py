@@ -51,6 +51,29 @@ def main():
             assert page.locator('.tb-sector-visual').count()==0, 'Duplicate navigation banners returned'
             assert page.locator('.tb-nav a').all_inner_texts()==['Home','Insurance','Banking','About'], 'Unified navigation is missing'
             assert page.locator('.tb-nav a[aria-current="page"]').inner_text()=='Home', 'Home navigation state is missing'
+            # The primary search must cover historical reports, not only the
+            # current homepage's ten newest cards. Verify real navigation.
+            search_page=context.new_page()
+            search_page.goto(SITE,wait_until='domcontentloaded',timeout=60000)
+            search_page.locator('#search-toggle').click()
+            assert search_page.locator('#search-panel').is_visible(), 'Search button does not open the search form'
+            assert search_page.locator('#site-search-form').get_attribute('action')=='archive.html'
+            if articles:
+                historic=articles[-1]
+                search_page.locator('#search').fill(historic['title'])
+                search_page.locator('#site-search-form button[type=submit]').click()
+                assert 'archive.html' in search_page.url, 'Search form never opens the whole archive'
+                assert search_page.locator('#archive-search').input_value()==historic['title'], 'Search terms lost on navigation'
+                assert search_page.get_by_role('link',name=historic['title'],exact=True).is_visible(), 'Historical article missing from search results'
+                assert search_page.locator('#archive-count').inner_text()!='0 reports', 'Historical search returned no results'
+                search_page.locator('#archive-search').fill('zzzz-unmatched-thebrief-123456789')
+                assert search_page.locator('#archive-count').inner_text()=='0 reports', 'No-match search wrongly shows results'
+                assert search_page.locator('#archive-empty').is_visible(), 'No-results message missing'
+            search_page.goto(SITE+'insurance.html',wait_until='domcontentloaded',timeout=60000)
+            search_page.locator('.tb-nav-search').click()
+            assert 'archive.html?search=1' in search_page.url, 'Search unavailable from Insurance desk'
+            assert search_page.locator('#archive-search').is_visible(), 'Archive search form not visible'
+            search_page.close()
             # Capture the shared visual masthead, not just its link count.
             baseline=page.evaluate("""() => {
               const head=document.querySelector('.tb-header');

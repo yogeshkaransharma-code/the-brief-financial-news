@@ -1264,3 +1264,15 @@ body.tb-page article h2 {min-width:0;max-width:100%;overflow-wrap:anywhere;word-
   }
   body.tb-home .lead-story h1{overflow-wrap:anywhere!important;word-break:break-word!important}
 }
+
+/* Entire-publication search: visible controls on narrow screens. */
+body.tb-home .search-panel .search-inner{display:flex;flex-wrap:wrap;align-items:center;gap:9px;padding-top:12px;padding-bottom:12px}
+body.tb-home .search-panel input{flex:1 1 175px;min-width:0;font-size:14px}
+body.tb-home .search-panel .search-submit{background:#262b2d;color:#fff;border:1px solid #262b2d;border-radius:3px;padding:10px 12px;font:600 12px var(--sans);white-space:nowrap}
+body.tb-home .search-panel #clear-search{padding:10px 7px;font:600 12px var(--sans)}
+body.tb-home .search-panel .search-submit:hover{background:#131719}
+body.tb-utility-page #archive-empty{padding:20px 0;color:#5e5955}
+body.tb-utility-page #archive-list article[data-search]{overflow-wrap:anywhere}
+body:is(.tb-about-page,.tb-reading-page,.tb-desk-view,.tb-utility-page) .tb-nav .tb-nav-search{display:inline-flex;align-items:center;justify-content:center;flex:0 0 30px;padding:8px;margin-left:2px;background:transparent;border:1px solid #d6d1c9;border-radius:100%;cursor:pointer}
+body:is(.tb-about-page,.tb-reading-page,.tb-desk-view,.tb-utility-page) .tb-nav .tb-nav-search svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8}
+@media(max-width:390px){body.tb-home .search-panel .search-inner>svg{display:none}}
