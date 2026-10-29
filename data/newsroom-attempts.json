@@ -2,29 +2,10 @@
   "api_budget": {
     "date": "2026-10-29",
     "timezone": "America/Los_Angeles",
-    "requests": 20,
+    "requests": 21,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-10-26T10:42:27.350833+00:00",
-      "result": "response_received",
-      "prompt_characters": 28599,
-      "purpose": "production",
-      "usage": {
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 5909,
-        "candidatesTokenCount": 1258,
-        "totalTokenCount": 7167,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 5909
-          }
-        ],
-        "serviceTier": "standard"
-      }
-    },
     {
       "at": "2026-10-26T10:42:42.353704+00:00",
       "result": "response_received",
@@ -1829,6 +1810,25 @@
           {
             "modality": "TEXT",
             "tokenCount": 3383
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-29T19:24:46.093074+00:00",
+      "result": "response_received",
+      "prompt_characters": 14202,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 2816,
+        "candidatesTokenCount": 375,
+        "totalTokenCount": 3191,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2816
           }
         ],
         "serviceTier": "standard"
@@ -4847,6 +4847,11 @@
       "attempted_at": "2026-10-29T17:49:42.700304+00:00",
       "retry_after": "2026-10-30T18:49:42.700304+00:00",
       "headline": "Your First Home ‘a gateway’ to wider mortgage advice, says CEO"
+    },
+    "https://www.bbc.co.uk/news/articles/cr15jxzv4w24o": {
+      "attempted_at": "2026-10-29T19:24:28.250333+00:00",
+      "retry_after": "2026-10-30T20:24:28.250333+00:00",
+      "headline": "US interest rates held steady and economy grows - what it means for you"
     }
   },
   "sources": {
@@ -6761,12 +6766,12 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.finextra.com/newsarticle/48665/monzo-launches-in-spain": {
-      "attempted_at": "2026-10-29T12:53:59.296912+00:00",
-      "retry_after": "2026-10-29T18:53:59.296912+00:00",
+      "attempted_at": "2026-10-29T19:24:28.250333+00:00",
+      "retry_after": "2026-10-30T01:24:28.250333+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 3,
+      "failures": 4,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-10-29/indonesia-s-wealth-fund-cio-owns-stake-in-sanctioned-brokerage": {
@@ -6810,71 +6815,71 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/east/2026/10/29/890646.htm": {
-      "attempted_at": "2026-10-29T14:57:28.658429+00:00",
-      "retry_after": "2026-10-29T18:57:28.658429+00:00",
+      "attempted_at": "2026-10-29T19:24:28.250333+00:00",
+      "retry_after": "2026-10-29T23:24:28.250333+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/east/2026/10/29/890614.htm": {
-      "attempted_at": "2026-10-29T14:57:28.658429+00:00",
-      "retry_after": "2026-10-29T18:57:28.658429+00:00",
+      "attempted_at": "2026-10-29T19:24:28.250333+00:00",
+      "retry_after": "2026-10-29T23:24:28.250333+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/west/2026/10/29/890657.htm": {
-      "attempted_at": "2026-10-29T14:57:28.658429+00:00",
-      "retry_after": "2026-10-29T18:57:28.658429+00:00",
+      "attempted_at": "2026-10-29T19:24:28.250333+00:00",
+      "retry_after": "2026-10-29T23:24:28.250333+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/west/2026/10/29/889839.htm": {
-      "attempted_at": "2026-10-29T14:57:28.658429+00:00",
-      "retry_after": "2026-10-29T18:57:28.658429+00:00",
+      "attempted_at": "2026-10-29T19:24:28.250333+00:00",
+      "retry_after": "2026-10-29T23:24:28.250333+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/national/2026/10/29/890687.htm": {
-      "attempted_at": "2026-10-29T14:57:28.658429+00:00",
-      "retry_after": "2026-10-29T18:57:28.658429+00:00",
+      "attempted_at": "2026-10-29T19:24:28.250333+00:00",
+      "retry_after": "2026-10-29T23:24:28.250333+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/west/2026/10/29/890663.htm": {
-      "attempted_at": "2026-10-29T14:57:28.658429+00:00",
-      "retry_after": "2026-10-29T18:57:28.658429+00:00",
+      "attempted_at": "2026-10-29T19:24:28.250333+00:00",
+      "retry_after": "2026-10-29T23:24:28.250333+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.commercialriskonline.com/arch-q3-profits-fall-as-iran-war-adds-to-cat-losses/": {
-      "attempted_at": "2026-10-29T14:57:28.658429+00:00",
-      "retry_after": "2026-10-29T18:57:28.658429+00:00",
+      "attempted_at": "2026-10-29T19:24:28.250333+00:00",
+      "retry_after": "2026-10-29T23:24:28.250333+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.reinsurancene.ws/cfc-launches-executive-cyber-protection-for-sme-leaders-and-upgraded-ai-cover/": {
-      "attempted_at": "2026-10-29T14:57:28.658429+00:00",
-      "retry_after": "2026-10-29T18:57:28.658429+00:00",
+      "attempted_at": "2026-10-29T19:24:28.250333+00:00",
+      "retry_after": "2026-10-29T23:24:28.250333+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.reinsurancene.ws/chubb-appoints-lucas-scortecci-as-head-of-financial-lines-for-cemena/": {
-      "attempted_at": "2026-10-29T14:57:28.658429+00:00",
-      "retry_after": "2026-10-29T18:57:28.658429+00:00",
+      "attempted_at": "2026-10-29T19:24:28.250333+00:00",
+      "retry_after": "2026-10-29T23:24:28.250333+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.commercialriskonline.com/parametric-solution-for-gaps-in-builders-risk-coverage-irmi-panel/": {
-      "attempted_at": "2026-10-29T14:57:28.658429+00:00",
-      "retry_after": "2026-10-29T18:57:28.658429+00:00",
+      "attempted_at": "2026-10-29T19:24:28.250333+00:00",
+      "retry_after": "2026-10-29T23:24:28.250333+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -6890,15 +6895,15 @@
       "alternative_search_after": "2026-10-29T20:14:00.523604+00:00"
     },
     "https://www.reinsurancene.ws/elseco-opens-singapore-office-to-be-led-by-lisa-leow/": {
-      "attempted_at": "2026-10-29T14:57:28.658429+00:00",
-      "retry_after": "2026-10-29T18:57:28.658429+00:00",
+      "attempted_at": "2026-10-29T19:24:28.250333+00:00",
+      "retry_after": "2026-10-29T23:24:28.250333+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.commercialriskonline.com/modern-warehouses-testing-fire-protection-limits/": {
-      "attempted_at": "2026-10-29T14:57:28.658429+00:00",
-      "retry_after": "2026-10-29T18:57:28.658429+00:00",
+      "attempted_at": "2026-10-29T19:24:28.250333+00:00",
+      "retry_after": "2026-10-29T23:24:28.250333+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -6937,8 +6942,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.commercialriskonline.com/construction-safety-challenged-by-knowledge-gap-agrees-irmi-panel/": {
-      "attempted_at": "2026-10-29T14:57:28.658429+00:00",
-      "retry_after": "2026-10-29T18:57:28.658429+00:00",
+      "attempted_at": "2026-10-29T19:24:28.250333+00:00",
+      "retry_after": "2026-10-29T23:24:28.250333+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -7026,8 +7031,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.commercialriskonline.com/new-ceo-of-marsh-netherlands/": {
-      "attempted_at": "2026-10-29T15:19:07.106947+00:00",
-      "retry_after": "2026-10-29T19:19:07.106947+00:00",
+      "attempted_at": "2026-10-29T19:24:28.250333+00:00",
+      "retry_after": "2026-10-29T23:24:28.250333+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -7144,14 +7149,14 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.bloomberg.com/news/articles/2026-10-29/hsbc-seeks-to-hedge-data-center-debt-with-credit-risk-insurance": {
-      "attempted_at": "2026-10-29T12:53:59.296912+00:00",
-      "retry_after": "2026-10-29T18:53:59.296912+00:00",
+      "attempted_at": "2026-10-29T19:24:28.250333+00:00",
+      "retry_after": "2026-10-30T01:24:28.250333+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
+      "failures": 2,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-29T20:54:30.209899+00:00"
+      "alternative_search_after": "2026-10-29T23:24:28.250333+00:00"
     },
     "https://www.fca.org.uk/news/news-stories/fca-encourages-former-verus-financial-services-limited-customers-check-if-they-can-claim-fscs": {
       "attempted_at": "2026-10-29T17:49:42.700304+00:00",
@@ -7182,14 +7187,14 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://news.sky.com/story/lagarde-quits-european-central-bank-ahead-of-french-election-13605291": {
-      "attempted_at": "2026-10-29T12:53:59.296912+00:00",
-      "retry_after": "2026-10-29T18:53:59.296912+00:00",
+      "attempted_at": "2026-10-29T19:24:28.250333+00:00",
+      "retry_after": "2026-10-30T01:24:28.250333+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
+      "failures": 2,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-29T20:22:54.644654+00:00"
+      "alternative_search_after": "2026-10-29T23:24:28.250333+00:00"
     },
     "https://www.insurancejournal.com/news/national/2026/10/29/890739.htm": {
       "attempted_at": "2026-10-29T18:50:07.894160+00:00",
@@ -7199,12 +7204,12 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.finextra.com/pressarticle/111509/settlemint-integrates-digital-asset-lifecycle-platform-with-ibm-digital-asset-haven": {
-      "attempted_at": "2026-10-29T12:53:59.296912+00:00",
-      "retry_after": "2026-10-29T18:53:59.296912+00:00",
+      "attempted_at": "2026-10-29T19:24:28.250333+00:00",
+      "retry_after": "2026-10-30T01:24:28.250333+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
+      "failures": 2,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.reinsurancene.ws/wtw-grows-q326-revenue-by-8-to-2-46bn/": {
@@ -7215,42 +7220,39 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.finextra.com/pressarticle/111506/mollie-introduces-chatgpt-and-claude-integrations": {
-      "attempted_at": "2026-10-29T12:53:59.296912+00:00",
-      "retry_after": "2026-10-29T18:53:59.296912+00:00",
+      "attempted_at": "2026-10-29T19:24:28.250333+00:00",
+      "retry_after": "2026-10-30T01:24:28.250333+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-29T20:22:54.644654+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.finextra.com/pressarticle/111508/tradestation-europe-expands-operations-capability": {
-      "attempted_at": "2026-10-29T12:53:59.296912+00:00",
-      "retry_after": "2026-10-29T18:53:59.296912+00:00",
+      "attempted_at": "2026-10-29T19:24:28.250333+00:00",
+      "retry_after": "2026-10-30T01:24:28.250333+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-29T20:54:30.209899+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.finextra.com/pressarticle/111502/jcb-partners-hanoi-metro-for-contactless-railway-payments": {
-      "attempted_at": "2026-10-29T12:53:59.296912+00:00",
-      "retry_after": "2026-10-29T18:53:59.296912+00:00",
+      "attempted_at": "2026-10-29T19:24:28.250333+00:00",
+      "retry_after": "2026-10-30T01:24:28.250333+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-29T19:19:07.106947+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.finextra.com/pressarticle/111501/neonomics-and-movitz-payments-strengthen-pay-by-bank-security": {
-      "attempted_at": "2026-10-29T12:53:59.296912+00:00",
-      "retry_after": "2026-10-29T18:53:59.296912+00:00",
+      "attempted_at": "2026-10-29T19:24:28.250333+00:00",
+      "retry_after": "2026-10-30T01:24:28.250333+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
+      "failures": 2,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.insurancejournal.com/news/international/2026/10/29/890727.htm": {
@@ -7268,51 +7270,49 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.finextra.com/pressarticle/111505/airtm-and-bvnk-team-on-direct-wallet-payments-in-emerging-markets": {
-      "attempted_at": "2026-10-29T12:53:59.296912+00:00",
-      "retry_after": "2026-10-29T18:53:59.296912+00:00",
+      "attempted_at": "2026-10-29T19:24:28.250333+00:00",
+      "retry_after": "2026-10-30T01:24:28.250333+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
+      "failures": 2,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.finextra.com/newsarticle/48666/idemia-prepares-payment-cards-for-quantum-threats-with-emvco-certification": {
-      "attempted_at": "2026-10-29T12:53:59.296912+00:00",
-      "retry_after": "2026-10-29T18:53:59.296912+00:00",
+      "attempted_at": "2026-10-29T19:24:28.250333+00:00",
+      "retry_after": "2026-10-30T01:24:28.250333+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-29T20:54:30.209899+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.finextra.com/pressarticle/111504/dna-payments-partners-zeal-to-pilot-loyalty-programme": {
-      "attempted_at": "2026-10-29T12:53:59.296912+00:00",
-      "retry_after": "2026-10-29T18:53:59.296912+00:00",
+      "attempted_at": "2026-10-29T19:24:28.250333+00:00",
+      "retry_after": "2026-10-30T01:24:28.250333+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
+      "failures": 2,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.finextra.com/pressarticle/111503/icon-solutions-appoints-raquel-guillot-as-southern-europe-sales-director": {
-      "attempted_at": "2026-10-29T12:53:59.296912+00:00",
-      "retry_after": "2026-10-29T18:53:59.296912+00:00",
+      "attempted_at": "2026-10-29T19:24:28.250333+00:00",
+      "retry_after": "2026-10-30T01:24:28.250333+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
+      "failures": 2,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.finextra.com/pressarticle/111500/napier-ai-integrates-lseg-world-check-on-demand-for-risk-based-payment-screening": {
-      "attempted_at": "2026-10-29T12:53:59.296912+00:00",
-      "retry_after": "2026-10-29T18:53:59.296912+00:00",
+      "attempted_at": "2026-10-29T19:24:28.250333+00:00",
+      "retry_after": "2026-10-30T01:24:28.250333+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-29T19:19:07.106947+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.finextra.com/newsarticle/48667/crypto-exchange-htx-to-leave-uk-after-fca-lawsuit": {
       "attempted_at": "2026-10-29T14:01:56.520707+00:00",
@@ -7325,15 +7325,15 @@
       "alternative_search_after": "2026-10-29T18:01:56.520707+00:00"
     },
     "https://www.reinsurancene.ws/everest-confident-of-delivering-excellent-reinsurance-portfolio-but-bearish-on-casualty-ahead-of-jan-1-says-ceo/": {
-      "attempted_at": "2026-10-29T15:19:07.106947+00:00",
-      "retry_after": "2026-10-29T19:19:07.106947+00:00",
+      "attempted_at": "2026-10-29T19:24:28.250333+00:00",
+      "retry_after": "2026-10-29T23:24:28.250333+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/international/2026/10/29/890752.htm": {
-      "attempted_at": "2026-10-29T15:19:07.106947+00:00",
-      "retry_after": "2026-10-29T19:19:07.106947+00:00",
+      "attempted_at": "2026-10-29T19:24:28.250333+00:00",
+      "retry_after": "2026-10-29T23:24:28.250333+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -7355,8 +7355,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.reinsurancene.ws/scor-appoints-kalachian-head-of-alternative-solutions-north-america/": {
-      "attempted_at": "2026-10-29T15:19:07.106947+00:00",
-      "retry_after": "2026-10-29T19:19:07.106947+00:00",
+      "attempted_at": "2026-10-29T19:24:28.250333+00:00",
+      "retry_after": "2026-10-29T23:24:28.250333+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -7382,8 +7382,8 @@
       "alternative_search_after": "2026-10-29T20:50:38.034996+00:00"
     },
     "https://www.reinsurancene.ws/link-broker-europe-enters-cee-and-see-reinsurance-markets-under-josip-malenica/": {
-      "attempted_at": "2026-10-29T15:19:07.106947+00:00",
-      "retry_after": "2026-10-29T19:19:07.106947+00:00",
+      "attempted_at": "2026-10-29T19:24:28.250333+00:00",
+      "retry_after": "2026-10-29T23:24:28.250333+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -7513,8 +7513,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/southcentral/2026/10/29/890822.htm": {
-      "attempted_at": "2026-10-29T18:50:07.894160+00:00",
-      "retry_after": "2026-10-29T22:50:07.894160+00:00",
+      "attempted_at": "2026-10-29T19:24:28.250333+00:00",
+      "retry_after": "2026-10-29T23:24:28.250333+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -7543,8 +7543,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.reinsurancene.ws/axa-xl-re-gwp-other-revenues-down-9-in-9m26-on-lower-volumes/": {
-      "attempted_at": "2026-10-29T18:50:07.894160+00:00",
-      "retry_after": "2026-10-29T22:50:07.894160+00:00",
+      "attempted_at": "2026-10-29T19:24:28.250333+00:00",
+      "retry_after": "2026-10-29T23:24:28.250333+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -7564,6 +7564,16 @@
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.bbc.co.uk/news/articles/cr15jxzv4w24o": {
+      "attempted_at": "2026-10-29T19:24:28.250333+00:00",
+      "retry_after": "2026-10-29T21:24:28.250333+00:00",
+      "last_result": "Original document was not announced today in the UK",
+      "classification": "DATE_UNVERIFIED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-29T23:24:28.250333+00:00"
     }
   },
   "version": 2,
