@@ -28,6 +28,26 @@ def prompt(pairs):
         'Write like a knowledgeable, considerate British reporter explaining something to a real person: '
         'clear, calm, direct, approachable and commercially aware. Never try to sound clever, grand, corporate, '
         'overly casual or artificially enthusiastic. Human means clarity and judgement, not made-up anecdotes or opinions. '
+        'The reader must leave knowing exactly what happened and the most useful source-supported detail, not just a reworded headline. '
+        'Make every paragraph earn its place. First establish the actual change; then explain the relevant detail, '
+        'who it affects or the practical distinction, but only where the source establishes it. '
+        'Do not open successive paragraphs with the same fact. Avoid mechanical lists of every available figure; '
+        'choose the numbers that explain the development, preserving their periods, units and comparisons. '
+        'For company results, distinguish premium growth from profitability and identify the cost or claims movement '
+        'where the figures support that contrast. For products, explain what cover or service actually changes '
+        'rather than just reproducing feature names. For a regulatory story, say whether a change is proposed '
+        'or final, to whom it applies, and the relevant confirmed deadline if provided. '
+        'Do not force a UK market impact, a practical recommendation, a comparison or an opinion from thin evidence. '
+        'Never use a predictable heading template: a small announcement may need just one short section; '
+        'a substantial development may benefit from two specific, informative headings. '
+        'The standfirst must be a clean, complete sentence about the news, not a press release opening. '
+        'Do not mechanically begin every standfirst with According to; the source is credited beside the story. '
+        'When a development is known only through another publisher, attribute their reporting naturally '
+        'and never imply independent confirmation or an interview by The Brief. '
+        'Keep company names, acronyms and product names in the correct source spelling and capitalisation. '
+        'Avoid automated-feeling phrases such as the move underscores, the announcement highlights, '
+        'amid a rapidly evolving landscape, in a significant move, a clear signal, and remains to be seen. '
+        'Sound like a careful human editor speaking to a colleague: precise, unshowy and worth reading. '
         'Start with what actually happened and who is involved. Avoid stock openings, manufactured hooks, hollow conclusions, '
         'press-release phrasing and jargon such as transformative, game-changing, landscape, stakeholders, '
         'significant milestone and set to revolutionise. Use British spelling and ordinary, natural sentences. '
@@ -60,6 +80,24 @@ def prompt(pairs):
         + json.dumps(packets,ensure_ascii=False)
     )
 
+def preserve_source_name_case(text, source_title):
+    """Repair a proper-name prefix using only its spelling in the source headline.
+
+    Purely a capitalisation correction, not a rewrite or a new claim.
+    """
+    proper=[]
+    for word in source_title.split()[:5]:
+        cleaned=word.strip(',:;()[]')
+        if not re.fullmatch(r"[A-Z][A-Za-z0-9'’&.-]*",cleaned):
+            break
+        proper.append(cleaned)
+    if len(proper)<2:
+        return text
+    name=' '.join(proper)
+    pattern=r'(?<!\w)'+r'\s+'.join(re.escape(x) for x in proper)+r'(?!\w)'
+    return re.sub(pattern,lambda match:name,text,flags=re.I)
+
+
 def article_from(output,item,doc):
     """Normalise harmless shape variations locally; never ask for a rewrite."""
     if not isinstance(output,dict):raise ValueError('Model returned no article object')
@@ -83,8 +121,14 @@ def article_from(output,item,doc):
     if not isinstance(takeaway,str) or len(takeaway.split())>25:
         takeaway=''
     takeaway=takeaway.strip()
-    attribution=publisher(item['url']) or item['source']
-    if attribution.casefold() not in summary.casefold():summary=f'According to {attribution}, '+summary[0].lower()+summary[1:]
+    # The original publisher is already displayed with the article and linked
+    # below. The old forced "According to ..." prefix made every standfirst
+    # repetitive and changed proper names, e.g. AXIS to aXIS.
+    # Never manufacture a consequence or modify substantive article claims.
+    title=preserve_source_name_case(title,item['title'])
+    summary=preserve_source_name_case(summary,item['title'])
+    blocks=[[heading,preserve_source_name_case(body,item['title'])] for heading,body in blocks]
+    takeaway=preserve_source_name_case(takeaway,item['title'])
     return {'id':'ai-'+identity(item['url']),'kind':'original','category':item['category'],
             'dateISO':item['dateISO'],'date':item['dateISO'],'source':item['source'],
             'uk_market_basis':item.get('uk_market_basis',''),
