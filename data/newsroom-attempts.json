@@ -2,29 +2,10 @@
   "api_budget": {
     "date": "2026-10-29",
     "timezone": "America/Los_Angeles",
-    "requests": 16,
+    "requests": 17,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-10-26T09:44:29.478303+00:00",
-      "result": "response_received",
-      "prompt_characters": 23553,
-      "purpose": "production",
-      "usage": {
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 4769,
-        "candidatesTokenCount": 917,
-        "totalTokenCount": 5686,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 4769
-          }
-        ],
-        "serviceTier": "standard"
-      }
-    },
     {
       "at": "2026-10-26T10:41:42.342509+00:00",
       "result": "response_received",
@@ -1869,6 +1850,13 @@
         ],
         "serviceTier": "standard"
       }
+    },
+    {
+      "at": "2026-10-29T15:54:59.149642+00:00",
+      "result": "failed",
+      "prompt_characters": 16558,
+      "purpose": "single_pass_writing",
+      "error_type": "GeminiAPIError"
     }
   ],
   "capacity_recovery_revision": 2,
@@ -4828,6 +4816,21 @@
       "attempted_at": "2026-10-29T15:19:07.106947+00:00",
       "retry_after": "2026-10-30T16:19:07.106947+00:00",
       "headline": "Global insured nat cat losses reach $91bn in first 9M’26: Aon"
+    },
+    "https://www.mortgagesolutions.co.uk/specialist-lending/bridging/2026/10/29/allica-bank-enhances-development-exit-product-in-budget-response/": {
+      "attempted_at": "2026-10-29T15:54:43.664479+00:00",
+      "retry_after": "2026-10-30T16:54:43.664479+00:00",
+      "headline": "Allica Bank enhances development exit product in Budget response"
+    },
+    "https://www.theguardian.com/uk-news/2026/oct/29/john-healey-budget-brutal-spending-review-next-year-ifs": {
+      "attempted_at": "2026-10-29T15:54:43.664479+00:00",
+      "retry_after": "2026-10-30T16:54:43.664479+00:00",
+      "headline": "Healey’s budget paves way for ‘brutal’ spending review next year, warns IFS"
+    },
+    "https://www.bbc.co.uk/news/articles/cr5yn9zwnp3qo": {
+      "attempted_at": "2026-10-29T15:54:43.664479+00:00",
+      "retry_after": "2026-10-30T16:54:43.664479+00:00",
+      "headline": "Bereaved families will not face tax bill over pension delays under new rules"
     }
   },
   "sources": {
@@ -5902,12 +5905,12 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.wsj.com/finance/investing/u-s-treasury-yields-rise-ahead-of-federal-reserve-interest-rate-decision-b1f7ef58": {
-      "attempted_at": "2026-10-28T20:42:58.737233+00:00",
-      "retry_after": "2026-10-29T02:42:58.737233+00:00",
+      "attempted_at": "2026-10-29T15:54:43.664479+00:00",
+      "retry_after": "2026-10-29T21:54:43.664479+00:00",
       "last_result": "HTTP Error 401: HTTP Forbidden",
       "classification": "ACCESS_RESTRICTED",
-      "stage": "source",
-      "failures": 3,
+      "stage": "alternative_source",
+      "failures": 4,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://news.sky.com/story/money-live-personal-finance-consumer-interest-rate-mortgages-savings-careers-jobs-tips-sky-news-latest-13040934": {
@@ -6759,32 +6762,32 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-10-29/japan-s-two-year-bond-sale-demand-stronger-than-12-month-average": {
-      "attempted_at": "2026-10-29T09:51:45.015545+00:00",
-      "retry_after": "2026-10-29T15:51:45.015545+00:00",
+      "attempted_at": "2026-10-29T15:54:43.664479+00:00",
+      "retry_after": "2026-10-29T21:54:43.664479+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 2,
+      "failures": 3,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-29T13:51:45.015545+00:00"
+      "alternative_search_after": "2026-10-29T19:54:43.664479+00:00"
     },
     "https://www.insurancejournal.com/news/national/2026/10/29/890656.htm": {
-      "attempted_at": "2026-10-29T11:43:51.151240+00:00",
-      "retry_after": "2026-10-29T15:43:51.151240+00:00",
+      "attempted_at": "2026-10-29T15:54:43.664479+00:00",
+      "retry_after": "2026-10-29T19:54:43.664479+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/national/2026/10/29/890676.htm": {
-      "attempted_at": "2026-10-29T11:43:51.151240+00:00",
-      "retry_after": "2026-10-29T15:43:51.151240+00:00",
+      "attempted_at": "2026-10-29T15:54:43.664479+00:00",
+      "retry_after": "2026-10-29T19:54:43.664479+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/east/2026/10/29/890445.htm": {
-      "attempted_at": "2026-10-29T11:43:51.151240+00:00",
-      "retry_after": "2026-10-29T15:43:51.151240+00:00",
+      "attempted_at": "2026-10-29T15:54:43.664479+00:00",
+      "retry_after": "2026-10-29T19:54:43.664479+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -6892,8 +6895,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.commercialriskonline.com/property-owners-invest-in-resilience-but-insurers-slow-to-recognise-efforts/": {
-      "attempted_at": "2026-10-29T11:43:51.151240+00:00",
-      "retry_after": "2026-10-29T15:43:51.151240+00:00",
+      "attempted_at": "2026-10-29T15:54:43.664479+00:00",
+      "retry_after": "2026-10-29T19:54:43.664479+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -6909,8 +6912,8 @@
       "alternative_search_after": "2026-10-29T19:19:07.106947+00:00"
     },
     "https://www.commercialriskonline.com/construction-market-reforms-to-follow-wang-fuk-report/": {
-      "attempted_at": "2026-10-29T11:43:51.151240+00:00",
-      "retry_after": "2026-10-29T15:43:51.151240+00:00",
+      "attempted_at": "2026-10-29T15:54:43.664479+00:00",
+      "retry_after": "2026-10-29T19:54:43.664479+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -6923,42 +6926,42 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://news.sky.com/story/budget-winners-and-losers-banks-booze-and-savers-in-the-firing-line-13605213": {
-      "attempted_at": "2026-10-29T09:51:45.015545+00:00",
-      "retry_after": "2026-10-29T15:51:45.015545+00:00",
+      "attempted_at": "2026-10-29T15:54:43.664479+00:00",
+      "retry_after": "2026-10-29T21:54:43.664479+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
+      "failures": 2,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-29T13:51:45.015545+00:00"
+      "alternative_search_after": "2026-10-29T19:54:43.664479+00:00"
     },
     "https://www.investmentweek.co.uk/news/4538059/us-federal-reserve-holds-rates-december-hike-table": {
-      "attempted_at": "2026-10-29T15:19:07.106947+00:00",
-      "retry_after": "2026-10-29T19:19:07.106947+00:00",
+      "attempted_at": "2026-10-29T15:54:43.664479+00:00",
+      "retry_after": "2026-10-29T19:54:43.664479+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.reinsurancene.ws/markel-insurance-lifts-underwriting-profit-55-in-9m26-as-cor-falls-to-92/": {
-      "attempted_at": "2026-10-29T11:43:51.151240+00:00",
-      "retry_after": "2026-10-29T15:43:51.151240+00:00",
+      "attempted_at": "2026-10-29T15:54:43.664479+00:00",
+      "retry_after": "2026-10-29T19:54:43.664479+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.bloomberg.com/news/articles/2026-10-29/bank-assets-in-india-hub-that-competes-with-singapore-jump-60": {
-      "attempted_at": "2026-10-29T09:51:45.015545+00:00",
-      "retry_after": "2026-10-29T15:51:45.015545+00:00",
+      "attempted_at": "2026-10-29T15:54:43.664479+00:00",
+      "retry_after": "2026-10-29T21:54:43.664479+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
+      "failures": 2,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-29T13:51:45.015545+00:00"
+      "alternative_search_after": "2026-10-29T19:54:43.664479+00:00"
     },
     "https://www.reinsurancene.ws/everest-posts-q326-underwriting-loss-amid-casualty-reinsurance-reserve-strengthening/": {
-      "attempted_at": "2026-10-29T11:43:51.151240+00:00",
-      "retry_after": "2026-10-29T15:43:51.151240+00:00",
+      "attempted_at": "2026-10-29T15:54:43.664479+00:00",
+      "retry_after": "2026-10-29T19:54:43.664479+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -6991,15 +6994,15 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.reinsurancene.ws/axis-capital-posts-134m-underwriting-result-as-premiums-rise-11-in-q326/": {
-      "attempted_at": "2026-10-29T11:43:51.151240+00:00",
-      "retry_after": "2026-10-29T15:43:51.151240+00:00",
+      "attempted_at": "2026-10-29T15:54:43.664479+00:00",
+      "retry_after": "2026-10-29T19:54:43.664479+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.reinsurancene.ws/hippo-and-greenlight-re-establish-partnership-to-support-emerging-mgas/": {
-      "attempted_at": "2026-10-29T11:43:51.151240+00:00",
-      "retry_after": "2026-10-29T15:43:51.151240+00:00",
+      "attempted_at": "2026-10-29T15:54:43.664479+00:00",
+      "retry_after": "2026-10-29T19:54:43.664479+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -7101,8 +7104,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.reinsurancene.ws/heritages-net-income-rises-to-51-1m-in-q326-despite-higher-cat-losses/": {
-      "attempted_at": "2026-10-29T11:43:51.151240+00:00",
-      "retry_after": "2026-10-29T15:43:51.151240+00:00",
+      "attempted_at": "2026-10-29T15:54:43.664479+00:00",
+      "retry_after": "2026-10-29T19:54:43.664479+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -7117,8 +7120,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.commercialriskonline.com/india-introduces-government-backed-credit-risk-cover-for-shipbuilders/": {
-      "attempted_at": "2026-10-29T15:19:07.106947+00:00",
-      "retry_after": "2026-10-29T19:19:07.106947+00:00",
+      "attempted_at": "2026-10-29T15:54:43.664479+00:00",
+      "retry_after": "2026-10-29T19:54:43.664479+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -7324,8 +7327,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.insurancejournal.com/news/international/2026/10/29/890745.htm": {
-      "attempted_at": "2026-10-29T15:19:07.106947+00:00",
-      "retry_after": "2026-10-29T19:19:07.106947+00:00",
+      "attempted_at": "2026-10-29T15:54:43.664479+00:00",
+      "retry_after": "2026-10-29T19:54:43.664479+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -7364,8 +7367,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/national/2026/10/29/890750.htm": {
-      "attempted_at": "2026-10-29T15:19:07.106947+00:00",
-      "retry_after": "2026-10-29T19:19:07.106947+00:00",
+      "attempted_at": "2026-10-29T15:54:43.664479+00:00",
+      "retry_after": "2026-10-29T19:54:43.664479+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -7417,11 +7420,36 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.reinsurancene.ws/global-insured-nat-cat-losses-reach-91bn-in-first-9m-26-aon/": {
-      "attempted_at": "2026-10-29T15:19:07.106947+00:00",
-      "retry_after": "2026-10-29T19:19:07.106947+00:00",
+      "attempted_at": "2026-10-29T15:54:43.664479+00:00",
+      "retry_after": "2026-10-29T19:54:43.664479+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.reinsurancene.ws/the-hanover-reports-q326-net-income-of-172-6m/": {
+      "attempted_at": "2026-10-29T15:54:43.664479+00:00",
+      "retry_after": "2026-10-29T19:54:43.664479+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.bbc.co.uk/news/articles/cr5yn9zwnp3qo": {
+      "attempted_at": "2026-10-29T15:54:43.664479+00:00",
+      "retry_after": "2026-10-29T16:09:43.664479+00:00",
+      "last_result": "Gemini API HTTP 503: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+      "classification": "TEMPORARY_FAILURE",
+      "stage": "writing",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.theguardian.com/uk-news/2026/oct/29/john-healey-budget-brutal-spending-review-next-year-ifs": {
+      "attempted_at": "2026-10-29T15:54:43.664479+00:00",
+      "retry_after": "2026-10-29T16:09:43.664479+00:00",
+      "last_result": "Gemini API HTTP 503: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+      "classification": "TEMPORARY_FAILURE",
+      "stage": "writing",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     }
   },
   "version": 2,
