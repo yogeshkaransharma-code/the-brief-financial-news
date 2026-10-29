@@ -9,6 +9,11 @@ UK = re.compile(r"\b(?:UK|United Kingdom|British|Britain|England|English|Scottis
 BIG = re.compile(r"\b(?:regulator|regulation|consultation|court rules|court ruling|acquisition|merger|earnings|results|profit|capital|underwriting|claims|insolvenc|business lending|interest rates|FCA|PRA|financial distress)\b", re.I)
 ROUTINE = re.compile(r"\b(?:appoints|appointed|promotion|promotes|names|webinar|award|shortlist|demo day)\b", re.I)
 FOREIGN = re.compile(r"\b(?:US|U\.S\.|American|Florida|Georgia|California|New York|Utah|Boston|Hong Kong|APAC|Asia-Pacific)\b", re.I)
+# Presentation only: a warning about one named scam or clone firm belongs in
+# Latest Reporting, not ahead of broader UK market developments on the cover.
+SINGLE_FIRM_WARNING = re.compile(r"\b(?:unauthorised firm|unauthorized firm|clone firm|fake firm|unregistered firm)\b", re.I)
+DOMAIN_IN_TITLE = re.compile(r"\b(?:www\.|[a-z0-9-]+\.(?:com|co\.uk|net|org|io)\b)", re.I)
+BUDGET_MARKET = re.compile(r"\b(?:chancellor|budget|treasury|fiscal statement)\b.*\b(?:borrow\w*|fiscal|bank\w*|pension\w*|tax\w*|funding)\b", re.I)
 
 def priority(a):
     """Presentation-only proxy for practical UK significance, not fact-checking.
@@ -36,6 +41,12 @@ def priority(a):
         points += 2
     if ROUTINE.search(title):
         points -= 11
+    if SINGLE_FIRM_WARNING.search(title):
+        points -= 18
+    if DOMAIN_IN_TITLE.search(title):
+        points -= 8
+    if BUDGET_MARKET.search(title):
+        points += 10
     if FOREIGN.search(title) and not UK.search(title):
         points -= 6
     return points
