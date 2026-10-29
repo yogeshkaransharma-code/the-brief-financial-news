@@ -1,35 +1,45 @@
 {
-  "checked_at": "2026-10-29T02:02:07.653246+00:00",
+  "checked_at": "2026-10-29T02:09:24.642506+00:00",
   "uk_date": "2026-10-29",
-  "outcome": "BLOCKED",
-  "editorial_outcome": "BLOCKED",
-  "technical_status": "LIVE_VERIFIED",
+  "outcome": "PUBLISHED",
+  "editorial_outcome": "PUBLISHED",
+  "technical_status": "AWAITING_LIVE_VERIFICATION",
   "source_coverage_status": "PARTIAL",
   "launch_test": {
     "result": "NOT_RUN"
   },
-  "published_this_run": 0,
-  "genuine_same_day_articles": 1,
+  "published_this_run": 1,
+  "genuine_same_day_articles": 2,
   "editorial_selection": {
-    "result": "NO_VERIFIED_CANDIDATES",
+    "result": "SELECTED",
     "requests": 0,
-    "selected": [],
-    "skipped": []
+    "method": "deterministic-source-supported",
+    "selected": [
+      {
+        "url": "https://www.insurancebusinessmag.com/uk/news/cyber/crisis-teams-strong-on-comms-but-weak-on-cyber-recovery-databarrakcs-595380.aspx",
+        "category": "Banking",
+        "reason": "Relevant current development supported by a complete accessible source"
+      }
+    ],
+    "skipped": [],
+    "deferred": []
   },
-  "published_total": 193,
-  "last_article_at": "2026-10-29T01:56:18.745352+00:00",
-  "fresh_source_candidates": 1,
-  "verified_original_candidates": 0,
+  "published_total": 194,
+  "last_article_at": "2026-10-29T02:09:24.479283+00:00",
+  "fresh_source_candidates": 2,
+  "verified_original_candidates": 1,
   "candidates_by_sector": {
+    "Banking": 2
+  },
+  "verified_by_sector": {
     "Banking": 1
   },
-  "verified_by_sector": {},
-  "articles_commissioned": 0,
+  "articles_commissioned": 1,
   "articles_held": 184,
   "machine_screened": 0,
   "independent_review": false,
   "publication_policy": "newsroom-single-pass-2026-10-26-v1",
-  "articles_ready_to_publish": 0,
+  "articles_ready_to_publish": 1,
   "primary_indexes_checked": 31,
   "primary_index_failures": 4,
   "feeds_working": 41,
@@ -37,24 +47,28 @@
   "ai_budget": {
     "quota_date": "2026-10-28",
     "quota_timezone": "America/Los_Angeles",
-    "requests_this_run": 0,
-    "requests_today_including_this_run": 27,
+    "requests_this_run": 1,
+    "requests_today_including_this_run": 28,
     "run_limit": 7,
     "daily_limit": null,
     "remaining_today": null,
     "daily_limit_source": "provider",
-    "remaining_this_run": 7
+    "remaining_this_run": 6
   },
   "quota_pause_until": null,
   "pipeline_metrics": {
-    "discovered_unique": 508,
+    "discovered_unique": 509,
     "outside_uk_date": 237,
     "already_published_or_retired": 121,
     "irrelevant": 3,
     "unsupported_route": 146,
-    "fresh_relevant_candidates": 1,
+    "fresh_relevant_candidates": 2,
+    "sources_successfully_retrieved": 1,
+    "source_checkpoints_reused": 0,
     "source_cooldowns": 1,
-    "verified_original_candidates": 0
+    "verified_original_candidates": 1,
+    "articles_ready_to_publish": 1,
+    "articles_drafted": 1
   },
   "source_fallbacks": [
     {
@@ -64,52 +78,6 @@
     }
   ],
   "candidate_outcomes": [
-    {
-      "title": "HSBC Holdings plc 3Q 2026 Earnings Release",
-      "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/hsbc-holdings-plc-3q-2026-earnings-release",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-27"
-    },
-    {
-      "title": "Retirement targets jump 20% as affluent individuals plan for several futures at once",
-      "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/retirement-targets-jump-20-as-affluent-individuals-plan-for-several-futures-at-once",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
-    {
-      "title": "Read more about the 'The Financial Ombudsman Service received 57,000 cases in the second quarter of 2026/27' news item",
-      "source": "https://www.financial-ombudsman.org.uk/who-we-are/data-insight/news/financial-ombudsman-service-received-57000-cases-second-quarter-202627",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-22"
-    },
-    {
-      "title": "Read more about the 'Financial Ombudsman Service appoints new Independent Assessor' news item",
-      "source": "https://www.financial-ombudsman.org.uk/who-we-are/data-insight/news/financial-ombudsman-service-appoints-new-independent-assessor",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-13"
-    },
-    {
-      "title": "Read more about the 'FCA appoints chair of the Financial Ombudsman Service' news item",
-      "source": "https://www.financial-ombudsman.org.uk/who-we-are/data-insight/news/fca-appoints-chair-financial-ombudsman-service",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-09"
-    },
-    {
-      "title": "TPR sets expectations on “hidden” concentration risks in pension portfolios",
-      "source": "https://www.thepensionsregulator.gov.uk/media-hub/press-releases/2026-press-releases/tpr-sets-expectations-on-hidden-concentration-risks-in-pension-portfolios",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
     {
       "title": "Trick or treat? Jewellery-loss claims jump 25% during Halloween week",
       "source": "https://www.aviva.com/newsroom/news-and-research-overview/news-releases/2026/10/trick-or-treat-jewellery-loss-claims-jump-twenty-five-percent-during-halloween-week/",
@@ -181,6 +149,74 @@
       "stage": "eligibility",
       "reason": "Discovery source date is outside the current UK date",
       "source_date": "2026-10-13"
+    },
+    {
+      "title": "TPR sets expectations on “hidden” concentration risks in pension portfolios",
+      "source": "https://www.thepensionsregulator.gov.uk/media-hub/press-releases/2026-press-releases/tpr-sets-expectations-on-hidden-concentration-risks-in-pension-portfolios",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
+    },
+    {
+      "title": "Read more about the 'The Financial Ombudsman Service received 57,000 cases in the second quarter of 2026/27' news item",
+      "source": "https://www.financial-ombudsman.org.uk/who-we-are/data-insight/news/financial-ombudsman-service-received-57000-cases-second-quarter-202627",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-22"
+    },
+    {
+      "title": "Read more about the 'Financial Ombudsman Service appoints new Independent Assessor' news item",
+      "source": "https://www.financial-ombudsman.org.uk/who-we-are/data-insight/news/financial-ombudsman-service-appoints-new-independent-assessor",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-13"
+    },
+    {
+      "title": "Read more about the 'FCA appoints chair of the Financial Ombudsman Service' news item",
+      "source": "https://www.financial-ombudsman.org.uk/who-we-are/data-insight/news/fca-appoints-chair-financial-ombudsman-service",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-09"
+    },
+    {
+      "title": "Lloyds uses agentic AI platform to strengthen customer fraud support",
+      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-strengthens-fraud-support-agentic-ai.html",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-26"
+    },
+    {
+      "title": "Lloyds climbs global rankings for AI talent and leadership",
+      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-climbs-global-rankings-for-ai-talent-and-leadership.html",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
+    },
+    {
+      "title": "Lloyds launches Investing in Britain Hub",
+      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-launches-investing-in-britain-hub.html",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
+    },
+    {
+      "title": "Lloyds Banking Group launches Lloyds Auto",
+      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds-banking-group/lloyds-banking-group-launches-lloyds-auto.html",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
+    },
+    {
+      "title": "Lloyds supports second £250 million Blue Bond for Tideway to help protect River Thames",
+      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-supports-second-250m-blue-bond-for-tideway-to-help-protect-river-thames.html",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-15"
     },
     {
       "title": "Bullseye Financial Ltd enters administration 27/10/2026",
@@ -269,75 +305,6 @@
       "reason": "Already published or retired"
     },
     {
-      "title": "Lloyds uses agentic AI platform to strengthen customer fraud support",
-      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-strengthens-fraud-support-agentic-ai.html",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-26"
-    },
-    {
-      "title": "Lloyds climbs global rankings for AI talent and leadership",
-      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-climbs-global-rankings-for-ai-talent-and-leadership.html",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
-    {
-      "title": "Lloyds launches Investing in Britain Hub",
-      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-launches-investing-in-britain-hub.html",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
-    {
-      "title": "Lloyds Banking Group launches Lloyds Auto",
-      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds-banking-group/lloyds-banking-group-launches-lloyds-auto.html",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
-    {
-      "title": "Lloyds supports second £250 million Blue Bond for Tideway to help protect River Thames",
-      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-supports-second-250m-blue-bond-for-tideway-to-help-protect-river-thames.html",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-15"
-    },
-    {
-      "title": "Cash ISA Transfer Performance Q3 2026",
-      "source": "https://www.ukfinance.org.uk/news-and-insight/press-release/cash-isa-transfer-performance-q3-2026",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-26"
-    },
-    {
-      "title": "UK Finance publishes 2026 banking sector tax report",
-      "source": "https://www.ukfinance.org.uk/news-and-insight/press-release/uk-finance-publishes-2026-banking-sector-tax-report",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-21"
-    },
-    {
-      "title": "UK Finance Buy-to-Let Update – Q2 2026",
-      "source": "https://www.ukfinance.org.uk/news-and-insight/press-release/uk-finance-buy-let-update-q2-2026",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-21"
-    },
-    {
-      "title": "UK has unique chance to lead reform of global financial standards ahead of G20 presidency, says UK Finance",
-      "source": "https://www.ukfinance.org.uk/news-and-insight/press-release/uk-has-unique-chance-lead-reform-global-financial-standards",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-13"
-    },
-    {
       "title": "Prudential Regulation // Consultation paper 22 October 2026 CP14/26 – Review of the Senior Managers and... CP14/26 – Review of the Senior Managers and Certification Regime (SM&CR) – Phase 2",
       "source": "https://www.bankofengland.co.uk/prudential-regulation/publication/2026/october/review-of-the-smcr-phase-two-consultation-paper",
       "result": "excluded",
@@ -392,6 +359,61 @@
       "stage": "eligibility",
       "reason": "Discovery source date is outside the current UK date",
       "source_date": "2026-10-08"
+    },
+    {
+      "title": "Cash ISA Transfer Performance Q3 2026",
+      "source": "https://www.ukfinance.org.uk/news-and-insight/press-release/cash-isa-transfer-performance-q3-2026",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-26"
+    },
+    {
+      "title": "UK Finance publishes 2026 banking sector tax report",
+      "source": "https://www.ukfinance.org.uk/news-and-insight/press-release/uk-finance-publishes-2026-banking-sector-tax-report",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-21"
+    },
+    {
+      "title": "UK Finance Buy-to-Let Update – Q2 2026",
+      "source": "https://www.ukfinance.org.uk/news-and-insight/press-release/uk-finance-buy-let-update-q2-2026",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-21"
+    },
+    {
+      "title": "UK has unique chance to lead reform of global financial standards ahead of G20 presidency, says UK Finance",
+      "source": "https://www.ukfinance.org.uk/news-and-insight/press-release/uk-has-unique-chance-lead-reform-global-financial-standards",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-13"
+    },
+    {
+      "title": "HSBC Holdings plc 3Q 2026 Earnings Release",
+      "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/hsbc-holdings-plc-3q-2026-earnings-release",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-27"
+    },
+    {
+      "title": "Retirement targets jump 20% as affluent individuals plan for several futures at once",
+      "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/retirement-targets-jump-20-as-affluent-individuals-plan-for-several-futures-at-once",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
+    },
+    {
+      "title": "Ageas UK and esure Boards appoint two Independent Non-Executive Directors",
+      "source": "https://www.ageas.co.uk/press-releases/2026-press-releases/ageas-esure-boards-independent-non-executive-directors/",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-09"
     },
     {
       "title": "LMA responds to FCA consultation on SM&CR reforms",
@@ -502,14 +524,6 @@
       "reason": "Outside Insurance/Banking or promotional/lifestyle material"
     },
     {
-      "title": "14th October 2026 Starling becomes first bank to train AI model on UK sovereign cloud",
-      "source": "https://www.starlingbank.com/news/starling-backs-uk-sovereign-cloud",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-14"
-    },
-    {
       "title": "Lawrence Hawkins appointed General Counsel Zurich UK",
       "source": "https://www.zurich.co.uk/media-centre/lawrence-hawkins-appointed-general-counsel",
       "result": "excluded",
@@ -520,6 +534,14 @@
     {
       "title": "New captive regime “has potential to strengthen the UK’s position as a leading global insurance centre”",
       "source": "https://www.zurich.co.uk/media-centre/uk-captive-insurance-regime",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-14"
+    },
+    {
+      "title": "14th October 2026 Starling becomes first bank to train AI model on UK sovereign cloud",
+      "source": "https://www.starlingbank.com/news/starling-backs-uk-sovereign-cloud",
       "result": "excluded",
       "stage": "eligibility",
       "reason": "Discovery source date is outside the current UK date",
@@ -3658,14 +3680,6 @@
       "reason": "Already published or retired"
     },
     {
-      "title": "Nature loss threatens 140 million jobs across Europe",
-      "source": "https://www.finextra.com/newsarticle/48644/nature-loss-threatens-140-million-jobs-across-europe",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-27"
-    },
-    {
       "title": "Ardonagh takes Orvia brand global with US$3bn MGA platform",
       "source": "https://www.insurancebusinessmag.com/uk/news/breaking-news/ardonagh-takes-orvia-brand-global-with-us3bn-mga-platform-595090.aspx",
       "result": "excluded",
@@ -3851,6 +3865,15 @@
       "source_date": "2026-10-20"
     },
     {
+      "title": "Crisis teams strong on comms but weak on cyber recovery: Databarrakcs",
+      "source": "https://www.insurancebusinessmag.com/uk/news/cyber/crisis-teams-strong-on-comms-but-weak-on-cyber-recovery-databarrakcs-595380.aspx",
+      "result": "source verified",
+      "stage": "source",
+      "reason": "Complete dated source, with UK financial subject established in the full source",
+      "source_sha256": "ca4ca6e08a5a1b618cc768d8f1be4292eccbf76d6480effcf74b3c315cb04898",
+      "capture_method": "retrieved"
+    },
+    {
       "title": "Monzo launches in Spain",
       "source": "https://www.finextra.com/newsarticle/48665/monzo-launches-in-spain",
       "result": "retry deferred",
@@ -3858,6 +3881,13 @@
       "reason": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "retry_after": "2026-10-29T06:07:33.496617+00:00"
+    },
+    {
+      "title": "Crisis teams strong on comms but weak on cyber recovery: Databarrakcs",
+      "source": "https://www.insurancebusinessmag.com/uk/news/cyber/crisis-teams-strong-on-comms-but-weak-on-cyber-recovery-databarrakcs-595380.aspx",
+      "result": "ready to publish",
+      "stage": "writing",
+      "reason": "Source-based article complete; no independent AI review requested"
     }
   ],
   "discovery_errors": [
@@ -4977,118 +5007,13 @@
       ]
     }
   ],
-  "run_id": "40803882204",
+  "run_id": "40804608860",
   "event": "push",
-  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40803882204",
+  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40804608860",
   "publisher_links": 0,
   "discovery_headlines": 2,
-  "publisher_desk_checked_at": "2026-10-29T02:01:50.274727+00:00",
+  "publisher_desk_checked_at": "2026-10-29T02:09:05.711770+00:00",
   "previous_verified_runs": [
-    {
-      "run_id": "40678436536",
-      "event": "push",
-      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40678436536",
-      "editorial_outcome": "BLOCKED",
-      "published_this_run": 0,
-      "publisher_links": 0,
-      "discovery_headlines": 30,
-      "source_coverage_status": "PARTIAL",
-      "fresh_source_candidates": 57,
-      "verified_by_sector": {},
-      "ai_budget": {
-        "quota_date": "2026-10-28",
-        "quota_timezone": "America/Los_Angeles",
-        "requests_this_run": 0,
-        "requests_today_including_this_run": 5,
-        "run_limit": 7,
-        "daily_limit": null,
-        "remaining_today": null,
-        "daily_limit_source": "provider",
-        "remaining_this_run": 7
-      },
-      "pipeline_metrics": {
-        "discovered_unique": 512,
-        "irrelevant": 27,
-        "outside_uk_date": 139,
-        "already_published_or_retired": 117,
-        "unsupported_route": 171,
-        "published_development": 1,
-        "fresh_relevant_candidates": 57,
-        "sources_successfully_retrieved": 33,
-        "source_checkpoints_reused": 0,
-        "outside_uk_market": 33,
-        "source_failures": 2,
-        "source_cooldowns": 5,
-        "verified_original_candidates": 0
-      },
-      "source_fallbacks": [
-        {
-          "source": "https://www.professionalpensions.com/news/4537984/government-change-course-paying-mineworkers-surplus-reports",
-          "result": "Public alternative search completed",
-          "candidates": 0
-        },
-        {
-          "source": "https://www.professionalpensions.com/news/4537984/government-change-course-paying-mineworkers-surplus-reports",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.investmentweek.co.uk/news/4537955/budget-26-chancellor-promises-breathing-space-maiden-budget-amid-global-uncertainty",
-          "result": "Public alternative search completed",
-          "candidates": 0
-        },
-        {
-          "source": "https://www.investmentweek.co.uk/news/4537955/budget-26-chancellor-promises-breathing-space-maiden-budget-amid-global-uncertainty",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.wsj.com/finance/currencies/asian-currencies-consolidate-ahead-of-fed-decision-28baaa62",
-          "alternatives_found": 1,
-          "result": "Alternative retrieval attempted"
-        },
-        {
-          "source": "https://www.commercialriskonline.com/growth-for-global-marine-insurance-but-market-remains-soft-says-iumi/",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.bloomberg.com/news/articles/2026-10-28/sandoz-warns-eu-may-scrap-antibiotic-protection-risking-plant",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.bbc.co.uk/news/articles/c6x2zrjl7kjno",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.insuranceage.co.uk/broker/7959068/superscript-secures-lloyds-bank-sme-insurance-partnership",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        }
-      ],
-      "publication_policy": "newsroom-single-pass-2026-10-26-v1",
-      "independent_review": false,
-      "articles_ready_to_publish": 0,
-      "articles_visible_this_run": 0,
-      "live_article_ids": [],
-      "commissioned_stories": [],
-      "checked_at": "2026-10-28T11:17:15.016876+00:00",
-      "technical_status": "LIVE_VERIFIED",
-      "deployment": "success",
-      "live_check": "success",
-      "browser_check": "success",
-      "candidate_outcome_counts": {
-        "eligibility:rejected": 27,
-        "eligibility:excluded": 427,
-        "eligibility:duplicate": 1,
-        "source:deferred": 17,
-        "uk_market:rejected": 33,
-        "source:held back": 2,
-        "source:retry deferred": 5
-      }
-    },
     {
       "run_id": "40680370980",
       "event": "push",
@@ -8405,6 +8330,62 @@
         "eligibility:rejected": 3,
         "source:retry deferred": 1
       }
+    },
+    {
+      "run_id": "40803882204",
+      "event": "push",
+      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40803882204",
+      "editorial_outcome": "BLOCKED",
+      "published_this_run": 0,
+      "publisher_links": 0,
+      "discovery_headlines": 2,
+      "source_coverage_status": "PARTIAL",
+      "fresh_source_candidates": 1,
+      "verified_by_sector": {},
+      "ai_budget": {
+        "quota_date": "2026-10-28",
+        "quota_timezone": "America/Los_Angeles",
+        "requests_this_run": 0,
+        "requests_today_including_this_run": 27,
+        "run_limit": 7,
+        "daily_limit": null,
+        "remaining_today": null,
+        "daily_limit_source": "provider",
+        "remaining_this_run": 7
+      },
+      "pipeline_metrics": {
+        "discovered_unique": 508,
+        "outside_uk_date": 237,
+        "already_published_or_retired": 121,
+        "irrelevant": 3,
+        "unsupported_route": 146,
+        "fresh_relevant_candidates": 1,
+        "source_cooldowns": 1,
+        "verified_original_candidates": 0
+      },
+      "source_fallbacks": [
+        {
+          "source": "https://www.finextra.com/newsarticle/48665/monzo-launches-in-spain",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        }
+      ],
+      "publication_policy": "newsroom-single-pass-2026-10-26-v1",
+      "independent_review": false,
+      "articles_ready_to_publish": 0,
+      "articles_visible_this_run": 0,
+      "live_article_ids": [],
+      "commissioned_stories": [],
+      "checked_at": "2026-10-29T02:03:42.461746+00:00",
+      "technical_status": "LIVE_VERIFIED",
+      "deployment": "success",
+      "live_check": "success",
+      "browser_check": "success",
+      "candidate_outcome_counts": {
+        "eligibility:excluded": 504,
+        "eligibility:rejected": 3,
+        "source:retry deferred": 1
+      }
     }
   ],
   "launch_acceptance": {
@@ -8415,7 +8396,7 @@
       "worthwhile_same_day_developments_across_sectors": true,
       "article_site_live_verified": true,
       "mobile_and_desktop_reading": true,
-      "latest_run_technically_healthy": false,
+      "latest_run_technically_healthy": true,
       "latest_editorial_run_unblocked": false
     },
     "verified_scheduled_runs": 14,
@@ -8424,7 +8405,6 @@
       "Insurance"
     ],
     "pending": [
-      "latest_run_technically_healthy",
       "latest_editorial_run_unblocked"
     ],
     "note": "Operational evidence checkpoint, not a guarantee of future events or error-free journalism."
@@ -8432,7 +8412,5 @@
   "launch_diagnostic_allowance": {
     "limit": 2,
     "requests": 2
-  },
-  "articles_visible_this_run": 0,
-  "live_article_ids": []
+  }
 }
