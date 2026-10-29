@@ -2,29 +2,10 @@
   "api_budget": {
     "date": "2026-10-28",
     "timezone": "America/Los_Angeles",
-    "requests": 30,
+    "requests": 31,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-10-26T07:34:15.816714+00:00",
-      "result": "response_received",
-      "prompt_characters": 29132,
-      "purpose": "production",
-      "usage": {
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 5802,
-        "candidatesTokenCount": 1279,
-        "totalTokenCount": 7081,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 5802
-          }
-        ],
-        "serviceTier": "standard"
-      }
-    },
     {
       "at": "2026-10-26T07:34:30.819351+00:00",
       "result": "response_received",
@@ -1877,6 +1858,25 @@
           {
             "modality": "TEXT",
             "tokenCount": 1717
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-29T05:44:49.178725+00:00",
+      "result": "response_received",
+      "prompt_characters": 27750,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 5847,
+        "candidatesTokenCount": 698,
+        "totalTokenCount": 6545,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 5847
           }
         ],
         "serviceTier": "standard"
@@ -4390,6 +4390,26 @@
       "attempted_at": "2026-10-29T03:46:46.968702+00:00",
       "retry_after": "2026-10-30T04:46:46.968702+00:00",
       "headline": "Japan’s Two-Year Bond Sale Demand Stronger Than 12-Month Average"
+    },
+    "https://www.theguardian.com/uk-news/2026/oct/29/readers-react-to-budget-2026": {
+      "attempted_at": "2026-10-29T05:44:34.075460+00:00",
+      "retry_after": "2026-10-30T06:44:34.075460+00:00",
+      "headline": "‘The more you earn, the less you keep’: readers react to the budget"
+    },
+    "https://www.insurancejournal.com/news/east/2026/10/29/890445.htm": {
+      "attempted_at": "2026-10-29T05:44:34.075460+00:00",
+      "retry_after": "2026-10-30T06:44:34.075460+00:00",
+      "headline": "Father and Son Charged With Running ‘Chop-Shop,’ Selling Stolen Cars, Insurance Fraud"
+    },
+    "https://www.insurancejournal.com/news/east/2026/10/29/890614.htm": {
+      "attempted_at": "2026-10-29T05:44:34.075460+00:00",
+      "retry_after": "2026-10-30T06:44:34.075460+00:00",
+      "headline": "Town Appeals Denial of Insurance for $11M Judgment Over Political Closing of Quarry"
+    },
+    "https://www.insurancejournal.com/news/west/2026/10/29/889839.htm": {
+      "attempted_at": "2026-10-29T05:44:34.075460+00:00",
+      "retry_after": "2026-10-30T06:44:34.075460+00:00",
+      "headline": "Root Insurance Expands Personal Auto into Wyoming"
     }
   },
   "sources": {
@@ -6332,6 +6352,69 @@
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1",
       "alternative_search_after": "2026-10-29T07:46:46.968702+00:00"
+    },
+    "https://www.insurancejournal.com/news/national/2026/10/29/890656.htm": {
+      "attempted_at": "2026-10-29T05:44:34.075460+00:00",
+      "retry_after": "2026-10-29T09:44:34.075460+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.insurancejournal.com/news/national/2026/10/29/890676.htm": {
+      "attempted_at": "2026-10-29T05:44:34.075460+00:00",
+      "retry_after": "2026-10-29T09:44:34.075460+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.insurancejournal.com/news/east/2026/10/29/890445.htm": {
+      "attempted_at": "2026-10-29T05:44:34.075460+00:00",
+      "retry_after": "2026-10-29T09:44:34.075460+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.insurancejournal.com/news/east/2026/10/29/890646.htm": {
+      "attempted_at": "2026-10-29T05:44:34.075460+00:00",
+      "retry_after": "2026-10-29T09:44:34.075460+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.insurancejournal.com/news/east/2026/10/29/890614.htm": {
+      "attempted_at": "2026-10-29T05:44:34.075460+00:00",
+      "retry_after": "2026-10-29T09:44:34.075460+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.insurancejournal.com/news/west/2026/10/29/890657.htm": {
+      "attempted_at": "2026-10-29T05:44:34.075460+00:00",
+      "retry_after": "2026-10-29T09:44:34.075460+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.insurancejournal.com/news/west/2026/10/29/889839.htm": {
+      "attempted_at": "2026-10-29T05:44:34.075460+00:00",
+      "retry_after": "2026-10-29T09:44:34.075460+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.insurancejournal.com/news/national/2026/10/29/890687.htm": {
+      "attempted_at": "2026-10-29T05:44:34.075460+00:00",
+      "retry_after": "2026-10-29T09:44:34.075460+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.insurancejournal.com/news/west/2026/10/29/890663.htm": {
+      "attempted_at": "2026-10-29T05:44:34.075460+00:00",
+      "retry_after": "2026-10-29T09:44:34.075460+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
     }
   },
   "version": 2,

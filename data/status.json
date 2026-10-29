@@ -1,61 +1,86 @@
 {
-  "checked_at": "2026-10-29T04:47:13.180862+00:00",
+  "checked_at": "2026-10-29T05:44:52.752344+00:00",
   "uk_date": "2026-10-29",
-  "outcome": "BLOCKED",
-  "editorial_outcome": "BLOCKED",
-  "technical_status": "LIVE_VERIFIED",
+  "outcome": "PUBLISHED",
+  "editorial_outcome": "PUBLISHED",
+  "technical_status": "AWAITING_LIVE_VERIFICATION",
   "source_coverage_status": "PARTIAL",
   "launch_test": {
     "result": "NOT_RUN"
   },
-  "published_this_run": 0,
-  "genuine_same_day_articles": 4,
+  "published_this_run": 3,
+  "genuine_same_day_articles": 7,
   "editorial_selection": {
-    "result": "NO_VERIFIED_CANDIDATES",
+    "result": "SELECTED",
     "requests": 0,
-    "selected": [],
-    "skipped": []
+    "method": "deterministic-source-supported",
+    "selected": [
+      {
+        "url": "https://www.theguardian.com/uk-news/2026/oct/29/readers-react-to-budget-2026",
+        "category": "Banking",
+        "reason": "Relevant current development supported by a complete accessible source"
+      },
+      {
+        "url": "https://www.insurancebusinessmag.com/uk/news/cyber/crisis-teams-strong-on-comms-but-weak-on-cyber-recovery-databarracks-595380.aspx",
+        "category": "Banking",
+        "reason": "Relevant current development supported by a complete accessible source"
+      },
+      {
+        "url": "https://www.insurancejournal.com/news/national/2026/10/29/890697.htm",
+        "category": "Banking",
+        "reason": "Relevant current development supported by a complete accessible source"
+      }
+    ],
+    "skipped": [],
+    "deferred": []
   },
-  "published_total": 196,
-  "last_article_at": "2026-10-29T02:27:36.989427+00:00",
-  "fresh_source_candidates": 3,
-  "verified_original_candidates": 0,
+  "published_total": 199,
+  "last_article_at": "2026-10-29T05:44:52.584020+00:00",
+  "fresh_source_candidates": 15,
+  "verified_original_candidates": 3,
   "candidates_by_sector": {
-    "Banking": 2,
-    "Insurance": 1
+    "Insurance": 10,
+    "Banking": 5
   },
-  "verified_by_sector": {},
-  "articles_commissioned": 0,
+  "verified_by_sector": {
+    "Banking": 3
+  },
+  "articles_commissioned": 3,
   "articles_held": 187,
   "machine_screened": 0,
   "independent_review": false,
   "publication_policy": "newsroom-single-pass-2026-10-26-v1",
-  "articles_ready_to_publish": 0,
+  "articles_ready_to_publish": 3,
   "primary_indexes_checked": 31,
   "primary_index_failures": 4,
-  "feeds_working": 41,
-  "feed_failures": 0,
+  "feeds_working": 40,
+  "feed_failures": 1,
   "ai_budget": {
     "quota_date": "2026-10-28",
     "quota_timezone": "America/Los_Angeles",
-    "requests_this_run": 0,
-    "requests_today_including_this_run": 30,
+    "requests_this_run": 1,
+    "requests_today_including_this_run": 31,
     "run_limit": 7,
     "daily_limit": null,
     "remaining_today": null,
     "daily_limit_source": "provider",
-    "remaining_this_run": 7
+    "remaining_this_run": 6
   },
   "quota_pause_until": null,
   "pipeline_metrics": {
     "discovered_unique": 509,
-    "outside_uk_date": 236,
-    "already_published_or_retired": 122,
+    "outside_uk_date": 235,
+    "already_published_or_retired": 114,
     "irrelevant": 3,
-    "unsupported_route": 145,
-    "fresh_relevant_candidates": 3,
+    "unsupported_route": 142,
+    "fresh_relevant_candidates": 15,
+    "sources_successfully_retrieved": 12,
+    "source_checkpoints_reused": 0,
+    "outside_uk_market": 9,
     "source_cooldowns": 3,
-    "verified_original_candidates": 0
+    "verified_original_candidates": 3,
+    "articles_ready_to_publish": 3,
+    "articles_drafted": 3
   },
   "source_fallbacks": [
     {
@@ -67,11 +92,6 @@
       "source": "https://www.bloomberg.com/news/articles/2026-10-29/indonesia-s-wealth-fund-cio-owns-stake-in-sanctioned-brokerage",
       "alternatives_found": 0,
       "result": "No matching alternative in checked sources"
-    },
-    {
-      "source": "https://www.finextra.com/newsarticle/48665/monzo-launches-in-spain",
-      "result": "Public alternative search completed",
-      "candidates": 0
     },
     {
       "source": "https://www.finextra.com/newsarticle/48665/monzo-launches-in-spain",
@@ -307,36 +327,19 @@
       "source_date": "2026-10-15"
     },
     {
-      "title": "Cash ISA Transfer Performance Q3 2026",
-      "source": "https://www.ukfinance.org.uk/news-and-insight/press-release/cash-isa-transfer-performance-q3-2026",
+      "title": "HSBC Holdings plc 3Q 2026 Earnings Release",
+      "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/hsbc-holdings-plc-3q-2026-earnings-release",
       "result": "excluded",
       "stage": "eligibility",
       "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-26"
+      "source_date": "2026-10-27"
     },
     {
-      "title": "UK Finance publishes 2026 banking sector tax report",
-      "source": "https://www.ukfinance.org.uk/news-and-insight/press-release/uk-finance-publishes-2026-banking-sector-tax-report",
+      "title": "Retirement targets jump 20% as affluent individuals plan for several futures at once",
+      "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/retirement-targets-jump-20-as-affluent-individuals-plan-for-several-futures-at-once",
       "result": "excluded",
       "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-21"
-    },
-    {
-      "title": "UK Finance Buy-to-Let Update – Q2 2026",
-      "source": "https://www.ukfinance.org.uk/news-and-insight/press-release/uk-finance-buy-let-update-q2-2026",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-21"
-    },
-    {
-      "title": "UK has unique chance to lead reform of global financial standards ahead of G20 presidency, says UK Finance",
-      "source": "https://www.ukfinance.org.uk/news-and-insight/press-release/uk-has-unique-chance-lead-reform-global-financial-standards",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-13"
+      "reason": "Already published or retired"
     },
     {
       "title": "Prudential Regulation // Consultation paper 22 October 2026 CP14/26 – Review of the Senior Managers and... CP14/26 – Review of the Senior Managers and Certification Regime (SM&CR) – Phase 2",
@@ -347,16 +350,16 @@
       "source_date": "2026-10-22"
     },
     {
-      "title": "Prudential Regulation // Supervisory statement 14 October 2026 SS2/26 – High loan to income lending SS2/26 – High loan to income lending",
-      "source": "https://www.bankofengland.co.uk/prudential-regulation/publication/2026/october/high-loan-to-income-lending-supervisory-statement",
+      "title": "Prudential Regulation // Policy statement 14 October 2026 PS19/26 – High loan to income lending PS19/26 – High loan to income lending",
+      "source": "https://www.bankofengland.co.uk/prudential-regulation/publication/2026/october/high-loan-to-income-lending-policy-statement",
       "result": "excluded",
       "stage": "eligibility",
       "reason": "Discovery source date is outside the current UK date",
       "source_date": "2026-10-14"
     },
     {
-      "title": "Prudential Regulation // Policy statement 14 October 2026 PS19/26 – High loan to income lending PS19/26 – High loan to income lending",
-      "source": "https://www.bankofengland.co.uk/prudential-regulation/publication/2026/october/high-loan-to-income-lending-policy-statement",
+      "title": "Prudential Regulation // Supervisory statement 14 October 2026 SS2/26 – High loan to income lending SS2/26 – High loan to income lending",
+      "source": "https://www.bankofengland.co.uk/prudential-regulation/publication/2026/october/high-loan-to-income-lending-supervisory-statement",
       "result": "excluded",
       "stage": "eligibility",
       "reason": "Discovery source date is outside the current UK date",
@@ -395,6 +398,38 @@
       "source_date": "2026-10-08"
     },
     {
+      "title": "Cash ISA Transfer Performance Q3 2026",
+      "source": "https://www.ukfinance.org.uk/news-and-insight/press-release/cash-isa-transfer-performance-q3-2026",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-26"
+    },
+    {
+      "title": "UK Finance publishes 2026 banking sector tax report",
+      "source": "https://www.ukfinance.org.uk/news-and-insight/press-release/uk-finance-publishes-2026-banking-sector-tax-report",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-21"
+    },
+    {
+      "title": "UK Finance Buy-to-Let Update – Q2 2026",
+      "source": "https://www.ukfinance.org.uk/news-and-insight/press-release/uk-finance-buy-let-update-q2-2026",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-21"
+    },
+    {
+      "title": "UK has unique chance to lead reform of global financial standards ahead of G20 presidency, says UK Finance",
+      "source": "https://www.ukfinance.org.uk/news-and-insight/press-release/uk-has-unique-chance-lead-reform-global-financial-standards",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-13"
+    },
+    {
       "title": "Ageas UK and esure Boards appoint two Independent Non-Executive Directors",
       "source": "https://www.ageas.co.uk/press-releases/2026-press-releases/ageas-esure-boards-independent-non-executive-directors/",
       "result": "excluded",
@@ -409,27 +444,6 @@
       "stage": "eligibility",
       "reason": "Discovery source date is outside the current UK date",
       "source_date": "2026-10-23"
-    },
-    {
-      "title": "Lloyds backs Stockport with £720k investment in new-look branch",
-      "source": "https://www.lloydsbank.com/news-and-insights/2026/lloyds-backs-stockport-with-in-new-look-branch.html",
-      "result": "rejected",
-      "stage": "eligibility",
-      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
-    },
-    {
-      "title": "Lloyds customers offered 10% cashback for shopping at independent businesses",
-      "source": "https://www.lloydsbank.com/news-and-insights/2026/lloyds-customers-offered-cashback-for-shopping-at-independent-businesses.html",
-      "result": "rejected",
-      "stage": "eligibility",
-      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
-    },
-    {
-      "title": "Lloyds removes £15 monthly charge from Premier account",
-      "source": "https://www.lloydsbank.com/news-and-insights/2026/lloyds-removes-monthly-charge-from-premier-account.html",
-      "result": "rejected",
-      "stage": "eligibility",
-      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
     },
     {
       "title": "MGAA Breaking News | A Busy Week for Regulation: Financial Crime, SMCR and AI",
@@ -511,19 +525,33 @@
       "source_date": "2026-10-09"
     },
     {
-      "title": "HSBC Holdings plc 3Q 2026 Earnings Release",
-      "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/hsbc-holdings-plc-3q-2026-earnings-release",
+      "title": "Lloyds backs Stockport with £720k investment in new-look branch",
+      "source": "https://www.lloydsbank.com/news-and-insights/2026/lloyds-backs-stockport-with-in-new-look-branch.html",
+      "result": "rejected",
+      "stage": "eligibility",
+      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
+    },
+    {
+      "title": "Lloyds customers offered 10% cashback for shopping at independent businesses",
+      "source": "https://www.lloydsbank.com/news-and-insights/2026/lloyds-customers-offered-cashback-for-shopping-at-independent-businesses.html",
+      "result": "rejected",
+      "stage": "eligibility",
+      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
+    },
+    {
+      "title": "Lloyds removes £15 monthly charge from Premier account",
+      "source": "https://www.lloydsbank.com/news-and-insights/2026/lloyds-removes-monthly-charge-from-premier-account.html",
+      "result": "rejected",
+      "stage": "eligibility",
+      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
+    },
+    {
+      "title": "14th October 2026 Starling becomes first bank to train AI model on UK sovereign cloud",
+      "source": "https://www.starlingbank.com/news/starling-backs-uk-sovereign-cloud",
       "result": "excluded",
       "stage": "eligibility",
       "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-27"
-    },
-    {
-      "title": "Retirement targets jump 20% as affluent individuals plan for several futures at once",
-      "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/retirement-targets-jump-20-as-affluent-individuals-plan-for-several-futures-at-once",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
+      "source_date": "2026-10-14"
     },
     {
       "title": "Lawrence Hawkins appointed General Counsel Zurich UK",
@@ -542,12 +570,11 @@
       "source_date": "2026-10-14"
     },
     {
-      "title": "14th October 2026 Starling becomes first bank to train AI model on UK sovereign cloud",
-      "source": "https://www.starlingbank.com/news/starling-backs-uk-sovereign-cloud",
+      "title": "Fake film deals and emails from top agents: who is behind the explosion in literary scams?",
+      "source": "https://www.theguardian.com/news/ng-interactive/2026/oct/29/paid-for-book-clubs-fake-film-deals-emails-explosion-literary-scams-authors",
       "result": "excluded",
       "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-14"
+      "reason": "No reviewed article route in source registry"
     },
     {
       "title": "Partner Insight: From awareness to action – closing the retirement planning gap",
@@ -3590,104 +3617,12 @@
       "reason": "Already published or retired"
     },
     {
-      "title": "LiveMore appoints Wilson as chief commercial officer",
-      "source": "https://www.mortgagesolutions.co.uk/mortgage-news/2026/10/27/livemore-appoints-wilson-as-chief-commercial-officer/",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "No reviewed article route in source registry"
-    },
-    {
-      "title": "The search for the UK's Top Insurance Employers has begun",
-      "source": "https://www.insurancebusinessmag.com/uk/news/breaking-news/the-search-for-the-uks-top-insurance-employers-has-begun-595098.aspx",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
-    {
-      "title": "Why Wakam broke, and why AmTrust was happy to pick up the pieces",
-      "source": "https://www.insurancebusinessmag.com/uk/news/business-resilience/why-wakam-broke-and-why-amtrust-was-happy-to-pick-up-the-pieces-595096.aspx",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
-    {
-      "title": "Chubb appoints head of financial lines for Continental Europe, Middle East and North Africa",
-      "source": "https://www.commercialriskonline.com/chubb-appoints-head-of-financial-lines-for-continental-europe-middle-east-and-north-africa/",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
-    {
-      "title": "HSBC shares fall as results disappoint",
-      "source": "https://www.ft.com/content/fd23db26-a45b-4a98-b771-4234a30b7937?syn-25a6b1a6=1",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "No reviewed article route in source registry"
-    },
-    {
-      "title": "The insurance bombshell hidden in Anthropic’s IPO filing",
-      "source": "https://www.insurancebusinessmag.com/uk/news/cyber/the-insurance-bombshell-hidden-in-anthropics-ipo-filing-595095.aspx",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
-    {
-      "title": "Higher rates make home buyers more selective",
-      "source": "https://www.mortgagesolutions.co.uk/mortgage-news/2026/10/27/higher-rates-make-home-buyers-more-selective/",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "No reviewed article route in source registry"
-    },
-    {
-      "title": "L&G takes on £2.45bn Royal Mail DC scheme in biggest master trust transfer to date",
-      "source": "https://www.professionalpensions.com/news/4537907/takes-245bn-royal-mail-dc-scheme-biggest-master-trust-transfer-date",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
-    {
-      "title": "LMS partners with Veyco to launch QES",
-      "source": "https://www.mortgagesolutions.co.uk/mortgage-news/2026/10/27/lms-partners-with-veyco-to-launch-qes/",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "No reviewed article route in source registry"
-    },
-    {
       "title": "Fast and flexible policy changes ‘business-critical’ for commercial motor brokers",
       "source": "https://www.insuranceage.co.uk/insight/7959062/fast-and-flexible-policy-changes-business-critical-for-commercial-motor-brokers",
       "result": "excluded",
       "stage": "eligibility",
       "reason": "Discovery source date is outside the current UK date",
       "source_date": "2026-10-27"
-    },
-    {
-      "title": "WTW advises customised approach to captive KPIs",
-      "source": "https://www.commercialriskonline.com/wtw-advises-customised-approach-to-captive-kpis/",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
-    {
-      "title": "Ares Private-Credit Fund to Buy Competitor From Apollo",
-      "source": "https://www.wsj.com/finance/investing/ares-private-credit-fund-to-buy-competitor-from-apollo-daecb67c",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-27"
-    },
-    {
-      "title": "HSBC says ‘no pressure’ to move HQ out of UK despite prospect of higher bank taxes",
-      "source": "https://www.theguardian.com/business/2026/oct/27/hsbc-says-no-pressure-to-move-hq-out-of-uk-despite-prospect-of-higher-bank-taxes",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
-    {
-      "title": "Specialty market has given back 65% of hard-market rate gains",
-      "source": "https://www.insurancebusinessmag.com/uk/news/breaking-news/specialty-market-has-given-back-65-of-hardmarket-rate-gains-595092.aspx",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
     },
     {
       "title": "Ardonagh takes Orvia brand global with US$3bn MGA platform",
@@ -3859,6 +3794,96 @@
       "source_date": "2026-10-21"
     },
     {
+      "title": "‘The more you earn, the less you keep’: readers react to the budget",
+      "source": "https://www.theguardian.com/uk-news/2026/oct/29/readers-react-to-budget-2026",
+      "result": "source verified",
+      "stage": "source",
+      "reason": "Complete dated source, with UK financial product, pensions or fiscal policy",
+      "source_sha256": "d67f417e7a15d0398d8bc32203c2e0a2f6be541c006c86d293fb94dcb0fa2714",
+      "capture_method": "retrieved"
+    },
+    {
+      "title": "Crisis teams strong on comms but weak on cyber recovery: Databarracks",
+      "source": "https://www.insurancebusinessmag.com/uk/news/cyber/crisis-teams-strong-on-comms-but-weak-on-cyber-recovery-databarracks-595380.aspx",
+      "result": "source verified",
+      "stage": "source",
+      "reason": "Complete dated source, with UK financial subject established in the full source",
+      "source_sha256": "726481f54d23a1eaac5494a345d06e5e6e9aee0017aecff5d0d406aafa6fcbdf",
+      "capture_method": "retrieved"
+    },
+    {
+      "title": "New Data Centers Projected to Emit More Carbon Than All of Mexico",
+      "source": "https://www.insurancejournal.com/news/national/2026/10/29/890656.htm",
+      "result": "rejected",
+      "stage": "uk_market",
+      "reason": "No UK insurance or banking connection in the complete source"
+    },
+    {
+      "title": "Global Cyberscams Bilk Americans Out of Billions. Few Get Any Money Back.",
+      "source": "https://www.insurancejournal.com/news/national/2026/10/29/890697.htm",
+      "result": "source verified",
+      "stage": "source",
+      "reason": "Complete dated source, with UK financial subject established in the full source",
+      "source_sha256": "3d1014cb55934f5cc537c5ab2539458f7267f2631eea8a7245a7e232e3579294",
+      "capture_method": "retrieved"
+    },
+    {
+      "title": "Consumer Watchdog’s Information Security ‘Not Effective,’ Watchdog Finds",
+      "source": "https://www.insurancejournal.com/news/national/2026/10/29/890676.htm",
+      "result": "rejected",
+      "stage": "uk_market",
+      "reason": "No UK insurance or banking connection in the complete source"
+    },
+    {
+      "title": "Father and Son Charged With Running ‘Chop-Shop,’ Selling Stolen Cars, Insurance Fraud",
+      "source": "https://www.insurancejournal.com/news/east/2026/10/29/890445.htm",
+      "result": "rejected",
+      "stage": "uk_market",
+      "reason": "No UK insurance or banking connection in the complete source"
+    },
+    {
+      "title": "Columbia University Opens Claims for $16 Million Data Breach Settlement",
+      "source": "https://www.insurancejournal.com/news/east/2026/10/29/890646.htm",
+      "result": "rejected",
+      "stage": "uk_market",
+      "reason": "No UK insurance or banking connection in the complete source"
+    },
+    {
+      "title": "Town Appeals Denial of Insurance for $11M Judgment Over Political Closing of Quarry",
+      "source": "https://www.insurancejournal.com/news/east/2026/10/29/890614.htm",
+      "result": "rejected",
+      "stage": "uk_market",
+      "reason": "No UK insurance or banking connection in the complete source"
+    },
+    {
+      "title": "Anthropic Tells California Governor Courts Should Be Able to Block Risky AI Models",
+      "source": "https://www.insurancejournal.com/news/west/2026/10/29/890657.htm",
+      "result": "rejected",
+      "stage": "uk_market",
+      "reason": "No UK insurance or banking connection in the complete source"
+    },
+    {
+      "title": "Root Insurance Expands Personal Auto into Wyoming",
+      "source": "https://www.insurancejournal.com/news/west/2026/10/29/889839.htm",
+      "result": "rejected",
+      "stage": "uk_market",
+      "reason": "No UK insurance or banking connection in the complete source"
+    },
+    {
+      "title": "Trump Administration Sued Over Rollback of Corporate Ownership Reporting Rules",
+      "source": "https://www.insurancejournal.com/news/national/2026/10/29/890687.htm",
+      "result": "rejected",
+      "stage": "uk_market",
+      "reason": "No UK insurance or banking connection in the complete source"
+    },
+    {
+      "title": "LA Wildfire Smoke Exposed 7 Million to Dangerous Toxic Metals",
+      "source": "https://www.insurancejournal.com/news/west/2026/10/29/890663.htm",
+      "result": "rejected",
+      "stage": "uk_market",
+      "reason": "No UK insurance or banking connection in the complete source"
+    },
+    {
       "title": "Japan 2-Year Bond Sale Sees Firm Demand Before BOJ Decision",
       "source": "https://www.bloomberg.com/news/articles/2026-10-29/japan-s-two-year-bond-sale-demand-stronger-than-12-month-average",
       "result": "retry deferred",
@@ -3884,13 +3909,39 @@
       "reason": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "retry_after": "2026-10-29T06:07:33.496617+00:00"
+    },
+    {
+      "title": "‘The more you earn, the less you keep’: readers react to the budget",
+      "source": "https://www.theguardian.com/uk-news/2026/oct/29/readers-react-to-budget-2026",
+      "result": "ready to publish",
+      "stage": "writing",
+      "reason": "Source-based article complete; no independent AI review requested"
+    },
+    {
+      "title": "Crisis teams strong on comms but weak on cyber recovery: Databarracks",
+      "source": "https://www.insurancebusinessmag.com/uk/news/cyber/crisis-teams-strong-on-comms-but-weak-on-cyber-recovery-databarracks-595380.aspx",
+      "result": "ready to publish",
+      "stage": "writing",
+      "reason": "Source-based article complete; no independent AI review requested"
+    },
+    {
+      "title": "Global Cyberscams Bilk Americans Out of Billions. Few Get Any Money Back.",
+      "source": "https://www.insurancejournal.com/news/national/2026/10/29/890697.htm",
+      "result": "ready to publish",
+      "stage": "writing",
+      "reason": "Source-based article complete; no independent AI review requested"
     }
   ],
   "discovery_errors": [
     "UK Parliament: HTTPError HTTP Error 403: Forbidden",
     "Allianz UK: HTTPError HTTP Error 403: Forbidden",
     "Association of British Insurers: HTTPError HTTP Error 403: Forbidden",
-    "Revolut UK: HTTPError HTTP Error 403: Forbidden"
+    "Revolut UK: HTTPError HTTP Error 403: Forbidden",
+    {
+      "source": "Commercial Risk",
+      "url": "https://www.commercialriskonline.com/feed/",
+      "error": "mismatched tag: line 93, column 2"
+    }
   ],
   "publication_holds": [
     {
@@ -5021,111 +5072,13 @@
       ]
     }
   ],
-  "run_id": "40819642635",
+  "run_id": "40825111566",
   "event": "schedule",
-  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40819642635",
+  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40825111566",
   "publisher_links": 0,
-  "discovery_headlines": 4,
-  "publisher_desk_checked_at": "2026-10-29T04:46:59.432023+00:00",
+  "discovery_headlines": 15,
+  "publisher_desk_checked_at": "2026-10-29T05:44:31.412799+00:00",
   "previous_verified_runs": [
-    {
-      "run_id": "40701422274",
-      "event": "schedule",
-      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40701422274",
-      "editorial_outcome": "NO_QUALIFYING_NEWS",
-      "published_this_run": 0,
-      "publisher_links": 0,
-      "discovery_headlines": 30,
-      "source_coverage_status": "PARTIAL",
-      "fresh_source_candidates": 81,
-      "verified_by_sector": {},
-      "ai_budget": {
-        "quota_date": "2026-10-28",
-        "quota_timezone": "America/Los_Angeles",
-        "requests_this_run": 0,
-        "requests_today_including_this_run": 6,
-        "run_limit": 7,
-        "daily_limit": null,
-        "remaining_today": null,
-        "daily_limit_source": "provider",
-        "remaining_this_run": 7
-      },
-      "pipeline_metrics": {
-        "discovered_unique": 512,
-        "already_published_or_retired": 114,
-        "irrelevant": 26,
-        "outside_uk_date": 115,
-        "unsupported_route": 175,
-        "published_development": 1,
-        "fresh_relevant_candidates": 81,
-        "sources_successfully_retrieved": 35,
-        "source_checkpoints_reused": 0,
-        "outside_uk_market": 35,
-        "source_failures": 5,
-        "verified_original_candidates": 0
-      },
-      "source_fallbacks": [
-        {
-          "source": "https://www.insuranceage.co.uk/broker/7959068/superscript-secures-lloyds-bank-sme-insurance-partnership",
-          "result": "Public alternative search completed",
-          "candidates": 0
-        },
-        {
-          "source": "https://www.insuranceage.co.uk/broker/7959068/superscript-secures-lloyds-bank-sme-insurance-partnership",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.finextra.com/newsarticle/48661/wealthsimple-hits-c138bn-valuation",
-          "result": "Public alternative search completed",
-          "candidates": 0
-        },
-        {
-          "source": "https://www.finextra.com/newsarticle/48661/wealthsimple-hits-c138bn-valuation",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.bloomberg.com/news/articles/2026-10-28/world-bank-raises-commodity-price-outlook-citing-war-and-el-nino",
-          "result": "Public alternative search completed",
-          "candidates": 0
-        },
-        {
-          "source": "https://www.bloomberg.com/news/articles/2026-10-28/world-bank-raises-commodity-price-outlook-citing-war-and-el-nino",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.wsj.com/buyside/personal-finance/financial-advisors/best-financial-advisors",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.wsj.com/finance/investing/u-s-treasury-yields-rise-ahead-of-federal-reserve-interest-rate-decision-b1f7ef58",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        }
-      ],
-      "publication_policy": "newsroom-single-pass-2026-10-26-v1",
-      "independent_review": false,
-      "articles_ready_to_publish": 0,
-      "articles_visible_this_run": 0,
-      "live_article_ids": [],
-      "commissioned_stories": [],
-      "checked_at": "2026-10-28T13:59:37.251817+00:00",
-      "technical_status": "LIVE_VERIFIED",
-      "deployment": "success",
-      "live_check": "success",
-      "browser_check": "skipped",
-      "candidate_outcome_counts": {
-        "eligibility:excluded": 404,
-        "eligibility:rejected": 26,
-        "eligibility:duplicate": 1,
-        "source:deferred": 41,
-        "uk_market:rejected": 35,
-        "source:held back": 5
-      }
-    },
     {
       "run_id": "40710552955",
       "event": "schedule",
@@ -8232,6 +8185,77 @@
         "source:held back": 1,
         "source:retry deferred": 2
       }
+    },
+    {
+      "run_id": "40819642635",
+      "event": "schedule",
+      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40819642635",
+      "editorial_outcome": "BLOCKED",
+      "published_this_run": 0,
+      "publisher_links": 0,
+      "discovery_headlines": 4,
+      "source_coverage_status": "PARTIAL",
+      "fresh_source_candidates": 3,
+      "verified_by_sector": {},
+      "ai_budget": {
+        "quota_date": "2026-10-28",
+        "quota_timezone": "America/Los_Angeles",
+        "requests_this_run": 0,
+        "requests_today_including_this_run": 30,
+        "run_limit": 7,
+        "daily_limit": null,
+        "remaining_today": null,
+        "daily_limit_source": "provider",
+        "remaining_this_run": 7
+      },
+      "pipeline_metrics": {
+        "discovered_unique": 509,
+        "outside_uk_date": 236,
+        "already_published_or_retired": 122,
+        "irrelevant": 3,
+        "unsupported_route": 145,
+        "fresh_relevant_candidates": 3,
+        "source_cooldowns": 3,
+        "verified_original_candidates": 0
+      },
+      "source_fallbacks": [
+        {
+          "source": "https://www.bloomberg.com/news/articles/2026-10-29/japan-s-two-year-bond-sale-demand-stronger-than-12-month-average",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.bloomberg.com/news/articles/2026-10-29/indonesia-s-wealth-fund-cio-owns-stake-in-sanctioned-brokerage",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.finextra.com/newsarticle/48665/monzo-launches-in-spain",
+          "result": "Public alternative search completed",
+          "candidates": 0
+        },
+        {
+          "source": "https://www.finextra.com/newsarticle/48665/monzo-launches-in-spain",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        }
+      ],
+      "publication_policy": "newsroom-single-pass-2026-10-26-v1",
+      "independent_review": false,
+      "articles_ready_to_publish": 0,
+      "articles_visible_this_run": 0,
+      "live_article_ids": [],
+      "commissioned_stories": [],
+      "checked_at": "2026-10-29T04:47:26.397482+00:00",
+      "technical_status": "LIVE_VERIFIED",
+      "deployment": "success",
+      "live_check": "success",
+      "browser_check": "skipped",
+      "candidate_outcome_counts": {
+        "eligibility:excluded": 503,
+        "eligibility:rejected": 3,
+        "source:retry deferred": 3
+      }
     }
   ],
   "launch_acceptance": {
@@ -8258,7 +8282,5 @@
   "launch_diagnostic_allowance": {
     "limit": 2,
     "requests": 2
-  },
-  "articles_visible_this_run": 0,
-  "live_article_ids": []
+  }
 }
