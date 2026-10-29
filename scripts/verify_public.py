@@ -42,7 +42,7 @@ def verify():
     rendered=home.split('<script type="application/json" id="curated-data"',1)[0]
     if edition:
         assert rendered.count('class="tb-lead-art"')==1, 'Exactly one lead illustration must be present'
-        assert rendered.count('class="tb-report-art"')==min(2,len(edition)-1), 'Supporting photography must remain selective'
+        assert rendered.count('class="tb-report-art"')==min(4,len(edition)-1), 'First four supporting reports need selective credited photography'
         assert 'not the news event' in rendered and 'commons.wikimedia.org' in rendered, 'Illustration disclosure or credits missing'
     else:
         assert 'class="tb-lead-art"' not in rendered, 'Empty editions should not imply that a news event happened'

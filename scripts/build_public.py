@@ -329,7 +329,7 @@ def build():
     page = insert_once(page,"<!-- HOURLY_DESK_INSERT -->","")
     latest = records[0] if records else None
     first = lead_article(records)
-    featured_ids={a["id"] for a in [r for r in records if first is None or r["id"]!=first["id"]][:2]}
+    featured_ids={a["id"] for a in [r for r in records if first is None or r["id"]!=first["id"]][:4]}
     def art_credit(a, large=False):
         photo=a["home_image"]
         caption='<figcaption>Illustrative photograph, not the news event · <a href="'+esc(photo["credit_url"])+'" target="_blank" rel="noopener noreferrer">'+esc(photo["credit"])+'</a></figcaption>'
@@ -358,13 +358,12 @@ def build():
             '<a class="cta" href="archive.html">Explore earlier reporting →</a></article>')
     page = insert_once(page, '<article id="lead-story" class="lead-story"></article>', lead)
     briefing = ''.join(
-        '<div class="briefing-story"><span class="brief-number">0' + str(i+1)
-        + '</span><div><span class="story-kind">FULL ARTICLE</span>'
+        '<div class="briefing-story" data-desk="'+esc(a.get("desk_section"))+'"><span class="brief-number">0' + str(i+1)
+        + '</span><div><span class="tb-brief-desk">'+esc(a.get("desk_section"))+'</span>'
         + '<a href="' + esc(story_href(a)) + '">' + esc(a["title"]) + '</a>'
-        + '<p>' + esc(a.get("short", "")) + '</p>'
-        + ('<p><strong>Why it matters:</strong> '+esc(a["reader_takeaway"])+'</p>' if a.get("reader_takeaway") else '')
+        + '<p>' + esc(a.get("reader_takeaway") or a.get("short", "")) + '</p>'
         + '</div></div>'
-        for i, a in enumerate(other_briefs(records, first, limit=3))
+        for i, a in enumerate(other_briefs(records, first, limit=4))
     )
     if first and not briefing:
         briefing='<p class="tb-briefing-empty">Our lead story is today’s only published report. No other developments have been added.</p>'
