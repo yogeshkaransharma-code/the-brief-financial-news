@@ -23,7 +23,7 @@ def main():
             page.goto(SITE,wait_until='networkidle',timeout=60000)
             assert page.locator('#lead-story').is_visible()
             assert 'The 60-second Brief' in page.locator('#briefing-title').inner_text(), 'The agreed quick-catch-up label is not visible'
-            assert 'Latest reporting' in page.locator('#latest h2').inner_text(), 'The agreed reporting list is not visible'
+            assert 'Latest reporting' in page.locator('#latest h2').text_content(), 'The agreed reporting list is not visible'
             assert page.locator('.tb-sector-visual').count()==0, 'Duplicate sector banners still clutter the homepage'
             assert page.locator('#briefing-tabs,#chips').count()==0, 'Duplicate sector-choice controls remain'
             assert page.locator('#feed .news-photo').count()==0, 'Generic stock image thumbnails still compete with news'
