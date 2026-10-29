@@ -123,6 +123,12 @@ def main():
                 assert original.count()==1,'Article is missing a visible link to its original evidence'
                 assert original.get_attribute('href')==target['url'],'Source URL differs'
                 assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'),'Article overflows viewport'
+                # A rendered mobile screenshot must not silently expand to 428px
+                # just because window.innerWidth has expanded with the layout.
+                if width==390:
+                    assert page.evaluate('document.querySelector("meta[name=viewport]").content.includes("width=device-width")'),'Mobile viewport tag missing'
+                    assert page.evaluate('Math.round(document.querySelector(".reader").getBoundingClientRect().width)')<=390,'Article content area wider than device'
+                    assert page.evaluate('document.body.getBoundingClientRect().width')<=390.5,'Article body exceeds 390px device'
                 page.screenshot(path=str(OUT/f'article-{width}.png'),full_page=True)
                 # Read original source in the actual browser as well as verifying the href.
                 source=context.new_page()
