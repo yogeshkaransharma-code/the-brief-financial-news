@@ -2,48 +2,10 @@
   "api_budget": {
     "date": "2026-10-28",
     "timezone": "America/Los_Angeles",
-    "requests": 31,
+    "requests": 33,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-10-26T07:34:30.819351+00:00",
-      "result": "response_received",
-      "prompt_characters": 40496,
-      "purpose": "production",
-      "usage": {
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 8406,
-        "candidatesTokenCount": 1707,
-        "totalTokenCount": 10113,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 8406
-          }
-        ],
-        "serviceTier": "standard"
-      }
-    },
-    {
-      "at": "2026-10-26T07:40:30.281196+00:00",
-      "result": "response_received",
-      "prompt_characters": 14825,
-      "purpose": "production",
-      "usage": {
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 3065,
-        "candidatesTokenCount": 631,
-        "totalTokenCount": 3696,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 3065
-          }
-        ],
-        "serviceTier": "standard"
-      }
-    },
     {
       "at": "2026-10-26T07:40:45.283781+00:00",
       "result": "response_received",
@@ -1877,6 +1839,44 @@
           {
             "modality": "TEXT",
             "tokenCount": 5847
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-29T06:54:02.349675+00:00",
+      "result": "response_received",
+      "prompt_characters": 27872,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 5712,
+        "candidatesTokenCount": 957,
+        "totalTokenCount": 6669,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 5712
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-29T06:54:17.359639+00:00",
+      "result": "response_received",
+      "prompt_characters": 9452,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 1978,
+        "candidatesTokenCount": 371,
+        "totalTokenCount": 2349,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1978
           }
         ],
         "serviceTier": "standard"
@@ -4410,6 +4410,36 @@
       "attempted_at": "2026-10-29T05:44:34.075460+00:00",
       "retry_after": "2026-10-30T06:44:34.075460+00:00",
       "headline": "Root Insurance Expands Personal Auto into Wyoming"
+    },
+    "https://www.insurancebusinessmag.com/uk/news/breaking-news/grim-cte-numbers-raise-the-stakes-for-uk-sports-insurers-595425.aspx": {
+      "attempted_at": "2026-10-29T06:53:48.301288+00:00",
+      "retry_after": "2026-10-30T07:53:48.301288+00:00",
+      "headline": "Grim CTE numbers raise the stakes for UK sport's insurers"
+    },
+    "https://www.insurancebusinessmag.com/uk/news/mergers-acquisitions/jab-completes-utmost-deal-as-overseas-capital-reshapes-uk-pension-market-595427.aspx": {
+      "attempted_at": "2026-10-29T06:53:48.301288+00:00",
+      "retry_after": "2026-10-30T07:53:48.301288+00:00",
+      "headline": "JAB completes Utmost deal as overseas capital reshapes UK pension market"
+    },
+    "https://www.bloomberg.com/news/videos/2026-10-29/healey-defends-uk-budget-warns-hard-decisions-ahead": {
+      "attempted_at": "2026-10-29T06:53:48.301288+00:00",
+      "retry_after": "2026-10-30T07:53:48.301288+00:00",
+      "headline": "Healey Defends UK Budget, Warns 'Tough Decisions' Ahead"
+    },
+    "https://www.theguardian.com/uk-news/2026/oct/29/will-the-budget-deliver-growth-in-every-postcode": {
+      "attempted_at": "2026-10-29T06:53:48.301288+00:00",
+      "retry_after": "2026-10-30T07:53:48.301288+00:00",
+      "headline": "Will the budget deliver ‘growth in every postcode’?"
+    },
+    "https://www.theguardian.com/uk-news/2026/oct/29/uk-retail-hospitality-businesses-relief-budget": {
+      "attempted_at": "2026-10-29T06:53:48.301288+00:00",
+      "retry_after": "2026-10-30T07:53:48.301288+00:00",
+      "headline": "‘There has to be a bolder shift’: retail and hospitality businesses assess relief in budget"
+    },
+    "https://www.reinsurancene.ws/chubb-appoints-lucas-scortecci-as-head-of-financial-lines-for-cemena/": {
+      "attempted_at": "2026-10-29T06:53:48.301288+00:00",
+      "retry_after": "2026-10-30T07:53:48.301288+00:00",
+      "headline": "Chubb appoints Lucas Scortecci as Head of Financial Lines for CEMENA"
     }
   },
   "sources": {
@@ -6324,14 +6354,14 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.finextra.com/newsarticle/48665/monzo-launches-in-spain": {
-      "attempted_at": "2026-10-29T00:07:33.496617+00:00",
-      "retry_after": "2026-10-29T06:07:33.496617+00:00",
+      "attempted_at": "2026-10-29T06:53:48.301288+00:00",
+      "retry_after": "2026-10-29T12:53:48.301288+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
+      "failures": 2,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-29T08:47:01.925833+00:00"
+      "alternative_search_after": "2026-10-29T10:53:48.301288+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-29/indonesia-s-wealth-fund-cio-owns-stake-in-sanctioned-brokerage": {
       "attempted_at": "2026-10-29T02:48:31.181472+00:00",
@@ -6341,7 +6371,7 @@
       "stage": "source",
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-29T06:48:31.181472+00:00"
+      "alternative_search_after": "2026-10-29T10:53:48.301288+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-29/japan-s-two-year-bond-sale-demand-stronger-than-12-month-average": {
       "attempted_at": "2026-10-29T03:46:46.968702+00:00",
@@ -6354,64 +6384,85 @@
       "alternative_search_after": "2026-10-29T07:46:46.968702+00:00"
     },
     "https://www.insurancejournal.com/news/national/2026/10/29/890656.htm": {
-      "attempted_at": "2026-10-29T05:44:34.075460+00:00",
-      "retry_after": "2026-10-29T09:44:34.075460+00:00",
+      "attempted_at": "2026-10-29T06:53:48.301288+00:00",
+      "retry_after": "2026-10-29T10:53:48.301288+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/national/2026/10/29/890676.htm": {
-      "attempted_at": "2026-10-29T05:44:34.075460+00:00",
-      "retry_after": "2026-10-29T09:44:34.075460+00:00",
+      "attempted_at": "2026-10-29T06:53:48.301288+00:00",
+      "retry_after": "2026-10-29T10:53:48.301288+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/east/2026/10/29/890445.htm": {
-      "attempted_at": "2026-10-29T05:44:34.075460+00:00",
-      "retry_after": "2026-10-29T09:44:34.075460+00:00",
+      "attempted_at": "2026-10-29T06:53:48.301288+00:00",
+      "retry_after": "2026-10-29T10:53:48.301288+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/east/2026/10/29/890646.htm": {
-      "attempted_at": "2026-10-29T05:44:34.075460+00:00",
-      "retry_after": "2026-10-29T09:44:34.075460+00:00",
+      "attempted_at": "2026-10-29T06:53:48.301288+00:00",
+      "retry_after": "2026-10-29T10:53:48.301288+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/east/2026/10/29/890614.htm": {
-      "attempted_at": "2026-10-29T05:44:34.075460+00:00",
-      "retry_after": "2026-10-29T09:44:34.075460+00:00",
+      "attempted_at": "2026-10-29T06:53:48.301288+00:00",
+      "retry_after": "2026-10-29T10:53:48.301288+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/west/2026/10/29/890657.htm": {
-      "attempted_at": "2026-10-29T05:44:34.075460+00:00",
-      "retry_after": "2026-10-29T09:44:34.075460+00:00",
+      "attempted_at": "2026-10-29T06:53:48.301288+00:00",
+      "retry_after": "2026-10-29T10:53:48.301288+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/west/2026/10/29/889839.htm": {
-      "attempted_at": "2026-10-29T05:44:34.075460+00:00",
-      "retry_after": "2026-10-29T09:44:34.075460+00:00",
+      "attempted_at": "2026-10-29T06:53:48.301288+00:00",
+      "retry_after": "2026-10-29T10:53:48.301288+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/national/2026/10/29/890687.htm": {
-      "attempted_at": "2026-10-29T05:44:34.075460+00:00",
-      "retry_after": "2026-10-29T09:44:34.075460+00:00",
+      "attempted_at": "2026-10-29T06:53:48.301288+00:00",
+      "retry_after": "2026-10-29T10:53:48.301288+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/west/2026/10/29/890663.htm": {
-      "attempted_at": "2026-10-29T05:44:34.075460+00:00",
-      "retry_after": "2026-10-29T09:44:34.075460+00:00",
+      "attempted_at": "2026-10-29T06:53:48.301288+00:00",
+      "retry_after": "2026-10-29T10:53:48.301288+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.commercialriskonline.com/arch-q3-profits-fall-as-iran-war-adds-to-cat-losses/": {
+      "attempted_at": "2026-10-29T06:53:48.301288+00:00",
+      "retry_after": "2026-10-29T10:53:48.301288+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.reinsurancene.ws/cfc-launches-executive-cyber-protection-for-sme-leaders-and-upgraded-ai-cover/": {
+      "attempted_at": "2026-10-29T06:53:48.301288+00:00",
+      "retry_after": "2026-10-29T10:53:48.301288+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.reinsurancene.ws/chubb-appoints-lucas-scortecci-as-head-of-financial-lines-for-cemena/": {
+      "attempted_at": "2026-10-29T06:53:48.301288+00:00",
+      "retry_after": "2026-10-29T10:53:48.301288+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
