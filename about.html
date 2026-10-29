@@ -45,7 +45,8 @@ p{margin:13px 0;color:#514745}
 .linkedin svg{display:block;flex:none;width:18px;height:18px;color:#0A66C2}
 .founder-side{background:#34282C;color:#F9F4EF;display:flex;flex-direction:column;justify-content:space-between;padding:35px 29px;min-height:390px}
 .side-kicker{font:600 10px/1.5 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:#E8CFCC}
-.side-quote{font:400 clamp(37px,4.1vw,56px)/1.03 var(--display);letter-spacing:-1px}
+/* Keep the longest word inside the narrow right-hand quote panel at laptop widths. */
+.side-quote{font:400 clamp(30px,2.8vw,39px)/1.08 var(--display);letter-spacing:-.8px;max-width:100%;min-width:0;overflow-wrap:anywhere}
 .side-quote em{font-style:normal;color:#E2B1B1}
 .side-foot{border-top:1px solid #765B60;padding-top:20px;font:400 13px/1.6 var(--sans);color:#E8D6D2}
 .standard-grid{display:grid;grid-template-columns:1fr 1fr;gap:38px;margin-top:18px}
@@ -55,8 +56,8 @@ p{margin:13px 0;color:#514745}
 footer{background:#282324;color:#F9F4EF;padding:29px 0;font-size:13px}
 footer p{color:#E0D2CF;margin:2px 0}
 footer a{color:#F9F4EF}
-@media(max-width:780px){article{margin:43px auto 70px}.founder{grid-template-columns:1fr}.founder-side{min-height:190px;gap:36px}.side-quote{font-size:44px}.standard-grid{grid-template-columns:1fr;gap:5px}}
-@media(max-width:560px){.container{padding:0 20px}.header-inner{padding:20px 0}.brand{font-size:36px}nav{gap:15px;font-size:12px}.founder-copy{padding:28px 23px}.founder-side{padding:29px 23px}.founder-signoff{align-items:flex-start}.intro{margin-bottom:32px}.side-quote{font-size:42px}}
+@media(max-width:780px){article{margin:43px auto 70px}.founder{grid-template-columns:1fr}.founder-side{min-height:190px;gap:36px}.side-quote{font-size:clamp(37px,5.5vw,44px)}.standard-grid{grid-template-columns:1fr;gap:5px}}
+@media(max-width:560px){.container{padding:0 20px}.header-inner{padding:20px 0}.brand{font-size:36px}nav{gap:15px;font-size:12px}.founder-copy{padding:28px 23px}.founder-side{padding:29px 23px}.founder-signoff{align-items:flex-start}.intro{margin-bottom:32px}.side-quote{font-size:clamp(30px,9vw,42px)}}
 </style>
 <link rel="stylesheet" href="assets/site.css">
 </head>
