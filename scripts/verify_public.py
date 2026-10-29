@@ -45,7 +45,8 @@ def verify():
         assert rendered.count('class="tb-report-art"')==min(4,len(edition)-1), 'First four supporting reports need selective credited photography'
         assert 'not the news event' in rendered and 'commons.wikimedia.org' in rendered, 'Illustration disclosure or credits missing'
     else:
-        assert 'class="tb-lead-art"' not in rendered, 'Empty editions should not imply that a news event happened'
+        assert 'Today’s lead report is still being prepared' in rendered, 'Empty edition must disclose no verified news'
+        assert 'class="tb-lead-art"' in rendered and 'not today’s news event' in rendered, 'Quiet editions need credited non-event cover photography'
     assert 'href="insurance.html"' in home and 'href="banking.html"' in home, 'Primary desk navigation missing'
     assert '<select id="order"' in home, 'Reader cannot sort Latest Reporting'
     assert home.index('<nav class="tb-nav tb-section-nav"') < home.index('<section class="top-layout"') < home.index('<section id="latest"') < home.index('<section id="context"'), 'Reader journey is out of order'

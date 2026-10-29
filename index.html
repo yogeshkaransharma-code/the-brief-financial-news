@@ -215,8 +215,9 @@ function renderTop(){
  const originals=sortItems(published.filter(x=>x.ai_assisted&&x.publication_method==='autonomous'&&currentDayArticle(x)));
  const lead=rankHighlights(originals)[0];
  if(!lead){
-   $('lead-story').classList.remove('with-photo');
-   $('lead-story').innerHTML='<span class="story-kicker">THE BRIEF / YOUR UK FINANCIAL DESK</span><h1>Understand the news that shapes your money.</h1><p class="standfirst">Today’s lead report is still being prepared. Explore earlier reporting or build your financial knowledge below.</p><a class="cta" href="archive.html">Explore earlier reporting →</a>';
+   $('lead-story').classList.add('with-photo');
+   // An honest evergreen cover photograph, never a false same-day article.
+   $('lead-story').innerHTML='<span class="story-kicker">THE BRIEF / YOUR UK FINANCIAL DESK</span><h1>Understand the news that shapes your money.</h1><p class="standfirst">Today’s lead report is still being prepared. Explore earlier reporting or build your financial knowledge below.</p><a class="cta" href="archive.html">Explore earlier reporting →</a><p class="meta">A new UK edition, updated as verified reports become available.</p><figure class="tb-lead-art"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Skyline_of_London_in_September_2024.jpg/960px-Skyline_of_London_in_September_2024.jpg" alt="The City of London skyline, a general editorial illustration" fetchpriority="high" decoding="async"><figcaption>London skyline · <a href="https://commons.wikimedia.org/wiki/File:Skyline_of_London_in_September_2024.jpg" target="_blank" rel="noopener noreferrer">Choinowski / Wikimedia Commons · CC BY-SA 4.0</a> · not today’s news event</figcaption></figure>';
    $('briefing-stories').innerHTML='<div class="tb-empty-guide"><p>While today’s briefing is being prepared:</p><a href="archive.html"><b>ARCHIVE</b><span>Read previous editions →</span></a><a href="#context"><b>EXPLAINERS</b><span>Understand financial basics →</span></a></div>';
    return;
  }

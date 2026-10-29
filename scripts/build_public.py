@@ -11,7 +11,7 @@ import re
 from pathlib import Path
 from urllib.parse import quote
 from same_day_policy import published_same_day, clock, original_date, date_in_uk
-from site_design import desk_for, terms_for, header, footer as site_footer, visual, home_photo_for, ST_PAULS_PHOTO, CITY_PHOTO, BANK_PHOTO, WESTMINSTER_PHOTO
+from site_design import desk_for, terms_for, header, footer as site_footer, visual, home_photo_for, CITY_PHOTO, CITY_CREDIT, CITY_CREDIT_URL, ST_PAULS_PHOTO, CITY_PHOTO, BANK_PHOTO, WESTMINSTER_PHOTO
 from reader_experience import lead_article, other_briefs
 from reader_analytics import install as install_analytics, token_from_env
 import shutil
@@ -352,10 +352,15 @@ def build():
             + '<p class="meta">' + esc(first.get('source','')) + ' · ' + esc(dt.datetime.fromisoformat(first['published_at'].replace('Z','+00:00')).astimezone(__import__('zoneinfo').ZoneInfo('Europe/London')).strftime('%H:%M')) + '</p>'
             + '<p><a class="cta" href="' + esc(story_href(first)) + '">Read the full story →</a></p>'+art_credit(first,large=True)+'</article>')
     else:
-        lead = ('<article id="lead-story" class="lead-story"><span class="story-kicker">THE BRIEF / YOUR UK FINANCIAL DESK</span>'
+        # Retain the approved photographic newspaper layout on a quiet
+        # morning, without pretending any historical article is new.
+        lead = ('<article id="lead-story" class="lead-story with-photo"><span class="story-kicker">THE BRIEF / YOUR UK FINANCIAL DESK</span>'
             '<h1>Understand the news that shapes your money.</h1>'
             '<p class="standfirst">Today’s lead report is still being prepared. Explore earlier reporting or build your financial knowledge below.</p>'
-            '<a class="cta" href="archive.html">Explore earlier reporting →</a></article>')
+            '<a class="cta" href="archive.html">Explore earlier reporting →</a>'
+            '<p class="meta">A new UK edition, updated as verified reports become available.</p>'
+            '<figure class="tb-lead-art"><img src="'+esc(CITY_PHOTO)+'" alt="The City of London skyline, a general editorial illustration"'
+            ' fetchpriority="high" decoding="async"><figcaption>London skyline · <a href="'+esc(CITY_CREDIT_URL)+'" target="_blank" rel="noopener noreferrer">'+esc(CITY_CREDIT)+'</a> · not today’s news event</figcaption></figure></article>')
     page = insert_once(page, '<article id="lead-story" class="lead-story"></article>', lead)
     briefing = ''.join(
         '<div class="briefing-story" data-desk="'+esc(a.get("desk_section"))+'"><span class="brief-number">0' + str(i+1)

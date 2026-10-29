@@ -27,6 +27,9 @@ def main():
             assert page.locator('.tb-sector-visual').count()==0, 'Duplicate sector banners still clutter the homepage'
             assert page.locator('#briefing-tabs,#chips').count()==0, 'Duplicate sector-choice controls remain'
             assert page.locator('#feed .news-photo').count()==0, 'Generic stock image thumbnails still compete with news'
+            if not today:
+                assert page.locator('#lead-story .tb-lead-art img').count()==1, 'Quiet edition has lost its credited magazine cover'
+                assert 'still being prepared' in page.locator('#lead-story').inner_text(), 'Quiet edition implies unverified current news'
             if today:
                 assert page.locator('#lead-story .tb-lead-art img').count()==1, 'Lead story has lost editorial photography'
                 assert page.locator('#feed .tb-report-art img').count()==min(4,max(0,len(today)-1)), 'Supporting pictures should be selective'
