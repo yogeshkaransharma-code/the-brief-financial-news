@@ -80,14 +80,13 @@
   <section class="top-layout" aria-label="Leading stories">
     <article id="lead-story" class="lead-story"></article>
     <aside class="one-minute" id="briefing" aria-labelledby="briefing-title">
-      <div class="minute-head"><div><span class="minute-kicker">TODAY IN 60 SECONDS</span><h2 id="briefing-title">The 60-second Brief<span>.</span></h2></div><span class="clock-icon" aria-hidden="true">↗</span></div>
-      <p class="minute-intro">The developments worth your attention, in a minute.</p>
+      <div class="minute-head"><div><h2 id="briefing-title">The 60-second Brief</h2><p class="minute-intro">The day’s key developments, and why they matter.</p></div></div>
       <div id="briefing-stories" class="briefing-stories"></div>
-      <a href="#latest" class="minute-footer">Read the full reports <span aria-hidden="true">↗</span></a>
+      <a href="#latest" class="minute-footer">View all reporting <span aria-hidden="true">→</span></a>
     </aside>
   </section>
   <section id="latest" class="news-section" aria-label="Latest news">
-    <div class="news-heading"><div><span class="section-kicker">THE REPORTING DESK</span><h2>Latest reporting<span>.</span></h2><p>The full stories across UK insurance and banking. Choose a headline, understand the context and check its original source.</p></div><div class="reporting-tools"><div class="news-count" id="news-count"></div><label for="order" class="sr-only">Sort reporting</label><select id="order" aria-label="Sort reporting"><option value="newest">Newest first</option><option value="oldest">Oldest first</option></select></div></div>
+    <div class="news-heading"><div><h2>Latest reporting</h2><p>The full reports across UK insurance and banking, newest first. Every article links to its original source.</p></div><div class="reporting-tools"><div class="news-count" id="news-count"></div><label for="order" class="sr-only">Sort reporting</label><select id="order" aria-label="Sort reporting"><option value="newest">Newest first</option><option value="oldest">Oldest first</option></select></div></div>
     <div id="special-filter-note" class="filter-note" hidden></div>
     <div class="news-grid"><div class="feed" id="feed"></div><aside class="desk-side" hidden><div class="sidebar-box"><span class="section-kicker">YOUR READING DESK</span><h3>Keep the useful stuff.</h3><p>Save a story to come back to it. Follow a subject and we'll keep it to hand on this device.</p><div id="follow-buttons" class="follow-buttons"></div><button class="textlink" id="following-toggle">Show my followed subjects →</button></div><div class="sidebar-box quiet"><span class="section-kicker">HOW WE WORK</span><h3>Clear reporting, properly sourced.</h3><p>Every published story has a named source. We explain our reporting method and limitations on the About page.</p><button class="textlink" id="open-about">About The Brief →</button></div></aside></div>
     <button id="show-more" type="button" class="more-button" hidden>More stories <span>↓</span></button>
@@ -96,8 +95,8 @@
 
   <section id="context" class="understand" aria-label="Understand the basics">
   <div class="understand-head"><span class="section-kicker">NEW HERE? · THE FINANCIAL BASICS</span>
-  <h2>New here? Start here<span>.</span></h2>
-  <p>One straightforward insurance concept and one banking concept, explained without unnecessary jargon. A fresh pair every two days.</p>
+  <h2>New here? Start here.</h2>
+  <p>Two key concepts explained in plain English. A new pair every two days.</p>
   <p id="explainer-date" class="explainer-date"></p></div>
   <div id="explainer-list" class="explainer-list"></div>
   <button id="explainer-archive-toggle" class="explainer-archive-toggle" type="button" aria-expanded="false" aria-controls="explainer-archive">Explore 18 more explanations ↓</button>
@@ -120,8 +119,13 @@ function ukDayInfo(){
  const key=[p.year,String(p.month).padStart(2,'0'),String(p.day).padStart(2,'0')].join('-');
  return {key,day:Math.floor(Date.UTC(p.year,p.month-1,p.day)/86400000)};
 }
-function explainerCard(s){
- return '<article class="explainer"><span class="section-kicker">'+safe(s.category)+' · PLAIN ENGLISH</span><h3>'+safe(s.title)+'</h3><p>'+safe(s.summary)+'</p><details><summary>Understand in a minute +</summary><p>'+safe(s.body)+'</p></details></article>';
+function explainerCard(s, featured=false){
+ const desk=s.category==='Banking'?'banking':'insurance';
+ const media=desk==='insurance'
+  ?{url:'https://commons.wikimedia.org/wiki/Special:FilePath/Insurance_Law_and_Practice.jpg?width=600',credit:'Energyme / Wikimedia Commons · CC BY-SA 4.0',ref:'https://commons.wikimedia.org/wiki/File:Insurance_Law_and_Practice.jpg',alt:'An insurance reference book on a shelf'}
+  :{url:'https://commons.wikimedia.org/wiki/Special:FilePath/Analyzing_Financial_Data_(5099605109).jpg?width=600',credit:'Dave Dugdale / Wikimedia Commons · CC BY-SA 2.0',ref:'https://commons.wikimedia.org/wiki/File:Analyzing_Financial_Data_(5099605109).jpg',alt:'A calculator, pen and financial records'};
+ const image=featured?'<figure class="tb-guide-photo tb-guide-photo-'+desk+'"><img src="'+media.url+'" alt="'+safe(media.alt)+'" loading="lazy" decoding="async"><figcaption>Illustrative · <a href="'+media.ref+'" target="_blank" rel="noopener noreferrer">'+safe(media.credit)+'</a></figcaption></figure>':'';
+ return '<article class="explainer'+(featured?' tb-explainer-featured':'')+'" data-desk="'+safe(s.category)+'">'+image+'<div class="tb-guide-copy"><span class="section-kicker">'+safe(s.category)+'</span><h3>'+safe(s.title)+'</h3><p>'+safe(s.summary)+'</p><details><summary>Understand in a minute →</summary><p>'+safe(s.body)+'</p></details></div></article>';
 }
 function renderExplainers(){
  const today=ukDayInfo();
@@ -132,8 +136,8 @@ function renderExplainers(){
  explainerRotation=slot;
  const featured=EXPLAINER_GROUPS.slice(0,2).map(group=>group[slot]);
  const archive=EXPLAINER_GROUPS.slice(0,2).flatMap(group=>group.filter((_,i)=>i!==slot));
- $('explainer-list').innerHTML=featured.map(explainerCard).join('');
- $('explainer-archive').innerHTML=archive.map(explainerCard).join('');
+ $('explainer-list').innerHTML=featured.map(s=>explainerCard(s,true)).join('');
+ $('explainer-archive').innerHTML=archive.map(s=>explainerCard(s,false)).join('');
  $('explainer-archive').hidden=true;
  $('explainer-archive-toggle').setAttribute('aria-expanded','false');
  $('explainer-archive-toggle').textContent='Explore 18 more explanations ↓';
@@ -211,8 +215,9 @@ function renderTop(){
  const originals=sortItems(published.filter(x=>x.ai_assisted&&x.publication_method==='autonomous'&&currentDayArticle(x)));
  const lead=rankHighlights(originals)[0];
  if(!lead){
-   $('lead-story').classList.remove('with-photo');
-   $('lead-story').innerHTML='<span class="story-kicker">THE BRIEF / YOUR UK FINANCIAL DESK</span><h1>Understand the news that shapes your money.</h1><p class="standfirst">Today’s lead report is still being prepared. Explore earlier reporting or build your financial knowledge below.</p><a class="cta" href="archive.html">Explore earlier reporting →</a>';
+   $('lead-story').classList.add('with-photo');
+   // An honest evergreen cover photograph, never a false same-day article.
+   $('lead-story').innerHTML='<span class="story-kicker">THE BRIEF / YOUR UK FINANCIAL DESK</span><h1>Understand the news that shapes your money.</h1><p class="standfirst">Today’s lead report is still being prepared. Explore earlier reporting or build your financial knowledge below.</p><a class="cta" href="archive.html">Explore earlier reporting →</a><p class="meta">A new UK edition, updated as verified reports become available.</p><figure class="tb-lead-art"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Skyline_of_London_in_September_2024.jpg/960px-Skyline_of_London_in_September_2024.jpg" alt="The City of London skyline, a general editorial illustration" fetchpriority="high" decoding="async"><figcaption>London skyline · <a href="https://commons.wikimedia.org/wiki/File:Skyline_of_London_in_September_2024.jpg" target="_blank" rel="noopener noreferrer">Choinowski / Wikimedia Commons · CC BY-SA 4.0</a> · not today’s news event</figcaption></figure>';
    $('briefing-stories').innerHTML='<div class="tb-empty-guide"><p>While today’s briefing is being prepared:</p><a href="archive.html"><b>ARCHIVE</b><span>Read previous editions →</span></a><a href="#context"><b>EXPLAINERS</b><span>Understand financial basics →</span></a></div>';
    return;
  }
@@ -223,7 +228,7 @@ function renderTop(){
  $('lead-story').classList.toggle('with-photo',Boolean(art));
  $('lead-story').innerHTML=`<span class="story-kicker">${safe(lead.desk_section||lead.category)} / THE LEAD STORY</span><h1><button type="button" class="headline-btn" data-open="${safe(lead.id)}">${safe(lead.title)}</button></h1><p class="standfirst">${safe(usefulSummary(lead))}</p><div class="meta">${meta(lead)}</div><button class="cta" type="button" data-open="${safe(lead.id)}">Read the full story →</button>${art}`;
  const eligibleBriefs=originals.filter(item=>item.id!==lead.id);
- let picks=eligibleBriefs.slice(0,3);
+ let picks=eligibleBriefs.slice(0,4);
  // Keep the lead distinct and show both sectors when today's available reports allow it.
  if(picks.length){
    const leadDesk=lead.desk_section||lead.category;
@@ -236,13 +241,13 @@ function renderTop(){
  }
  $('briefing-stories').innerHTML=picks.length?picks.map(item=>{
    const takeaway=String(item.reader_takeaway||'').trim();
-   return `<div class="briefing-story"><span class="brief-number">${new Date(item.published_at).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:'Europe/London'})}</span><div><span class="story-kind">FULL ARTICLE</span><button type="button" data-open="${safe(item.id)}">${safe(item.title)}</button><p>${safe(usefulSummary(item))}</p>${takeaway?`<p><strong>Why it matters:</strong> ${safe(takeaway)}</p>`:''}</div></div>`;
+   return `<div class="briefing-story" data-desk="${safe(item.desk_section||item.category)}"><span class="brief-number">${String(picks.indexOf(item)+1).padStart(2,'0')}</span><div><span class="tb-brief-desk">${safe(item.desk_section||item.category)}</span><button type="button" data-open="${safe(item.id)}">${safe(item.title)}</button><p>${safe(takeaway||usefulSummary(item))}</p></div></div>`;
  }).join(''):'<p class="tb-briefing-empty">Our lead story is today’s only published report. No other developments have been added.</p>';
 }
 function matchingItems(){let items=allItems();if(category!=='All')items=items.filter(s=>(s.desk_section||s.category)===category);if(savedOnly)items=items.filter(s=>saved.has(s.id));if(followingOnly)items=items.filter(s=>following.has(s.desk_section||s.category));if(query){const q=query.toLocaleLowerCase();items=items.filter(s=>[s.title,s.short,s.excerpt,s.source,s.category,(s.blocks||[]).map(x=>x.join(' ')).join(' ')].join(' ').toLowerCase().includes(q))}return items}
 function renderFeed(){const items=matchingItems();$('news-count').textContent=`${items.length} ${items.length===1?'article':'articles'}`;
  const cover=rankHighlights(published.filter(x=>x.ai_assisted&&x.publication_method==='autonomous'&&currentDayArticle(x)))[0];
- const pictured=new Set(items.filter(s=>!cover||s.id!==cover.id).slice(0,2).map(s=>s.id));
+ const pictured=new Set(items.filter(s=>!cover||s.id!==cover.id).slice(0,4).map(s=>s.id));
  const rows=items.slice(0,limit).map((s,i)=>{
     const desk=(s.desk_section||s.category)==='Banking'?'Banking':'Insurance';
     const photo=s.home_image;

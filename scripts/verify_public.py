@@ -30,7 +30,7 @@ def verify():
     # Single-pass original reports can legitimately have one substantive body section.
     # A stricter browser-only requirement silently hides published articles.
     assert 'Array.isArray(x.blocks)&&x.blocks.length>=1&&currentDayArticle(x)' in home, 'Homepage drops approved single-section reporting'
-    assert 'eligibleBriefs.slice(0,3)' in home, 'Client-side catch-up has grown beyond three stories'
+    assert 'eligibleBriefs.slice(0,4)' in home, 'Client-side 60-second digest must support four useful developments'
     assert 'The 60-second Brief' in home and 'Latest reporting' in home, 'Approved reader-facing headings missing'
     assert 'tb-section-nav' in home and home.count('<nav class="tb-nav tb-section-nav"')==1, 'Homepage must have one primary section ribbon'
     assert 'tb-sector-visuals' not in home and 'tb-intro-band' not in home, 'Duplicate desk panels remain on homepage'
@@ -42,10 +42,11 @@ def verify():
     rendered=home.split('<script type="application/json" id="curated-data"',1)[0]
     if edition:
         assert rendered.count('class="tb-lead-art"')==1, 'Exactly one lead illustration must be present'
-        assert rendered.count('class="tb-report-art"')==min(2,len(edition)-1), 'Supporting photography must remain selective'
+        assert rendered.count('class="tb-report-art"')==min(4,len(edition)-1), 'First four supporting reports need selective credited photography'
         assert 'not the news event' in rendered and 'commons.wikimedia.org' in rendered, 'Illustration disclosure or credits missing'
     else:
-        assert 'class="tb-lead-art"' not in rendered, 'Empty editions should not imply that a news event happened'
+        assert 'Today’s lead report is still being prepared' in rendered, 'Empty edition must disclose no verified news'
+        assert 'class="tb-lead-art"' in rendered and 'not today’s news event' in rendered, 'Quiet editions need credited non-event cover photography'
     assert 'href="insurance.html"' in home and 'href="banking.html"' in home, 'Primary desk navigation missing'
     assert '<select id="order"' in home, 'Reader cannot sort Latest Reporting'
     assert home.index('<nav class="tb-nav tb-section-nav"') < home.index('<section class="top-layout"') < home.index('<section id="latest"') < home.index('<section id="context"'), 'Reader journey is out of order'
