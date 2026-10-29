@@ -10,15 +10,41 @@ from newsroom_runtime import run
 from newsroom_state import atomic_json,Checkpoints
 from source_retrieval import read_source, html_extract
 from publish_autonomous import publish
-from single_pass import POLICY,article_from,bundle_for,eligible
+from single_pass import POLICY,article_from,bundle_for,eligible,preserve_source_name_case,prompt
 from same_day_policy import clock
 from build_public import standalone_story
 
 
 from ai_cost_guard import CallBudget
 
+def test_editorial_voice():
+    # Selected sources are unchanged: only writing and safe presentation change.
+    fake=type('Document',(),{'url':'https://www.insurancebusinessmag.com/uk/news/breaking-news/test.aspx'})()
+    insurer={'url':fake.url,'source':'Insurance Business UK','title':'AXIS Capital reports underwriting results',
+             'category':'Insurance','dateISO':'2026-10-29'}
+    written={'headline':'AXIS Capital reports underwriting results',
+             'standfirst':'axis capital increased premiums, while acquisition costs rose.',
+             'reader_takeaway':'Higher acquisition costs affected the reported underwriting result.',
+             'sections':[{'heading':'Premiums and costs',
+                          'text':'axis capital reported higher insurance premiums. It also disclosed higher acquisition costs.'}]}
+    article=article_from(written,insurer,fake)
+    assert article['short']=='AXIS Capital increased premiums, while acquisition costs rose.',article['short']
+    assert article['blocks'][0][1].startswith('AXIS Capital'),article['blocks']
+    assert 'According to' not in article['short'] and article['source']=='Insurance Business UK'
+    assert article['reader_takeaway']==written['reader_takeaway']
+    assert preserve_source_name_case('allianz UK launched cover.', 'Allianz UK adds cover')=='Allianz UK launched cover.'
+    assert preserve_source_name_case('axis capital did not comment.', 'UK market responds to results')=='axis capital did not comment.'
+    one_prompt=prompt([(insurer,type('Captured',(),{'url':fake.url,'text':'A complete captured source.'})())])
+    for phrase in ['Make every paragraph earn its place','Do not mechanically begin every standfirst',
+                   'Keep company names, acronyms','Do not force a UK market impact',
+                   'The reader must leave knowing']:
+        assert phrase.casefold() in one_prompt.casefold(),phrase
+    assert 'SOURCE PACKETS:' in one_prompt
+
+
 @patch('newsroom_runtime.CallBudget',side_effect=lambda ledger,now,**kwargs:CallBudget(ledger,now,now_fn=lambda:now,**kwargs))
 def main(_budget):
+ test_editorial_voice()
  now=dt.datetime.now(dt.timezone.utc).replace(hour=12,minute=0,second=0,microsecond=0);day=clock(now).date().isoformat()
  urls=['https://www.aviva.com/newsroom/news-and-research-overview/news-releases/2026/10/distribution-agreement/',
        'https://www.lloydsbankinggroup.com/media/press-releases/2026/business-lending.html']
