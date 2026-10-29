@@ -2,29 +2,10 @@
   "api_budget": {
     "date": "2026-10-29",
     "timezone": "America/Los_Angeles",
-    "requests": 17,
+    "requests": 18,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-10-26T10:41:42.342509+00:00",
-      "result": "response_received",
-      "prompt_characters": 16773,
-      "purpose": "production",
-      "usage": {
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 3180,
-        "candidatesTokenCount": 897,
-        "totalTokenCount": 4077,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 3180
-          }
-        ],
-        "serviceTier": "standard"
-      }
-    },
     {
       "at": "2026-10-26T10:41:57.345129+00:00",
       "result": "response_received",
@@ -1853,6 +1834,13 @@
     },
     {
       "at": "2026-10-29T15:54:59.149642+00:00",
+      "result": "failed",
+      "prompt_characters": 16558,
+      "purpose": "single_pass_writing",
+      "error_type": "GeminiAPIError"
+    },
+    {
+      "at": "2026-10-29T16:12:24.426065+00:00",
       "result": "failed",
       "prompt_characters": 16558,
       "purpose": "single_pass_writing",
@@ -4831,6 +4819,21 @@
       "attempted_at": "2026-10-29T15:54:43.664479+00:00",
       "retry_after": "2026-10-30T16:54:43.664479+00:00",
       "headline": "Bereaved families will not face tax bill over pension delays under new rules"
+    },
+    "https://www.reinsurancene.ws/porch-group-revenue-rises-13-in-q326-to-143-9m-led-by-insurance-services/": {
+      "attempted_at": "2026-10-29T16:12:10.764142+00:00",
+      "retry_after": "2026-10-30T17:12:10.764142+00:00",
+      "headline": "Porch Group revenue rises 13% in Q3’26 to $143.9m, led by Insurance Services"
+    },
+    "https://www.insurancejournal.com/news/southeast/2026/10/29/890777.htm": {
+      "attempted_at": "2026-10-29T16:12:10.764142+00:00",
+      "retry_after": "2026-10-30T17:12:10.764142+00:00",
+      "headline": "Florida Property-Tax Ballot Measure Threatens to Defund the Police"
+    },
+    "https://www.insurancejournal.com/news/southeast/2026/10/29/890770.htm": {
+      "attempted_at": "2026-10-29T16:12:10.764142+00:00",
+      "retry_after": "2026-10-30T17:12:10.764142+00:00",
+      "headline": "Florida Men Charged With Creating Sham Insurance Now Face Federal Indictment"
     }
   },
   "sources": {
@@ -5249,13 +5252,14 @@
       "alternative_search_after": "2026-10-27T01:09:21.795720+00:00"
     },
     "https://www.wsj.com/buyside/personal-finance/financial-advisors/best-financial-advisors": {
-      "attempted_at": "2026-10-29T14:01:56.520707+00:00",
-      "retry_after": "2026-10-29T16:01:56.520707+00:00",
+      "attempted_at": "2026-10-29T16:12:10.764142+00:00",
+      "retry_after": "2026-10-29T18:12:10.764142+00:00",
       "last_result": "Original document was not announced today in the UK",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
       "failures": 8,
-      "policy": "newsroom-recovery-2026-10-26-v1"
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-29T20:12:10.764142+00:00"
     },
     "https://www.insuranceage.co.uk/insight/7959056/pen-added-to-top-100-brokers-household-panel": {
       "attempted_at": "2026-10-26T23:47:28.270683+00:00",
@@ -5315,14 +5319,14 @@
       "alternative_search_after": "2026-10-27T03:08:36.146333+00:00"
     },
     "https://www.professionalpensions.com/news/4045103/people-moves": {
-      "attempted_at": "2026-10-29T14:01:56.520707+00:00",
-      "retry_after": "2026-10-29T16:01:56.520707+00:00",
+      "attempted_at": "2026-10-29T16:12:10.764142+00:00",
+      "retry_after": "2026-10-29T18:12:10.764142+00:00",
       "last_result": "Original document was not announced today in the UK",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
       "failures": 8,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-29T18:01:56.520707+00:00"
+      "alternative_search_after": "2026-10-29T20:12:10.764142+00:00"
     },
     "https://www.wsj.com/business/financial-services-roundup-market-talk-8a90f511": {
       "attempted_at": "2026-10-26T16:46:48.943368+00:00",
@@ -6936,8 +6940,8 @@
       "alternative_search_after": "2026-10-29T19:54:43.664479+00:00"
     },
     "https://www.investmentweek.co.uk/news/4538059/us-federal-reserve-holds-rates-december-hike-table": {
-      "attempted_at": "2026-10-29T15:54:43.664479+00:00",
-      "retry_after": "2026-10-29T19:54:43.664479+00:00",
+      "attempted_at": "2026-10-29T16:12:10.764142+00:00",
+      "retry_after": "2026-10-29T20:12:10.764142+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -7042,14 +7046,14 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.fca.org.uk/publications/consultation-papers/cp26-39-income-sharing-distribution-operational-incident-reporting-consolidated-tape-providers": {
-      "attempted_at": "2026-10-29T14:01:56.520707+00:00",
-      "retry_after": "2026-10-29T16:01:56.520707+00:00",
+      "attempted_at": "2026-10-29T16:12:10.764142+00:00",
+      "retry_after": "2026-10-29T18:12:10.764142+00:00",
       "last_result": "Conflicting original publication dates on source page",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
-      "failures": 2,
+      "failures": 3,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-29T18:01:56.520707+00:00"
+      "alternative_search_after": "2026-10-29T20:12:10.764142+00:00"
     },
     "https://news.sky.com/story/profits-up-billions-at-both-uks-biggest-mortgage-provider-lloyds-and-major-oil-producer-shell-13605208": {
       "attempted_at": "2026-10-29T11:43:51.151240+00:00",
@@ -7120,8 +7124,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.commercialriskonline.com/india-introduces-government-backed-credit-risk-cover-for-shipbuilders/": {
-      "attempted_at": "2026-10-29T15:54:43.664479+00:00",
-      "retry_after": "2026-10-29T19:54:43.664479+00:00",
+      "attempted_at": "2026-10-29T16:12:10.764142+00:00",
+      "retry_after": "2026-10-29T20:12:10.764142+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -7327,8 +7331,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.insurancejournal.com/news/international/2026/10/29/890745.htm": {
-      "attempted_at": "2026-10-29T15:54:43.664479+00:00",
-      "retry_after": "2026-10-29T19:54:43.664479+00:00",
+      "attempted_at": "2026-10-29T16:12:10.764142+00:00",
+      "retry_after": "2026-10-29T20:12:10.764142+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -7367,15 +7371,15 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/national/2026/10/29/890750.htm": {
-      "attempted_at": "2026-10-29T15:54:43.664479+00:00",
-      "retry_after": "2026-10-29T19:54:43.664479+00:00",
+      "attempted_at": "2026-10-29T16:12:10.764142+00:00",
+      "retry_after": "2026-10-29T20:12:10.764142+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/international/2026/10/29/890760.htm": {
-      "attempted_at": "2026-10-29T15:19:07.106947+00:00",
-      "retry_after": "2026-10-29T19:19:07.106947+00:00",
+      "attempted_at": "2026-10-29T16:12:10.764142+00:00",
+      "retry_after": "2026-10-29T20:12:10.764142+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -7420,22 +7424,64 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.reinsurancene.ws/global-insured-nat-cat-losses-reach-91bn-in-first-9m-26-aon/": {
-      "attempted_at": "2026-10-29T15:54:43.664479+00:00",
-      "retry_after": "2026-10-29T19:54:43.664479+00:00",
+      "attempted_at": "2026-10-29T16:12:10.764142+00:00",
+      "retry_after": "2026-10-29T20:12:10.764142+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.reinsurancene.ws/the-hanover-reports-q326-net-income-of-172-6m/": {
-      "attempted_at": "2026-10-29T15:54:43.664479+00:00",
-      "retry_after": "2026-10-29T19:54:43.664479+00:00",
+      "attempted_at": "2026-10-29T16:12:10.764142+00:00",
+      "retry_after": "2026-10-29T20:12:10.764142+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.reinsurancene.ws/porch-group-revenue-rises-13-in-q326-to-143-9m-led-by-insurance-services/": {
+      "attempted_at": "2026-10-29T16:12:10.764142+00:00",
+      "retry_after": "2026-10-29T20:12:10.764142+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.insurancejournal.com/news/national/2026/10/29/890788.htm": {
+      "attempted_at": "2026-10-29T16:12:10.764142+00:00",
+      "retry_after": "2026-10-29T20:12:10.764142+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.insurancejournal.com/news/southeast/2026/10/29/890790.htm": {
+      "attempted_at": "2026-10-29T16:12:10.764142+00:00",
+      "retry_after": "2026-10-29T20:12:10.764142+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.insurancejournal.com/news/west/2026/10/29/890780.htm": {
+      "attempted_at": "2026-10-29T16:12:10.764142+00:00",
+      "retry_after": "2026-10-29T20:12:10.764142+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.insurancejournal.com/news/southeast/2026/10/29/890777.htm": {
+      "attempted_at": "2026-10-29T16:12:10.764142+00:00",
+      "retry_after": "2026-10-29T20:12:10.764142+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.insurancejournal.com/news/southeast/2026/10/29/890770.htm": {
+      "attempted_at": "2026-10-29T16:12:10.764142+00:00",
+      "retry_after": "2026-10-29T20:12:10.764142+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.bbc.co.uk/news/articles/cr5yn9zwnp3qo": {
-      "attempted_at": "2026-10-29T15:54:43.664479+00:00",
-      "retry_after": "2026-10-29T16:09:43.664479+00:00",
+      "attempted_at": "2026-10-29T16:12:10.764142+00:00",
+      "retry_after": "2026-10-29T16:27:10.764142+00:00",
       "last_result": "Gemini API HTTP 503: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
       "classification": "TEMPORARY_FAILURE",
       "stage": "writing",
@@ -7443,8 +7489,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.theguardian.com/uk-news/2026/oct/29/john-healey-budget-brutal-spending-review-next-year-ifs": {
-      "attempted_at": "2026-10-29T15:54:43.664479+00:00",
-      "retry_after": "2026-10-29T16:09:43.664479+00:00",
+      "attempted_at": "2026-10-29T16:12:10.764142+00:00",
+      "retry_after": "2026-10-29T16:27:10.764142+00:00",
       "last_result": "Gemini API HTTP 503: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
       "classification": "TEMPORARY_FAILURE",
       "stage": "writing",
