@@ -176,8 +176,13 @@ const params=new URLSearchParams(location.search);
 const requested=params.get('category');
 if(requested&&[...c.options].some(o=>o.value===requested))c.value=requested;
 const query=params.get('q');
-if(query)q.value=query.slice(0,200);
-filter();
+function restoreSearch(){
+ if(query)q.value=query.slice(0,200);
+ filter();
+}
+restoreSearch();
+document.addEventListener('DOMContentLoaded',restoreSearch);
+window.addEventListener('pageshow',restoreSearch);
 if(query||params.has('search')){q.focus({preventScroll:true});q.scrollIntoView({block:'start'});}
 </script>"""
     page=utility_page(title,body,prefix)

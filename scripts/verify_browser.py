@@ -54,6 +54,8 @@ def main():
             # The primary search must cover historical reports, not only the
             # current homepage's ten newest cards. Verify real navigation.
             search_page=context.new_page()
+            search_errors=[]
+            search_page.on('pageerror',lambda e:search_errors.append(str(e)))
             search_page.goto(SITE,wait_until='domcontentloaded',timeout=60000)
             search_page.locator('#search-toggle').click()
             assert search_page.locator('#search-panel').is_visible(), 'Search button does not open the search form'
@@ -63,7 +65,20 @@ def main():
                 search_page.locator('#search').fill(historic['title'])
                 search_page.locator('#site-search-form button[type=submit]').click()
                 assert 'search.html' in search_page.url, 'Search form never opens the publication-wide results page'
-                assert search_page.locator('#archive-search').input_value()==historic['title'], 'Search terms lost on navigation: '+search_page.url+' / '+repr(search_page.locator('#archive-search').input_value())
+                try:
+                    search_page.wait_for_function('''() => {
+                        const q=new URLSearchParams(location.search).get('q');
+                        return document.querySelector('#archive-search')?.value===q;
+                    }''',timeout=5000)
+                except Exception:
+                    print('SEARCH_DEBUG:',json.dumps({'url':search_page.url,
+                        'field':search_page.locator('#archive-search').input_value(),
+                        'query':search_page.evaluate('location.search'),
+                        'errors':search_errors,
+                        'state':search_page.evaluate('document.readyState'),
+                        'scripts':search_page.locator('script').count()}))
+                    raise
+                assert not search_errors, 'Search page JavaScript error: '+repr(search_errors)
                 assert search_page.get_by_role('link',name=historic['title'],exact=True).is_visible(), 'Historical article missing from search results'
                 assert search_page.locator('#archive-count').inner_text()!='0 reports', 'Historical search returned no results'
                 search_page.locator('#archive-search').fill('zzzz-unmatched-thebrief-123456789')
