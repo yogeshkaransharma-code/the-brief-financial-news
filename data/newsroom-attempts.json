@@ -2,29 +2,10 @@
   "api_budget": {
     "date": "2026-10-29",
     "timezone": "America/Los_Angeles",
-    "requests": 21,
+    "requests": 22,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-10-26T10:42:42.353704+00:00",
-      "result": "response_received",
-      "prompt_characters": 18556,
-      "purpose": "production",
-      "usage": {
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 3638,
-        "candidatesTokenCount": 696,
-        "totalTokenCount": 4334,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 3638
-          }
-        ],
-        "serviceTier": "standard"
-      }
-    },
     {
       "at": "2026-10-26T10:42:57.356638+00:00",
       "result": "response_received",
@@ -1833,6 +1814,25 @@
         ],
         "serviceTier": "standard"
       }
+    },
+    {
+      "at": "2026-10-29T21:43:10.436635+00:00",
+      "result": "response_received",
+      "prompt_characters": 14606,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 2990,
+        "candidatesTokenCount": 192,
+        "totalTokenCount": 3182,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2990
+          }
+        ],
+        "serviceTier": "standard"
+      }
     }
   ],
   "capacity_recovery_revision": 2,
@@ -2964,8 +2964,8 @@
       "headline": "Financial Services Roundup: Market Talk"
     },
     "https://www.marketwatch.com/story/you-need-only-watch-episodes-of-judge-judy-im-in-my-70s-why-do-people-keep-making-the-same-avoidable-financial-mistakes-bbf60fe4": {
-      "attempted_at": "2026-10-28T19:48:25.819557+00:00",
-      "retry_after": "2026-10-29T20:48:25.819557+00:00",
+      "attempted_at": "2026-10-29T21:42:57.357342+00:00",
+      "retry_after": "2026-10-30T22:42:57.357342+00:00",
       "headline": "‘Just watch Judge Judy’: I’m in my 70s. Why do people keep making the same avoidable financial mistakes?"
     },
     "https://www.bloomberg.com/news/articles/2026-10-26/shock-lula-win-derails-6-billion-in-equity-sales-as-banks-reel": {
@@ -4867,6 +4867,21 @@
       "attempted_at": "2026-10-29T20:44:18.765032+00:00",
       "retry_after": "2026-10-30T21:44:18.765032+00:00",
       "headline": "Credit Swaps For Tech Companies Reach Records Amid Supply Fears"
+    },
+    "https://www.theguardian.com/commentisfree/picture/2026/oct/29/ben-jennings-britain-budget-cartoon": {
+      "attempted_at": "2026-10-29T21:42:57.357342+00:00",
+      "retry_after": "2026-10-30T22:42:57.357342+00:00",
+      "headline": "Ben Jennings on the UK budget – cartoon"
+    },
+    "https://www.theguardian.com/politics/2026/oct/29/the-breathing-space-budget-breathing-space-for-the-government-that-is": {
+      "attempted_at": "2026-10-29T21:42:57.357342+00:00",
+      "retry_after": "2026-10-30T22:42:57.357342+00:00",
+      "headline": "The ‘breathing space budget’ – breathing space for the government, that is | John Crace"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-29/blue-owl-fees-beat-estimates-though-redemptions-weigh-on-inflows": {
+      "attempted_at": "2026-10-29T21:42:57.357342+00:00",
+      "retry_after": "2026-10-30T22:42:57.357342+00:00",
+      "headline": "Blue Owl Looks to Raise Insurance Capital for AI Deals"
     }
   },
   "sources": {
@@ -5285,14 +5300,13 @@
       "alternative_search_after": "2026-10-27T01:09:21.795720+00:00"
     },
     "https://www.wsj.com/buyside/personal-finance/financial-advisors/best-financial-advisors": {
-      "attempted_at": "2026-10-29T18:50:07.894160+00:00",
-      "retry_after": "2026-10-29T20:50:07.894160+00:00",
-      "last_result": "Original document was not announced today in the UK",
-      "classification": "DATE_UNVERIFIED",
+      "attempted_at": "2026-10-29T21:42:57.357342+00:00",
+      "retry_after": "2026-10-30T01:42:57.357342+00:00",
+      "last_result": "Source too large; refused partial capture",
+      "classification": "EVIDENCE_UNUSABLE",
       "stage": "source",
       "failures": 8,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-29T22:50:07.894160+00:00"
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.insuranceage.co.uk/insight/7959056/pen-added-to-top-100-brokers-household-panel": {
       "attempted_at": "2026-10-26T23:47:28.270683+00:00",
@@ -5352,14 +5366,13 @@
       "alternative_search_after": "2026-10-27T03:08:36.146333+00:00"
     },
     "https://www.professionalpensions.com/news/4045103/people-moves": {
-      "attempted_at": "2026-10-29T18:50:07.894160+00:00",
-      "retry_after": "2026-10-29T20:50:07.894160+00:00",
+      "attempted_at": "2026-10-29T21:42:57.357342+00:00",
+      "retry_after": "2026-10-29T23:42:57.357342+00:00",
       "last_result": "Original document was not announced today in the UK",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
       "failures": 8,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-29T22:50:07.894160+00:00"
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.wsj.com/business/financial-services-roundup-market-talk-8a90f511": {
       "attempted_at": "2026-10-26T16:46:48.943368+00:00",
@@ -6790,12 +6803,12 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-10-29/indonesia-s-wealth-fund-cio-owns-stake-in-sanctioned-brokerage": {
-      "attempted_at": "2026-10-29T14:57:28.658429+00:00",
-      "retry_after": "2026-10-29T20:57:28.658429+00:00",
+      "attempted_at": "2026-10-29T21:42:57.357342+00:00",
+      "retry_after": "2026-10-30T03:42:57.357342+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 3,
+      "failures": 4,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-10-29/japan-s-two-year-bond-sale-demand-stronger-than-12-month-average": {
@@ -6923,12 +6936,12 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://news.sky.com/story/what-the-budget-means-for-your-money-all-in-one-place-13604948": {
-      "attempted_at": "2026-10-29T14:57:28.658429+00:00",
-      "retry_after": "2026-10-29T20:57:28.658429+00:00",
+      "attempted_at": "2026-10-29T21:42:57.357342+00:00",
+      "retry_after": "2026-10-30T03:42:57.357342+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 2,
+      "failures": 3,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.commercialriskonline.com/property-owners-invest-in-resilience-but-insurers-slow-to-recognise-efforts/": {
@@ -6939,14 +6952,13 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.wsj.com/finance/jgb-yields-rise-amid-caution-ahead-of-boj-decision-0a68d866": {
-      "attempted_at": "2026-10-29T14:57:28.658429+00:00",
-      "retry_after": "2026-10-29T20:57:28.658429+00:00",
+      "attempted_at": "2026-10-29T21:42:57.357342+00:00",
+      "retry_after": "2026-10-30T03:42:57.357342+00:00",
       "last_result": "HTTP Error 401: HTTP Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 2,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-29T19:19:07.106947+00:00"
+      "failures": 3,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.commercialriskonline.com/construction-market-reforms-to-follow-wang-fuk-report/": {
       "attempted_at": "2026-10-29T20:44:18.765032+00:00",
@@ -6973,8 +6985,8 @@
       "alternative_search_after": "2026-10-29T19:54:43.664479+00:00"
     },
     "https://www.investmentweek.co.uk/news/4538059/us-federal-reserve-holds-rates-december-hike-table": {
-      "attempted_at": "2026-10-29T19:50:33.120638+00:00",
-      "retry_after": "2026-10-29T23:50:33.120638+00:00",
+      "attempted_at": "2026-10-29T21:42:57.357342+00:00",
+      "retry_after": "2026-10-30T01:42:57.357342+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -7080,14 +7092,14 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.fca.org.uk/publications/consultation-papers/cp26-39-income-sharing-distribution-operational-incident-reporting-consolidated-tape-providers": {
-      "attempted_at": "2026-10-29T18:50:07.894160+00:00",
-      "retry_after": "2026-10-29T20:50:07.894160+00:00",
+      "attempted_at": "2026-10-29T21:42:57.357342+00:00",
+      "retry_after": "2026-10-29T23:42:57.357342+00:00",
       "last_result": "Conflicting original publication dates on source page",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
-      "failures": 4,
+      "failures": 5,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-29T22:50:07.894160+00:00"
+      "alternative_search_after": "2026-10-30T01:42:57.357342+00:00"
     },
     "https://news.sky.com/story/profits-up-billions-at-both-uks-biggest-mortgage-provider-lloyds-and-major-oil-producer-shell-13605208": {
       "attempted_at": "2026-10-29T17:49:42.700304+00:00",
@@ -7109,8 +7121,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.reinsurancene.ws/pacific-life-re-announces-protection-leadership-changes-across-global-markets/": {
-      "attempted_at": "2026-10-29T16:54:30.209899+00:00",
-      "retry_after": "2026-10-29T20:54:30.209899+00:00",
+      "attempted_at": "2026-10-29T21:42:57.357342+00:00",
+      "retry_after": "2026-10-30T01:42:57.357342+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -7125,8 +7137,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.insurancejournal.com/news/international/2026/10/29/890715.htm": {
-      "attempted_at": "2026-10-29T16:54:30.209899+00:00",
-      "retry_after": "2026-10-29T20:54:30.209899+00:00",
+      "attempted_at": "2026-10-29T21:42:57.357342+00:00",
+      "retry_after": "2026-10-30T01:42:57.357342+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -7157,8 +7169,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.commercialriskonline.com/india-introduces-government-backed-credit-risk-cover-for-shipbuilders/": {
-      "attempted_at": "2026-10-29T19:50:33.120638+00:00",
-      "retry_after": "2026-10-29T23:50:33.120638+00:00",
+      "attempted_at": "2026-10-29T21:42:57.357342+00:00",
+      "retry_after": "2026-10-30T01:42:57.357342+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -7365,8 +7377,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.insurancejournal.com/news/international/2026/10/29/890745.htm": {
-      "attempted_at": "2026-10-29T20:44:18.765032+00:00",
-      "retry_after": "2026-10-30T00:44:18.765032+00:00",
+      "attempted_at": "2026-10-29T21:42:57.357342+00:00",
+      "retry_after": "2026-10-30T01:42:57.357342+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -7379,24 +7391,23 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.bloomberg.com/news/articles/2026-10-29/more-defence-since-world-war-ii-healey-s-budget-in-eight-charts": {
-      "attempted_at": "2026-10-29T14:57:28.658429+00:00",
-      "retry_after": "2026-10-29T20:57:28.658429+00:00",
+      "attempted_at": "2026-10-29T21:42:57.357342+00:00",
+      "retry_after": "2026-10-30T03:42:57.357342+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
+      "failures": 2,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-29T18:57:28.658429+00:00"
+      "alternative_search_after": "2026-10-30T01:42:57.357342+00:00"
     },
     "https://www.finextra.com/newsarticle/48669/former-swift-ceo-lzaro-campos-joins-stablecoin-firm-opentrade-as-chair": {
-      "attempted_at": "2026-10-29T14:57:28.658429+00:00",
-      "retry_after": "2026-10-29T20:57:28.658429+00:00",
+      "attempted_at": "2026-10-29T21:42:57.357342+00:00",
+      "retry_after": "2026-10-30T03:42:57.357342+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-29T20:50:38.034996+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.reinsurancene.ws/link-broker-europe-enters-cee-and-see-reinsurance-markets-under-josip-malenica/": {
       "attempted_at": "2026-10-29T19:24:28.250333+00:00",
@@ -7420,44 +7431,40 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.finextra.com/pressarticle/111513/unipaas-expands-to-ireland-with-jp-morgan-payments": {
-      "attempted_at": "2026-10-29T15:15:28.999574+00:00",
-      "retry_after": "2026-10-29T21:15:28.999574+00:00",
+      "attempted_at": "2026-10-29T21:42:57.357342+00:00",
+      "retry_after": "2026-10-30T03:42:57.357342+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-29T19:15:28.999574+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.finextra.com/pressarticle/111510/b2broker-group-moves-into-agentic-trading": {
-      "attempted_at": "2026-10-29T15:15:28.999574+00:00",
-      "retry_after": "2026-10-29T21:15:28.999574+00:00",
+      "attempted_at": "2026-10-29T21:42:57.357342+00:00",
+      "retry_after": "2026-10-30T03:42:57.357342+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-29T23:35:13.391998+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.finextra.com/pressarticle/111512/liquidity-services-deploys-flywire-tech-for-domestic-and-cross-border-b2b-payments": {
-      "attempted_at": "2026-10-29T15:15:28.999574+00:00",
-      "retry_after": "2026-10-29T21:15:28.999574+00:00",
+      "attempted_at": "2026-10-29T21:42:57.357342+00:00",
+      "retry_after": "2026-10-30T03:42:57.357342+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-29T19:15:28.999574+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.finextra.com/pressarticle/111511/synergysuite-and-branch-bring-earned-wage-access-to-restaurants": {
-      "attempted_at": "2026-10-29T15:15:28.999574+00:00",
-      "retry_after": "2026-10-29T21:15:28.999574+00:00",
+      "attempted_at": "2026-10-29T21:42:57.357342+00:00",
+      "retry_after": "2026-10-30T03:42:57.357342+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-29T20:14:00.523604+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.reinsurancene.ws/global-insured-nat-cat-losses-reach-91bn-in-first-9m-26-aon/": {
       "attempted_at": "2026-10-29T20:44:18.765032+00:00",
@@ -7467,8 +7474,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.reinsurancene.ws/the-hanover-reports-q326-net-income-of-172-6m/": {
-      "attempted_at": "2026-10-29T16:54:30.209899+00:00",
-      "retry_after": "2026-10-29T20:54:30.209899+00:00",
+      "attempted_at": "2026-10-29T21:42:57.357342+00:00",
+      "retry_after": "2026-10-30T01:42:57.357342+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -7481,8 +7488,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/national/2026/10/29/890788.htm": {
-      "attempted_at": "2026-10-29T16:50:38.034996+00:00",
-      "retry_after": "2026-10-29T20:50:38.034996+00:00",
+      "attempted_at": "2026-10-29T21:42:57.357342+00:00",
+      "retry_after": "2026-10-30T01:42:57.357342+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -7516,8 +7523,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/international/2026/10/29/890791.htm": {
-      "attempted_at": "2026-10-29T16:50:38.034996+00:00",
-      "retry_after": "2026-10-29T20:50:38.034996+00:00",
+      "attempted_at": "2026-10-29T21:42:57.357342+00:00",
+      "retry_after": "2026-10-30T01:42:57.357342+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -7530,8 +7537,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/southcentral/2026/10/29/890822.htm": {
-      "attempted_at": "2026-10-29T20:44:18.765032+00:00",
-      "retry_after": "2026-10-30T00:44:18.765032+00:00",
+      "attempted_at": "2026-10-29T21:42:57.357342+00:00",
+      "retry_after": "2026-10-30T01:42:57.357342+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -7561,8 +7568,8 @@
       "alternative_search_after": "2026-10-29T23:30:30.493016+00:00"
     },
     "https://www.reinsurancene.ws/axa-xl-re-gwp-other-revenues-down-9-in-9m26-on-lower-volumes/": {
-      "attempted_at": "2026-10-29T20:44:18.765032+00:00",
-      "retry_after": "2026-10-30T00:44:18.765032+00:00",
+      "attempted_at": "2026-10-29T21:42:57.357342+00:00",
+      "retry_after": "2026-10-30T01:42:57.357342+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -7585,14 +7592,14 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.bbc.co.uk/news/articles/cr15jxzv4w24o": {
-      "attempted_at": "2026-10-29T19:24:28.250333+00:00",
-      "retry_after": "2026-10-29T21:24:28.250333+00:00",
+      "attempted_at": "2026-10-29T21:42:57.357342+00:00",
+      "retry_after": "2026-10-29T23:42:57.357342+00:00",
       "last_result": "Original document was not announced today in the UK",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
-      "failures": 1,
+      "failures": 2,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-29T23:24:28.250333+00:00"
+      "alternative_search_after": "2026-10-30T01:42:57.357342+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-29/warsh-s-forward-silence-risks-bigger-treasury-market-swings": {
       "attempted_at": "2026-10-29T19:35:13.391998+00:00",
@@ -7636,6 +7643,15 @@
     "https://www.bloomberg.com/news/articles/2026-10-29/google-debt-risk-gauge-rises-as-earnings-revive-ai-debt-jitters": {
       "attempted_at": "2026-10-29T20:44:18.765032+00:00",
       "retry_after": "2026-10-30T02:44:18.765032+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-29/blue-owl-fees-beat-estimates-though-redemptions-weigh-on-inflows": {
+      "attempted_at": "2026-10-29T21:42:57.357342+00:00",
+      "retry_after": "2026-10-30T03:42:57.357342+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
