@@ -61,25 +61,12 @@ def story_href(a):
 
 def article_body(a):
     out = []
-    for heading, paragraph in a["blocks"]:
-        out.append("<h2>" + esc(heading) + "</h2>")
+    for section_number, (heading, paragraph) in enumerate(a["blocks"], start=1):
+        out.append('<h2 id="report-section-' + str(section_number) + '">' + esc(heading) + "</h2>")
         for part in re.split(r"\n\s*\n", str(paragraph)):
             if part.strip():
                 out.append("<p>" + esc(part.strip()) + "</p>")
     return "\n".join(out)
-
-
-def standout_points(a,limit=3):
-    """Extract short exact statements from the approved article, never invent facts."""
-    values=[]
-    for heading,paragraph in a.get('blocks',[]):
-        text=' '.join(str(paragraph).split())
-        if not text:continue
-        first=re.split(r'(?<=[.!?])\s+(?=[A-Z])',text,maxsplit=1)[0]
-        if len(first)>200:first=' '.join(first[:196].split())+'…'
-        if first and first not in values:values.append(first)
-        if len(values)>=limit:break
-    return values
 
 
 def standalone_story(a,related=None):
@@ -110,9 +97,13 @@ def standalone_story(a,related=None):
     takeaway=(a.get('reader_takeaway') or '').strip()
     context_box=('<section class="tb-uk-context"><h3>Why it matters</h3><p>'
                  +esc(takeaway)+'</p></section>' if takeaway else '')
-    points=standout_points(a)
-    if len(points)<2 and a.get('short'):points.insert(0,a['short'])
-    points_html=''.join('<li>'+esc(x)+'</li>' for x in points)
+    # Use actual section headings as navigation, rather than repeating article sentences.
+    # A one-section brief has no artificial summary panel.
+    outline_html=''
+    if len(a['blocks'])>1:
+        outline_links=''.join('<li><a href="#report-section-'+str(i)+'">'+esc(heading)+'</a></li>'
+                              for i,(heading,_) in enumerate(a['blocks'],start=1))
+        outline_html='<nav class="tb-key-points tb-report-outline" aria-label="In this report"><h2>In this report</h2><ol>'+outline_links+'</ol></nav>'
     related=[x for x in (related or []) if x.get('id')!=a['id'] and x.get('desk_section')==section][:2]
     related_html=(''.join('<a href="../'+esc(story_href(x))+'">'+esc(x['title'])+'<span>Read report ↗</span></a>' for x in related))
     word_count=sum(len(str(para).split()) for _,para in a['blocks'])
@@ -129,7 +120,7 @@ def standalone_story(a,related=None):
 <nav class="tb-breadcrumbs" aria-label="Breadcrumbs"><a href="../index.html">Home</a><span>›</span><a href="../{desk}.html">{esc(section)}</a><span>›</span><span>Latest reporting</span></nav>
 <div class="tb-story-layout"><div class="tb-story-main">
 <div class="kicker tb-story-kicker">{esc(section)} <span> / THE BRIEF REPORT</span></div>
-<h1>{esc(a['title'])}</h1><p class="intro">{esc(a.get('short',''))}</p>
+<h1>{esc(a['title'])}</h1>
 <div class="meta">By The Brief · {byline_date} · {esc(a.get('source',''))} · {estimated_minutes} min read</div>
 {visual(section)}
 <div class="article-body">{article_body(a)}</div>
@@ -139,7 +130,7 @@ def standalone_story(a,related=None):
 <a href="{esc(a['url'])}" target="_blank" rel="noopener noreferrer">{esc(a.get('source','Original publisher'))} — read the original source ↗</a></div>
 <p class="disclosure">{esc(disclosure)} <a href="../about.html">Our standards and corrections policy</a>. Not financial advice.</p>
 </div><aside class="tb-story-aside" aria-label="Article at a glance">
-<section class="tb-key-points"><h2>Key points</h2><ul>{points_html}</ul></section>
+{outline_html}
 {context_box}
 <section class="tb-related"><h3>Read next</h3>{related_html if related_html else '<a href="../'+desk+'.html">More '+esc(section)+' news ↗</a>'}</section>
 </aside></div>
