@@ -21,6 +21,15 @@ def main():
     routine={"id":"personnel","title":"FCA appoints director",
              "short":"The regulator names a new director","source":"Financial Conduct Authority"}
     assert lead_article([routine,substantive])["id"]=="market", "Routine regulator story displaced material banking news"
+    fca_domain={"id":"scam","title":"FCA warns consumers over unauthorised firm www.hedgemarksecuritiesllc.com",
+                "short":"The FCA issued a warning about a single unregistered business",
+                "source":"Financial Conduct Authority"}
+    fiscal={"id":"budget","title":"Chancellor Healey announces £65bn in additional borrowing in autumn fiscal statement",
+            "short":"The UK chancellor confirmed additional borrowing in a fiscal statement",
+            "source":"BBC Business"}
+    assert lead_article([fca_domain,fiscal])["id"]=="budget", "Individual FCA scam warning displaced UK fiscal development"
+    assert priority(fca_domain)<priority(fiscal)
+    assert priority(fca_domain)<priority(substantive)
     across=[
         {"id":"lead","title":"UK insurer reports a policy change","category":"Insurance"},
         {"id":"next1","title":"First follow-up","category":"Insurance"},
