@@ -30,6 +30,12 @@ def main():
     assert lead_article([fca_domain,fiscal])["id"]=="budget", "Individual FCA scam warning displaced UK fiscal development"
     assert priority(fca_domain)<priority(fiscal)
     assert priority(fca_domain)<priority(substantive)
+    # A hydrated homepage should keep its ranking aligned with the server.
+    client=(Path(__file__).resolve().parents[1]/'index.html').read_text()
+    assert 'const singleFirmWarning=' in client
+    assert 'const domainInTitle=' in client
+    assert 'if(singleFirmWarning.test(title))points-=18' in client
+    assert 'if(budgetMarket.test(title))points+=10' in client
     across=[
         {"id":"lead","title":"UK insurer reports a policy change","category":"Insurance"},
         {"id":"next1","title":"First follow-up","category":"Insurance"},
