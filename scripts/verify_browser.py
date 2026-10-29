@@ -203,6 +203,26 @@ def main():
             assert page.evaluate('getComputedStyle(document.querySelector(".tb-header")).backgroundColor')==baseline['background'], 'About masthead differs'
             assert page.locator('a[href="status.html"]').count()==0
             assert page.locator('.tb-about-images img').count()==2
+            # About-page quote must never escape the dark panel, especially at
+            # intermediate laptop widths where the two-column layout narrows.
+            for about_width in ([width,800,1024] if width==1440 else [width]):
+                page.set_viewport_size({'width':about_width,'height':844})
+                quote_fits=page.evaluate("""() => {
+                    const side=document.querySelector('.founder-side');
+                    const quote=document.querySelector('.side-quote');
+                    if(!side || !quote)return false;
+                    const sideBox=side.getBoundingClientRect();
+                    const style=getComputedStyle(side);
+                    const left=sideBox.left+parseFloat(style.paddingLeft);
+                    const right=sideBox.right-parseFloat(style.paddingRight);
+                    const range=document.createRange();
+                    range.selectNodeContents(quote);
+                    const pieces=[...range.getClientRects()];
+                    return pieces.length>0 && pieces.every(rect=>
+                        rect.left>=left-1 && rect.right<=right+1
+                    );
+                }""")
+                assert quote_fits, f'About quote overflows maroon panel at {about_width}px'
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'),'About page overflows viewport'
             page.screenshot(path=str(OUT/f'about-{width}.png'),full_page=True)
             assert not errors,errors
