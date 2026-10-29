@@ -1,30 +1,11 @@
 {
   "api_budget": {
-    "date": "2026-10-28",
+    "date": "2026-10-29",
     "timezone": "America/Los_Angeles",
-    "requests": 33,
+    "requests": 1,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-10-26T07:40:45.283781+00:00",
-      "result": "response_received",
-      "prompt_characters": 24978,
-      "purpose": "production",
-      "usage": {
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 5461,
-        "candidatesTokenCount": 1392,
-        "totalTokenCount": 6853,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 5461
-          }
-        ],
-        "serviceTier": "standard"
-      }
-    },
     {
       "at": "2026-10-26T07:41:00.286568+00:00",
       "result": "response_received",
@@ -1877,6 +1858,25 @@
           {
             "modality": "TEXT",
             "tokenCount": 1978
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-29T08:00:40.025972+00:00",
+      "result": "response_received",
+      "prompt_characters": 6771,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 1351,
+        "candidatesTokenCount": 362,
+        "totalTokenCount": 1713,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1351
           }
         ],
         "serviceTier": "standard"
@@ -4440,6 +4440,26 @@
       "attempted_at": "2026-10-29T06:53:48.301288+00:00",
       "retry_after": "2026-10-30T07:53:48.301288+00:00",
       "headline": "Chubb appoints Lucas Scortecci as Head of Financial Lines for CEMENA"
+    },
+    "https://www.bloomberg.com/news/newsletters/2026-10-29/uk-budget-is-bond-friendly-but-healey-warns-of-hard-decisions-ahead": {
+      "attempted_at": "2026-10-29T08:00:28.517257+00:00",
+      "retry_after": "2026-10-30T09:00:28.517257+00:00",
+      "headline": "UK Budget Is Bond-Friendly But Healey Warns of Hard Decisions Ahead"
+    },
+    "https://www.reinsurancene.ws/enstar-enters-into-adc-reinsurance-agreement-with-markel/": {
+      "attempted_at": "2026-10-29T08:00:28.517257+00:00",
+      "retry_after": "2026-10-30T09:00:28.517257+00:00",
+      "headline": "Enstar enters into ADC reinsurance agreement with Markel"
+    },
+    "https://www.bloomberg.com/news/videos/2026-10-29/south-african-bank-absa-expands-to-dubai-video": {
+      "attempted_at": "2026-10-29T08:00:28.517257+00:00",
+      "retry_after": "2026-10-30T09:00:28.517257+00:00",
+      "headline": "South African Bank Absa Expands to Dubai"
+    },
+    "https://www.wsj.com/finance/commodities-futures/u-s-treasury-yields-fall-as-investors-digest-fed-meet-focus-shifts-to-ecb-d29ffbec": {
+      "attempted_at": "2026-10-29T08:00:28.517257+00:00",
+      "retry_after": "2026-10-30T09:00:28.517257+00:00",
+      "headline": "U.S. Treasury Yields Fall as Investors Digest Fed Meet, Focus Shifts to ECB"
     }
   },
   "sources": {
@@ -6381,88 +6401,119 @@
       "stage": "source",
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-29T07:46:46.968702+00:00"
+      "alternative_search_after": "2026-10-29T12:00:28.517257+00:00"
     },
     "https://www.insurancejournal.com/news/national/2026/10/29/890656.htm": {
-      "attempted_at": "2026-10-29T06:53:48.301288+00:00",
-      "retry_after": "2026-10-29T10:53:48.301288+00:00",
+      "attempted_at": "2026-10-29T08:00:28.517257+00:00",
+      "retry_after": "2026-10-29T12:00:28.517257+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/national/2026/10/29/890676.htm": {
-      "attempted_at": "2026-10-29T06:53:48.301288+00:00",
-      "retry_after": "2026-10-29T10:53:48.301288+00:00",
+      "attempted_at": "2026-10-29T08:00:28.517257+00:00",
+      "retry_after": "2026-10-29T12:00:28.517257+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/east/2026/10/29/890445.htm": {
-      "attempted_at": "2026-10-29T06:53:48.301288+00:00",
-      "retry_after": "2026-10-29T10:53:48.301288+00:00",
+      "attempted_at": "2026-10-29T08:00:28.517257+00:00",
+      "retry_after": "2026-10-29T12:00:28.517257+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/east/2026/10/29/890646.htm": {
-      "attempted_at": "2026-10-29T06:53:48.301288+00:00",
-      "retry_after": "2026-10-29T10:53:48.301288+00:00",
+      "attempted_at": "2026-10-29T08:00:28.517257+00:00",
+      "retry_after": "2026-10-29T12:00:28.517257+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/east/2026/10/29/890614.htm": {
-      "attempted_at": "2026-10-29T06:53:48.301288+00:00",
-      "retry_after": "2026-10-29T10:53:48.301288+00:00",
+      "attempted_at": "2026-10-29T08:00:28.517257+00:00",
+      "retry_after": "2026-10-29T12:00:28.517257+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/west/2026/10/29/890657.htm": {
-      "attempted_at": "2026-10-29T06:53:48.301288+00:00",
-      "retry_after": "2026-10-29T10:53:48.301288+00:00",
+      "attempted_at": "2026-10-29T08:00:28.517257+00:00",
+      "retry_after": "2026-10-29T12:00:28.517257+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/west/2026/10/29/889839.htm": {
-      "attempted_at": "2026-10-29T06:53:48.301288+00:00",
-      "retry_after": "2026-10-29T10:53:48.301288+00:00",
+      "attempted_at": "2026-10-29T08:00:28.517257+00:00",
+      "retry_after": "2026-10-29T12:00:28.517257+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/national/2026/10/29/890687.htm": {
-      "attempted_at": "2026-10-29T06:53:48.301288+00:00",
-      "retry_after": "2026-10-29T10:53:48.301288+00:00",
+      "attempted_at": "2026-10-29T08:00:28.517257+00:00",
+      "retry_after": "2026-10-29T12:00:28.517257+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/west/2026/10/29/890663.htm": {
-      "attempted_at": "2026-10-29T06:53:48.301288+00:00",
-      "retry_after": "2026-10-29T10:53:48.301288+00:00",
+      "attempted_at": "2026-10-29T08:00:28.517257+00:00",
+      "retry_after": "2026-10-29T12:00:28.517257+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.commercialriskonline.com/arch-q3-profits-fall-as-iran-war-adds-to-cat-losses/": {
-      "attempted_at": "2026-10-29T06:53:48.301288+00:00",
-      "retry_after": "2026-10-29T10:53:48.301288+00:00",
+      "attempted_at": "2026-10-29T08:00:28.517257+00:00",
+      "retry_after": "2026-10-29T12:00:28.517257+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.reinsurancene.ws/cfc-launches-executive-cyber-protection-for-sme-leaders-and-upgraded-ai-cover/": {
-      "attempted_at": "2026-10-29T06:53:48.301288+00:00",
-      "retry_after": "2026-10-29T10:53:48.301288+00:00",
+      "attempted_at": "2026-10-29T08:00:28.517257+00:00",
+      "retry_after": "2026-10-29T12:00:28.517257+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.reinsurancene.ws/chubb-appoints-lucas-scortecci-as-head-of-financial-lines-for-cemena/": {
-      "attempted_at": "2026-10-29T06:53:48.301288+00:00",
-      "retry_after": "2026-10-29T10:53:48.301288+00:00",
+      "attempted_at": "2026-10-29T08:00:28.517257+00:00",
+      "retry_after": "2026-10-29T12:00:28.517257+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.commercialriskonline.com/parametric-solution-for-gaps-in-builders-risk-coverage-irmi-panel/": {
+      "attempted_at": "2026-10-29T08:00:28.517257+00:00",
+      "retry_after": "2026-10-29T12:00:28.517257+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.wsj.com/finance/commodities-futures/u-s-treasury-yields-fall-as-investors-digest-fed-meet-focus-shifts-to-ecb-d29ffbec": {
+      "attempted_at": "2026-10-29T08:00:28.517257+00:00",
+      "retry_after": "2026-10-29T14:00:28.517257+00:00",
+      "last_result": "HTTP Error 401: HTTP Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-29T12:00:28.517257+00:00"
+    },
+    "https://www.reinsurancene.ws/elseco-opens-singapore-office-to-be-led-by-lisa-leow/": {
+      "attempted_at": "2026-10-29T08:00:28.517257+00:00",
+      "retry_after": "2026-10-29T12:00:28.517257+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.commercialriskonline.com/modern-warehouses-testing-fire-protection-limits/": {
+      "attempted_at": "2026-10-29T08:00:28.517257+00:00",
+      "retry_after": "2026-10-29T12:00:28.517257+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
