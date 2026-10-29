@@ -36,7 +36,14 @@ def home_photo_for(article):
     independently licensed/verified photo. Do not borrow publisher images.
     """
     title=str(article.get("title","")).lower()
-    if re.search(r"\b(?:fca|bank of england|interest rate|lending|bank|savings plan|mortgage)\b",title):
+    # Clearly labelled historical setting photography, not an image of this
+    # publication date's reported event.
+    if desk_for(article)=="Insurance" and re.search(r"\b(?:flood|storm|weather|climate[- ]related)\w*\b",title):
+        image=("https://commons.wikimedia.org/wiki/Special:FilePath/Flooded_houses,_Chertsey_(geograph_3812479).jpg?width=1280",
+               "Flooded houses in Chertsey in 2014",
+               "Alan Hunt / Geograph · CC BY-SA 2.0",
+               "https://commons.wikimedia.org/wiki/File:Flooded_houses,_Chertsey_(geograph_3812479).jpg")
+    elif re.search(r"\b(?:fca|bank of england|interest rate|lending|bank|savings plan|mortgage)\b",title):
         image=(BANK_PHOTO,"The Bank of England in London",BANK_CREDIT,BANK_CREDIT_URL)
     elif re.search(r"\b(?:chancellor|budget|parliament|treasury|government|tax)\b",title):
         image=(WESTMINSTER_PHOTO,"The Palace of Westminster in London",WESTMINSTER_CREDIT,WESTMINSTER_CREDIT_URL)

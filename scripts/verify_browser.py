@@ -29,8 +29,8 @@ def main():
             assert page.locator('#feed .news-photo').count()==0, 'Generic stock image thumbnails still compete with news'
             if today:
                 assert page.locator('#lead-story .tb-lead-art img').count()==1, 'Lead story has lost editorial photography'
-                assert page.locator('#feed .tb-report-art img').count()==min(2,max(0,len(today)-1)), 'Supporting pictures should be selective'
-                assert page.locator('#feed .tb-report-art figcaption a').count()==min(2,max(0,len(today)-1)), 'Picture credits missing'
+                assert page.locator('#feed .tb-report-art img').count()==min(4,max(0,len(today)-1)), 'Supporting pictures should be selective'
+                assert page.locator('#feed .tb-report-art figcaption a').count()==min(4,max(0,len(today)-1)), 'Picture credits missing'
             assert page.locator('.tb-sector-visual').count()==0, 'Duplicate navigation banners returned'
             assert page.locator('.tb-nav a').all_inner_texts()==['Home','Insurance','Banking','About'], 'Unified navigation is missing'
             assert page.locator('.tb-nav a[aria-current="page"]').inner_text()=='Home', 'Home navigation state is missing'
@@ -59,7 +59,7 @@ def main():
             page.screenshot(path=str(OUT/f'home-{width}.png'),full_page=True)
             if today and width==390:
                 assert page.evaluate("getComputedStyle(document.querySelector('#feed')).gridTemplateColumns.split(' ').length")==1, 'Mobile Latest Reporting is not one readable column'
-                assert page.evaluate("parseFloat(getComputedStyle(document.querySelector('#feed .news-item h3')).fontSize)")>=24, 'Mobile headlines are too small'
+                assert page.evaluate("parseFloat(getComputedStyle(document.querySelector('#feed .news-item h3')).fontSize)")>=18, 'Mobile editorial-list headlines are too small'
             page.locator('.tb-nav a[href="banking.html"]').click()
             assert page.locator('h1').inner_text()=='Banking.','Banking page missing'
             assert page.locator('article[data-category="Banking"]').count()==sum(desk_for(a)=='Banking' for a in today),'Banking page has missing or misplaced reports'

@@ -30,7 +30,7 @@ def verify():
     # Single-pass original reports can legitimately have one substantive body section.
     # A stricter browser-only requirement silently hides published articles.
     assert 'Array.isArray(x.blocks)&&x.blocks.length>=1&&currentDayArticle(x)' in home, 'Homepage drops approved single-section reporting'
-    assert 'eligibleBriefs.slice(0,3)' in home, 'Client-side catch-up has grown beyond three stories'
+    assert 'eligibleBriefs.slice(0,4)' in home, 'Client-side 60-second digest must support four useful developments'
     assert 'The 60-second Brief' in home and 'Latest reporting' in home, 'Approved reader-facing headings missing'
     assert 'tb-section-nav' in home and home.count('<nav class="tb-nav tb-section-nav"')==1, 'Homepage must have one primary section ribbon'
     assert 'tb-sector-visuals' not in home and 'tb-intro-band' not in home, 'Duplicate desk panels remain on homepage'

@@ -1164,3 +1164,11 @@ body.tb-home #home-view .news-section #order{color:#25282b!important;background:
  body.tb-home .one-minute .briefing-story:first-child{padding-left:7px!important}
  body.tb-home .one-minute .briefing-story:nth-child(n+3){border-top:0!important}
 }
+
+/* Source-credited educational photography (keeps image disclosure visible). */
+body.tb-home .tb-guide-photo{margin:0!important;position:relative!important;overflow:hidden!important;background:#ece4dc!important}
+body.tb-home .tb-guide-photo::after{display:none!important}
+body.tb-home .tb-guide-photo img{display:block!important;width:100%!important;height:108px!important;object-fit:cover!important;object-position:center!important}
+body.tb-home .tb-guide-photo figcaption{font:400 8px/1.2 var(--sans)!important;color:#706e6b!important;margin-top:3px!important;max-height:24px!important;overflow:hidden!important}
+body.tb-home .tb-guide-photo figcaption a{color:inherit!important;text-decoration:underline!important;text-underline-offset:1px!important}
+@media(max-width:680px){body.tb-home .tb-guide-photo img{height:112px!important}}
