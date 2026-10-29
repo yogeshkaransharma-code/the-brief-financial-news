@@ -1230,3 +1230,13 @@ body.tb-home .tb-report-art figcaption{max-height:none!important;overflow:visibl
 body.tb-banking-reading .tb-report-outline ol li{border-color:#CEDDE5}
 body.tb-reading-page .reader .tb-story-main>h1{margin-bottom:18px}
 body.tb-reading-page .article-body h2{scroll-margin-top:24px}
+
+/* New Here controls must remain clickable when an explainer is expanded.
+   The archive toggle follows the featured cards in document order and sits
+   in its own higher stacking layer, never behind an expanded article. */
+body.tb-home #explainer-list{position:relative!important;z-index:0!important}
+body.tb-home #explainer-archive-toggle{
+  position:relative!important;z-index:2!important;isolation:isolate;
+  display:inline-block!important;background:#f4eeeb!important;
+  padding:10px 3px!important;margin-top:20px!important
+}
