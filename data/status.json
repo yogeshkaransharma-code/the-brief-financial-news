@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-10-29T00:07:44.366893+00:00",
+  "checked_at": "2026-10-29T00:55:08.386014+00:00",
   "uk_date": "2026-10-29",
   "outcome": "BLOCKED",
   "editorial_outcome": "BLOCKED",
-  "technical_status": "LIVE_VERIFIED",
+  "technical_status": "AWAITING_LIVE_VERIFICATION",
   "source_coverage_status": "PARTIAL",
   "launch_test": {
     "result": "NOT_RUN"
@@ -25,7 +25,7 @@
   },
   "verified_by_sector": {},
   "articles_commissioned": 0,
-  "articles_held": 184,
+  "articles_held": 183,
   "machine_screened": 0,
   "independent_review": false,
   "publication_policy": "newsroom-single-pass-2026-10-26-v1",
@@ -48,20 +48,15 @@
   "quota_pause_until": null,
   "pipeline_metrics": {
     "discovered_unique": 509,
-    "outside_uk_date": 239,
+    "outside_uk_date": 238,
     "already_published_or_retired": 120,
     "irrelevant": 3,
-    "unsupported_route": 146,
+    "unsupported_route": 147,
     "fresh_relevant_candidates": 1,
-    "source_failures": 1,
+    "source_cooldowns": 1,
     "verified_original_candidates": 0
   },
   "source_fallbacks": [
-    {
-      "source": "https://www.finextra.com/newsarticle/48665/monzo-launches-in-spain",
-      "result": "Public alternative search completed",
-      "candidates": 0
-    },
     {
       "source": "https://www.finextra.com/newsarticle/48665/monzo-launches-in-spain",
       "alternatives_found": 0,
@@ -164,30 +159,6 @@
       "reason": "Already published or retired"
     },
     {
-      "title": "Read more about the 'The Financial Ombudsman Service received 57,000 cases in the second quarter of 2026/27' news item",
-      "source": "https://www.financial-ombudsman.org.uk/who-we-are/data-insight/news/financial-ombudsman-service-received-57000-cases-second-quarter-202627",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-22"
-    },
-    {
-      "title": "Read more about the 'Financial Ombudsman Service appoints new Independent Assessor' news item",
-      "source": "https://www.financial-ombudsman.org.uk/who-we-are/data-insight/news/financial-ombudsman-service-appoints-new-independent-assessor",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-13"
-    },
-    {
-      "title": "Read more about the 'FCA appoints chair of the Financial Ombudsman Service' news item",
-      "source": "https://www.financial-ombudsman.org.uk/who-we-are/data-insight/news/fca-appoints-chair-financial-ombudsman-service",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-09"
-    },
-    {
       "title": "Bullseye Financial Ltd enters administration 27/10/2026",
       "source": "https://www.fca.org.uk/news/news-stories/bullseye-financial-ltd-enters-administration",
       "result": "excluded",
@@ -274,41 +245,28 @@
       "reason": "Already published or retired"
     },
     {
-      "title": "Lloyds uses agentic AI platform to strengthen customer fraud support",
-      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-strengthens-fraud-support-agentic-ai.html",
+      "title": "Read more about the 'The Financial Ombudsman Service received 57,000 cases in the second quarter of 2026/27' news item",
+      "source": "https://www.financial-ombudsman.org.uk/who-we-are/data-insight/news/financial-ombudsman-service-received-57000-cases-second-quarter-202627",
       "result": "excluded",
       "stage": "eligibility",
       "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-26"
+      "source_date": "2026-10-22"
     },
     {
-      "title": "Lloyds climbs global rankings for AI talent and leadership",
-      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-climbs-global-rankings-for-ai-talent-and-leadership.html",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
-    {
-      "title": "Lloyds launches Investing in Britain Hub",
-      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-launches-investing-in-britain-hub.html",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
-    {
-      "title": "Lloyds Banking Group launches Lloyds Auto",
-      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds-banking-group/lloyds-banking-group-launches-lloyds-auto.html",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
-    {
-      "title": "Lloyds supports second £250 million Blue Bond for Tideway to help protect River Thames",
-      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-supports-second-250m-blue-bond-for-tideway-to-help-protect-river-thames.html",
+      "title": "Read more about the 'Financial Ombudsman Service appoints new Independent Assessor' news item",
+      "source": "https://www.financial-ombudsman.org.uk/who-we-are/data-insight/news/financial-ombudsman-service-appoints-new-independent-assessor",
       "result": "excluded",
       "stage": "eligibility",
       "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-15"
+      "source_date": "2026-10-13"
+    },
+    {
+      "title": "Read more about the 'FCA appoints chair of the Financial Ombudsman Service' news item",
+      "source": "https://www.financial-ombudsman.org.uk/who-we-are/data-insight/news/fca-appoints-chair-financial-ombudsman-service",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-09"
     },
     {
       "title": "Prudential Regulation // Consultation paper 22 October 2026 CP14/26 – Review of the Senior Managers and... CP14/26 – Review of the Senior Managers and Certification Regime (SM&CR) – Phase 2",
@@ -397,6 +355,43 @@
       "stage": "eligibility",
       "reason": "Discovery source date is outside the current UK date",
       "source_date": "2026-10-13"
+    },
+    {
+      "title": "Lloyds uses agentic AI platform to strengthen customer fraud support",
+      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-strengthens-fraud-support-agentic-ai.html",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-26"
+    },
+    {
+      "title": "Lloyds climbs global rankings for AI talent and leadership",
+      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-climbs-global-rankings-for-ai-talent-and-leadership.html",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
+    },
+    {
+      "title": "Lloyds launches Investing in Britain Hub",
+      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-launches-investing-in-britain-hub.html",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
+    },
+    {
+      "title": "Lloyds Banking Group launches Lloyds Auto",
+      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds-banking-group/lloyds-banking-group-launches-lloyds-auto.html",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
+    },
+    {
+      "title": "Lloyds supports second £250 million Blue Bond for Tideway to help protect River Thames",
+      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-supports-second-250m-blue-bond-for-tideway-to-help-protect-river-thames.html",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-15"
     },
     {
       "title": "Ageas UK and esure Boards appoint two Independent Non-Executive Directors",
@@ -494,22 +489,6 @@
       "source_date": "2026-10-09"
     },
     {
-      "title": "Lawrence Hawkins appointed General Counsel Zurich UK",
-      "source": "https://www.zurich.co.uk/media-centre/lawrence-hawkins-appointed-general-counsel",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-21"
-    },
-    {
-      "title": "New captive regime “has potential to strengthen the UK’s position as a leading global insurance centre”",
-      "source": "https://www.zurich.co.uk/media-centre/uk-captive-insurance-regime",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-14"
-    },
-    {
       "title": "Lloyds backs Stockport with £720k investment in new-look branch",
       "source": "https://www.lloydsbank.com/news-and-insights/2026/lloyds-backs-stockport-with-in-new-look-branch.html",
       "result": "rejected",
@@ -531,12 +510,42 @@
       "reason": "Outside Insurance/Banking or promotional/lifestyle material"
     },
     {
+      "title": "Lawrence Hawkins appointed General Counsel Zurich UK",
+      "source": "https://www.zurich.co.uk/media-centre/lawrence-hawkins-appointed-general-counsel",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-21"
+    },
+    {
+      "title": "New captive regime “has potential to strengthen the UK’s position as a leading global insurance centre”",
+      "source": "https://www.zurich.co.uk/media-centre/uk-captive-insurance-regime",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-14"
+    },
+    {
       "title": "14th October 2026 Starling becomes first bank to train AI model on UK sovereign cloud",
       "source": "https://www.starlingbank.com/news/starling-backs-uk-sovereign-cloud",
       "result": "excluded",
       "stage": "eligibility",
       "reason": "Discovery source date is outside the current UK date",
       "source_date": "2026-10-14"
+    },
+    {
+      "title": "Flávio Bolsonaro claims fraud in Brazil’s presidential election",
+      "source": "https://www.ft.com/content/040c71ac-cef9-46b6-9ca1-aeaa01420d64?syn-25a6b1a6=1",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "No reviewed article route in source registry"
+    },
+    {
+      "title": "‘Just watch Judge Judy’: I’m in my 70s. Why do people keep making the same avoidable financial mistakes?",
+      "source": "https://www.marketwatch.com/story/you-need-only-watch-episodes-of-judge-judy-im-in-my-70s-why-do-people-keep-making-the-same-avoidable-financial-mistakes-bbf60fe4",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "No reviewed article route in source registry"
     },
     {
       "title": "I earn £30,000. I'm angry there was no fuel duty cut in the Budget",
@@ -1296,13 +1305,6 @@
       "result": "excluded",
       "stage": "eligibility",
       "reason": "Already published or retired"
-    },
-    {
-      "title": "‘Just watch Judge Judy’: I’m in my 70s. Why do people keep making the same avoidable financial mistakes?",
-      "source": "https://www.marketwatch.com/story/you-need-only-watch-episodes-of-judge-judy-im-in-my-70s-why-do-people-keep-making-the-same-avoidable-financial-mistakes-bbf60fe4",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "No reviewed article route in source registry"
     },
     {
       "title": "Hummingbird buys Quantimon to bring machine learning to AML transaction monitoring",
@@ -3672,14 +3674,6 @@
       "reason": "No reviewed article route in source registry"
     },
     {
-      "title": "Interest Rates Look Kinda Low",
-      "source": "https://www.wsj.com/economy/central-banking/interest-rates-look-kinda-low-39f99f8c",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-27"
-    },
-    {
       "title": "Ardonagh takes Orvia brand global with US$3bn MGA platform",
       "source": "https://www.insurancebusinessmag.com/uk/news/breaking-news/ardonagh-takes-orvia-brand-global-with-us3bn-mga-platform-595090.aspx",
       "result": "excluded",
@@ -3867,7 +3861,7 @@
     {
       "title": "Monzo launches in Spain",
       "source": "https://www.finextra.com/newsarticle/48665/monzo-launches-in-spain",
-      "result": "held back",
+      "result": "retry deferred",
       "stage": "source",
       "reason": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
@@ -4985,139 +4979,13 @@
       ]
     }
   ],
-  "run_id": "40791936268",
+  "run_id": "40797096261",
   "event": "schedule",
-  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40791936268",
+  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40797096261",
   "publisher_links": 0,
   "discovery_headlines": 2,
-  "publisher_desk_checked_at": "2026-10-29T00:07:30.650421+00:00",
+  "publisher_desk_checked_at": "2026-10-29T00:54:52.816845+00:00",
   "previous_verified_runs": [
-    {
-      "run_id": "40669664284",
-      "event": "workflow_dispatch",
-      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40669664284",
-      "editorial_outcome": "PUBLISHED",
-      "published_this_run": 2,
-      "publisher_links": 0,
-      "discovery_headlines": 30,
-      "source_coverage_status": "PARTIAL",
-      "fresh_source_candidates": 48,
-      "verified_by_sector": {
-        "Insurance": 1,
-        "Banking": 1
-      },
-      "ai_budget": {
-        "quota_date": "2026-10-28",
-        "quota_timezone": "America/Los_Angeles",
-        "requests_this_run": 1,
-        "requests_today_including_this_run": 4,
-        "run_limit": 7,
-        "daily_limit": null,
-        "remaining_today": null,
-        "daily_limit_source": "provider",
-        "remaining_this_run": 6
-      },
-      "pipeline_metrics": {
-        "discovered_unique": 510,
-        "irrelevant": 27,
-        "outside_uk_date": 152,
-        "already_published_or_retired": 120,
-        "unsupported_route": 163,
-        "fresh_relevant_candidates": 48,
-        "sources_successfully_retrieved": 31,
-        "source_checkpoints_reused": 0,
-        "outside_uk_market": 29,
-        "source_failures": 1,
-        "source_cooldowns": 8,
-        "verified_original_candidates": 2,
-        "articles_ready_to_publish": 2,
-        "articles_drafted": 2
-      },
-      "source_fallbacks": [
-        {
-          "source": "https://www.bloomberg.com/news/articles/2026-10-28/sandoz-warns-eu-may-scrap-antibiotic-protection-risking-plant",
-          "result": "Public alternative search completed",
-          "candidates": 0
-        },
-        {
-          "source": "https://www.bloomberg.com/news/articles/2026-10-28/sandoz-warns-eu-may-scrap-antibiotic-protection-risking-plant",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.wsj.com/finance/investing/u-s-treasury-yields-rise-ahead-of-federal-reserve-interest-rate-decision-b1f7ef58",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.bbc.co.uk/news/articles/c6x2zrjl7kjno",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.bloomberg.com/news/articles/2026-10-28/turkey-cancels-license-of-brokerage-at-heart-of-fund-crisis",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.finextra.com/newsarticle/48658/clearstream-makes-tokenised-fund-distribution-move",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.professionalpensions.com/news/4057232/live-blog-pensions-news-digest",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.bloomberg.com/news/articles/2026-10-28/jpmorgan-private-bank-s-tang-sees-more-downside-risk-for-gold",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.wsj.com/finance/banking/ai-boom-drives-a-jump-in-lending-but-bankers-still-sound-cautious-78bd7a58",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.finextra.com/newsarticle/48656/zumo-and-quantum-chain-partner-up-to-fight-quantum-threats",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        }
-      ],
-      "publication_policy": "newsroom-single-pass-2026-10-26-v1",
-      "independent_review": false,
-      "articles_ready_to_publish": 2,
-      "articles_visible_this_run": 0,
-      "live_article_ids": [],
-      "commissioned_stories": [
-        {
-          "url": "https://www.insurancebusinessmag.com/uk/news/breaking-news/the-san-francisco-mga-shopping-london-for-ai-agent-capacity-595246.aspx",
-          "category": "Insurance",
-          "reason": "Relevant current development supported by a complete accessible source"
-        },
-        {
-          "url": "https://www.theguardian.com/money/2026/oct/28/healey-poised-to-overturn-cut-to-cash-isa-allowance-in-first-budget",
-          "category": "Banking",
-          "reason": "Relevant current development supported by a complete accessible source"
-        }
-      ],
-      "checked_at": "2026-10-28T10:10:25.396982+00:00",
-      "technical_status": "FAILED",
-      "deployment": "success",
-      "live_check": "failure",
-      "browser_check": "skipped",
-      "candidate_outcome_counts": {
-        "eligibility:rejected": 27,
-        "eligibility:excluded": 435,
-        "source:deferred": 8,
-        "source:source verified": 2,
-        "uk_market:rejected": 29,
-        "source:held back": 1,
-        "source:retry deferred": 8,
-        "writing:ready to publish": 2
-      }
-    },
     {
       "run_id": "40674748501",
       "event": "schedule",
@@ -8605,6 +8473,67 @@
         "writing:ready to publish": 5,
         "writing:technical failure retained": 2
       }
+    },
+    {
+      "run_id": "40791936268",
+      "event": "schedule",
+      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40791936268",
+      "editorial_outcome": "BLOCKED",
+      "published_this_run": 0,
+      "publisher_links": 0,
+      "discovery_headlines": 2,
+      "source_coverage_status": "PARTIAL",
+      "fresh_source_candidates": 1,
+      "verified_by_sector": {},
+      "ai_budget": {
+        "quota_date": "2026-10-28",
+        "quota_timezone": "America/Los_Angeles",
+        "requests_this_run": 0,
+        "requests_today_including_this_run": 26,
+        "run_limit": 7,
+        "daily_limit": null,
+        "remaining_today": null,
+        "daily_limit_source": "provider",
+        "remaining_this_run": 7
+      },
+      "pipeline_metrics": {
+        "discovered_unique": 509,
+        "outside_uk_date": 239,
+        "already_published_or_retired": 120,
+        "irrelevant": 3,
+        "unsupported_route": 146,
+        "fresh_relevant_candidates": 1,
+        "source_failures": 1,
+        "verified_original_candidates": 0
+      },
+      "source_fallbacks": [
+        {
+          "source": "https://www.finextra.com/newsarticle/48665/monzo-launches-in-spain",
+          "result": "Public alternative search completed",
+          "candidates": 0
+        },
+        {
+          "source": "https://www.finextra.com/newsarticle/48665/monzo-launches-in-spain",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        }
+      ],
+      "publication_policy": "newsroom-single-pass-2026-10-26-v1",
+      "independent_review": false,
+      "articles_ready_to_publish": 0,
+      "articles_visible_this_run": 0,
+      "live_article_ids": [],
+      "commissioned_stories": [],
+      "checked_at": "2026-10-29T00:07:58.755579+00:00",
+      "technical_status": "LIVE_VERIFIED",
+      "deployment": "success",
+      "live_check": "success",
+      "browser_check": "skipped",
+      "candidate_outcome_counts": {
+        "eligibility:excluded": 505,
+        "eligibility:rejected": 3,
+        "source:held back": 1
+      }
     }
   ],
   "launch_acceptance": {
@@ -8618,7 +8547,7 @@
       "latest_run_technically_healthy": true,
       "latest_editorial_run_unblocked": false
     },
-    "verified_scheduled_runs": 13,
+    "verified_scheduled_runs": 14,
     "commissioned_sectors": [
       "Banking",
       "Insurance"
@@ -8631,7 +8560,5 @@
   "launch_diagnostic_allowance": {
     "limit": 2,
     "requests": 2
-  },
-  "articles_visible_this_run": 0,
-  "live_article_ids": []
+  }
 }
