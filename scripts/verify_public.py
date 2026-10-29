@@ -20,6 +20,7 @@ def verify():
     assert {x['id'] for x in edition}=={x['id'] for x in canonical if published_same_day(x)}
     assert {x['id'] for x in archive}=={x['id'] for x in canonical},'Historical articles lost'
     home=(public/'index.html').read_text();archive_html=(public/'archive.html').read_text()
+    search_html=(public/'search.html').read_text()
     from reader_experience import lead_article, other_briefs
     from reader_analytics import token_from_env, BEACON_URL
     assert (public/'privacy.html').is_file(), 'Privacy page missing'
@@ -49,10 +50,11 @@ def verify():
         assert 'class="tb-lead-art"' in rendered and 'not today’s news event' in rendered, 'Quiet editions need credited non-event cover photography'
     assert 'href="insurance.html"' in home and 'href="banking.html"' in home, 'Primary desk navigation missing'
     assert '<select id="order"' in home, 'Reader cannot sort Latest Reporting'
-    assert 'id="site-search-form" action="archive.html" method="get"' in home, 'Homepage search is not linked to entire archive'
+    assert 'id="site-search-form" action="search.html" method="get"' in home, 'Homepage search is not linked to entire archive'
     assert 'name="q"' in home and 'type="submit" class="search-submit"' in home, 'Search form cannot be submitted'
     assert 'data-search="' in archive_html and 'params.get(\'q\')' in archive_html, 'Archive does not index article text or accept search queries'
-    assert 'id="archive-empty"' in archive_html, 'Search has no empty-state message'
+    assert 'id="archive-empty"' in archive_html and 'id="archive-empty"' in search_html, 'Search has no empty-state message'
+    assert 'data-search="' in search_html and 'Search reports.' in search_html and 'params.get(\'q\')' in search_html, 'Search results page missing searchable articles or query handling'
     assert home.index('<nav class="tb-nav tb-section-nav"') < home.index('<section class="top-layout"') < home.index('<section id="latest"') < home.index('<section id="context"'), 'Reader journey is out of order'
     assert 'if(resetDesk)resetDesk.addEventListener' in (ROOT/'scripts/build_public.py').read_text(), 'Quiet desks bind a missing reset button'
 
@@ -115,7 +117,7 @@ def verify():
     root = ET.parse(sitemap).getroot()
     urls = [node.text for node in root.findall('.//{http://www.sitemaps.org/schemas/sitemap/0.9}loc')]
     expected = {BASE, BASE+'about.html', BASE+'insurance.html', BASE+'banking.html',
-                BASE+'archive.html', BASE+'sources.html',BASE+'privacy.html'}
+                BASE+'archive.html', BASE+'search.html', BASE+'sources.html',BASE+'privacy.html'}
     expected.update(BASE+'story/'+a['id']+'.html' for a in canonical)
     expected.update(BASE+'edition/'+day+'.html' for day in {a['dateISO'] for a in canonical})
     assert set(urls)==expected and len(urls)==len(set(urls)), 'Sitemap routes do not match real pages'

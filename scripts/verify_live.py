@@ -50,6 +50,9 @@ def probe():
             for a in canonical:
                 if a['id'] not in want:assert html.escape(a['title'],quote=True) not in current_home,'Old headline in today edition'
             archive_page=read(SITE+'archive.html'+token)
+            search_page=read(SITE+'search.html'+token)
+            assert 'id="archive-search"' in search_page and "params.get('q')" in search_page, 'Live publication-wide search is absent'
+            assert 'data-search="' in search_page, 'Live search index is missing'
             for a in archive:assert html.escape(a['title'],quote=True) in archive_page,'Archived headline missing'
             tested=[]
             selection=today+([archive[0]] if archive and (not today or archive[0]['id']!=today[0]['id']) else [])

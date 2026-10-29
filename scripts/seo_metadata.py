@@ -48,7 +48,7 @@ def _meta(page_path: Path, rel: str, title: str, description: str, schema: dict 
 def add_search_discovery(out: Path, articles: list[dict]) -> None:
     """Called after a complete site build; does not mutate source content."""
     by_id = {a["id"]: a for a in articles}
-    paths = ["index.html", "about.html", "insurance.html", "banking.html", "archive.html", "sources.html", "privacy.html"]
+    paths = ["index.html", "about.html", "insurance.html", "banking.html", "archive.html", "search.html", "sources.html", "privacy.html"]
     paths += sorted(p.relative_to(out).as_posix() for p in (out / "edition").glob("*.html"))
     paths += sorted(p.relative_to(out).as_posix() for p in (out / "story").glob("*.html"))
 
@@ -79,6 +79,9 @@ def add_search_discovery(out: Path, articles: list[dict]) -> None:
         elif rel == "banking.html":
             name = "Banking news — The Brief"
             desc = "UK banking, lending, payments and regulation."
+        elif rel == "search.html":
+            name = "Search The Brief"
+            desc = "Search reports across every edition of UK insurance and banking news."
         elif rel == "archive.html":
             name = "The Brief archive"
             desc = "Earlier UK insurance and banking news, kept with their original dates."

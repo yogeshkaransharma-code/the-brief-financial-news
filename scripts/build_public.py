@@ -136,9 +136,9 @@ def standalone_story(a,related=None):
 </aside></div>
 </article></main>{site_footer("../")}</body></html>"""
 
-def archive_page(records,edition=None):
+def archive_page(records,edition=None,search=False):
     prefix='../' if edition else ''
-    title=('Edition · '+edition) if edition else 'The archive.'
+    title=('Search reports.' if search else ('Edition · '+edition if edition else 'The archive.'))
     rows=[]
     for day in sorted({original_date(a).isoformat() for a in records},reverse=True):
         cards=[]
@@ -147,7 +147,7 @@ def archive_page(records,edition=None):
             search_text=' '.join([str(a.get(k,'')) for k in ('title','short','source','desk_section')] + [str(piece) for block in a.get('blocks',[]) if isinstance(block,(list,tuple)) for piece in block])
             cards.append('<article data-category="'+esc(a['desk_section'])+'" data-search="'+esc(search_text)+'"><span class="kicker">'+esc(a['desk_section'])+'</span><h2><a href="'+prefix+story_href(a)+'">'+esc(a['title'])+'</a></h2><p>'+esc(a['short'])+'</p><small>'+esc(a['source'])+(' · Published by The Brief: '+esc(date_in_uk(a['published_at'])) if date_in_uk(a['published_at'])!=original_date(a) else '')+'</small></article>')
         rows.append('<section>'+('' if edition else '<h2 class="edition"><a href="'+prefix+'edition/'+day+'.html">'+esc(day)+' edition ↗</a></h2>')+''.join(cards)+'</section>')
-    body='<p class="intro">Earlier developments, kept in their dated editions. Nothing here is presented as today’s news.</p>'
+    body=('<p class="intro">Search every published report across UK insurance and banking, including earlier editions. Search by company, subject, headline or words from a report.</p>' if search else '<p class="intro">Earlier developments, kept in their dated editions. Nothing here is presented as today’s news.</p>')
     if any(a.get('retrospective_launch') for a in records):
         body+='<p class="note"><strong>Saturday launch edition · 24 October 2026, from 6am UK.</strong> These launch reports were prepared retrospectively. Each article shows the original announcement date and its actual publication timestamp.</p>'
     body+='<p class="note">Reports from the earlier publishing system are retained with their recorded dates and a legacy verification notice. They have not been re-certified under the new controls.</p>'
@@ -419,6 +419,7 @@ def build():
     (OUT / "data/articles.json").write_text(json.dumps(records, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     (OUT / "data/archive.json").write_text(json.dumps(archive,ensure_ascii=False,indent=2)+"\n")
     (OUT / "archive.html").write_text(archive_page(archive),encoding="utf-8")
+    (OUT / "search.html").write_text(archive_page(archive,search=True),encoding="utf-8")
     (OUT / "insurance.html").write_text(desk_page(archive,'Insurance'),encoding="utf-8")
     (OUT / "banking.html").write_text(desk_page(archive,'Banking'),encoding="utf-8")
     (OUT / "edition").mkdir(exist_ok=True)
