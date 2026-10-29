@@ -1,46 +1,35 @@
 {
-  "checked_at": "2026-10-29T01:56:18.903077+00:00",
+  "checked_at": "2026-10-29T01:58:31.927307+00:00",
   "uk_date": "2026-10-29",
-  "outcome": "PUBLISHED",
-  "editorial_outcome": "PUBLISHED",
-  "technical_status": "FAILED",
+  "outcome": "BLOCKED",
+  "editorial_outcome": "BLOCKED",
+  "technical_status": "AWAITING_LIVE_VERIFICATION",
   "source_coverage_status": "PARTIAL",
   "launch_test": {
     "result": "NOT_RUN"
   },
-  "published_this_run": 1,
+  "published_this_run": 0,
   "genuine_same_day_articles": 1,
   "editorial_selection": {
-    "result": "SELECTED",
+    "result": "NO_VERIFIED_CANDIDATES",
     "requests": 0,
-    "method": "deterministic-source-supported",
-    "selected": [
-      {
-        "url": "https://www.insurancebusinessmag.com/uk/news/breaking-news/allianz-uk-adds-hotels-and-restaurants-to-commercial-select-595379.aspx",
-        "category": "Insurance",
-        "reason": "Relevant current development supported by a complete accessible source"
-      }
-    ],
-    "skipped": [],
-    "deferred": []
+    "selected": [],
+    "skipped": []
   },
   "published_total": 193,
   "last_article_at": "2026-10-29T01:56:18.745352+00:00",
-  "fresh_source_candidates": 2,
-  "verified_original_candidates": 1,
+  "fresh_source_candidates": 1,
+  "verified_original_candidates": 0,
   "candidates_by_sector": {
-    "Insurance": 1,
     "Banking": 1
   },
-  "verified_by_sector": {
-    "Insurance": 1
-  },
-  "articles_commissioned": 1,
-  "articles_held": 183,
+  "verified_by_sector": {},
+  "articles_commissioned": 0,
+  "articles_held": 184,
   "machine_screened": 0,
   "independent_review": false,
   "publication_policy": "newsroom-single-pass-2026-10-26-v1",
-  "articles_ready_to_publish": 1,
+  "articles_ready_to_publish": 0,
   "primary_indexes_checked": 31,
   "primary_index_failures": 4,
   "feeds_working": 41,
@@ -48,28 +37,24 @@
   "ai_budget": {
     "quota_date": "2026-10-28",
     "quota_timezone": "America/Los_Angeles",
-    "requests_this_run": 1,
+    "requests_this_run": 0,
     "requests_today_including_this_run": 27,
     "run_limit": 7,
     "daily_limit": null,
     "remaining_today": null,
     "daily_limit_source": "provider",
-    "remaining_this_run": 6
+    "remaining_this_run": 7
   },
   "quota_pause_until": null,
   "pipeline_metrics": {
     "discovered_unique": 509,
+    "already_published_or_retired": 121,
     "outside_uk_date": 238,
-    "already_published_or_retired": 120,
     "irrelevant": 3,
     "unsupported_route": 146,
-    "fresh_relevant_candidates": 2,
-    "sources_successfully_retrieved": 1,
-    "source_checkpoints_reused": 0,
+    "fresh_relevant_candidates": 1,
     "source_cooldowns": 1,
-    "verified_original_candidates": 1,
-    "articles_ready_to_publish": 1,
-    "articles_drafted": 1
+    "verified_original_candidates": 0
   },
   "source_fallbacks": [
     {
@@ -79,21 +64,6 @@
     }
   ],
   "candidate_outcomes": [
-    {
-      "title": "HSBC Holdings plc 3Q 2026 Earnings Release",
-      "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/hsbc-holdings-plc-3q-2026-earnings-release",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-27"
-    },
-    {
-      "title": "Retirement targets jump 20% as affluent individuals plan for several futures at once",
-      "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/retirement-targets-jump-20-as-affluent-individuals-plan-for-several-futures-at-once",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
     {
       "title": "TPR sets expectations on “hidden” concentration risks in pension portfolios",
       "source": "https://www.thepensionsregulator.gov.uk/media-hub/press-releases/2026-press-releases/tpr-sets-expectations-on-hidden-concentration-risks-in-pension-portfolios",
@@ -172,6 +142,43 @@
       "stage": "eligibility",
       "reason": "Discovery source date is outside the current UK date",
       "source_date": "2026-10-13"
+    },
+    {
+      "title": "Lloyds uses agentic AI platform to strengthen customer fraud support",
+      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-strengthens-fraud-support-agentic-ai.html",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-26"
+    },
+    {
+      "title": "Lloyds climbs global rankings for AI talent and leadership",
+      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-climbs-global-rankings-for-ai-talent-and-leadership.html",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
+    },
+    {
+      "title": "Lloyds launches Investing in Britain Hub",
+      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-launches-investing-in-britain-hub.html",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
+    },
+    {
+      "title": "Lloyds Banking Group launches Lloyds Auto",
+      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds-banking-group/lloyds-banking-group-launches-lloyds-auto.html",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
+    },
+    {
+      "title": "Lloyds supports second £250 million Blue Bond for Tideway to help protect River Thames",
+      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-supports-second-250m-blue-bond-for-tideway-to-help-protect-river-thames.html",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-15"
     },
     {
       "title": "Read more about the 'The Financial Ombudsman Service received 57,000 cases in the second quarter of 2026/27' news item",
@@ -372,43 +379,6 @@
       "source_date": "2026-10-13"
     },
     {
-      "title": "Lloyds uses agentic AI platform to strengthen customer fraud support",
-      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-strengthens-fraud-support-agentic-ai.html",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-26"
-    },
-    {
-      "title": "Lloyds climbs global rankings for AI talent and leadership",
-      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-climbs-global-rankings-for-ai-talent-and-leadership.html",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
-    {
-      "title": "Lloyds launches Investing in Britain Hub",
-      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-launches-investing-in-britain-hub.html",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
-    {
-      "title": "Lloyds Banking Group launches Lloyds Auto",
-      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds-banking-group/lloyds-banking-group-launches-lloyds-auto.html",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
-    {
-      "title": "Lloyds supports second £250 million Blue Bond for Tideway to help protect River Thames",
-      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-supports-second-250m-blue-bond-for-tideway-to-help-protect-river-thames.html",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-15"
-    },
-    {
       "title": "Ageas UK and esure Boards appoint two Independent Non-Executive Directors",
       "source": "https://www.ageas.co.uk/press-releases/2026-press-releases/ageas-esure-boards-independent-non-executive-directors/",
       "result": "excluded",
@@ -417,12 +387,48 @@
       "source_date": "2026-10-09"
     },
     {
+      "title": "HSBC Holdings plc 3Q 2026 Earnings Release",
+      "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/hsbc-holdings-plc-3q-2026-earnings-release",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-27"
+    },
+    {
+      "title": "Retirement targets jump 20% as affluent individuals plan for several futures at once",
+      "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/retirement-targets-jump-20-as-affluent-individuals-plan-for-several-futures-at-once",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
+    },
+    {
       "title": "LMA responds to FCA consultation on SM&CR reforms",
       "source": "https://lmalloyds.com/lma-responds-to-fca-consultation-on-smcr-reforms/",
       "result": "excluded",
       "stage": "eligibility",
       "reason": "Discovery source date is outside the current UK date",
       "source_date": "2026-10-23"
+    },
+    {
+      "title": "Lloyds backs Stockport with £720k investment in new-look branch",
+      "source": "https://www.lloydsbank.com/news-and-insights/2026/lloyds-backs-stockport-with-in-new-look-branch.html",
+      "result": "rejected",
+      "stage": "eligibility",
+      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
+    },
+    {
+      "title": "Lloyds customers offered 10% cashback for shopping at independent businesses",
+      "source": "https://www.lloydsbank.com/news-and-insights/2026/lloyds-customers-offered-cashback-for-shopping-at-independent-businesses.html",
+      "result": "rejected",
+      "stage": "eligibility",
+      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
+    },
+    {
+      "title": "Lloyds removes £15 monthly charge from Premier account",
+      "source": "https://www.lloydsbank.com/news-and-insights/2026/lloyds-removes-monthly-charge-from-premier-account.html",
+      "result": "rejected",
+      "stage": "eligibility",
+      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
     },
     {
       "title": "MGAA Breaking News | A Busy Week for Regulation: Financial Crime, SMCR and AI",
@@ -504,35 +510,6 @@
       "source_date": "2026-10-09"
     },
     {
-      "title": "Lloyds backs Stockport with £720k investment in new-look branch",
-      "source": "https://www.lloydsbank.com/news-and-insights/2026/lloyds-backs-stockport-with-in-new-look-branch.html",
-      "result": "rejected",
-      "stage": "eligibility",
-      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
-    },
-    {
-      "title": "Lloyds customers offered 10% cashback for shopping at independent businesses",
-      "source": "https://www.lloydsbank.com/news-and-insights/2026/lloyds-customers-offered-cashback-for-shopping-at-independent-businesses.html",
-      "result": "rejected",
-      "stage": "eligibility",
-      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
-    },
-    {
-      "title": "Lloyds removes £15 monthly charge from Premier account",
-      "source": "https://www.lloydsbank.com/news-and-insights/2026/lloyds-removes-monthly-charge-from-premier-account.html",
-      "result": "rejected",
-      "stage": "eligibility",
-      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
-    },
-    {
-      "title": "14th October 2026 Starling becomes first bank to train AI model on UK sovereign cloud",
-      "source": "https://www.starlingbank.com/news/starling-backs-uk-sovereign-cloud",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-14"
-    },
-    {
       "title": "Lawrence Hawkins appointed General Counsel Zurich UK",
       "source": "https://www.zurich.co.uk/media-centre/lawrence-hawkins-appointed-general-counsel",
       "result": "excluded",
@@ -547,6 +524,21 @@
       "stage": "eligibility",
       "reason": "Discovery source date is outside the current UK date",
       "source_date": "2026-10-14"
+    },
+    {
+      "title": "14th October 2026 Starling becomes first bank to train AI model on UK sovereign cloud",
+      "source": "https://www.starlingbank.com/news/starling-backs-uk-sovereign-cloud",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-14"
+    },
+    {
+      "title": "Allianz UK adds hotels and restaurants to Commercial Select",
+      "source": "https://www.insurancebusinessmag.com/uk/news/breaking-news/allianz-uk-adds-hotels-and-restaurants-to-commercial-select-595379.aspx",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
     },
     {
       "title": "Flávio Bolsonaro claims fraud in Brazil’s presidential election",
@@ -3867,15 +3859,6 @@
       "source_date": "2026-10-20"
     },
     {
-      "title": "Allianz UK adds hotels and restaurants to Commercial Select",
-      "source": "https://www.insurancebusinessmag.com/uk/news/breaking-news/allianz-uk-adds-hotels-and-restaurants-to-commercial-select-595379.aspx",
-      "result": "source verified",
-      "stage": "source",
-      "reason": "Complete dated source, with UK financial subject established in the full source",
-      "source_sha256": "eaad571e7166b52b49cc9ead65665e38ae3effafc30975e6eabd14159ad94d7b",
-      "capture_method": "retrieved"
-    },
-    {
       "title": "Monzo launches in Spain",
       "source": "https://www.finextra.com/newsarticle/48665/monzo-launches-in-spain",
       "result": "retry deferred",
@@ -3883,18 +3866,11 @@
       "reason": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "retry_after": "2026-10-29T06:07:33.496617+00:00"
-    },
-    {
-      "title": "Allianz UK adds hotels and restaurants to Commercial Select",
-      "source": "https://www.insurancebusinessmag.com/uk/news/breaking-news/allianz-uk-adds-hotels-and-restaurants-to-commercial-select-595379.aspx",
-      "result": "ready to publish",
-      "stage": "writing",
-      "reason": "Source-based article complete; no independent AI review requested"
     }
   ],
   "discovery_errors": [
-    "Allianz UK: HTTPError HTTP Error 403: Forbidden",
     "UK Parliament: HTTPError HTTP Error 403: Forbidden",
+    "Allianz UK: HTTPError HTTP Error 403: Forbidden",
     "Association of British Insurers: HTTPError HTTP Error 403: Forbidden",
     "Revolut UK: HTTPError HTTP Error 403: Forbidden"
   ],
@@ -4810,6 +4786,12 @@
       ]
     },
     {
+      "id": "ai-dd4131fc8eeb1b764f48",
+      "reason": [
+        "Duplicate source/article"
+      ]
+    },
+    {
       "id": "ai-dd5063f7fd18f2b11ef9",
       "reason": [
         "Duplicate source/article"
@@ -5003,124 +4985,13 @@
       ]
     }
   ],
-  "run_id": "40803333439",
-  "event": "schedule",
-  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40803333439",
+  "run_id": "40803388853",
+  "event": "push",
+  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40803388853",
   "publisher_links": 0,
   "discovery_headlines": 2,
-  "publisher_desk_checked_at": "2026-10-29T01:56:00.498122+00:00",
+  "publisher_desk_checked_at": "2026-10-29T01:58:17.059478+00:00",
   "previous_verified_runs": [
-    {
-      "run_id": "40677884720",
-      "event": "push",
-      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40677884720",
-      "editorial_outcome": "PUBLISHED",
-      "published_this_run": 1,
-      "publisher_links": 0,
-      "discovery_headlines": 30,
-      "source_coverage_status": "PARTIAL",
-      "fresh_source_candidates": 57,
-      "verified_by_sector": {
-        "Banking": 1
-      },
-      "ai_budget": {
-        "quota_date": "2026-10-28",
-        "quota_timezone": "America/Los_Angeles",
-        "requests_this_run": 1,
-        "requests_today_including_this_run": 5,
-        "run_limit": 7,
-        "daily_limit": null,
-        "remaining_today": null,
-        "daily_limit_source": "provider",
-        "remaining_this_run": 6
-      },
-      "pipeline_metrics": {
-        "discovered_unique": 502,
-        "irrelevant": 23,
-        "outside_uk_date": 133,
-        "already_published_or_retired": 116,
-        "unsupported_route": 172,
-        "published_development": 1,
-        "fresh_relevant_candidates": 57,
-        "sources_successfully_retrieved": 35,
-        "source_checkpoints_reused": 0,
-        "outside_uk_market": 34,
-        "source_failures": 5,
-        "verified_original_candidates": 1,
-        "articles_ready_to_publish": 1,
-        "articles_drafted": 1
-      },
-      "source_fallbacks": [
-        {
-          "source": "https://www.insuranceage.co.uk/broker/7959068/superscript-secures-lloyds-bank-sme-insurance-partnership",
-          "result": "Public alternative search completed",
-          "candidates": 0
-        },
-        {
-          "source": "https://www.insuranceage.co.uk/broker/7959068/superscript-secures-lloyds-bank-sme-insurance-partnership",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.wsj.com/finance/currencies/asian-currencies-consolidate-ahead-of-fed-decision-28baaa62",
-          "result": "Public alternative search completed",
-          "candidates": 1
-        },
-        {
-          "source": "https://www.wsj.com/finance/currencies/asian-currencies-consolidate-ahead-of-fed-decision-28baaa62",
-          "alternatives_found": 1,
-          "result": "Alternative retrieval attempted"
-        },
-        {
-          "source": "https://www.commercialriskonline.com/growth-for-global-marine-insurance-but-market-remains-soft-says-iumi/",
-          "result": "Public alternative search completed",
-          "candidates": 0
-        },
-        {
-          "source": "https://www.commercialriskonline.com/growth-for-global-marine-insurance-but-market-remains-soft-says-iumi/",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.commercialriskonline.com/just-15-8-of-italian-smes-had-mandatory-nat-cat-cover-in-april-says-moodys/",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.commercialriskonline.com/indian-insurance-managers-enjoy-falling-rates-and-plenty-of-capacity/",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        }
-      ],
-      "publication_policy": "newsroom-single-pass-2026-10-26-v1",
-      "independent_review": false,
-      "articles_ready_to_publish": 1,
-      "articles_visible_this_run": 0,
-      "live_article_ids": [],
-      "commissioned_stories": [
-        {
-          "url": "https://www.fca.org.uk/news/warnings/mobile-savings-plan",
-          "category": "Banking",
-          "reason": "Relevant current development supported by a complete accessible source"
-        }
-      ],
-      "checked_at": "2026-10-28T11:12:55.470523+00:00",
-      "technical_status": "FAILED",
-      "deployment": "success",
-      "live_check": "success",
-      "browser_check": "failure",
-      "candidate_outcome_counts": {
-        "eligibility:rejected": 23,
-        "eligibility:excluded": 421,
-        "eligibility:duplicate": 1,
-        "source:deferred": 17,
-        "source:source verified": 1,
-        "uk_market:rejected": 34,
-        "source:held back": 5,
-        "alternative_source:held back": 1,
-        "writing:ready to publish": 1
-      }
-    },
     {
       "run_id": "40678248550",
       "event": "workflow_dispatch",
@@ -8504,6 +8375,76 @@
         "eligibility:rejected": 3,
         "source:retry deferred": 1
       }
+    },
+    {
+      "run_id": "40803333439",
+      "event": "schedule",
+      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40803333439",
+      "editorial_outcome": "PUBLISHED",
+      "published_this_run": 1,
+      "publisher_links": 0,
+      "discovery_headlines": 2,
+      "source_coverage_status": "PARTIAL",
+      "fresh_source_candidates": 2,
+      "verified_by_sector": {
+        "Insurance": 1
+      },
+      "ai_budget": {
+        "quota_date": "2026-10-28",
+        "quota_timezone": "America/Los_Angeles",
+        "requests_this_run": 1,
+        "requests_today_including_this_run": 27,
+        "run_limit": 7,
+        "daily_limit": null,
+        "remaining_today": null,
+        "daily_limit_source": "provider",
+        "remaining_this_run": 6
+      },
+      "pipeline_metrics": {
+        "discovered_unique": 509,
+        "outside_uk_date": 238,
+        "already_published_or_retired": 120,
+        "irrelevant": 3,
+        "unsupported_route": 146,
+        "fresh_relevant_candidates": 2,
+        "sources_successfully_retrieved": 1,
+        "source_checkpoints_reused": 0,
+        "source_cooldowns": 1,
+        "verified_original_candidates": 1,
+        "articles_ready_to_publish": 1,
+        "articles_drafted": 1
+      },
+      "source_fallbacks": [
+        {
+          "source": "https://www.finextra.com/newsarticle/48665/monzo-launches-in-spain",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        }
+      ],
+      "publication_policy": "newsroom-single-pass-2026-10-26-v1",
+      "independent_review": false,
+      "articles_ready_to_publish": 1,
+      "articles_visible_this_run": 0,
+      "live_article_ids": [],
+      "commissioned_stories": [
+        {
+          "url": "https://www.insurancebusinessmag.com/uk/news/breaking-news/allianz-uk-adds-hotels-and-restaurants-to-commercial-select-595379.aspx",
+          "category": "Insurance",
+          "reason": "Relevant current development supported by a complete accessible source"
+        }
+      ],
+      "checked_at": "2026-10-29T01:57:53.210398+00:00",
+      "technical_status": "FAILED",
+      "deployment": "success",
+      "live_check": "success",
+      "browser_check": "failure",
+      "candidate_outcome_counts": {
+        "eligibility:excluded": 504,
+        "eligibility:rejected": 3,
+        "source:source verified": 1,
+        "source:retry deferred": 1,
+        "writing:ready to publish": 1
+      }
     }
   ],
   "launch_acceptance": {
@@ -8514,8 +8455,8 @@
       "worthwhile_same_day_developments_across_sectors": true,
       "article_site_live_verified": true,
       "mobile_and_desktop_reading": true,
-      "latest_run_technically_healthy": true,
-      "latest_editorial_run_unblocked": false
+      "latest_run_technically_healthy": false,
+      "latest_editorial_run_unblocked": true
     },
     "verified_scheduled_runs": 14,
     "commissioned_sectors": [
@@ -8523,14 +8464,12 @@
       "Insurance"
     ],
     "pending": [
-      "latest_editorial_run_unblocked"
+      "latest_run_technically_healthy"
     ],
     "note": "Operational evidence checkpoint, not a guarantee of future events or error-free journalism."
   },
   "launch_diagnostic_allowance": {
     "limit": 2,
     "requests": 2
-  },
-  "articles_visible_this_run": 0,
-  "live_article_ids": []
+  }
 }
