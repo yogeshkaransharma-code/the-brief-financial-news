@@ -22,6 +22,19 @@ def main():
             page=context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
             page.goto(SITE,wait_until='networkidle',timeout=60000)
             assert page.locator('#lead-story').is_visible()
+            if width==390:
+                # Reproduce the exact long FCA warning that caused Android to
+                # scale the entire page and show a blank strip at the right.
+                width_safe=page.evaluate('''() => {
+                    const a=document.querySelector('#lead-story h1 a');
+                    const original=a.textContent;
+                    a.textContent='FCA warns consumers over unauthorised firm www.hedgemarksecuritiesllc.com';
+                    const safe=document.documentElement.scrollWidth<=window.innerWidth+1
+                      && a.getBoundingClientRect().right<=window.innerWidth+1;
+                    a.textContent=original;
+                    return safe;
+                }''')
+                assert width_safe, 'Long unbroken website address forces horizontal overflow on mobile'
             assert 'The 60-second Brief' in page.locator('#briefing-title').inner_text(), 'The agreed quick-catch-up label is not visible'
             assert 'Latest reporting' in page.locator('#latest h2').text_content(), 'The agreed reporting list is not visible'
             assert page.locator('.tb-sector-visual').count()==0, 'Duplicate sector banners still clutter the homepage'
