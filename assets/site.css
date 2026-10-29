@@ -978,19 +978,20 @@ body.tb-home .news-item:not(.has-photo){align-content:start}
 :root{--tb-editorial-ink:#202326;--tb-editorial-paper:#faf7f1;--tb-editorial-rule:#dedbd5;--tb-editorial-blue:#285e83;--tb-editorial-wine:#913a49}
 body.tb-home{background:var(--tb-editorial-paper)!important;color:var(--tb-editorial-ink)!important}
 body.tb-home .container{max-width:1230px!important;padding-left:32px!important;padding-right:32px!important}
-body.tb-home .tb-header{background:var(--tb-editorial-paper)!important;color:var(--tb-editorial-ink)!important}
-body.tb-home .tb-header .tb-utility{display:block!important;background:#24292b!important;color:#f9f7f3!important}
-body.tb-home .tb-utility-inner{max-width:1230px!important;padding:9px 32px!important;font:500 11px/1.35 var(--sans)!important;letter-spacing:0!important}
-body.tb-home .tb-utility-marker{display:none!important}
-body.tb-home .tb-header .tb-mast{padding:17px 20px 7px!important;background:transparent!important}
-body.tb-home .tb-header .tb-logo{color:#11161a!important;font:700 clamp(47px,4.7vw,65px)/.95 var(--display)!important;letter-spacing:-2.2px!important}
-body.tb-home .tb-header .tb-logo span{color:var(--tb-editorial-ink)!important}
-body.tb-home .tb-header .tb-tag{font:600 10px/1.5 var(--sans)!important;letter-spacing:.2em!important;color:#434448!important;margin:7px 0 0!important}
-body.tb-home .tb-header .tb-nav.tb-section-nav{border:0!important;border-bottom:1px solid #d8d5d0!important;max-width:none!important;width:100%!important;margin:0!important;gap:35px!important;padding:6px 20px 0!important;min-height:49px!important}
-body.tb-home .tb-header .tb-section-nav>a{color:#25282b!important;background:transparent!important;box-shadow:none!important;border:0!important;border-bottom:3px solid transparent!important;flex:0 0 auto!important;padding:11px 1px 12px!important;font:600 13px/1.4 var(--sans)!important}
-body.tb-home .tb-header .tb-section-nav>a:hover,body.tb-home .tb-header .tb-section-nav>a[aria-current="page"]{color:#1b1e20!important;background:transparent!important;border-bottom-color:#1b1e20!important}
-body.tb-home .tb-header .tb-section-nav>button{color:#282d30!important;border-color:#d6d1c9!important;margin:0!important}
-body.tb-home .tb-header .tb-divider{display:none!important}
+/* A single masthead applies to every published page, not the homepage only. */
+body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-page,.tb-utility-page) .tb-header{background:var(--tb-editorial-paper)!important;color:var(--tb-editorial-ink)!important}
+body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-page,.tb-utility-page) .tb-header .tb-utility{display:block!important;background:#24292b!important;color:#f9f7f3!important}
+body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-page,.tb-utility-page) .tb-utility-inner{max-width:1230px!important;padding:9px 32px!important;font:500 11px/1.35 var(--sans)!important;letter-spacing:0!important}
+body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-page,.tb-utility-page) .tb-utility-marker{display:none!important}
+body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-page,.tb-utility-page) .tb-header .tb-mast{padding:17px 20px 7px!important;background:transparent!important}
+body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-page,.tb-utility-page) .tb-header .tb-logo{color:#11161a!important;font:700 clamp(47px,4.7vw,65px)/.95 var(--display)!important;letter-spacing:-2.2px!important}
+body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-page,.tb-utility-page) .tb-header .tb-logo span{color:var(--tb-editorial-ink)!important}
+body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-page,.tb-utility-page) .tb-header .tb-tag{font:600 10px/1.5 var(--sans)!important;letter-spacing:.2em!important;color:#434448!important;margin:7px 0 0!important}
+body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-page,.tb-utility-page) .tb-header .tb-nav.tb-section-nav{border:0!important;border-bottom:1px solid #d8d5d0!important;max-width:none!important;width:100%!important;margin:0!important;gap:35px!important;padding:6px 20px 0!important;min-height:49px!important}
+body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-page,.tb-utility-page) .tb-header .tb-section-nav>a{color:#25282b!important;background:transparent!important;box-shadow:none!important;border:0!important;border-bottom:3px solid transparent!important;flex:0 0 auto!important;padding:11px 1px 12px!important;font:600 13px/1.4 var(--sans)!important}
+body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-page,.tb-utility-page) .tb-header .tb-section-nav>a:hover,body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-page,.tb-utility-page) .tb-header .tb-section-nav>a[aria-current="page"]{color:#1b1e20!important;background:transparent!important;border-bottom-color:#1b1e20!important}
+body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-page,.tb-utility-page) .tb-header .tb-section-nav>button{color:#282d30!important;border-color:#d6d1c9!important;margin:0!important}
+body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-page,.tb-utility-page) .tb-header .tb-divider{display:none!important}
 body.tb-home .issue-heading{display:none!important}
 body.tb-home .top-layout{display:flex!important;flex-direction:column!important;gap:17px!important;align-items:stretch!important;padding:24px 0 8px!important}
 body.tb-home .lead-story,body.tb-home .lead-story.with-photo{
@@ -1110,14 +1111,14 @@ body.tb-home #home-view .news-section #order{color:#25282b!important;background:
 }
 @media(max-width:680px){
  body.tb-home .container{padding-left:17px!important;padding-right:17px!important}
- body.tb-home .tb-utility-inner{padding:9px 14px!important;font-size:9px!important}
- body.tb-home .tb-utility-inner span:last-child{display:none!important}
- body.tb-home .tb-header .tb-mast{padding:19px 12px 8px!important}
- body.tb-home .tb-header .tb-logo{font-size:46px!important}
- body.tb-home .tb-header .tb-tag{font-size:8px!important}
- body.tb-home .tb-header .tb-nav.tb-section-nav{gap:19px!important;padding:3px 10px 0!important;min-height:46px!important}
- body.tb-home .tb-header .tb-section-nav>a{font-size:12px!important;padding:11px 0!important}
- body.tb-home .tb-header .tb-section-nav>button{width:30px!important;flex:0 0 30px!important}
+ body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-page,.tb-utility-page) .tb-utility-inner{padding:9px 14px!important;font-size:9px!important}
+ body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-page,.tb-utility-page) .tb-utility-inner span:last-child{display:none!important}
+ body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-page,.tb-utility-page) .tb-header .tb-mast{padding:19px 12px 8px!important}
+ body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-page,.tb-utility-page) .tb-header .tb-logo{font-size:46px!important}
+ body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-page,.tb-utility-page) .tb-header .tb-tag{font-size:8px!important}
+ body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-page,.tb-utility-page) .tb-header .tb-nav.tb-section-nav{gap:19px!important;padding:3px 10px 0!important;min-height:46px!important}
+ body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-page,.tb-utility-page) .tb-header .tb-section-nav>a{font-size:12px!important;padding:11px 0!important}
+ body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-page,.tb-utility-page) .tb-header .tb-section-nav>button{width:30px!important;flex:0 0 30px!important}
  body.tb-home .top-layout{padding:14px 0 7px!important;gap:13px!important}
  body.tb-home .lead-story,body.tb-home .lead-story.with-photo{
   display:flex!important;flex-direction:column!important;min-height:0!important;padding:0!important;gap:0!important
@@ -1158,7 +1159,7 @@ body.tb-home #home-view .news-section #order{color:#25282b!important;background:
  body.tb-home .explainer h3{font-size:19px!important}
 }
 @media(max-width:390px){
- body.tb-home .tb-header .tb-nav.tb-section-nav{gap:12px!important}
+ body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-page,.tb-utility-page) .tb-header .tb-nav.tb-section-nav{gap:12px!important}
  body.tb-home .one-minute .briefing-stories{grid-template-columns:1fr!important}
  body.tb-home .one-minute .briefing-story{border-right:0!important;border-bottom:1px solid #dbd6cf!important}
  body.tb-home .one-minute .briefing-story:first-child{padding-left:7px!important}
@@ -1178,4 +1179,40 @@ body.tb-home .tb-guide-photo figcaption a{color:inherit!important;text-decoratio
 body.tb-home .news-item .news-bookmark{
   position:static!important;top:auto!important;right:auto!important;bottom:auto!important;left:auto!important;
   transform:none!important;margin:0!important;align-self:center!important;justify-self:center!important
+}
+
+/* Shared publication navigation: all pages remain neutral, sectors use
+   small category labels only. Remove legacy coloured navigation ribbons. */
+body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-page,.tb-utility-page) .tb-header{background:var(--tb-editorial-paper)!important;color:#171b1d!important}
+body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-page,.tb-utility-page) .tb-header .tb-section-nav>a[href$="insurance.html"],
+body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-page,.tb-utility-page) .tb-header .tb-section-nav>a[href$="banking.html"]{box-shadow:none!important}
+body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-page,.tb-utility-page) .tb-header .tb-section-nav>a[aria-current="page"],
+body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-page,.tb-utility-page) .tb-header .tb-section-nav>a:hover{background:transparent!important;color:#1b1e20!important;border-bottom-color:#1b1e20!important}
+body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-page,.tb-utility-page) .tb-header .tb-utility-marker{display:none!important}
+body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-page,.tb-utility-page) .tb-footer{background:#252a2c!important}
+body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-page,.tb-utility-page) .tb-footer-logo span{color:#f0b8b2!important}
+
+/* Explainer photographs remain credited and never crop their attribution.
+   Captions occupy their own full-width row, not a 95px image column. */
+body.tb-home .tb-explainer-featured .tb-guide-photo{margin:0!important;position:relative!important;overflow:hidden!important;min-height:0!important}
+body.tb-home .tb-explainer-featured .tb-guide-photo::after{display:none!important}
+body.tb-home .tb-explainer-featured .tb-guide-photo img{width:100%!important;height:110px!important;object-fit:cover!important}
+body.tb-home .tb-explainer-featured .tb-guide-credit{
+ grid-column:1/-1!important;display:block!important;margin:0!important;
+ padding:7px 0 0!important;border-top:1px solid #e8dfd9!important;
+ font:400 10px/1.45 var(--sans)!important;color:#746a65!important;
+ overflow-wrap:anywhere!important;white-space:normal!important
+}
+body.tb-home .tb-explainer-featured .tb-guide-credit a{color:inherit!important;text-decoration:underline;text-underline-offset:2px}
+body.tb-home .tb-report-art figcaption{max-height:none!important;overflow:visible!important;font-size:10px!important;line-height:1.4!important}
+@media(max-width:680px){
+ body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-page,.tb-utility-page) .tb-header .tb-mast{padding:19px 12px 8px!important}
+ body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-page,.tb-utility-page) .tb-header .tb-logo{font-size:46px!important}
+ body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-page,.tb-utility-page) .tb-header .tb-nav.tb-section-nav{width:100%!important;gap:17px!important;justify-content:center!important}
+ body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-page,.tb-utility-page) .tb-header .tb-section-nav>a{font-size:12px!important;padding:11px 0!important}
+ body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-page,.tb-utility-page) .tb-header .tb-section-nav>button{width:30px!important;flex:0 0 30px!important}
+ body.tb-home .tb-explainer-featured .tb-guide-credit{font-size:10px!important}
+}
+@media(max-width:390px){
+ body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-page,.tb-utility-page) .tb-header .tb-nav.tb-section-nav{gap:11px!important}
 }

@@ -37,6 +37,23 @@ def main():
             assert page.locator('.tb-sector-visual').count()==0, 'Duplicate navigation banners returned'
             assert page.locator('.tb-nav a').all_inner_texts()==['Home','Insurance','Banking','About'], 'Unified navigation is missing'
             assert page.locator('.tb-nav a[aria-current="page"]').inner_text()=='Home', 'Home navigation state is missing'
+            # Capture the shared visual masthead, not just its link count.
+            baseline=page.evaluate("""() => {
+              const head=document.querySelector('.tb-header');
+              const logo=document.querySelector('.tb-header .tb-logo');
+              const nav=document.querySelector('.tb-header .tb-nav');
+              const style=getComputedStyle(head);
+              return {background:style.backgroundColor,logo:getComputedStyle(logo).color,
+                      navigation:getComputedStyle(nav).backgroundColor,
+                      logoSize:Math.round(parseFloat(getComputedStyle(logo).fontSize))};
+            }""")
+            assert baseline['background']!='rgb(48, 33, 42)', 'Legacy maroon masthead survived on homepage'
+            assert page.locator('#explainer-list .tb-guide-credit').count()==2, 'Both featured explainers need visible image attribution'
+            if width==390:
+                for card in page.locator('#explainer-list .tb-explainer-featured').all():
+                    credit=card.locator('.tb-guide-credit')
+                    assert credit.count()==1, 'Explainer attribution is absent'
+                    assert credit.evaluate('(e)=>getComputedStyle(e).overflowWrap')=='anywhere', 'Image credits can overflow on mobile'
             assert page.evaluate("getComputedStyle(document.querySelector('.tb-nav')).display")=='flex', 'Navigation ribbon is not laid out as a single unit'
             assert page.locator('#feed .news-item').count()==len(today[:10]),'Visible today count differs'
             if today:
@@ -72,6 +89,9 @@ def main():
                 assert page.evaluate("parseFloat(getComputedStyle(document.querySelector('#feed .news-item h3')).fontSize)")>=18, 'Mobile editorial-list headlines are too small'
             page.locator('.tb-nav a[href="banking.html"]').click()
             assert page.locator('h1').inner_text()=='Banking.','Banking page missing'
+            assert page.evaluate('getComputedStyle(document.querySelector(".tb-header")).backgroundColor')==baseline['background'], 'Banking masthead differs from homepage'
+            assert page.evaluate('getComputedStyle(document.querySelector(".tb-header .tb-logo")).color')==baseline['logo'], 'Banking logo colour differs'
+            assert abs(page.evaluate('parseFloat(getComputedStyle(document.querySelector(".tb-header .tb-logo")).fontSize)')-baseline['logoSize'])<=1, 'Banking logo size differs'
             assert page.locator('article[data-category="Banking"]').count()==sum(desk_for(a)=='Banking' for a in today),'Banking page has missing or misplaced reports'
             assert page.locator('article[data-category="Insurance"]').count()==0,'Insurance articles wrongly shown under banking'
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'),'Banking page overflows'
@@ -79,6 +99,7 @@ def main():
             page.screenshot(path=str(OUT/f'banking-{width}.png'),full_page=True)
             page.goto(SITE+'insurance.html',wait_until='domcontentloaded',timeout=60000)
             assert page.locator('h1').inner_text()=='Insurance.'
+            assert page.evaluate('getComputedStyle(document.querySelector(".tb-header")).backgroundColor')==baseline['background'], 'Insurance masthead differs'
             assert page.locator('article[data-category="Insurance"]').count()==sum(desk_for(a)=='Insurance' for a in today)
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'),'Insurance page overflows'
             assert not errors, 'Insurance desk JavaScript error: '+repr(errors)
@@ -94,6 +115,7 @@ def main():
                 assert page.locator('article[data-category]:visible').count()==1,'Archive subject filter failed'
                 page.get_by_role('link',name=target['title'],exact=True).click()
                 assert target['title']==page.locator('h1').inner_text()
+                assert page.evaluate('getComputedStyle(document.querySelector(".tb-header")).backgroundColor')==baseline['background'], 'Article masthead differs'
                 body=page.locator('main article').inner_text()
                 for heading,text in target['blocks']:
                     assert heading in body and text in body,'Full reading content missing'
@@ -120,6 +142,7 @@ def main():
             page.goto(SITE+'about.html',wait_until='domcontentloaded',timeout=60000)
             assert page.locator('.tb-nav a').count()==4
             assert page.locator('.tb-nav a[aria-current="page"]').inner_text()=='About'
+            assert page.evaluate('getComputedStyle(document.querySelector(".tb-header")).backgroundColor')==baseline['background'], 'About masthead differs'
             assert page.locator('a[href="status.html"]').count()==0
             assert page.locator('.tb-about-images img').count()==2
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'),'About page overflows viewport'
