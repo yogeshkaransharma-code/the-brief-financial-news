@@ -26,7 +26,8 @@ def main():
                 # Reproduce the exact long FCA warning that caused Android to
                 # scale the entire page and show a blank strip at the right.
                 width_safe=page.evaluate('''() => {
-                    const a=document.querySelector('#lead-story h1 a');
+                    const a=document.querySelector('#lead-story h1 button, #lead-story h1 a');
+                    if(!a)return false;
                     const original=a.textContent;
                     a.textContent='FCA warns consumers over unauthorised firm www.hedgemarksecuritiesllc.com';
                     const safe=document.documentElement.scrollWidth<=window.innerWidth+1
