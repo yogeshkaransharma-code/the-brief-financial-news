@@ -2,29 +2,10 @@
   "api_budget": {
     "date": "2026-10-29",
     "timezone": "America/Los_Angeles",
-    "requests": 22,
+    "requests": 23,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-10-26T10:42:57.356638+00:00",
-      "result": "response_received",
-      "prompt_characters": 10012,
-      "purpose": "production",
-      "usage": {
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 1990,
-        "candidatesTokenCount": 442,
-        "totalTokenCount": 2432,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 1990
-          }
-        ],
-        "serviceTier": "standard"
-      }
-    },
     {
       "at": "2026-10-26T23:47:38.523988+00:00",
       "result": "response_received",
@@ -1829,6 +1810,25 @@
           {
             "modality": "TEXT",
             "tokenCount": 2990
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-29T23:11:23.941403+00:00",
+      "result": "response_received",
+      "prompt_characters": 14037,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 2798,
+        "candidatesTokenCount": 486,
+        "totalTokenCount": 3284,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2798
           }
         ],
         "serviceTier": "standard"
@@ -6757,12 +6757,12 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.wsj.com/finance/stocks/u-s-stocks-up-treasury-yields-mixed-after-fed-hold-0766f105": {
-      "attempted_at": "2026-10-29T16:50:38.034996+00:00",
-      "retry_after": "2026-10-29T22:50:38.034996+00:00",
+      "attempted_at": "2026-10-29T23:11:08.977826+00:00",
+      "retry_after": "2026-10-30T05:11:08.977826+00:00",
       "last_result": "HTTP Error 401: HTTP Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "alternative_source",
-      "failures": 3,
+      "failures": 4,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-10-28/global-bond-sales-shatter-record-fueled-by-ai-borrowing-binge": {
@@ -7084,14 +7084,14 @@
       "alternative_search_after": "2026-10-30T02:22:03.601269+00:00"
     },
     "https://news.sky.com/story/check-if-you-benefit-from-budget-change-to-gas-bills-13605242": {
-      "attempted_at": "2026-10-29T16:50:38.034996+00:00",
-      "retry_after": "2026-10-29T22:50:38.034996+00:00",
+      "attempted_at": "2026-10-29T23:11:08.977826+00:00",
+      "retry_after": "2026-10-30T05:11:08.977826+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 2,
+      "failures": 3,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-29T20:50:38.034996+00:00"
+      "alternative_search_after": "2026-10-30T03:11:08.977826+00:00"
     },
     "https://www.commercialriskonline.com/mining-insurance-market-remains-highly-favourable-for-buyers-says-willis/": {
       "attempted_at": "2026-10-29T22:42:33.451778+00:00",
@@ -7233,8 +7233,8 @@
       "alternative_search_after": "2026-10-29T23:24:28.250333+00:00"
     },
     "https://www.insurancejournal.com/news/national/2026/10/29/890739.htm": {
-      "attempted_at": "2026-10-29T18:50:07.894160+00:00",
-      "retry_after": "2026-10-29T22:50:07.894160+00:00",
+      "attempted_at": "2026-10-29T23:11:08.977826+00:00",
+      "retry_after": "2026-10-30T03:11:08.977826+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -7249,8 +7249,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.reinsurancene.ws/wtw-grows-q326-revenue-by-8-to-2-46bn/": {
-      "attempted_at": "2026-10-29T18:50:07.894160+00:00",
-      "retry_after": "2026-10-29T22:50:07.894160+00:00",
+      "attempted_at": "2026-10-29T23:11:08.977826+00:00",
+      "retry_after": "2026-10-30T03:11:08.977826+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -7295,15 +7295,15 @@
       "alternative_search_after": "2026-10-30T02:42:33.451778+00:00"
     },
     "https://www.insurancejournal.com/news/international/2026/10/29/890727.htm": {
-      "attempted_at": "2026-10-29T18:50:07.894160+00:00",
-      "retry_after": "2026-10-29T22:50:07.894160+00:00",
+      "attempted_at": "2026-10-29T23:11:08.977826+00:00",
+      "retry_after": "2026-10-30T03:11:08.977826+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.reinsurancene.ws/arch-will-not-chase-growth-finds-casualty-reinsurance-expansion-more-challenging-ceo/": {
-      "attempted_at": "2026-10-29T18:50:07.894160+00:00",
-      "retry_after": "2026-10-29T22:50:07.894160+00:00",
+      "attempted_at": "2026-10-29T23:11:08.977826+00:00",
+      "retry_after": "2026-10-30T03:11:08.977826+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -7584,7 +7584,8 @@
       "retry_after": "2026-10-30T02:42:33.451778+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
-      "last_result": "No UK financial connection in complete source"
+      "last_result": "No UK financial connection in complete source",
+      "alternative_search_after": "2026-10-30T03:11:08.977826+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-29/lenders-seek-to-sell-debt-of-rovensa-as-firm-burns-through-cash": {
       "attempted_at": "2026-10-29T17:49:42.700304+00:00",
@@ -7685,7 +7686,8 @@
       "retry_after": "2026-10-30T02:42:33.451778+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
-      "last_result": "No UK financial connection in complete source"
+      "last_result": "No UK financial connection in complete source",
+      "alternative_search_after": "2026-10-30T03:11:08.977826+00:00"
     }
   },
   "version": 2,
