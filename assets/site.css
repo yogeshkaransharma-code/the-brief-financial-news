@@ -1219,3 +1219,14 @@ body.tb-home .tb-report-art figcaption{max-height:none!important;overflow:visibl
 @media(max-width:390px){
  body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-view,.tb-utility-page) .tb-header .tb-nav.tb-section-nav{gap:11px!important}
 }
+
+/* 29 October reading pass: article sidebars now navigate, not repeat, the reporting. */
+.tb-report-outline ol{list-style:none;padding:0;margin:0}
+.tb-report-outline ol li{font:600 13px/1.5 var(--sans);margin:0 0 10px;padding:0 0 10px;border-bottom:1px solid #DFC8C5}
+.tb-report-outline ol li:last-child{border-bottom:0;margin:0;padding:0}
+.tb-report-outline ol li::before{display:none}
+.tb-report-outline ol a{text-decoration:none;border-bottom:1px solid transparent}
+.tb-report-outline ol a:hover,.tb-report-outline ol a:focus-visible{border-bottom-color:currentColor}
+body.tb-banking-reading .tb-report-outline ol li{border-color:#CEDDE5}
+body.tb-reading-page .reader .tb-story-main>h1{margin-bottom:18px}
+body.tb-reading-page .article-body h2{scroll-margin-top:24px}
