@@ -1,46 +1,36 @@
 {
-  "checked_at": "2026-10-29T02:27:37.153250+00:00",
+  "checked_at": "2026-10-29T02:48:45.017770+00:00",
   "uk_date": "2026-10-29",
-  "outcome": "PUBLISHED",
-  "editorial_outcome": "PUBLISHED",
-  "technical_status": "LIVE_VERIFIED",
+  "outcome": "BLOCKED",
+  "editorial_outcome": "BLOCKED",
+  "technical_status": "AWAITING_LIVE_VERIFICATION",
   "source_coverage_status": "PARTIAL",
   "launch_test": {
     "result": "NOT_RUN"
   },
-  "published_this_run": 1,
+  "published_this_run": 0,
   "genuine_same_day_articles": 4,
   "editorial_selection": {
-    "result": "SELECTED",
+    "result": "NO_VERIFIED_CANDIDATES",
     "requests": 0,
-    "method": "deterministic-source-supported",
-    "selected": [
-      {
-        "url": "https://www.insurancebusinessmag.com/uk/news/mergers-acquisitions/cullumbacked-mbp-takes-minority-stake-in-rural-broker-caleb-roberts-595382.aspx",
-        "category": "Insurance",
-        "reason": "Relevant current development supported by a complete accessible source"
-      }
-    ],
-    "skipped": [],
-    "deferred": []
+    "selected": [],
+    "skipped": []
   },
   "published_total": 196,
   "last_article_at": "2026-10-29T02:27:36.989427+00:00",
   "fresh_source_candidates": 2,
-  "verified_original_candidates": 1,
+  "verified_original_candidates": 0,
   "candidates_by_sector": {
     "Insurance": 1,
     "Banking": 1
   },
-  "verified_by_sector": {
-    "Insurance": 1
-  },
-  "articles_commissioned": 1,
-  "articles_held": 186,
+  "verified_by_sector": {},
+  "articles_commissioned": 0,
+  "articles_held": 188,
   "machine_screened": 0,
   "independent_review": false,
   "publication_policy": "newsroom-single-pass-2026-10-26-v1",
-  "articles_ready_to_publish": 1,
+  "articles_ready_to_publish": 0,
   "primary_indexes_checked": 31,
   "primary_index_failures": 4,
   "feeds_working": 41,
@@ -48,30 +38,37 @@
   "ai_budget": {
     "quota_date": "2026-10-28",
     "quota_timezone": "America/Los_Angeles",
-    "requests_this_run": 1,
+    "requests_this_run": 0,
     "requests_today_including_this_run": 30,
     "run_limit": 7,
     "daily_limit": null,
     "remaining_today": null,
     "daily_limit_source": "provider",
-    "remaining_this_run": 6
+    "remaining_this_run": 7
   },
   "quota_pause_until": null,
   "pipeline_metrics": {
-    "discovered_unique": 499,
-    "outside_uk_date": 227,
-    "already_published_or_retired": 121,
+    "discovered_unique": 509,
+    "outside_uk_date": 235,
+    "already_published_or_retired": 123,
     "irrelevant": 3,
     "unsupported_route": 146,
     "fresh_relevant_candidates": 2,
-    "sources_successfully_retrieved": 1,
-    "source_checkpoints_reused": 0,
+    "source_failures": 1,
     "source_cooldowns": 1,
-    "verified_original_candidates": 1,
-    "articles_ready_to_publish": 1,
-    "articles_drafted": 1
+    "verified_original_candidates": 0
   },
   "source_fallbacks": [
+    {
+      "source": "https://www.bloomberg.com/news/articles/2026-10-29/indonesia-s-wealth-fund-cio-owns-stake-in-sanctioned-brokerage",
+      "result": "Public alternative search completed",
+      "candidates": 0
+    },
+    {
+      "source": "https://www.bloomberg.com/news/articles/2026-10-29/indonesia-s-wealth-fund-cio-owns-stake-in-sanctioned-brokerage",
+      "alternatives_found": 0,
+      "result": "No matching alternative in checked sources"
+    },
     {
       "source": "https://www.finextra.com/newsarticle/48665/monzo-launches-in-spain",
       "alternatives_found": 0,
@@ -79,21 +76,6 @@
     }
   ],
   "candidate_outcomes": [
-    {
-      "title": "HSBC Holdings plc 3Q 2026 Earnings Release",
-      "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/hsbc-holdings-plc-3q-2026-earnings-release",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-27"
-    },
-    {
-      "title": "Retirement targets jump 20% as affluent individuals plan for several futures at once",
-      "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/retirement-targets-jump-20-as-affluent-individuals-plan-for-several-futures-at-once",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
     {
       "title": "Trick or treat? Jewellery-loss claims jump 25% during Halloween week",
       "source": "https://www.aviva.com/newsroom/news-and-research-overview/news-releases/2026/10/trick-or-treat-jewellery-loss-claims-jump-twenty-five-percent-during-halloween-week/",
@@ -167,6 +149,28 @@
       "source_date": "2026-10-13"
     },
     {
+      "title": "TPR sets expectations on “hidden” concentration risks in pension portfolios",
+      "source": "https://www.thepensionsregulator.gov.uk/media-hub/press-releases/2026-press-releases/tpr-sets-expectations-on-hidden-concentration-risks-in-pension-portfolios",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
+    },
+    {
+      "title": "HSBC Holdings plc 3Q 2026 Earnings Release",
+      "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/hsbc-holdings-plc-3q-2026-earnings-release",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-27"
+    },
+    {
+      "title": "Retirement targets jump 20% as affluent individuals plan for several futures at once",
+      "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/retirement-targets-jump-20-as-affluent-individuals-plan-for-several-futures-at-once",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
+    },
+    {
       "title": "Read more about the 'The Financial Ombudsman Service received 57,000 cases in the second quarter of 2026/27' news item",
       "source": "https://www.financial-ombudsman.org.uk/who-we-are/data-insight/news/financial-ombudsman-service-received-57000-cases-second-quarter-202627",
       "result": "excluded",
@@ -189,13 +193,6 @@
       "stage": "eligibility",
       "reason": "Discovery source date is outside the current UK date",
       "source_date": "2026-10-09"
-    },
-    {
-      "title": "TPR sets expectations on “hidden” concentration risks in pension portfolios",
-      "source": "https://www.thepensionsregulator.gov.uk/media-hub/press-releases/2026-press-releases/tpr-sets-expectations-on-hidden-concentration-risks-in-pension-portfolios",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
     },
     {
       "title": "Bullseye Financial Ltd enters administration 27/10/2026",
@@ -377,6 +374,14 @@
       "source_date": "2026-10-15"
     },
     {
+      "title": "Ageas UK and esure Boards appoint two Independent Non-Executive Directors",
+      "source": "https://www.ageas.co.uk/press-releases/2026-press-releases/ageas-esure-boards-independent-non-executive-directors/",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-09"
+    },
+    {
       "title": "Cash ISA Transfer Performance Q3 2026",
       "source": "https://www.ukfinance.org.uk/news-and-insight/press-release/cash-isa-transfer-performance-q3-2026",
       "result": "excluded",
@@ -409,14 +414,6 @@
       "source_date": "2026-10-13"
     },
     {
-      "title": "Ageas UK and esure Boards appoint two Independent Non-Executive Directors",
-      "source": "https://www.ageas.co.uk/press-releases/2026-press-releases/ageas-esure-boards-independent-non-executive-directors/",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-09"
-    },
-    {
       "title": "LMA responds to FCA consultation on SM&CR reforms",
       "source": "https://lmalloyds.com/lma-responds-to-fca-consultation-on-smcr-reforms/",
       "result": "excluded",
@@ -446,12 +443,83 @@
       "reason": "Outside Insurance/Banking or promotional/lifestyle material"
     },
     {
-      "title": "14th October 2026 Starling becomes first bank to train AI model on UK sovereign cloud",
-      "source": "https://www.starlingbank.com/news/starling-backs-uk-sovereign-cloud",
+      "title": "MGAA Breaking News | A Busy Week for Regulation: Financial Crime, SMCR and AI",
+      "source": "https://mgaa.co.uk/mgaa-breaking-news-a-busy-week-for-regulation-financial-crime-smcr-and-ai/",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
+    },
+    {
+      "title": "HSB Cyber Exchange 2026: What Cybercriminals Know that Insurers Don’t",
+      "source": "https://mgaa.co.uk/hsb-cyber-exchange-2026-what-cybercriminals-know-that-insurers-dont/",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-27"
+    },
+    {
+      "title": "Majesco: The Insurance Alignment Gap: Where Insurer Priorities and Customer Protection Needs Converge…and Diverge",
+      "source": "https://mgaa.co.uk/majesco-the-insurance-alignment-gap-where-insurer-priorities-and-customer-protection-needs-convergeand-diverge/",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-26"
+    },
+    {
+      "title": "Broker Exchange Regional 2026: Connecting UK and ROI Brokers with MGAs in Leeds",
+      "source": "https://mgaa.co.uk/broker-exchange-regional-2026-connecting-uk-and-roi-brokers-with-mgas-in-leeds/",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-26"
+    },
+    {
+      "title": "HDI Global Specialty: Beyond Capacity – Building Stronger MGA Relationships",
+      "source": "https://mgaa.co.uk/hdi-global-specialty-beyond-capacity-building-stronger-mga-relationships/",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-21"
+    },
+    {
+      "title": "Insurwave relaunches platform to make dynamic risk measurable 24/7",
+      "source": "https://mgaa.co.uk/insurwave-relaunches-platform-to-make-dynamic-risk-measurable/",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-19"
+    },
+    {
+      "title": "Polaris: Transforming ProductWriter Learning",
+      "source": "https://mgaa.co.uk/polaris-transforming-productwriter-learning/",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-19"
+    },
+    {
+      "title": "Milliman Launches New Business Advisory Services in the UK with Hire of Two Managing Directors",
+      "source": "https://mgaa.co.uk/milliman-launches-new-business-advisory-services-in-the-uk-with-hire-of-two-managing-directors/",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-15"
+    },
+    {
+      "title": "Recorder: NBS Professional Indemnity now available via API on Recorder",
+      "source": "https://mgaa.co.uk/recorder-nbs-professional-indemnity-now-available-via-api-on-recorder/",
       "result": "excluded",
       "stage": "eligibility",
       "reason": "Discovery source date is outside the current UK date",
       "source_date": "2026-10-14"
+    },
+    {
+      "title": "MGAA Ireland Regulatory Update: Key Points for MGAs",
+      "source": "https://mgaa.co.uk/mgaa-ireland-regulatory-update-key-points-for-mgas/",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-09"
     },
     {
       "title": "Lawrence Hawkins appointed General Counsel Zurich UK",
@@ -468,6 +536,21 @@
       "stage": "eligibility",
       "reason": "Discovery source date is outside the current UK date",
       "source_date": "2026-10-14"
+    },
+    {
+      "title": "14th October 2026 Starling becomes first bank to train AI model on UK sovereign cloud",
+      "source": "https://www.starlingbank.com/news/starling-backs-uk-sovereign-cloud",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-14"
+    },
+    {
+      "title": "Cullum-backed MBP takes minority stake in rural broker Caleb Roberts",
+      "source": "https://www.insurancebusinessmag.com/uk/news/mergers-acquisitions/cullumbacked-mbp-takes-minority-stake-in-rural-broker-caleb-roberts-595382.aspx",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
     },
     {
       "title": "CII signs agreement to build Rwanda’s insurance skills",
@@ -3778,21 +3861,13 @@
       "source_date": "2026-10-21"
     },
     {
-      "title": "JMG-owned Grosvenor recruits new MD from Gallagher",
-      "source": "https://www.insuranceage.co.uk/insight/7959032/jmg-owned-grosvenor-recruits-new-md-from-gallagher",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-20"
-    },
-    {
-      "title": "Cullum-backed MBP takes minority stake in rural broker Caleb Roberts",
-      "source": "https://www.insurancebusinessmag.com/uk/news/mergers-acquisitions/cullumbacked-mbp-takes-minority-stake-in-rural-broker-caleb-roberts-595382.aspx",
-      "result": "source verified",
+      "title": "Indonesia’s Wealth Fund CIO Owns Stake in Sanctioned Brokerage",
+      "source": "https://www.bloomberg.com/news/articles/2026-10-29/indonesia-s-wealth-fund-cio-owns-stake-in-sanctioned-brokerage",
+      "result": "held back",
       "stage": "source",
-      "reason": "Complete dated source, with UK financial subject established in the full source",
-      "source_sha256": "2a68aca022446bfc4bfec06a2c02f45072b559ad972a88f6ea10e319c34db27b",
-      "capture_method": "retrieved"
+      "reason": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "retry_after": "2026-10-29T08:48:31.181472+00:00"
     },
     {
       "title": "Monzo launches in Spain",
@@ -3802,18 +3877,11 @@
       "reason": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "retry_after": "2026-10-29T06:07:33.496617+00:00"
-    },
-    {
-      "title": "Cullum-backed MBP takes minority stake in rural broker Caleb Roberts",
-      "source": "https://www.insurancebusinessmag.com/uk/news/mergers-acquisitions/cullumbacked-mbp-takes-minority-stake-in-rural-broker-caleb-roberts-595382.aspx",
-      "result": "ready to publish",
-      "stage": "writing",
-      "reason": "Source-based article complete; no independent AI review requested"
     }
   ],
   "discovery_errors": [
-    "Allianz UK: HTTPError HTTP Error 403: Forbidden",
     "UK Parliament: HTTPError HTTP Error 403: Forbidden",
+    "Allianz UK: HTTPError HTTP Error 403: Forbidden",
     "Association of British Insurers: HTTPError HTTP Error 403: Forbidden",
     "Revolut UK: HTTPError HTTP Error 403: Forbidden"
   ],
@@ -4121,6 +4189,12 @@
     },
     {
       "id": "ai-4bc253dae080ae97f051",
+      "reason": [
+        "Duplicate source/article"
+      ]
+    },
+    {
+      "id": "ai-4e0a797be784fa1578e9",
       "reason": [
         "Duplicate source/article"
       ]
@@ -4940,103 +5014,13 @@
       ]
     }
   ],
-  "run_id": "40806399535",
-  "event": "push",
-  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40806399535",
+  "run_id": "40808510977",
+  "event": "schedule",
+  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40808510977",
   "publisher_links": 0,
-  "discovery_headlines": 2,
-  "publisher_desk_checked_at": "2026-10-29T02:27:17.795791+00:00",
+  "discovery_headlines": 3,
+  "publisher_desk_checked_at": "2026-10-29T02:48:28.535421+00:00",
   "previous_verified_runs": [
-    {
-      "run_id": "40691804385",
-      "event": "workflow_dispatch",
-      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40691804385",
-      "editorial_outcome": "BLOCKED",
-      "published_this_run": 0,
-      "publisher_links": 0,
-      "discovery_headlines": 30,
-      "source_coverage_status": "PARTIAL",
-      "fresh_source_candidates": 70,
-      "verified_by_sector": {},
-      "ai_budget": {
-        "quota_date": "2026-10-28",
-        "quota_timezone": "America/Los_Angeles",
-        "requests_this_run": 0,
-        "requests_today_including_this_run": 6,
-        "run_limit": 7,
-        "daily_limit": null,
-        "remaining_today": null,
-        "daily_limit_source": "provider",
-        "remaining_this_run": 7
-      },
-      "pipeline_metrics": {
-        "discovered_unique": 513,
-        "irrelevant": 27,
-        "outside_uk_date": 132,
-        "already_published_or_retired": 116,
-        "unsupported_route": 167,
-        "published_development": 1,
-        "fresh_relevant_candidates": 70,
-        "sources_successfully_retrieved": 37,
-        "source_checkpoints_reused": 0,
-        "outside_uk_market": 37,
-        "source_failures": 1,
-        "source_cooldowns": 2,
-        "verified_original_candidates": 0
-      },
-      "source_fallbacks": [
-        {
-          "source": "https://news.sky.com/story/budget-2026-the-key-points-at-a-glance-13604706",
-          "result": "Public alternative search completed",
-          "candidates": 0
-        },
-        {
-          "source": "https://news.sky.com/story/budget-2026-the-key-points-at-a-glance-13604706",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.wsj.com/finance/banking/ubs-profit-climbs-as-wealth-management-inflows-increase-868e9b5f",
-          "result": "Public alternative search completed",
-          "candidates": 0
-        },
-        {
-          "source": "https://www.wsj.com/finance/banking/ubs-profit-climbs-as-wealth-management-inflows-increase-868e9b5f",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.bloomberg.com/news/articles/2026-10-28/trans-oil-bonds-drop-as-agricultural-firm-delays-audited-results",
-          "result": "Public alternative search completed",
-          "candidates": 0
-        },
-        {
-          "source": "https://www.bloomberg.com/news/articles/2026-10-28/trans-oil-bonds-drop-as-agricultural-firm-delays-audited-results",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        }
-      ],
-      "publication_policy": "newsroom-single-pass-2026-10-26-v1",
-      "independent_review": false,
-      "articles_ready_to_publish": 0,
-      "articles_visible_this_run": 0,
-      "live_article_ids": [],
-      "commissioned_stories": [],
-      "checked_at": "2026-10-28T12:56:33.333626+00:00",
-      "technical_status": "LIVE_VERIFIED",
-      "deployment": "success",
-      "live_check": "success",
-      "browser_check": "success",
-      "candidate_outcome_counts": {
-        "eligibility:rejected": 27,
-        "eligibility:excluded": 415,
-        "eligibility:duplicate": 1,
-        "source:deferred": 30,
-        "uk_market:rejected": 37,
-        "source:held back": 1,
-        "source:retry deferred": 2
-      }
-    },
     {
       "run_id": "40692528264",
       "event": "push",
@@ -8176,10 +8160,82 @@
         "eligibility:rejected": 3,
         "source:retry deferred": 1
       }
+    },
+    {
+      "run_id": "40806399535",
+      "event": "push",
+      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40806399535",
+      "editorial_outcome": "PUBLISHED",
+      "published_this_run": 1,
+      "publisher_links": 0,
+      "discovery_headlines": 2,
+      "source_coverage_status": "PARTIAL",
+      "fresh_source_candidates": 2,
+      "verified_by_sector": {
+        "Insurance": 1
+      },
+      "ai_budget": {
+        "quota_date": "2026-10-28",
+        "quota_timezone": "America/Los_Angeles",
+        "requests_this_run": 1,
+        "requests_today_including_this_run": 30,
+        "run_limit": 7,
+        "daily_limit": null,
+        "remaining_today": null,
+        "daily_limit_source": "provider",
+        "remaining_this_run": 6
+      },
+      "pipeline_metrics": {
+        "discovered_unique": 499,
+        "outside_uk_date": 227,
+        "already_published_or_retired": 121,
+        "irrelevant": 3,
+        "unsupported_route": 146,
+        "fresh_relevant_candidates": 2,
+        "sources_successfully_retrieved": 1,
+        "source_checkpoints_reused": 0,
+        "source_cooldowns": 1,
+        "verified_original_candidates": 1,
+        "articles_ready_to_publish": 1,
+        "articles_drafted": 1
+      },
+      "source_fallbacks": [
+        {
+          "source": "https://www.finextra.com/newsarticle/48665/monzo-launches-in-spain",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        }
+      ],
+      "publication_policy": "newsroom-single-pass-2026-10-26-v1",
+      "independent_review": false,
+      "articles_ready_to_publish": 1,
+      "articles_visible_this_run": 1,
+      "live_article_ids": [
+        "ai-4e0a797be784fa1578e9"
+      ],
+      "commissioned_stories": [
+        {
+          "url": "https://www.insurancebusinessmag.com/uk/news/mergers-acquisitions/cullumbacked-mbp-takes-minority-stake-in-rural-broker-caleb-roberts-595382.aspx",
+          "category": "Insurance",
+          "reason": "Relevant current development supported by a complete accessible source"
+        }
+      ],
+      "checked_at": "2026-10-29T02:28:32.249183+00:00",
+      "technical_status": "LIVE_VERIFIED",
+      "deployment": "success",
+      "live_check": "success",
+      "browser_check": "success",
+      "candidate_outcome_counts": {
+        "eligibility:excluded": 494,
+        "eligibility:rejected": 3,
+        "source:source verified": 1,
+        "source:retry deferred": 1,
+        "writing:ready to publish": 1
+      }
     }
   ],
   "launch_acceptance": {
-    "result": "EVIDENCE_PENDING",
+    "result": "EVIDENCE_COMPLETE",
     "checks": {
       "repeated_scheduled_hourly_runs": true,
       "original_gemini_publication_live_verified": true,
@@ -8187,24 +8243,18 @@
       "article_site_live_verified": true,
       "mobile_and_desktop_reading": true,
       "latest_run_technically_healthy": true,
-      "latest_editorial_run_unblocked": false
+      "latest_editorial_run_unblocked": true
     },
     "verified_scheduled_runs": 13,
     "commissioned_sectors": [
       "Banking",
       "Insurance"
     ],
-    "pending": [
-      "latest_editorial_run_unblocked"
-    ],
+    "pending": [],
     "note": "Operational evidence checkpoint, not a guarantee of future events or error-free journalism."
   },
   "launch_diagnostic_allowance": {
     "limit": 2,
     "requests": 2
-  },
-  "articles_visible_this_run": 1,
-  "live_article_ids": [
-    "ai-4e0a797be784fa1578e9"
-  ]
+  }
 }
