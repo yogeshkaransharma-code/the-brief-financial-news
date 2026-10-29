@@ -1172,3 +1172,10 @@ body.tb-home .tb-guide-photo img{display:block!important;width:100%!important;he
 body.tb-home .tb-guide-photo figcaption{font:400 8px/1.2 var(--sans)!important;color:#706e6b!important;margin-top:3px!important;max-height:24px!important;overflow:hidden!important}
 body.tb-home .tb-guide-photo figcaption a{color:inherit!important;text-decoration:underline!important;text-underline-offset:1px!important}
 @media(max-width:680px){body.tb-home .tb-guide-photo img{height:112px!important}}
+
+/* Keep per-report save controls inside their own article row. Older layout
+   rules positioned the star absolutely, letting it stray into New here. */
+body.tb-home .news-item .news-bookmark{
+  position:static!important;top:auto!important;right:auto!important;bottom:auto!important;left:auto!important;
+  transform:none!important;margin:0!important;align-self:center!important;justify-self:center!important
+}

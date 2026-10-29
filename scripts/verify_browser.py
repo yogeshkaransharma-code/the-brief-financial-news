@@ -39,6 +39,13 @@ def main():
             assert page.locator('.tb-nav a[aria-current="page"]').inner_text()=='Home', 'Home navigation state is missing'
             assert page.evaluate("getComputedStyle(document.querySelector('.tb-nav')).display")=='flex', 'Navigation ribbon is not laid out as a single unit'
             assert page.locator('#feed .news-item').count()==len(today[:10]),'Visible today count differs'
+            if today:
+                # A legacy absolute-position rule once dropped the save star
+                # outside the news row, visibly overlapping New here.
+                row_box=page.locator('#feed .news-item').first.bounding_box()
+                save_box=page.locator('#feed .news-item .news-bookmark').first.bounding_box()
+                assert row_box and save_box and row_box['y'] <= save_box['y'] <= row_box['y']+row_box['height']-save_box['height']+2, 'Save control escaped its article row'
+
             visible='\n'.join(page.locator('#lead-story,#briefing-stories,#feed').all_inner_texts())
             for a in articles:
                 if a not in today:assert a['title'] not in visible,'Old story in today edition'
