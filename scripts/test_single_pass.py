@@ -37,7 +37,7 @@ def test_editorial_voice():
     one_prompt=prompt([(insurer,type('Captured',(),{'url':fake.url,'text':'A complete captured source.'})())])
     for phrase in ['Make every paragraph earn its place','Do not mechanically begin every standfirst',
                    'Keep company names, acronyms','Do not force a UK market impact',
-                   'The reader must leave knowing']:
+                   'The reader must leave knowing','actively look for one specific answer']:
         assert phrase.casefold() in one_prompt.casefold(),phrase
     assert 'SOURCE PACKETS:' in one_prompt
 
