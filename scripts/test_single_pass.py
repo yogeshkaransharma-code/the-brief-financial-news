@@ -32,6 +32,11 @@ def test_editorial_voice():
     assert article['blocks'][0][1].startswith('AXIS Capital'),article['blocks']
     assert 'According to' not in article['short'] and article['source']=='Insurance Business UK'
     assert article['reader_takeaway']==written['reader_takeaway']
+    article['published_at']='2026-10-29T12:00:00+00:00'
+    article['blocks'].append(['How underwriting costs changed','Higher acquisition expenses affected the underwriting result.'])
+    story=standalone_story(article)
+    assert 'In this report' in story and 'href="#report-section-2"' in story
+    assert 'id="report-section-1"' in story and 'id="report-section-2"' in story
     assert preserve_source_name_case('allianz UK launched cover.', 'Allianz UK adds cover')=='Allianz UK launched cover.'
     assert preserve_source_name_case('axis capital did not comment.', 'UK market responds to results')=='axis capital did not comment.'
     one_prompt=prompt([(insurer,type('Captured',(),{'url':fake.url,'text':'A complete captured source.'})())])
@@ -102,6 +107,8 @@ def main(_budget):
    assert 'No separate editorial fact-check has been carried out.' in page
    assert 'machine-screened' not in page and 'Written automatically' not in page
    assert '<h3>Why it matters</h3>' in page, 'Grounded reader context missing from article'
+   assert '<p class="intro">' not in page, 'Full story repeats its listing-page standfirst'
+   assert '<h2>Key points</h2>' not in page, 'Duplicate extracted sentences reappeared in sidebar'
   # Date/source integrity remains; no fact, heading or word-count review is called.
   state=Checkpoints(root/'generated-drafts').read(urls[0]);bundle=state['bundle']
   assert not eligible(bundle,now)
