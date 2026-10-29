@@ -200,6 +200,10 @@ function highlightScore(s){
  const audience=/\b(?:customers?|policyholders?|borrowers?|brokers?|businesses|firms|households|employers|employees|lenders)\b/i;
  const routine=/\b(?:appoints|appointed|promotion|promotes|names|webinar|award|shortlist|demo day)\b/i;
  const foreign=/\b(?:US|U\.S\.|American|Florida|Georgia|California|New York|Utah|Boston|Hong Kong|APAC|Asia-Pacific)\b/i;
+ // Keep hydrated homepage ranking aligned with reader_experience.py.
+ const singleFirmWarning=/\b(?:unauthorised firm|unauthorized firm|clone firm|fake firm|unregistered firm)\b/i;
+ const domainInTitle=/\b(?:www\.|[a-z0-9-]+\.(?:com|co\.uk|net|org|io)\b)/i;
+ const budgetMarket=/\b(?:chancellor|budget|treasury|fiscal statement)\b.*\b(?:borrow\w*|fiscal|bank\w*|pension\w*|tax\w*|funding)\b/i;
  let points=0;
  if(uk.test(title))points+=7;
  else if(uk.test(summary))points+=3;
@@ -208,6 +212,9 @@ function highlightScore(s){
  if(/\b(?:Financial Conduct Authority|Prudential Regulation Authority|Bank of England|FCA|PRA)\b/i.test(source))points+=2;
  if(/\b(?:published policy|confirmed announcement)\b/i.test(status))points+=2;
  if(routine.test(title))points-=11;
+ if(singleFirmWarning.test(title))points-=18;
+ if(domainInTitle.test(title))points-=8;
+ if(budgetMarket.test(title))points+=10;
  if(foreign.test(title)&&!uk.test(title))points-=6;
  return points;
 }
