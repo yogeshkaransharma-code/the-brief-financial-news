@@ -104,7 +104,8 @@ def main(_budget):
    audit=json.loads((root/'data/editorial-audits'/(article['id']+'.json')).read_text())
    assert audit['review_mode']=='single_pass_source_based' and not audit['independent_claim_checks']
    page=standalone_story(article)
-   assert 'No separate editorial fact-check has been carried out.' in page
+   assert 'A source-based report, with attribution to the original material.' in page
+   assert 'No separate editorial fact-check has been carried out.' not in page
    assert 'machine-screened' not in page and 'Written automatically' not in page
    assert '<h3>Why it matters</h3>' in page, 'Grounded reader context missing from article'
    assert '<p class="intro">' not in page, 'Full story repeats its listing-page standfirst'
