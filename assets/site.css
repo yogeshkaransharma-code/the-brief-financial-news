@@ -1240,3 +1240,27 @@ body.tb-home #explainer-archive-toggle{
   display:inline-block!important;background:#f4eeeb!important;
   padding:10px 3px!important;margin-top:20px!important
 }
+
+/* Mobile viewport safety: unbroken source domains must never force Android
+   Chrome to shrink the whole page or leave an empty strip at the right. */
+body.tb-home .lead-story,body.tb-home .lead-story h1,
+body.tb-home .lead-story h1 a,
+body.tb-home .briefing-story,body.tb-home .briefing-story a,
+body.tb-home .news-item,body.tb-home .news-item h3,
+body.tb-reading-page .reader h1,body.tb-desk-view .tb-desk-story h2,
+body.tb-page article h2 {min-width:0;max-width:100%;overflow-wrap:anywhere;word-break:normal}
+@media (max-width:680px){
+  body.tb-home .one-minute .briefing-stories{display:grid!important;grid-template-columns:minmax(0,1fr)!important}
+  body.tb-home .one-minute .briefing-story,
+  body.tb-home .one-minute .briefing-story:nth-child(n){
+    display:grid!important;grid-template-columns:34px minmax(0,1fr)!important;
+    gap:10px!important;border-right:0!important;border-top:0!important;
+    border-bottom:1px solid #dbd6cf!important;padding:11px 0!important
+  }
+  body.tb-home .one-minute .briefing-story:last-child{border-bottom:0!important}
+  body.tb-home .one-minute .briefing-story p{
+    display:-webkit-box!important;-webkit-box-orient:vertical!important;
+    -webkit-line-clamp:2!important;overflow:hidden!important
+  }
+  body.tb-home .lead-story h1{overflow-wrap:anywhere!important;word-break:break-word!important}
+}
