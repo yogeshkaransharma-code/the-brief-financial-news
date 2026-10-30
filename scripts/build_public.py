@@ -346,7 +346,9 @@ renderDesk();
 def sources_page():
     from source_catalog import catalog
     data=catalog(ROOT)
-    body='<p class="intro">Search the configured discovery routes. Recognition of a publisher is not proof that its website was successfully read. Blocked sources remain coverage warnings while other routes continue.</p><label for="source-search">Find a publisher, sector or discovery route</label><input id="source-search" type="search" placeholder="Insurance, regulator, RSS…"><div>'
+    body=('<p class="intro">These are the publishers and official sources we follow for UK banking and insurance news. Each report links to the material it draws on. Inclusion here does not mean we have independently verified every claim made by a source.</p>'
+          '<section id="publication-method"><h2>How reports are prepared</h2><p>The Financial Edition was founded and is directed by Yogesh Karan Sharma. Reports are developed from credited published material with the help of writing software. They can be published without a separate human review of each article and are not independently fact-checked. Source dates, relevance and duplication are checked, and readers can follow the links to examine the original material.</p></section>'
+          '<label for="source-search">Find a publisher or subject</label><input id="source-search" type="search" placeholder="Insurance, banking, regulator…"><div>')
     for x in data['sources']:
         body+='<article data-source-row><h2><a href="'+esc(x['url'])+'">'+esc(x['name'])+'</a></h2><p>'+esc(x['category'])+' · '+esc(x['method'])+' · '+esc(x['observed'])+'</p></article>'
     body+='</div><script>document.querySelector("#source-search").oninput=function(){document.querySelectorAll("[data-source-row]").forEach(x=>x.hidden=!x.textContent.toLowerCase().includes(this.value.toLowerCase()))}</script>'

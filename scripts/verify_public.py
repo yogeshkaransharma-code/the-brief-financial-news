@@ -162,12 +162,12 @@ def verify():
     assert 'THE FINANCIAL EDITION' in home and 'THE FINANCIAL EDITION' in about, 'New publication masthead missing'
     assert '<meta property="og:site_name" content="The Financial Edition">' in home, 'Social metadata still uses old name'
     assert 'THE BRIEF' not in home and 'THE BRIEF' not in about, 'Old masthead survived renaming'
-    assert 'Before publication, we check source availability, dates, UK relevance and duplication.' in about, 'Source checks are not explained'
-    assert 'reports do not routinely receive a separate editorial review' not in about, 'About repeats an unhelpful editorial disclaimer'
-    assert 'do not claim to have interviewed people' not in about, 'About repeats an unnecessary defensive disclaimer'
-    assert 'Every report names its source' in about, 'Source attribution promise missing'
-    assert 'automated writing system' in about and 'without a separate human editorial review' in about, 'Truthful publishing-method note missing'
-    assert 'AI-assisted' not in about, 'Technical writing jargon returned to About page'
+    assert 'How we approach the news' in about and 'Working in insurance taught me' in about, 'Founder-led editorial purpose missing'
+    assert 'Every article links to its original source' in about, 'Source attribution promise missing'
+    assert 'automated writing system' not in about and 'AI-assisted' not in about, 'Technical workflow jargon returned to About page'
+    assert 'sources.html#publication-method' in about, 'Publishing-method link missing'
+    sources=(public/'sources.html').read_text(encoding='utf-8')
+    assert 'id="publication-method"' in sources and 'without a separate human review' in sources, 'Accurate publication note missing'
     for section in ['Insurance','Banking']:
         path=public/(section.lower()+'.html')
         page=path.read_text(encoding='utf-8')

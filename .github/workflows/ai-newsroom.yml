@@ -142,6 +142,9 @@ jobs:
       - name: Verify actual live homepage, archive and original-source links
         id: live
         run: python scripts/verify_live.py
+      - name: Diagnose custom-domain HTTPS, certificate and redirects
+        continue-on-error: true
+        run: python scripts/check_custom_domain.py
       - name: Install browser for actual mobile checks
         if: steps.health.outputs.new_articles != '0' || github.event_name != 'schedule'
         run: |
