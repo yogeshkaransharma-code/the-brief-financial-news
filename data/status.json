@@ -1,61 +1,36 @@
 {
-  "checked_at": "2026-10-30T03:47:38.982552+00:00",
+  "checked_at": "2026-10-30T04:47:39.726147+00:00",
   "uk_date": "2026-10-30",
-  "outcome": "PUBLISHED",
-  "editorial_outcome": "PUBLISHED",
-  "technical_status": "LIVE_VERIFIED",
+  "outcome": "BLOCKED",
+  "editorial_outcome": "BLOCKED",
+  "technical_status": "AWAITING_LIVE_VERIFICATION",
   "source_coverage_status": "PARTIAL",
   "launch_test": {
     "result": "NOT_RUN"
   },
-  "published_this_run": 4,
+  "published_this_run": 0,
   "genuine_same_day_articles": 5,
   "editorial_selection": {
-    "result": "SELECTED",
+    "result": "NO_VERIFIED_CANDIDATES",
     "requests": 0,
-    "method": "deterministic-source-supported",
-    "selected": [
-      {
-        "url": "https://www.insurancebusinessmag.com/uk/news/technology/adrian-flux-and-tmhcc-launch-uk-home-cover-for-humanoid-robots-595551.aspx",
-        "category": "Insurance",
-        "reason": "Relevant current development supported by a complete accessible source"
-      },
-      {
-        "url": "https://www.insurancebusinessmag.com/uk/news/breaking-news/ukraine-reserves-dent-hamiltons-q3-underwriting-profit-595570.aspx",
-        "category": "Insurance",
-        "reason": "Relevant current development supported by a complete accessible source"
-      },
-      {
-        "url": "https://www.insurancebusinessmag.com/uk/news/breaking-news/axa-personal-lines-grow-7-as-axa-xl-pulls-back-in-soft-market-595568.aspx",
-        "category": "Insurance",
-        "reason": "Relevant current development supported by a complete accessible source"
-      },
-      {
-        "url": "https://www.insurancebusinessmag.com/uk/news/technology/ms-amlin-launches-ai-tool-to-halve-reinsurance-wording-reviews-595552.aspx",
-        "category": "Insurance",
-        "reason": "Relevant current development supported by a complete accessible source"
-      }
-    ],
-    "skipped": [],
-    "deferred": []
+    "selected": [],
+    "skipped": []
   },
   "published_total": 245,
   "last_article_at": "2026-10-30T03:47:38.882696+00:00",
-  "fresh_source_candidates": 10,
-  "verified_original_candidates": 4,
+  "fresh_source_candidates": 8,
+  "verified_original_candidates": 0,
   "candidates_by_sector": {
-    "Insurance": 5,
-    "Banking": 5
+    "Banking": 7,
+    "Insurance": 1
   },
-  "verified_by_sector": {
-    "Insurance": 4
-  },
-  "articles_commissioned": 4,
-  "articles_held": 4,
+  "verified_by_sector": {},
+  "articles_commissioned": 0,
+  "articles_held": 9,
   "machine_screened": 0,
   "independent_review": false,
   "publication_policy": "newsroom-single-pass-2026-10-26-v1",
-  "articles_ready_to_publish": 4,
+  "articles_ready_to_publish": 0,
   "primary_indexes_checked": 31,
   "primary_index_failures": 4,
   "feeds_working": 41,
@@ -63,35 +38,46 @@
   "ai_budget": {
     "quota_date": "2026-10-29",
     "quota_timezone": "America/Los_Angeles",
-    "requests_this_run": 2,
+    "requests_this_run": 0,
     "requests_today_including_this_run": 26,
     "run_limit": 7,
     "daily_limit": null,
     "remaining_today": null,
     "daily_limit_source": "provider",
-    "remaining_this_run": 5
+    "remaining_this_run": 7
   },
   "quota_pause_until": null,
   "pipeline_metrics": {
     "discovered_unique": 508,
-    "outside_uk_date": 249,
-    "already_published_or_retired": 95,
+    "already_published_or_retired": 99,
+    "outside_uk_date": 248,
     "irrelevant": 3,
-    "unsupported_route": 151,
-    "fresh_relevant_candidates": 10,
-    "sources_successfully_retrieved": 4,
-    "source_checkpoints_reused": 0,
-    "source_failures": 1,
-    "source_cooldowns": 5,
-    "verified_original_candidates": 4,
-    "articles_ready_to_publish": 4,
-    "articles_drafted": 4
+    "unsupported_route": 150,
+    "fresh_relevant_candidates": 8,
+    "source_failures": 2,
+    "source_cooldowns": 6,
+    "verified_original_candidates": 0
   },
   "source_fallbacks": [
     {
-      "source": "https://www.wsj.com/finance/currencies/singapore-dollar-strengthens-amid-falling-u-s-treasury-yields-b806c8af",
+      "source": "https://www.bloomberg.com/news/articles/2026-10-30/african-export-import-bank-mulls-first-offshore-yuan-loan",
       "result": "Public alternative search completed",
       "candidates": 0
+    },
+    {
+      "source": "https://www.bloomberg.com/news/articles/2026-10-30/african-export-import-bank-mulls-first-offshore-yuan-loan",
+      "alternatives_found": 0,
+      "result": "No matching alternative in checked sources"
+    },
+    {
+      "source": "https://www.bloomberg.com/news/articles/2026-10-30/chinese-junk-dollar-bonds-head-for-worst-week-in-a-year-on-huafa",
+      "result": "Public alternative search completed",
+      "candidates": 0
+    },
+    {
+      "source": "https://www.bloomberg.com/news/articles/2026-10-30/chinese-junk-dollar-bonds-head-for-worst-week-in-a-year-on-huafa",
+      "alternatives_found": 0,
+      "result": "No matching alternative in checked sources"
     },
     {
       "source": "https://www.wsj.com/finance/currencies/singapore-dollar-strengthens-amid-falling-u-s-treasury-yields-b806c8af",
@@ -110,11 +96,11 @@
     },
     {
       "source": "https://www.finextra.com/newsarticle/48671/photonpay-raises-40m-for-stablecoin-centric-financial-os",
-      "alternatives_found": 0,
-      "result": "No matching alternative in checked sources"
+      "result": "Public alternative search completed",
+      "candidates": 0
     },
     {
-      "source": "https://www.bloomberg.com/news/articles/2026-10-30/philippine-bonds-are-most-exposed-in-emerging-asia-to-fed-hikes",
+      "source": "https://www.finextra.com/newsarticle/48671/photonpay-raises-40m-for-stablecoin-centric-financial-os",
       "alternatives_found": 0,
       "result": "No matching alternative in checked sources"
     },
@@ -122,20 +108,24 @@
       "source": "https://www.finextra.com/newsarticle/48673/kalshi-valuation-jumps-to-40-billion-on-latest-raise",
       "alternatives_found": 0,
       "result": "No matching alternative in checked sources"
+    },
+    {
+      "source": "https://www.bloomberg.com/news/articles/2026-10-30/philippine-bonds-are-most-exposed-in-emerging-asia-to-fed-hikes",
+      "alternatives_found": 0,
+      "result": "No matching alternative in checked sources"
     }
   ],
   "candidate_outcomes": [
     {
-      "title": "HSBC Holdings plc 3Q 2026 Earnings Release",
-      "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/hsbc-holdings-plc-3q-2026-earnings-release",
+      "title": "TPR urges pension schemes to embrace AI opportunities responsibly",
+      "source": "https://www.thepensionsregulator.gov.uk/media-hub/press-releases/2026-press-releases/tpr-urges-pension-schemes-to-embrace-ai-opportunities-responsibly",
       "result": "excluded",
       "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-27"
+      "reason": "Already published or retired"
     },
     {
-      "title": "Retirement targets jump 20% as affluent individuals plan for several futures at once",
-      "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/retirement-targets-jump-20-as-affluent-individuals-plan-for-several-futures-at-once",
+      "title": "TPR sets expectations on “hidden” concentration risks in pension portfolios",
+      "source": "https://www.thepensionsregulator.gov.uk/media-hub/press-releases/2026-press-releases/tpr-sets-expectations-on-hidden-concentration-risks-in-pension-portfolios",
       "result": "excluded",
       "stage": "eligibility",
       "reason": "Already published or retired"
@@ -221,15 +211,16 @@
       "source_date": "2026-10-13"
     },
     {
-      "title": "TPR urges pension schemes to embrace AI opportunities responsibly",
-      "source": "https://www.thepensionsregulator.gov.uk/media-hub/press-releases/2026-press-releases/tpr-urges-pension-schemes-to-embrace-ai-opportunities-responsibly",
+      "title": "HSBC Holdings plc 3Q 2026 Earnings Release",
+      "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/hsbc-holdings-plc-3q-2026-earnings-release",
       "result": "excluded",
       "stage": "eligibility",
-      "reason": "Already published or retired"
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-27"
     },
     {
-      "title": "TPR sets expectations on “hidden” concentration risks in pension portfolios",
-      "source": "https://www.thepensionsregulator.gov.uk/media-hub/press-releases/2026-press-releases/tpr-sets-expectations-on-hidden-concentration-risks-in-pension-portfolios",
+      "title": "Retirement targets jump 20% as affluent individuals plan for several futures at once",
+      "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/retirement-targets-jump-20-as-affluent-individuals-plan-for-several-futures-at-once",
       "result": "excluded",
       "stage": "eligibility",
       "reason": "Already published or retired"
@@ -484,27 +475,6 @@
       "source_date": "2026-10-23"
     },
     {
-      "title": "Lloyds backs Stockport with £720k investment in new-look branch",
-      "source": "https://www.lloydsbank.com/news-and-insights/2026/lloyds-backs-stockport-with-in-new-look-branch.html",
-      "result": "rejected",
-      "stage": "eligibility",
-      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
-    },
-    {
-      "title": "Lloyds customers offered 10% cashback for shopping at independent businesses",
-      "source": "https://www.lloydsbank.com/news-and-insights/2026/lloyds-customers-offered-cashback-for-shopping-at-independent-businesses.html",
-      "result": "rejected",
-      "stage": "eligibility",
-      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
-    },
-    {
-      "title": "Lloyds removes £15 monthly charge from Premier account",
-      "source": "https://www.lloydsbank.com/news-and-insights/2026/lloyds-removes-monthly-charge-from-premier-account.html",
-      "result": "rejected",
-      "stage": "eligibility",
-      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
-    },
-    {
       "title": "MGAA Breaking News | A Busy Week for Regulation: Financial Crime, SMCR and AI",
       "source": "https://mgaa.co.uk/mgaa-breaking-news-a-busy-week-for-regulation-financial-crime-smcr-and-ai/",
       "result": "excluded",
@@ -584,6 +554,35 @@
       "source_date": "2026-10-09"
     },
     {
+      "title": "Lloyds backs Stockport with £720k investment in new-look branch",
+      "source": "https://www.lloydsbank.com/news-and-insights/2026/lloyds-backs-stockport-with-in-new-look-branch.html",
+      "result": "rejected",
+      "stage": "eligibility",
+      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
+    },
+    {
+      "title": "Lloyds customers offered 10% cashback for shopping at independent businesses",
+      "source": "https://www.lloydsbank.com/news-and-insights/2026/lloyds-customers-offered-cashback-for-shopping-at-independent-businesses.html",
+      "result": "rejected",
+      "stage": "eligibility",
+      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
+    },
+    {
+      "title": "Lloyds removes £15 monthly charge from Premier account",
+      "source": "https://www.lloydsbank.com/news-and-insights/2026/lloyds-removes-monthly-charge-from-premier-account.html",
+      "result": "rejected",
+      "stage": "eligibility",
+      "reason": "Outside Insurance/Banking or promotional/lifestyle material"
+    },
+    {
+      "title": "14th October 2026 Starling becomes first bank to train AI model on UK sovereign cloud",
+      "source": "https://www.starlingbank.com/news/starling-backs-uk-sovereign-cloud",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current UK date",
+      "source_date": "2026-10-14"
+    },
+    {
       "title": "Lawrence Hawkins appointed General Counsel Zurich UK",
       "source": "https://www.zurich.co.uk/media-centre/lawrence-hawkins-appointed-general-counsel",
       "result": "excluded",
@@ -600,12 +599,32 @@
       "source_date": "2026-10-14"
     },
     {
-      "title": "14th October 2026 Starling becomes first bank to train AI model on UK sovereign cloud",
-      "source": "https://www.starlingbank.com/news/starling-backs-uk-sovereign-cloud",
+      "title": "Ukraine reserves dent Hamilton’s Q3 underwriting profit",
+      "source": "https://www.insurancebusinessmag.com/uk/news/breaking-news/ukraine-reserves-dent-hamiltons-q3-underwriting-profit-595570.aspx",
       "result": "excluded",
       "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-14"
+      "reason": "Already published or retired"
+    },
+    {
+      "title": "AXA personal lines grow 7% as AXA XL pulls back in soft market",
+      "source": "https://www.insurancebusinessmag.com/uk/news/breaking-news/axa-personal-lines-grow-7-as-axa-xl-pulls-back-in-soft-market-595568.aspx",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
+    },
+    {
+      "title": "MS Amlin launches AI tool to halve reinsurance wording reviews",
+      "source": "https://www.insurancebusinessmag.com/uk/news/technology/ms-amlin-launches-ai-tool-to-halve-reinsurance-wording-reviews-595552.aspx",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
+    },
+    {
+      "title": "Adrian Flux and TMHCC launch UK home cover for humanoid robots",
+      "source": "https://www.insurancebusinessmag.com/uk/news/technology/adrian-flux-and-tmhcc-launch-uk-home-cover-for-humanoid-robots-595551.aspx",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
     },
     {
       "title": "Our church has a $1.5 million bequest earning 3.75% in a bank account. Is inflation eroding it?",
@@ -3658,21 +3677,6 @@
       "reason": "Already published or retired"
     },
     {
-      "title": "Govt gains powers to recover cladding remediation costs from manufacturers",
-      "source": "https://www.mortgagesolutions.co.uk/mortgage-news/2026/10/28/govt-gains-powers-to-recover-cladding-remediation-costs-from-manufacturers/",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "No reviewed article route in source registry"
-    },
-    {
-      "title": "S&P assigns first-time ratings to Peak Re",
-      "source": "https://www.reinsurancene.ws/sp-assigns-first-time-ratings-to-peak-re/",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current UK date",
-      "source_date": "2026-10-28"
-    },
-    {
       "title": "The San Francisco MGA shopping London for AI agent capacity",
       "source": "https://www.insurancebusinessmag.com/uk/news/breaking-news/the-san-francisco-mga-shopping-london-for-ai-agent-capacity-595246.aspx",
       "result": "excluded",
@@ -3861,45 +3865,27 @@
       "source_date": "2026-10-22"
     },
     {
-      "title": "Adrian Flux and TMHCC launch UK home cover for humanoid robots",
-      "source": "https://www.insurancebusinessmag.com/uk/news/technology/adrian-flux-and-tmhcc-launch-uk-home-cover-for-humanoid-robots-595551.aspx",
-      "result": "source verified",
+      "title": "African Export-Import Bank Mulls First Offshore Yuan Loan",
+      "source": "https://www.bloomberg.com/news/articles/2026-10-30/african-export-import-bank-mulls-first-offshore-yuan-loan",
+      "result": "held back",
       "stage": "source",
-      "reason": "Complete dated source, with UK financial subject established in the full source",
-      "source_sha256": "96be54e19c8efc8a13dbfff1e6a7c94c07acfbe6e88637b2978ac891fbf13d8f",
-      "capture_method": "retrieved"
+      "reason": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "retry_after": "2026-10-30T10:47:27.913253+00:00"
     },
     {
-      "title": "Ukraine reserves dent Hamilton’s Q3 underwriting profit",
-      "source": "https://www.insurancebusinessmag.com/uk/news/breaking-news/ukraine-reserves-dent-hamiltons-q3-underwriting-profit-595570.aspx",
-      "result": "source verified",
+      "title": "Chinese Junk Dollar Bonds Head for Worst Week in a Year on Huafa",
+      "source": "https://www.bloomberg.com/news/articles/2026-10-30/chinese-junk-dollar-bonds-head-for-worst-week-in-a-year-on-huafa",
+      "result": "held back",
       "stage": "source",
-      "reason": "Complete dated source, with UK financial subject established in the full source",
-      "source_sha256": "91ae0a943e126ac4cde7ba7a79922221ef5376982e533aeb3530ce6f29309353",
-      "capture_method": "retrieved"
-    },
-    {
-      "title": "AXA personal lines grow 7% as AXA XL pulls back in soft market",
-      "source": "https://www.insurancebusinessmag.com/uk/news/breaking-news/axa-personal-lines-grow-7-as-axa-xl-pulls-back-in-soft-market-595568.aspx",
-      "result": "source verified",
-      "stage": "source",
-      "reason": "Complete dated source, with UK financial subject established in the full source",
-      "source_sha256": "9d0bdc9d7bb95ded56609637dc2c02fede9ce84fa6ffb454cd809cd09b88ffac",
-      "capture_method": "retrieved"
-    },
-    {
-      "title": "MS Amlin launches AI tool to halve reinsurance wording reviews",
-      "source": "https://www.insurancebusinessmag.com/uk/news/technology/ms-amlin-launches-ai-tool-to-halve-reinsurance-wording-reviews-595552.aspx",
-      "result": "source verified",
-      "stage": "source",
-      "reason": "Complete dated source, with UK financial subject established in the full source",
-      "source_sha256": "429f55ef4b8114f255b53ef07855a3aa59d07ee25377e4d06ea6f14a2867b96e",
-      "capture_method": "retrieved"
+      "reason": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "retry_after": "2026-10-30T10:47:27.913253+00:00"
     },
     {
       "title": "Singapore Dollar Strengthens Amid Falling U.S. Treasury Yields",
       "source": "https://www.wsj.com/finance/currencies/singapore-dollar-strengthens-amid-falling-u-s-treasury-yields-b806c8af",
-      "result": "held back",
+      "result": "retry deferred",
       "stage": "source",
       "reason": "HTTP Error 401: HTTP Forbidden",
       "classification": "ACCESS_RESTRICTED",
@@ -3933,15 +3919,6 @@
       "retry_after": "2026-10-30T06:09:33.518837+00:00"
     },
     {
-      "title": "Philippine Bonds Are Most Exposed in Emerging Asia to Fed Hikes",
-      "source": "https://www.bloomberg.com/news/articles/2026-10-30/philippine-bonds-are-most-exposed-in-emerging-asia-to-fed-hikes",
-      "result": "retry deferred",
-      "stage": "source",
-      "reason": "HTTP Error 403: Forbidden",
-      "classification": "ACCESS_RESTRICTED",
-      "retry_after": "2026-10-30T06:59:05.432883+00:00"
-    },
-    {
       "title": "Kalshi valuation jumps to $40 billion on latest raise",
       "source": "https://www.finextra.com/newsarticle/48673/kalshi-valuation-jumps-to-40-billion-on-latest-raise",
       "result": "retry deferred",
@@ -3951,32 +3928,13 @@
       "retry_after": "2026-10-30T06:09:33.518837+00:00"
     },
     {
-      "title": "Adrian Flux and TMHCC launch UK home cover for humanoid robots",
-      "source": "https://www.insurancebusinessmag.com/uk/news/technology/adrian-flux-and-tmhcc-launch-uk-home-cover-for-humanoid-robots-595551.aspx",
-      "result": "ready to publish",
-      "stage": "writing",
-      "reason": "Source-based article complete; no independent AI review requested"
-    },
-    {
-      "title": "Ukraine reserves dent Hamilton’s Q3 underwriting profit",
-      "source": "https://www.insurancebusinessmag.com/uk/news/breaking-news/ukraine-reserves-dent-hamiltons-q3-underwriting-profit-595570.aspx",
-      "result": "ready to publish",
-      "stage": "writing",
-      "reason": "Source-based article complete; no independent AI review requested"
-    },
-    {
-      "title": "AXA personal lines grow 7% as AXA XL pulls back in soft market",
-      "source": "https://www.insurancebusinessmag.com/uk/news/breaking-news/axa-personal-lines-grow-7-as-axa-xl-pulls-back-in-soft-market-595568.aspx",
-      "result": "ready to publish",
-      "stage": "writing",
-      "reason": "Source-based article complete; no independent AI review requested"
-    },
-    {
-      "title": "MS Amlin launches AI tool to halve reinsurance wording reviews",
-      "source": "https://www.insurancebusinessmag.com/uk/news/technology/ms-amlin-launches-ai-tool-to-halve-reinsurance-wording-reviews-595552.aspx",
-      "result": "ready to publish",
-      "stage": "writing",
-      "reason": "Source-based article complete; no independent AI review requested"
+      "title": "Philippine Bonds Are Most Exposed in Emerging Asia to Fed Hikes",
+      "source": "https://www.bloomberg.com/news/articles/2026-10-30/philippine-bonds-are-most-exposed-in-emerging-asia-to-fed-hikes",
+      "result": "retry deferred",
+      "stage": "source",
+      "reason": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "retry_after": "2026-10-30T06:59:05.432883+00:00"
     }
   ],
   "discovery_errors": [
@@ -3986,6 +3944,18 @@
     "Revolut UK: HTTPError HTTP Error 403: Forbidden"
   ],
   "publication_holds": [
+    {
+      "id": "ai-188865d78d36268f22d5",
+      "reason": [
+        "Duplicate source/article"
+      ]
+    },
+    {
+      "id": "ai-2ee62e022198c793b67a",
+      "reason": [
+        "Duplicate source/article"
+      ]
+    },
     {
       "id": "ai-7481baa90b02811a4aea",
       "reason": [
@@ -4003,229 +3973,27 @@
       "reason": [
         "Duplicate source/article"
       ]
+    },
+    {
+      "id": "ai-e17d061331c21ed118aa",
+      "reason": [
+        "Duplicate source/article"
+      ]
+    },
+    {
+      "id": "ai-fc64fff3092832d955b2",
+      "reason": [
+        "Duplicate source/article"
+      ]
     }
   ],
-  "run_id": "40999276009",
+  "run_id": "41004814822",
   "event": "schedule",
-  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40999276009",
+  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/41004814822",
   "publisher_links": 0,
-  "discovery_headlines": 6,
-  "publisher_desk_checked_at": "2026-10-30T03:47:08.622014+00:00",
+  "discovery_headlines": 8,
+  "publisher_desk_checked_at": "2026-10-30T04:47:25.272731+00:00",
   "previous_verified_runs": [
-    {
-      "run_id": "40909160239",
-      "event": "push",
-      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40909160239",
-      "editorial_outcome": "BLOCKED",
-      "published_this_run": 0,
-      "publisher_links": 0,
-      "discovery_headlines": 30,
-      "source_coverage_status": "PARTIAL",
-      "fresh_source_candidates": 95,
-      "verified_by_sector": {
-        "Banking": 2,
-        "Insurance": 1
-      },
-      "ai_budget": {
-        "quota_date": "2026-10-29",
-        "quota_timezone": "America/Los_Angeles",
-        "requests_this_run": 1,
-        "requests_today_including_this_run": 18,
-        "run_limit": 7,
-        "daily_limit": null,
-        "remaining_today": null,
-        "daily_limit_source": "provider",
-        "remaining_this_run": 6
-      },
-      "pipeline_metrics": {
-        "discovered_unique": 509,
-        "outside_uk_date": 161,
-        "already_published_or_retired": 96,
-        "irrelevant": 3,
-        "unsupported_route": 153,
-        "published_development": 1,
-        "fresh_relevant_candidates": 95,
-        "source_failures": 3,
-        "sources_successfully_retrieved": 6,
-        "source_checkpoints_reused": 10,
-        "outside_uk_market": 13,
-        "source_cooldowns": 21,
-        "verified_original_candidates": 3,
-        "articles_ready_to_publish": 1,
-        "drafts_recovered": 1
-      },
-      "source_fallbacks": [
-        {
-          "source": "https://www.fca.org.uk/publications/consultation-papers/cp26-39-income-sharing-distribution-operational-incident-reporting-consolidated-tape-providers",
-          "result": "Public alternative search completed",
-          "candidates": 0
-        },
-        {
-          "source": "https://www.fca.org.uk/publications/consultation-papers/cp26-39-income-sharing-distribution-operational-incident-reporting-consolidated-tape-providers",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.professionalpensions.com/news/4045103/people-moves",
-          "result": "Public alternative search completed",
-          "candidates": 0
-        },
-        {
-          "source": "https://www.professionalpensions.com/news/4045103/people-moves",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.wsj.com/buyside/personal-finance/financial-advisors/best-financial-advisors",
-          "result": "Public alternative search completed",
-          "candidates": 0
-        },
-        {
-          "source": "https://www.wsj.com/buyside/personal-finance/financial-advisors/best-financial-advisors",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.wsj.com/finance/commodities-futures/u-s-treasury-yields-fall-as-investors-digest-fed-meet-focus-shifts-to-ecb-d29ffbec",
-          "alternatives_found": 3,
-          "result": "Alternative retrieval attempted"
-        },
-        {
-          "source": "https://www.finextra.com/pressarticle/111513/unipaas-expands-to-ireland-with-jp-morgan-payments",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.finextra.com/pressarticle/111512/liquidity-services-deploys-flywire-tech-for-domestic-and-cross-border-b2b-payments",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.finextra.com/pressarticle/111510/b2broker-group-moves-into-agentic-trading",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.bloomberg.com/news/articles/2026-10-29/more-defence-since-world-war-ii-healey-s-budget-in-eight-charts",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.bloomberg.com/news/articles/2026-10-29/hsbc-seeks-to-hedge-data-center-debt-with-credit-risk-insurance",
-          "alternatives_found": 1,
-          "result": "Alternative retrieval attempted"
-        },
-        {
-          "source": "https://www.finextra.com/pressarticle/111502/jcb-partners-hanoi-metro-for-contactless-railway-payments",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.insuranceage.co.uk/broker/7959031/broking-success-tim-forshaw-tower-insurance-brokers",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://news.sky.com/story/lagarde-quits-european-central-bank-ahead-of-french-election-13605291",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.finextra.com/pressarticle/111499/hong-kong-based-tcms-teams-up-with-tribe-payments-as-its-apac-acquirer-processing-partner",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.finextra.com/pressarticle/111498/apex-group-appoints-maqbool-mohamed-as-global-head-of-real-assets",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.fca.org.uk/news/news-stories/fca-encourages-former-verus-financial-services-limited-customers-check-if-they-can-claim-fscs",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.fca.org.uk/news/blogs/fair-value-look-practice-three-years-consumer-duty",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.aviva.com/newsroom/news-and-research-overview/news-releases/2026/10/over-four-in-five-small-and-mid-sized-uk-manufacturers-hit-by-unplanned-downtime-every-month/",
-          "alternatives_found": 1,
-          "result": "Alternative retrieval attempted"
-        },
-        {
-          "source": "https://www.ageas.co.uk/press-releases/2026-press-releases/ageas-first-uk-motor-insurance-quote-chatgpt/",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.bankofengland.co.uk/news/2026/october/bank-of-england-sets-out-approach-to-tokenised-collateral-in-central-clearing",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.wsj.com/finance/jgb-yields-rise-amid-caution-ahead-of-boj-decision-0a68d866",
-          "alternatives_found": 1,
-          "result": "Alternative retrieval attempted"
-        },
-        {
-          "source": "https://www.finextra.com/newsarticle/48669/former-swift-ceo-lzaro-campos-joins-stablecoin-firm-opentrade-as-chair",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.finextra.com/pressarticle/111511/synergysuite-and-branch-bring-earned-wage-access-to-restaurants",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.finextra.com/pressarticle/111508/tradestation-europe-expands-operations-capability",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.bloomberg.com/news/articles/2026-10-29/anwar-cuts-a-deal-with-opposition-to-clear-a-2027-budget-hurdle",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        }
-      ],
-      "publication_policy": "newsroom-single-pass-2026-10-26-v1",
-      "independent_review": false,
-      "articles_ready_to_publish": 1,
-      "articles_visible_this_run": 0,
-      "live_article_ids": [],
-      "commissioned_stories": [
-        {
-          "url": "https://www.bbc.co.uk/news/articles/cr5yn9zwnp3qo",
-          "category": "Banking",
-          "reason": "Relevant current development supported by a complete accessible source"
-        },
-        {
-          "url": "https://www.theguardian.com/uk-news/2026/oct/29/john-healey-budget-brutal-spending-review-next-year-ifs",
-          "category": "Banking",
-          "reason": "Relevant current development supported by a complete accessible source"
-        }
-      ],
-      "checked_at": "2026-10-29T16:13:24.806145+00:00",
-      "technical_status": "FAILED",
-      "deployment": "success",
-      "live_check": "success",
-      "browser_check": "failure",
-      "candidate_outcome_counts": {
-        "eligibility:excluded": 410,
-        "eligibility:rejected": 3,
-        "eligibility:duplicate": 1,
-        "source:deferred": 55,
-        "source:held back": 3,
-        "source:source verified": 3,
-        "uk_market:rejected": 13,
-        "source:retry deferred": 21,
-        "writing:ready to publish": 1,
-        "writing:held back": 2
-      }
-    },
     {
       "run_id": "40909173123",
       "event": "push",
@@ -8513,10 +8281,132 @@
         "source:held back": 2,
         "source:retry deferred": 3
       }
+    },
+    {
+      "run_id": "40999276009",
+      "event": "schedule",
+      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/40999276009",
+      "editorial_outcome": "PUBLISHED",
+      "published_this_run": 4,
+      "publisher_links": 0,
+      "discovery_headlines": 6,
+      "source_coverage_status": "PARTIAL",
+      "fresh_source_candidates": 10,
+      "verified_by_sector": {
+        "Insurance": 4
+      },
+      "ai_budget": {
+        "quota_date": "2026-10-29",
+        "quota_timezone": "America/Los_Angeles",
+        "requests_this_run": 2,
+        "requests_today_including_this_run": 26,
+        "run_limit": 7,
+        "daily_limit": null,
+        "remaining_today": null,
+        "daily_limit_source": "provider",
+        "remaining_this_run": 5
+      },
+      "pipeline_metrics": {
+        "discovered_unique": 508,
+        "outside_uk_date": 249,
+        "already_published_or_retired": 95,
+        "irrelevant": 3,
+        "unsupported_route": 151,
+        "fresh_relevant_candidates": 10,
+        "sources_successfully_retrieved": 4,
+        "source_checkpoints_reused": 0,
+        "source_failures": 1,
+        "source_cooldowns": 5,
+        "verified_original_candidates": 4,
+        "articles_ready_to_publish": 4,
+        "articles_drafted": 4
+      },
+      "source_fallbacks": [
+        {
+          "source": "https://www.wsj.com/finance/currencies/singapore-dollar-strengthens-amid-falling-u-s-treasury-yields-b806c8af",
+          "result": "Public alternative search completed",
+          "candidates": 0
+        },
+        {
+          "source": "https://www.wsj.com/finance/currencies/singapore-dollar-strengthens-amid-falling-u-s-treasury-yields-b806c8af",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.bloomberg.com/news/articles/2026-10-30/japan-s-top-insurers-revive-lending-as-rates-boost-returns",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.bloomberg.com/news/articles/2026-10-30/chinese-investors-seek-shelter-in-long-bond-etfs-as-stocks-sink",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.finextra.com/newsarticle/48671/photonpay-raises-40m-for-stablecoin-centric-financial-os",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.bloomberg.com/news/articles/2026-10-30/philippine-bonds-are-most-exposed-in-emerging-asia-to-fed-hikes",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.finextra.com/newsarticle/48673/kalshi-valuation-jumps-to-40-billion-on-latest-raise",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        }
+      ],
+      "publication_policy": "newsroom-single-pass-2026-10-26-v1",
+      "independent_review": false,
+      "articles_ready_to_publish": 4,
+      "articles_visible_this_run": 4,
+      "live_article_ids": [
+        "ai-188865d78d36268f22d5",
+        "ai-2ee62e022198c793b67a",
+        "ai-e17d061331c21ed118aa",
+        "ai-fc64fff3092832d955b2"
+      ],
+      "commissioned_stories": [
+        {
+          "url": "https://www.insurancebusinessmag.com/uk/news/technology/adrian-flux-and-tmhcc-launch-uk-home-cover-for-humanoid-robots-595551.aspx",
+          "category": "Insurance",
+          "reason": "Relevant current development supported by a complete accessible source"
+        },
+        {
+          "url": "https://www.insurancebusinessmag.com/uk/news/breaking-news/ukraine-reserves-dent-hamiltons-q3-underwriting-profit-595570.aspx",
+          "category": "Insurance",
+          "reason": "Relevant current development supported by a complete accessible source"
+        },
+        {
+          "url": "https://www.insurancebusinessmag.com/uk/news/breaking-news/axa-personal-lines-grow-7-as-axa-xl-pulls-back-in-soft-market-595568.aspx",
+          "category": "Insurance",
+          "reason": "Relevant current development supported by a complete accessible source"
+        },
+        {
+          "url": "https://www.insurancebusinessmag.com/uk/news/technology/ms-amlin-launches-ai-tool-to-halve-reinsurance-wording-reviews-595552.aspx",
+          "category": "Insurance",
+          "reason": "Relevant current development supported by a complete accessible source"
+        }
+      ],
+      "checked_at": "2026-10-30T03:48:21.135109+00:00",
+      "technical_status": "LIVE_VERIFIED",
+      "deployment": "success",
+      "live_check": "success",
+      "browser_check": "success",
+      "candidate_outcome_counts": {
+        "eligibility:excluded": 495,
+        "eligibility:rejected": 3,
+        "source:source verified": 4,
+        "source:held back": 1,
+        "source:retry deferred": 5,
+        "writing:ready to publish": 4
+      }
     }
   ],
   "launch_acceptance": {
-    "result": "EVIDENCE_PENDING",
+    "result": "EVIDENCE_COMPLETE",
     "checks": {
       "repeated_scheduled_hourly_runs": true,
       "original_gemini_publication_live_verified": true,
@@ -8524,27 +8414,18 @@
       "article_site_live_verified": true,
       "mobile_and_desktop_reading": true,
       "latest_run_technically_healthy": true,
-      "latest_editorial_run_unblocked": false
+      "latest_editorial_run_unblocked": true
     },
-    "verified_scheduled_runs": 12,
+    "verified_scheduled_runs": 13,
     "commissioned_sectors": [
       "Banking",
       "Insurance"
     ],
-    "pending": [
-      "latest_editorial_run_unblocked"
-    ],
+    "pending": [],
     "note": "Operational evidence checkpoint, not a guarantee of future events or error-free journalism."
   },
   "launch_diagnostic_allowance": {
     "limit": 2,
     "requests": 2
-  },
-  "articles_visible_this_run": 4,
-  "live_article_ids": [
-    "ai-188865d78d36268f22d5",
-    "ai-2ee62e022198c793b67a",
-    "ai-e17d061331c21ed118aa",
-    "ai-fc64fff3092832d955b2"
-  ]
+  }
 }
