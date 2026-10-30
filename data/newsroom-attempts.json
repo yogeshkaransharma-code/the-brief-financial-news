@@ -2,29 +2,10 @@
   "api_budget": {
     "date": "2026-10-30",
     "timezone": "America/Los_Angeles",
-    "requests": 6,
+    "requests": 7,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-10-27T06:46:21.358126+00:00",
-      "result": "response_received",
-      "prompt_characters": 13515,
-      "purpose": "single_pass_writing",
-      "usage": {
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 3163,
-        "candidatesTokenCount": 887,
-        "totalTokenCount": 4050,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 3163
-          }
-        ],
-        "serviceTier": "standard"
-      }
-    },
     {
       "at": "2026-10-27T06:46:36.361427+00:00",
       "result": "response_received",
@@ -1817,6 +1798,25 @@
           {
             "modality": "TEXT",
             "tokenCount": 2403
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-30T11:40:59.744678+00:00",
+      "result": "response_received",
+      "prompt_characters": 18273,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 3698,
+        "candidatesTokenCount": 615,
+        "totalTokenCount": 4313,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 3698
           }
         ],
         "serviceTier": "standard"
@@ -5055,6 +5055,36 @@
       "attempted_at": "2026-10-30T10:47:53.212591+00:00",
       "retry_after": "2026-10-31T11:47:53.212591+00:00",
       "headline": "ECB Warns of Slow SRT Approvals if Banks Don’t Keep Them Simple"
+    },
+    "https://www.mortgagesolutions.co.uk/mortgage-news/2026/10/30/the-mortgage-and-protection-event-to-kick-off-next-week/": {
+      "attempted_at": "2026-10-30T11:40:33.381468+00:00",
+      "retry_after": "2026-10-31T12:40:33.381468+00:00",
+      "headline": "The Mortgage and Protection Event to kick off next week"
+    },
+    "https://www.finextra.com/pressarticle/111519/aci-worldwide-and-circle-collaborate-on-latam-payments": {
+      "attempted_at": "2026-10-30T11:40:33.381468+00:00",
+      "retry_after": "2026-10-31T12:40:33.381468+00:00",
+      "headline": "ACI Worldwide and Circle collaborate on LatAm payments"
+    },
+    "https://www.finextra.com/pressarticle/111518/singahi-issues-business-continuity-guide-for-indian-banks": {
+      "attempted_at": "2026-10-30T11:40:33.381468+00:00",
+      "retry_after": "2026-10-31T12:40:33.381468+00:00",
+      "headline": "Singahi issues business continuity guide for Indian banks"
+    },
+    "https://www.finextra.com/videoarticle/3635/beyond-what-it-prevents-what-does-security-in-payments-enable": {
+      "attempted_at": "2026-10-30T11:40:33.381468+00:00",
+      "retry_after": "2026-10-31T12:40:33.381468+00:00",
+      "headline": "Beyond What It Prevents, What Does Security in Payments Enable?"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-30/ai-policy-fears-grip-stock-bond-traders-with-midterms-days-away": {
+      "attempted_at": "2026-10-30T11:40:33.381468+00:00",
+      "retry_after": "2026-10-31T12:40:33.381468+00:00",
+      "headline": "AI Policy Fears Grip Stock, Bond Traders With Midterms Days Away"
+    },
+    "https://www.commercialriskonline.com/coordinated-approach-needed-to-boost-cyber-resilience-in-financial-services/": {
+      "attempted_at": "2026-10-30T11:40:33.381468+00:00",
+      "retry_after": "2026-10-31T12:40:33.381468+00:00",
+      "headline": "Coordinated approach needed to boost cyber resilience in financial services"
     }
   },
   "sources": {
@@ -6949,14 +6979,13 @@
       "alternative_search_after": "2026-10-29T00:42:58.737233+00:00"
     },
     "https://www.finextra.com/pressarticle/111496/equilend-1source-dlt-platform-adds-goldman-sachs": {
-      "attempted_at": "2026-10-28T20:42:58.737233+00:00",
-      "retry_after": "2026-10-29T02:42:58.737233+00:00",
+      "attempted_at": "2026-10-30T11:40:33.381468+00:00",
+      "retry_after": "2026-10-30T17:40:33.381468+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
-      "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-29T02:29:24.807750+00:00"
+      "stage": "alternative_source",
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.insurancejournal.com/news/international/2026/06/30/875775.htm": {
       "attempted_at": "2026-10-28T21:40:58.254009+00:00",
@@ -7931,15 +7960,15 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.insurancejournal.com/news/national/2026/10/30/890876.htm": {
-      "attempted_at": "2026-10-30T09:51:47.618747+00:00",
-      "retry_after": "2026-10-30T13:51:47.618747+00:00",
+      "attempted_at": "2026-10-30T11:40:33.381468+00:00",
+      "retry_after": "2026-10-30T15:40:33.381468+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/east/2026/10/30/890880.htm": {
-      "attempted_at": "2026-10-30T10:47:53.212591+00:00",
-      "retry_after": "2026-10-30T14:47:53.212591+00:00",
+      "attempted_at": "2026-10-30T11:40:33.381468+00:00",
+      "retry_after": "2026-10-30T15:40:33.381468+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -8035,8 +8064,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/international/2026/10/30/890894.htm": {
-      "attempted_at": "2026-10-30T10:47:53.212591+00:00",
-      "retry_after": "2026-10-30T14:47:53.212591+00:00",
+      "attempted_at": "2026-10-30T11:40:33.381468+00:00",
+      "retry_after": "2026-10-30T15:40:33.381468+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -8068,40 +8097,40 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.financial-ombudsman.org.uk/who-we-are/data-insight/news/financial-ombudsman-service-warns-young-people-stay-alert-online-scams": {
-      "attempted_at": "2026-10-30T08:54:03.875931+00:00",
-      "retry_after": "2026-10-30T10:54:03.875931+00:00",
+      "attempted_at": "2026-10-30T11:40:33.381468+00:00",
+      "retry_after": "2026-10-30T13:40:33.381468+00:00",
       "last_result": "Original document has no unambiguous publication date; listing/RSS date is insufficient",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
-      "failures": 1,
+      "failures": 2,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-30T12:54:03.875931+00:00"
+      "alternative_search_after": "2026-10-30T15:40:33.381468+00:00"
     },
     "https://www.financial-ombudsman.org.uk/who-we-are/data-insight/news/financial-ombudsman-service-appoints-new-independent-assessor": {
-      "attempted_at": "2026-10-30T08:54:03.875931+00:00",
-      "retry_after": "2026-10-30T10:54:03.875931+00:00",
+      "attempted_at": "2026-10-30T11:40:33.381468+00:00",
+      "retry_after": "2026-10-30T13:40:33.381468+00:00",
       "last_result": "Original document has no unambiguous publication date; listing/RSS date is insufficient",
       "classification": "DATE_UNVERIFIED",
       "stage": "alternative_source",
-      "failures": 1,
+      "failures": 2,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.financial-ombudsman.org.uk/who-we-are/data-insight/news/fca-appoints-chair-financial-ombudsman-service": {
-      "attempted_at": "2026-10-30T08:54:03.875931+00:00",
-      "retry_after": "2026-10-30T10:54:03.875931+00:00",
+      "attempted_at": "2026-10-30T11:40:33.381468+00:00",
+      "retry_after": "2026-10-30T13:40:33.381468+00:00",
       "last_result": "Original document has no unambiguous publication date; listing/RSS date is insufficient",
       "classification": "DATE_UNVERIFIED",
       "stage": "alternative_source",
-      "failures": 1,
+      "failures": 2,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.financial-ombudsman.org.uk/who-we-are/data-insight/news/financial-ombudsman-service-received-57000-cases-second-quarter-202627": {
-      "attempted_at": "2026-10-30T08:54:03.875931+00:00",
-      "retry_after": "2026-10-30T10:54:03.875931+00:00",
+      "attempted_at": "2026-10-30T11:40:33.381468+00:00",
+      "retry_after": "2026-10-30T13:40:33.381468+00:00",
       "last_result": "Original document has no unambiguous publication date; listing/RSS date is insufficient",
       "classification": "DATE_UNVERIFIED",
       "stage": "alternative_source",
-      "failures": 1,
+      "failures": 2,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.commercialriskonline.com/captive-owners-find-new-ways-to-finance-risks-and-manage-losses/": {
@@ -8112,15 +8141,15 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/international/2026/10/30/890903.htm": {
-      "attempted_at": "2026-10-30T10:47:53.212591+00:00",
-      "retry_after": "2026-10-30T14:47:53.212591+00:00",
+      "attempted_at": "2026-10-30T11:40:33.381468+00:00",
+      "retry_after": "2026-10-30T15:40:33.381468+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.reinsurancene.ws/mandarin-re-appoints-rafael-vargas-palomo-to-drive-growth-in-latin-america/": {
-      "attempted_at": "2026-10-30T10:47:53.212591+00:00",
-      "retry_after": "2026-10-30T14:47:53.212591+00:00",
+      "attempted_at": "2026-10-30T11:40:33.381468+00:00",
+      "retry_after": "2026-10-30T15:40:33.381468+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -8173,8 +8202,8 @@
       "alternative_search_after": "2026-10-30T13:51:47.618747+00:00"
     },
     "https://www.reinsurancene.ws/bhsi-promotes-pelletier-to-head-of-ep-in-france/": {
-      "attempted_at": "2026-10-30T10:47:53.212591+00:00",
-      "retry_after": "2026-10-30T14:47:53.212591+00:00",
+      "attempted_at": "2026-10-30T11:40:33.381468+00:00",
+      "retry_after": "2026-10-30T15:40:33.381468+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -8187,8 +8216,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.theguardian.com/uk-news/2026/oct/30/andy-burnham-first-budget-labour-welfare": {
-      "attempted_at": "2026-10-30T10:47:53.212591+00:00",
-      "retry_after": "2026-10-30T14:47:53.212591+00:00",
+      "attempted_at": "2026-10-30T11:40:33.381468+00:00",
+      "retry_after": "2026-10-30T15:40:33.381468+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -8203,8 +8232,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.commercialriskonline.com/axa-xl-sees-9m-insurance-premiums-and-rates-drop-1/": {
-      "attempted_at": "2026-10-30T10:47:53.212591+00:00",
-      "retry_after": "2026-10-30T14:47:53.212591+00:00",
+      "attempted_at": "2026-10-30T11:40:33.381468+00:00",
+      "retry_after": "2026-10-30T15:40:33.381468+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -8230,8 +8259,8 @@
       "alternative_search_after": "2026-10-30T14:47:53.212591+00:00"
     },
     "https://www.commercialriskonline.com/everest-group-sees-fall-in-premium-and-net-income/": {
-      "attempted_at": "2026-10-30T10:47:53.212591+00:00",
-      "retry_after": "2026-10-30T14:47:53.212591+00:00",
+      "attempted_at": "2026-10-30T11:40:33.381468+00:00",
+      "retry_after": "2026-10-30T15:40:33.381468+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -8247,15 +8276,15 @@
       "alternative_search_after": "2026-10-30T14:47:53.212591+00:00"
     },
     "https://www.reinsurancene.ws/hamilton-posts-9m26-underwriting-income-of-102m-as-cor-improves-to-94-1/": {
-      "attempted_at": "2026-10-30T10:47:53.212591+00:00",
-      "retry_after": "2026-10-30T14:47:53.212591+00:00",
+      "attempted_at": "2026-10-30T11:40:33.381468+00:00",
+      "retry_after": "2026-10-30T15:40:33.381468+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.commercialriskonline.com/ziswiler-says-reinsurance-market-ready-for-emerging-risks-as-market-gathers-for-sirc/": {
-      "attempted_at": "2026-10-30T10:47:53.212591+00:00",
-      "retry_after": "2026-10-30T14:47:53.212591+00:00",
+      "attempted_at": "2026-10-30T11:40:33.381468+00:00",
+      "retry_after": "2026-10-30T15:40:33.381468+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -8270,11 +8299,88 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.commercialriskonline.com/apac-cat-losses-lower-than-average-for-first-nine-months-despite-recent-cyclones/": {
-      "attempted_at": "2026-10-30T10:47:53.212591+00:00",
-      "retry_after": "2026-10-30T14:47:53.212591+00:00",
+      "attempted_at": "2026-10-30T11:40:33.381468+00:00",
+      "retry_after": "2026-10-30T15:40:33.381468+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-30/uk-debt-chief-sees-volatility-driving-demand-for-short-gilts": {
+      "attempted_at": "2026-10-30T11:40:33.381468+00:00",
+      "retry_after": "2026-10-30T17:40:33.381468+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-30T15:40:33.381468+00:00"
+    },
+    "https://www.reinsurancene.ws/corgi-appoints-bevin-as-vp-public-affairs-officer/": {
+      "attempted_at": "2026-10-30T11:40:33.381468+00:00",
+      "retry_after": "2026-10-30T15:40:33.381468+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.finextra.com/pressarticle/111519/aci-worldwide-and-circle-collaborate-on-latam-payments": {
+      "attempted_at": "2026-10-30T11:40:33.381468+00:00",
+      "retry_after": "2026-10-30T17:40:33.381468+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-30T15:40:33.381468+00:00"
+    },
+    "https://www.finextra.com/pressarticle/111518/singahi-issues-business-continuity-guide-for-indian-banks": {
+      "attempted_at": "2026-10-30T11:40:33.381468+00:00",
+      "retry_after": "2026-10-30T17:40:33.381468+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-30/ai-policy-fears-grip-stock-bond-traders-with-midterms-days-away": {
+      "attempted_at": "2026-10-30T11:40:33.381468+00:00",
+      "retry_after": "2026-10-30T17:40:33.381468+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.reinsurancene.ws/arthur-j-gallagher-revenues-for-9m26-soar-to-12-6bn/": {
+      "attempted_at": "2026-10-30T11:40:33.381468+00:00",
+      "retry_after": "2026-10-30T15:40:33.381468+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.commercialriskonline.com/coordinated-approach-needed-to-boost-cyber-resilience-in-financial-services/": {
+      "attempted_at": "2026-10-30T11:40:33.381468+00:00",
+      "retry_after": "2026-10-30T15:40:33.381468+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.finextra.com/newsarticle/48675/goldman-sachs-joins-dlt-sec-finance-platform": {
+      "attempted_at": "2026-10-30T11:40:33.381468+00:00",
+      "retry_after": "2026-10-30T17:40:33.381468+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.aviva.com/newsroom/news-and-research-overview/news-releases/2026/10/Darker-evenings-bring-renewed-warning-for-tradespeople/": {
+      "attempted_at": "2026-10-30T11:40:33.381468+00:00",
+      "retry_after": "2026-10-30T13:40:33.381468+00:00",
+      "last_result": "Original document has no unambiguous publication date; listing/RSS date is insufficient",
+      "classification": "DATE_UNVERIFIED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     }
   },
   "version": 2,
