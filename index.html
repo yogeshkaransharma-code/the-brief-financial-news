@@ -168,12 +168,12 @@ const safeUrl=x=>{try{const u=new URL(x);return (u.protocol==='https:'||u.protoc
 const day=x=>{try{return new Date(x).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric',timeZone:'Europe/London'})}catch{return x||''}};
 const store=(key,fallback)=>{try{return JSON.parse(localStorage.getItem('thebrief-fresh:'+key))??fallback}catch{return fallback}};
 const saveStore=(key,val)=>{try{localStorage.setItem('thebrief-fresh:'+key,JSON.stringify(val))}catch{}};
-// All editorial content comes from the AI-generated article feed, never static/legacy copy.
+// The article feed is the source of truth for all current public editorial content.
 let published=[],live=[],fetched=null,category='All',query='',sort='newest',savedOnly=false,followingOnly=false,limit=10,activeId='',scrollBefore=0;
 let saved=new Set(store('saved',[])),following=new Set(store('following',[]));
 const priorVisit=store('lastVisit',null); const now=new Date().toISOString();
 const byId=()=>Object.fromEntries(published.map(x=>[x.id,x]));
-// Lead with the date the underlying development was announced, NOT when our AI wrote it.
+// Keep the original news date distinct from this site's publication time.
 const scoreDate=s=>Date.parse(s.dateISO||s.source_published_at||s.published_at||'1970-01-01')||0;
 const reportTime=s=>Date.parse(s.published_at||s.dateISO||'1970-01-01')||0;
 // Sort the feed by when a verified report reaches The Brief; the source event date stays explicit in every byline.

@@ -163,7 +163,8 @@ def verify():
     assert 'reports do not routinely receive a separate editorial review' not in about, 'About repeats an unhelpful editorial disclaimer'
     assert 'do not claim to have interviewed people' not in about, 'About repeats an unnecessary defensive disclaimer'
     assert 'Every report names its source' in about, 'Source attribution promise missing'
-    assert 'AI-assisted' in about and 'not individually approved by a human editor' in about, 'Methodology note missing'
+    assert 'automated writing system' in about and 'without a separate human editorial review' in about, 'Truthful publishing-method note missing'
+    assert 'AI-assisted' not in about, 'Technical writing jargon returned to About page'
     for section in ['Insurance','Banking']:
         path=public/(section.lower()+'.html')
         page=path.read_text(encoding='utf-8')
