@@ -2,29 +2,10 @@
   "api_budget": {
     "date": "2026-10-30",
     "timezone": "America/Los_Angeles",
-    "requests": 9,
+    "requests": 10,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-10-27T09:40:47.822346+00:00",
-      "result": "response_received",
-      "prompt_characters": 12629,
-      "purpose": "single_pass_writing",
-      "usage": {
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 2750,
-        "candidatesTokenCount": 823,
-        "totalTokenCount": 3573,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 2750
-          }
-        ],
-        "serviceTier": "standard"
-      }
-    },
     {
       "at": "2026-10-27T09:41:02.826988+00:00",
       "result": "response_received",
@@ -1817,6 +1798,25 @@
           {
             "modality": "TEXT",
             "tokenCount": 4624
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-30T14:30:17.819531+00:00",
+      "result": "response_received",
+      "prompt_characters": 9797,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 1885,
+        "candidatesTokenCount": 111,
+        "totalTokenCount": 1996,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1885
           }
         ],
         "serviceTier": "standard"
@@ -5145,6 +5145,11 @@
       "attempted_at": "2026-10-30T14:00:41.268562+00:00",
       "retry_after": "2026-10-31T15:00:41.268562+00:00",
       "headline": "AM Best Upgrades Credit Ratings of Kansas’ Upland Mutual"
+    },
+    "https://www.wsj.com/business/earnings/natwest-earnings-boosted-by-higher-net-interest-income-20ebc371": {
+      "attempted_at": "2026-10-30T14:30:06.035540+00:00",
+      "retry_after": "2026-10-31T15:30:06.035540+00:00",
+      "headline": "NatWest Shares Fall After Bank’s Interest Income Guidance Disappoints"
     }
   },
   "sources": {
@@ -8237,24 +8242,24 @@
       "alternative_search_after": "2026-10-30T13:51:47.618747+00:00"
     },
     "https://www.fca.org.uk/news/press-releases/brits-nearly-twice-likely-spot-pressure-tactics-horror-films-investment-red-flags": {
-      "attempted_at": "2026-10-30T12:17:05.750427+00:00",
-      "retry_after": "2026-10-30T14:17:05.750427+00:00",
+      "attempted_at": "2026-10-30T14:30:06.035540+00:00",
+      "retry_after": "2026-10-30T16:30:06.035540+00:00",
       "last_result": "Conflicting original publication dates on source page",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
-      "failures": 2,
+      "failures": 3,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-30T16:17:05.750427+00:00"
+      "alternative_search_after": "2026-10-30T18:30:06.035540+00:00"
     },
     "https://www.insuranceage.co.uk/broker/7959080/john-lewis-money-appoints-ex-co-op-insurance-md": {
-      "attempted_at": "2026-10-30T12:17:05.750427+00:00",
-      "retry_after": "2026-10-30T14:17:05.750427+00:00",
+      "attempted_at": "2026-10-30T14:30:06.035540+00:00",
+      "retry_after": "2026-10-30T16:30:06.035540+00:00",
       "last_result": "Original document has no unambiguous publication date; listing/RSS date is insufficient",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
-      "failures": 2,
+      "failures": 3,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-30T16:17:05.750427+00:00"
+      "alternative_search_after": "2026-10-30T18:30:06.035540+00:00"
     },
     "https://www.reinsurancene.ws/bhsi-promotes-pelletier-to-head-of-ep-in-france/": {
       "attempted_at": "2026-10-30T12:17:05.750427+00:00",
@@ -8476,8 +8481,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.reinsurancene.ws/aon-and-sage-launch-precision-crop-insurance-program-for-us-states/": {
-      "attempted_at": "2026-10-30T14:00:41.268562+00:00",
-      "retry_after": "2026-10-30T18:00:41.268562+00:00",
+      "attempted_at": "2026-10-30T14:30:06.035540+00:00",
+      "retry_after": "2026-10-30T18:30:06.035540+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -8507,15 +8512,15 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.commercialriskonline.com/net-income-down-but-revenue-up-for-scor-in-third-quarter/": {
-      "attempted_at": "2026-10-30T14:00:41.268562+00:00",
-      "retry_after": "2026-10-30T18:00:41.268562+00:00",
+      "attempted_at": "2026-10-30T14:30:06.035540+00:00",
+      "retry_after": "2026-10-30T18:30:06.035540+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.commercialriskonline.com/councils-opposition-to-eu-wide-cyber-reporting-system-puts-simplification-at-risk/": {
-      "attempted_at": "2026-10-30T14:00:41.268562+00:00",
-      "retry_after": "2026-10-30T18:00:41.268562+00:00",
+      "attempted_at": "2026-10-30T14:30:06.035540+00:00",
+      "retry_after": "2026-10-30T18:30:06.035540+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -8528,8 +8533,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.reinsurancene.ws/tiptree-delivers-expansion-in-book-value-as-net-income-down-19-in-q326/": {
-      "attempted_at": "2026-10-30T14:00:41.268562+00:00",
-      "retry_after": "2026-10-30T18:00:41.268562+00:00",
+      "attempted_at": "2026-10-30T14:30:06.035540+00:00",
+      "retry_after": "2026-10-30T18:30:06.035540+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -8572,15 +8577,15 @@
       "alternative_search_after": "2026-10-30T18:00:41.268562+00:00"
     },
     "https://www.reinsurancene.ws/enstar-promotes-david-ni-to-president/": {
-      "attempted_at": "2026-10-30T14:00:41.268562+00:00",
-      "retry_after": "2026-10-30T18:00:41.268562+00:00",
+      "attempted_at": "2026-10-30T14:30:06.035540+00:00",
+      "retry_after": "2026-10-30T18:30:06.035540+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/southcentral/2026/10/30/890949.htm": {
-      "attempted_at": "2026-10-30T14:00:41.268562+00:00",
-      "retry_after": "2026-10-30T18:00:41.268562+00:00",
+      "attempted_at": "2026-10-30T14:30:06.035540+00:00",
+      "retry_after": "2026-10-30T18:30:06.035540+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -8595,25 +8600,44 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.insurancejournal.com/news/midwest/2026/10/30/890941.htm": {
-      "attempted_at": "2026-10-30T14:00:41.268562+00:00",
-      "retry_after": "2026-10-30T18:00:41.268562+00:00",
+      "attempted_at": "2026-10-30T14:30:06.035540+00:00",
+      "retry_after": "2026-10-30T18:30:06.035540+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/national/2026/10/30/890927.htm": {
-      "attempted_at": "2026-10-30T14:00:41.268562+00:00",
-      "retry_after": "2026-10-30T18:00:41.268562+00:00",
+      "attempted_at": "2026-10-30T14:30:06.035540+00:00",
+      "retry_after": "2026-10-30T18:30:06.035540+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/midwest/2026/10/30/890938.htm": {
-      "attempted_at": "2026-10-30T14:00:41.268562+00:00",
-      "retry_after": "2026-10-30T18:00:41.268562+00:00",
+      "attempted_at": "2026-10-30T14:30:06.035540+00:00",
+      "retry_after": "2026-10-30T18:30:06.035540+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.wsj.com/business/earnings/natwest-earnings-boosted-by-higher-net-interest-income-20ebc371": {
+      "attempted_at": "2026-10-30T14:30:06.035540+00:00",
+      "retry_after": "2026-10-30T20:30:06.035540+00:00",
+      "last_result": "HTTP Error 401: HTTP Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-30T18:30:06.035540+00:00"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-30/tech-firms-debt-protection-costs-are-surging-on-profit-concerns": {
+      "attempted_at": "2026-10-30T14:30:06.035540+00:00",
+      "retry_after": "2026-10-30T20:30:06.035540+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     }
   },
   "version": 2,
