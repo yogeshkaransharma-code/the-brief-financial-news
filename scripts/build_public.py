@@ -8,6 +8,7 @@ from __future__ import annotations
 import html
 import json
 import re
+import unicodedata
 from pathlib import Path
 from urllib.parse import quote
 from same_day_policy import published_same_day, clock, original_date, date_in_uk
@@ -52,11 +53,35 @@ def valid_articles():
     # unrelated overseas news on today's page, desks, archives or story URLs.
     from uk_market_scope import public_article_in_scope
     scoped=[a for a in records if public_article_in_scope(a)]
-    return sorted([dict(a, desk_section=desk_for(a), display_glossary=(a.get("glossary") or terms_for(a))) for a in scoped], key=lambda a: (a.get("published_at", ""), a.get("dateISO", ""), a["id"]), reverse=True)
+    note_path=ROOT/"data/editorial-context.json"
+    notes=json.loads(note_path.read_text(encoding="utf-8")).get("notes",{}) if note_path.exists() else {}
+    if not isinstance(notes,dict) or set(notes)-{a["id"] for a in scoped}:
+        raise ValueError("Invalid public editorial context")
+    enriched=[]
+    for a in scoped:
+        note=notes.get(a["id"],a.get("reader_takeaway",""))
+        if not isinstance(note,str) or len(note.split())>85:
+            raise ValueError("Invalid context note")
+        enriched.append(dict(a,desk_section=desk_for(a),display_glossary=a.get("glossary") or terms_for(a),
+                             reader_takeaway=note,public_href=story_href(a)))
+    return sorted(enriched,key=lambda a:(a.get("published_at",""),a.get("dateISO",""),a["id"]),reverse=True)
 
 
 def story_href(a):
-    return "story/" + quote(a["id"], safe="") + ".html"
+    text=unicodedata.normalize("NFKD",a["title"]).encode("ascii","ignore").decode().lower()
+    slug=re.sub(r"[^a-z0-9]+","-",text).strip("-")[:72].rstrip("-") or "report"
+    return "story/" + slug + "-" + a["id"][3:9] + ".html"
+
+
+def legacy_story_href(a):
+    return "story/" + a["id"] + ".html"
+
+
+def legacy_redirect(a):
+    target=esc(story_href(a).split("/",1)[1])
+    return ('<!doctype html><html lang="en-GB"><head><meta charset="utf-8">'
+            '<meta name="robots" content="noindex"><meta http-equiv="refresh" content="0; url='+target+'">'
+            '<title>Article moved — The Brief</title></head><body><a href="'+target+'">Read the article</a></body></html>')
 
 
 def article_body(a):
@@ -87,7 +112,7 @@ def standalone_story(a,related=None):
     is_media=a.get("status")=="Original reporting"
     source_description=("This article draws on reporting by the named publisher, with the original article linked below." if is_media
         else "This article is based on the original announcement or document linked below.")
-    disclosure='A source-based report, with attribution to the original material.'
+    disclosure='A source-based explanation, with attribution to the original material.'
     terms=a.get('display_glossary') or terms_for(a)
     definitions=''.join('<dt>'+esc(t)+'</dt><dd>'+esc(d)+'</dd>' for t,d in terms)
     glossary_html=('<section class="tb-glossary"><h2>Jargon, explained.</h2><dl>'+definitions+'</dl></section>' if definitions else '')
@@ -118,7 +143,7 @@ def standalone_story(a,related=None):
 <main class="reader"><article>{note}
 <nav class="tb-breadcrumbs" aria-label="Breadcrumbs"><a href="../index.html">Home</a><span>›</span><a href="../{desk}.html">{esc(section)}</a><span>›</span><span>Latest reporting</span></nav>
 <div class="tb-story-layout"><div class="tb-story-main">
-<div class="kicker tb-story-kicker">{esc(section)} <span> / THE BRIEF REPORT</span></div>
+<div class="kicker tb-story-kicker">{esc(section)} <span> / EXPLAINED</span></div>
 <h1>{esc(a['title'])}</h1>
 <div class="meta">By The Brief · {byline_date} · {esc(a.get('source',''))} · {estimated_minutes} min read</div>
 {visual(section)}
@@ -401,7 +426,7 @@ def build():
         featured=a["id"] in featured_ids
         rows.append(
             '<article class="news-item'+(' has-photo' if featured else '')+'" data-desk="'+esc(a.get('desk_section'))+'">'+(art_credit(a) if featured else '')+'<div class="story-ordinal">' + str(i+1).zfill(2)
-            + '</div><div><div class="news-cat">' + esc(a.get("desk_section")) + ' · OUR REPORT</div>'
+            + '</div><div><div class="news-cat">' + esc(a.get("desk_section")) + ' · EXPLAINED</div>'
             + '<h3><a href="' + esc(story_href(a)) + '">' + esc(a["title"]) + '</a></h3>'
             + '<p class="summary">' + esc(a.get("short")) + '</p>'
             + '<p class="meta">' + esc(a.get('source','')) + ' · ' + esc(dt.datetime.fromisoformat(a['published_at'].replace('Z','+00:00')).astimezone(__import__('zoneinfo').ZoneInfo('Europe/London')).strftime('%H:%M')) + '</p></div></article>'
@@ -434,6 +459,7 @@ def build():
     if status_path.exists():shutil.copy2(status_path,OUT/"data/status.json")
     for a in archive:
         (OUT / story_href(a)).write_text(standalone_story(a,archive), encoding="utf-8")
+        (OUT / legacy_story_href(a)).write_text(legacy_redirect(a), encoding="utf-8")
     privacy_body = (
         '<p class="intro">We want to understand which stories readers find useful without collecting unnecessary information about them.</p>'
         '<h2>Website traffic measurement</h2>'

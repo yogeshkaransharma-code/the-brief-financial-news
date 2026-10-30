@@ -63,6 +63,11 @@ BANK_TERMS=r"\b(?:bank\w*|lending|mortgage\w*|deposits?|interest rates?|building
 def desk_for(a):
     raw=str(a.get("category","")).lower()
     if raw in {"insurance","brokers"}:return "Insurance"
+    # Correct source-labelled cyber insurance in public presentation only.
+    if (raw=="banking" and "insurancebusinessmag.com/uk/news/" in str(a.get("url","")).lower()
+            and re.search(r"(?i)\b(?:insur\w*|cyber polic\w*|broker\w*|underwrit\w*)\b",str(a.get("title","")))
+            and not re.search(r"(?i)\b(?:bank\w*|mortgage\w*|lender\w*)\b",str(a.get("title","")))):
+        return "Insurance"
     # Presentation-only correction for a cyber insurance broker/underwriting
     # report that the writing model labelled Banking. The signed record is
     # unchanged; a general business continuity report is not a banking story.

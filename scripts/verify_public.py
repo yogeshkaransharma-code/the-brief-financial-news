@@ -7,6 +7,7 @@ import subprocess
 import tempfile
 from pathlib import Path
 from same_day_policy import published_same_day
+from build_public import story_href, legacy_story_href
 ROOT=Path(__file__).resolve().parents[1]
 
 def verify():
@@ -94,7 +95,7 @@ def verify():
     assert "$('edition-date').textContent=d.toLocaleDateString" not in home, 'Masthead reintroduces daily date'
     assert 'id="issue-date"' in home, 'Edition must retain one readable date'
     for a in canonical:
-        story=(public/'story'/(a['id']+'.html')).read_text(encoding='utf-8')
+        story=(public/'story'/(story_href(a).split('/',1)[1])).read_text(encoding='utf-8')
         from same_day_policy import original_date, date_in_uk
         byline=story.split('<div class="meta">',1)[1].split('</div>',1)[0]
         if original_date(a)==date_in_uk(a['published_at']):
@@ -118,7 +119,7 @@ def verify():
     urls = [node.text for node in root.findall('.//{http://www.sitemaps.org/schemas/sitemap/0.9}loc')]
     expected = {BASE, BASE+'about.html', BASE+'insurance.html', BASE+'banking.html',
                 BASE+'archive.html', BASE+'search.html', BASE+'sources.html',BASE+'privacy.html'}
-    expected.update(BASE+'story/'+a['id']+'.html' for a in canonical)
+    expected.update(BASE+story_href(a) for a in canonical)
     expected.update(BASE+'edition/'+day+'.html' for day in {a['dateISO'] for a in canonical})
     assert set(urls)==expected and len(urls)==len(set(urls)), 'Sitemap routes do not match real pages'
     for uri in urls:
@@ -128,8 +129,10 @@ def verify():
         assert '<link rel="canonical" href="'+uri+'">' in document, 'Canonical mismatch: '+relative
         assert '<meta property="og:title"' in document, 'Missing readable share title: '+relative
     for a in canonical:
-        document=(public/'story'/(a['id']+'.html')).read_text(encoding='utf-8')
+        document=(public/'story'/(story_href(a).split('/',1)[1])).read_text(encoding='utf-8')
         assert '"@type":"NewsArticle"' in document and '"citation":' in document, 'NewsArticle source metadata missing'
+        legacy=(public/legacy_story_href(a)).read_text(encoding='utf-8')
+        assert 'name="robots" content="noindex"' in legacy and story_href(a).split('/',1)[1] in legacy, 'Old link broken'
     current_home=re.sub(r'<section id="launch-edition".*?</section>','',home,flags=re.S)
     if 'id="launch-edition"' in home:
         assert 'Prepared retrospectively; actual publication times' in home
@@ -141,7 +144,7 @@ def verify():
         escaped=html.escape(a['title'],quote=True)
         assert escaped in archive_html,'Archive headline absent'
         if not published_same_day(a):assert escaped not in current_home,'Historical headline leaked into today'
-        story=(public/'story'/(a['id']+'.html')).read_text()
+        story=(public/'story'/(story_href(a).split('/',1)[1])).read_text()
         assert escaped in story and html.escape(a['url'],quote=True) in story
         assert '<main class="reader"><article>' in story
         if 'tb-article-visual' in story:
@@ -160,6 +163,7 @@ def verify():
     assert 'reports do not routinely receive a separate editorial review' not in about, 'About repeats an unhelpful editorial disclaimer'
     assert 'do not claim to have interviewed people' not in about, 'About repeats an unnecessary defensive disclaimer'
     assert 'Every report names its source' in about, 'Source attribution promise missing'
+    assert 'AI-assisted' in about and 'not individually approved by a human editor' in about, 'Methodology note missing'
     for section in ['Insurance','Banking']:
         path=public/(section.lower()+'.html')
         page=path.read_text(encoding='utf-8')
@@ -179,9 +183,11 @@ def verify():
 
     for a in archive:
         assert a['desk_section'] in {'Insurance','Banking'}, 'Third public category leaked'
+    cyber=next((a for a in archive if 'Specialist cyber policies extend cover' in a['title']),None)
+    if cyber:assert cyber['desk_section']=='Insurance', 'Cyber story categorised as Banking'
     for a in edition:
         if a.get('display_glossary'):
-            story=(public/'story'/(a['id']+'.html')).read_text()
+            story=(public/'story'/(story_href(a).split('/',1)[1])).read_text()
             assert 'Jargon, explained.' in story, 'Story glossary missing'
     assert 'id="publisher-desk"' not in home
     assert not (public/'data/headlines.json').exists(),'Internal research headlines leaked into public output'

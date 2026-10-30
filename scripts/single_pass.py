@@ -68,10 +68,10 @@ def prompt(pairs):
         'A sourced contrast is useful: premium income can rise while profitability falls; '
         'an insurance product can address a named risk without establishing whether it offers better value; '
         'a survey can reveal a practical risk without proving its frequency across all businesses. '
-        'Use the reader_takeaway field to state that one distinct, demonstrably supported point in plain English. '
+        'Use the reader_takeaway field to explain a non-obvious consequence, distinction or limitation grounded in this particular source. '
         'The takeaway is not a prediction, sales recommendation or extra summary. '
         'If the document really does not support one, leave it blank rather than imagining an impact. '
-        'Provide an optional reader_takeaway of at most 25 words: a distinct, practical, source-grounded explanation '
+        'Provide an optional reader_takeaway of 20 to 45 words: a distinct, practical, source-grounded explanation '
         'of why this particular development matters, not a repeated headline. Return an empty string when the '
         'source does not establish such a consequence. Do not add commentary to manufacture a takeaway. '
         'In the article body, make the development clear first, then its supported implications and any '
@@ -132,9 +132,11 @@ def article_from(output,item,doc):
     if not isinstance(summary,str) or not summary.strip():summary=re.split(r'(?<=[.!?])\s+',blocks[0][1])[0]
     summary=summary.strip()
     takeaway=output.get('reader_takeaway','')
-    if not isinstance(takeaway,str) or len(takeaway.split())>25:
+    if not isinstance(takeaway,str) or len(takeaway.split())>45:
         takeaway=''
     takeaway=takeaway.strip()
+    if re.search(r'(?i)underscores the importance|highlights the importance|significant development|evolving landscape|remains to be seen',takeaway):takeaway=''
+    if takeaway and takeaway.casefold().rstrip('. ') == summary.casefold().rstrip('. '):takeaway=''
     # The original publisher is already displayed with the article and linked
     # below. The old forced "According to ..." prefix made every standfirst
     # repetitive and changed proper names, e.g. AXIS to aXIS.

@@ -2,7 +2,7 @@ name: The Brief — hourly newsroom and site maintenance
 on:
   push:
     branches: [main]
-    paths: ['scripts/**', 'assets/site.css', '.github/workflows/ai-newsroom.yml', 'index.html', 'about.html', 'data/articles.json', 'data/corrections.json', 'data/source-registry.json']
+    paths: ['scripts/**', 'assets/site.css', '.github/workflows/ai-newsroom.yml', 'index.html', 'about.html', 'data/articles.json', 'data/editorial-context.json', 'data/corrections.json', 'data/source-registry.json']
   workflow_dispatch:
   schedule:
     - cron: '11,41 * * * *'  # Two opportunities per hour; independent watchdog detects misses

@@ -5,7 +5,7 @@ Historical audit articles stay in data/articles.json, not on today's public
 homepage. No old standalone news pages are carried into the live website.
 """
 from __future__ import annotations
-from build_public import ROOT, esc, valid_articles, standalone_story, story_href
+from build_public import ROOT, esc, valid_articles, standalone_story, story_href, legacy_story_href, legacy_redirect
 from same_day_policy import published_same_day, clock
 
 BEGIN = "<!-- THEBRIEF_STATIC_START -->"
@@ -43,15 +43,20 @@ def sync():
         path.write_text(updated,encoding="utf-8")
     story_dir=ROOT/"story"
     story_dir.mkdir(exist_ok=True)
-    live={a["id"]+".html" for a in archive}
-    for obsolete in story_dir.glob("ai-*.html"):
+    live={story_href(a).split("/",1)[1] for a in archive}
+    live.update(legacy_story_href(a).split("/",1)[1] for a in archive)
+    for obsolete in story_dir.glob("*.html"):
         if obsolete.name not in live:
             obsolete.unlink()
     for a in archive:
-        story=story_dir/(a["id"]+".html")
+        story=story_dir/story_href(a).split("/",1)[1]
         rendered=standalone_story(a)
         if not story.exists() or story.read_text(encoding="utf-8")!=rendered:
             story.write_text(rendered,encoding="utf-8")
+        old=story_dir/legacy_story_href(a).split("/",1)[1]
+        redirect=legacy_redirect(a)
+        if not old.exists() or old.read_text(encoding="utf-8")!=redirect:
+            old.write_text(redirect,encoding="utf-8")
     print("REPOSITORY_SAME_DAY_SYNC:",len(articles),"genuinely same-day original(s); UK date",today)
 
 

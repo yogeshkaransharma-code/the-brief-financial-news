@@ -57,7 +57,8 @@ def probe():
             tested=[]
             selection=today+([archive[0]] if archive and (not today or archive[0]['id']!=today[0]['id']) else [])
             for a in selection:
-                story=read(SITE+'story/'+a['id']+'.html'+token)
+                from build_public import story_href
+                story=read(SITE+story_href(a)+token)
                 assert html.escape(a['title'],quote=True) in story,'Article heading absent'
                 assert html.escape(a['url'],quote=True) in story,'Original source link absent'
                 assert all(html.escape(p,quote=True) in story for _,p in a['blocks']),'Full article paragraphs missing'

@@ -47,10 +47,11 @@ def _meta(page_path: Path, rel: str, title: str, description: str, schema: dict 
 
 def add_search_discovery(out: Path, articles: list[dict]) -> None:
     """Called after a complete site build; does not mutate source content."""
-    by_id = {a["id"]: a for a in articles}
+    from build_public import story_href
+    by_path = {story_href(a): a for a in articles}
     paths = ["index.html", "about.html", "insurance.html", "banking.html", "archive.html", "search.html", "sources.html", "privacy.html"]
     paths += sorted(p.relative_to(out).as_posix() for p in (out / "edition").glob("*.html"))
-    paths += sorted(p.relative_to(out).as_posix() for p in (out / "story").glob("*.html"))
+    paths += sorted(by_path)  # Old redirect pages are not indexed.
 
     site_schema = {
         "@context": "https://schema.org",
@@ -95,10 +96,9 @@ def add_search_discovery(out: Path, articles: list[dict]) -> None:
             name = "The Brief edition — " + rel.split("/")[-1][:-5]
             desc = "Dated insurance and banking news from The Brief."
         elif rel.startswith("story/"):
-            ident = rel.removeprefix("story/").removesuffix(".html")
-            if ident not in by_id:
+            if rel not in by_path:
                 raise ValueError("Unrecognised article page in SEO build: " + rel)
-            a = by_id[ident]
+            a = by_path[rel]
             name = str(a["title"])
             desc = str(a.get("short") or "")
             modified = str(a.get("updated_at") or a["published_at"])
