@@ -206,7 +206,8 @@ def main():
             assert page.locator('a[href="status.html"]').count()==0
             assert page.locator('.tb-about-images img').count()==2
             about_sources=page.locator('section[aria-labelledby="report-heading"]').inner_text()
-            assert 'Every report names its source' in about_sources, 'About source explanation is missing'
+            assert 'Every article links to its original source' in about_sources, 'About source explanation is missing'
+            assert page.locator('a[href="sources.html#publication-method"]').count()==1, 'Source and publication note not linked'
             assert 'do not routinely receive a separate editorial review' not in about_sources, 'About still carries redundant review disclaimer'
             # About-page quote must never escape the dark panel, especially at
             # intermediate laptop widths where the two-column layout narrows.
