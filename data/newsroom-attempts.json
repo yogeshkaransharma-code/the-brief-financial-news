@@ -2,48 +2,10 @@
   "api_budget": {
     "date": "2026-10-29",
     "timezone": "America/Los_Angeles",
-    "requests": 24,
+    "requests": 26,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-10-26T23:47:53.527383+00:00",
-      "result": "response_received",
-      "prompt_characters": 13109,
-      "purpose": "single_pass_writing",
-      "usage": {
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 2758,
-        "candidatesTokenCount": 779,
-        "totalTokenCount": 3537,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 2758
-          }
-        ],
-        "serviceTier": "standard"
-      }
-    },
-    {
-      "at": "2026-10-26T23:48:08.531383+00:00",
-      "result": "response_received",
-      "prompt_characters": 11065,
-      "purpose": "single_pass_writing",
-      "usage": {
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 2262,
-        "candidatesTokenCount": 684,
-        "totalTokenCount": 2946,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 2262
-          }
-        ],
-        "serviceTier": "standard"
-      }
-    },
     {
       "at": "2026-10-27T00:02:40.700979+00:00",
       "result": "response_received",
@@ -1829,6 +1791,44 @@
           {
             "modality": "TEXT",
             "tokenCount": 2917
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-30T03:47:22.031421+00:00",
+      "result": "response_received",
+      "prompt_characters": 22905,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 4612,
+        "candidatesTokenCount": 1208,
+        "totalTokenCount": 5820,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 4612
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-30T03:47:37.036026+00:00",
+      "result": "response_received",
+      "prompt_characters": 12252,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 2316,
+        "candidatesTokenCount": 369,
+        "totalTokenCount": 2685,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2316
           }
         ],
         "serviceTier": "standard"
@@ -4912,6 +4912,16 @@
       "attempted_at": "2026-10-30T02:48:23.090640+00:00",
       "retry_after": "2026-10-31T03:48:23.090640+00:00",
       "headline": "Chinese Investors Seek Shelter in Long-Bond ETFs as Stocks Sink"
+    },
+    "https://www.insurancebusinessmag.com/uk/news/breaking-news/ukraine-reserves-dent-hamiltons-q3-underwriting-profit-595570.aspx": {
+      "attempted_at": "2026-10-30T03:47:11.154635+00:00",
+      "retry_after": "2026-10-31T04:47:11.154635+00:00",
+      "headline": "Ukraine reserves dent Hamilton’s Q3 underwriting profit"
+    },
+    "https://www.insurancebusinessmag.com/uk/news/technology/ms-amlin-launches-ai-tool-to-halve-reinsurance-wording-reviews-595552.aspx": {
+      "attempted_at": "2026-10-30T03:47:11.154635+00:00",
+      "retry_after": "2026-10-31T04:47:11.154635+00:00",
+      "headline": "MS Amlin launches AI tool to halve reinsurance wording reviews"
     }
   },
   "sources": {
@@ -7760,6 +7770,16 @@
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1",
       "alternative_search_after": "2026-10-30T06:48:23.090640+00:00"
+    },
+    "https://www.wsj.com/finance/currencies/singapore-dollar-strengthens-amid-falling-u-s-treasury-yields-b806c8af": {
+      "attempted_at": "2026-10-30T03:47:11.154635+00:00",
+      "retry_after": "2026-10-30T09:47:11.154635+00:00",
+      "last_result": "HTTP Error 401: HTTP Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-30T07:47:11.154635+00:00"
     }
   },
   "version": 2,
