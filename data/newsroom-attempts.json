@@ -2,29 +2,10 @@
   "api_budget": {
     "date": "2026-10-30",
     "timezone": "America/Los_Angeles",
-    "requests": 2,
+    "requests": 3,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-10-27T05:38:23.436363+00:00",
-      "result": "response_received",
-      "prompt_characters": 12398,
-      "purpose": "single_pass_writing",
-      "usage": {
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 2600,
-        "candidatesTokenCount": 1101,
-        "totalTokenCount": 3701,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 2600
-          }
-        ],
-        "serviceTier": "standard"
-      }
-    },
     {
       "at": "2026-10-27T05:38:38.440659+00:00",
       "result": "response_received",
@@ -1833,6 +1814,13 @@
         ],
         "serviceTier": "standard"
       }
+    },
+    {
+      "at": "2026-10-30T09:52:02.751173+00:00",
+      "result": "failed",
+      "prompt_characters": 12398,
+      "purpose": "single_pass_writing",
+      "error_type": "GeminiAPIError"
     }
   ],
   "capacity_recovery_revision": 2,
@@ -5002,6 +4990,31 @@
       "attempted_at": "2026-10-30T08:54:03.875931+00:00",
       "retry_after": "2026-10-31T09:54:03.875931+00:00",
       "headline": "Credit Agricole Reports Higher Profit, Warns of France Risk"
+    },
+    "https://www.theguardian.com/business/2026/oct/30/uk-house-prices-grow-at-slowest-pace-in-two-years-as-mortgage-rates-rise": {
+      "attempted_at": "2026-10-30T09:51:47.618747+00:00",
+      "retry_after": "2026-10-31T10:51:47.618747+00:00",
+      "headline": "UK house prices grow at slowest pace in two years as mortgage rates rise"
+    },
+    "https://www.theguardian.com/uk-news/2026/oct/30/andy-burnham-first-budget-labour-welfare": {
+      "attempted_at": "2026-10-30T09:51:47.618747+00:00",
+      "retry_after": "2026-10-31T10:51:47.618747+00:00",
+      "headline": "Andy Burnham admits he would have liked more radical first budget"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-30/uk-wins-back-bond-investors-with-dose-of-fiscal-restraint": {
+      "attempted_at": "2026-10-30T09:51:47.618747+00:00",
+      "retry_after": "2026-10-31T10:51:47.618747+00:00",
+      "headline": "UK Wins Back Bond Investors With Dose of Fiscal Restraint"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-30/china-s-mega-banks-report-profit-jumps-as-margins-recover": {
+      "attempted_at": "2026-10-30T09:51:47.618747+00:00",
+      "retry_after": "2026-10-31T10:51:47.618747+00:00",
+      "headline": "China’s Mega Banks Report Profit Jumps as Margins Recover"
+    },
+    "https://www.insuranceage.co.uk/broker/7959080/john-lewis-money-appoints-ex-co-op-insurance-md": {
+      "attempted_at": "2026-10-30T09:51:47.618747+00:00",
+      "retry_after": "2026-10-31T10:51:47.618747+00:00",
+      "headline": "John Lewis Money hires ex-Co-op Insurance MD to lead broker push"
     }
   },
   "sources": {
@@ -7851,14 +7864,13 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.wsj.com/finance/currencies/singapore-dollar-strengthens-amid-falling-u-s-treasury-yields-b806c8af": {
-      "attempted_at": "2026-10-30T03:47:11.154635+00:00",
-      "retry_after": "2026-10-30T09:47:11.154635+00:00",
+      "attempted_at": "2026-10-30T09:51:47.618747+00:00",
+      "retry_after": "2026-10-30T15:51:47.618747+00:00",
       "last_result": "HTTP Error 401: HTTP Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-30T07:47:11.154635+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-10-30/african-export-import-bank-mulls-first-offshore-yuan-loan": {
       "attempted_at": "2026-10-30T04:47:27.913253+00:00",
@@ -7881,64 +7893,64 @@
       "alternative_search_after": "2026-10-30T08:47:27.913253+00:00"
     },
     "https://www.insurancejournal.com/news/national/2026/10/30/890876.htm": {
-      "attempted_at": "2026-10-30T08:54:03.875931+00:00",
-      "retry_after": "2026-10-30T12:54:03.875931+00:00",
+      "attempted_at": "2026-10-30T09:51:47.618747+00:00",
+      "retry_after": "2026-10-30T13:51:47.618747+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/east/2026/10/30/890880.htm": {
-      "attempted_at": "2026-10-30T08:54:03.875931+00:00",
-      "retry_after": "2026-10-30T12:54:03.875931+00:00",
+      "attempted_at": "2026-10-30T09:51:47.618747+00:00",
+      "retry_after": "2026-10-30T13:51:47.618747+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/national/2026/10/30/890723.htm": {
-      "attempted_at": "2026-10-30T08:54:03.875931+00:00",
-      "retry_after": "2026-10-30T12:54:03.875931+00:00",
+      "attempted_at": "2026-10-30T09:51:47.618747+00:00",
+      "retry_after": "2026-10-30T13:51:47.618747+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/international/2026/10/30/890853.htm": {
-      "attempted_at": "2026-10-30T08:54:03.875931+00:00",
-      "retry_after": "2026-10-30T12:54:03.875931+00:00",
+      "attempted_at": "2026-10-30T09:51:47.618747+00:00",
+      "retry_after": "2026-10-30T13:51:47.618747+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/southeast/2026/10/30/890863.htm": {
-      "attempted_at": "2026-10-30T08:54:03.875931+00:00",
-      "retry_after": "2026-10-30T12:54:03.875931+00:00",
+      "attempted_at": "2026-10-30T09:51:47.618747+00:00",
+      "retry_after": "2026-10-30T13:51:47.618747+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/east/2026/10/30/890590.htm": {
-      "attempted_at": "2026-10-30T08:54:03.875931+00:00",
-      "retry_after": "2026-10-30T12:54:03.875931+00:00",
+      "attempted_at": "2026-10-30T09:51:47.618747+00:00",
+      "retry_after": "2026-10-30T13:51:47.618747+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/west/2026/10/30/890872.htm": {
-      "attempted_at": "2026-10-30T08:54:03.875931+00:00",
-      "retry_after": "2026-10-30T12:54:03.875931+00:00",
+      "attempted_at": "2026-10-30T09:51:47.618747+00:00",
+      "retry_after": "2026-10-30T13:51:47.618747+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/west/2026/10/30/890846.htm": {
-      "attempted_at": "2026-10-30T08:54:03.875931+00:00",
-      "retry_after": "2026-10-30T12:54:03.875931+00:00",
+      "attempted_at": "2026-10-30T09:51:47.618747+00:00",
+      "retry_after": "2026-10-30T13:51:47.618747+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/east/2026/10/30/890133.htm": {
-      "attempted_at": "2026-10-30T08:54:03.875931+00:00",
-      "retry_after": "2026-10-30T12:54:03.875931+00:00",
+      "attempted_at": "2026-10-30T09:51:47.618747+00:00",
+      "retry_after": "2026-10-30T13:51:47.618747+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -7961,8 +7973,8 @@
       "alternative_search_after": "2026-10-30T10:54:15.747165+00:00"
     },
     "https://www.reinsurancene.ws/felippe-astrachan-appointed-avlare-ceo-andre-bertolino-to-lead-avla-brazil/": {
-      "attempted_at": "2026-10-30T08:54:03.875931+00:00",
-      "retry_after": "2026-10-30T12:54:03.875931+00:00",
+      "attempted_at": "2026-10-30T09:51:47.618747+00:00",
+      "retry_after": "2026-10-30T13:51:47.618747+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -7978,15 +7990,15 @@
       "alternative_search_after": "2026-10-30T12:00:20.760115+00:00"
     },
     "https://www.reinsurancene.ws/scor-delivers-q326-net-income-of-e206m-and-pc-combined-ratio-of-84-1/": {
-      "attempted_at": "2026-10-30T08:54:03.875931+00:00",
-      "retry_after": "2026-10-30T12:54:03.875931+00:00",
+      "attempted_at": "2026-10-30T09:51:47.618747+00:00",
+      "retry_after": "2026-10-30T13:51:47.618747+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/international/2026/10/30/890894.htm": {
-      "attempted_at": "2026-10-30T08:54:03.875931+00:00",
-      "retry_after": "2026-10-30T12:54:03.875931+00:00",
+      "attempted_at": "2026-10-30T09:51:47.618747+00:00",
+      "retry_after": "2026-10-30T13:51:47.618747+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -8011,8 +8023,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.reinsurancene.ws/gbli-appoints-jessica-buss-to-its-board-of-directors/": {
-      "attempted_at": "2026-10-30T08:54:03.875931+00:00",
-      "retry_after": "2026-10-30T12:54:03.875931+00:00",
+      "attempted_at": "2026-10-30T09:51:47.618747+00:00",
+      "retry_after": "2026-10-30T13:51:47.618747+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -8055,22 +8067,22 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.commercialriskonline.com/captive-owners-find-new-ways-to-finance-risks-and-manage-losses/": {
-      "attempted_at": "2026-10-30T08:54:03.875931+00:00",
-      "retry_after": "2026-10-30T12:54:03.875931+00:00",
+      "attempted_at": "2026-10-30T09:51:47.618747+00:00",
+      "retry_after": "2026-10-30T13:51:47.618747+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/international/2026/10/30/890903.htm": {
-      "attempted_at": "2026-10-30T08:54:03.875931+00:00",
-      "retry_after": "2026-10-30T12:54:03.875931+00:00",
+      "attempted_at": "2026-10-30T09:51:47.618747+00:00",
+      "retry_after": "2026-10-30T13:51:47.618747+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.reinsurancene.ws/mandarin-re-appoints-rafael-vargas-palomo-to-drive-growth-in-latin-america/": {
-      "attempted_at": "2026-10-30T08:54:03.875931+00:00",
-      "retry_after": "2026-10-30T12:54:03.875931+00:00",
+      "attempted_at": "2026-10-30T09:51:47.618747+00:00",
+      "retry_after": "2026-10-30T13:51:47.618747+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -8086,11 +8098,89 @@
       "alternative_search_after": "2026-10-30T12:54:03.875931+00:00"
     },
     "https://www.commercialriskonline.com/nine-month-insured-nat-cat-losses-lowest-since-2019-aon/": {
-      "attempted_at": "2026-10-30T08:54:03.875931+00:00",
-      "retry_after": "2026-10-30T12:54:03.875931+00:00",
+      "attempted_at": "2026-10-30T09:51:47.618747+00:00",
+      "retry_after": "2026-10-30T13:51:47.618747+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-30/uk-wins-back-bond-investors-with-dose-of-fiscal-restraint": {
+      "attempted_at": "2026-10-30T09:51:47.618747+00:00",
+      "retry_after": "2026-10-30T15:51:47.618747+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-30T13:51:47.618747+00:00"
+    },
+    "https://www.fca.org.uk/news/press-releases/brits-nearly-twice-likely-spot-pressure-tactics-horror-films-investment-red-flags": {
+      "attempted_at": "2026-10-30T09:51:47.618747+00:00",
+      "retry_after": "2026-10-30T11:51:47.618747+00:00",
+      "last_result": "Conflicting original publication dates on source page",
+      "classification": "DATE_UNVERIFIED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-30T13:51:47.618747+00:00"
+    },
+    "https://www.insuranceage.co.uk/broker/7959080/john-lewis-money-appoints-ex-co-op-insurance-md": {
+      "attempted_at": "2026-10-30T09:51:47.618747+00:00",
+      "retry_after": "2026-10-30T11:51:47.618747+00:00",
+      "last_result": "Original document has no unambiguous publication date; listing/RSS date is insufficient",
+      "classification": "DATE_UNVERIFIED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-30T13:51:47.618747+00:00"
+    },
+    "https://www.reinsurancene.ws/bhsi-promotes-pelletier-to-head-of-ep-in-france/": {
+      "attempted_at": "2026-10-30T09:51:47.618747+00:00",
+      "retry_after": "2026-10-30T13:51:47.618747+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.commercialriskonline.com/wtw-revenue-climbs-7-6-in-q3-despite-market-softening/": {
+      "attempted_at": "2026-10-30T09:51:47.618747+00:00",
+      "retry_after": "2026-10-30T13:51:47.618747+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.theguardian.com/uk-news/2026/oct/30/andy-burnham-first-budget-labour-welfare": {
+      "attempted_at": "2026-10-30T09:51:47.618747+00:00",
+      "retry_after": "2026-10-30T13:51:47.618747+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-30/china-s-mega-banks-report-profit-jumps-as-margins-recover": {
+      "attempted_at": "2026-10-30T09:51:47.618747+00:00",
+      "retry_after": "2026-10-30T15:51:47.618747+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.theguardian.com/business/2026/oct/30/uk-house-prices-grow-at-slowest-pace-in-two-years-as-mortgage-rates-rise": {
+      "attempted_at": "2026-10-30T09:51:47.618747+00:00",
+      "retry_after": "2026-10-30T10:06:47.618747+00:00",
+      "last_result": "Gemini API HTTP 503: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+      "classification": "TEMPORARY_FAILURE",
+      "stage": "writing",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.reinsurancene.ws/aons-ibex-expansion-to-deliver-greater-certainty-for-complex-transactions/": {
+      "attempted_at": "2026-10-30T09:51:47.618747+00:00",
+      "retry_after": "2026-10-30T10:06:47.618747+00:00",
+      "last_result": "Gemini API HTTP 503: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+      "classification": "TEMPORARY_FAILURE",
+      "stage": "writing",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     }
   },
   "version": 2,
