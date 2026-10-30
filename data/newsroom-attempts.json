@@ -2,29 +2,10 @@
   "api_budget": {
     "date": "2026-10-29",
     "timezone": "America/Los_Angeles",
-    "requests": 26,
+    "requests": 27,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-10-27T00:02:40.700979+00:00",
-      "result": "response_received",
-      "prompt_characters": 9558,
-      "purpose": "single_pass_writing",
-      "usage": {
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 2402,
-        "candidatesTokenCount": 542,
-        "totalTokenCount": 2944,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 2402
-          }
-        ],
-        "serviceTier": "standard"
-      }
-    },
     {
       "at": "2026-10-27T03:39:34.341374+00:00",
       "result": "response_received",
@@ -1829,6 +1810,25 @@
           {
             "modality": "TEXT",
             "tokenCount": 2316
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-30T05:45:41.984661+00:00",
+      "result": "response_received",
+      "prompt_characters": 26745,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 5514,
+        "candidatesTokenCount": 948,
+        "totalTokenCount": 6462,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 5514
           }
         ],
         "serviceTier": "standard"
@@ -4932,6 +4932,16 @@
       "attempted_at": "2026-10-30T04:47:27.913253+00:00",
       "retry_after": "2026-10-31T05:47:27.913253+00:00",
       "headline": "Chinese Junk Dollar Bonds Head for Worst Week in a Year on Huafa"
+    },
+    "https://www.insurancejournal.com/news/east/2026/10/30/890880.htm": {
+      "attempted_at": "2026-10-30T05:45:28.647040+00:00",
+      "retry_after": "2026-10-31T06:45:28.647040+00:00",
+      "headline": "New York State Bans ‘Unsafe’ Chatbots for Kids as States Push AI Regulation Limits"
+    },
+    "https://www.insurancejournal.com/news/national/2026/10/30/890832.htm": {
+      "attempted_at": "2026-10-30T05:45:28.647040+00:00",
+      "retry_after": "2026-10-31T06:45:28.647040+00:00",
+      "headline": "GM to Pay $220M to Settle Privacy Claims Over Sale of Driver Data to Insurers"
     }
   },
   "sources": {
@@ -7749,7 +7759,7 @@
       "stage": "source",
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-30T04:09:33.518837+00:00"
+      "alternative_search_after": "2026-10-30T09:45:28.647040+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-30/philippine-bonds-are-most-exposed-in-emerging-asia-to-fed-hikes": {
       "attempted_at": "2026-10-30T00:59:05.432883+00:00",
@@ -7759,7 +7769,7 @@
       "stage": "source",
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-30T04:59:05.432883+00:00"
+      "alternative_search_after": "2026-10-30T09:45:28.647040+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-30/japan-s-top-insurers-revive-lending-as-rates-boost-returns": {
       "attempted_at": "2026-10-30T02:48:23.090640+00:00",
@@ -7810,6 +7820,76 @@
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1",
       "alternative_search_after": "2026-10-30T08:47:27.913253+00:00"
+    },
+    "https://www.insurancejournal.com/news/national/2026/10/30/890876.htm": {
+      "attempted_at": "2026-10-30T05:45:28.647040+00:00",
+      "retry_after": "2026-10-30T09:45:28.647040+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.insurancejournal.com/news/east/2026/10/30/890880.htm": {
+      "attempted_at": "2026-10-30T05:45:28.647040+00:00",
+      "retry_after": "2026-10-30T09:45:28.647040+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.insurancejournal.com/news/national/2026/10/30/890723.htm": {
+      "attempted_at": "2026-10-30T05:45:28.647040+00:00",
+      "retry_after": "2026-10-30T09:45:28.647040+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.insurancejournal.com/news/international/2026/10/30/890853.htm": {
+      "attempted_at": "2026-10-30T05:45:28.647040+00:00",
+      "retry_after": "2026-10-30T09:45:28.647040+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.insurancejournal.com/news/southeast/2026/10/30/890863.htm": {
+      "attempted_at": "2026-10-30T05:45:28.647040+00:00",
+      "retry_after": "2026-10-30T09:45:28.647040+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.insurancejournal.com/news/east/2026/10/30/890590.htm": {
+      "attempted_at": "2026-10-30T05:45:28.647040+00:00",
+      "retry_after": "2026-10-30T09:45:28.647040+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.insurancejournal.com/news/west/2026/10/30/890872.htm": {
+      "attempted_at": "2026-10-30T05:45:28.647040+00:00",
+      "retry_after": "2026-10-30T09:45:28.647040+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.insurancejournal.com/news/west/2026/10/30/890846.htm": {
+      "attempted_at": "2026-10-30T05:45:28.647040+00:00",
+      "retry_after": "2026-10-30T09:45:28.647040+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.insurancejournal.com/news/east/2026/10/30/890133.htm": {
+      "attempted_at": "2026-10-30T05:45:28.647040+00:00",
+      "retry_after": "2026-10-30T09:45:28.647040+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.insurancejournal.com/news/national/2026/10/30/890832.htm": {
+      "attempted_at": "2026-10-30T05:45:28.647040+00:00",
+      "retry_after": "2026-10-30T09:45:28.647040+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
     }
   },
   "version": 2,
