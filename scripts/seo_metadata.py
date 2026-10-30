@@ -9,7 +9,7 @@ import json
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
-BASE = "https://yogeshkaransharma-code.github.io/the-brief-financial-news/"
+BASE = "https://thefinancialedition.com/"
 SITEMAP_NS = "http://www.sitemaps.org/schemas/sitemap/0.9"
 ET.register_namespace("", SITEMAP_NS)
 
