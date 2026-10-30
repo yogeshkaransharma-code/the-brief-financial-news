@@ -2,29 +2,10 @@
   "api_budget": {
     "date": "2026-10-29",
     "timezone": "America/Los_Angeles",
-    "requests": 23,
+    "requests": 24,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-10-26T23:47:38.523988+00:00",
-      "result": "response_received",
-      "prompt_characters": 12480,
-      "purpose": "single_pass_writing",
-      "usage": {
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 2692,
-        "candidatesTokenCount": 1087,
-        "totalTokenCount": 3779,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 2692
-          }
-        ],
-        "serviceTier": "standard"
-      }
-    },
     {
       "at": "2026-10-26T23:47:53.527383+00:00",
       "result": "response_received",
@@ -1829,6 +1810,25 @@
           {
             "modality": "TEXT",
             "tokenCount": 2798
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-30T00:09:49.076164+00:00",
+      "result": "response_received",
+      "prompt_characters": 14276,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 2917,
+        "candidatesTokenCount": 350,
+        "totalTokenCount": 3267,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2917
           }
         ],
         "serviceTier": "standard"
@@ -4892,6 +4892,11 @@
       "attempted_at": "2026-10-29T22:23:44.597136+00:00",
       "retry_after": "2026-10-30T23:23:44.597136+00:00",
       "headline": "Amazon gives Wall Street mixed financial picture in earnings report"
+    },
+    "https://www.finextra.com/newsarticle/48671/photonpay-raises-40m-for-stablecoin-centric-financial-os": {
+      "attempted_at": "2026-10-30T00:09:33.518837+00:00",
+      "retry_after": "2026-10-31T01:09:33.518837+00:00",
+      "headline": "PhotonPay raises $40m for stablecoin-centric financial OS"
     }
   },
   "sources": {
@@ -7690,6 +7695,26 @@
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source",
       "alternative_search_after": "2026-10-30T03:11:08.977826+00:00"
+    },
+    "https://www.finextra.com/newsarticle/48671/photonpay-raises-40m-for-stablecoin-centric-financial-os": {
+      "attempted_at": "2026-10-30T00:09:33.518837+00:00",
+      "retry_after": "2026-10-30T06:09:33.518837+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-30T04:09:33.518837+00:00"
+    },
+    "https://www.finextra.com/newsarticle/48673/kalshi-valuation-jumps-to-40-billion-on-latest-raise": {
+      "attempted_at": "2026-10-30T00:09:33.518837+00:00",
+      "retry_after": "2026-10-30T06:09:33.518837+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-30T04:09:33.518837+00:00"
     }
   },
   "version": 2,
