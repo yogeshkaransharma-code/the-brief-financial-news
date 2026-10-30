@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Autonomous evidence and provenance gate for The Brief.
+"""Autonomous evidence and provenance gate for The Financial Edition.
 
 Recognised official and original-journalism sources require complete evidence,
 original dates, attribution and a separate review of every claim and heading.
@@ -182,7 +182,7 @@ def publish(root=ROOT, folder=None, dry_run=False, *, edition_date=None):
         item["editorial_status"]="PUBLISHED: autonomous source-limited machine-screening (no human review)"
         item["published_at"]=dt.datetime.now(dt.timezone.utc).isoformat()
         item["reviewed_at"]=item["published_at"]
-        item["publication"]="The Brief"
+        item["publication"]="The Financial Edition"
         if edition_date is not None:
             item['edition_date']=edition_date
             item['retrospective_launch']=True

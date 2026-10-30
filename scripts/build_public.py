@@ -63,7 +63,7 @@ def valid_articles():
         if not isinstance(note,str) or len(note.split())>85:
             raise ValueError("Invalid context note")
         enriched.append(dict(a,desk_section=desk_for(a),display_glossary=a.get("glossary") or terms_for(a),
-                             reader_takeaway=note,public_href=story_href(a)))
+                             reader_takeaway=note,public_href=story_href(a),publication="The Financial Edition"))
     return sorted(enriched,key=lambda a:(a.get("published_at",""),a.get("dateISO",""),a["id"]),reverse=True)
 
 
@@ -81,7 +81,7 @@ def legacy_redirect(a):
     target=esc(story_href(a).split("/",1)[1])
     return ('<!doctype html><html lang="en-GB"><head><meta charset="utf-8">'
             '<meta name="robots" content="noindex"><meta http-equiv="refresh" content="0; url='+target+'">'
-            '<title>Article moved — The Brief</title></head><body><a href="'+target+'">Read the article</a></body></html>')
+            '<title>Article moved — The Financial Edition</title></head><body><a href="'+target+'">Read the article</a></body></html>')
 
 
 def article_body(a):
@@ -102,7 +102,7 @@ def standalone_story(a,related=None):
     published_local=dt.datetime.fromisoformat(a['published_at'].replace('Z','+00:00')).astimezone(__import__('zoneinfo').ZoneInfo('Europe/London'))
     publication_stamp=published_local.strftime('%-d %B %Y, %H:%M %Z')
     byline_date=(esc(news_date)+' · '+esc(published_local.strftime('%H:%M %Z')) if original_date(a)==published_local.date()
-                 else 'Source: '+esc(news_date)+' · The Brief: '+esc(publication_stamp))
+                 else 'Source: '+esc(news_date)+' · The Financial Edition: '+esc(publication_stamp))
     archived=original_date(a)!=clock().date()
     note=('<p class="archive-note"><strong>ARCHIVE · Earlier edition.</strong> This is earlier reporting, not today’s news.</p>' if archived else '')
     if not a.get('date_evidence'):
@@ -136,7 +136,7 @@ def standalone_story(a,related=None):
     return f"""<!doctype html>
 <html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#261E22"><meta name="description" content="{esc(a.get('short',''))}">
-<title>{esc(a['title'])} — The Brief</title>
+<title>{esc(a['title'])} — The Financial Edition</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Newsreader:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/site.css">
 </head><body class="tb-reading-page tb-{desk}-reading">{header("../",section)}
@@ -145,7 +145,7 @@ def standalone_story(a,related=None):
 <div class="tb-story-layout"><div class="tb-story-main">
 <div class="kicker tb-story-kicker">{esc(section)} <span> / EXPLAINED</span></div>
 <h1>{esc(a['title'])}</h1>
-<div class="meta">By The Brief · {byline_date} · {esc(a.get('source',''))} · {estimated_minutes} min read</div>
+<div class="meta">By The Financial Edition · {byline_date} · {esc(a.get('source',''))} · {estimated_minutes} min read</div>
 {visual(section)}
 <div class="article-body">{article_body(a)}</div>
 {glossary_html}
@@ -169,7 +169,7 @@ def archive_page(records,edition=None,search=False):
         for a in records:
             if original_date(a).isoformat()!=day:continue
             search_text=' '.join([str(a.get(k,'')) for k in ('title','short','source','desk_section')] + [str(piece) for block in a.get('blocks',[]) if isinstance(block,(list,tuple)) for piece in block])
-            cards.append('<article data-category="'+esc(a['desk_section'])+'" data-search="'+esc(search_text)+'"><span class="kicker">'+esc(a['desk_section'])+'</span><h2><a href="'+prefix+story_href(a)+'">'+esc(a['title'])+'</a></h2><p>'+esc(a['short'])+'</p><small>'+esc(a['source'])+(' · Published by The Brief: '+esc(date_in_uk(a['published_at'])) if date_in_uk(a['published_at'])!=original_date(a) else '')+'</small></article>')
+            cards.append('<article data-category="'+esc(a['desk_section'])+'" data-search="'+esc(search_text)+'"><span class="kicker">'+esc(a['desk_section'])+'</span><h2><a href="'+prefix+story_href(a)+'">'+esc(a['title'])+'</a></h2><p>'+esc(a['short'])+'</p><small>'+esc(a['source'])+(' · Published by The Financial Edition: '+esc(date_in_uk(a['published_at'])) if date_in_uk(a['published_at'])!=original_date(a) else '')+'</small></article>')
         rows.append('<section>'+('' if edition else '<h2 class="edition"><a href="'+prefix+'edition/'+day+'.html">'+esc(day)+' edition ↗</a></h2>')+''.join(cards)+'</section>')
     body=('<p class="intro">Search every published report across UK insurance and banking, including earlier editions. Search by company, subject, headline or words from a report.</p>' if search else '<p class="intro">Earlier developments, kept in their dated editions. Nothing here is presented as today’s news.</p>')
     if any(a.get('retrospective_launch') for a in records):
@@ -219,10 +219,10 @@ def utility_page(title,body,prefix='',active=''):
     """Single editorial layout for archive, dated editions and source information."""
     return ('<!doctype html><html lang="en-GB"><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width,initial-scale=1">'
-        '<meta name="theme-color" content="#332B2E"><title>'+esc(title)+' — The Brief</title>'
+        '<meta name="theme-color" content="#332B2E"><title>'+esc(title)+' — The Financial Edition</title>'
         '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Newsreader:wght@400;500;600;700&amp;display=swap" rel="stylesheet">'
         '<link rel="stylesheet" href="'+prefix+'assets/site.css"></head><body class="tb-utility-page">'
-        +header(prefix,active)+'<main class="tb-page"><span class="kicker">INSURANCE &amp; BANKING / THE BRIEF</span><h1>'+esc(title)+'</h1>'+body+'</main>'
+        +header(prefix,active)+'<main class="tb-page"><span class="kicker">INSURANCE &amp; BANKING / THE FINANCIAL EDITION</span><h1>'+esc(title)+'</h1>'+body+'</main>'
         +site_footer(prefix)+'</body></html>')
 
 
@@ -338,7 +338,7 @@ if(resetDesk)resetDesk.addEventListener('click',()=>document.querySelector('.tb-
 renderDesk();
 </script>"""
     return ('<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
-        '<meta name="theme-color" content="#261E22"><meta name="description" content="'+esc(intro)+'"><title>'+esc(section)+' — The Brief</title>'
+        '<meta name="theme-color" content="#261E22"><meta name="description" content="'+esc(intro)+'"><title>'+esc(section)+' — The Financial Edition</title>'
         '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Newsreader:wght@400;500;600;700&amp;display=swap" rel="stylesheet">'
         '<link rel="stylesheet" href="assets/site.css"></head><body class="tb-desk-view tb-'+desk+'-desk">'
         +header('',section)+'<main class="tb-page tb-desk-page">'+body+'</main>'+site_footer()+js+'</body></html>')
@@ -396,7 +396,7 @@ def build():
     else:
         # Retain the approved photographic newspaper layout on a quiet
         # morning, without pretending any historical article is new.
-        lead = ('<article id="lead-story" class="lead-story with-photo"><span class="story-kicker">THE BRIEF / YOUR UK FINANCIAL DESK</span>'
+        lead = ('<article id="lead-story" class="lead-story with-photo"><span class="story-kicker">THE FINANCIAL EDITION / YOUR UK FINANCIAL DESK</span>'
             '<h1>Understand the news that shapes your money.</h1>'
             '<p class="standfirst">Today’s lead report is still being prepared. Explore earlier reporting or build your financial knowledge below.</p>'
             '<a class="cta" href="archive.html">Explore earlier reporting →</a>'

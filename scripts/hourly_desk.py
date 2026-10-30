@@ -57,18 +57,18 @@ def page(data):
         url="../" if False else "story/"+e(item["id"])+".html"
         rows.append('<article class="item"><div class="eyebrow">'+e(item["category"])+' · Original source: '+e(item["original_date"])+
                     '</div><h2><a href="'+url+'">'+e(item["title"])+'</a></h2><p>'+e(item["summary"])+
-                    '</p><small>Reported from '+e(item["source"])+' · <a href="'+url+'">Read The Brief article</a></small></article>')
+                    '</p><small>Reported from '+e(item["source"])+' · <a href="'+url+'">Read The Financial Edition article</a></small></article>')
     body="".join(rows) if rows else '<p>There is no verified reporting to recap. <a href="archive.html">Visit the archive</a>.</p>'
     return """<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Hourly desk · The Brief</title><meta name="description" content="The Brief newsroom edition, refreshed hourly and accurately dated.">
+<title>Hourly desk · The Financial Edition</title><meta name="description" content="The Financial Edition newsroom edition, refreshed hourly and accurately dated.">
 <style>:root{color-scheme:light}*{box-sizing:border-box}body{margin:0;background:#f6f4ee;color:#102639;font:15px/1.65 system-ui,-apple-system,Segoe UI,sans-serif}a{color:inherit}a:hover{color:#156b70}
 nav{background:#102639;color:white;padding:16px max(22px,calc((100vw - 1120px)/2))}nav a{text-decoration:none;margin-right:22px}.brand{font:bold 27px Georgia,serif}
 main{max-width:1120px;margin:auto;padding:48px 25px 100px}.eyebrow{font-size:11px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:#23737a}
 h1{font:normal clamp(42px,6vw,70px)/1 Georgia,serif;letter-spacing:-.04em;max-width:760px}h2{font:normal 28px/1.2 Georgia,serif;margin:12px 0}
 .subtitle{font-size:17px;color:#546475;max-width:700px}.stamp{font-size:13px;background:#e1eceb;display:inline-block;padding:9px 16px;border-radius:24px}
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:28px}.item{padding:27px;background:white;border:1px solid #dce3e4;border-top:3px solid #246d72}.item p{color:#526270}.item small{color:#64737e}aside{border-top:1px solid #cad6d7;margin-top:38px;padding-top:20px;color:#526270;font-size:13px}@media(max-width:690px){.grid{grid-template-columns:1fr}main{padding-top:30px}}</style></head><body>
-<nav><a class="brand" href="index.html">THE BRIEF.</a><a href="index.html">Today's edition</a><a href="archive.html">Archive</a></nav>
-<main><div class="eyebrow">The Brief / news intelligence</div><h1>The hourly desk.</h1><p class="subtitle">A current guide to our complete financial-services reporting, without recycling old events as breaking developments.</p>
+<nav><a class="brand" href="index.html">THE FINANCIAL EDITION.</a><a href="index.html">Today's edition</a><a href="archive.html">Archive</a></nav>
+<main><div class="eyebrow">The Financial Edition / news intelligence</div><h1>The hourly desk.</h1><p class="subtitle">A current guide to our complete financial-services reporting, without recycling old events as breaking developments.</p>
 <div class="stamp">Last newsroom refresh: """+e(stamp)+"""</div><p><strong>"""+e(label)+"""</strong></p>
 <section class="grid" aria-label="Sourced article briefings">"""+body+"""</section>
 <aside>"""+e(data["editorial_note"])+""" Sources and original dates appear with each article. This is a briefing of previously reviewed material, not a claim of new reporting this hour.</aside>

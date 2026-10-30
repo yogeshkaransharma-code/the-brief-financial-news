@@ -1,6 +1,6 @@
-# The Brief
+# The Financial Edition
 
-[Read The Brief](https://yogeshkaransharma-code.github.io/the-brief-financial-news/) · [Archive](https://yogeshkaransharma-code.github.io/the-brief-financial-news/archive.html) · [Source registry](https://yogeshkaransharma-code.github.io/the-brief-financial-news/sources.html) · [Newsroom status](https://yogeshkaransharma-code.github.io/the-brief-financial-news/status.html)
+[Read The Financial Edition](https://yogeshkaransharma-code.github.io/the-brief-financial-news/) · [Archive](https://yogeshkaransharma-code.github.io/the-brief-financial-news/archive.html) · [Source registry](https://yogeshkaransharma-code.github.io/the-brief-financial-news/sources.html) · [Newsroom status](https://yogeshkaransharma-code.github.io/the-brief-financial-news/status.html)
 
 A UK publication covering UK insurance and banking, with original source-based articles and clearly linked evidence. The newsroom uses Gemini for a single writing pass and checks source completeness, publication dates, routing and duplicate stories. It does **not** commission a separate AI claim review or routinely obtain human editorial sign-off. The writing brief calls for natural British English, proportionate headlines and practical context only when supported by the source.
 
@@ -14,7 +14,7 @@ A UK publication covering UK insurance and banking, with original source-based a
 4. Select relevant, date-verified source documents using deterministic source/diversity and duplicate controls. Selection currently does **not** involve an AI newsworthiness review; it can therefore include routine announcements.
 5. Ask Gemini to write original source-based articles in a single request, using the grounded British newsroom voice rules in `scripts/single_pass.py`. Before publication, deterministic controls check source integrity, routing, original date and duplicate identity. There is **no** separate sentence-by-sentence review; this is a known accuracy limitation.
 6. Publish eligible articles using their actual source and publication dates. Today's edition contains same-day UK developments; older material remains in the accurately dated searchable archive. There is no daily article-count ceiling.
-7. Maintain source-linked headlines internally for discovery and selection. The public publication contains complete The Brief articles; external headlines never become artificial article pages or public headline filler.
+7. Maintain source-linked headlines internally for discovery and selection. The public publication contains complete The Financial Edition articles; external headlines never become artificial article pages or public headline filler.
 8. Deploy real HTML reading pages to GitHub Pages. Check the exact deployment run, all current article bodies, archive access and the original-article homepage. Check mobile and desktop presentation after code changes and new articles, including archive search, subject filters and source-registry search.
 
 ## Hourly edition and sector reading desks
@@ -57,7 +57,7 @@ python scripts/verify_public.py
 python scripts/verify_live.py
 ```
 
-Production browser checks run at 390px and 1440px and preserve screenshots as Actions artifacts. A failed external publisher screenshot is recorded separately from The Brief's own article readability.
+Production browser checks run at 390px and 1440px and preserve screenshots as Actions artifacts. A failed external publisher screenshot is recorded separately from The Financial Edition's own article readability.
 
 ## Data and accountability
 

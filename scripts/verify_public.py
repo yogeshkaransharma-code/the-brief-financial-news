@@ -33,7 +33,7 @@ def verify():
     # A stricter browser-only requirement silently hides published articles.
     assert 'Array.isArray(x.blocks)&&x.blocks.length>=1&&currentDayArticle(x)' in home, 'Homepage drops approved single-section reporting'
     assert 'eligibleBriefs.slice(0,4)' in home, 'Client-side 60-second digest must support four useful developments'
-    assert 'The 60-second Brief' in home and 'Latest reporting' in home, 'Approved reader-facing headings missing'
+    assert '60-second Briefing' in home and 'Latest reporting' in home, 'Approved reader-facing headings missing'
     assert 'tb-section-nav' in home and home.count('<nav class="tb-nav tb-section-nav"')==1, 'Homepage must have one primary section ribbon'
     assert 'tb-sector-visuals' not in home and 'tb-intro-band' not in home, 'Duplicate desk panels remain on homepage'
     assert 'id="briefing-tabs"' not in home and 'id="chips"' not in home, 'Duplicate Insurance and Banking filters remain'
@@ -90,7 +90,7 @@ def verify():
     assert 'data-desk="' in home, 'Sector cues missing from news rows'
     # Today's date belongs to the edition header; avoid repeating identical
     # source/publication calendar dates on every card or lead.
-    assert 'Original news:' not in home and 'The Brief published:' not in home, 'Repeated date metadata on homepage'
+    assert 'Original news:' not in home and 'The Financial Edition published:' not in home, 'Repeated date metadata on homepage'
     assert 'class="date-separator"' not in home, 'Daily edition contains duplicate day header'
     assert "$('edition-date').textContent=d.toLocaleDateString" not in home, 'Masthead reintroduces daily date'
     assert 'id="issue-date"' in home, 'Edition must retain one readable date'
@@ -100,9 +100,9 @@ def verify():
         byline=story.split('<div class="meta">',1)[1].split('</div>',1)[0]
         if original_date(a)==date_in_uk(a['published_at']):
             assert byline.count(original_date(a).strftime('%-d %B %Y'))==1, 'Story repeats identical day'
-            assert 'Source:' not in byline and 'The Brief:' not in byline, 'Same-day publication doubles byline'
+            assert 'Source:' not in byline and 'The Financial Edition:' not in byline, 'Same-day publication doubles byline'
         else:
-            assert 'Source:' in byline and 'The Brief:' in byline, 'Different source/publication dates hidden'
+            assert 'Source:' in byline and 'The Financial Edition:' in byline, 'Different source/publication dates hidden'
 
     token=token_from_env()
     pages=list(public.rglob('*.html'))
@@ -159,6 +159,9 @@ def verify():
     assert (public/'about.html').is_file() and (public/'sources.html').is_file()
     assert 'tb-section-nav' in (public/'about.html').read_text(), 'About masthead differs from the publication'
     about=(public/'about.html').read_text(encoding='utf-8')
+    assert 'THE FINANCIAL EDITION' in home and 'THE FINANCIAL EDITION' in about, 'New publication masthead missing'
+    assert '<meta property="og:site_name" content="The Financial Edition">' in home, 'Social metadata still uses old name'
+    assert 'THE BRIEF' not in home and 'THE BRIEF' not in about, 'Old masthead survived renaming'
     assert 'Before publication, we check source availability, dates, UK relevance and duplication.' in about, 'Source checks are not explained'
     assert 'reports do not routinely receive a separate editorial review' not in about, 'About repeats an unhelpful editorial disclaimer'
     assert 'do not claim to have interviewed people' not in about, 'About repeats an unnecessary defensive disclaimer'

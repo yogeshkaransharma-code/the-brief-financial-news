@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""AI-assisted editorial draft generator for The Brief.
+"""AI-assisted editorial draft generator for The Financial Edition.
 
 Reads official UK regulatory source pages and produces original, plain-English
 drafts with source excerpts for human editorial review. Does not publish.
@@ -203,7 +203,7 @@ def fetch_gemini(prompt: str, model_override: str | None = None) -> dict:
 
 def make_prompt(item: dict, source: str) -> str:
     return (
-        "You are a rigorous British financial-services reporter for The Brief. "
+        "You are a rigorous British financial-services reporter for The Financial Edition. "
         "Use ONLY the official primary-source text below. Draft a new, original, "
         "easy-to-read article for UK banking and insurance professionals. "
         "Do NOT echo copyrighted secondary publishers, invent dates, numbers, "

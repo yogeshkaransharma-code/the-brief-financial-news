@@ -1,7 +1,7 @@
-/* The Brief shared layout foundation. Every generated route uses this file:
+/* The Financial Edition shared layout foundation. Every generated route uses this file:
    content-box inflated the 390px mobile article to 428px after padding. */
 *,*::before,*::after{box-sizing:border-box}
-/* Single reader-facing design system — The Brief / Burgundy edition. */
+/* Single reader-facing design system — The Financial Edition / Burgundy edition. */
 :root{--ink:#272323!important;--ink2:#332B2E!important;--paper:#F8F5EF!important;--surface:#fff!important;--rule:#DED8D0!important;--quiet:#665D5B!important;--accent:#87404B!important;--accent-soft:#F0E4E3!important;--display:'Newsreader',Georgia,serif;--sans:'Inter',Arial,sans-serif}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--paper)!important;color:var(--ink)!important;-webkit-font-smoothing:antialiased}
@@ -121,7 +121,7 @@ body.tb-home .issue-heading span:first-child:before{background:#87404B!important
 body.tb-home .news-heading h2 span{color:#87404B!important}
 
 
-/* The Brief — 27 October editorial design refresh.
+/* The Financial Edition — 27 October editorial design refresh.
    Deliberately distinctive across homepage, article pages and About.
    The photography below the lead is marked as sector illustration, never as evidence. */
 :root{
@@ -387,7 +387,7 @@ body.tb-home .story-ordinal{color:#665458}
 
 
 /* ------------------------------------------------------------------------
-   THE BRIEF / Editorial photographic edition (mockup-matched)
+   THE FINANCIAL EDITION / Editorial photographic edition (mockup-matched)
    One newspaper identity: charcoal, bone, burgundy and slate-blue desks.
    Presentation only. Reporting rules and hourly automation unchanged.
    ------------------------------------------------------------------------ */
@@ -976,7 +976,7 @@ body.tb-home .news-item:not(.has-photo){align-content:start}
 }
 
 
-/* THE BRIEF: IVORY EDITORIAL HOME — approved photographic newspaper layout.
+/* THE FINANCIAL EDITION: IVORY EDITORIAL HOME — approved photographic newspaper layout.
    Scope is home only; desk and article pages retain their existing identity. */
 :root{--tb-editorial-ink:#202326;--tb-editorial-paper:#faf7f1;--tb-editorial-rule:#dedbd5;--tb-editorial-blue:#285e83;--tb-editorial-wine:#913a49}
 body.tb-home{background:var(--tb-editorial-paper)!important;color:var(--tb-editorial-ink)!important}
@@ -1067,7 +1067,7 @@ body.tb-home .tb-report-art img{width:100%!important;height:100%!important;filte
 body.tb-home .tb-report-art figcaption{font:400 8px/1.35 var(--sans)!important;padding:2px 0 0!important;margin:0!important;color:#777!important;max-height:27px!important;overflow:hidden!important}
 body.tb-home .news-item .story-ordinal{display:none!important}
 body.tb-home .news-item>div:nth-of-type(2){grid-column:2!important;grid-row:1!important;min-width:0!important}
-body.tb-home .news-item:not(.has-photo)::before{content:"THE BRIEF";font:700 16px var(--display);color:#ada5a1;display:flex;align-items:center;justify-content:center;border:1px solid #e7ded7;height:95px;grid-column:1;grid-row:1}
+body.tb-home .news-item:not(.has-photo)::before{content:"TFE";font:700 16px var(--display);color:#ada5a1;display:flex;align-items:center;justify-content:center;border:1px solid #e7ded7;height:95px;grid-column:1;grid-row:1}
 body.tb-home .news-item .news-bookmark{grid-column:3!important;grid-row:1!important;align-self:center!important;color:#3a4246!important}
 body.tb-home .news-item .news-cat{color:var(--tb-editorial-wine)!important;font:800 10px/1.3 var(--sans)!important;letter-spacing:.02em!important}
 body.tb-home .news-item[data-desk="Banking"] .news-cat{color:var(--tb-editorial-blue)!important}
@@ -1276,3 +1276,18 @@ body.tb-utility-page #archive-list article[data-search]{overflow-wrap:anywhere}
 body:is(.tb-about-page,.tb-reading-page,.tb-desk-view,.tb-utility-page) .tb-nav .tb-nav-search{display:inline-flex;align-items:center;justify-content:center;flex:0 0 30px;padding:8px;margin-left:2px;background:transparent;border:1px solid #d6d1c9;border-radius:100%;cursor:pointer}
 body:is(.tb-about-page,.tb-reading-page,.tb-desk-view,.tb-utility-page) .tb-nav .tb-nav-search svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8}
 @media(max-width:390px){body.tb-home .search-panel .search-inner>svg{display:none}}
+
+/* Financial Edition masthead: readable at 390px without changing the layout. */
+body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-view,.tb-utility-page) .tb-header .tb-logo{
+  font-size:clamp(36px,4.1vw,56px)!important;letter-spacing:-1.7px!important;white-space:nowrap!important;
+}
+body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-view,.tb-utility-page) .tb-footer-logo{font-size:clamp(20px,2.3vw,29px)!important;letter-spacing:-.7px!important;white-space:normal!important}
+@media(max-width:680px){
+ body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-view,.tb-utility-page) .tb-header .tb-logo{
+   font-size:clamp(22px,5.8vw,34px)!important;letter-spacing:-.8px!important;
+ }
+ body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-view,.tb-utility-page) .tb-header .tb-brand{min-width:0!important;max-width:100%!important}
+}
+@media(max-width:360px){
+ body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-view,.tb-utility-page) .tb-header .tb-logo{font-size:21px!important;letter-spacing:-.6px!important}
+}

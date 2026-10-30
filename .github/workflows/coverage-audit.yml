@@ -36,7 +36,7 @@ jobs:
           if-no-files-found: warn
       - name: Preserve the actual comparison
         run: |
-          git config user.name "The Brief Coverage Audit"
+          git config user.name "The Financial Edition Coverage Audit"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/coverage-audit.json
           if git diff --cached --quiet; then

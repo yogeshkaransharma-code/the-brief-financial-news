@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""The Brief: original sources -> Gemini commissioning -> writing -> separate claim review.
+"""The Financial Edition: original sources -> Gemini commissioning -> writing -> separate claim review.
 
 Clean drafts reach the separate autonomous publisher. Machine evidence checks
 are not a human sign-off. RSS summaries never substitute for captured sources.

@@ -34,7 +34,7 @@ def _meta(page_path: Path, rel: str, title: str, description: str, schema: dict 
     additions = [
         '<link rel="canonical" href="' + html.escape(from_url, quote=True) + '">',
         '<meta property="og:type" content="' + ("article" if rel.startswith("story/") else "website") + '">',
-        '<meta property="og:site_name" content="The Brief">',
+        '<meta property="og:site_name" content="The Financial Edition">',
         '<meta property="og:title" content="' + html.escape(title, quote=True) + '">',
         '<meta property="og:description" content="' + html.escape(description, quote=True) + '">',
         '<meta property="og:url" content="' + html.escape(from_url, quote=True) + '">',
@@ -56,45 +56,45 @@ def add_search_discovery(out: Path, articles: list[dict]) -> None:
     site_schema = {
         "@context": "https://schema.org",
         "@type": "WebSite",
-        "name": "The Brief",
+        "name": "The Financial Edition",
         "url": BASE,
         "inLanguage": "en-GB",
         "description": "Independent UK insurance and banking news, explained clearly.",
-        "publisher": {"@type": "Organization", "name": "The Brief", "url": BASE},
+        "publisher": {"@type": "Organization", "name": "The Financial Edition", "url": BASE},
     }
     entries = []
     for rel in paths:
         page = out / rel
         if not page.is_file():
             raise ValueError("Sitemap cannot list nonexistent page: " + rel)
-        name = "The Brief — UK insurance and banking news"
+        name = "The Financial Edition — UK insurance and banking news"
         desc = "Insurance and banking news explained in plain British English."
         structured = site_schema if rel == "index.html" else None
         modified = None
         if rel == "about.html":
-            name = "About The Brief"
+            name = "About The Financial Edition"
             desc = "Our purpose, coverage, sources and corrections."
         elif rel == "insurance.html":
-            name = "Insurance news — The Brief"
+            name = "Insurance news — The Financial Edition"
             desc = "UK insurance, intermediaries, underwriting, claims and industry developments."
         elif rel == "banking.html":
-            name = "Banking news — The Brief"
+            name = "Banking news — The Financial Edition"
             desc = "UK banking, lending, payments and regulation."
         elif rel == "search.html":
-            name = "Search The Brief"
+            name = "Search The Financial Edition"
             desc = "Search reports across every edition of UK insurance and banking news."
         elif rel == "archive.html":
-            name = "The Brief archive"
+            name = "The Financial Edition archive"
             desc = "Earlier UK insurance and banking news, kept with their original dates."
         elif rel == "privacy.html":
-            name = "Privacy — The Brief"
-            desc = "The Brief website privacy and audience measurement information."
+            name = "Privacy — The Financial Edition"
+            desc = "The Financial Edition website privacy and audience measurement information."
         elif rel == "sources.html":
-            name = "Sources — The Brief"
-            desc = "Source publications and original evidence behind The Brief."
+            name = "Sources — The Financial Edition"
+            desc = "Source publications and original evidence behind The Financial Edition."
         elif rel.startswith("edition/"):
-            name = "The Brief edition — " + rel.split("/")[-1][:-5]
-            desc = "Dated insurance and banking news from The Brief."
+            name = "The Financial Edition edition — " + rel.split("/")[-1][:-5]
+            desc = "Dated insurance and banking news from The Financial Edition."
         elif rel.startswith("story/"):
             if rel not in by_path:
                 raise ValueError("Unrecognised article page in SEO build: " + rel)
@@ -111,8 +111,8 @@ def add_search_discovery(out: Path, articles: list[dict]) -> None:
                 "datePublished": a["published_at"],
                 "inLanguage": "en-GB",
                 "articleSection": a.get("desk_section") or a.get("category") or "Financial services",
-                "publisher": {"@type": "Organization", "name": "The Brief", "url": BASE},
-                "author": {"@type": "Organization", "name": "The Brief", "url": BASE},
+                "publisher": {"@type": "Organization", "name": "The Financial Edition", "url": BASE},
+                "author": {"@type": "Organization", "name": "The Financial Edition", "url": BASE},
                 "citation": a.get("source_url") or a["url"],
                 "isAccessibleForFree": True,
             }

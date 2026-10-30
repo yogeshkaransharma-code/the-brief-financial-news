@@ -36,7 +36,7 @@ def main():
                     return safe;
                 }''')
                 assert width_safe, 'Long unbroken website address forces horizontal overflow on mobile'
-            assert 'The 60-second Brief' in page.locator('#briefing-title').inner_text(), 'The agreed quick-catch-up label is not visible'
+            assert '60-second Briefing' in page.locator('#briefing-title').inner_text(), 'The agreed quick-catch-up label is not visible'
             assert 'Latest reporting' in page.locator('#latest h2').text_content(), 'The agreed reporting list is not visible'
             assert page.locator('.tb-sector-visual').count()==0, 'Duplicate sector banners still clutter the homepage'
             assert page.locator('#briefing-tabs,#chips').count()==0, 'Duplicate sector-choice controls remain'
@@ -123,6 +123,8 @@ def main():
                     assert page.locator('#launch-edition').is_visible()
                     assert a['title'] in page.locator('#launch-edition').inner_text()
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'),'Homepage overflows viewport'
+            assert page.evaluate("""() => {const r=document.querySelector('.tb-header .tb-logo').getBoundingClientRect();return r.left>=-1&&r.right<=innerWidth+1;}"""), 'The Financial Edition masthead overflows the viewport'
+            assert 'THE FINANCIAL EDITION' in page.locator('.tb-header .tb-logo').inner_text(), 'Publication masthead uses the old name'
             assert page.locator('#publisher-desk').count()==0,'External publisher headlines leaked into the publication'
             assert page.locator('.tb-nav a').count()==4,'Navigation must include Home, Insurance, Banking and About'
             assert page.locator('.tb-sector-visual').count()==0,'Repeated desk panels still exist'
