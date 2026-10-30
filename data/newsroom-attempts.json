@@ -2,29 +2,10 @@
   "api_budget": {
     "date": "2026-10-30",
     "timezone": "America/Los_Angeles",
-    "requests": 12,
+    "requests": 13,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-10-27T10:19:32.331504+00:00",
-      "result": "response_received",
-      "prompt_characters": 5815,
-      "purpose": "single_pass_writing",
-      "usage": {
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 1383,
-        "candidatesTokenCount": 428,
-        "totalTokenCount": 1811,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 1383
-          }
-        ],
-        "serviceTier": "standard"
-      }
-    },
     {
       "at": "2026-10-27T11:13:38.932057+00:00",
       "result": "response_received",
@@ -1817,6 +1798,25 @@
           {
             "modality": "TEXT",
             "tokenCount": 3739
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-30T17:20:02.550851+00:00",
+      "result": "response_received",
+      "prompt_characters": 18133,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 3545,
+        "candidatesTokenCount": 570,
+        "totalTokenCount": 4115,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 3545
           }
         ],
         "serviceTier": "standard"
@@ -5190,6 +5190,36 @@
       "attempted_at": "2026-10-30T16:23:36.397516+00:00",
       "retry_after": "2026-10-31T17:23:36.397516+00:00",
       "headline": "Suffolk BS launches 85% BTL mortgages"
+    },
+    "https://www.theguardian.com/uk-news/2026/oct/30/this-budget-fails-to-live-up-to-andy-burnhams-grand-rhetoric": {
+      "attempted_at": "2026-10-30T17:19:42.719872+00:00",
+      "retry_after": "2026-10-31T18:19:42.719872+00:00",
+      "headline": "This budget fails to live up to Andy Burnham’s grand rhetoric | Letters"
+    },
+    "https://www.reinsurancene.ws/riverstone-international-completes-1-6bn-lpt-reinsurance-transactions-with-qbe/": {
+      "attempted_at": "2026-10-30T17:19:42.719872+00:00",
+      "retry_after": "2026-10-31T18:19:42.719872+00:00",
+      "headline": "RiverStone International completes $1.6bn LPT reinsurance transactions with QBE"
+    },
+    "https://www.insurancejournal.com/news/international/2026/10/30/890982.htm": {
+      "attempted_at": "2026-10-30T17:19:42.719872+00:00",
+      "retry_after": "2026-10-31T18:19:42.719872+00:00",
+      "headline": "Binance’s $6.3 Billion Hack: How Crypto Insurance Works"
+    },
+    "https://www.mortgagesolutions.co.uk/mortgage-news/2026/10/30/top-10-most-read-mortgage-broker-stories-this-week-30-10-2026/": {
+      "attempted_at": "2026-10-30T17:19:42.719872+00:00",
+      "retry_after": "2026-10-31T18:19:42.719872+00:00",
+      "headline": "Top 10 most read mortgage broker stories this week – 30/10/2026"
+    },
+    "https://www.wsj.com/business/financial-services-roundup-market-talk-2270c51d": {
+      "attempted_at": "2026-10-30T17:19:42.719872+00:00",
+      "retry_after": "2026-10-31T18:19:42.719872+00:00",
+      "headline": "Financial Services Roundup: Market Talk"
+    },
+    "https://www.ft.com/content/da16af06-4431-4ced-9c3e-a0753d8c45c9?syn-25a6b1a6=1": {
+      "attempted_at": "2026-10-30T17:19:42.719872+00:00",
+      "retry_after": "2026-10-31T18:19:42.719872+00:00",
+      "headline": "CD&R pursues buyout of $40bn card processor Global Payments"
     }
   },
   "sources": {
@@ -8043,21 +8073,21 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-10-30/african-export-import-bank-mulls-first-offshore-yuan-loan": {
-      "attempted_at": "2026-10-30T10:47:53.212591+00:00",
-      "retry_after": "2026-10-30T16:47:53.212591+00:00",
+      "attempted_at": "2026-10-30T17:19:42.719872+00:00",
+      "retry_after": "2026-10-30T23:19:42.719872+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 2,
+      "failures": 3,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-10-30/chinese-junk-dollar-bonds-head-for-worst-week-in-a-year-on-huafa": {
-      "attempted_at": "2026-10-30T10:47:53.212591+00:00",
-      "retry_after": "2026-10-30T16:47:53.212591+00:00",
+      "attempted_at": "2026-10-30T17:19:42.719872+00:00",
+      "retry_after": "2026-10-30T23:19:42.719872+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 2,
+      "failures": 3,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.insurancejournal.com/news/national/2026/10/30/890876.htm": {
@@ -8068,8 +8098,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/east/2026/10/30/890880.htm": {
-      "attempted_at": "2026-10-30T16:23:36.397516+00:00",
-      "retry_after": "2026-10-30T20:23:36.397516+00:00",
+      "attempted_at": "2026-10-30T17:19:42.719872+00:00",
+      "retry_after": "2026-10-30T21:19:42.719872+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -8281,24 +8311,24 @@
       "alternative_search_after": "2026-10-30T20:23:36.397516+00:00"
     },
     "https://www.fca.org.uk/news/press-releases/brits-nearly-twice-likely-spot-pressure-tactics-horror-films-investment-red-flags": {
-      "attempted_at": "2026-10-30T14:30:06.035540+00:00",
-      "retry_after": "2026-10-30T16:30:06.035540+00:00",
+      "attempted_at": "2026-10-30T17:19:42.719872+00:00",
+      "retry_after": "2026-10-30T19:19:42.719872+00:00",
       "last_result": "Conflicting original publication dates on source page",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
-      "failures": 3,
+      "failures": 4,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-30T18:30:06.035540+00:00"
+      "alternative_search_after": "2026-10-30T21:19:42.719872+00:00"
     },
     "https://www.insuranceage.co.uk/broker/7959080/john-lewis-money-appoints-ex-co-op-insurance-md": {
-      "attempted_at": "2026-10-30T14:30:06.035540+00:00",
-      "retry_after": "2026-10-30T16:30:06.035540+00:00",
+      "attempted_at": "2026-10-30T17:19:42.719872+00:00",
+      "retry_after": "2026-10-30T19:19:42.719872+00:00",
       "last_result": "Original document has no unambiguous publication date; listing/RSS date is insufficient",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
-      "failures": 3,
+      "failures": 4,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-30T18:30:06.035540+00:00"
+      "alternative_search_after": "2026-10-30T21:19:42.719872+00:00"
     },
     "https://www.reinsurancene.ws/bhsi-promotes-pelletier-to-head-of-ep-in-france/": {
       "attempted_at": "2026-10-30T16:23:36.397516+00:00",
@@ -8315,8 +8345,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.theguardian.com/uk-news/2026/oct/30/andy-burnham-first-budget-labour-welfare": {
-      "attempted_at": "2026-10-30T16:23:36.397516+00:00",
-      "retry_after": "2026-10-30T20:23:36.397516+00:00",
+      "attempted_at": "2026-10-30T17:19:42.719872+00:00",
+      "retry_after": "2026-10-30T21:19:42.719872+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -8331,31 +8361,29 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.commercialriskonline.com/axa-xl-sees-9m-insurance-premiums-and-rates-drop-1/": {
-      "attempted_at": "2026-10-30T16:23:36.397516+00:00",
-      "retry_after": "2026-10-30T20:23:36.397516+00:00",
+      "attempted_at": "2026-10-30T17:19:42.719872+00:00",
+      "retry_after": "2026-10-30T21:19:42.719872+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.finextra.com/pressarticle/111517/tokenisation-platform-assetize-secures-jersey-registration": {
-      "attempted_at": "2026-10-30T10:47:53.212591+00:00",
-      "retry_after": "2026-10-30T16:47:53.212591+00:00",
+      "attempted_at": "2026-10-30T17:19:42.719872+00:00",
+      "retry_after": "2026-10-30T23:19:42.719872+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-30T14:47:53.212591+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-10-30/ecb-warns-of-slow-srt-approvals-if-banks-don-t-keep-them-simple": {
-      "attempted_at": "2026-10-30T10:47:53.212591+00:00",
-      "retry_after": "2026-10-30T16:47:53.212591+00:00",
+      "attempted_at": "2026-10-30T17:19:42.719872+00:00",
+      "retry_after": "2026-10-30T23:19:42.719872+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-30T14:47:53.212591+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.commercialriskonline.com/everest-group-sees-fall-in-premium-and-net-income/": {
       "attempted_at": "2026-10-30T16:23:36.397516+00:00",
@@ -8365,14 +8393,13 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.finextra.com/pressarticle/111516/okx-reaches-36bn-in-onchain-assets": {
-      "attempted_at": "2026-10-30T10:47:53.212591+00:00",
-      "retry_after": "2026-10-30T16:47:53.212591+00:00",
+      "attempted_at": "2026-10-30T17:19:42.719872+00:00",
+      "retry_after": "2026-10-30T23:19:42.719872+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-30T14:47:53.212591+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.reinsurancene.ws/hamilton-posts-9m26-underwriting-income-of-102m-as-cor-improves-to-94-1/": {
       "attempted_at": "2026-10-30T16:23:36.397516+00:00",
@@ -8389,14 +8416,13 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.finextra.com/newsarticle/48674/hackers-steal-63bn-in-crypto-assets-from-binance": {
-      "attempted_at": "2026-10-30T10:47:53.212591+00:00",
-      "retry_after": "2026-10-30T16:47:53.212591+00:00",
+      "attempted_at": "2026-10-30T17:19:42.719872+00:00",
+      "retry_after": "2026-10-30T23:19:42.719872+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-30T17:36:48.204731+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.commercialriskonline.com/apac-cat-losses-lower-than-average-for-first-nine-months-despite-recent-cyclones/": {
       "attempted_at": "2026-10-30T16:23:36.397516+00:00",
@@ -8459,8 +8485,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.commercialriskonline.com/coordinated-approach-needed-to-boost-cyber-resilience-in-financial-services/": {
-      "attempted_at": "2026-10-30T16:23:36.397516+00:00",
-      "retry_after": "2026-10-30T20:23:36.397516+00:00",
+      "attempted_at": "2026-10-30T17:19:42.719872+00:00",
+      "retry_after": "2026-10-30T21:19:42.719872+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -8511,12 +8537,12 @@
       "alternative_search_after": "2026-10-30T17:31:51.055730+00:00"
     },
     "https://www.ukfinance.org.uk/news-and-insight/press-release/uk-finance-publishes-2026-banking-sector-tax-report": {
-      "attempted_at": "2026-10-30T13:31:51.055730+00:00",
-      "retry_after": "2026-10-30T15:31:51.055730+00:00",
+      "attempted_at": "2026-10-30T17:19:42.719872+00:00",
+      "retry_after": "2026-10-30T19:19:42.719872+00:00",
       "last_result": "Original document has no unambiguous publication date; listing/RSS date is insufficient",
       "classification": "DATE_UNVERIFIED",
       "stage": "alternative_source",
-      "failures": 1,
+      "failures": 2,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.reinsurancene.ws/aon-and-sage-launch-precision-crop-insurance-program-for-us-states/": {
@@ -8551,15 +8577,15 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.commercialriskonline.com/net-income-down-but-revenue-up-for-scor-in-third-quarter/": {
-      "attempted_at": "2026-10-30T16:23:36.397516+00:00",
-      "retry_after": "2026-10-30T20:23:36.397516+00:00",
+      "attempted_at": "2026-10-30T17:19:42.719872+00:00",
+      "retry_after": "2026-10-30T21:19:42.719872+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.commercialriskonline.com/councils-opposition-to-eu-wide-cyber-reporting-system-puts-simplification-at-risk/": {
-      "attempted_at": "2026-10-30T16:23:36.397516+00:00",
-      "retry_after": "2026-10-30T20:23:36.397516+00:00",
+      "attempted_at": "2026-10-30T17:19:42.719872+00:00",
+      "retry_after": "2026-10-30T21:19:42.719872+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -8623,8 +8649,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/southcentral/2026/10/30/890949.htm": {
-      "attempted_at": "2026-10-30T16:23:36.397516+00:00",
-      "retry_after": "2026-10-30T20:23:36.397516+00:00",
+      "attempted_at": "2026-10-30T17:19:42.719872+00:00",
+      "retry_after": "2026-10-30T21:19:42.719872+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -8689,8 +8715,8 @@
       "alternative_search_after": "2026-10-30T19:24:51.343337+00:00"
     },
     "https://www.reinsurancene.ws/lower-net-investment-gains-drive-cincinnati-financial-q326-net-income-decrease-cor-at-90-9/": {
-      "attempted_at": "2026-10-30T16:23:36.397516+00:00",
-      "retry_after": "2026-10-30T20:23:36.397516+00:00",
+      "attempted_at": "2026-10-30T17:19:42.719872+00:00",
+      "retry_after": "2026-10-30T21:19:42.719872+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -8716,29 +8742,62 @@
       "alternative_search_after": "2026-10-30T19:24:51.343337+00:00"
     },
     "https://www.reinsurancene.ws/european-cat-pricing-down-high-single-to-low-double-digits-for-very-late-jan-1-renewal-scors-conoscente/": {
-      "attempted_at": "2026-10-30T15:24:51.343337+00:00",
-      "retry_after": "2026-10-30T19:24:51.343337+00:00",
+      "attempted_at": "2026-10-30T17:19:42.719872+00:00",
+      "retry_after": "2026-10-30T21:19:42.719872+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.reinsurancene.ws/everest-advances-commercial-retail-exit-with-sale-of-chile-insurance-operations-to-aig/": {
-      "attempted_at": "2026-10-30T16:23:36.397516+00:00",
-      "retry_after": "2026-10-30T20:23:36.397516+00:00",
+      "attempted_at": "2026-10-30T17:19:42.719872+00:00",
+      "retry_after": "2026-10-30T21:19:42.719872+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/national/2026/10/30/890953.htm": {
-      "attempted_at": "2026-10-30T16:23:36.397516+00:00",
-      "retry_after": "2026-10-30T20:23:36.397516+00:00",
+      "attempted_at": "2026-10-30T17:19:42.719872+00:00",
+      "retry_after": "2026-10-30T21:19:42.719872+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/midwest/2026/10/30/890963.htm": {
-      "attempted_at": "2026-10-30T16:23:36.397516+00:00",
-      "retry_after": "2026-10-30T20:23:36.397516+00:00",
+      "attempted_at": "2026-10-30T17:19:42.719872+00:00",
+      "retry_after": "2026-10-30T21:19:42.719872+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.ukfinance.org.uk/news-and-insight/press-release/duo-sentenced-after-stealing-ps187000-one-time-passcode-scam": {
+      "attempted_at": "2026-10-30T17:19:42.719872+00:00",
+      "retry_after": "2026-10-30T19:19:42.719872+00:00",
+      "last_result": "Original document has no unambiguous publication date; listing/RSS date is insufficient",
+      "classification": "DATE_UNVERIFIED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-30T21:19:42.719872+00:00"
+    },
+    "https://www.reinsurancene.ws/riverstone-international-completes-1-6bn-lpt-reinsurance-transactions-with-qbe/": {
+      "attempted_at": "2026-10-30T17:19:42.719872+00:00",
+      "retry_after": "2026-10-30T21:19:42.719872+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.wsj.com/business/financial-services-roundup-market-talk-2270c51d": {
+      "attempted_at": "2026-10-30T17:19:42.719872+00:00",
+      "retry_after": "2026-10-30T23:19:42.719872+00:00",
+      "last_result": "HTTP Error 401: HTTP Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.reinsurancene.ws/chubb-bolsters-its-global-claims-team/": {
+      "attempted_at": "2026-10-30T17:19:42.719872+00:00",
+      "retry_after": "2026-10-30T21:19:42.719872+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
