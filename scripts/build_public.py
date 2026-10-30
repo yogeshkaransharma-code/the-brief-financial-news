@@ -55,7 +55,7 @@ def valid_articles():
     scoped=[a for a in records if public_article_in_scope(a)]
     note_path=ROOT/"data/editorial-context.json"
     notes=json.loads(note_path.read_text(encoding="utf-8")).get("notes",{}) if note_path.exists() else {}
-    if not isinstance(notes,dict) or set(notes)-{a["id"] for a in scoped}:
+    if not isinstance(notes,dict) or set(notes)-{a["id"] for a in records}:
         raise ValueError("Invalid public editorial context")
     enriched=[]
     for a in scoped:
