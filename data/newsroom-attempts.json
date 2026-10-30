@@ -2,29 +2,10 @@
   "api_budget": {
     "date": "2026-10-29",
     "timezone": "America/Los_Angeles",
-    "requests": 27,
+    "requests": 28,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-10-27T03:39:34.341374+00:00",
-      "result": "response_received",
-      "prompt_characters": 17580,
-      "purpose": "single_pass_writing",
-      "usage": {
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 3619,
-        "candidatesTokenCount": 1236,
-        "totalTokenCount": 4855,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 3619
-          }
-        ],
-        "serviceTier": "standard"
-      }
-    },
     {
       "at": "2026-10-27T04:13:48.075308+00:00",
       "result": "response_received",
@@ -1829,6 +1810,25 @@
           {
             "modality": "TEXT",
             "tokenCount": 5514
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-10-30T06:54:31.226447+00:00",
+      "result": "response_received",
+      "prompt_characters": 18365,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 3681,
+        "candidatesTokenCount": 575,
+        "totalTokenCount": 4256,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 3681
           }
         ],
         "serviceTier": "standard"
@@ -4942,6 +4942,16 @@
       "attempted_at": "2026-10-30T05:45:28.647040+00:00",
       "retry_after": "2026-10-31T06:45:28.647040+00:00",
       "headline": "GM to Pay $220M to Settle Privacy Claims Over Sale of Driver Data to Insurers"
+    },
+    "https://www.reinsurancene.ws/am-best-assigns-credit-rating-to-ascot-insurance-guernsey/": {
+      "attempted_at": "2026-10-30T06:54:15.747165+00:00",
+      "retry_after": "2026-10-31T07:54:15.747165+00:00",
+      "headline": "AM Best assigns credit rating to Ascot Insurance Guernsey"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-30/central-asia-s-fastest-growing-economy-plans-yuan-bond-in-2027": {
+      "attempted_at": "2026-10-30T06:54:15.747165+00:00",
+      "retry_after": "2026-10-31T07:54:15.747165+00:00",
+      "headline": "Central Asia’s Fastest Growing Economy Plans Yuan Bond in 2027"
     }
   },
   "sources": {
@@ -7742,24 +7752,24 @@
       "alternative_search_after": "2026-10-30T03:11:08.977826+00:00"
     },
     "https://www.finextra.com/newsarticle/48671/photonpay-raises-40m-for-stablecoin-centric-financial-os": {
-      "attempted_at": "2026-10-30T00:09:33.518837+00:00",
-      "retry_after": "2026-10-30T06:09:33.518837+00:00",
+      "attempted_at": "2026-10-30T06:54:15.747165+00:00",
+      "retry_after": "2026-10-30T12:54:15.747165+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
+      "failures": 2,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-30T08:47:27.913253+00:00"
+      "alternative_search_after": "2026-10-30T10:54:15.747165+00:00"
     },
     "https://www.finextra.com/newsarticle/48673/kalshi-valuation-jumps-to-40-billion-on-latest-raise": {
-      "attempted_at": "2026-10-30T00:09:33.518837+00:00",
-      "retry_after": "2026-10-30T06:09:33.518837+00:00",
+      "attempted_at": "2026-10-30T06:54:15.747165+00:00",
+      "retry_after": "2026-10-30T12:54:15.747165+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
+      "failures": 2,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-30T09:45:28.647040+00:00"
+      "alternative_search_after": "2026-10-30T10:54:15.747165+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-30/philippine-bonds-are-most-exposed-in-emerging-asia-to-fed-hikes": {
       "attempted_at": "2026-10-30T00:59:05.432883+00:00",
@@ -7822,71 +7832,88 @@
       "alternative_search_after": "2026-10-30T08:47:27.913253+00:00"
     },
     "https://www.insurancejournal.com/news/national/2026/10/30/890876.htm": {
-      "attempted_at": "2026-10-30T05:45:28.647040+00:00",
-      "retry_after": "2026-10-30T09:45:28.647040+00:00",
+      "attempted_at": "2026-10-30T06:54:15.747165+00:00",
+      "retry_after": "2026-10-30T10:54:15.747165+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/east/2026/10/30/890880.htm": {
-      "attempted_at": "2026-10-30T05:45:28.647040+00:00",
-      "retry_after": "2026-10-30T09:45:28.647040+00:00",
+      "attempted_at": "2026-10-30T06:54:15.747165+00:00",
+      "retry_after": "2026-10-30T10:54:15.747165+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/national/2026/10/30/890723.htm": {
-      "attempted_at": "2026-10-30T05:45:28.647040+00:00",
-      "retry_after": "2026-10-30T09:45:28.647040+00:00",
+      "attempted_at": "2026-10-30T06:54:15.747165+00:00",
+      "retry_after": "2026-10-30T10:54:15.747165+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/international/2026/10/30/890853.htm": {
-      "attempted_at": "2026-10-30T05:45:28.647040+00:00",
-      "retry_after": "2026-10-30T09:45:28.647040+00:00",
+      "attempted_at": "2026-10-30T06:54:15.747165+00:00",
+      "retry_after": "2026-10-30T10:54:15.747165+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/southeast/2026/10/30/890863.htm": {
-      "attempted_at": "2026-10-30T05:45:28.647040+00:00",
-      "retry_after": "2026-10-30T09:45:28.647040+00:00",
+      "attempted_at": "2026-10-30T06:54:15.747165+00:00",
+      "retry_after": "2026-10-30T10:54:15.747165+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/east/2026/10/30/890590.htm": {
-      "attempted_at": "2026-10-30T05:45:28.647040+00:00",
-      "retry_after": "2026-10-30T09:45:28.647040+00:00",
+      "attempted_at": "2026-10-30T06:54:15.747165+00:00",
+      "retry_after": "2026-10-30T10:54:15.747165+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/west/2026/10/30/890872.htm": {
-      "attempted_at": "2026-10-30T05:45:28.647040+00:00",
-      "retry_after": "2026-10-30T09:45:28.647040+00:00",
+      "attempted_at": "2026-10-30T06:54:15.747165+00:00",
+      "retry_after": "2026-10-30T10:54:15.747165+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/west/2026/10/30/890846.htm": {
-      "attempted_at": "2026-10-30T05:45:28.647040+00:00",
-      "retry_after": "2026-10-30T09:45:28.647040+00:00",
+      "attempted_at": "2026-10-30T06:54:15.747165+00:00",
+      "retry_after": "2026-10-30T10:54:15.747165+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/east/2026/10/30/890133.htm": {
-      "attempted_at": "2026-10-30T05:45:28.647040+00:00",
-      "retry_after": "2026-10-30T09:45:28.647040+00:00",
+      "attempted_at": "2026-10-30T06:54:15.747165+00:00",
+      "retry_after": "2026-10-30T10:54:15.747165+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/national/2026/10/30/890832.htm": {
-      "attempted_at": "2026-10-30T05:45:28.647040+00:00",
-      "retry_after": "2026-10-30T09:45:28.647040+00:00",
+      "attempted_at": "2026-10-30T06:54:15.747165+00:00",
+      "retry_after": "2026-10-30T10:54:15.747165+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.bloomberg.com/news/articles/2026-10-30/central-asia-s-fastest-growing-economy-plans-yuan-bond-in-2027": {
+      "attempted_at": "2026-10-30T06:54:15.747165+00:00",
+      "retry_after": "2026-10-30T12:54:15.747165+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-10-30T10:54:15.747165+00:00"
+    },
+    "https://www.reinsurancene.ws/felippe-astrachan-appointed-avlare-ceo-andre-bertolino-to-lead-avla-brazil/": {
+      "attempted_at": "2026-10-30T06:54:15.747165+00:00",
+      "retry_after": "2026-10-30T10:54:15.747165+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
