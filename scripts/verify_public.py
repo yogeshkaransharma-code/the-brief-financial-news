@@ -169,7 +169,7 @@ def verify():
     sources=(public/'sources.html').read_text(encoding='utf-8')
     assert 'id="publication-method"' in sources and 'without a separate human review' in sources, 'Accurate publication note missing'
     # A secure page must not pull scripts, stylesheets or images over plain HTTP.
-    insecure_asset = re.compile(r'<(?:img|script|link|iframe|source)\\b[^>]*\\b(?:src|href)\\s*=\\s*["\\\']http://', re.I)
+    insecure_asset = re.compile(r"""<(?:img|script|link|iframe|source)\b[^>]*\b(?:src|href)\s*=\s*["']http://""", re.I)
     for page_path in public.rglob('*.html'):
         assert not insecure_asset.search(page_path.read_text(encoding='utf-8')), 'Insecure asset URL: ' + str(page_path)
     assert 'url(http://' not in (public/'assets/site.css').read_text(encoding='utf-8'), 'Insecure CSS resource'
