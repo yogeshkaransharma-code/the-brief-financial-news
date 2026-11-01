@@ -269,8 +269,9 @@ def desk_page(records,section):
     """One masthead, one editorial grid, subtle separate desk identities."""
     from site_design import (ST_PAULS_PHOTO,CITY_PHOTO,BANK_PHOTO,WESTMINSTER_PHOTO,
                              ST_PAULS_CREDIT_URL,CITY_CREDIT_URL,BANK_CREDIT_URL,WESTMINSTER_CREDIT_URL)
-    # Today's desk is distinct from previous dated editions.
-    selected=[a for a in records if a['desk_section']==section and published_same_day(a)]
+    # A quiet day still deserves useful, honestly dated recent sector reporting.
+    from home_reporting import homepage_articles
+    selected, showing_earlier = homepage_articles([a for a in records if a['desk_section']==section])
     desk=section.lower()
     intro=('The latest developments shaping UK insurers, brokers, underwriting, claims and regulation.' if section=='Insurance'
         else 'The latest developments shaping UK banks, lenders, financial markets and the wider economy.')
@@ -293,17 +294,19 @@ def desk_page(records,section):
             '<div class="tb-desk-story-copy"><span class="tb-desk-category">'+esc(topic)+'</span>'
             '<h2><a href="'+story_href(a)+'">'+esc(a['title'])+'</a></h2>'
             '<p>'+esc(a.get('short',''))+'</p><small>'+esc(a.get('source',''))+' · '+esc(stamp)+'</small></div></article>')
+    edition_note=('Recent '+section.lower()+' reporting · original source dates shown; no new '+section.lower()+' reports have been published today.' if showing_earlier
+                  else 'Today’s '+section.lower()+' reports only · '+clock().strftime('%-d %B %Y')+'.')
     body=('<section class="tb-desk-hero"><img src="'+esc(image)+'" alt="London skyline, illustrative sector photography" decoding="async">'
           '<div class="tb-desk-hero-copy"><span class="tb-desk-label">'+esc(section.upper())+'</span>'
           '<h1>'+esc(section)+'.</h1><p>'+esc(intro)+'</p><div class="tb-desk-hero-rule"></div></div></section>'
           '<p class="tb-desk-credit">Illustrative photograph: <a href="'+esc(credit)+'" target="_blank" rel="noopener noreferrer">'+esc(credit_name)+' / Wikimedia Commons</a> · CC BY-SA. Not an event photograph.</p>'
           '<nav class="tb-desk-tabs" aria-label="Browse '+esc(section)+' reports">'+tabs
           +'<a href="archive.html?category='+esc(section)+'">All reports ↗</a></nav>'
-          '<p class="tb-desk-edition-note">Today’s '+esc(section.lower())+' reports only · '+esc(clock().strftime('%-d %B %Y'))+'. <a href="archive.html?category='+esc(section)+'">Earlier editions</a>.</p>'
+          '<p class="tb-desk-edition-note">'+esc(edition_note)+' <a href="archive.html?category='+esc(section)+'">Earlier editions</a>.</p>'
           '<div class="tb-desk-stories">'+''.join(cards)+'</div>'
           '<button type="button" id="tb-desk-more" class="tb-desk-more" hidden>Show more reports ↓</button>'
           '<p class="tb-desk-empty"'+('' if not selected else ' hidden')+'>'
-          + ('No '+esc(section.lower())+' reports have been published today. <a href="archive.html?category='+esc(section)+'">Browse earlier editions</a>.' if not selected else 'No reports match this topic today. <button type="button" id="tb-reset-desk">Show all today’s reports</button>.')
+          + ('No '+esc(section.lower())+' reports have been published today. <a href="archive.html?category='+esc(section)+'">Browse earlier editions</a>.' if not selected else 'No reports match this topic. <button type="button" id="tb-reset-desk">Show all reports</button>.')
           + '</p>'
           '<p class="tb-desk-image-credits">Article photographs are illustrative, not pictures of the news events. Image credits: '
           '<a href="'+WESTMINSTER_CREDIT_URL+'" target="_blank" rel="noopener noreferrer">hozinja</a>, '
@@ -360,6 +363,7 @@ def build():
     archive = valid_articles()
     from home_reporting import homepage_articles
     selected, showing_earlier = homepage_articles(archive)
+    from same_day_policy import source_issued_today
     records = [dict(a, home_image=home_photo_for(a)) for a in selected]
     today = clock().date().strftime("%-d %B %Y")
     # On a quiet day show recently published reporting with its real source
@@ -505,7 +509,7 @@ def build():
     for a in records:
         if not (OUT / story_href(a)).is_file():
             raise ValueError("Missing public standalone article: " + a["id"])
-    print("PUBLIC_BUILD_OK: " + json.dumps({"articles_today": len(records),
+    print("PUBLIC_BUILD_OK: " + json.dumps({"articles_today": sum(published_same_day(a) and source_issued_today(a) for a in records), "recent_featured": len(records) if showing_earlier else 0,
         "archived_records":len(archive)-len(records),
         "latest": latest["id"] if latest else None, "standalone_pages": len(archive),
         "pre_rendered_feed": True, "inline_fallback": True}, sort_keys=True))

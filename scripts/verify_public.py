@@ -6,7 +6,7 @@ import shutil
 import subprocess
 import tempfile
 from pathlib import Path
-from same_day_policy import published_same_day
+from same_day_policy import published_same_day,source_issued_today
 from home_reporting import homepage_articles
 from build_public import story_href, legacy_story_href
 ROOT=Path(__file__).resolve().parents[1]
@@ -181,8 +181,10 @@ def verify():
         assert '<h1>'+section+'.</h1>' in page
         assert 'class="tb-header"' in page and 'status.html' not in page
         assert 'tb-section-nav' in page and page.count('<nav class="tb-nav tb-section-nav"')==1, 'Desk does not share new masthead ribbon'
-        matches=[a for a in archive if a['desk_section']==section and published_same_day(a)]
-        older=[a for a in archive if a['desk_section']==section and not published_same_day(a)]
+        matches, desk_earlier = homepage_articles([a for a in archive if a['desk_section']==section])
+        matched_ids={a['id'] for a in matches}
+        older=[a for a in archive if a['desk_section']==section and a['id'] not in matched_ids]
+        if desk_earlier:assert 'original source dates shown' in page, 'Desk recent reports need honest dates'
         for article in matches:assert html.escape(article['title'],quote=True) in page
         for article in older:assert html.escape(article['title'],quote=True) not in page, 'Archive item leaked into today’s desk'
         assert page.count('<article data-category=')==len(matches)
@@ -202,6 +204,6 @@ def verify():
             assert 'Jargon, explained.' in story, 'Story glossary missing'
     assert 'id="publisher-desk"' not in home
     assert not (public/'data/headlines.json').exists(),'Internal research headlines leaked into public output'
-    print('PUBLIC_ARTIFACT_VALIDATED:',json.dumps({'today':len(edition),'archive':len(archive),'complete_stories':len(canonical)}))
+    print('PUBLIC_ARTIFACT_VALIDATED:',json.dumps({'today':sum(published_same_day(a) and source_issued_today(a) for a in edition),'recent_featured':len(edition) if showing_earlier else 0,'archive':len(archive),'complete_stories':len(canonical)}))
 if __name__=='__main__':verify()
 

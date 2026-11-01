@@ -150,7 +150,7 @@ def main():
             assert page.evaluate('getComputedStyle(document.querySelector(".tb-header")).backgroundColor')==baseline['background'], 'Banking masthead differs from homepage'
             assert page.evaluate('getComputedStyle(document.querySelector(".tb-header .tb-logo")).color')==baseline['logo'], 'Banking logo colour differs'
             assert abs(page.evaluate('parseFloat(getComputedStyle(document.querySelector(".tb-header .tb-logo")).fontSize)')-baseline['logoSize'])<=1, 'Banking logo size differs'
-            assert page.locator('article[data-category="Banking"]').count()==sum(desk_for(a)=='Banking' for a in today),'Banking page has missing or misplaced reports'
+            assert page.locator('article[data-category="Banking"]').count()==len(homepage_articles([a for a in articles if desk_for(a)=='Banking'])[0]),'Banking page has missing or misplaced reports'
             assert page.locator('article[data-category="Insurance"]').count()==0,'Insurance articles wrongly shown under banking'
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'),'Banking page overflows'
             assert not errors, 'Banking desk JavaScript error: '+repr(errors)
@@ -158,7 +158,7 @@ def main():
             page.goto(SITE+'insurance.html',wait_until='domcontentloaded',timeout=60000)
             assert page.locator('h1').inner_text()=='Insurance.'
             assert page.evaluate('getComputedStyle(document.querySelector(".tb-header")).backgroundColor')==baseline['background'], 'Insurance masthead differs'
-            assert page.locator('article[data-category="Insurance"]').count()==sum(desk_for(a)=='Insurance' for a in today)
+            assert page.locator('article[data-category="Insurance"]').count()==len(homepage_articles([a for a in articles if desk_for(a)=='Insurance'])[0])
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'),'Insurance page overflows'
             assert not errors, 'Insurance desk JavaScript error: '+repr(errors)
             page.screenshot(path=str(OUT/f'insurance-{width}.png'),full_page=True)
