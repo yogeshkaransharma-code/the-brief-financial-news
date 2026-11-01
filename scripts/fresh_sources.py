@@ -4,16 +4,16 @@
 Never treats a news aggregator's reporting as original evidence. Investegate
 entries below are reprints of issuer-authored Regulatory News Service (RNS)
 announcements, not articles written by Investegate.
-Every original announcement must be dated TODAY in the UK. No catch-up window.
+The live desk may cover the previous two UK calendar dates with real source dates.
 """
 from __future__ import annotations
 import datetime as dt
 from urllib.parse import urlsplit
-from same_day_policy import source_issued_today
+from same_day_policy import source_recent
 
 LAUNCH_START=dt.date(2026,10,22)
 LAUNCH_END=dt.date(2026,10,23)
-MAX_NEWS_AGE=dt.timedelta(0)  # Zero grace days. No old news, including weekends.
+MAX_NEWS_AGE=dt.timedelta(days=2)  # Source day plus two previous UK days.
 
 RELEASES=[
     {
@@ -102,8 +102,8 @@ def launch_items(today=None):
     return result
 
 def eligible_today(item,today=None,launch=False):
-    """Only today's original source date qualifies, not writing date or 24h age."""
-    return source_issued_today(item,today)
+    """Keep the real original date, including a bounded weekend catch-up."""
+    return source_recent(item,today)
 
 def self_test():
     now=dt.datetime(2026,10,24,19,tzinfo=dt.timezone.utc)
@@ -111,14 +111,15 @@ def self_test():
     old=dict(today,dateISO="2026-10-23",published_at="2026-10-23T21:00:00+00:00")
     future=dict(today,dateISO="2026-10-25")
     assert eligible_today(today,now)
-    assert not eligible_today(old,now), "Yesterday must be rejected, even under old launch flag"
-    assert not eligible_today(old,now,launch=True), "Launch exception may not bypass today's date"
+    assert eligible_today(old,now), "Yesterday's dated release is allowed"
+    assert eligible_today(old,now,launch=True)
     assert not eligible_today(future,now)
     assert not eligible_today(dict(today,source_time_precision="timestamp",
                   source_published_at="2026-10-24T21:00:00Z"),now), "Future times forbidden"
-    assert not eligible_today(dict(today,dateISO="2026-10-22"),now), "Weekend carry-over forbidden"
+    assert eligible_today(dict(today,dateISO="2026-10-22"),now), "Two-day carry-over allowed"
+    assert not eligible_today(dict(today,dateISO="2026-10-21"),now), "Older source is not current"
     assert launch_items(dt.date(2026,10,24))==[]
-    print("PASS: UK same-day source date only, no yesterday, future or weekend catch-up")
+    print("PASS: bounded UK source date window; no future or stale publication")
 
 if __name__=="__main__":
     self_test()

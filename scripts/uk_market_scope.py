@@ -123,9 +123,11 @@ def public_article_in_scope(article):
     # Published wording is all we retain on public pages. Never assume that a
     # UK-registered publisher, a UK source date or a global finance brand implies
     # a connection to the British market.
-    if article.get('uk_market_basis'):return True  # Established from the captured source before writing.
     blocks=article.get("blocks") or []
     body=" ".join(str(x[1]) for x in blocks if isinstance(x,list) and len(x)>1)
+    from sector_relevance import in_sector_scope
+    if not in_sector_scope(article,body):return False
+    if article.get('uk_market_basis'):return True  # UK relevance established before writing.
     return in_uk_scope(article,body)
 
 # Discovery priority is NOT editorial approval. Headlines from recognised UK

@@ -71,6 +71,10 @@ def main():
         assert not in_uk_scope(row,row["short"]),("Unrelated overseas story accepted",row["title"])
         assert not public_article_in_scope(row),("Unrelated overseas story public",row["title"])
     from media_sources import relevant
+    assert not relevant({"title":"High street slot machine venues could bypass budget tax rise via bingo licences",
+        "url":"https://www.theguardian.com/society/2026/nov/01/slot-machines-bingo-tax"})
+    assert not relevant({"title":"Letters to The Guardian critique recent budget measures and tax policies",
+        "url":"https://www.theguardian.com/money/2026/oct/30/budget-letters"})
     assert relevant({"title":"Jewellery-loss claims jump during Halloween week",
         "url":"https://www.aviva.com/newsroom/news-and-research-overview/news-releases/2026/10/claims/"})
     assert relevant({"title":"Lloyds uses AI to strengthen customer fraud support",

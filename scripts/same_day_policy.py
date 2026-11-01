@@ -10,6 +10,7 @@ import datetime as dt
 from zoneinfo import ZoneInfo
 
 UK = ZoneInfo("Europe/London")
+SOURCE_WINDOW_DAYS = 2  # Today and the two previous UK calendar days.
 
 
 def clock(now=None):
@@ -60,15 +61,32 @@ def source_issued_today(item, now=None):
         return False
 
 
+def source_recent(item, now=None, max_age_days=SOURCE_WINDOW_DAYS):
+    """A verified, genuinely dated source from today or two previous UK days.
+
+    The original source date never changes, and future-dated material fails.
+    """
+    current = clock(now)
+    try:
+        age = (current.date() - original_date(item)).days
+        if not 0 <= age <= max_age_days:
+            return False
+        if item.get("source_time_precision") == "timestamp":
+            published = dt.datetime.fromisoformat(str(item.get("source_published_at")).replace("Z", "+00:00"))
+            return published.tzinfo is not None and published <= current
+        return True
+    except (KeyError, ValueError, TypeError, OverflowError):
+        return False
+
+
 def published_same_day(item, now=None):
-    """Only properly approved articles from TODAY'S actual source-day appear."""
+    """An article ACTUALLY published today from an accurately dated recent source."""
     try:
         if item.get('retrospective_launch'):return False
         uk_pub=date_in_uk(item["published_at"])
-        return (source_issued_today(item,now)
+        return (source_recent(item,dt.datetime.fromisoformat(str(item["published_at"]).replace("Z","+00:00")))
                 and dt.datetime.fromisoformat(str(item["published_at"]).replace("Z","+00:00"))<=clock(now)
                 and uk_pub==clock(now).date()
-                and original_date(item)==uk_pub
                 and item.get("publication_method")=="autonomous"
                 and item.get("ai_assisted") is True
                 and str(item.get("editorial_status","")).startswith("PUBLISHED:"))
@@ -93,7 +111,13 @@ def self_test():
     assert published_same_day(approved,london)
     assert not published_same_day(dict(approved,dateISO="2026-10-23"),london)
     assert not published_same_day(dict(approved,published_at="2026-10-25T13:00:00Z"),london)
-    print("PASS: strict same-calendar-day UK original source and approval clock")
+    assert source_recent(yesterday, london)
+    assert source_recent(dict(current,dateISO="2026-10-22"), london)
+    assert not source_recent(dict(current,dateISO="2026-10-21"), london)
+    assert not source_recent(dict(current,dateISO="2026-10-25"), london)
+    sourced_yesterday=dict(approved,dateISO="2026-10-23")
+    assert published_same_day(sourced_yesterday,london)
+    print("PASS: original dates, two-day catch-up, no future articles, honest publication clock")
 
 
 if __name__=="__main__":

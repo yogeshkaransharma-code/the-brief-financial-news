@@ -39,7 +39,13 @@ def eligible(bundle, *, edition_date=None):
     """Return reasons to HOLD; never decide eligibility from a model score."""
     if bundle.get('audit',{}).get('pipeline_version')==3:
         from single_pass import eligible as single_pass_eligible
-        if edition_date is not None:return ['Single-pass articles use their actual current source date']
+        from sector_relevance import in_sector_scope
+        if edition_date is not None:return ['Single-pass articles use their actual source date']
+        article=bundle.get('draft') or {}
+        audit=bundle.get('audit') or {}
+        if not in_sector_scope(dict(article,source_title=audit.get('source_title','')),
+                               bundle.get('captured_source_excerpt','')):
+            return ['No substantive insurance, banking or related financial-services subject']
         return single_pass_eligible(bundle)
     a, audit = bundle.get("draft",{}), bundle.get("audit",{})
     problems=[]
@@ -169,12 +175,19 @@ def publish(root=ROOT, folder=None, dry_run=False, *, edition_date=None):
             report["held"].append({"id":aid,"reason":["Source belongs to reset legacy edition; publication forbidden"]})
             continue
         if aid in seen_id or a.get("url") in seen_url:
-            report["held"].append({"id":aid,"reason":["Duplicate source/article"]})
+            # Recovery can restore previously published JSON. It is not a
+            # new editorial hold, and should not travel to the next run.
+            if not dry_run:file.unlink(missing_ok=True)
             continue
         try:reasons=eligible(bundle,edition_date=edition_date)
         except (ValueError,KeyError,TypeError,IndexError) as error:reasons=['Invalid saved evidence bundle: '+str(error)]
         if reasons:
             report["held"].append({"id":aid,"reason":reasons})
+            from same_day_policy import source_recent
+            if not dry_run and not source_recent(a):
+                # The rejected old draft is still documented in today's run;
+                # do not restore it on every subsequent edition.
+                file.unlink(missing_ok=True)
             continue
         item=dict(a)
         item["reviewed_by"]="autonomous-evidence-screening"

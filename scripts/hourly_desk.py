@@ -26,9 +26,8 @@ def make(articles, now=None, *, newly_published=0):
     def as_date(a):
         return str(a.get("dateISO") or "")[:10]
     # Actual source dates, not rerun/deploy dates.
-    today_items=[a for a in approved if as_date(a)==today
-                 and a.get("published_at","") and
-                 dt.datetime.fromisoformat(a["published_at"]).astimezone(LONDON).date().isoformat()==today]
+    today_items=[a for a in approved if a.get("published_at","")
+                 and dt.datetime.fromisoformat(a["published_at"]).astimezone(LONDON).date().isoformat()==today]
     older=[a for a in approved if as_date(a)<today]
     today_items.sort(key=lambda x:x.get("published_at",""),reverse=True)
     older.sort(key=lambda x:x.get("dateISO",""),reverse=True)

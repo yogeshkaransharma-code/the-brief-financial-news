@@ -48,6 +48,8 @@ LIFESTYLE=re.compile(r"\b(?:ask (?:our|the)|your problems|dear (?:[a-z]+)|money 
 
 def relevant(item):
  title=item.get('title','')
+ from sector_relevance import unsuitable_general_headline
+ if LIFESTYLE.search(title) or unsuitable_general_headline(title):return False
  url=item.get('url','');host=(urlsplit(url).hostname or '').removeprefix('www.')
  # Specialist publication context admits a story to Gemini; it does not
  # approve it. Unknown company names and acronyms must not starve the editor.

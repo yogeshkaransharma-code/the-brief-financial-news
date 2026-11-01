@@ -113,7 +113,8 @@ def main(_budget):
   # Date/source integrity remains; no fact, heading or word-count review is called.
   state=Checkpoints(root/'generated-drafts').read(urls[0]);bundle=state['bundle']
   assert not eligible(bundle,now)
-  assert eligible(bundle,now+dt.timedelta(days=1))
+  assert not eligible(bundle,now+dt.timedelta(days=1)), "Yesterday's dated source remains eligible"
+  assert eligible(bundle,now+dt.timedelta(days=3)), "Source older than the window must expire"
   tampered=copy.deepcopy(bundle);tampered['captured_source_excerpt']+='changed';assert eligible(tampered,now)
   # Empty output is a technical failure, retained without repeated generation.
  with tempfile.TemporaryDirectory() as temp,patch('ai_cost_guard.time.sleep',lambda _:None):

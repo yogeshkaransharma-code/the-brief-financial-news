@@ -31,7 +31,7 @@ def assess(articles,report,now,publication=None,feeds=None,launch=None):
   # retrieval outages or a backlog that was never examined.
   metrics=report.get('metrics',{})
   examined=metrics.get('sources_successfully_retrieved',0)+metrics.get('source_checkpoints_reused',0)
-  out_of_scope=metrics.get('outside_uk_market',0)
+  out_of_scope=metrics.get('outside_uk_market',0)+metrics.get('outside_sector_content',0)
   candidate_count=report.get('fresh_unpublished_source_candidates',0)
   unresolved=max(0,examined-out_of_scope)
   if candidate_count==0 or (examined>=5 and out_of_scope>0 and unresolved<=2 and metrics.get('source_failures',0)<examined):

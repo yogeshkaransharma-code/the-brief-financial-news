@@ -103,8 +103,8 @@ def standalone_story(a,related=None):
     publication_stamp=published_local.strftime('%-d %B %Y, %H:%M %Z')
     byline_date=(esc(news_date)+' · '+esc(published_local.strftime('%H:%M %Z')) if original_date(a)==published_local.date()
                  else 'Source: '+esc(news_date)+' · The Financial Edition: '+esc(publication_stamp))
-    archived=original_date(a)!=clock().date()
-    note=('<p class="archive-note"><strong>ARCHIVE · Earlier edition.</strong> This is earlier reporting, not today’s news.</p>' if archived else '')
+    archived=date_in_uk(a['published_at'])!=clock().date()
+    note=('<p class="archive-note"><strong>ARCHIVE · Earlier edition.</strong> This report was published on an earlier date.</p>' if archived else '')
     if not a.get('date_evidence'):
         note+='<p class="archive-note">Legacy report: the source date and claims have not been revalidated under the current controls.</p>'
     if a.get('retrospective_launch'):
@@ -388,12 +388,19 @@ def build():
     page, removed = fallback.subn("", page, count=1)
     if removed != 1 or "THEBRIEF_STATIC_START" in page or 'id="static-edition"' in page:
         raise ValueError("Could not remove duplicate repository-only safety section")
+    def display_meta(a):
+        pub=dt.datetime.fromisoformat(a['published_at'].replace('Z','+00:00')).astimezone(__import__('zoneinfo').ZoneInfo('Europe/London'))
+        source=original_date(a)
+        stamp=pub.strftime('%H:%M')
+        if source!=pub.date():
+            stamp='Source: '+source.strftime('%-d %b')+' · Published '+stamp
+        return esc(a.get('source',''))+' · '+esc(stamp)
     if first:
         lead = ('<article id="lead-story" class="lead-story with-photo"><span class="story-kicker">'
             + esc(first.get("desk_section")) + ' / THE LEAD STORY</span><h1><a href="'
             + esc(story_href(first)) + '">' + esc(first["title"])
             + '</a></h1><p class="standfirst">' + esc(first.get("short")) + '</p>'
-            + '<p class="meta">' + esc(first.get('source','')) + ' · ' + esc(dt.datetime.fromisoformat(first['published_at'].replace('Z','+00:00')).astimezone(__import__('zoneinfo').ZoneInfo('Europe/London')).strftime('%H:%M')) + '</p>'
+            + '<p class="meta">' + display_meta(first) + '</p>'
             + '<p><a class="cta" href="' + esc(story_href(first)) + '">Read the full story →</a></p>'+art_credit(first,large=True)+'</article>')
     else:
         # Retain the approved photographic newspaper layout on a quiet
@@ -431,7 +438,7 @@ def build():
             + '</div><div><div class="news-cat">' + esc(a.get("desk_section")) + ' · EXPLAINED</div>'
             + '<h3><a href="' + esc(story_href(a)) + '">' + esc(a["title"]) + '</a></h3>'
             + '<p class="summary">' + esc(a.get("short")) + '</p>'
-            + '<p class="meta">' + esc(a.get('source','')) + ' · ' + esc(dt.datetime.fromisoformat(a['published_at'].replace('Z','+00:00')).astimezone(__import__('zoneinfo').ZoneInfo('Europe/London')).strftime('%H:%M')) + '</p></div></article>'
+            + '<p class="meta">' + display_meta(a) + '</p></div></article>'
         )
     page = insert_once(page, '<div class="feed" id="feed"></div>',
         '<div class="feed" id="feed">' + ('\n'.join(rows) if rows else '<p class="nothing">No reports published today. <a href="archive.html">Read earlier editions</a>.</p>') + '</div>')

@@ -5,7 +5,7 @@ import email.utils
 import json
 import re
 from bs4 import BeautifulSoup
-from same_day_policy import source_issued_today, clock, original_date
+from same_day_policy import source_recent, clock, original_date
 
 
 def parse(value):
@@ -99,8 +99,8 @@ def verify_announcement(item,doc,now=None):
     day,raw,precision=value
     result=dict(item,dateISO=day,source_time_precision=precision,source_published_at=raw,published_at=raw)
     result['date_evidence']={'url':doc.url,'value':raw,'precision':precision,'method':'original-document publication metadata/dateline'}
-    if not source_issued_today(result,now):
-        raise ValueError('Original document was not announced today in the UK')
+    if not source_recent(result,now):
+        raise ValueError('Original document is outside the bounded UK source-date window')
     # A changed listing cannot refresh a source that says something else.
     if item.get('source_time_precision')=='date' and item.get('dateISO') not in {day,original_date(result).isoformat()}:
         raise ValueError('Listing date conflicts with the original document publication date')

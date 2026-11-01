@@ -8,7 +8,7 @@ from pathlib import Path
 from newsroom_state import atomic_json, cooling, identity
 from newsroom_v2 import canonical, status_from_url
 from publication_scope import source_lane
-from same_day_policy import source_issued_today
+from same_day_policy import source_recent
 from media_sources import publisher
 
 POLICY='newsroom-single-pass-2026-10-26-v1'
@@ -194,8 +194,8 @@ def eligible(bundle,now=None):
     if mismatches:
         problems.append('Numerical figures not grounded in captured source: '+', '.join(mismatches[:5]))
     problems.extend(concerns(a,source))
-    if not a.get('date_evidence') or a['date_evidence']!=audit.get('date_evidence') or not source_issued_today(a,now):
-        problems.append('Source is not current UK-date news')
+    if not a.get('date_evidence') or a['date_evidence']!=audit.get('date_evidence') or not source_recent(a,now):
+        problems.append('Source is outside the bounded UK edition window')
     return problems
 
 def process(verified,*,root,out,checkpoints,ledger,meter,now,call,event,metrics,failure,persist):

@@ -36,12 +36,13 @@ def validate(root: Path) -> int:
         method=article.get("publication_method","human")
         if method=='autonomous' and audit.get('review_mode')=='single_pass_source_based':
             from single_pass import POLICY
-            from same_day_policy import original_date, date_in_uk
+            from same_day_policy import source_recent
+            import datetime as dt
             if audit.get('automation_policy_version')!=POLICY or article.get('independent_review') is not False or audit.get('independent_review') is not False:
                 raise ValueError('Single-pass writing provenance missing')
             if article.get('reviewed_by') or audit.get('independent_claim_checks') or audit.get('claim_challenge_sentences'):
                 raise ValueError('Single-pass article falsely claims independent review')
-            if original_date(article)!=date_in_uk(article['published_at']) or not article.get('date_evidence') or audit.get('date_evidence')!=article['date_evidence']:
+            if not source_recent(article,dt.datetime.fromisoformat(article['published_at'].replace('Z','+00:00'))) or not article.get('date_evidence') or audit.get('date_evidence')!=article['date_evidence']:
                 raise ValueError('Single-pass article has invalid original source date')
             if article.get('category') not in {'Insurance','Banking'}:
                 raise ValueError('Single-pass article outside the publication sectors')

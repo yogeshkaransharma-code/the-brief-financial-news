@@ -83,7 +83,7 @@ def run(root=None,now=None,*,discovery=discover,trace=find_originals,reader=read
         # RSS dateModified is only a discovery clue, never proof of freshness.
         # Verify the document itself below even for undated/modified leads.
         if not eligible_today(item,now):
-            metrics['outside_uk_date']+=1;event(item,'excluded','eligibility','Discovery source date is outside the current UK date',source_date=item.get('dateISO'));continue
+            metrics['outside_uk_date']+=1;event(item,'excluded','eligibility','Discovery source date is outside the current edition window',source_date=item.get('dateISO'));continue
         if any(same_development(item,a) and a.get('dateISO')==item.get('dateISO') for a in existing):
             metrics['published_development']+=1;event(item,'duplicate','eligibility','Same development already published');continue
         item['internal_category']=item.get('category');item['category']=desk_for(item)
@@ -163,6 +163,11 @@ def run(root=None,now=None,*,discovery=discover,trace=find_originals,reader=read
             persist()
             continue
         if attempts.get(item['url'],{}).get('stage')=='scope':attempts.pop(item['url'],None)
+        from sector_relevance import in_sector_scope
+        if not in_sector_scope(item,doc.text):
+            metrics['outside_sector_content']+=1
+            event(item,'rejected','sector','No substantive insurance, banking or related financial-services story')
+            continue
         item=dict(item,uk_market_basis=uk_reason)
         seen.add(item['url']);cached=checkpoints.read(item['url'])
         if not cached or cached['document']['evidence_sha256']!=doc.evidence_sha256:
