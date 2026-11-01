@@ -358,10 +358,12 @@ def sources_page():
 
 def build():
     archive = valid_articles()
-    records = [dict(a, home_image=home_photo_for(a)) for a in archive if published_same_day(a)]
+    from home_reporting import homepage_articles
+    selected, showing_earlier = homepage_articles(archive)
+    records = [dict(a, home_image=home_photo_for(a)) for a in selected]
     today = clock().date().strftime("%-d %B %Y")
-    # Empty is the correct edition when no verified original development was
-    # announced AND published on this same UK date. Never replay old news.
+    # On a quiet day show recently published reporting with its real source
+    # date; never treat an older source as a new announcement.
     page = (ROOT / "index.html").read_text(encoding="utf-8")
     if OUT.exists():shutil.rmtree(OUT)
     OUT.mkdir(parents=True, exist_ok=True)
@@ -392,12 +394,12 @@ def build():
         pub=dt.datetime.fromisoformat(a['published_at'].replace('Z','+00:00')).astimezone(__import__('zoneinfo').ZoneInfo('Europe/London'))
         source=original_date(a)
         stamp=pub.strftime('%H:%M')
-        if source!=pub.date():
-            stamp='Source: '+source.strftime('%-d %b')+' · Published '+stamp
+        if source!=clock().date() or pub.date()!=clock().date():
+            stamp='Source: '+source.strftime('%-d %b %Y')+' · Published '+pub.strftime('%-d %b %Y')+' at '+stamp
         return esc(a.get('source',''))+' · '+esc(stamp)
     if first:
         lead = ('<article id="lead-story" class="lead-story with-photo"><span class="story-kicker">'
-            + esc(first.get("desk_section")) + ' / THE LEAD STORY</span><h1><a href="'
+            + ('EARLIER REPORT · SOURCE '+esc(original_date(first).strftime('%-d %b %Y')) if showing_earlier else esc(first.get("desk_section"))+' / THE LEAD STORY') + '</span><h1><a href="'
             + esc(story_href(first)) + '">' + esc(first["title"])
             + '</a></h1><p class="standfirst">' + esc(first.get("short")) + '</p>'
             + '<p class="meta">' + display_meta(first) + '</p>'
@@ -415,14 +417,14 @@ def build():
     page = insert_once(page, '<article id="lead-story" class="lead-story"></article>', lead)
     briefing = ''.join(
         '<div class="briefing-story" data-desk="'+esc(a.get("desk_section"))+'"><span class="brief-number">0' + str(i+1)
-        + '</span><div><span class="tb-brief-desk">'+esc(a.get("desk_section"))+'</span>'
+        + '</span><div><span class="tb-brief-desk">'+esc(a.get("desk_section"))+(' · '+esc(original_date(a).strftime('%-d %b %Y')) if showing_earlier else '')+'</span>'
         + '<a href="' + esc(story_href(a)) + '">' + esc(a["title"]) + '</a>'
         + '<p>' + esc(a.get("reader_takeaway") or a.get("short", "")) + '</p>'
         + '</div></div>'
         for i, a in enumerate(other_briefs(records, first, limit=4))
     )
     if first and not briefing:
-        briefing='<p class="tb-briefing-empty">Our lead story is today’s only published report. No other developments have been added.</p>'
+        briefing='<p class="tb-briefing-empty">'+('No other recent reports are featured in this selection.' if showing_earlier else 'Our lead story is today’s only published report. No other developments have been added.')+'</p>'
     if not briefing:
         briefing = ('<div class="tb-empty-guide"><p>While today’s briefing is being prepared:</p>'
             '<a href="archive.html"><b>ARCHIVE</b><span>Read previous editions →</span></a>'

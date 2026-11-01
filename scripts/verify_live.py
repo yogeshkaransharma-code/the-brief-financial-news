@@ -9,6 +9,7 @@ import sys
 import time
 import urllib.request
 from same_day_policy import published_same_day,clock
+from home_reporting import homepage_articles
 ROOT=Path(__file__).resolve().parents[1]
 SITE=os.getenv('BRIEF_SITE_URL','https://yogeshkaransharma-code.github.io/the-brief-financial-news/').rstrip('/')+'/'
 
@@ -22,7 +23,8 @@ def probe():
     # Verify the public UK-only edition against the exact same eligibility
     # rules used by build_public, not against the full private audit ledger.
     canonical=[a for a in all_articles if public_article_in_scope(a)]
-    want={a['id'] for a in canonical if published_same_day(a)}
+    expected, earlier = homepage_articles(canonical)
+    want={a['id'] for a in expected}
     failure='No response'
     for attempt in range(6):
         try:
@@ -42,13 +44,14 @@ def probe():
                 build_info=json.loads(read(SITE+'data/build.json'+token))
                 artifact_clock=dt.datetime.fromisoformat(build_info['built_at'])
                 assert artifact_clock.tzinfo is not None,'Undated deployed build'
-                want={a['id'] for a in canonical if published_same_day(a,artifact_clock)}
-            assert {a['id'] for a in today}==want,'Live edition differs from eligible same-day articles'
+                expected, earlier = homepage_articles(canonical, artifact_clock)
+                want={a['id'] for a in expected}
+            assert {a['id'] for a in today}==want,'Live homepage differs from selected current or dated recent reporting'
             assert {a['id'] for a in archive}=={a['id'] for a in canonical},'Live archive has missing articles'
-            assert all(published_same_day(a,artifact_clock if '--monitor' in sys.argv else None) for a in today),'Old article leaked into today'
+            if earlier: assert 'EARLIER REPORT' in home, 'Earlier reporting presented as today’s news'
             assert 'archive.html' in home,'Archive navigation missing'
             for a in canonical:
-                if a['id'] not in want:assert html.escape(a['title'],quote=True) not in current_home,'Old headline in today edition'
+                if a['id'] not in want:assert html.escape(a['title'],quote=True) not in current_home,'Unselected headline appeared on homepage'
             archive_page=read(SITE+'archive.html'+token)
             search_page=read(SITE+'search.html'+token)
             assert 'id="archive-search"' in search_page and "params.get('q')" in search_page, 'Live publication-wide search is absent'
@@ -64,7 +67,7 @@ def probe():
                 assert all(html.escape(p,quote=True) in story for _,p in a['blocks']),'Full article paragraphs missing'
                 tested.append(a['id'])
             if not today:
-                assert 'Today’s lead report is still being prepared' in home and 'Explore earlier reporting' in home, 'Empty edition must provide an honest next action'
+                assert 'Today’s lead report is still being prepared' in home and 'Explore earlier reporting' in home, 'Empty recent edition must offer earlier reports'
             assert 'insurance.html' in home and 'banking.html' in home,'Section navigation missing'
             assert 'href="status.html"' not in home and 'href="hourly.html"' not in home,'Internal/duplicate pages still linked'
             assert '.tb-sector-visual' in read(SITE+'assets/site.css'+token),'Shared visual identity missing'
@@ -98,7 +101,7 @@ def probe():
             visible=expected_new & set(tested)
             assert expected_new<=set(tested),'A newly published full article was not verified live'
             evidence={'checked_at':dt.datetime.now(dt.timezone.utc).isoformat(),'uk_date':clock().date().isoformat(),
-                      'today':len(today),'archive':len(archive),'full_articles_tested':tested,
+                      'today':sum(published_same_day(a,artifact_clock if '--monitor' in sys.argv else None) for a in today),'recent_featured':len(today) if earlier else 0,'archive':len(archive),'full_articles_tested':tested,
                       'new_articles_visible':sorted(visible),'newsroom_outcome':state['outcome'],
                       'publication_success':bool(visible)}
             from newsroom_state import atomic_json

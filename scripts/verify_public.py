@@ -7,6 +7,7 @@ import subprocess
 import tempfile
 from pathlib import Path
 from same_day_policy import published_same_day
+from home_reporting import homepage_articles
 from build_public import story_href, legacy_story_href
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -18,7 +19,8 @@ def verify():
     assert len(all_articles)>=len(canonical), 'Signed archive ledger was modified'
     edition=json.loads((public/'data/articles.json').read_text())
     archive=json.loads((public/'data/archive.json').read_text())
-    assert {x['id'] for x in edition}=={x['id'] for x in canonical if published_same_day(x)}
+    expected, showing_earlier = homepage_articles(canonical)
+    assert {x['id'] for x in edition}=={x['id'] for x in expected}, 'Homepage reporting differs from dated source selection'
     assert {x['id'] for x in archive}=={x['id'] for x in canonical},'Historical articles lost'
     home=(public/'index.html').read_text();archive_html=(public/'archive.html').read_text()
     search_html=(public/'search.html').read_text()
@@ -31,7 +33,7 @@ def verify():
     assert 'rankHighlights(originals)[0]' in home, 'Client-side homepage ignores UK-focused lead'
     # Single-pass original reports can legitimately have one substantive body section.
     # A stricter browser-only requirement silently hides published articles.
-    assert 'Array.isArray(x.blocks)&&x.blocks.length>=1&&currentDayArticle(x)' in home, 'Homepage drops approved single-section reporting'
+    assert 'Array.isArray(x.blocks)&&x.blocks.length>=1&&(currentDayArticle(x)||recentArticle(x))' in home, 'Homepage drops recent single-section reporting'
     assert 'eligibleBriefs.slice(0,4)' in home, 'Client-side 60-second digest must support four useful developments'
     assert '60-second Briefing' in home and 'Latest reporting' in home, 'Approved reader-facing headings missing'
     assert 'tb-section-nav' in home and home.count('<nav class="tb-nav tb-section-nav"')==1, 'Homepage must have one primary section ribbon'
@@ -77,9 +79,9 @@ def verify():
              '<section id="latest" class="news-section"', '<section id="context" class="understand"']
     positions=[home.index(marker) for marker in markers]
     assert positions==sorted(positions), 'Approved homepage reading order changed'
-    today_list=[a for a in canonical if published_same_day(a)]
-    today_list.sort(key=lambda a:(a.get('published_at',''),a.get('dateISO',''),a['id']),reverse=True)
+    today_list=expected
     front_lead=lead_article(today_list)
+    if showing_earlier: assert 'EARLIER REPORT' in rendered, 'Earlier report promoted without a source-date label'
     if front_lead:
         from html import escape
         hero=home.split('<article id="lead-story"',1)[1].split('</article>',1)[0]
@@ -143,7 +145,7 @@ def verify():
     for a in canonical:
         escaped=html.escape(a['title'],quote=True)
         assert escaped in archive_html,'Archive headline absent'
-        if not published_same_day(a):assert escaped not in current_home,'Historical headline leaked into today'
+        if a['id'] not in {x['id'] for x in edition}:assert escaped not in current_home,'Unselected headline leaked onto homepage'
         story=(public/'story'/(story_href(a).split('/',1)[1])).read_text()
         assert escaped in story and html.escape(a['url'],quote=True) in story
         assert '<main class="reader"><article>' in story

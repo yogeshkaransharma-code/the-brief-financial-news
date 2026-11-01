@@ -164,6 +164,14 @@ function currentDayArticle(x){
  return source===today && ukDateFromTimestamp(x.published_at)===today && Date.parse(x.published_at)<=Date.now() && (x.source_time_precision!=='timestamp' || Date.parse(x.source_published_at)<=Date.now());
 }
 
+function recentArticle(x){
+  const today=ukDayInfo().key;
+  const source=x.source_time_precision==='timestamp'
+    ? ukDateFromTimestamp(x.source_published_at||'')
+    : String(x.dateISO||'').slice(0,10);
+  const age=(Date.parse(today+'T12:00:00Z')-Date.parse(source+'T12:00:00Z'))/86400000;
+  return Number.isFinite(age)&&age>=0&&age<=3&&Date.parse(x.published_at)<=Date.now();
+}
 const safeUrl=x=>{try{const u=new URL(x);return (u.protocol==='https:'||u.protocol==='http:')?u.href:'#'}catch{return '#'}};
 const day=x=>{try{return new Date(x).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric',timeZone:'Europe/London'})}catch{return x||''}};
 const store=(key,fallback)=>{try{return JSON.parse(localStorage.getItem('thebrief-fresh:'+key))??fallback}catch{return fallback}};
@@ -182,10 +190,19 @@ const sortItems=items=>[...items].sort((a,b)=>sort==='oldest'?compareStories(a,b
 const sourceDay=s=>s.source_time_precision==='timestamp'?ukDateFromTimestamp(s.source_published_at):String(s.dateISO||'').slice(0,10);
 const fullDay=key=>new Date(key+'T12:00:00Z').toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric',timeZone:'Europe/London'});
 const liveWithoutPublished=()=>live.filter(s=>!published.some(p=>p.url===s.url));
-const allItems=()=>sortItems(published.filter(x=>x.ai_assisted&&x.publication_method==='autonomous'&&currentDayArticle(x)));
+const visibleReports=()=>{
+ const accepted=published.filter(x=>x.ai_assisted&&x.publication_method==='autonomous');
+ const current=accepted.filter(currentDayArticle);
+ return sortItems(current.length?current:accepted.filter(recentArticle));
+};
+const allItems=()=>visibleReports();
 const isNew=s=>priorVisit&&reportTime(s)>Date.parse(priorVisit)&&reportTime(s)<Date.now()+86400000;
 const renderDate=()=>{const d=new Date(); $('issue-date').textContent=d.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric',timeZone:'Europe/London'}).toUpperCase();};
-const meta=s=>`${safe(s.source)} <span>·</span> ${new Date(s.published_at).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:'Europe/London'})}`;
+const meta=s=>{
+ const when=new Date(s.published_at).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:'Europe/London'});
+ const source=sourceDay(s),publication=ukDateFromTimestamp(s.published_at);
+ return `${safe(s.source)} <span>·</span> ${source===ukDayInfo().key&&publication===ukDayInfo().key?when:'Source '+safe(fullDay(source))+' · Published '+safe(fullDay(publication))+' at '+when}`;
+};
 function showToast(t){const el=$('toast');el.textContent=t;el.classList.add('show');window.clearTimeout(showToast.timer);showToast.timer=window.setTimeout(()=>el.classList.remove('show'),2600)}
 function toggleSaved(id){if(saved.has(id))saved.delete(id);else saved.add(id);saveStore('saved',[...saved]);$('saved-number').textContent=saved.size;renderFeed();if(activeId===id)renderArticle(byId()[id],true)}
 function openStory(id){location.href='story/'+encodeURIComponent(id)+'.html'}
@@ -220,7 +237,7 @@ function highlightScore(s){
 }
 function rankHighlights(items){return [...items].sort((a,b)=>highlightScore(b)-highlightScore(a)||reportTime(b)-reportTime(a))}
 function renderTop(){
- const originals=sortItems(published.filter(x=>x.ai_assisted&&x.publication_method==='autonomous'&&currentDayArticle(x)));
+  const originals=visibleReports();
  const lead=rankHighlights(originals)[0];
  if(!lead){
    $('lead-story').classList.add('with-photo');
@@ -231,10 +248,11 @@ function renderTop(){
  }
  const latestPublication=[...originals].sort((a,b)=>reportTime(b)-reportTime(a))[0];
  $('freshness').textContent='Latest article · '+new Date(latestPublication.published_at).toLocaleString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',timeZone:'Europe/London'});
- const visual=lead.home_image;
+  const showingEarlier=!originals.some(currentDayArticle);
+  const visual=lead.home_image;
  const art=visual?'<figure class="tb-lead-art"><img src="'+safe(visual.src)+'" alt="'+safe(visual.alt)+'" decoding="async" fetchpriority="high"><figcaption>Illustrative photograph, not the news event · <a href="'+safe(visual.credit_url)+'" target="_blank" rel="noopener noreferrer">'+safe(visual.credit)+'</a></figcaption></figure>':'';
  $('lead-story').classList.toggle('with-photo',Boolean(art));
- $('lead-story').innerHTML=`<span class="story-kicker">${safe(lead.desk_section||lead.category)} / THE LEAD STORY</span><h1><button type="button" class="headline-btn" data-open="${safe(lead.id)}">${safe(lead.title)}</button></h1><p class="standfirst">${safe(usefulSummary(lead))}</p><div class="meta">${meta(lead)}</div><button class="cta" type="button" data-open="${safe(lead.id)}">Read the full story →</button>${art}`;
+ $('lead-story').innerHTML=`<span class="story-kicker">${showingEarlier?'EARLIER REPORT · SOURCE '+safe(fullDay(sourceDay(lead))):safe(lead.desk_section||lead.category)+' / THE LEAD STORY'}</span><h1><button type="button" class="headline-btn" data-open="${safe(lead.id)}">${safe(lead.title)}</button></h1><p class="standfirst">${safe(usefulSummary(lead))}</p><div class="meta">${meta(lead)}</div><button class="cta" type="button" data-open="${safe(lead.id)}">Read the full story →</button>${art}`;
  const eligibleBriefs=originals.filter(item=>item.id!==lead.id);
  let picks=eligibleBriefs.slice(0,4);
  // Keep the lead distinct and show both sectors when today's available reports allow it.
@@ -249,12 +267,12 @@ function renderTop(){
  }
  $('briefing-stories').innerHTML=picks.length?picks.map(item=>{
    const takeaway=String(item.reader_takeaway||'').trim();
-   return `<div class="briefing-story" data-desk="${safe(item.desk_section||item.category)}"><span class="brief-number">${String(picks.indexOf(item)+1).padStart(2,'0')}</span><div><span class="tb-brief-desk">${safe(item.desk_section||item.category)}</span><button type="button" data-open="${safe(item.id)}">${safe(item.title)}</button><p>${safe(takeaway||usefulSummary(item))}</p></div></div>`;
- }).join(''):'<p class="tb-briefing-empty">Our lead story is today’s only published report. No other developments have been added.</p>';
+   return `<div class="briefing-story" data-desk="${safe(item.desk_section||item.category)}"><span class="brief-number">${String(picks.indexOf(item)+1).padStart(2,'0')}</span><div><span class="tb-brief-desk">${safe(item.desk_section||item.category)}${showingEarlier?' · '+safe(day(sourceDay(item))):''}</span><button type="button" data-open="${safe(item.id)}">${safe(item.title)}</button><p>${safe(takeaway||usefulSummary(item))}</p></div></div>`;
+ }).join(''):`<p class="tb-briefing-empty">${showingEarlier?'No other recent reports are featured in this selection.':'Our lead story is today’s only published report. No other developments have been added.'}</p>`;
 }
 function matchingItems(){let items=allItems();if(category!=='All')items=items.filter(s=>(s.desk_section||s.category)===category);if(savedOnly)items=items.filter(s=>saved.has(s.id));if(followingOnly)items=items.filter(s=>following.has(s.desk_section||s.category));if(query){const q=query.toLocaleLowerCase();items=items.filter(s=>[s.title,s.short,s.excerpt,s.source,s.category,(s.blocks||[]).map(x=>x.join(' ')).join(' ')].join(' ').toLowerCase().includes(q))}return items}
 function renderFeed(){const items=matchingItems();$('news-count').textContent=`${items.length} ${items.length===1?'article':'articles'}`;
- const cover=rankHighlights(published.filter(x=>x.ai_assisted&&x.publication_method==='autonomous'&&currentDayArticle(x)))[0];
+  const cover=rankHighlights(visibleReports())[0];
  const pictured=new Set(items.filter(s=>!cover||s.id!==cover.id).slice(0,4).map(s=>s.id));
  const rows=items.slice(0,limit).map((s,i)=>{
     const desk=(s.desk_section||s.category)==='Banking'?'Banking':'Insurance';
@@ -294,7 +312,7 @@ function wire(){
  $('article-save').onclick=()=>{if(activeId!=='about')toggleSaved(activeId)};$('article-share').onclick=()=>{const url=location.href;navigator.clipboard?.writeText(url).then(()=>showToast('Article link copied')).catch(()=>showToast('Copy the address from your browser'))||showToast('Copy the address from your browser')};$('article-print').onclick=()=>window.print();$('open-about').onclick=()=>location.href='about.html';$('footer-about').onclick=()=>location.href='about.html';window.addEventListener('hashchange',route)}
 async function loadPublished(){
  const approved=data=>Array.isArray(data)?data.filter(x=>x&&x.id&&x.title&&x.ai_assisted===true
-    &&x.publication_method==='autonomous'&&Array.isArray(x.blocks)&&x.blocks.length>=1&&currentDayArticle(x))
+    &&x.publication_method==='autonomous'&&Array.isArray(x.blocks)&&x.blocks.length>=1&&(currentDayArticle(x)||recentArticle(x)))
     .map(x=>({...x,kind:'original'})):[];
  // The public HTML carries verified stories as a backup for blocked/stale JSON.
  try{

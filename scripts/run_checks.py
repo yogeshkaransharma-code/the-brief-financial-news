@@ -22,6 +22,7 @@ checks.insert(-1,['editorial_sentences.py'])
 checks.insert(-1,['test_single_pass.py'])
 checks.insert(-1,['test_reader_experience.py'])
 checks.insert(-1,['test_uk_market_scope.py'])
+checks.insert(-1,['home_reporting.py'])
 checks.insert(-1,['sector_relevance.py'])
 checks.insert(-1,['newsroom_health.py','--self-test'])
 for c in checks:

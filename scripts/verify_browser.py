@@ -4,6 +4,7 @@ import os
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 from same_day_policy import published_same_day
+from home_reporting import homepage_articles
 from site_design import desk_for
 from uk_market_scope import public_article_in_scope
 ROOT=Path(__file__).resolve().parents[1]
@@ -13,7 +14,8 @@ OUT=ROOT/'browser-evidence'
 def main():
     all_articles=json.loads((ROOT/'data/articles.json').read_text())
     articles=[a for a in all_articles if public_article_in_scope(a)]
-    today=[a for a in articles if published_same_day(a)]
+    today, showing_earlier = homepage_articles(articles)
+    actual_today=[a for a in articles if published_same_day(a)]
     OUT.mkdir(exist_ok=True);results=[]
     with sync_playwright() as p:
         browser=p.chromium.launch()
@@ -45,6 +47,8 @@ def main():
                 assert page.locator('#lead-story .tb-lead-art img').count()==1, 'Quiet edition has lost its credited magazine cover'
                 assert 'still being prepared' in page.locator('#lead-story').inner_text(), 'Quiet edition implies unverified current news'
             if today:
+                if showing_earlier:
+                    assert 'EARLIER REPORT' in page.locator('#lead-story').inner_text(), 'Earlier news is missing its date label'
                 assert page.locator('#lead-story .tb-lead-art img').count()==1, 'Lead story has lost editorial photography'
                 assert page.locator('#feed .tb-report-art img').count()==min(4,max(0,len(today)-1)), 'Supporting pictures should be selective'
                 assert page.locator('#feed .tb-report-art figcaption a').count()==min(4,max(0,len(today)-1)), 'Picture credits missing'
@@ -234,7 +238,7 @@ def main():
             assert not errors,errors
             context.close()
         browser.close()
-    (OUT/'result.json').write_text(json.dumps({'today':len(today),'archive':len(articles),'checks':results},indent=2)+'\n')
-    print('ACTUAL_LIVE_BROWSER_OK:',json.dumps({'today':len(today),'archive':len(articles),'checks':results}))
+    (OUT/'result.json').write_text(json.dumps({'today':len(actual_today),'recent_featured':len(today) if showing_earlier else 0,'archive':len(articles),'checks':results},indent=2)+'\n')
+    print('ACTUAL_LIVE_BROWSER_OK:',json.dumps({'today':len(actual_today),'recent_featured':len(today) if showing_earlier else 0,'archive':len(articles),'checks':results}))
 if __name__=='__main__':main()
 
