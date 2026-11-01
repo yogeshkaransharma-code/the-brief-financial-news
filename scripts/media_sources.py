@@ -49,12 +49,13 @@ LIFESTYLE=re.compile(r"\b(?:ask (?:our|the)|your problems|dear (?:[a-z]+)|money 
 def relevant(item):
  title=item.get('title','')
  from sector_relevance import unsuitable_general_headline
- if LIFESTYLE.search(title) or unsuitable_general_headline(title):return False
+ if unsuitable_general_headline(title):return False
  url=item.get('url','');host=(urlsplit(url).hostname or '').removeprefix('www.')
  # Specialist publication context admits a story to Gemini; it does not
  # approve it. Unknown company names and acronyms must not starve the editor.
  if host in SPECIALIST_HOSTS and publisher(url):
   return not bool(re.search(r'(?i)\b(?:sponsored|advertorial|partner content)\b',title))
+ if LIFESTYLE.search(title):return False
  if host=='theguardian.com' and urlsplit(url).path.startswith('/money/') and re.search(r'(?i)\b(?:fraudsters?|bank accounts?|account theft|scams?)\b',title):return True
  # Admit ordinary announcements from registered financial institutions;
  # headlines need not spell out the sector or its significance.
