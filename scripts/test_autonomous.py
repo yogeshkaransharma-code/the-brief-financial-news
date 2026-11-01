@@ -94,6 +94,9 @@ def main():
             "urls":[base["draft"]["url"]]
         }),encoding="utf-8")
         (root/"data/articles.json").write_text("[]\n",encoding="utf-8")
+        # Duplicate bundles are now removed after an already-published run.
+        # Recreate this source explicitly to exercise the retired-source gate.
+        (root/"generated-drafts"/(aid+".json")).write_text(json.dumps(base))
         retired=auto.publish(root)
         assert not retired["published"], "Retired pre-reset article was republished"
         assert any("reset legacy" in " ".join(x["reason"]) for x in retired["held"])
