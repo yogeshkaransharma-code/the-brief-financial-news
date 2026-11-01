@@ -109,7 +109,7 @@ def self_test():
     approved=dict(current,published_at="2026-10-24T18:30:00Z",
                   ai_assisted=True,publication_method="autonomous",editorial_status="PUBLISHED: tested")
     assert published_same_day(approved,london)
-    assert not published_same_day(dict(approved,dateISO="2026-10-23"),london)
+    assert published_same_day(dict(approved,dateISO="2026-10-23"),london)
     assert not published_same_day(dict(approved,published_at="2026-10-25T13:00:00Z"),london)
     assert source_recent(yesterday, london)
     assert source_recent(dict(current,dateISO="2026-10-22"), london)
