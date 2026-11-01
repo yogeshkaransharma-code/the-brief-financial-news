@@ -24,9 +24,17 @@ SECTOR = re.compile(
 OFF_TOPIC = re.compile(
     r"\b(?:slot machines?|bingo licen[sc]es?|gambling venues?|casinos?|"
     r"lotter(?:y|ies)|sports betting|horse racing|house prices?|"
-    r"homes? (?:selling|sold|for sale)|property asking prices?|"
+    r"housing prices?|housing market|property prices?|below asking price|"
+    r"homes? (?:selling|sold|for sale)|homes?\\s+(?:\\w+\\s+){0,8}(?:sell|sold|selling)\\b|property asking prices?|"
     r"shopping vouchers?|retail discount\w*|celebrity|recipe\w*|"
     r"cinema tickets?|football results?)\b", re.I
+)
+DIRECT_PRODUCT = re.compile(
+    r"\b(?:insur\w*|reinsur\w*|mortgage\w*|lend\w*|loans?|"
+    r"banking(?: services?| products?| operations?)?|bank accounts?|"
+    r"credit cards?|consumer credit|deposits?|payments?|savings accounts?|"
+    r"pension\w*|underwrit\w*|broker\w*|asset management|"
+    r"wealth management|investment fund\w*|annuities|annuity)\b",re.I
 )
 GENERAL_ONLY = re.compile(
     r"\b(?:budget|tax|taxation|tax polic\w*|business rates?|"
@@ -63,6 +71,10 @@ def in_sector_scope(item, source_text=""):
     article_title = str(item.get("title") or "")
     short = str(item.get("short") or "")
     titles = headline + " " + article_title
+    # A bank quoted about house prices, gambling or retail is still not
+    # a banking story unless the headline concerns an actual financial product.
+    if OFF_TOPIC.search(titles) and not DIRECT_PRODUCT.search(titles):
+        return False
     if SECTOR.search(titles):
         return True
     if unsuitable_general_headline(titles):
@@ -89,6 +101,9 @@ def self_test():
     assert not in_sector_scope(story("Letters critique budget measures and tax policies"))
     assert not in_sector_scope(story("Eight in 10 homes sell below asking price, Coutts finds"),
                                "Coutts reviewed luxury housing prices in London.")
+    assert not in_sector_scope(story("Eight in 10 prime London homes sell below asking price, Coutts reveals"),
+                               "Coutts is a private bank reporting on property prices.")
+    assert in_sector_scope(story("Mortgage lenders reduce rates as house prices change"))
     assert in_sector_scope(story("UK insurance brokers report cyber policy changes"))
     assert in_sector_scope(story("UK Finance publishes banking-sector tax report"))
     assert in_sector_scope(story("FCA consults on mortgage lending changes"))
