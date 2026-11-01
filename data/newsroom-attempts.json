@@ -2,29 +2,10 @@
   "api_budget": {
     "date": "2026-10-31",
     "timezone": "America/Los_Angeles",
-    "requests": 0,
+    "requests": 1,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-10-27T11:13:53.936537+00:00",
-      "result": "response_received",
-      "prompt_characters": 16531,
-      "purpose": "single_pass_writing",
-      "usage": {
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 3448,
-        "candidatesTokenCount": 988,
-        "totalTokenCount": 4436,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 3448
-          }
-        ],
-        "serviceTier": "standard"
-      }
-    },
     {
       "at": "2026-10-27T11:14:08.941405+00:00",
       "result": "response_received",
@@ -1817,6 +1798,25 @@
           {
             "modality": "TEXT",
             "tokenCount": 2092
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-11-01T06:55:31.015925+00:00",
+      "result": "response_received",
+      "prompt_characters": 12450,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 2443,
+        "candidatesTokenCount": 408,
+        "totalTokenCount": 2851,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2443
           }
         ],
         "serviceTier": "standard"
@@ -5325,6 +5325,11 @@
       "attempted_at": "2026-11-01T05:46:20.693121+00:00",
       "retry_after": "2026-11-02T06:46:20.693121+00:00",
       "headline": "Bond investors sit out ‘most consequential’ US midterm elections in years"
+    },
+    "https://www.theguardian.com/society/2026/nov/01/high-street-slot-farms-budget-tax-rise-business-rates-bingo-licence-loophole": {
+      "attempted_at": "2026-11-01T06:55:17.842702+00:00",
+      "retry_after": "2026-11-02T07:55:17.842702+00:00",
+      "headline": "High street ‘slot farms’ could evade budget tax rise through bingo hall loophole"
     }
   },
   "sources": {
@@ -8955,14 +8960,14 @@
       "alternative_search_after": "2026-11-01T02:08:38.830253+00:00"
     },
     "https://www.wsj.com/finance/stocks/ai-investors-are-racing-to-get-insurance-on-the-biggest-market-bet-in-history-a60e296f": {
-      "attempted_at": "2026-11-01T00:06:26.722686+00:00",
-      "retry_after": "2026-11-01T06:06:26.722686+00:00",
+      "attempted_at": "2026-11-01T06:55:17.842702+00:00",
+      "retry_after": "2026-11-01T12:55:17.842702+00:00",
       "last_result": "HTTP Error 401: HTTP Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
+      "failures": 2,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-11-01T08:52:07.868409+00:00"
+      "alternative_search_after": "2026-11-01T10:55:17.842702+00:00"
     }
   },
   "version": 2,
