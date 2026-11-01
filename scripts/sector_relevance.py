@@ -66,7 +66,10 @@ def in_sector_scope(item, source_text=""):
     if SECTOR.search(titles):
         return True
     if unsuitable_general_headline(titles):
-        return False
+        # Budget headlines can be brief; an explicit pension/banking/insurance
+        # subject in the article summary still makes the policy relevant.
+        # Gambling, retail and lifestyle headlines remain excluded.
+        return not OFF_TOPIC.search(titles) and bool(SECTOR.search(short))
     # Some firm announcements use company names without naming their product.
     # Require an actual financial-services connection in the captured report.
     if FINANCIAL_FIRMS.search(titles):
