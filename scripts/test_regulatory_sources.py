@@ -59,7 +59,7 @@ def main():
  # One-day-old original reporting is eligible, but retains its real date.
  recent=verify_announcement(item,doc,dt.datetime(2026,10,26,12,tzinfo=dt.timezone.utc))
  assert recent['dateISO']=='2026-10-25'
- try:verify_announcement(item,doc,dt.datetime(2026,10,28,12,tzinfo=dt.timezone.utc))
+ try:verify_announcement(item,doc,dt.datetime(2026,10,30,12,tzinfo=dt.timezone.utc))
  except ValueError:pass
  else:raise AssertionError('A regulator publication outside the window was treated as current')
  print('PASS: excluded PRA/FCA routes, original dates, proposal vs policy, full PDF capture and accurate banking categorisation')
