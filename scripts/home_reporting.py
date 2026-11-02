@@ -1,16 +1,23 @@
-"""Show recently published, honestly dated sector stories on a quiet news day."""
+"""Show all reports published today, with their real original source dates."""
 from __future__ import annotations
 import datetime as dt
-from same_day_policy import clock, original_date, published_same_day, date_in_uk, source_issued_today
+from same_day_policy import clock, original_date, published_same_day, date_in_uk
 
 RECENT_DAYS = 3
 
 def homepage_articles(archive, now=None, limit=15):
-    """Prefer original news from today; otherwise show clearly dated recent reports."""
+    """Show reports published today, including dated catch-up; otherwise show recent work."""
     current = clock(now).date()
-    today = [a for a in archive if published_same_day(a, now) and source_issued_today(a, now)]
+    # A report published today must not disappear solely because the
+    # underlying source was published yesterday. The public card and article
+    # display the original source date separately from our publication date.
+    today = [
+        a for a in archive
+        if published_same_day(a, now)
+        and 0 <= (current - original_date(a)).days <= RECENT_DAYS
+    ]
     if today:
-        return today, False
+        return today[:limit], False
     recent = [
         a for a in archive
         if 0 <= (current - original_date(a)).days <= RECENT_DAYS
@@ -29,6 +36,12 @@ def self_test():
     today=dict(base,id="today",dateISO="2026-11-01",published_at="2026-11-01T09:00:00Z")
     got,earlier=homepage_articles([today,base],now)
     assert len(got)==1 and got[0]["id"]=="today" and not earlier
+    catchup=dict(base,id="catchup",dateISO="2026-10-31",
+                 published_at="2026-11-01T10:00:00Z")
+    got,earlier=homepage_articles([today,catchup,base],now)
+    assert {a["id"] for a in got}=={"today","catchup"} and not earlier, (
+        "Reports published today must remain visible with their actual original dates"
+    )
     same_day_old_source=dict(base,id="newly_written",published_at="2026-11-01T09:15:00Z")
     got,earlier=homepage_articles([same_day_old_source],now)
     assert earlier and len(got)==1
