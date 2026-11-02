@@ -30,6 +30,19 @@ def main():
     assert lead_article([fca_domain,fiscal])["id"]=="budget", "Individual FCA scam warning displaced UK fiscal development"
     assert priority(fca_domain)<priority(fiscal)
     assert priority(fca_domain)<priority(substantive)
+    from site_design import terms_for
+    ordinary={'title':'Insurer announces new premium offer',
+              'blocks':[['Business update','The business says its premium income rose and profit increased.']]}
+    assert terms_for(ordinary)==[], 'Common financial words should not trigger filler jargon'
+    technical={'title':'Credit cedents negotiate proportional reinsurance',
+               'blocks':[['Renewals','Cedents discuss ceding commissions and proportional reinsurance at renewal.']]}
+    glossary=terms_for(technical)
+    names=[item[0] for item in glossary]
+    assert 'cedent' in names and 'ceding commission' in names, 'Real technical terms were not explained'
+    assert not ('reinsurance' in names and 'proportional reinsurance' in names), 'Nested duplicate jargon'
+    expanded={'title':'FCA announces new rules',
+              'blocks':[['Regulation','The Financial Conduct Authority (FCA) has confirmed its decision.']]}
+    assert terms_for(expanded)==[], 'An acronym already expanded in the article needs no repeat definition'
     # A hydrated homepage should keep its ranking aligned with the server.
     client=(Path(__file__).resolve().parents[1]/'index.html').read_text()
     assert 'const singleFirmWarning=' in client
