@@ -1291,3 +1291,39 @@ body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-view,.tb-utility-page)
 @media(max-width:360px){
  body:is(.tb-home,.tb-about-page,.tb-reading-page,.tb-desk-view,.tb-utility-page) .tb-header .tb-logo{font-size:21px!important;letter-spacing:-.6px!important}
 }
+
+
+/* Reading order: report, its practical meaning, relevant terminology, source.
+   The meaning belongs in the story column, never in a separate sidebar rail. */
+body.tb-reading-page .tb-story-main > .tb-uk-context,
+body.tb-home .article-content > .tb-uk-context{
+  border-left:0;border-top:1px solid #cccac3;background:transparent;
+  margin:8px 0 31px;padding:22px 0 0;max-width:760px;
+}
+body.tb-reading-page .tb-story-main > .tb-uk-context h2,
+body.tb-home .article-content > .tb-uk-context h2{
+  font:600 clamp(25px,2.4vw,30px)/1.2 var(--display);
+  letter-spacing:-.35px;color:#22272a;margin:0 0 12px;
+}
+body.tb-reading-page .tb-story-main > .tb-uk-context p,
+body.tb-home .article-content > .tb-uk-context p{
+  font:400 clamp(18px,1.65vw,20px)/1.65 var(--display);
+  color:#303334;margin:0;
+}
+body.tb-reading-page .tb-story-main > .tb-glossary,
+body.tb-home .article-content > .tb-glossary{
+  border-top:1px solid #d3d6d3;margin:26px 0 25px;
+  padding:23px 0 0;max-width:760px;
+}
+body.tb-reading-page .tb-story-main > .tb-glossary h2,
+body.tb-home .article-content > .tb-glossary h2{
+  font:600 24px/1.25 var(--display);color:#22272a;margin:0 0 13px;
+}
+body.tb-reading-page .tb-story-main > .tb-glossary dt,
+body.tb-home .article-content > .tb-glossary dt{
+  font:700 13px/1.5 var(--sans);color:#245b65;margin:14px 0 0;
+}
+body.tb-reading-page .tb-story-main > .tb-glossary dd,
+body.tb-home .article-content > .tb-glossary dd{
+  font:400 14px/1.6 var(--sans);color:#465057;margin:3px 0 0;
+}
