@@ -155,6 +155,23 @@ def main():
             if today and width==390:
                 assert page.evaluate("getComputedStyle(document.querySelector('#feed')).gridTemplateColumns.split(' ').length")==1, 'Mobile Latest Reporting is not one readable column'
                 assert page.evaluate("parseFloat(getComputedStyle(document.querySelector('#feed .news-item h3')).fontSize)")>=18, 'Mobile editorial-list headlines are too small'
+            if today:
+                # The hydrated reading view must put article meaning and
+                # specialised terminology before the source, not in a sidebar.
+                page.locator('#feed .news-item h3 button').first.click()
+                assert page.locator('#article-content .article-body').is_visible(), 'Home reading view did not open'
+                assert page.evaluate("""() => {
+                    const root=document.querySelector('#article-content');
+                    const blocks=[root.querySelector('.article-body'),
+                                  root.querySelector('.tb-uk-context'),
+                                  root.querySelector('.tb-glossary'),
+                                  root.querySelector('.source-note')].filter(Boolean);
+                    return blocks.length>=2 && blocks[0].classList.contains('article-body')
+                        && blocks[blocks.length-1].classList.contains('source-note')
+                        && blocks.every((node,i)=>i===0||Boolean(blocks[i-1].compareDocumentPosition(node)&4));
+                }"""), 'Hydrated article reading order differs from standalone report'
+                assert page.locator('#article-rail .tb-uk-context').count()==0, 'Practical explanation escaped into sidebar'
+                page.locator('#back').click()
             page.locator('.tb-nav a[href="banking.html"]').click()
             assert page.locator('h1').inner_text()=='Banking.','Banking page missing'
             assert page.evaluate('getComputedStyle(document.querySelector(".tb-header")).backgroundColor')==baseline['background'], 'Banking masthead differs from homepage'
