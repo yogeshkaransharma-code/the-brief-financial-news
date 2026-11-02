@@ -270,8 +270,11 @@ def desk_page(records,section):
     from site_design import (ST_PAULS_PHOTO,CITY_PHOTO,BANK_PHOTO,WESTMINSTER_PHOTO,
                              ST_PAULS_CREDIT_URL,CITY_CREDIT_URL,BANK_CREDIT_URL,WESTMINSTER_CREDIT_URL)
     # A quiet day still deserves useful, honestly dated recent sector reporting.
-    from home_reporting import homepage_articles
-    selected, showing_earlier = homepage_articles([a for a in records if a['desk_section']==section])
+    from home_reporting import homepage_articles, DESK_DAYS
+    selected, showing_earlier = homepage_articles(
+        [a for a in records if a['desk_section']==section],
+        days=DESK_DAYS, limit=80
+    )
     desk=section.lower()
     intro=('The latest developments shaping UK insurers, brokers, underwriting, claims and regulation.' if section=='Insurance'
         else 'The latest developments shaping UK banks, lenders, financial markets and the wider economy.')
@@ -287,15 +290,21 @@ def desk_page(records,section):
     cards=[]
     for i,a in enumerate(selected):
         published=dt.datetime.fromisoformat(a['published_at'].replace('Z','+00:00')).astimezone(__import__('zoneinfo').ZoneInfo('Europe/London'))
-        stamp=original_date(a).strftime('%-d %b %Y') if original_date(a)!=clock().date() else published.strftime('%H:%M')
+        source_day=original_date(a)
+        if source_day==published.date()==clock().date():
+            stamp=published.strftime('%H:%M')
+        elif source_day==published.date():
+            stamp='Published '+published.strftime('%-d %b %Y')
+        else:
+            stamp='Source '+source_day.strftime('%-d %b %Y')+' · Published '+published.strftime('%-d %b %Y')
         topic=desk_topic(a,section)
         cards.append('<article data-category="'+esc(section)+'" data-topic="'+esc(topic)+'" class="tb-desk-story">'
             '<a class="tb-desk-image" href="'+story_href(a)+'"><img src="'+esc(thumbnail_images[i%len(thumbnail_images)])+'" alt="Illustrative photograph of London, not the event" loading="lazy" decoding="async"></a>'
             '<div class="tb-desk-story-copy"><span class="tb-desk-category">'+esc(topic)+'</span>'
             '<h2><a href="'+story_href(a)+'">'+esc(a['title'])+'</a></h2>'
             '<p>'+esc(a.get('short',''))+'</p><small>'+esc(a.get('source',''))+' · '+esc(stamp)+'</small></div></article>')
-    edition_note=('Recent '+section.lower()+' reporting · original source dates shown; no new '+section.lower()+' reports have been published today.' if showing_earlier
-                  else 'Today’s '+section.lower()+' reports only · '+clock().strftime('%-d %B %Y')+'.')
+    edition_note=('Reports published in the last 14 days · source and publication dates shown.'
+                  + (' No new '+section.lower()+' reports today.' if showing_earlier else ''))
     body=('<section class="tb-desk-hero"><img src="'+esc(image)+'" alt="London skyline, illustrative sector photography" decoding="async">'
           '<div class="tb-desk-hero-copy"><span class="tb-desk-label">'+esc(section.upper())+'</span>'
           '<h1>'+esc(section)+'.</h1><p>'+esc(intro)+'</p><div class="tb-desk-hero-rule"></div></div></section>'
@@ -306,7 +315,7 @@ def desk_page(records,section):
           '<div class="tb-desk-stories">'+''.join(cards)+'</div>'
           '<button type="button" id="tb-desk-more" class="tb-desk-more" hidden>Show more reports ↓</button>'
           '<p class="tb-desk-empty"'+('' if not selected else ' hidden')+'>'
-          + ('No '+esc(section.lower())+' reports have been published today. <a href="archive.html?category='+esc(section)+'">Browse earlier editions</a>.' if not selected else 'No reports match this topic. <button type="button" id="tb-reset-desk">Show all reports</button>.')
+          + ('No '+esc(section.lower())+' reports from the last 14 days. <a href="archive.html?category='+esc(section)+'">Browse earlier editions</a>.' if not selected else 'No reports match this topic. <button type="button" id="tb-reset-desk">Show all reports</button>.')
           + '</p>'
           '<p class="tb-desk-image-credits">Article photographs are illustrative, not pictures of the news events. Image credits: '
           '<a href="'+WESTMINSTER_CREDIT_URL+'" target="_blank" rel="noopener noreferrer">hozinja</a>, '
@@ -403,7 +412,7 @@ def build():
         return esc(a.get('source',''))+' · '+esc(stamp)
     if first:
         lead = ('<article id="lead-story" class="lead-story with-photo"><span class="story-kicker">'
-            + ('EARLIER REPORT · SOURCE '+esc(original_date(first).strftime('%-d %b %Y')) if showing_earlier else esc(first.get("desk_section"))+' / THE LEAD STORY') + '</span><h1><a href="'
+            + ('EARLIER REPORT · SOURCE '+esc(original_date(first).strftime('%-d %b %Y')) if date_in_uk(first['published_at'])!=clock().date() else esc(first.get("desk_section"))+' / THE LEAD STORY') + '</span><h1><a href="'
             + esc(story_href(first)) + '">' + esc(first["title"])
             + '</a></h1><p class="standfirst">' + esc(first.get("short")) + '</p>'
             + '<p class="meta">' + display_meta(first) + '</p>'
@@ -421,14 +430,14 @@ def build():
     page = insert_once(page, '<article id="lead-story" class="lead-story"></article>', lead)
     briefing = ''.join(
         '<div class="briefing-story" data-desk="'+esc(a.get("desk_section"))+'"><span class="brief-number">0' + str(i+1)
-        + '</span><div><span class="tb-brief-desk">'+esc(a.get("desk_section"))+(' · '+esc(original_date(a).strftime('%-d %b %Y')) if showing_earlier else '')+'</span>'
+        + '</span><div><span class="tb-brief-desk">'+esc(a.get("desk_section"))+(' · '+esc(original_date(a).strftime('%-d %b %Y')) if original_date(a)!=clock().date() else '')+'</span>'
         + '<a href="' + esc(story_href(a)) + '">' + esc(a["title"]) + '</a>'
         + '<p>' + esc(a.get("reader_takeaway") or a.get("short", "")) + '</p>'
         + '</div></div>'
         for i, a in enumerate(other_briefs(records, first, limit=4))
     )
     if first and not briefing:
-        briefing='<p class="tb-briefing-empty">'+('No other recent reports are featured in this selection.' if showing_earlier else 'Our lead story is today’s only published report. No other developments have been added.')+'</p>'
+        briefing='<p class="tb-briefing-empty">No other reports are featured in this selection.</p>'
     if not briefing:
         briefing = ('<div class="tb-empty-guide"><p>While today’s briefing is being prepared:</p>'
             '<a href="archive.html"><b>ARCHIVE</b><span>Read previous editions →</span></a>'
@@ -447,7 +456,7 @@ def build():
             + '<p class="meta">' + display_meta(a) + '</p></div></article>'
         )
     page = insert_once(page, '<div class="feed" id="feed"></div>',
-        '<div class="feed" id="feed">' + ('\n'.join(rows) if rows else '<p class="nothing">No reports published today. <a href="archive.html">Read earlier editions</a>.</p>') + '</div>')
+        '<div class="feed" id="feed">' + ('\n'.join(rows) if rows else '<p class="nothing">No reports in the last 7 days. <a href="archive.html">Read earlier editions</a>.</p>') + '</div>')
     page = insert_once(page, '<div class="news-count" id="news-count"></div>',
         '<div class="news-count" id="news-count">' + str(len(records)) + ' articles</div>')
     payload = json.dumps(records, ensure_ascii=False, separators=(",", ":")).replace("<", "\\u003c")
