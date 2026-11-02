@@ -156,22 +156,22 @@ def main():
                 assert page.evaluate("getComputedStyle(document.querySelector('#feed')).gridTemplateColumns.split(' ').length")==1, 'Mobile Latest Reporting is not one readable column'
                 assert page.evaluate("parseFloat(getComputedStyle(document.querySelector('#feed .news-item h3')).fontSize)")>=18, 'Mobile editorial-list headlines are too small'
             if today:
-                # The hydrated reading view must put article meaning and
-                # specialised terminology before the source, not in a sidebar.
+                # Follow the exact public route used by actual news headlines:
+                # a standalone source-linked story, not the old hidden in-page reader.
                 page.locator('#feed .news-item h3 button').first.click()
-                assert page.locator('#article-content .article-body').is_visible(), 'Home reading view did not open'
+                assert page.locator('main.reader .article-body').is_visible(), 'News headline did not open the full report'
                 assert page.evaluate("""() => {
-                    const root=document.querySelector('#article-content');
+                    const root=document.querySelector('.tb-story-main');
                     const blocks=[root.querySelector('.article-body'),
                                   root.querySelector('.tb-uk-context'),
                                   root.querySelector('.tb-glossary'),
-                                  root.querySelector('.source-note')].filter(Boolean);
+                                  root.querySelector('.tb-source-evidence')].filter(Boolean);
                     return blocks.length>=2 && blocks[0].classList.contains('article-body')
-                        && blocks[blocks.length-1].classList.contains('source-note')
+                        && blocks[blocks.length-1].classList.contains('tb-source-evidence')
                         && blocks.every((node,i)=>i===0||Boolean(blocks[i-1].compareDocumentPosition(node)&4));
-                }"""), 'Hydrated article reading order differs from standalone report'
-                assert page.locator('#article-rail .tb-uk-context').count()==0, 'Practical explanation escaped into sidebar'
-                page.locator('#back').click()
+                }"""), 'Full report reading order must end with the original source'
+                assert page.locator('.tb-story-aside .tb-uk-context').count()==0, 'Practical explanation escaped into sidebar'
+                page.goto(live_home,wait_until='networkidle',timeout=60000)
             page.locator('.tb-nav a[href="banking.html"]').click()
             assert page.locator('h1').inner_text()=='Banking.','Banking page missing'
             assert page.evaluate('getComputedStyle(document.querySelector(".tb-header")).backgroundColor')==baseline['background'], 'Banking masthead differs from homepage'
