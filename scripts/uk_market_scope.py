@@ -166,7 +166,7 @@ def sample_uk_first(candidates,attempts,now,limit=40):
     ready=[x for x in candidates if not cooling(attempts.get(x["url"],{}),now)]
     retry=[x for x in candidates if cooling(attempts.get(x["url"],{}),now)
            and attempts.get(x["url"],{}).get('classification') not in
-           {'ACCESS_RESTRICTED','NOT_FOUND','OUTSIDE_UK_SCOPE'}]
+           {'ACCESS_RESTRICTED','NOT_FOUND'}]
     priority=[[x for x in ready if discovery_priority(x)==score] for score in (2,1,0)]
     chosen=[]
     for desk in ('Banking','Insurance'):
