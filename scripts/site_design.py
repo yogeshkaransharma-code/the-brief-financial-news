@@ -90,28 +90,6 @@ def desk_for(a):
     details=str(a.get("short",""))[:500]
     return "Insurance" if re.search(INSURANCE_TERMS,details,re.I) and not re.search(BANK_TERMS,details,re.I) else "Banking"
 
-TERMS=(
- ("FCA","Financial Conduct Authority — the UK regulator overseeing the conduct of financial services firms."),
- ("PRA","Prudential Regulation Authority — the Bank of England regulator focused on the safety and soundness of major financial firms."),
- ("MGA","Managing general agent — an intermediary that can arrange and sometimes underwrite cover on an insurer's behalf, within delegated authority."),
- ("underwriting","The process of assessing risk and deciding whether to offer insurance, on what terms and at what price."),
- ("reinsurance","Insurance purchased by insurers to share part of their own exposure to large claims."),
- ("premium","The amount paid for an insurance policy."),
- ("combined ratio","An insurance measure comparing claims and operating costs with premiums earned; below 100% generally indicates an underwriting profit."),
- ("GWP","Gross written premium — the total value of premiums an insurer writes before deductions such as reinsurance."),
- ("ring-fencing","Rules requiring certain large banking groups to separate core retail banking operations from some riskier activities."),
- ("capital buffer","Extra capital a financial institution holds to absorb unexpected losses."),
- ("fiscal headroom","The margin the government has against its own fiscal rules, based on economic forecasts."),
- ("private markets","Investments that are not traded on public exchanges, such as private equity, private credit and infrastructure."),
- ("basis points","A basis point is one-hundredth of a percentage point; 100 basis points equal one percentage point."),
- ("persistency","The proportion of insurance policies that remain in force over a defined period."),
- ("annuity","A financial product that provides regular income, usually in retirement."),
- ("National Insurance","UK contributions paid by workers and employers to help fund state benefits and services. It is not a commercial insurance policy."),
- ("VAT","Value Added Tax — a tax added to the sale price of most goods and services."),
- ("basis point","One-hundredth of a percentage point; for example, a 25-basis-point rate rise is 0.25 percentage points."),
- ("base rate","The Bank of England's benchmark interest rate, which influences borrowing and saving rates."),
- ("APE","Annual premium equivalent — a common insurance sales measure that combines regular premiums with a share of single premiums."),
-)
 # A deliberately small editorial dictionary. Only unfamiliar financial-service
 # terms which actually occur in the story merit a glossary entry. Ordinary words
 # (premium, customer, profit, policy, VAT) are not jargon by default.
@@ -124,7 +102,6 @@ READER_JARGON=(
  ("Basel 3.1","Changes to banking capital rules that affect how banks measure risks and the capital they must hold."),
  ("combined ratio","An insurer's claims and relevant expenses as a percentage of earned premiums. Below 100% generally means an underwriting profit."),
  ("loss ratio","Claims costs compared with earned insurance premiums for a stated period."),
- ("ceding commissions","Payments or allowances linked to an insurer transferring business to a reinsurer."),
  ("syndicate","At Lloyd's, a group of members whose capital backs insurance risks, operated by a managing agent."),
  ("managing agent","A firm responsible for managing and underwriting business for a Lloyd's syndicate."),
  ("proportional reinsurance","Reinsurance in which the insurer and reinsurer share premiums and losses in agreed proportions."),
@@ -173,7 +150,7 @@ def terms_for(a,limit=3):
     ])
     found=[]
     for term,definition in READER_JARGON:
-        pattern=r"(?<!\\w)"+re.escape(term)+(r"(?:s|es)?" if not term[-1].isdigit() and term not in EXPANDED_ACRONYMS else "")+r"(?!\\w)"
+        pattern=r"(?<!\w)"+re.escape(term)+(r"(?:s|es)?" if not term[-1].isdigit() and term not in EXPANDED_ACRONYMS else "")+r"(?!\w)"
         flags=0 if term in EXPANDED_ACRONYMS else re.I
         match=re.search(pattern,combined,flags)
         if not match:continue
@@ -183,7 +160,14 @@ def terms_for(a,limit=3):
     # A harder term or phrase takes precedence on ties; display in reading
     # order, not dictionary order. No jargon present means no glossary.
     found.sort(key=lambda item:(item[0],-item[1]))
-    return [[term,meaning] for _,__,term,meaning in found[:limit]]
+    selected=[]
+    for start, length, term, meaning in found:
+        if any(a<=start<a+b for a,b,_,__ in selected):
+            continue  # e.g. reinsurance inside proportional reinsurance
+        selected.append((start,length,term,meaning))
+        if len(selected)>=limit:
+            break
+    return [[term,meaning] for _,__,term,meaning in selected]
 
 def credit(section):
     if section=="Insurance":
