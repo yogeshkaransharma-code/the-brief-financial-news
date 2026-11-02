@@ -22,7 +22,10 @@ def main():
         for width in [390,1440]:
             context=browser.new_context(viewport={'width':width,'height':844},is_mobile=width==390,has_touch=width==390)
             page=context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
-            page.goto(SITE,wait_until='networkidle',timeout=60000)
+            # GitHub Pages can briefly serve a cached previous edition after deploy.
+            # Bypass that cache so this test checks the newly deployed artifact.
+            live_home=SITE+('?edition='+os.getenv('GITHUB_RUN_ID','latest'))
+            page.goto(live_home,wait_until='networkidle',timeout=60000)
             assert page.locator('#lead-story').is_visible()
             if width==390:
                 # Reproduce the exact long FCA warning that caused Android to
@@ -50,7 +53,12 @@ def main():
                 if showing_earlier:
                     assert 'EARLIER REPORT' in page.locator('#lead-story').inner_text(), 'Earlier news is missing its date label'
                 assert page.locator('#lead-story .tb-lead-art img').count()==1, 'Lead story has lost editorial photography'
-                assert page.locator('#feed .tb-report-art img').count()==min(4,max(0,len(today)-1)), 'Supporting pictures should be selective'
+                image_count=page.locator('#feed .tb-report-art img').count()
+                expected_images=min(4,max(0,len(today)-1))
+                assert image_count==expected_images, (
+                    f'Supporting picture count: expected {expected_images}, got {image_count}; '
+                    f'URL {page.url}; news cards {page.locator("#feed .news-item").count()}'
+                )
                 assert page.locator('#feed .tb-report-art figcaption a').count()==min(4,max(0,len(today)-1)), 'Picture credits missing'
             assert page.locator('.tb-sector-visual').count()==0, 'Duplicate navigation banners returned'
             assert page.locator('.tb-nav a').all_inner_texts()==['Home','Insurance','Banking','About'], 'Unified navigation is missing'
