@@ -161,7 +161,12 @@ function currentDayArticle(x){
  const source=(x.source_time_precision==='timestamp')
   ? ukDateFromTimestamp(x.source_published_at||'')
   : String(x.dateISO||'').slice(0,10);
- return source===today && ukDateFromTimestamp(x.published_at)===today && Date.parse(x.published_at)<=Date.now() && (x.source_time_precision!=='timestamp' || Date.parse(x.source_published_at)<=Date.now());
+ // Use our actual publication date for today's edition. Source material
+ // from the preceding two UK dates stays eligible and is dated in the byline.
+ const sourceAge=(Date.parse(today+'T12:00:00Z')-Date.parse(source+'T12:00:00Z'))/86400000;
+ return Number.isFinite(sourceAge)&&sourceAge>=0&&sourceAge<=2 &&
+  ukDateFromTimestamp(x.published_at)===today && Date.parse(x.published_at)<=Date.now() &&
+  (x.source_time_precision!=='timestamp' || Date.parse(x.source_published_at)<=Date.now());
 }
 
 function recentArticle(x){
