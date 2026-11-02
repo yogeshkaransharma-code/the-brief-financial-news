@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-11-02T04:59:57.985675+00:00",
+  "checked_at": "2026-11-02T06:01:02.659236+00:00",
   "uk_date": "2026-11-02",
   "outcome": "BLOCKED",
   "editorial_outcome": "BLOCKED",
-  "technical_status": "LIVE_VERIFIED",
+  "technical_status": "AWAITING_LIVE_VERIFICATION",
   "source_coverage_status": "PARTIAL",
   "launch_test": {
     "result": "NOT_RUN"
@@ -26,15 +26,15 @@
   },
   "verified_by_sector": {},
   "articles_commissioned": 0,
-  "articles_held": 2,
+  "articles_held": 0,
   "machine_screened": 0,
   "independent_review": false,
   "publication_policy": "newsroom-single-pass-2026-10-26-v1",
   "articles_ready_to_publish": 0,
   "primary_indexes_checked": 31,
   "primary_index_failures": 4,
-  "feeds_working": 40,
-  "feed_failures": 1,
+  "feeds_working": 41,
+  "feed_failures": 0,
   "ai_budget": {
     "quota_date": "2026-11-01",
     "quota_timezone": "America/Los_Angeles",
@@ -48,14 +48,13 @@
   },
   "quota_pause_until": null,
   "pipeline_metrics": {
-    "discovered_unique": 507,
-    "outside_uk_date": 241,
+    "discovered_unique": 506,
+    "outside_uk_date": 238,
     "already_published_or_retired": 105,
     "irrelevant": 17,
-    "unsupported_route": 131,
+    "unsupported_route": 133,
     "fresh_relevant_candidates": 13,
-    "source_failures": 1,
-    "source_cooldowns": 10,
+    "source_cooldowns": 11,
     "sources_successfully_retrieved": 0,
     "source_checkpoints_reused": 2,
     "outside_uk_market": 2,
@@ -64,13 +63,13 @@
   "source_fallbacks": [
     {
       "source": "https://www.bloomberg.com/news/articles/2026-11-02/citi-cuts-lithium-forecasts-on-worsening-battery-demand-outlook",
-      "result": "Public alternative search completed",
-      "candidates": 0
-    },
-    {
-      "source": "https://www.bloomberg.com/news/articles/2026-11-02/citi-cuts-lithium-forecasts-on-worsening-battery-demand-outlook",
       "alternatives_found": 0,
       "result": "No matching alternative in checked sources"
+    },
+    {
+      "source": "https://www.wsj.com/finance/stocks/nikkei-falls-0-9-dragged-by-bank-tech-stocks-a63f180d",
+      "result": "Public alternative search completed",
+      "candidates": 0
     },
     {
       "source": "https://www.wsj.com/finance/stocks/nikkei-falls-0-9-dragged-by-bank-tech-stocks-a63f180d",
@@ -79,16 +78,6 @@
     },
     {
       "source": "https://www.finextra.com/newsarticle/48680/regulator-warns-australians-about-highly-speculative-prediction-markets",
-      "result": "Public alternative search completed",
-      "candidates": 0
-    },
-    {
-      "source": "https://www.finextra.com/newsarticle/48680/regulator-warns-australians-about-highly-speculative-prediction-markets",
-      "alternatives_found": 0,
-      "result": "No matching alternative in checked sources"
-    },
-    {
-      "source": "https://www.bloomberg.com/news/articles/2026-11-01/philippine-bonds-can-beat-asia-if-war-risks-ebb-says-brandywine",
       "alternatives_found": 0,
       "result": "No matching alternative in checked sources"
     },
@@ -99,13 +88,23 @@
     },
     {
       "source": "https://news.sky.com/story/buyout-firm-tdr-capital-strikes-400m-deal-to-buy-lovehoney-13606074",
-      "result": "Public alternative search completed",
-      "candidates": 1
+      "alternatives_found": 0,
+      "result": "No matching alternative in checked sources"
     },
     {
-      "source": "https://news.sky.com/story/buyout-firm-tdr-capital-strikes-400m-deal-to-buy-lovehoney-13606074",
-      "alternatives_found": 1,
-      "result": "Alternative retrieval attempted"
+      "source": "https://www.bloomberg.com/news/articles/2026-11-01/philippine-bonds-can-beat-asia-if-war-risks-ebb-says-brandywine",
+      "result": "Public alternative search completed",
+      "candidates": 0
+    },
+    {
+      "source": "https://www.bloomberg.com/news/articles/2026-11-01/philippine-bonds-can-beat-asia-if-war-risks-ebb-says-brandywine",
+      "alternatives_found": 0,
+      "result": "No matching alternative in checked sources"
+    },
+    {
+      "source": "https://www.bloomberg.com/news/articles/2026-11-01/serbia-s-banks-urged-to-scrutinize-money-flows-amid-power-shift",
+      "result": "Public alternative search completed",
+      "candidates": 0
     },
     {
       "source": "https://www.bloomberg.com/news/articles/2026-11-01/serbia-s-banks-urged-to-scrutinize-money-flows-amid-power-shift",
@@ -223,6 +222,35 @@
       "source_date": "2026-10-13"
     },
     {
+      "title": "TPR urges pension schemes to embrace AI opportunities responsibly",
+      "source": "https://www.thepensionsregulator.gov.uk/media-hub/press-releases/2026-press-releases/tpr-urges-pension-schemes-to-embrace-ai-opportunities-responsibly",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
+    },
+    {
+      "title": "TPR sets expectations on “hidden” concentration risks in pension portfolios",
+      "source": "https://www.thepensionsregulator.gov.uk/media-hub/press-releases/2026-press-releases/tpr-sets-expectations-on-hidden-concentration-risks-in-pension-portfolios",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
+    },
+    {
+      "title": "HSBC Holdings plc 3Q 2026 Earnings Release",
+      "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/hsbc-holdings-plc-3q-2026-earnings-release",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current edition window",
+      "source_date": "2026-10-27"
+    },
+    {
+      "title": "Retirement targets jump 20% as affluent individuals plan for several futures at once",
+      "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/retirement-targets-jump-20-as-affluent-individuals-plan-for-several-futures-at-once",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Already published or retired"
+    },
+    {
       "title": "Read more about the 'Financial Ombudsman Service warns young people to stay alert to online scams' news item",
       "source": "https://www.financial-ombudsman.org.uk/who-we-are/data-insight/news/financial-ombudsman-service-warns-young-people-stay-alert-online-scams",
       "result": "excluded",
@@ -245,20 +273,6 @@
       "stage": "eligibility",
       "reason": "Discovery source date is outside the current edition window",
       "source_date": "2026-10-13"
-    },
-    {
-      "title": "TPR urges pension schemes to embrace AI opportunities responsibly",
-      "source": "https://www.thepensionsregulator.gov.uk/media-hub/press-releases/2026-press-releases/tpr-urges-pension-schemes-to-embrace-ai-opportunities-responsibly",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
-    {
-      "title": "TPR sets expectations on “hidden” concentration risks in pension portfolios",
-      "source": "https://www.thepensionsregulator.gov.uk/media-hub/press-releases/2026-press-releases/tpr-sets-expectations-on-hidden-concentration-risks-in-pension-portfolios",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
     },
     {
       "title": "Brits nearly twice as likely to spot pressure tactics in horror films as investment red flags 30/10/2026",
@@ -437,21 +451,6 @@
       "source_date": "2026-10-13"
     },
     {
-      "title": "HSBC Holdings plc 3Q 2026 Earnings Release",
-      "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/hsbc-holdings-plc-3q-2026-earnings-release",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current edition window",
-      "source_date": "2026-10-27"
-    },
-    {
-      "title": "Retirement targets jump 20% as affluent individuals plan for several futures at once",
-      "source": "https://www.hsbc.com/news-and-views/news/media-releases/2026/retirement-targets-jump-20-as-affluent-individuals-plan-for-several-futures-at-once",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
-    {
       "title": "Prudential Regulation // Consultation paper 22 October 2026 CP14/26 – Review of the Senior Managers and... CP14/26 – Review of the Senior Managers and Certification Regime (SM&CR) – Phase 2",
       "source": "https://www.bankofengland.co.uk/prudential-regulation/publication/2026/october/review-of-the-smcr-phase-two-consultation-paper",
       "result": "excluded",
@@ -481,14 +480,6 @@
       "result": "rejected",
       "stage": "eligibility",
       "reason": "Outside Insurance/Banking or promotional/lifestyle material"
-    },
-    {
-      "title": "Ageas becomes the first UK motor insurer to directly offer customers a car insurance quote through ChatGPT, built and delivered using in-house capability",
-      "source": "https://www.ageas.co.uk/press-releases/2026-press-releases/ageas-first-uk-motor-insurance-quote-chatgpt/",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current edition window",
-      "source_date": "2026-10-29"
     },
     {
       "title": "LMA responds to FCA consultation on SM&CR reforms",
@@ -613,6 +604,20 @@
       "stage": "eligibility",
       "reason": "Discovery source date is outside the current edition window",
       "source_date": "2026-10-14"
+    },
+    {
+      "title": "Partner Insight: Strategic Income: Navigating global fixed income through a multi-sector lens",
+      "source": "https://www.investmentweek.co.uk/sponsored/4538101/partner-insight-strategic-income-navigating-global-fixed-income-multi-sector-lens",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "No reviewed article route in source registry"
+    },
+    {
+      "title": "AI mania can’t survive higher interest rates",
+      "source": "https://www.ft.com/content/6e99dc59-8bd0-4c5c-8186-f6ceed04233a?syn-25a6b1a6=1",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "No reviewed article route in source registry"
     },
     {
       "title": "Abundant capacity favours credit cedents at 1/1: Willis Re",
@@ -3655,22 +3660,6 @@
       "reason": "No reviewed article route in source registry"
     },
     {
-      "title": "Monzo launches in Spain",
-      "source": "https://www.finextra.com/newsarticle/48665/monzo-launches-in-spain",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current edition window",
-      "source_date": "2026-10-29"
-    },
-    {
-      "title": "US makes interest rate decision - as Bank of England verdict looms",
-      "source": "https://news.sky.com/story/us-federal-reserve-holds-interest-rates-ahead-of-possible-bank-of-england-hike-13605142",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current edition window",
-      "source_date": "2026-10-28"
-    },
-    {
       "title": "Biba CEO calls for IPT freeze commitment in the wake of 2026 Budget",
       "source": "https://www.insuranceage.co.uk/insight/7959074/biba-ceo-calls-for-ipt-freeze-commitment-in-the-wake-of-2026-budget",
       "result": "excluded",
@@ -3836,7 +3825,7 @@
     {
       "title": "Citi Cuts Lithium Forecasts on Worsening Battery Demand Outlook",
       "source": "https://www.bloomberg.com/news/articles/2026-11-02/citi-cuts-lithium-forecasts-on-worsening-battery-demand-outlook",
-      "result": "held back",
+      "result": "retry deferred",
       "stage": "source",
       "reason": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
@@ -3859,15 +3848,6 @@
       "reason": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "retry_after": "2026-11-02T06:06:04.160596+00:00"
-    },
-    {
-      "title": "Brandywine Says Philippines Bond to Surge Once Inflation Eases",
-      "source": "https://www.bloomberg.com/news/articles/2026-11-01/philippine-bonds-can-beat-asia-if-war-risks-ebb-says-brandywine",
-      "result": "retry deferred",
-      "stage": "source",
-      "reason": "HTTP Error 403: Forbidden",
-      "classification": "ACCESS_RESTRICTED",
-      "retry_after": "2026-11-02T06:59:57.183228+00:00"
     },
     {
       "title": "AI Investors Are Racing to Get Insurance on the Biggest Market Bet in History",
@@ -3895,20 +3875,20 @@
       "retry_after": "2026-11-02T06:06:04.160596+00:00"
     },
     {
-      "title": "Microsoft to reportedly offer buyouts to 60,000 employees in latest ...",
-      "source": "https://www.theguardian.com/technology/2026/oct/26/microsoft-buyout-offers-ai-cuts",
-      "result": "held back",
-      "stage": "alternative_source",
-      "reason": "Original document is outside the bounded UK source-date window",
-      "classification": "DATE_UNVERIFIED",
-      "retry_after": "2026-11-02T06:59:43.363069+00:00"
-    },
-    {
       "title": "‘We were mortgage-free at 45, here’s how you can do it too’",
       "source": "https://www.theguardian.com/money/2026/oct/31/mortgage-free-at-45-how-you-can-do-it",
       "result": "rejected",
       "stage": "uk_market",
       "reason": "No UK insurance or banking connection in the complete source"
+    },
+    {
+      "title": "Brandywine Says Philippines Bond to Surge Once Inflation Eases",
+      "source": "https://www.bloomberg.com/news/articles/2026-11-01/philippine-bonds-can-beat-asia-if-war-risks-ebb-says-brandywine",
+      "result": "retry deferred",
+      "stage": "source",
+      "reason": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "retry_after": "2026-11-02T06:59:57.183228+00:00"
     },
     {
       "title": "Serbia’s Banks Urged to Scrutinize Money Flows Amid Power Shift",
@@ -3960,222 +3940,16 @@
     "UK Parliament: HTTPError HTTP Error 403: Forbidden",
     "Allianz UK: HTTPError HTTP Error 403: Forbidden",
     "Association of British Insurers: HTTPError HTTP Error 403: Forbidden",
-    "Revolut UK: HTTPError HTTP Error 403: Forbidden",
-    {
-      "source": "Insurance Age",
-      "url": "https://www.insuranceage.co.uk/feeds/rss/category/broker",
-      "error": "not well-formed (invalid token): line 1, column 0"
-    }
+    "Revolut UK: HTTPError HTTP Error 403: Forbidden"
   ],
   "publication_holds": [],
-  "run_id": "41391420309",
+  "run_id": "41397273342",
   "event": "schedule",
-  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/41391420309",
+  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/41397273342",
   "publisher_links": 0,
   "discovery_headlines": 3,
-  "publisher_desk_checked_at": "2026-11-02T04:59:38.692591+00:00",
+  "publisher_desk_checked_at": "2026-11-02T06:00:44.362181+00:00",
   "previous_verified_runs": [
-    {
-      "run_id": "41303824039",
-      "event": "push",
-      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/41303824039",
-      "editorial_outcome": "NO_QUALIFYING_NEWS",
-      "published_this_run": 0,
-      "publisher_links": 0,
-      "discovery_headlines": 2,
-      "source_coverage_status": "PARTIAL",
-      "fresh_source_candidates": 98,
-      "verified_by_sector": {},
-      "ai_budget": {
-        "quota_date": "2026-11-01",
-        "quota_timezone": "America/Los_Angeles",
-        "requests_this_run": 0,
-        "requests_today_including_this_run": 1,
-        "run_limit": 7,
-        "daily_limit": null,
-        "remaining_today": null,
-        "daily_limit_source": "provider",
-        "remaining_this_run": 7
-      },
-      "pipeline_metrics": {
-        "discovered_unique": 507,
-        "outside_uk_date": 155,
-        "already_published_or_retired": 102,
-        "irrelevant": 19,
-        "unsupported_route": 133,
-        "fresh_relevant_candidates": 98,
-        "source_cooldowns": 26,
-        "sources_successfully_retrieved": 0,
-        "source_checkpoints_reused": 14,
-        "outside_uk_market": 14,
-        "verified_original_candidates": 0
-      },
-      "source_fallbacks": [
-        {
-          "source": "https://www.bloomberg.com/news/articles/2026-11-01/serbia-s-banks-urged-to-scrutinize-money-flows-amid-power-shift",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.wsj.com/finance/stocks/ai-investors-are-racing-to-get-insurance-on-the-biggest-market-bet-in-history-a60e296f",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://news.sky.com/story/buyout-firm-tdr-capital-strikes-400m-deal-to-buy-lovehoney-13606074",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.wsj.com/business/financial-services-roundup-market-talk-2270c51d",
-          "result": "Public alternative search completed",
-          "candidates": 0
-        },
-        {
-          "source": "https://www.wsj.com/business/financial-services-roundup-market-talk-2270c51d",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.finextra.com/pressarticle/111520/visa-signs-digital-payments-deal-with-senegal",
-          "result": "Public alternative search completed",
-          "candidates": 0
-        },
-        {
-          "source": "https://www.finextra.com/pressarticle/111520/visa-signs-digital-payments-deal-with-senegal",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.finextra.com/newsarticle/48681/pe-firm-cdr-targets-buyout-of-40bn-global-payments---ft",
-          "result": "Public alternative search completed",
-          "candidates": 0
-        },
-        {
-          "source": "https://www.finextra.com/newsarticle/48681/pe-firm-cdr-targets-buyout-of-40bn-global-payments---ft",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.insuranceage.co.uk/insight/7959088/broker-bought-porsche-and-cartier-ring-with-proceeds-from-ps345m-fraud",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.finextra.com/pressarticle/111518/singahi-issues-business-continuity-guide-for-indian-banks",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.finextra.com/newsarticle/48674/hackers-steal-63bn-in-crypto-assets-from-binance",
-          "alternatives_found": 1,
-          "result": "Alternative retrieval attempted"
-        },
-        {
-          "source": "https://www.bloomberg.com/news/articles/2026-10-30/japan-s-top-insurers-revive-lending-as-rates-boost-returns",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.aviva.com/newsroom/news-and-research-overview/news-releases/2026/10/Darker-evenings-bring-renewed-warning-for-tradespeople/",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.financial-ombudsman.org.uk/who-we-are/data-insight/news/financial-ombudsman-service-warns-young-people-stay-alert-online-scams",
-          "alternatives_found": 2,
-          "result": "Alternative retrieval attempted"
-        },
-        {
-          "source": "https://www.fca.org.uk/news/press-releases/brits-nearly-twice-likely-spot-pressure-tactics-horror-films-investment-red-flags",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.ukfinance.org.uk/news-and-insight/press-release/duo-sentenced-after-stealing-ps187000-one-time-passcode-scam",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.bloomberg.com/news/articles/2026-10-31/us-midterm-candidates-tap-rare-bipartisan-issue-credit-card-rates",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://news.sky.com/story/bp-profits-hit-18-year-high-as-natwest-the-latest-bank-to-make-billions-13605666",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.wsj.com/finance/stocks/u-s-treasury-yields-fall-to-multiweek-lows-in-asian-trade-d355dffd",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.finextra.com/newsarticle/48679/kipp-acquired-by-ltvco-led-investor-group-for-us-push",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.insuranceage.co.uk/insight/7959082/budget-2026-what-the-tax-changes-mean-for-uk-insurance-brokers",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.bloomberg.com/news/articles/2026-10-31/swiss-firms-plan-investment-boost-in-china-drug-finance-sectors",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.wsj.com/business/earnings/natwest-earnings-boosted-by-higher-net-interest-income-20ebc371",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.finextra.com/newsarticle/48678/ecb-picks-digital-euro-network-service-providers",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.insuranceage.co.uk/broker/7959080/john-lewis-money-appoints-ex-co-op-insurance-md",
-          "alternatives_found": 1,
-          "result": "Alternative retrieval attempted"
-        },
-        {
-          "source": "https://www.bloomberg.com/news/articles/2026-10-31/india-496-million-escape-poverty-since-2011-world-bank",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.wsj.com/buyside/personal-finance/financial-advisors/best-financial-advisors",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.finextra.com/newsarticle/48677/sustainable-finance-live-wonky-harvest-and-lloyds-banking-group-win-2026-hackathon",
-          "alternatives_found": 2,
-          "result": "Alternative retrieval attempted"
-        }
-      ],
-      "publication_policy": "newsroom-single-pass-2026-10-26-v1",
-      "independent_review": false,
-      "articles_ready_to_publish": 0,
-      "articles_visible_this_run": 0,
-      "live_article_ids": [],
-      "commissioned_stories": [],
-      "checked_at": "2026-11-01T11:54:06.897722+00:00",
-      "technical_status": "FAILED",
-      "deployment": "success",
-      "live_check": "success",
-      "browser_check": "failure",
-      "candidate_outcome_counts": {
-        "eligibility:excluded": 390,
-        "eligibility:rejected": 19,
-        "source:deferred": 58,
-        "source:retry deferred": 26,
-        "uk_market:rejected": 14
-      }
-    },
     {
       "run_id": "41304150103",
       "event": "push",
@@ -8310,6 +8084,134 @@
         "uk_market:rejected": 2,
         "writing:ready to publish": 1
       }
+    },
+    {
+      "run_id": "41391420309",
+      "event": "schedule",
+      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/41391420309",
+      "editorial_outcome": "BLOCKED",
+      "published_this_run": 0,
+      "publisher_links": 0,
+      "discovery_headlines": 3,
+      "source_coverage_status": "PARTIAL",
+      "fresh_source_candidates": 13,
+      "verified_by_sector": {},
+      "ai_budget": {
+        "quota_date": "2026-11-01",
+        "quota_timezone": "America/Los_Angeles",
+        "requests_this_run": 0,
+        "requests_today_including_this_run": 3,
+        "run_limit": 7,
+        "daily_limit": null,
+        "remaining_today": null,
+        "daily_limit_source": "provider",
+        "remaining_this_run": 7
+      },
+      "pipeline_metrics": {
+        "discovered_unique": 507,
+        "outside_uk_date": 241,
+        "already_published_or_retired": 105,
+        "irrelevant": 17,
+        "unsupported_route": 131,
+        "fresh_relevant_candidates": 13,
+        "source_failures": 1,
+        "source_cooldowns": 10,
+        "sources_successfully_retrieved": 0,
+        "source_checkpoints_reused": 2,
+        "outside_uk_market": 2,
+        "verified_original_candidates": 0
+      },
+      "source_fallbacks": [
+        {
+          "source": "https://www.bloomberg.com/news/articles/2026-11-02/citi-cuts-lithium-forecasts-on-worsening-battery-demand-outlook",
+          "result": "Public alternative search completed",
+          "candidates": 0
+        },
+        {
+          "source": "https://www.bloomberg.com/news/articles/2026-11-02/citi-cuts-lithium-forecasts-on-worsening-battery-demand-outlook",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.wsj.com/finance/stocks/nikkei-falls-0-9-dragged-by-bank-tech-stocks-a63f180d",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.finextra.com/newsarticle/48680/regulator-warns-australians-about-highly-speculative-prediction-markets",
+          "result": "Public alternative search completed",
+          "candidates": 0
+        },
+        {
+          "source": "https://www.finextra.com/newsarticle/48680/regulator-warns-australians-about-highly-speculative-prediction-markets",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.bloomberg.com/news/articles/2026-11-01/philippine-bonds-can-beat-asia-if-war-risks-ebb-says-brandywine",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.wsj.com/finance/stocks/ai-investors-are-racing-to-get-insurance-on-the-biggest-market-bet-in-history-a60e296f",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://news.sky.com/story/buyout-firm-tdr-capital-strikes-400m-deal-to-buy-lovehoney-13606074",
+          "result": "Public alternative search completed",
+          "candidates": 1
+        },
+        {
+          "source": "https://news.sky.com/story/buyout-firm-tdr-capital-strikes-400m-deal-to-buy-lovehoney-13606074",
+          "alternatives_found": 1,
+          "result": "Alternative retrieval attempted"
+        },
+        {
+          "source": "https://www.bloomberg.com/news/articles/2026-11-01/serbia-s-banks-urged-to-scrutinize-money-flows-amid-power-shift",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.bloomberg.com/news/articles/2026-11-01/china-to-convene-meeting-on-supporting-stock-market-reports-say",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.bloomberg.com/news/articles/2026-10-31/us-midterm-candidates-tap-rare-bipartisan-issue-credit-card-rates",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.bloomberg.com/news/articles/2026-10-31/swiss-firms-plan-investment-boost-in-china-drug-finance-sectors",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.bloomberg.com/news/articles/2026-10-31/india-496-million-escape-poverty-since-2011-world-bank",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        }
+      ],
+      "publication_policy": "newsroom-single-pass-2026-10-26-v1",
+      "independent_review": false,
+      "articles_ready_to_publish": 0,
+      "articles_visible_this_run": 0,
+      "live_article_ids": [],
+      "commissioned_stories": [],
+      "checked_at": "2026-11-02T05:00:16.675698+00:00",
+      "technical_status": "LIVE_VERIFIED",
+      "deployment": "success",
+      "live_check": "success",
+      "browser_check": "skipped",
+      "candidate_outcome_counts": {
+        "eligibility:excluded": 477,
+        "eligibility:rejected": 17,
+        "source:held back": 1,
+        "source:retry deferred": 10,
+        "uk_market:rejected": 2,
+        "alternative_source:held back": 1
+      }
     }
   ],
   "launch_acceptance": {
@@ -8321,21 +8223,20 @@
       "article_site_live_verified": true,
       "mobile_and_desktop_reading": true,
       "latest_run_technically_healthy": true,
-      "latest_editorial_run_unblocked": true
+      "latest_editorial_run_unblocked": false
     },
-    "verified_scheduled_runs": 22,
+    "verified_scheduled_runs": 23,
     "commissioned_sectors": [
       "Insurance"
     ],
     "pending": [
-      "worthwhile_same_day_developments_across_sectors"
+      "worthwhile_same_day_developments_across_sectors",
+      "latest_editorial_run_unblocked"
     ],
     "note": "Operational evidence checkpoint, not a guarantee of future events or error-free journalism."
   },
   "launch_diagnostic_allowance": {
     "limit": 2,
     "requests": 2
-  },
-  "articles_visible_this_run": 0,
-  "live_article_ids": []
+  }
 }
