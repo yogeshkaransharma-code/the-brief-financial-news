@@ -2,29 +2,10 @@
   "api_budget": {
     "date": "2026-11-02",
     "timezone": "America/Los_Angeles",
-    "requests": 0,
+    "requests": 1,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-10-27T12:12:11.378579+00:00",
-      "result": "response_received",
-      "prompt_characters": 10521,
-      "purpose": "single_pass_writing",
-      "usage": {
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 2200,
-        "candidatesTokenCount": 491,
-        "totalTokenCount": 2691,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 2200
-          }
-        ],
-        "serviceTier": "standard"
-      }
-    },
     {
       "at": "2026-10-27T13:29:27.988831+00:00",
       "result": "response_received",
@@ -1817,6 +1798,25 @@
           {
             "modality": "TEXT",
             "tokenCount": 2320
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-11-02T08:42:19.470665+00:00",
+      "result": "response_received",
+      "prompt_characters": 9533,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 1864,
+        "candidatesTokenCount": 254,
+        "totalTokenCount": 2118,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1864
           }
         ],
         "serviceTier": "standard"
@@ -5410,6 +5410,21 @@
       "attempted_at": "2026-11-02T08:25:31.591228+00:00",
       "retry_after": "2026-11-03T09:25:31.591228+00:00",
       "headline": "Alphabet Kicks Off Sale of Its Second Euro Bond This Year"
+    },
+    "https://www.reinsurancene.ws/pwc-adds-nick-wilks-as-uk-insurance-leader-succeeding-alex-bertolotti/": {
+      "attempted_at": "2026-11-02T08:42:07.554598+00:00",
+      "retry_after": "2026-11-03T09:42:07.554598+00:00",
+      "headline": "PwC adds Nick Wilks as UK Insurance Leader, succeeding Alex Bertolotti"
+    },
+    "https://www.bloomberg.com/news/articles/2026-11-02/nordic-investment-bank-mulls-srts-after-adding-defense-focus": {
+      "attempted_at": "2026-11-02T08:42:07.554598+00:00",
+      "retry_after": "2026-11-03T09:42:07.554598+00:00",
+      "headline": "Nordic Investment Bank Mulls SRTs After Adding Defense Focus"
+    },
+    "https://www.bloomberg.com/news/videos/2026-11-02/ryanair-ceo-o-leary-on-costs-fuel-prices-higher-fares-video": {
+      "attempted_at": "2026-11-02T08:42:07.554598+00:00",
+      "retry_after": "2026-11-03T09:42:07.554598+00:00",
+      "headline": "Ryanair CEO O'Leary on Cost Savings, Fuel Prices, Higher Fares"
     }
   },
   "sources": {
@@ -8906,7 +8921,8 @@
       "retry_after": "2026-11-02T11:23:53.120217+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
-      "last_result": "No UK financial connection in complete source"
+      "last_result": "No UK financial connection in complete source",
+      "alternative_search_after": "2026-11-02T12:42:07.554598+00:00"
     },
     "https://news.sky.com/story/buyout-firm-tdr-capital-strikes-400m-deal-to-buy-lovehoney-13606074": {
       "attempted_at": "2026-11-02T07:23:53.120217+00:00",
@@ -8945,7 +8961,7 @@
       "stage": "source",
       "failures": 5,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-11-02T06:52:19.979730+00:00"
+      "alternative_search_after": "2026-11-02T12:42:07.554598+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-11-01/serbia-s-banks-urged-to-scrutinize-money-flows-amid-power-shift": {
       "attempted_at": "2026-11-02T07:23:53.120217+00:00",
@@ -9172,8 +9188,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.reinsurancene.ws/willis-re-completes-bms-re-us-acquisition/": {
-      "attempted_at": "2026-11-02T08:28:11.019375+00:00",
-      "retry_after": "2026-11-02T12:28:11.019375+00:00",
+      "attempted_at": "2026-11-02T08:42:07.554598+00:00",
+      "retry_after": "2026-11-02T12:42:07.554598+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -9189,11 +9205,21 @@
       "alternative_search_after": "2026-11-02T12:25:31.591228+00:00"
     },
     "https://www.reinsurancene.ws/corgi-insurance-names-first-insurance-co-founder-josh-lariccia-as-head-of-distribution/": {
-      "attempted_at": "2026-11-02T08:28:11.019375+00:00",
-      "retry_after": "2026-11-02T12:28:11.019375+00:00",
+      "attempted_at": "2026-11-02T08:42:07.554598+00:00",
+      "retry_after": "2026-11-02T12:42:07.554598+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.bloomberg.com/news/articles/2026-11-02/nordic-investment-bank-mulls-srts-after-adding-defense-focus": {
+      "attempted_at": "2026-11-02T08:42:07.554598+00:00",
+      "retry_after": "2026-11-02T14:42:07.554598+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-11-02T12:42:07.554598+00:00"
     }
   },
   "version": 2,
