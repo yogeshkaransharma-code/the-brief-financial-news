@@ -94,7 +94,14 @@ def run(root=None,now=None,*,discovery=discover,trace=find_originals,reader=read
     from uk_market_scope import sample_uk_first
     sampled=sample_uk_first(candidates,attempts,now,40)
     for item in candidates:
-        if item not in sampled:event(item,'deferred','source','Bounded source-read allowance; retained for next run')
+        if item in sampled:continue
+        record=attempts.get(item['url'],{})
+        if cooling(record,now):
+            event(item,'retry deferred','source',record.get('last_result','Previously restricted publisher'),
+                  classification=record.get('classification','LEGACY_COOLDOWN'),
+                  retry_after=record.get('retry_after'))
+        else:
+            event(item,'deferred','source','Bounded source-read allowance; retained for next run')
     def capture(item):
         cached=checkpoints.read(item['url'])
         try:
