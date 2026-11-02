@@ -40,6 +40,11 @@ def test_editorial_voice():
     assert preserve_source_name_case('allianz UK launched cover.', 'Allianz UK adds cover')=='Allianz UK launched cover.'
     assert preserve_source_name_case('axis capital did not comment.', 'UK market responds to results')=='axis capital did not comment.'
     one_prompt=prompt([(insurer,type('Captured',(),{'url':fake.url,'text':'A complete captured source.'})())])
+    from ai_newsroom import batch_schema
+    schema=batch_schema(one_prompt)
+    response_article=schema['properties']['articles']['items']['properties']['article']
+    assert 'reader_takeaway' in response_article['properties'], 'Model output schema silently discards practical context'
+    assert 'reader_takeaway' in response_article['required'], 'Model must consider the takeaway explicitly'
     for phrase in ['Make every paragraph earn its place','Do not mechanically begin every standfirst',
                    'Keep company names, acronyms','Do not force a UK market impact',
                    'The reader must leave knowing','actively look for one specific answer']:
