@@ -159,7 +159,7 @@ def main():
                 # Follow the exact public route used by actual news headlines:
                 # a standalone source-linked story, not the old hidden in-page reader.
                 page.locator('#feed .news-item h3 button').first.click()
-                assert page.locator('main.reader .article-body').is_visible(), 'News headline did not open the full report'
+                page.locator('main.reader .article-body').wait_for(state='visible',timeout=20000)  # Allow the legacy article URL to redirect
                 assert page.evaluate("""() => {
                     const root=document.querySelector('.tb-story-main');
                     const blocks=[root.querySelector('.article-body'),
