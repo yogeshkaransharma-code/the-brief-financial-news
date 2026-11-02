@@ -37,8 +37,8 @@ def classify(error):
 def defer(attempts,url,error,now,stage='source'):
     previous=attempts.get(url,{})
     kind=classify(error);count=min(int(previous.get('failures',0))+1,8)
-    minutes={'ACCESS_RESTRICTED':360,'NOT_FOUND':1440,'DATE_UNVERIFIED':120,
-             'EVIDENCE_UNUSABLE':240,'RATE_LIMITED':30}.get(kind,min(15*2**(count-1),240))
+    minutes={'ACCESS_RESTRICTED':360,'NOT_FOUND':1440,'DATE_UNVERIFIED':45,
+             'EVIDENCE_UNUSABLE':60,'RATE_LIMITED':30}.get(kind,min(15*2**(count-1),240))
     retry=getattr(error,'retry_seconds',None)
     if retry and kind=='RATE_LIMITED':minutes=max(1,min(float(retry)/60,1440))
     record={'attempted_at':now.isoformat(),'retry_after':(now+dt.timedelta(minutes=minutes)).isoformat(),

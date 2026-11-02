@@ -4,7 +4,7 @@
 Never treats a news aggregator's reporting as original evidence. Investegate
 entries below are reprints of issuer-authored Regulatory News Service (RNS)
 announcements, not articles written by Investegate.
-The live desk may cover the previous two UK calendar dates with real source dates.
+The live desk may cover the previous four UK calendar dates with real source dates.
 """
 from __future__ import annotations
 import datetime as dt
@@ -13,7 +13,7 @@ from same_day_policy import source_recent
 
 LAUNCH_START=dt.date(2026,10,22)
 LAUNCH_END=dt.date(2026,10,23)
-MAX_NEWS_AGE=dt.timedelta(days=2)  # Source day plus two previous UK days.
+MAX_NEWS_AGE=dt.timedelta(days=4)  # Source day plus four previous UK dates.
 
 RELEASES=[
     {
@@ -117,7 +117,8 @@ def self_test():
     assert not eligible_today(dict(today,source_time_precision="timestamp",
                   source_published_at="2026-10-24T21:00:00Z"),now), "Future times forbidden"
     assert eligible_today(dict(today,dateISO="2026-10-22"),now), "Two-day carry-over allowed"
-    assert not eligible_today(dict(today,dateISO="2026-10-21"),now), "Older source is not current"
+    assert eligible_today(dict(today,dateISO="2026-10-21"),now), "Three-day catch-up is allowed"
+    assert not eligible_today(dict(today,dateISO="2026-10-19"),now), "Older source is not current"
     assert launch_items(dt.date(2026,10,24))==[]
     print("PASS: bounded UK source date window; no future or stale publication")
 

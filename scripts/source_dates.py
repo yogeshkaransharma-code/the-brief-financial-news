@@ -45,6 +45,12 @@ def published_date(markup):
         prop=(m.get('property') or m.get('name') or m.get('itemprop') or '').lower()
         if prop in {'article:published_time','datepublished','pubdate','dc.date.issued','dcterms.issued'}:
             values.append(m['content'])
+    # The article's own published-time meta tag outranks unrelated related-story cards.
+    direct=[v for raw in values if (v:=parse(raw))]
+    if direct:
+        days={original_date({'dateISO':d,'source_time_precision':p,'source_published_at':raw}) for d,raw,p in direct}
+        if len(days)!=1:raise ValueError('Conflicting original publication metadata')
+        return next((v for v in direct if v[2]=='timestamp'),direct[0])
     for node in soup.select('script[type="application/ld+json"]'):
         try:
             data=json.loads(node.string or node.get_text())
@@ -95,10 +101,23 @@ def published_date(markup):
 
 def verify_announcement(item,doc,now=None):
     value=doc.publication_date
-    if not value:raise ValueError('Original document has no unambiguous publication date; listing/RSS date is insufficient')
+    method='original-document publication metadata/dateline'
+    if not value:
+        # Only a registered publisher-feed *published* timestamp, not modified,
+        # can date a fully captured article lacking publication metadata.
+        from media_sources import canonical_url
+        from publication_scope import source_lane
+        if (item.get('discovery_date_basis')=='published'
+                and item.get('source_time_precision')=='timestamp'
+                and item.get('source_published_at')
+                and canonical_url(item.get('url',''))==canonical_url(doc.url)
+                and source_lane(doc.url) and doc.complete_capture):
+            value=parse(item['source_published_at'])
+            method='publisher-feed published timestamp and complete original article'
+    if not value:raise ValueError('No unambiguous original article or publisher-feed publication date')
     day,raw,precision=value
     result=dict(item,dateISO=day,source_time_precision=precision,source_published_at=raw,published_at=raw)
-    result['date_evidence']={'url':doc.url,'value':raw,'precision':precision,'method':'original-document publication metadata/dateline'}
+    result['date_evidence']={'url':doc.url,'value':raw,'precision':precision,'method':method}
     if not source_recent(result,now):
         raise ValueError('Original document is outside the bounded UK source-date window')
     # A changed listing cannot refresh a source that says something else.

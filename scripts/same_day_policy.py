@@ -10,7 +10,7 @@ import datetime as dt
 from zoneinfo import ZoneInfo
 
 UK = ZoneInfo("Europe/London")
-SOURCE_WINDOW_DAYS = 2  # Today and the two previous UK calendar days.
+SOURCE_WINDOW_DAYS = 4  # Today plus four earlier UK dates, with original dates retained.
 
 
 def clock(now=None):
@@ -62,7 +62,7 @@ def source_issued_today(item, now=None):
 
 
 def source_recent(item, now=None, max_age_days=SOURCE_WINDOW_DAYS):
-    """A verified, genuinely dated source from today or two previous UK days.
+    """A verified, genuinely dated source from today or four previous UK days.
 
     The original source date never changes, and future-dated material fails.
     """
@@ -113,11 +113,12 @@ def self_test():
     assert not published_same_day(dict(approved,published_at="2026-10-25T13:00:00Z"),london)
     assert source_recent(yesterday, london)
     assert source_recent(dict(current,dateISO="2026-10-22"), london)
-    assert not source_recent(dict(current,dateISO="2026-10-21"), london)
+    assert source_recent(dict(current,dateISO="2026-10-21"), london)
+    assert not source_recent(dict(current,dateISO="2026-10-19"), london)
     assert not source_recent(dict(current,dateISO="2026-10-25"), london)
     sourced_yesterday=dict(approved,dateISO="2026-10-23")
     assert published_same_day(sourced_yesterday,london)
-    print("PASS: original dates, two-day catch-up, no future articles, honest publication clock")
+    print("PASS: original dates, four-day catch-up, no future articles, honest publication clock")
 
 
 if __name__=="__main__":

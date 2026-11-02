@@ -156,25 +156,27 @@ def discovery_priority(item):
     return 0
 
 def sample_uk_first(candidates,attempts,now,limit=40):
-    """Use source-read budget on fresh UK leads before cooling/global leads.
+    """Prioritise accessible, dated UK banking and insurance source material.
 
-    Leave some places for international developments that truly affect UK
-    markets. Reuse existing fair-source ordering within each priority group.
+    Access restrictions remain in force; do not repeatedly hit denied pages.
+    This only affects which documents we READ, not the publication evidence gates.
     """
     from newsroom_state import cooling
     from media_sources import diverse
-    eligible=[item for item in candidates if not cooling(attempts.get(item["url"],{}),now)]
-    cooling_items=[item for item in candidates if cooling(attempts.get(item["url"],{}),now)]
-    priorities=[ [i for i in eligible if discovery_priority(i)==score] for score in (2,1,0) ]
-    selected=[]
-    for pool,quota in zip(priorities,(28,8,4)):
-        selected.extend(diverse(pool,min(quota,limit-len(selected))))
-    # Unused slots return to UK sources before exhausting general coverage.
-    for pool in priorities+[cooling_items]:
-        if len(selected)>=limit:break
-        remainder=[i for i in pool if i not in selected]
-        selected.extend(diverse(remainder,limit-len(selected)))
-    return selected
+    ready=[x for x in candidates if not cooling(attempts.get(x["url"],{}),now)]
+    retry=[x for x in candidates if cooling(attempts.get(x["url"],{}),now)
+           and attempts.get(x["url"],{}).get('classification') not in
+           {'ACCESS_RESTRICTED','NOT_FOUND','OUTSIDE_UK_SCOPE'}]
+    priority=[[x for x in ready if discovery_priority(x)==score] for score in (2,1,0)]
+    chosen=[]
+    for desk in ('Banking','Insurance'):
+        pool=[x for group in priority for x in group if x.get('category')==desk]
+        chosen.extend(diverse(pool,min(max(1,limit//3),limit-len(chosen))))
+    for pool in priority+[retry]:
+        if len(chosen)>=limit:break
+        chosen.extend(diverse([x for x in pool if x not in chosen],limit-len(chosen)))
+    return chosen
+
 
 def named_financial_institution(title):
     """Recognise a sector firm's own announcement without requiring jargon.
