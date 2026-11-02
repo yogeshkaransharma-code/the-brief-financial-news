@@ -175,11 +175,11 @@ def bundle_for(article,item,doc):
 def source_error_placeholder(text):
     """A publisher access failure is not a reportable financial development."""
     return bool(re.search(
-        r"(?i)\\b(?:source (?:text|material) unavailable|"
+        r"(?i)\b(?:source (?:text|material) unavailable|"
         r"(?:source|article|page) (?:could not|cannot|can't) be (?:loaded|retrieved)|"
         r"(?:unable|failed) to (?:load|retrieve|access) (?:the )?(?:source|article|page)|"
         r"(?:source material|source text) (?:was|is) (?:not available|unavailable)|"
-        r"browser extension.{0,100}blocked.{0,100}page)\\b",
+        r"browser extension.{0,100}blocked.{0,100}page)\b",
         str(text or "")
     ))
 
