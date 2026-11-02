@@ -116,7 +116,7 @@ def verify():
         if not context:
             continue
         rendered_story=(public / story_href(item)).read_text(encoding='utf-8')
-        assert '<h3>Why it matters</h3>' in rendered_story, 'Grounded practical explanation not displayed'
+        assert '<h2 id="article-why">Why it matters</h2>' in rendered_story, 'Grounded practical explanation not displayed'
         assert html.escape(context, quote=True) in rendered_story, 'Reader takeaway differs from approved context'
 
     token=token_from_env()
@@ -219,7 +219,7 @@ def verify():
     for a in edition:
         if a.get('display_glossary'):
             story=(public/'story'/(story_href(a).split('/',1)[1])).read_text()
-            assert 'Jargon, explained.' in story, 'Story glossary missing'
+            assert 'Jargon, explained</h2>' in story, 'Story glossary missing'
     assert 'id="publisher-desk"' not in home
     assert not (public/'data/headlines.json').exists(),'Internal research headlines leaked into public output'
     print('PUBLIC_ARTIFACT_VALIDATED:',json.dumps({'today':sum(published_same_day(a) and source_issued_today(a) for a in edition),'recent_featured':len(edition) if showing_earlier else 0,'archive':len(archive),'complete_stories':len(canonical)}))
