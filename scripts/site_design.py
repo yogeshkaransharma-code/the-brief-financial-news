@@ -112,15 +112,78 @@ TERMS=(
  ("base rate","The Bank of England's benchmark interest rate, which influences borrowing and saving rates."),
  ("APE","Annual premium equivalent — a common insurance sales measure that combines regular premiums with a share of single premiums."),
 )
-def terms_for(a,limit=4):
-    combined=" ".join([str(a.get("title","")),str(a.get("short",""))]+[str(p) for _,p in a.get("blocks",[])])
-    out=[]
-    for term,meaning in TERMS:
-        pat=r"(?i)\b"+re.escape(term)+r"s?\b"
-        if re.search(pat,combined):
-            out.append([term,meaning])
-        if len(out)>=limit:break
-    return out
+# A deliberately small editorial dictionary. Only unfamiliar financial-service
+# terms which actually occur in the story merit a glossary entry. Ordinary words
+# (premium, customer, profit, policy, VAT) are not jargon by default.
+READER_JARGON=(
+ ("ceding commission","The share of premium a reinsurer allows the insurer to retain towards selling and running the original business."),
+ ("cedent","An insurer that transfers part of a risk to another insurer through reinsurance."),
+ ("adverse development cover","Reinsurance protecting against claims on earlier underwriting years becoming more expensive than expected, subject to its terms."),
+ ("unfunded credit protection","A promise by a protection provider to compensate a lender for certain credit losses without putting the full amount into a funded account upfront."),
+ ("IFRS 17","International accounting rules governing how insurers report insurance contracts in their financial statements."),
+ ("Basel 3.1","Changes to banking capital rules that affect how banks measure risks and the capital they must hold."),
+ ("combined ratio","An insurer's claims and relevant expenses as a percentage of earned premiums. Below 100% generally means an underwriting profit."),
+ ("loss ratio","Claims costs compared with earned insurance premiums for a stated period."),
+ ("ceding commissions","Payments or allowances linked to an insurer transferring business to a reinsurer."),
+ ("syndicate","At Lloyd's, a group of members whose capital backs insurance risks, operated by a managing agent."),
+ ("managing agent","A firm responsible for managing and underwriting business for a Lloyd's syndicate."),
+ ("proportional reinsurance","Reinsurance in which the insurer and reinsurer share premiums and losses in agreed proportions."),
+ ("reinsurance","Insurance that insurers buy to transfer part of their own claims exposure."),
+ ("underwriting","Assessing a risk and deciding whether to provide insurance, at what price and on which terms."),
+ ("business interruption","Loss of income or extra operating costs arising from disruption; insurance responds only when the policy's specific conditions are met."),
+ ("political risk insurance","Cover for certain losses linked to political events or government actions, depending on the policy."),
+ ("trade credit insurance","Cover that can protect a business if an eligible customer fails to pay an insured trade debt."),
+ ("professional indemnity","Insurance for certain claims arising from mistakes or negligence in professional services, subject to policy terms."),
+ ("delegated authority","Permission given by an insurer to another firm to make specified insurance decisions on its behalf."),
+ ("capital buffer","Additional capital held to help absorb unexpected losses."),
+ ("ring-fencing","Rules that separate certain large UK banks' core retail banking operations from some other activities."),
+ ("fiscal headroom","The forecast margin a government has against its own borrowing or debt rules."),
+ ("basis points","A way of measuring interest-rate movements: 100 basis points equal one percentage point."),
+ ("persistency","The share of insurance policies that remain in force over a defined period."),
+ ("annuity","A product that provides regular income, often during retirement."),
+ ("FUMA","Funds under management and administration: the value of client assets a business manages or administers."),
+ ("APE","Annual premium equivalent: an insurance sales measure combining recurring premiums with part of single premiums."),
+ ("GWP","Gross written premium: the value of insurance premiums written before reinsurance deductions."),
+ ("MGA","Managing general agent: an intermediary with authority from an insurer to perform specified underwriting tasks."),
+ ("PRA","Prudential Regulation Authority: the Bank of England body supervising the financial resilience of major banks and insurers."),
+ ("FCA","Financial Conduct Authority: the UK regulator responsible for how regulated financial firms and markets operate."),
+)
+
+# If the text has already supplied a correct long-form explanation of an
+# acronym, a second definition is unnecessary. Company initials are not jargon.
+EXPANDED_ACRONYMS={
+ "FCA":"Financial Conduct Authority",
+ "PRA":"Prudential Regulation Authority",
+ "MGA":"managing general agent",
+ "GWP":"gross written premium",
+ "APE":"annual premium equivalent",
+ "FUMA":"funds under management and administration",
+}
+
+def terms_for(a,limit=3):
+    """Explain real technical vocabulary encountered in this article, not filler.
+
+    This deterministic registry is shared by the standalone article and the
+    homepage reading view via the published display_glossary field.
+    """
+    if limit<1:return []
+    combined=" ".join([str(a.get("title",""))]+[
+        str(block[0])+" "+str(block[1])
+        for block in a.get("blocks",[]) if isinstance(block,(list,tuple)) and len(block)==2
+    ])
+    found=[]
+    for term,definition in READER_JARGON:
+        pattern=r"(?<!\\w)"+re.escape(term)+(r"(?:s|es)?" if not term[-1].isdigit() and term not in EXPANDED_ACRONYMS else "")+r"(?!\\w)"
+        flags=0 if term in EXPANDED_ACRONYMS else re.I
+        match=re.search(pattern,combined,flags)
+        if not match:continue
+        if term in EXPANDED_ACRONYMS and re.search(re.escape(EXPANDED_ACRONYMS[term]),combined,re.I):
+            continue
+        found.append((match.start(),len(term),term,definition))
+    # A harder term or phrase takes precedence on ties; display in reading
+    # order, not dictionary order. No jargon present means no glossary.
+    found.sort(key=lambda item:(item[0],-item[1]))
+    return [[term,meaning] for _,__,term,meaning in found[:limit]]
 
 def credit(section):
     if section=="Insurance":
