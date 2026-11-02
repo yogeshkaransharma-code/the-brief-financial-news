@@ -109,6 +109,16 @@ def verify():
         else:
             assert 'Source:' in byline and 'The Financial Edition:' in byline, 'Different source/publication dates hidden'
 
+    # If the publication promises a concrete, separately drafted practical
+    # takeaway, the reader must actually see it on the public article page.
+    for item in archive:
+        context=(item.get('reader_takeaway') or '').strip()
+        if not context:
+            continue
+        rendered_story=(public / story_href(item)).read_text(encoding='utf-8')
+        assert '<h3>Why it matters</h3>' in rendered_story, 'Grounded practical explanation not displayed'
+        assert html.escape(context, quote=True) in rendered_story, 'Reader takeaway differs from approved context'
+
     token=token_from_env()
     pages=list(public.rglob('*.html'))
     if token:
