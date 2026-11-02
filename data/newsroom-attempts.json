@@ -2,29 +2,10 @@
   "api_budget": {
     "date": "2026-11-02",
     "timezone": "America/Los_Angeles",
-    "requests": 2,
+    "requests": 3,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-10-27T13:29:42.994208+00:00",
-      "result": "response_received",
-      "prompt_characters": 12149,
-      "purpose": "single_pass_writing",
-      "usage": {
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 2910,
-        "candidatesTokenCount": 1064,
-        "totalTokenCount": 3974,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 2910
-          }
-        ],
-        "serviceTier": "standard"
-      }
-    },
     {
       "at": "2026-10-27T14:11:20.887003+00:00",
       "result": "response_received",
@@ -1821,6 +1802,25 @@
         ],
         "serviceTier": "standard"
       }
+    },
+    {
+      "at": "2026-11-02T10:04:06.816350+00:00",
+      "result": "response_received",
+      "prompt_characters": 15581,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 2959,
+        "candidatesTokenCount": 300,
+        "totalTokenCount": 3259,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2959
+          }
+        ],
+        "serviceTier": "standard"
+      }
     }
   ],
   "capacity_recovery_revision": 2,
@@ -3142,8 +3142,8 @@
       "headline": "Budget 2026: 'Surrey is a lovely place - but it can be stressful'"
     },
     "https://www.professionalpensions.com/sponsored/4537808/partner-insight-ready-takeoff-investment-case-aircraft-leasing": {
-      "attempted_at": "2026-10-27T06:46:11.040104+00:00",
-      "retry_after": "2026-10-28T07:46:11.040104+00:00",
+      "attempted_at": "2026-11-02T10:03:37.653674+00:00",
+      "retry_after": "2026-11-03T11:03:37.653674+00:00",
       "headline": "Partner Insight: Ready for takeoff - the investment case for aircraft leasing"
     },
     "https://www.theguardian.com/business/live/2026/oct/27/hsbc-shareholders-profits-surge-32-percent-bank-tax-budget-stock-markets-cost-cutting-latest-news-updates": {
@@ -5445,6 +5445,16 @@
       "attempted_at": "2026-11-02T09:58:04.051468+00:00",
       "retry_after": "2026-11-03T10:58:04.051468+00:00",
       "headline": "Tech stocks have made big V-shaped rebounds five times in 30 months — and now Deutsche Bank forecasts another bounce"
+    },
+    "https://www.insurancebusinessmag.com/uk/news/breaking-news/insurance-moves-iuad-arch-insurance-tmk-and-liberty-specialty-markets-595773.aspx": {
+      "attempted_at": "2026-11-02T10:03:37.653674+00:00",
+      "retry_after": "2026-11-03T11:03:37.653674+00:00",
+      "headline": "Insurance moves: IUAD, Arch Insurance, TMK and Liberty Specialty Markets"
+    },
+    "https://www.reinsurancene.ws/marsh-reveals-plans-to-become-first-international-broker-to-provide-captive-insurance-services-in-bahrain/": {
+      "attempted_at": "2026-11-02T10:03:37.653674+00:00",
+      "retry_after": "2026-11-03T11:03:37.653674+00:00",
+      "headline": "Marsh reveals plans to become first international broker to provide captive insurance services in Bahrain"
     }
   },
   "sources": {
@@ -9253,6 +9263,23 @@
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source",
       "alternative_search_after": "2026-11-02T13:58:04.051468+00:00"
+    },
+    "https://www.fca.org.uk/publications/multi-firm-reviews/wholesale-banks-supervision-insights-3-autumn-2026": {
+      "attempted_at": "2026-11-02T10:03:37.653674+00:00",
+      "retry_after": "2026-11-02T12:03:37.653674+00:00",
+      "last_result": "Conflicting original publication dates on source page",
+      "classification": "DATE_UNVERIFIED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-11-02T14:03:37.653674+00:00"
+    },
+    "https://www.reinsurancene.ws/marsh-reveals-plans-to-become-first-international-broker-to-provide-captive-insurance-services-in-bahrain/": {
+      "attempted_at": "2026-11-02T10:03:37.653674+00:00",
+      "retry_after": "2026-11-02T14:03:37.653674+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
     }
   },
   "version": 2,
