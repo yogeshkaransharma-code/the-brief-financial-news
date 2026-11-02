@@ -96,10 +96,10 @@
   <section id="context" class="understand" aria-label="Understand the basics">
   <div class="understand-head"><span class="section-kicker">NEW HERE? · THE FINANCIAL BASICS</span>
   <h2>New here? Start here.</h2>
-  <p>Two key concepts explained in plain English. A new pair every two days.</p>
+  <p>Start with two plain-English guides, then explore insurance, banking and the wider industry.</p>
   <p id="explainer-date" class="explainer-date"></p></div>
   <div id="explainer-list" class="explainer-list"></div>
-  <button id="explainer-archive-toggle" class="explainer-archive-toggle" type="button" aria-expanded="false" aria-controls="explainer-archive">Explore 18 more explanations ↓</button>
+  <button id="explainer-archive-toggle" class="explainer-archive-toggle" type="button" aria-expanded="false" aria-controls="explainer-archive">Explore 28 more explanations ↓</button>
   <div id="explainer-archive" class="explainer-list explainer-archive" hidden></div>
 </section>
 </main>
@@ -136,14 +136,17 @@ function renderExplainers(){
  if(slot===explainerRotation && $('explainer-list').children.length)return;
  explainerRotation=slot;
  const featured=EXPLAINER_GROUPS.slice(0,2).map(group=>group[slot]);
- const archive=EXPLAINER_GROUPS.slice(0,2).flatMap(group=>group.filter((_,i)=>i!==slot));
+ // Preserve the two featured Insurance and Banking guides, but make all
+ // wider-industry and regulatory explainers available in the full collection.
+ const archive=EXPLAINER_GROUPS.flatMap((group,groupIndex)=>
+   group.filter((_,i)=>groupIndex>=2||i!==slot));
  $('explainer-list').innerHTML=featured.map(s=>explainerCard(s,true)).join('');
  $('explainer-archive').innerHTML=archive.map(s=>explainerCard(s,false)).join('');
  $('explainer-archive').hidden=true;
  $('explainer-archive-toggle').setAttribute('aria-expanded','false');
- $('explainer-archive-toggle').textContent='Explore 18 more explanations ↓';
+ $('explainer-archive-toggle').textContent='Explore 28 more explanations ↓';
  const remaining=2-(today.day%2);
- $('explainer-date').textContent='One insurance and one banking explainer · Next selection in '+(remaining===1?'1 day':'2 days')+' · 20 guides in total';
+ $('explainer-date').textContent='Insurance, banking and the wider financial industry · Two featured guides change in '+(remaining===1?'1 day':'2 days')+' · 30 guides in total';
 }
 
 const safe=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -315,7 +318,7 @@ function wire(){
  document.body.addEventListener('click',e=>{let el=e.target.closest('[data-open]');if(el){openStory(el.dataset.open);return}el=e.target.closest('[data-save]');if(el){toggleSaved(el.dataset.save);return}el=e.target.closest('[data-category]');if(el){category=el.dataset.category;limit=10;savedOnly=followingOnly=false;renderFeed();return}el=e.target.closest('[data-follow]');if(el){const c=el.dataset.follow;if(following.has(c))following.delete(c);else following.add(c);saveStore('following',[...following]);renderFollows();renderFeed();showToast(following.has(c)?`Following ${c} on this device`:`Stopped following ${c}`)}});
  $('back').onclick=goHome;$('logo').onclick=()=>{scrollBefore=0};$('footer-top').onclick=()=>{scrollBefore=0};$('saved-toggle').onclick=()=>{savedOnly=!savedOnly;followingOnly=false;category='All';limit=10;renderFeed();goHome();setTimeout(()=>$('latest').scrollIntoView(),0)};
  $('following-toggle').onclick=()=>{followingOnly=!followingOnly;savedOnly=false;category='All';limit=10;renderFeed();$('latest').scrollIntoView()};
- $('explainer-archive-toggle').onclick=()=>{const el=$('explainer-archive');el.hidden=!el.hidden;$('explainer-archive-toggle').setAttribute('aria-expanded',String(!el.hidden));$('explainer-archive-toggle').textContent=el.hidden?'Explore all 30 explainers ↓':'Hide the other explanations ↑'};
+ $('explainer-archive-toggle').onclick=()=>{const el=$('explainer-archive');el.hidden=!el.hidden;$('explainer-archive-toggle').setAttribute('aria-expanded',String(!el.hidden));$('explainer-archive-toggle').textContent=el.hidden?'Explore 28 more explanations ↓':'Hide the other explanations ↑'};
  $('search-toggle').onclick=()=>{const panel=$('search-panel');panel.hidden=!panel.hidden;$('search-toggle').setAttribute('aria-expanded',String(!panel.hidden));if(!panel.hidden)$('search').focus()};$('clear-search').onclick=()=>{$('search').value='';$('search').focus()};$('order').onchange=e=>{sort=e.target.value;renderFeed()};$('show-more').onclick=()=>{limit+=10;renderFeed()};
  $('article-save').onclick=()=>{if(activeId!=='about')toggleSaved(activeId)};$('article-share').onclick=()=>{const url=location.href;navigator.clipboard?.writeText(url).then(()=>showToast('Article link copied')).catch(()=>showToast('Copy the address from your browser'))||showToast('Copy the address from your browser')};$('article-print').onclick=()=>window.print();$('open-about').onclick=()=>location.href='about.html';$('footer-about').onclick=()=>location.href='about.html';window.addEventListener('hashchange',route)}
 async function loadPublished(){
