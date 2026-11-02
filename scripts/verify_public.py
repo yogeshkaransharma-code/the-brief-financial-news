@@ -7,7 +7,7 @@ import subprocess
 import tempfile
 from pathlib import Path
 from same_day_policy import published_same_day,source_issued_today
-from home_reporting import homepage_articles
+from home_reporting import homepage_articles, DESK_DAYS
 from build_public import story_href, legacy_story_href
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -34,6 +34,9 @@ def verify():
     # Single-pass original reports can legitimately have one substantive body section.
     # A stricter browser-only requirement silently hides published articles.
     assert 'Array.isArray(x.blocks)&&x.blocks.length>=1&&(currentDayArticle(x)||recentArticle(x))' in home, 'Homepage drops recent single-section reporting'
+    assert 'return sortItems(accepted.filter(recentArticle));' in home, 'Hydrated homepage hides older reports whenever today has news'
+    assert "age<7&&source<=published" in home, 'Browser does not use seven publication dates'
+    assert 'Banking and insurance developments from the last 7 days' in home, 'Homepage display window not disclosed'
     assert 'eligibleBriefs.slice(0,4)' in home, 'Client-side 60-second digest must support four useful developments'
     assert '60-second Briefing' in home and 'Latest reporting' in home, 'Approved reader-facing headings missing'
     assert 'tb-section-nav' in home and home.count('<nav class="tb-nav tb-section-nav"')==1, 'Homepage must have one primary section ribbon'
@@ -181,16 +184,20 @@ def verify():
         assert '<h1>'+section+'.</h1>' in page
         assert 'class="tb-header"' in page and 'status.html' not in page
         assert 'tb-section-nav' in page and page.count('<nav class="tb-nav tb-section-nav"')==1, 'Desk does not share new masthead ribbon'
-        matches, desk_earlier = homepage_articles([a for a in archive if a['desk_section']==section])
+        matches, desk_earlier = homepage_articles(
+            [a for a in archive if a['desk_section']==section],
+            days=DESK_DAYS, limit=80
+        )
         matched_ids={a['id'] for a in matches}
         older=[a for a in archive if a['desk_section']==section and a['id'] not in matched_ids]
-        if desk_earlier:assert 'original source dates shown' in page, 'Desk recent reports need honest dates'
+        assert 'Reports published in the last 14 days' in page, 'Desk display window is missing'
+        if desk_earlier:assert 'No new '+section.lower()+' reports today.' in page, 'Desk must be clear when quiet'
         for article in matches:assert html.escape(article['title'],quote=True) in page
         for article in older:assert html.escape(article['title'],quote=True) not in page, 'Archive item leaked into today’s desk'
         assert page.count('<article data-category=')==len(matches)
         assert 'tb-desk-edition-note' in page and 'Earlier editions' in page, 'Desk does not explain date separation'
         if not matches:
-            assert ('No '+section.lower()+' reports have been published today.') in page, 'Quiet desk has no honest empty state'
+            assert ('No '+section.lower()+' reports from the last 14 days.') in page, 'Quiet desk has no honest empty state'
             assert 'id="tb-reset-desk"' not in page, 'No-news desk unexpectedly has a reset control'
         assert 'if(resetDesk)resetDesk.addEventListener' in page, 'Desk script might attach events to a missing reset button'
 
