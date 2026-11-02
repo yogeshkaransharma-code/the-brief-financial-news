@@ -10,7 +10,7 @@ from newsroom_runtime import run
 from newsroom_state import atomic_json,Checkpoints
 from source_retrieval import read_source, html_extract
 from publish_autonomous import publish
-from single_pass import POLICY,article_from,bundle_for,eligible,preserve_source_name_case,prompt
+from single_pass import POLICY,article_from,bundle_for,eligible,preserve_source_name_case,prompt,source_error_placeholder
 from same_day_policy import clock
 from build_public import standalone_story
 
@@ -18,6 +18,10 @@ from build_public import standalone_story
 from ai_cost_guard import CallBudget
 
 def test_editorial_voice():
+    assert source_error_placeholder('Source text unavailable for Tower Insurance Brokers profile')
+    assert source_error_placeholder('The article could not be retrieved')
+    assert not source_error_placeholder('Aviva outlines its UK commercial insurance distribution plans')
+
     # Selected sources are unchanged: only writing and safe presentation change.
     fake=type('Document',(),{'url':'https://www.insurancebusinessmag.com/uk/news/breaking-news/test.aspx'})()
     insurer={'url':fake.url,'source':'Insurance Business UK','title':'AXIS Capital reports underwriting results',

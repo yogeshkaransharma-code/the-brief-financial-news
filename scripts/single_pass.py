@@ -172,6 +172,17 @@ def bundle_for(article,item,doc):
         'complete_capture':doc.complete_capture,'source_notes':doc.notes,
         'processing':'One source-based writing pass; no separate claim or heading review.'}}
 
+def source_error_placeholder(text):
+    """A publisher access failure is not a reportable financial development."""
+    return bool(re.search(
+        r"(?i)\\b(?:source (?:text|material) unavailable|"
+        r"(?:source|article|page) (?:could not|cannot|can't) be (?:loaded|retrieved)|"
+        r"(?:unable|failed) to (?:load|retrieve|access) (?:the )?(?:source|article|page)|"
+        r"(?:source material|source text) (?:was|is) (?:not available|unavailable)|"
+        r"browser extension.{0,100}blocked.{0,100}page)\\b",
+        str(text or "")
+    ))
+
 def eligible(bundle,now=None):
     """Data integrity/date/route checks only: no editorial or fact-review veto."""
     a=bundle.get('draft',{});audit=bundle.get('audit',{});source=bundle.get('captured_source_excerpt','')
@@ -196,6 +207,8 @@ def eligible(bundle,now=None):
     from financial_consistency import concerns
     generated='\n'.join([a.get('title',''),a.get('short',''),a.get('reader_takeaway','')]+
                        [heading+'\n'+body for heading,body in a.get('blocks',[]) if isinstance(body,str)])
+    if source_error_placeholder(generated) or source_error_placeholder(source[:1200]):
+        problems.append('Source-unavailable/error-page placeholder is not a financial news report')
     mismatches=unsupported(generated,source)
     if mismatches:
         problems.append('Numerical figures not grounded in captured source: '+', '.join(mismatches[:5]))
