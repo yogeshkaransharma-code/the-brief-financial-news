@@ -4,7 +4,7 @@ import os
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 from same_day_policy import published_same_day
-from home_reporting import homepage_articles
+from home_reporting import homepage_articles, DESK_DAYS
 from site_design import desk_for
 from uk_market_scope import public_article_in_scope
 ROOT=Path(__file__).resolve().parents[1]
@@ -119,7 +119,8 @@ def main():
                     assert credit.count()==1, 'Explainer attribution is absent'
                     assert credit.evaluate('(e)=>getComputedStyle(e).overflowWrap')=='anywhere', 'Image credits can overflow on mobile'
             assert page.evaluate("getComputedStyle(document.querySelector('.tb-nav')).display")=='flex', 'Navigation ribbon is not laid out as a single unit'
-            assert page.locator('#feed .news-item').count()==len(today[:10]),'Visible today count differs'
+            assert page.locator('#feed .news-item').count()==len(today[:10]), 'Live browser hides selected seven-day reports'
+            assert 'last 7 days' in page.locator('#latest').inner_text(), 'Seven-day homepage reporting label missing'
             if today:
                 # A legacy absolute-position rule once dropped the save star
                 # outside the news row, visibly overlapping New here.
@@ -158,7 +159,7 @@ def main():
             assert page.evaluate('getComputedStyle(document.querySelector(".tb-header")).backgroundColor')==baseline['background'], 'Banking masthead differs from homepage'
             assert page.evaluate('getComputedStyle(document.querySelector(".tb-header .tb-logo")).color')==baseline['logo'], 'Banking logo colour differs'
             assert abs(page.evaluate('parseFloat(getComputedStyle(document.querySelector(".tb-header .tb-logo")).fontSize)')-baseline['logoSize'])<=1, 'Banking logo size differs'
-            assert page.locator('article[data-category="Banking"]').count()==len(homepage_articles([a for a in articles if desk_for(a)=='Banking'])[0]),'Banking page has missing or misplaced reports'
+            assert page.locator('article[data-category="Banking"]').count()==len(homepage_articles([a for a in articles if desk_for(a)=='Banking'], days=DESK_DAYS, limit=80)[0]),'Banking page has missing or misplaced reports'
             assert page.locator('article[data-category="Insurance"]').count()==0,'Insurance articles wrongly shown under banking'
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'),'Banking page overflows'
             assert not errors, 'Banking desk JavaScript error: '+repr(errors)
@@ -166,7 +167,7 @@ def main():
             page.goto(SITE+'insurance.html',wait_until='domcontentloaded',timeout=60000)
             assert page.locator('h1').inner_text()=='Insurance.'
             assert page.evaluate('getComputedStyle(document.querySelector(".tb-header")).backgroundColor')==baseline['background'], 'Insurance masthead differs'
-            assert page.locator('article[data-category="Insurance"]').count()==len(homepage_articles([a for a in articles if desk_for(a)=='Insurance'])[0])
+            assert page.locator('article[data-category="Insurance"]').count()==len(homepage_articles([a for a in articles if desk_for(a)=='Insurance'], days=DESK_DAYS, limit=80)[0])
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'),'Insurance page overflows'
             assert not errors, 'Insurance desk JavaScript error: '+repr(errors)
             page.screenshot(path=str(OUT/f'insurance-{width}.png'),full_page=True)
