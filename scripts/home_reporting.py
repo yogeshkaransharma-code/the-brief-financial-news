@@ -44,8 +44,11 @@ def self_test():
     )
     same_day_old_source=dict(base,id="newly_written",published_at="2026-11-01T09:15:00Z")
     got,earlier=homepage_articles([same_day_old_source],now)
-    assert earlier and len(got)==1
-    print("PASS: recent dated coverage stays visible without being called today's news")
+    assert not earlier and len(got)==1, (
+        "An article actually published today remains in today's edition, "
+        "with its older original source date displayed on the card"
+    )
+    print("PASS: today's publication list includes correctly dated catch-up reports")
 
 if __name__=="__main__":
     self_test()
