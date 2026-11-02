@@ -143,7 +143,7 @@ def main():
             assert page.locator('.tb-sector-visual').count()==0,'Repeated desk panels still exist'
             assert page.locator('#context').is_visible(), 'New here explainers are hidden'
             assert page.locator('#explainer-list .explainer').count()==2, 'One explainer per desk is required'
-            assert 'insurance and one banking' in page.locator('#explainer-date').inner_text().lower(), 'Explainer rotation text wrong'
+            assert '30 guides in total' in page.locator('#explainer-date').inner_text().lower(), 'Explainer library total is wrong'
             page.locator('#explainer-list details').first.locator('summary').click()
             assert page.locator('#explainer-list details').first.get_attribute('open') is not None, 'First explainer cannot be opened'
             page.locator('#explainer-archive-toggle').click()
