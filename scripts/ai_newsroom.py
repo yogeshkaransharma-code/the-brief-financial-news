@@ -113,9 +113,16 @@ def batch_schema(prompt):
     """Constrain the transport envelope; source/claim checks remain downstream."""
     string={'type':'STRING'}
     if 'SOURCE PACKETS:' in prompt:
-        article={'type':'OBJECT','required':['headline','standfirst','sections'],'properties':{
+        is_one_pass=prompt.startswith('ONE_PASS_NEWSROOM')
+        # Preserve the editorial takeaway in the constrained JSON response.
+        # Without this field, the model cannot return the explanation requested
+        # in the writing instructions, so every published takeaway disappears.
+        article={'type':'OBJECT',
+          'required':['headline','standfirst','sections']+(['reader_takeaway'] if is_one_pass else []),
+          'properties':{
           'headline':string,'standfirst':string,
-          'sections':{'type':'ARRAY','minItems':1 if prompt.startswith('ONE_PASS_NEWSROOM') else 2,'maxItems':10 if prompt.startswith('ONE_PASS_NEWSROOM') else 5,'items':{'type':'OBJECT','required':['heading','text'],'properties':{'heading':string,'text':string}}}}}
+          **({'reader_takeaway':string} if is_one_pass else {}),
+          'sections':{'type':'ARRAY','minItems':1 if is_one_pass else 2,'maxItems':10 if is_one_pass else 5,'items':{'type':'OBJECT','required':['heading','text'],'properties':{'heading':string,'text':string}}}}}
         entry={'type':'OBJECT','required':['id','article'],'properties':{'id':string,'article':article}}
     elif 'array of {id, reviews}' in prompt:
         review={'type':'OBJECT','required':['id','verdict','source_id','issue'],'properties':{
