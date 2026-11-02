@@ -62,7 +62,7 @@ def valid_articles():
         note=notes.get(a["id"],a.get("reader_takeaway",""))
         if not isinstance(note,str) or len(note.split())>85:
             raise ValueError("Invalid context note")
-        enriched.append(dict(a,desk_section=desk_for(a),display_glossary=a.get("glossary") or terms_for(a),
+        enriched.append(dict(a,desk_section=desk_for(a),display_glossary=terms_for(a),
                              reader_takeaway=note,public_href=story_href(a),publication="The Financial Edition"))
     return sorted(enriched,key=lambda a:(a.get("published_at",""),a.get("dateISO",""),a["id"]),reverse=True)
 
@@ -113,13 +113,13 @@ def standalone_story(a,related=None):
     source_description=("This article draws on reporting by the named publisher, with the original article linked below." if is_media
         else "This article is based on the original announcement or document linked below.")
     disclosure='A source-based explanation, with attribution to the original material.'
-    terms=a.get('display_glossary') or terms_for(a)
+    terms=a.get('display_glossary') if 'display_glossary' in a else terms_for(a)
     definitions=''.join('<dt>'+esc(t)+'</dt><dd>'+esc(d)+'</dd>' for t,d in terms)
-    glossary_html=('<section class="tb-glossary"><h2>Jargon, explained.</h2><dl>'+definitions+'</dl></section>' if definitions else '')
+    glossary_html=('<section class="tb-glossary" aria-labelledby="article-jargon"><h2 id="article-jargon">Jargon, explained</h2><dl>'+definitions+'</dl></section>' if definitions else '')
     # Legacy stories lack a distinct, source-grounded consequence. Never
     # repeat the standfirst and call it new UK-specific context.
     takeaway=(a.get('reader_takeaway') or '').strip()
-    context_box=('<section class="tb-uk-context"><h3>Why it matters</h3><p>'
+    context_box=('<section class="tb-uk-context" aria-labelledby="article-why"><h2 id="article-why">Why it matters</h2><p>'
                  +esc(takeaway)+'</p></section>' if takeaway else '')
     # Use actual section headings as navigation, rather than repeating article sentences.
     # A one-section brief has no artificial summary panel.
@@ -148,6 +148,7 @@ def standalone_story(a,related=None):
 <div class="meta">By The Financial Edition · {byline_date} · {esc(a.get('source',''))} · {estimated_minutes} min read</div>
 {visual(section)}
 <div class="article-body">{article_body(a)}</div>
+{context_box}
 {glossary_html}
 <div class="source tb-source-evidence"><h2>Original source</h2>
 <p>{esc(source_description)} You can follow the link to check the underlying detail.</p>
@@ -155,7 +156,6 @@ def standalone_story(a,related=None):
 <p class="disclosure">{esc(disclosure)} <a href="../about.html">Our standards and corrections policy</a>. Not financial advice.</p>
 </div><aside class="tb-story-aside" aria-label="Article at a glance">
 {outline_html}
-{context_box}
 <section class="tb-related"><h3>Read next</h3>{related_html if related_html else '<a href="../'+desk+'.html">More '+esc(section)+' news ↗</a>'}</section>
 </aside></div>
 </article></main>{site_footer("../")}</body></html>"""
