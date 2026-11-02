@@ -144,7 +144,8 @@ def verify():
     assert 'insurance.html' in home and 'banking.html' in home
     assert 'status.html' not in home and 'hourly.html' not in home
     assert '<section id="context" class="understand" aria-label=' in home, 'New here section is absent/hidden'
-    assert 'Explore 18 more explanations' in home, 'Explainer archive link missing'
+    assert 'Explore 28 more explanations' in home, 'Explainer archive link missing'
+    assert 'EXPLAINER_GROUPS.flatMap((group,groupIndex)' in home, 'Wider-industry explainers must be reachable'
     for a in canonical:
         escaped=html.escape(a['title'],quote=True)
         assert escaped in archive_html,'Archive headline absent'
