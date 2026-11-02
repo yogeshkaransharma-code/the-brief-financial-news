@@ -119,6 +119,31 @@ def verify():
         assert '<h2 id="article-why">Why it matters</h2>' in rendered_story, 'Grounded practical explanation not displayed'
         assert html.escape(context, quote=True) in rendered_story, 'Reader takeaway differs from approved context'
 
+    # News must read as one continuous piece: substantive reporting,
+    # evidence-grounded practical context, selective jargon, then attribution.
+    from site_design import terms_for
+    for item in archive:
+        story=(public / story_href(item)).read_text(encoding='utf-8')
+        main=story.split('<div class="tb-story-main">',1)[1].split('</div><aside class="tb-story-aside"',1)[0]
+        aside=story.split('<aside class="tb-story-aside"',1)[1]
+        body_pos=main.index('<div class="article-body">')
+        source_pos=main.index('class="source tb-source-evidence"')
+        assert body_pos<source_pos, 'Original source interrupts the reporting'
+        assert 'class="tb-uk-context"' not in aside, 'Why it matters has drifted back into the sidebar'
+        context_pos=main.find('class="tb-uk-context"')
+        glossary_pos=main.find('class="tb-glossary"')
+        if (item.get('reader_takeaway') or '').strip():
+            assert body_pos<context_pos<source_pos, 'Practical meaning is outside the article reading order'
+        elif context_pos>=0:
+            raise AssertionError('Unsupported practical context shown without a grounded takeaway')
+        if glossary_pos>=0:
+            assert body_pos<glossary_pos<source_pos, 'Jargon glossary must precede the original source'
+            if context_pos>=0:
+                assert context_pos<glossary_pos, 'Glossary interrupts the article before its meaning'
+        assert item.get('display_glossary',[])==terms_for(item), 'Unrelated or stale glossary terms displayed'
+    assert 'aria-labelledby="reader-why"' in home, 'Homepage reading view lacks inline practical explanation'
+    assert 'aria-labelledby="reader-jargon"' in home, 'Homepage reading view lacks a selective glossary'
+
     token=token_from_env()
     pages=list(public.rglob('*.html'))
     if token:
