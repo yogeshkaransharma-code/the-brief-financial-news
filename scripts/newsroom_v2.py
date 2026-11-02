@@ -420,7 +420,7 @@ def self_test():
           "source_time_precision":"timestamp","dateISO":"2026-10-25","category":"Banking","source":"The Guardian Business"}
     assert original_media_candidates([sample_media],dt.datetime(2026,10,25,11,tzinfo=dt.timezone.utc))==[dict(sample_media,kind="original_media_reporting")]
     assert original_media_candidates([dict(sample_media,dateISO="2026-10-24",published_at="2026-10-24T07:00:00+00:00",source_published_at="2026-10-24T07:00:00+00:00")],dt.datetime(2026,10,25,11,tzinfo=dt.timezone.utc)), "Yesterday's genuine publication is now eligible"
-    assert not original_media_candidates([dict(sample_media,dateISO="2026-10-22",published_at="2026-10-22T07:00:00+00:00",source_published_at="2026-10-22T07:00:00+00:00")],dt.datetime(2026,10,25,11,tzinfo=dt.timezone.utc)), "Older source date still excluded"
+    assert not original_media_candidates([dict(sample_media,dateISO="2026-10-20",published_at="2026-10-20T07:00:00+00:00",source_published_at="2026-10-20T07:00:00+00:00")],dt.datetime(2026,10,25,11,tzinfo=dt.timezone.utc)), "Source beyond four days still excluded"
     assert status_from_url(guardian,"")=="Original reporting"
     bbc=dict(sample_media,source="BBC Business",url="https://www.bbc.co.uk/news/articles/c62kep355q02o",
              title="UK banks prepare for changes ahead of Budget")
