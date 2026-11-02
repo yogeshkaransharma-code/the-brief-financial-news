@@ -2,29 +2,10 @@
   "api_budget": {
     "date": "2026-11-01",
     "timezone": "America/Los_Angeles",
-    "requests": 3,
+    "requests": 4,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-10-27T12:11:56.375000+00:00",
-      "result": "response_received",
-      "prompt_characters": 9735,
-      "purpose": "single_pass_writing",
-      "usage": {
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 2210,
-        "candidatesTokenCount": 861,
-        "totalTokenCount": 3071,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 2210
-          }
-        ],
-        "serviceTier": "standard"
-      }
-    },
     {
       "at": "2026-10-27T12:12:11.378579+00:00",
       "result": "response_received",
@@ -1817,6 +1798,25 @@
           {
             "modality": "TEXT",
             "tokenCount": 2359
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-11-02T07:24:08.316921+00:00",
+      "result": "response_received",
+      "prompt_characters": 11880,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 2320,
+        "candidatesTokenCount": 405,
+        "totalTokenCount": 2725,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2320
           }
         ],
         "serviceTier": "standard"
@@ -5322,8 +5322,8 @@
       "headline": "AI Investors Are Racing to Get Insurance on the Biggest Market Bet in History"
     },
     "https://www.ft.com/content/937308d7-aa2e-4dac-b19b-423d83bc1253?syn-25a6b1a6=1": {
-      "attempted_at": "2026-11-01T05:46:20.693121+00:00",
-      "retry_after": "2026-11-02T06:46:20.693121+00:00",
+      "attempted_at": "2026-11-02T07:23:53.120217+00:00",
+      "retry_after": "2026-11-03T08:23:53.120217+00:00",
       "headline": "Bond investors sit out ‘most consequential’ US midterm elections in years"
     },
     "https://www.theguardian.com/society/2026/nov/01/high-street-slot-farms-budget-tax-rise-business-rates-bingo-licence-loophole": {
@@ -5380,6 +5380,26 @@
       "attempted_at": "2026-11-02T06:00:48.284900+00:00",
       "retry_after": "2026-11-03T07:00:48.284900+00:00",
       "headline": "AI mania can’t survive higher interest rates"
+    },
+    "https://www.reinsurancene.ws/european-windstorms-austen-and-boelo-to-cause-hundreds-of-millions-in-insured-losses-says-aon/": {
+      "attempted_at": "2026-11-02T07:23:53.120217+00:00",
+      "retry_after": "2026-11-03T08:23:53.120217+00:00",
+      "headline": "European Windstorms Austen and Boelo to cause hundreds of millions in insured losses, says Aon"
+    },
+    "https://www.reinsurancene.ws/howden-re-urges-insurers-to-combine-catastrophe-models-with-independent-risk-analysis/": {
+      "attempted_at": "2026-11-02T07:23:53.120217+00:00",
+      "retry_after": "2026-11-03T08:23:53.120217+00:00",
+      "headline": "Howden Re urges insurers to combine catastrophe models with independent risk analysis"
+    },
+    "https://www.bloomberg.com/news/articles/2026-11-02/german-firms-mahle-schott-said-to-seek-banks-for-india-ipos": {
+      "attempted_at": "2026-11-02T07:23:53.120217+00:00",
+      "retry_after": "2026-11-03T08:23:53.120217+00:00",
+      "headline": "German Firms Mahle, Schott Said to Seek Banks for India IPOs"
+    },
+    "https://www.bloomberg.com/news/articles/2026-11-02/euronext-joins-industry-push-to-integrate-nordic-capital-markets": {
+      "attempted_at": "2026-11-02T07:23:53.120217+00:00",
+      "retry_after": "2026-11-03T08:23:53.120217+00:00",
+      "headline": "Euronext Joins Industry Push to Integrate Nordic Capital Markets"
     }
   },
   "sources": {
@@ -5411,16 +5431,6 @@
       "failures": 8,
       "policy": "newsroom-recovery-2026-10-26-v1",
       "alternative_search_after": "2026-10-29T02:16:58.607572+00:00"
-    },
-    "https://www.bloomberg.com/news/articles/2026-10-26/world-bank-somalia-low-tax-revenue-key-fiscal-challenge": {
-      "attempted_at": "2026-10-26T06:49:02.534221+00:00",
-      "retry_after": "2026-10-26T12:49:02.534221+00:00",
-      "last_result": "HTTP Error 403: Forbidden",
-      "classification": "ACCESS_RESTRICTED",
-      "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-10-26T10:49:02.534221+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-26/uk-dealers-see-more-treasury-bills-coming-to-cut-debt-costs": {
       "attempted_at": "2026-10-26T07:33:04.330718+00:00",
@@ -8902,41 +8912,39 @@
       "alternative_search_after": "2026-11-02T00:10:33.107623+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-31/swiss-firms-plan-investment-boost-in-china-drug-finance-sectors": {
-      "attempted_at": "2026-11-02T00:06:04.160596+00:00",
-      "retry_after": "2026-11-02T06:06:04.160596+00:00",
+      "attempted_at": "2026-11-02T07:23:53.120217+00:00",
+      "retry_after": "2026-11-02T13:23:53.120217+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 6,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-11-02T06:04:01.974277+00:00"
+      "failures": 7,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-10-31/india-496-million-escape-poverty-since-2011-world-bank": {
-      "attempted_at": "2026-11-02T00:06:04.160596+00:00",
-      "retry_after": "2026-11-02T06:06:04.160596+00:00",
+      "attempted_at": "2026-11-02T07:23:53.120217+00:00",
+      "retry_after": "2026-11-02T13:23:53.120217+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 6,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-11-02T06:52:19.979730+00:00"
+      "failures": 7,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.theguardian.com/money/2026/oct/31/mortgage-free-at-45-how-you-can-do-it": {
-      "attempted_at": "2026-11-02T06:00:48.284900+00:00",
-      "retry_after": "2026-11-02T10:00:48.284900+00:00",
+      "attempted_at": "2026-11-02T07:23:53.120217+00:00",
+      "retry_after": "2026-11-02T11:23:53.120217+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://news.sky.com/story/buyout-firm-tdr-capital-strikes-400m-deal-to-buy-lovehoney-13606074": {
-      "attempted_at": "2026-11-02T00:06:04.160596+00:00",
-      "retry_after": "2026-11-02T06:06:04.160596+00:00",
+      "attempted_at": "2026-11-02T07:23:53.120217+00:00",
+      "retry_after": "2026-11-02T13:23:53.120217+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 5,
+      "failures": 6,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-11-02T08:59:43.363069+00:00"
+      "alternative_search_after": "2026-11-02T11:23:53.120217+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-31/senegal-lawmakers-reject-budget-again-putting-imf-deal-at-risk": {
       "attempted_at": "2026-10-31T20:08:44.771469+00:00",
@@ -8949,14 +8957,13 @@
       "alternative_search_after": "2026-11-01T00:08:44.771469+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-31/us-midterm-candidates-tap-rare-bipartisan-issue-credit-card-rates": {
-      "attempted_at": "2026-11-02T00:06:04.160596+00:00",
-      "retry_after": "2026-11-02T06:06:04.160596+00:00",
+      "attempted_at": "2026-11-02T07:23:53.120217+00:00",
+      "retry_after": "2026-11-02T13:23:53.120217+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 5,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-11-02T06:04:01.974277+00:00"
+      "failures": 6,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.wsj.com/finance/stocks/ai-investors-are-racing-to-get-insurance-on-the-biggest-market-bet-in-history-a60e296f": {
       "attempted_at": "2026-11-02T02:52:19.979730+00:00",
@@ -8969,14 +8976,13 @@
       "alternative_search_after": "2026-11-02T06:52:19.979730+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-11-01/serbia-s-banks-urged-to-scrutinize-money-flows-amid-power-shift": {
-      "attempted_at": "2026-11-02T00:06:04.160596+00:00",
-      "retry_after": "2026-11-02T06:06:04.160596+00:00",
+      "attempted_at": "2026-11-02T07:23:53.120217+00:00",
+      "retry_after": "2026-11-02T13:23:53.120217+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 3,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-11-02T10:00:48.284900+00:00"
+      "failures": 4,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.theguardian.com/technology/2026/oct/26/microsoft-buyout-offers-ai-cuts": {
       "attempted_at": "2026-11-02T04:59:43.363069+00:00",
@@ -8988,8 +8994,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.insurancejournal.com/news/international/2026/11/01/891003.htm": {
-      "attempted_at": "2026-11-02T06:00:48.284900+00:00",
-      "retry_after": "2026-11-02T10:00:48.284900+00:00",
+      "attempted_at": "2026-11-02T07:23:53.120217+00:00",
+      "retry_after": "2026-11-02T11:23:53.120217+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -9022,34 +9028,31 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.finextra.com/newsarticle/48680/regulator-warns-australians-about-highly-speculative-prediction-markets": {
-      "attempted_at": "2026-11-02T00:06:04.160596+00:00",
-      "retry_after": "2026-11-02T06:06:04.160596+00:00",
+      "attempted_at": "2026-11-02T07:23:53.120217+00:00",
+      "retry_after": "2026-11-02T13:23:53.120217+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-11-02T08:59:43.363069+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.wsj.com/finance/stocks/nikkei-falls-0-9-dragged-by-bank-tech-stocks-a63f180d": {
-      "attempted_at": "2026-11-02T00:59:57.183228+00:00",
-      "retry_after": "2026-11-02T06:59:57.183228+00:00",
+      "attempted_at": "2026-11-02T07:23:53.120217+00:00",
+      "retry_after": "2026-11-02T13:23:53.120217+00:00",
       "last_result": "HTTP Error 401: HTTP Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-11-02T10:00:48.284900+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-11-01/philippine-bonds-can-beat-asia-if-war-risks-ebb-says-brandywine": {
-      "attempted_at": "2026-11-02T00:59:57.183228+00:00",
-      "retry_after": "2026-11-02T06:59:57.183228+00:00",
+      "attempted_at": "2026-11-02T07:23:53.120217+00:00",
+      "retry_after": "2026-11-02T13:23:53.120217+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-11-02T10:00:48.284900+00:00"
+      "failures": 2,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.wsj.com/tech/ai/ai-runs-into-its-next-big-obstacle-insurance-8b2d4556": {
       "attempted_at": "2026-11-02T00:59:57.183228+00:00",
@@ -9088,6 +9091,109 @@
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1",
       "alternative_search_after": "2026-11-02T08:59:43.363069+00:00"
+    },
+    "https://www.reinsurancene.ws/howden-re-urges-insurers-to-combine-catastrophe-models-with-independent-risk-analysis/": {
+      "attempted_at": "2026-11-02T07:23:53.120217+00:00",
+      "retry_after": "2026-11-02T13:23:53.120217+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-11-02T11:23:53.120217+00:00"
+    },
+    "https://www.reinsurancene.ws/swiss-re-focused-on-maintaining-a-strong-well-diversified-portfolio-as-apac-risk-landscape-shifts-ziswiler/": {
+      "attempted_at": "2026-11-02T07:23:53.120217+00:00",
+      "retry_after": "2026-11-02T13:23:53.120217+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-11-02T11:23:53.120217+00:00"
+    },
+    "https://www.bloomberg.com/news/articles/2026-11-02/german-firms-mahle-schott-said-to-seek-banks-for-india-ipos": {
+      "attempted_at": "2026-11-02T07:23:53.120217+00:00",
+      "retry_after": "2026-11-02T13:23:53.120217+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.reinsurancene.ws/european-windstorms-austen-and-boelo-to-cause-hundreds-of-millions-in-insured-losses-says-aon/": {
+      "attempted_at": "2026-11-02T07:23:53.120217+00:00",
+      "retry_after": "2026-11-02T13:23:53.120217+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.insurancejournal.com/news/international/2026/11/02/891013.htm": {
+      "attempted_at": "2026-11-02T07:23:53.120217+00:00",
+      "retry_after": "2026-11-02T11:23:53.120217+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.bloomberg.com/news/articles/2026-11-02/euronext-joins-industry-push-to-integrate-nordic-capital-markets": {
+      "attempted_at": "2026-11-02T07:23:53.120217+00:00",
+      "retry_after": "2026-11-02T13:23:53.120217+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.insurancejournal.com/news/international/2026/11/02/891007.htm": {
+      "attempted_at": "2026-11-02T07:23:53.120217+00:00",
+      "retry_after": "2026-11-02T11:23:53.120217+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.insurancejournal.com/news/national/2026/11/02/891082.htm": {
+      "attempted_at": "2026-11-02T07:23:53.120217+00:00",
+      "retry_after": "2026-11-02T11:23:53.120217+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.insurancejournal.com/news/southeast/2026/11/02/891031.htm": {
+      "attempted_at": "2026-11-02T07:23:53.120217+00:00",
+      "retry_after": "2026-11-02T11:23:53.120217+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.insurancejournal.com/news/southeast/2026/11/02/891037.htm": {
+      "attempted_at": "2026-11-02T07:23:53.120217+00:00",
+      "retry_after": "2026-11-02T11:23:53.120217+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.insurancejournal.com/news/west/2026/11/02/890990.htm": {
+      "attempted_at": "2026-11-02T07:23:53.120217+00:00",
+      "retry_after": "2026-11-02T11:23:53.120217+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.insurancejournal.com/news/west/2026/11/02/891040.htm": {
+      "attempted_at": "2026-11-02T07:23:53.120217+00:00",
+      "retry_after": "2026-11-02T11:23:53.120217+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.insurancejournal.com/news/east/2026/11/02/891064.htm": {
+      "attempted_at": "2026-11-02T07:23:53.120217+00:00",
+      "retry_after": "2026-11-02T11:23:53.120217+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
     }
   },
   "version": 2,
