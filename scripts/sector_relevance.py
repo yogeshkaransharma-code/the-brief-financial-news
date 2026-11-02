@@ -8,7 +8,7 @@ from urllib.parse import urlsplit
 
 SECTOR = re.compile(
     r"\b(?:bank\w*|building societ\w*|insur\w*|reinsur\w*|underwrit\w*|"
-    r"broker\w*|insurance intermediary|MGA[s]?|Lloyd['’]s(?: of London)?|"
+    r"broker\w*|insurance intermediary|MGA[s]?|Lloyd['’]s(?: of London)?|London Market Group|"
     r"mortgage\w*|lend\w*|loan\w*|credit cards?|consumer credit|"
     r"payments?|fintech|financial services?|financial firms?|"
     r"FCA|PRA|Bank of England|financial ombudsman|FSCS|"
@@ -105,6 +105,7 @@ def self_test():
                                "Coutts is a private bank reporting on property prices.")
     assert in_sector_scope(story("Mortgage lenders reduce rates as house prices change"))
     assert in_sector_scope(story("UK insurance brokers report cyber policy changes"))
+    assert in_sector_scope(story("London Market Group launches Talent Finder for small firms")), "UK insurance market body must remain in scope"
     assert in_sector_scope(story("UK Finance publishes banking-sector tax report"))
     assert in_sector_scope(story("FCA consults on mortgage lending changes"))
     assert in_sector_scope(story("PPF confirms pension protection levy plans"))
