@@ -147,7 +147,8 @@ def main():
             page.locator('#explainer-list details').first.locator('summary').click()
             assert page.locator('#explainer-list details').first.get_attribute('open') is not None, 'First explainer cannot be opened'
             page.locator('#explainer-archive-toggle').click()
-            assert page.locator('#explainer-archive .explainer:visible').count()==18, 'More explainers fail to expand'
+            assert page.locator('#explainer-archive .explainer:visible').count()==28, 'More explainers fail to expand'
+            assert page.locator('#explainer-archive .explainer[data-desk="The wider industry"]:visible').count()==10, 'Regulatory explainers are hidden from readers'
 
             assert page.locator('a[href="status.html"]').count()==0,'Technical dashboard link leaked'
             page.screenshot(path=str(OUT/f'home-{width}.png'),full_page=True)
