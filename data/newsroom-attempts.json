@@ -2,29 +2,10 @@
   "api_budget": {
     "date": "2026-11-01",
     "timezone": "America/Los_Angeles",
-    "requests": 1,
+    "requests": 2,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-10-27T11:29:51.357129+00:00",
-      "result": "response_received",
-      "prompt_characters": 25684,
-      "purpose": "single_pass_writing",
-      "usage": {
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 5398,
-        "candidatesTokenCount": 1005,
-        "totalTokenCount": 6403,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 5398
-          }
-        ],
-        "serviceTier": "standard"
-      }
-    },
     {
       "at": "2026-10-27T12:11:41.372177+00:00",
       "result": "response_received",
@@ -1817,6 +1798,25 @@
           {
             "modality": "TEXT",
             "tokenCount": 2092
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-11-02T02:04:14.909862+00:00",
+      "result": "response_received",
+      "prompt_characters": 21974,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 4268,
+        "candidatesTokenCount": 987,
+        "totalTokenCount": 5255,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 4268
           }
         ],
         "serviceTier": "standard"
@@ -5317,8 +5317,8 @@
       "headline": "US Midterm Candidates Tap Rare Bipartisan Issue: Credit Card Rates"
     },
     "https://www.wsj.com/finance/stocks/ai-investors-are-racing-to-get-insurance-on-the-biggest-market-bet-in-history-a60e296f": {
-      "attempted_at": "2026-11-01T00:06:26.722686+00:00",
-      "retry_after": "2026-11-02T01:06:26.722686+00:00",
+      "attempted_at": "2026-11-02T02:04:01.974277+00:00",
+      "retry_after": "2026-11-03T03:04:01.974277+00:00",
       "headline": "AI Investors Are Racing to Get Insurance on the Biggest Market Bet in History"
     },
     "https://www.ft.com/content/937308d7-aa2e-4dac-b19b-423d83bc1253?syn-25a6b1a6=1": {
@@ -5365,6 +5365,11 @@
       "attempted_at": "2026-11-02T00:59:57.183228+00:00",
       "retry_after": "2026-11-03T01:59:57.183228+00:00",
       "headline": "Philippine Bonds Can Beat Asia If War Risks Ebb, Says Brandywine"
+    },
+    "https://www.bloomberg.com/news/articles/2026-11-01/china-to-convene-meeting-on-supporting-stock-market-reports-say": {
+      "attempted_at": "2026-11-02T02:04:01.974277+00:00",
+      "retry_after": "2026-11-03T03:04:01.974277+00:00",
+      "headline": "China Reportedly Discusses Ways to Support Stocks With Banks"
     }
   },
   "sources": {
@@ -8893,7 +8898,8 @@
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
       "failures": 6,
-      "policy": "newsroom-recovery-2026-10-26-v1"
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-11-02T06:04:01.974277+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-10-31/india-496-million-escape-poverty-since-2011-world-bank": {
       "attempted_at": "2026-11-02T00:06:04.160596+00:00",
@@ -8905,8 +8911,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.theguardian.com/money/2026/oct/31/mortgage-free-at-45-how-you-can-do-it": {
-      "attempted_at": "2026-11-02T00:59:57.183228+00:00",
-      "retry_after": "2026-11-02T04:59:57.183228+00:00",
+      "attempted_at": "2026-11-02T02:04:01.974277+00:00",
+      "retry_after": "2026-11-02T06:04:01.974277+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -8938,7 +8944,8 @@
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
       "failures": 5,
-      "policy": "newsroom-recovery-2026-10-26-v1"
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-11-02T06:04:01.974277+00:00"
     },
     "https://www.wsj.com/finance/stocks/ai-investors-are-racing-to-get-insurance-on-the-biggest-market-bet-in-history-a60e296f": {
       "attempted_at": "2026-11-01T20:10:33.107623+00:00",
@@ -8970,8 +8977,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.insurancejournal.com/news/international/2026/11/01/891003.htm": {
-      "attempted_at": "2026-11-02T00:59:57.183228+00:00",
-      "retry_after": "2026-11-02T04:59:57.183228+00:00",
+      "attempted_at": "2026-11-02T02:04:01.974277+00:00",
+      "retry_after": "2026-11-02T06:04:01.974277+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -9050,6 +9057,16 @@
       "stage": "alternative_source",
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.bloomberg.com/news/articles/2026-11-01/china-to-convene-meeting-on-supporting-stock-market-reports-say": {
+      "attempted_at": "2026-11-02T02:04:01.974277+00:00",
+      "retry_after": "2026-11-02T08:04:01.974277+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-11-02T06:04:01.974277+00:00"
     }
   },
   "version": 2,
