@@ -86,11 +86,11 @@
     </aside>
   </section>
   <section id="latest" class="news-section" aria-label="Latest news">
-    <div class="news-heading"><div><h2>Latest reporting</h2><p>The full reports across UK insurance and banking, newest first. Every article links to its original source.</p></div><div class="reporting-tools"><div class="news-count" id="news-count"></div><label for="order" class="sr-only">Sort reporting</label><select id="order" aria-label="Sort reporting"><option value="newest">Newest first</option><option value="oldest">Oldest first</option></select></div></div>
+    <div class="news-heading"><div><h2>Latest reporting</h2><p>Banking and insurance developments from the last 7 days, newest first. Original dates remain clear.</p></div><div class="reporting-tools"><div class="news-count" id="news-count"></div><label for="order" class="sr-only">Sort reporting</label><select id="order" aria-label="Sort reporting"><option value="newest">Newest first</option><option value="oldest">Oldest first</option></select></div></div>
     <div id="special-filter-note" class="filter-note" hidden></div>
     <div class="news-grid"><div class="feed" id="feed"></div><aside class="desk-side" hidden><div class="sidebar-box"><span class="section-kicker">YOUR READING DESK</span><h3>Keep the useful stuff.</h3><p>Save a story to come back to it. Follow a subject and we'll keep it to hand on this device.</p><div id="follow-buttons" class="follow-buttons"></div><button class="textlink" id="following-toggle">Show my followed subjects →</button></div><div class="sidebar-box quiet"><span class="section-kicker">HOW WE WORK</span><h3>Clear reporting, properly sourced.</h3><p>Every published story has a named source. We explain our reporting method and limitations on the About page.</p><button class="textlink" id="open-about">About The Financial Edition →</button></div></aside></div>
     <button id="show-more" type="button" class="more-button" hidden>More stories <span>↓</span></button>
-    <p id="nothing" class="nothing" hidden>No reports published today. <a href="archive.html">Read earlier editions</a>.</p>
+    <p id="nothing" class="nothing" hidden>No reports in the last 7 days. <a href="archive.html">Read earlier editions</a>.</p>
   </section>
 
   <section id="context" class="understand" aria-label="Understand the basics">
@@ -170,12 +170,16 @@ function currentDayArticle(x){
 }
 
 function recentArticle(x){
+  // Keep reports for seven UK calendar dates, based on our publication time.
   const today=ukDayInfo().key;
+  const published=ukDateFromTimestamp(x.published_at);
   const source=x.source_time_precision==='timestamp'
     ? ukDateFromTimestamp(x.source_published_at||'')
     : String(x.dateISO||'').slice(0,10);
-  const age=(Date.parse(today+'T12:00:00Z')-Date.parse(source+'T12:00:00Z'))/86400000;
-  return Number.isFinite(age)&&age>=0&&age<=3&&Date.parse(x.published_at)<=Date.now();
+  const age=(Date.parse(today+'T12:00:00Z')-Date.parse(published+'T12:00:00Z'))/86400000;
+  return Number.isFinite(age)&&age>=0&&age<7&&source<=published &&
+    Date.parse(x.published_at)<=Date.now() &&
+    (x.source_time_precision!=='timestamp' || Date.parse(x.source_published_at)<=Date.now());
 }
 const safeUrl=x=>{try{const u=new URL(x);return (u.protocol==='https:'||u.protocol==='http:')?u.href:'#'}catch{return '#'}};
 const day=x=>{try{return new Date(x).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric',timeZone:'Europe/London'})}catch{return x||''}};
@@ -197,8 +201,7 @@ const fullDay=key=>new Date(key+'T12:00:00Z').toLocaleDateString('en-GB',{weekda
 const liveWithoutPublished=()=>live.filter(s=>!published.some(p=>p.url===s.url));
 const visibleReports=()=>{
  const accepted=published.filter(x=>x.ai_assisted&&x.publication_method==='autonomous');
- const current=accepted.filter(currentDayArticle);
- return sortItems(current.length?current:accepted.filter(recentArticle));
+ return sortItems(accepted.filter(recentArticle));
 };
 const allItems=()=>visibleReports();
 const isNew=s=>priorVisit&&reportTime(s)>Date.parse(priorVisit)&&reportTime(s)<Date.now()+86400000;
@@ -257,7 +260,7 @@ function renderTop(){
   const visual=lead.home_image;
  const art=visual?'<figure class="tb-lead-art"><img src="'+safe(visual.src)+'" alt="'+safe(visual.alt)+'" decoding="async" fetchpriority="high"><figcaption>Illustrative photograph, not the news event · <a href="'+safe(visual.credit_url)+'" target="_blank" rel="noopener noreferrer">'+safe(visual.credit)+'</a></figcaption></figure>':'';
  $('lead-story').classList.toggle('with-photo',Boolean(art));
- $('lead-story').innerHTML=`<span class="story-kicker">${showingEarlier?'EARLIER REPORT · SOURCE '+safe(fullDay(sourceDay(lead))):safe(lead.desk_section||lead.category)+' / THE LEAD STORY'}</span><h1><button type="button" class="headline-btn" data-open="${safe(lead.id)}">${safe(lead.title)}</button></h1><p class="standfirst">${safe(usefulSummary(lead))}</p><div class="meta">${meta(lead)}</div><button class="cta" type="button" data-open="${safe(lead.id)}">Read the full story →</button>${art}`;
+ $('lead-story').innerHTML=`<span class="story-kicker">${!currentDayArticle(lead)?'EARLIER REPORT · SOURCE '+safe(fullDay(sourceDay(lead))):safe(lead.desk_section||lead.category)+' / THE LEAD STORY'}</span><h1><button type="button" class="headline-btn" data-open="${safe(lead.id)}">${safe(lead.title)}</button></h1><p class="standfirst">${safe(usefulSummary(lead))}</p><div class="meta">${meta(lead)}</div><button class="cta" type="button" data-open="${safe(lead.id)}">Read the full story →</button>${art}`;
  const eligibleBriefs=originals.filter(item=>item.id!==lead.id);
  let picks=eligibleBriefs.slice(0,4);
  // Keep the lead distinct and show both sectors when today's available reports allow it.
@@ -272,7 +275,7 @@ function renderTop(){
  }
  $('briefing-stories').innerHTML=picks.length?picks.map(item=>{
    const takeaway=String(item.reader_takeaway||'').trim();
-   return `<div class="briefing-story" data-desk="${safe(item.desk_section||item.category)}"><span class="brief-number">${String(picks.indexOf(item)+1).padStart(2,'0')}</span><div><span class="tb-brief-desk">${safe(item.desk_section||item.category)}${showingEarlier?' · '+safe(day(sourceDay(item))):''}</span><button type="button" data-open="${safe(item.id)}">${safe(item.title)}</button><p>${safe(takeaway||usefulSummary(item))}</p></div></div>`;
+   return `<div class="briefing-story" data-desk="${safe(item.desk_section||item.category)}"><span class="brief-number">${String(picks.indexOf(item)+1).padStart(2,'0')}</span><div><span class="tb-brief-desk">${safe(item.desk_section||item.category)}${sourceDay(item)!==ukDayInfo().key?' · '+safe(day(sourceDay(item))):''}</span><button type="button" data-open="${safe(item.id)}">${safe(item.title)}</button><p>${safe(takeaway||usefulSummary(item))}</p></div></div>`;
  }).join(''):`<p class="tb-briefing-empty">${showingEarlier?'No other recent reports are featured in this selection.':'Our lead story is today’s only published report. No other developments have been added.'}</p>`;
 }
 function matchingItems(){let items=allItems();if(category!=='All')items=items.filter(s=>(s.desk_section||s.category)===category);if(savedOnly)items=items.filter(s=>saved.has(s.id));if(followingOnly)items=items.filter(s=>following.has(s.desk_section||s.category));if(query){const q=query.toLocaleLowerCase();items=items.filter(s=>[s.title,s.short,s.excerpt,s.source,s.category,(s.blocks||[]).map(x=>x.join(' ')).join(' ')].join(' ').toLowerCase().includes(q))}return items}
