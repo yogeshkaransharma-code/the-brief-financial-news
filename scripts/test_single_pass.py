@@ -112,7 +112,7 @@ def main(_budget):
    assert 'A source-based explanation, with attribution to the original material.' in page
    assert 'No separate editorial fact-check has been carried out.' not in page
    assert 'machine-screened' not in page and 'Written automatically' not in page
-   assert '<h3>Why it matters</h3>' in page, 'Grounded reader context missing from article'
+   assert '<h2 id="article-why">Why it matters</h2>' in page, 'Grounded reader context missing from article'
    assert '<p class="intro">' not in page, 'Full story repeats its listing-page standfirst'
    assert '<h2>Key points</h2>' not in page, 'Duplicate extracted sentences reappeared in sidebar'
   # Date/source integrity remains; no fact, heading or word-count review is called.
