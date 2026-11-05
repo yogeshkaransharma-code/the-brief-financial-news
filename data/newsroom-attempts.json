@@ -2,29 +2,10 @@
   "api_budget": {
     "date": "2026-11-05",
     "timezone": "America/Los_Angeles",
-    "requests": 9,
+    "requests": 10,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-10-30T05:45:41.984661+00:00",
-      "result": "response_received",
-      "prompt_characters": 26745,
-      "purpose": "single_pass_writing",
-      "usage": {
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 5514,
-        "candidatesTokenCount": 948,
-        "totalTokenCount": 6462,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 5514
-          }
-        ],
-        "serviceTier": "standard"
-      }
-    },
     {
       "at": "2026-10-30T06:54:31.226447+00:00",
       "result": "response_received",
@@ -1807,6 +1788,13 @@
       "at": "2026-11-05T13:51:04.240134+00:00",
       "result": "failed",
       "prompt_characters": 14164,
+      "purpose": "single_pass_writing",
+      "error_type": "GeminiAPIError"
+    },
+    {
+      "at": "2026-11-05T14:58:29.836615+00:00",
+      "result": "failed",
+      "prompt_characters": 16799,
       "purpose": "single_pass_writing",
       "error_type": "GeminiAPIError"
     }
@@ -6315,8 +6303,8 @@
       "headline": "Over a third of investors ditch plans amid market uncertainty"
     },
     "https://www.reinsurancene.ws/wtw-appoints-phil-traicus-as-senior-director-in-canadian-insurance-consulting-business/": {
-      "attempted_at": "2026-11-04T13:45:34.643236+00:00",
-      "retry_after": "2026-11-05T14:45:34.643236+00:00",
+      "attempted_at": "2026-11-05T14:58:08.749979+00:00",
+      "retry_after": "2026-11-06T15:58:08.749979+00:00",
       "headline": "WTW appoints Phil Traicus as Senior Director in Canadian insurance consulting business"
     },
     "https://www.insurancejournal.com/news/international/2026/11/04/891431.htm": {
@@ -6783,12 +6771,67 @@
       "attempted_at": "2026-11-05T13:49:57.028469+00:00",
       "retry_after": "2026-11-06T14:49:57.028469+00:00",
       "headline": "Faisal Islam: How high will interest rates go?"
+    },
+    "https://www.professionalpensions.com/news/4538486/bank-england-hikes-rates-rise-2023": {
+      "attempted_at": "2026-11-05T14:58:08.749979+00:00",
+      "retry_after": "2026-11-06T15:58:08.749979+00:00",
+      "headline": "Bank of England hikes rates to 4% in first rise since 2023"
+    },
+    "https://www.theguardian.com/business/2026/nov/05/what-does-interest-rate-rise-mean-for-homeowners-and-savers-mortgages": {
+      "attempted_at": "2026-11-05T14:58:08.749979+00:00",
+      "retry_after": "2026-11-06T15:58:08.749979+00:00",
+      "headline": "What does the UK interest rate rise mean for homeowners and savers?"
+    },
+    "https://www.reinsurancene.ws/global-insurtech-funding-fell-44-6-to-1-36bn-in-q326-gallagher-re/": {
+      "attempted_at": "2026-11-05T14:58:08.749979+00:00",
+      "retry_after": "2026-11-06T15:58:08.749979+00:00",
+      "headline": "Global InsurTech funding fell 44.6% to $1.36bn in Q3’26: Gallagher Re"
+    },
+    "https://www.insurancebusinessmag.com/uk/news/technology/ai-is-closing-the-data-gap-in-credit-and-trade-finance-underwriting-report-finds-596282.aspx": {
+      "attempted_at": "2026-11-05T14:58:08.749979+00:00",
+      "retry_after": "2026-11-06T15:58:08.749979+00:00",
+      "headline": "AI is closing the data gap in credit and trade finance underwriting, report finds"
+    },
+    "https://www.theguardian.com/business/2026/nov/05/developing-country-debt-record-94tn-high-world-bank-data": {
+      "attempted_at": "2026-11-05T14:58:08.749979+00:00",
+      "retry_after": "2026-11-06T15:58:08.749979+00:00",
+      "headline": "Debt of poorest countries at record $9.4tn high, World Bank data shows"
+    },
+    "https://www.bloomberg.com/news/articles/2026-11-05/lower-income-nations-face-highest-debt-costs-since-1989-world-bank": {
+      "attempted_at": "2026-11-05T14:58:08.749979+00:00",
+      "retry_after": "2026-11-06T15:58:08.749979+00:00",
+      "headline": "Lower-Income Nations Face Highest Debt Costs Since 1989: World Bank"
+    },
+    "https://www.bloomberg.com/news/articles/2026-11-05/five-credit-portfolio-managers-leave-hedge-fund-brevan-howard": {
+      "attempted_at": "2026-11-05T14:58:08.749979+00:00",
+      "retry_after": "2026-11-06T15:58:08.749979+00:00",
+      "headline": "Five Credit Portfolio Managers Leave Hedge Fund Brevan Howard"
+    },
+    "https://www.finextra.com/pressarticle/111591/segpay-expands-pay-by-bank-service-to-eight-european-markets": {
+      "attempted_at": "2026-11-05T14:58:08.749979+00:00",
+      "retry_after": "2026-11-06T15:58:08.749979+00:00",
+      "headline": "Segpay expands Pay by Bank service to eight European markets"
+    },
+    "https://www.bbc.co.uk/news/videos/c9kgjvmn4vlno": {
+      "attempted_at": "2026-11-05T14:58:08.749979+00:00",
+      "retry_after": "2026-11-06T15:58:08.749979+00:00",
+      "headline": "What does the raise in interest rates mean?"
+    },
+    "https://www.moneymarketing.co.uk/titan-wealth-quality-investing-hasnt-failed-it-has-gone-on-sale/": {
+      "attempted_at": "2026-11-05T14:58:08.749979+00:00",
+      "retry_after": "2026-11-06T15:58:08.749979+00:00",
+      "headline": "Titan Wealth: Quality investing hasn’t failed. It has gone on sale"
+    },
+    "https://www.bloomberg.com/news/articles/2026-11-05/bvk-pension-fund-raided-over-us-business-munich-prosecutors-say": {
+      "attempted_at": "2026-11-05T14:58:08.749979+00:00",
+      "retry_after": "2026-11-06T15:58:08.749979+00:00",
+      "headline": "Pension Fund Raid Deepens German Probe of Soured US Property Deals"
     }
   },
   "sources": {
     "https://www.professionalpensions.com/news/4057232/live-blog-pensions-news-digest": {
-      "attempted_at": "2026-11-05T13:49:57.028469+00:00",
-      "retry_after": "2026-11-05T14:34:57.028469+00:00",
+      "attempted_at": "2026-11-05T14:58:08.749979+00:00",
+      "retry_after": "2026-11-05T15:43:08.749979+00:00",
       "last_result": "Original document is outside the bounded UK source-date window",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -6796,11 +6839,11 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.wsj.com/buyside/personal-finance/financial-advisors/best-financial-advisors": {
-      "attempted_at": "2026-11-05T12:29:53.026164+00:00",
-      "retry_after": "2026-11-05T13:14:53.026164+00:00",
+      "attempted_at": "2026-11-05T14:58:08.749979+00:00",
+      "retry_after": "2026-11-05T15:43:08.749979+00:00",
       "last_result": "Original document is outside the bounded UK source-date window",
       "classification": "DATE_UNVERIFIED",
-      "stage": "alternative_source",
+      "stage": "source",
       "failures": 8,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
@@ -8798,8 +8841,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.aviva.com/newsroom/news-and-research-overview/news-releases/2026/11/drivers-back-regular-eye-tests-as-aviva-data-shows-poor-sight-collisions-rise-in-winter/": {
-      "attempted_at": "2026-11-05T13:49:57.028469+00:00",
-      "retry_after": "2026-11-05T14:34:57.028469+00:00",
+      "attempted_at": "2026-11-05T14:58:08.749979+00:00",
+      "retry_after": "2026-11-05T15:43:08.749979+00:00",
       "last_result": "No unambiguous original article or publisher-feed publication date",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -8867,8 +8910,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://news.uk.chubb.com/news-releases?item=122866": {
-      "attempted_at": "2026-11-05T13:49:57.028469+00:00",
-      "retry_after": "2026-11-05T14:34:57.028469+00:00",
+      "attempted_at": "2026-11-05T14:58:08.749979+00:00",
+      "retry_after": "2026-11-05T15:43:08.749979+00:00",
       "last_result": "No unambiguous original article or publisher-feed publication date",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -9573,8 +9616,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.hiscoxgroup.com/news/press-releases/2026/03-11-26": {
-      "attempted_at": "2026-11-05T13:49:57.028469+00:00",
-      "retry_after": "2026-11-05T14:34:57.028469+00:00",
+      "attempted_at": "2026-11-05T14:58:08.749979+00:00",
+      "retry_after": "2026-11-05T15:43:08.749979+00:00",
       "last_result": "Original document is outside the bounded UK source-date window",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -9695,17 +9738,17 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bankofengland.co.uk/prudential-regulation/publication/2026/november/nicu-implementing-legislative-changes-consultation-paper": {
-      "attempted_at": "2026-11-05T11:28:33.997353+00:00",
-      "retry_after": "2026-11-05T12:13:33.997353+00:00",
-      "last_result": "Conflicting original publication dates on source page",
-      "classification": "DATE_UNVERIFIED",
+      "attempted_at": "2026-11-05T14:58:08.749979+00:00",
+      "retry_after": "2026-11-05T15:58:08.749979+00:00",
+      "last_result": "Several central PDFs linked; needs human source selection",
+      "classification": "EVIDENCE_UNUSABLE",
       "stage": "source",
       "failures": 8,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bankofengland.co.uk/prudential-regulation/publication/2026/november/credit-unions-supporting-sustainable-growth-and-resilience-discussion-paper": {
-      "attempted_at": "2026-11-05T11:28:33.997353+00:00",
-      "retry_after": "2026-11-05T12:13:33.997353+00:00",
+      "attempted_at": "2026-11-05T14:58:08.749979+00:00",
+      "retry_after": "2026-11-05T15:43:08.749979+00:00",
       "last_result": "Conflicting original publication dates on source page",
       "classification": "DATE_UNVERIFIED",
       "stage": "alternative_source",
@@ -10075,12 +10118,12 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.finextra.com/pressarticle/111559/aviva-investors-goes-live-with-room-zero-enterprise-analytics-platform": {
-      "attempted_at": "2026-11-05T08:38:23.216364+00:00",
-      "retry_after": "2026-11-05T14:38:23.216364+00:00",
+      "attempted_at": "2026-11-05T14:58:08.749979+00:00",
+      "retry_after": "2026-11-05T20:58:08.749979+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 7,
+      "failures": 8,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.professionalpensions.com/news/4538327/dwp-launches-consultation-retirement-cdc-draft-regulations": {
@@ -10125,8 +10168,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.bbc.co.uk/news/articles/c3dky111m40o": {
-      "attempted_at": "2026-11-05T13:49:57.028469+00:00",
-      "retry_after": "2026-11-05T14:34:57.028469+00:00",
+      "attempted_at": "2026-11-05T14:58:08.749979+00:00",
+      "retry_after": "2026-11-05T15:43:08.749979+00:00",
       "last_result": "Original document is outside the bounded UK source-date window",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -10507,8 +10550,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.biba.org.uk/press-releases/next-generation-of-brokers-start-up-hub/": {
-      "attempted_at": "2026-11-05T13:49:57.028469+00:00",
-      "retry_after": "2026-11-05T14:34:57.028469+00:00",
+      "attempted_at": "2026-11-05T14:58:08.749979+00:00",
+      "retry_after": "2026-11-05T15:43:08.749979+00:00",
       "last_result": "No unambiguous original article or publisher-feed publication date",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -10581,8 +10624,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.fca.org.uk/publications/guidance-consultations/gc26-8-primary-market-bulletin-no-67": {
-      "attempted_at": "2026-11-05T13:49:57.028469+00:00",
-      "retry_after": "2026-11-05T14:49:57.028469+00:00",
+      "attempted_at": "2026-11-05T14:58:08.749979+00:00",
+      "retry_after": "2026-11-05T15:58:08.749979+00:00",
       "last_result": "Official source is incomplete or has unresolved attachments",
       "classification": "EVIDENCE_UNUSABLE",
       "stage": "source",
@@ -10706,12 +10749,12 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.finextra.com/pressarticle/111573/paymentology-to-power-byte-orbits-spend-management-platform-for-smes": {
-      "attempted_at": "2026-11-05T08:38:23.216364+00:00",
-      "retry_after": "2026-11-05T14:38:23.216364+00:00",
+      "attempted_at": "2026-11-05T14:58:08.749979+00:00",
+      "retry_after": "2026-11-05T20:58:08.749979+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 4,
+      "failures": 5,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.wsj.com/risk-compliance-journal/the-morning-risk-report-the-little-known-chinese-bank-in-the-middle-of-iranian-and-russian-money-flows-1ea5c3f6": {
@@ -10742,12 +10785,12 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.finextra.com/pressarticle/111570/equifax-uk-and-the-access-group-partner-on-instnat-income-and-employment-verifications": {
-      "attempted_at": "2026-11-05T08:38:23.216364+00:00",
-      "retry_after": "2026-11-05T14:38:23.216364+00:00",
+      "attempted_at": "2026-11-05T14:58:08.749979+00:00",
+      "retry_after": "2026-11-05T20:58:08.749979+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 4,
+      "failures": 5,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.finextra.com/newsarticle/48701/etoro-targets-latin-america-through-lb-finanzas-acquisition": {
@@ -10847,11 +10890,11 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.wsj.com/buyside/personal-finance/financial-advisors/top-financial-advisors-for-retirees": {
-      "attempted_at": "2026-11-05T12:29:53.026164+00:00",
-      "retry_after": "2026-11-05T13:14:53.026164+00:00",
+      "attempted_at": "2026-11-05T14:58:08.749979+00:00",
+      "retry_after": "2026-11-05T15:43:08.749979+00:00",
       "last_result": "Original document is outside the bounded UK source-date window",
       "classification": "DATE_UNVERIFIED",
-      "stage": "source",
+      "stage": "alternative_source",
       "failures": 8,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
@@ -10993,12 +11036,12 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.finextra.com/pressarticle/111577/occ-issues-supervisory-framework-on-bank-use-of-ai": {
-      "attempted_at": "2026-11-05T08:38:23.216364+00:00",
-      "retry_after": "2026-11-05T14:38:23.216364+00:00",
+      "attempted_at": "2026-11-05T14:58:08.749979+00:00",
+      "retry_after": "2026-11-05T20:58:08.749979+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 3,
+      "failures": 4,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-11-04/hyperscalers-lead-credit-market-gains-amid-broad-risk-on-rally": {
@@ -11318,12 +11361,12 @@
       "alternative_search_after": "2026-11-05T13:34:20.169292+00:00"
     },
     "https://www.fca.org.uk/news/press-releases/fca-explore-quantum-computing-tackle-financial-crime": {
-      "attempted_at": "2026-11-05T13:49:57.028469+00:00",
-      "retry_after": "2026-11-05T14:34:57.028469+00:00",
+      "attempted_at": "2026-11-05T14:58:08.749979+00:00",
+      "retry_after": "2026-11-05T15:43:08.749979+00:00",
       "last_result": "Listing date conflicts with the original document publication date",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
-      "failures": 5,
+      "failures": 6,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.commercialriskonline.com/expertise-and-experience-as-important-as-capacity-to-tackle-asian-protection-gap/": {
@@ -11358,12 +11401,12 @@
       "alternative_search_after": "2026-11-05T14:34:44.638691+00:00"
     },
     "https://www.fca.org.uk/news/blogs/looking-back-move-forward-why-reviewing-our-rules-matters": {
-      "attempted_at": "2026-11-05T13:49:57.028469+00:00",
-      "retry_after": "2026-11-05T14:34:57.028469+00:00",
+      "attempted_at": "2026-11-05T14:58:08.749979+00:00",
+      "retry_after": "2026-11-05T15:43:08.749979+00:00",
       "last_result": "Listing date conflicts with the original document publication date",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
-      "failures": 4,
+      "failures": 5,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://news.sky.com/story/will-i-get-any-of-my-late-husbands-state-pension-13607939": {
@@ -11565,27 +11608,94 @@
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
-    "https://www.professionalpensions.com/news/4538450/expects-bpa-business-exceed-25bn-2026": {
-      "attempted_at": "2026-11-05T13:49:57.028469+00:00",
-      "retry_after": "2026-11-05T14:04:57.028469+00:00",
+    "https://www.bloomberg.com/news/articles/2026-11-05/lower-income-nations-face-highest-debt-costs-since-1989-world-bank": {
+      "attempted_at": "2026-11-05T14:58:08.749979+00:00",
+      "retry_after": "2026-11-05T20:58:08.749979+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-11-05T18:58:08.749979+00:00"
+    },
+    "https://www.finextra.com/pressarticle/111592/vermiculus-names-alexander-kilian-ciso": {
+      "attempted_at": "2026-11-05T14:58:08.749979+00:00",
+      "retry_after": "2026-11-05T20:58:08.749979+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-11-05T18:58:08.749979+00:00"
+    },
+    "https://www.finextra.com/pressarticle/111591/segpay-expands-pay-by-bank-service-to-eight-european-markets": {
+      "attempted_at": "2026-11-05T14:58:08.749979+00:00",
+      "retry_after": "2026-11-05T20:58:08.749979+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-11-05T18:58:08.749979+00:00"
+    },
+    "https://www.reinsurancene.ws/lemonade-posts-record-gross-profit-of-118-1m-in-q326-as-growth-accelerates/": {
+      "attempted_at": "2026-11-05T14:58:08.749979+00:00",
+      "retry_after": "2026-11-05T18:58:08.749979+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.insurancejournal.com/news/west/2026/11/05/891694.htm": {
+      "attempted_at": "2026-11-05T14:58:08.749979+00:00",
+      "retry_after": "2026-11-05T18:58:08.749979+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.aviva.com/newsroom/news-and-research-overview/news-releases/2026/11/could-you-afford-to-live-on-a-100000-pension-pot/": {
+      "attempted_at": "2026-11-05T14:58:08.749979+00:00",
+      "retry_after": "2026-11-05T15:43:08.749979+00:00",
+      "last_result": "No unambiguous original article or publisher-feed publication date",
+      "classification": "DATE_UNVERIFIED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.reinsurancene.ws/global-insurtech-funding-fell-44-6-to-1-36bn-in-q326-gallagher-re/": {
+      "attempted_at": "2026-11-05T14:58:08.749979+00:00",
+      "retry_after": "2026-11-05T18:58:08.749979+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.insurancejournal.com/news/east/2026/11/05/891677.htm": {
+      "attempted_at": "2026-11-05T14:58:08.749979+00:00",
+      "retry_after": "2026-11-05T18:58:08.749979+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.professionalpensions.com/news/4538486/bank-england-hikes-rates-rise-2023": {
+      "attempted_at": "2026-11-05T14:58:08.749979+00:00",
+      "retry_after": "2026-11-05T15:13:08.749979+00:00",
       "last_result": "Gemini API HTTP 503: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
       "classification": "TEMPORARY_FAILURE",
       "stage": "writing",
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
-    "https://www.insuranceage.co.uk/insight/7959126/ardonagh-confirms-acrisure-reunion-as-cross-joins-mcilquham-in-mga-push": {
-      "attempted_at": "2026-11-05T13:49:57.028469+00:00",
-      "retry_after": "2026-11-05T14:04:57.028469+00:00",
+    "https://www.theguardian.com/business/2026/nov/05/developing-country-debt-record-94tn-high-world-bank-data": {
+      "attempted_at": "2026-11-05T14:58:08.749979+00:00",
+      "retry_after": "2026-11-05T15:13:08.749979+00:00",
       "last_result": "Gemini API HTTP 503: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
       "classification": "TEMPORARY_FAILURE",
       "stage": "writing",
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
-    "https://www.commercialriskonline.com/lloyds-seeks-to-make-market-easier-to-work-with/": {
-      "attempted_at": "2026-11-05T13:49:57.028469+00:00",
-      "retry_after": "2026-11-05T14:04:57.028469+00:00",
+    "https://www.investmentweek.co.uk/news/4538448/europes-mag-seven-etf-launches-investor-tech-jitters-intensify": {
+      "attempted_at": "2026-11-05T14:58:08.749979+00:00",
+      "retry_after": "2026-11-05T15:13:08.749979+00:00",
       "last_result": "Gemini API HTTP 503: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
       "classification": "TEMPORARY_FAILURE",
       "stage": "writing",
