@@ -2,17 +2,10 @@
   "api_budget": {
     "date": "2026-11-04",
     "timezone": "America/Los_Angeles",
-    "requests": 22,
+    "requests": 23,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-10-29T15:54:59.149642+00:00",
-      "result": "failed",
-      "prompt_characters": 16558,
-      "purpose": "single_pass_writing",
-      "error_type": "GeminiAPIError"
-    },
     {
       "at": "2026-10-29T16:12:24.426065+00:00",
       "result": "failed",
@@ -1817,6 +1810,25 @@
           {
             "modality": "TEXT",
             "tokenCount": 4733
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-11-05T06:00:13.889337+00:00",
+      "result": "response_received",
+      "prompt_characters": 21087,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 4095,
+        "candidatesTokenCount": 856,
+        "totalTokenCount": 4951,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 4095
           }
         ],
         "serviceTier": "standard"
@@ -6157,8 +6169,8 @@
       "headline": "Singapore Stocks Set for Correction as Bank Profit Outlook Sours"
     },
     "https://www.bloomberg.com/news/articles/2026-11-04/temasek-s-mapletree-is-said-to-pick-banks-for-singapore-ipo": {
-      "attempted_at": "2026-11-04T04:29:57.085000+00:00",
-      "retry_after": "2026-11-05T05:29:57.085000+00:00",
+      "attempted_at": "2026-11-05T05:59:57.295823+00:00",
+      "retry_after": "2026-11-06T06:59:57.295823+00:00",
       "headline": "Temasek’s Mapletree Is Said to Pick Banks for Singapore IPO"
     },
     "https://www.insurancebusinessmag.com/uk/news/environmental/fca-finalises-esg-ratings-regime-with-authorisation-required-from-june-2028-596087.aspx": {
@@ -6600,6 +6612,16 @@
       "attempted_at": "2026-11-05T05:07:42.994268+00:00",
       "retry_after": "2026-11-06T06:07:42.994268+00:00",
       "headline": "Capgemini: Multi-agent AI moves into banking and insurance, but orchestration remains limited"
+    },
+    "https://www.insurancebusinessmag.com/uk/news/breaking-news/insurance-moves-hdi-hive-folgate-gallagher-targa-coversure-596234.aspx": {
+      "attempted_at": "2026-11-05T05:59:57.295823+00:00",
+      "retry_after": "2026-11-06T06:59:57.295823+00:00",
+      "headline": "Insurance moves: HDI, HIVE, Folgate, Gallagher, Targa, Coversure"
+    },
+    "https://www.insurancebusinessmag.com/uk/news/breaking-news/aon-expands-client-treaty-to-35-as-brokerled-capacity-grows-worldwide-596249.aspx": {
+      "attempted_at": "2026-11-05T05:59:57.295823+00:00",
+      "retry_after": "2026-11-06T06:59:57.295823+00:00",
+      "headline": "Aon expands client treaty to 35% as broker-led capacity grows worldwide"
     }
   },
   "sources": {
@@ -6613,10 +6635,10 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.wsj.com/buyside/personal-finance/financial-advisors/best-financial-advisors": {
-      "attempted_at": "2026-11-05T04:58:35.143957+00:00",
-      "retry_after": "2026-11-05T05:43:35.143957+00:00",
-      "last_result": "Original document is outside the bounded UK source-date window",
-      "classification": "DATE_UNVERIFIED",
+      "attempted_at": "2026-11-05T05:59:57.295823+00:00",
+      "retry_after": "2026-11-05T06:59:57.295823+00:00",
+      "last_result": "Source too large; refused partial capture",
+      "classification": "EVIDENCE_UNUSABLE",
       "stage": "alternative_source",
       "failures": 8,
       "policy": "newsroom-recovery-2026-10-26-v1"
@@ -8616,8 +8638,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.aviva.com/newsroom/news-and-research-overview/news-releases/2026/11/drivers-back-regular-eye-tests-as-aviva-data-shows-poor-sight-collisions-rise-in-winter/": {
-      "attempted_at": "2026-11-05T04:58:35.143957+00:00",
-      "retry_after": "2026-11-05T05:43:35.143957+00:00",
+      "attempted_at": "2026-11-05T05:59:57.295823+00:00",
+      "retry_after": "2026-11-05T06:44:57.295823+00:00",
       "last_result": "No unambiguous original article or publisher-feed publication date",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -8685,8 +8707,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://news.uk.chubb.com/news-releases?item=122866": {
-      "attempted_at": "2026-11-05T04:58:35.143957+00:00",
-      "retry_after": "2026-11-05T05:43:35.143957+00:00",
+      "attempted_at": "2026-11-05T05:59:57.295823+00:00",
+      "retry_after": "2026-11-05T06:44:57.295823+00:00",
       "last_result": "No unambiguous original article or publisher-feed publication date",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -9391,8 +9413,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.hiscoxgroup.com/news/press-releases/2026/03-11-26": {
-      "attempted_at": "2026-11-05T04:58:35.143957+00:00",
-      "retry_after": "2026-11-05T05:43:35.143957+00:00",
+      "attempted_at": "2026-11-05T05:59:57.295823+00:00",
+      "retry_after": "2026-11-05T06:44:57.295823+00:00",
       "last_result": "Original document is outside the bounded UK source-date window",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -9504,8 +9526,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.fca.org.uk/news/press-releases/new-fca-rules-bring-esg-rating-providers-uk-regulation-first-time": {
-      "attempted_at": "2026-11-05T04:58:35.143957+00:00",
-      "retry_after": "2026-11-05T05:43:35.143957+00:00",
+      "attempted_at": "2026-11-05T05:59:57.295823+00:00",
+      "retry_after": "2026-11-05T06:44:57.295823+00:00",
       "last_result": "Original document is outside the bounded UK source-date window",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -9513,8 +9535,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bankofengland.co.uk/prudential-regulation/publication/2026/november/nicu-implementing-legislative-changes-consultation-paper": {
-      "attempted_at": "2026-11-05T04:58:35.143957+00:00",
-      "retry_after": "2026-11-05T05:43:35.143957+00:00",
+      "attempted_at": "2026-11-05T05:59:57.295823+00:00",
+      "retry_after": "2026-11-05T06:44:57.295823+00:00",
       "last_result": "Conflicting original publication dates on source page",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -9522,8 +9544,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bankofengland.co.uk/prudential-regulation/publication/2026/november/credit-unions-supporting-sustainable-growth-and-resilience-discussion-paper": {
-      "attempted_at": "2026-11-05T04:58:35.143957+00:00",
-      "retry_after": "2026-11-05T05:43:35.143957+00:00",
+      "attempted_at": "2026-11-05T05:59:57.295823+00:00",
+      "retry_after": "2026-11-05T06:44:57.295823+00:00",
       "last_result": "Conflicting original publication dates on source page",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -9605,8 +9627,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.professionalpensions.com/news/4538281/dwp-tpr-fca-launch-consultation-guided-retirement-help-resurrect-pensions": {
-      "attempted_at": "2026-11-05T04:58:35.143957+00:00",
-      "retry_after": "2026-11-05T05:58:35.143957+00:00",
+      "attempted_at": "2026-11-05T05:59:57.295823+00:00",
+      "retry_after": "2026-11-05T06:59:57.295823+00:00",
       "last_result": "Official source is incomplete or has unresolved attachments",
       "classification": "EVIDENCE_UNUSABLE",
       "stage": "source",
@@ -9667,8 +9689,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.fca.org.uk/publications/policy-statements/ps26-21-streamlining-uk-emir-intragroup-regime": {
-      "attempted_at": "2026-11-05T04:58:35.143957+00:00",
-      "retry_after": "2026-11-05T05:58:35.143957+00:00",
+      "attempted_at": "2026-11-05T05:59:57.295823+00:00",
+      "retry_after": "2026-11-05T06:59:57.295823+00:00",
       "last_result": "Several central PDFs linked; needs human source selection",
       "classification": "EVIDENCE_UNUSABLE",
       "stage": "source",
@@ -9813,12 +9835,12 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.finextra.com/pressarticle/111547/trust-payments-and-weavr-team-on-virtual-cars-for-travel-companies": {
-      "attempted_at": "2026-11-04T20:53:12.528984+00:00",
-      "retry_after": "2026-11-05T02:53:12.528984+00:00",
+      "attempted_at": "2026-11-05T05:59:57.295823+00:00",
+      "retry_after": "2026-11-05T11:59:57.295823+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 5,
+      "failures": 6,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.finextra.com/pressarticle/111507/lendinvest-selects-pepper-advantage-credit-management-platform": {
@@ -9902,8 +9924,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.professionalpensions.com/news/4538327/dwp-launches-consultation-retirement-cdc-draft-regulations": {
-      "attempted_at": "2026-11-05T04:58:35.143957+00:00",
-      "retry_after": "2026-11-05T05:58:35.143957+00:00",
+      "attempted_at": "2026-11-05T05:59:57.295823+00:00",
+      "retry_after": "2026-11-05T06:59:57.295823+00:00",
       "last_result": "Official source is incomplete or has unresolved attachments",
       "classification": "EVIDENCE_UNUSABLE",
       "stage": "alternative_source",
@@ -9943,8 +9965,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.bbc.co.uk/news/articles/c3dky111m40o": {
-      "attempted_at": "2026-11-05T04:58:35.143957+00:00",
-      "retry_after": "2026-11-05T05:43:35.143957+00:00",
+      "attempted_at": "2026-11-05T05:59:57.295823+00:00",
+      "retry_after": "2026-11-05T06:44:57.295823+00:00",
       "last_result": "Original document is outside the bounded UK source-date window",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -10063,14 +10085,13 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.finextra.com/newsarticle/48693/td-launches-challenge-to-help-gen-z-build-financial-confidence": {
-      "attempted_at": "2026-11-04T11:24:18.744731+00:00",
-      "retry_after": "2026-11-04T17:24:18.744731+00:00",
+      "attempted_at": "2026-11-05T05:59:57.295823+00:00",
+      "retry_after": "2026-11-05T11:59:57.295823+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 3,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-11-04T15:24:18.744731+00:00"
+      "failures": 4,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.insurancejournal.com/news/international/2026/11/03/891303.htm": {
       "attempted_at": "2026-11-04T01:40:17.819909+00:00",
@@ -10122,12 +10143,12 @@
       "alternative_search_after": "2026-11-04T11:51:22.284444+00:00"
     },
     "https://www.finextra.com/newsarticle/48695/fca-sets-out-rules-for-esg-rating-providers": {
-      "attempted_at": "2026-11-04T23:43:16.191279+00:00",
-      "retry_after": "2026-11-05T05:43:16.191279+00:00",
+      "attempted_at": "2026-11-05T05:59:57.295823+00:00",
+      "retry_after": "2026-11-05T11:59:57.295823+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "alternative_source",
-      "failures": 4,
+      "failures": 5,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-11-04/singapore-stocks-set-for-correction-as-bank-profit-outlook-sours": {
@@ -10276,8 +10297,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.fca.org.uk/news/blogs/act-now-be-resilient-quantum-future": {
-      "attempted_at": "2026-11-05T04:58:35.143957+00:00",
-      "retry_after": "2026-11-05T05:43:35.143957+00:00",
+      "attempted_at": "2026-11-05T05:59:57.295823+00:00",
+      "retry_after": "2026-11-05T06:44:57.295823+00:00",
       "last_result": "Listing date conflicts with the original document publication date",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -10326,8 +10347,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.biba.org.uk/press-releases/next-generation-of-brokers-start-up-hub/": {
-      "attempted_at": "2026-11-05T04:58:35.143957+00:00",
-      "retry_after": "2026-11-05T05:43:35.143957+00:00",
+      "attempted_at": "2026-11-05T05:59:57.295823+00:00",
+      "retry_after": "2026-11-05T06:44:57.295823+00:00",
       "last_result": "No unambiguous original article or publisher-feed publication date",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -10342,8 +10363,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.reinsurancene.ws/igi-posts-net-income-of-28m-for-q326-as-reinsurance-underwriting-result-improves/": {
-      "attempted_at": "2026-11-04T10:02:33.332167+00:00",
-      "retry_after": "2026-11-04T14:02:33.332167+00:00",
+      "attempted_at": "2026-11-05T05:59:57.295823+00:00",
+      "retry_after": "2026-11-05T09:59:57.295823+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -10365,8 +10386,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.commercialriskonline.com/fidelis-plans-singapore-launch-to-drive-apac-growth/": {
-      "attempted_at": "2026-11-04T16:56:47.917341+00:00",
-      "retry_after": "2026-11-04T20:56:47.917341+00:00",
+      "attempted_at": "2026-11-05T05:59:57.295823+00:00",
+      "retry_after": "2026-11-05T09:59:57.295823+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -10400,8 +10421,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.fca.org.uk/publications/guidance-consultations/gc26-8-primary-market-bulletin-no-67": {
-      "attempted_at": "2026-11-05T04:58:35.143957+00:00",
-      "retry_after": "2026-11-05T05:58:35.143957+00:00",
+      "attempted_at": "2026-11-05T05:59:57.295823+00:00",
+      "retry_after": "2026-11-05T06:59:57.295823+00:00",
       "last_result": "Official source is incomplete or has unresolved attachments",
       "classification": "EVIDENCE_UNUSABLE",
       "stage": "source",
@@ -10503,8 +10524,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.insurancejournal.com/news/national/2026/11/04/891433.htm": {
-      "attempted_at": "2026-11-04T13:15:13.137028+00:00",
-      "retry_after": "2026-11-04T17:15:13.137028+00:00",
+      "attempted_at": "2026-11-05T05:59:57.295823+00:00",
+      "retry_after": "2026-11-05T09:59:57.295823+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -10668,18 +10689,18 @@
       "alternative_search_after": "2026-11-05T08:58:35.143957+00:00"
     },
     "https://www.wsj.com/buyside/personal-finance/financial-advisors/top-financial-advisors-for-retirees": {
-      "attempted_at": "2026-11-05T04:58:35.143957+00:00",
-      "retry_after": "2026-11-05T05:43:35.143957+00:00",
+      "attempted_at": "2026-11-05T05:59:57.295823+00:00",
+      "retry_after": "2026-11-05T06:44:57.295823+00:00",
       "last_result": "Original document is outside the bounded UK source-date window",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
       "failures": 8,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-11-05T08:58:35.143957+00:00"
+      "alternative_search_after": "2026-11-05T09:59:57.295823+00:00"
     },
     "https://www.professionalpensions.com/news/4538419/dwp-publishes-response-pension-transfer-regulations-consultation": {
-      "attempted_at": "2026-11-05T04:58:35.143957+00:00",
-      "retry_after": "2026-11-05T05:58:35.143957+00:00",
+      "attempted_at": "2026-11-05T05:59:57.295823+00:00",
+      "retry_after": "2026-11-05T06:59:57.295823+00:00",
       "last_result": "Official source is incomplete or has unresolved attachments",
       "classification": "EVIDENCE_UNUSABLE",
       "stage": "source",
@@ -10747,14 +10768,14 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.finextra.com/newsarticle/48703/revolut-hits-115bn-valuation": {
-      "attempted_at": "2026-11-04T23:43:16.191279+00:00",
-      "retry_after": "2026-11-05T05:43:16.191279+00:00",
+      "attempted_at": "2026-11-05T05:59:57.295823+00:00",
+      "retry_after": "2026-11-05T11:59:57.295823+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 2,
+      "failures": 3,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-11-05T03:43:16.191279+00:00"
+      "alternative_search_after": "2026-11-05T09:59:57.295823+00:00"
     },
     "https://www.finextra.com/newsarticle/48702/mastercard-launches-free-platform-to-help-european-smes-boost-cyber-confidence": {
       "attempted_at": "2026-11-05T01:00:39.796921+00:00",
@@ -10785,12 +10806,12 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.finextra.com/pressarticle/111553/zepz-names-steven-eisenhauer-chief-risk-and-compliance-officer": {
-      "attempted_at": "2026-11-04T23:43:16.191279+00:00",
-      "retry_after": "2026-11-05T05:43:16.191279+00:00",
+      "attempted_at": "2026-11-05T05:59:57.295823+00:00",
+      "retry_after": "2026-11-05T11:59:57.295823+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 2,
+      "failures": 3,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.reinsurancene.ws/aig-expects-a-good-balance-between-front-end-pressures-and-reinsurance-savings-at-1-1-says-ceo/": {
@@ -11052,6 +11073,16 @@
       "stage": "source",
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.bloomberg.com/news/articles/2026-11-05/indonesia-kicks-off-first-dollar-bond-sale-since-msci-fallout": {
+      "attempted_at": "2026-11-05T05:59:57.295823+00:00",
+      "retry_after": "2026-11-05T11:59:57.295823+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-11-05T09:59:57.295823+00:00"
     }
   },
   "version": 2,
