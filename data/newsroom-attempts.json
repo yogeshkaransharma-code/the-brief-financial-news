@@ -2,29 +2,10 @@
   "api_budget": {
     "date": "2026-11-09",
     "timezone": "America/Los_Angeles",
-    "requests": 3,
+    "requests": 4,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-11-03T09:26:20.325960+00:00",
-      "result": "response_received",
-      "prompt_characters": 29656,
-      "purpose": "single_pass_writing",
-      "usage": {
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 5832,
-        "candidatesTokenCount": 841,
-        "totalTokenCount": 6673,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 5832
-          }
-        ],
-        "serviceTier": "standard"
-      }
-    },
     {
       "at": "2026-11-03T09:26:35.338274+00:00",
       "result": "response_received",
@@ -1637,6 +1618,25 @@
           {
             "modality": "TEXT",
             "tokenCount": 2932
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-11-09T10:04:11.982772+00:00",
+      "result": "response_received",
+      "prompt_characters": 15694,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 3032,
+        "candidatesTokenCount": 836,
+        "totalTokenCount": 3868,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 3032
           }
         ],
         "serviceTier": "standard"
@@ -7212,8 +7212,8 @@
       "headline": "'My mortgage is going up £200 a month': How rising interest rates are hitting people's pockets"
     },
     "https://www.theguardian.com/money/2026/nov/07/nationwide-savings-account-market-leading-interest-rate": {
-      "attempted_at": "2026-11-08T08:52:05.704216+00:00",
-      "retry_after": "2026-11-09T09:52:05.704216+00:00",
+      "attempted_at": "2026-11-09T10:03:57.038220+00:00",
+      "retry_after": "2026-11-10T11:03:57.038220+00:00",
       "headline": "Nationwide launches savings account with ‘market leading’ 5.3% interest"
     },
     "https://www.theguardian.com/world/2026/nov/07/paraguay-ueno-bank-collapse-santiago-pena": {
@@ -7345,17 +7345,23 @@
       "attempted_at": "2026-11-09T09:21:39.530425+00:00",
       "retry_after": "2026-11-10T10:21:39.530425+00:00",
       "headline": "Verve Foundation launches career tool to attract new financial planning talent"
+    },
+    "https://www.wsj.com/finance/investing/u-s-treasury-yields-edge-lower-as-oil-prices-decline-71869e97": {
+      "attempted_at": "2026-11-09T10:03:57.038220+00:00",
+      "retry_after": "2026-11-10T11:03:57.038220+00:00",
+      "headline": "U.S., Eurozone Bond Yields Turn Higher as Investors Shift Focus Back to Data"
     }
   },
   "sources": {
     "https://www.professionalpensions.com/news/4057232/live-blog-pensions-news-digest": {
-      "attempted_at": "2026-11-09T09:10:57.447872+00:00",
-      "retry_after": "2026-11-09T09:55:57.447872+00:00",
+      "attempted_at": "2026-11-09T10:03:57.038220+00:00",
+      "retry_after": "2026-11-09T10:48:57.038220+00:00",
       "last_result": "Original document is outside the bounded UK source-date window",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
       "failures": 8,
-      "policy": "newsroom-recovery-2026-10-26-v1"
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-11-09T14:03:57.038220+00:00"
     },
     "https://www.wsj.com/buyside/personal-finance/financial-advisors/best-financial-advisors": {
       "attempted_at": "2026-11-09T09:21:39.530425+00:00",
@@ -7368,8 +7374,8 @@
       "alternative_search_after": "2026-11-09T13:21:39.530425+00:00"
     },
     "https://www.professionalpensions.com/news/4045103/people-moves": {
-      "attempted_at": "2026-11-09T09:10:57.447872+00:00",
-      "retry_after": "2026-11-09T09:55:57.447872+00:00",
+      "attempted_at": "2026-11-09T10:03:57.038220+00:00",
+      "retry_after": "2026-11-09T10:48:57.038220+00:00",
       "last_result": "Original document is outside the bounded UK source-date window",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -11306,8 +11312,8 @@
       "alternative_search_after": "2026-11-05T13:34:20.169292+00:00"
     },
     "https://www.fca.org.uk/news/press-releases/fca-explore-quantum-computing-tackle-financial-crime": {
-      "attempted_at": "2026-11-09T09:10:57.447872+00:00",
-      "retry_after": "2026-11-09T09:55:57.447872+00:00",
+      "attempted_at": "2026-11-09T10:03:57.038220+00:00",
+      "retry_after": "2026-11-09T10:48:57.038220+00:00",
       "last_result": "Original document is outside the bounded UK source-date window",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -11346,8 +11352,8 @@
       "alternative_search_after": "2026-11-06T09:58:31.940769+00:00"
     },
     "https://www.fca.org.uk/news/blogs/looking-back-move-forward-why-reviewing-our-rules-matters": {
-      "attempted_at": "2026-11-09T09:10:57.447872+00:00",
-      "retry_after": "2026-11-09T09:55:57.447872+00:00",
+      "attempted_at": "2026-11-09T10:03:57.038220+00:00",
+      "retry_after": "2026-11-09T10:48:57.038220+00:00",
       "last_result": "Original document is outside the bounded UK source-date window",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -11477,8 +11483,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.commercialriskonline.com/supermarket-fridge-attacks-expose-coverage-gaps/": {
-      "attempted_at": "2026-11-09T05:37:34.745704+00:00",
-      "retry_after": "2026-11-09T09:37:34.745704+00:00",
+      "attempted_at": "2026-11-09T10:03:57.038220+00:00",
+      "retry_after": "2026-11-09T14:03:57.038220+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -11526,8 +11532,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.finextra.com/newsarticle/48707/kalepa-raises-75m-to-expand-ai-underwriting-platform": {
-      "attempted_at": "2026-11-09T03:24:29.096110+00:00",
-      "retry_after": "2026-11-09T09:24:29.096110+00:00",
+      "attempted_at": "2026-11-09T10:03:57.038220+00:00",
+      "retry_after": "2026-11-09T16:03:57.038220+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
@@ -11535,8 +11541,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.reinsurancene.ws/us-cyber-pricing-stabilising-but-tech-risks-and-privacy-claims-loom-howden-re/": {
-      "attempted_at": "2026-11-09T05:37:34.745704+00:00",
-      "retry_after": "2026-11-09T09:37:34.745704+00:00",
+      "attempted_at": "2026-11-09T10:03:57.038220+00:00",
+      "retry_after": "2026-11-09T14:03:57.038220+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -11591,8 +11597,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.aviva.com/newsroom/news-and-research-overview/news-releases/2026/11/could-you-afford-to-live-on-a-100000-pension-pot/": {
-      "attempted_at": "2026-11-09T09:10:57.447872+00:00",
-      "retry_after": "2026-11-09T09:55:57.447872+00:00",
+      "attempted_at": "2026-11-09T10:03:57.038220+00:00",
+      "retry_after": "2026-11-09T10:48:57.038220+00:00",
       "last_result": "No unambiguous original article or publisher-feed publication date",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -11642,8 +11648,8 @@
       "alternative_search_after": "2026-11-05T19:59:42.947444+00:00"
     },
     "https://news.sky.com/story/after-interest-rate-rise-the-question-now-is-how-many-more-13608408": {
-      "attempted_at": "2026-11-09T03:24:29.096110+00:00",
-      "retry_after": "2026-11-09T09:24:29.096110+00:00",
+      "attempted_at": "2026-11-09T10:03:57.038220+00:00",
+      "retry_after": "2026-11-09T16:03:57.038220+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
@@ -11683,8 +11689,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.fca.org.uk/publications/corporate-documents/senior-management-responsibilities-at-fca": {
-      "attempted_at": "2026-11-09T09:10:57.447872+00:00",
-      "retry_after": "2026-11-09T09:55:57.447872+00:00",
+      "attempted_at": "2026-11-09T10:03:57.038220+00:00",
+      "retry_after": "2026-11-09T10:48:57.038220+00:00",
       "last_result": "Original document is outside the bounded UK source-date window",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -11773,8 +11779,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.ukfinance.org.uk/news-and-insight/press-release/uk-finance-announces-improved-access-banking": {
-      "attempted_at": "2026-11-09T09:10:57.447872+00:00",
-      "retry_after": "2026-11-09T09:55:57.447872+00:00",
+      "attempted_at": "2026-11-09T10:03:57.038220+00:00",
+      "retry_after": "2026-11-09T10:48:57.038220+00:00",
       "last_result": "No unambiguous original article or publisher-feed publication date",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -12082,8 +12088,8 @@
       "alternative_search_after": "2026-11-09T02:11:58.487914+00:00"
     },
     "https://www.insurancejournal.com/news/national/2026/11/06/891772.htm": {
-      "attempted_at": "2026-11-09T05:37:34.745704+00:00",
-      "retry_after": "2026-11-09T09:37:34.745704+00:00",
+      "attempted_at": "2026-11-09T10:03:57.038220+00:00",
+      "retry_after": "2026-11-09T14:03:57.038220+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -12165,8 +12171,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.fca.org.uk/news/blogs/not-so-fine-print-making-consumer-contracts-fair": {
-      "attempted_at": "2026-11-09T09:10:57.447872+00:00",
-      "retry_after": "2026-11-09T09:55:57.447872+00:00",
+      "attempted_at": "2026-11-09T10:03:57.038220+00:00",
+      "retry_after": "2026-11-09T10:48:57.038220+00:00",
       "last_result": "Original document is outside the bounded UK source-date window",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -12188,8 +12194,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.bloomberg.com/news/articles/2026-11-06/jio-ipo-lifts-angel-one-past-zerodha-as-india-s-no-2-broker": {
-      "attempted_at": "2026-11-09T03:24:29.096110+00:00",
-      "retry_after": "2026-11-09T09:24:29.096110+00:00",
+      "attempted_at": "2026-11-09T10:03:57.038220+00:00",
+      "retry_after": "2026-11-09T16:03:57.038220+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
@@ -12197,8 +12203,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.insuranceage.co.uk/insight/7959101/people-moves-2-6-november-2026": {
-      "attempted_at": "2026-11-09T05:37:34.745704+00:00",
-      "retry_after": "2026-11-09T09:37:34.745704+00:00",
+      "attempted_at": "2026-11-09T10:03:57.038220+00:00",
+      "retry_after": "2026-11-09T14:03:57.038220+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -12218,12 +12224,12 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.wsj.com/finance/investing/u-s-treasurys-little-changed-markets-await-employment-data-88f3f2b6": {
-      "attempted_at": "2026-11-08T18:45:25.873748+00:00",
-      "retry_after": "2026-11-09T00:45:25.873748+00:00",
+      "attempted_at": "2026-11-09T10:03:57.038220+00:00",
+      "retry_after": "2026-11-09T16:03:57.038220+00:00",
       "last_result": "HTTP Error 401: HTTP Forbidden",
       "classification": "ACCESS_RESTRICTED",
-      "stage": "source",
-      "failures": 4,
+      "stage": "alternative_source",
+      "failures": 5,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-11-06/kkr-is-said-to-seek-more-banks-for-logisteed-ipo-in-japan": {
@@ -12236,8 +12242,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.commercialriskonline.com/liberty-mutual-q3-profit-falls-7-as-catastrophe-losses-rise/": {
-      "attempted_at": "2026-11-09T05:37:34.745704+00:00",
-      "retry_after": "2026-11-09T09:37:34.745704+00:00",
+      "attempted_at": "2026-11-09T10:03:57.038220+00:00",
+      "retry_after": "2026-11-09T14:03:57.038220+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -12391,8 +12397,8 @@
       "alternative_search_after": "2026-11-09T13:10:57.447872+00:00"
     },
     "https://www.finextra.com/newsarticle/48717/claude-gets-personal-finance-tool": {
-      "attempted_at": "2026-11-09T03:24:29.096110+00:00",
-      "retry_after": "2026-11-09T09:24:29.096110+00:00",
+      "attempted_at": "2026-11-09T10:03:57.038220+00:00",
+      "retry_after": "2026-11-09T16:03:57.038220+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
@@ -12410,15 +12416,15 @@
       "alternative_search_after": "2026-11-08T23:44:20.167033+00:00"
     },
     "https://www.investmentweek.co.uk/news/4538531/cc-japan-income-growth-adopts-manager-chikaras": {
-      "attempted_at": "2026-11-09T05:37:34.745704+00:00",
-      "retry_after": "2026-11-09T09:37:34.745704+00:00",
+      "attempted_at": "2026-11-09T10:03:57.038220+00:00",
+      "retry_after": "2026-11-09T14:03:57.038220+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.bloomberg.com/news/articles/2026-11-06/uk-inheritance-tax-changes-spur-higher-pension-withdrawals": {
-      "attempted_at": "2026-11-09T03:24:29.096110+00:00",
-      "retry_after": "2026-11-09T09:24:29.096110+00:00",
+      "attempted_at": "2026-11-09T10:03:57.038220+00:00",
+      "retry_after": "2026-11-09T16:03:57.038220+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
@@ -12426,14 +12432,13 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.finextra.com/newsarticle/48718/jpmorgan-chase-signs-cybersecurity-and-coding-deal-with-openai": {
-      "attempted_at": "2026-11-09T03:24:29.096110+00:00",
-      "retry_after": "2026-11-09T09:24:29.096110+00:00",
+      "attempted_at": "2026-11-09T10:03:57.038220+00:00",
+      "retry_after": "2026-11-09T16:03:57.038220+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
       "failures": 8,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-11-09T07:24:29.096110+00:00"
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.finextra.com/newsarticle/48715/monzo-eyes-fresh-funding-at-75bn-valuation---ft": {
       "attempted_at": "2026-11-09T04:38:14.528870+00:00",
@@ -12452,8 +12457,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/west/2026/11/06/891853.htm": {
-      "attempted_at": "2026-11-09T05:37:34.745704+00:00",
-      "retry_after": "2026-11-09T09:37:34.745704+00:00",
+      "attempted_at": "2026-11-09T10:03:57.038220+00:00",
+      "retry_after": "2026-11-09T14:03:57.038220+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -12507,8 +12512,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.ukfinance.org.uk/news-and-insight/press-release/uk-finance-calls-action-unlock-bank-finance-sustainable": {
-      "attempted_at": "2026-11-09T09:10:57.447872+00:00",
-      "retry_after": "2026-11-09T09:55:57.447872+00:00",
+      "attempted_at": "2026-11-09T10:03:57.038220+00:00",
+      "retry_after": "2026-11-09T10:48:57.038220+00:00",
       "last_result": "No unambiguous original article or publisher-feed publication date",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -12516,8 +12521,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/northern-500.html": {
-      "attempted_at": "2026-11-09T09:10:57.447872+00:00",
-      "retry_after": "2026-11-09T09:55:57.447872+00:00",
+      "attempted_at": "2026-11-09T10:03:57.038220+00:00",
+      "retry_after": "2026-11-09T10:48:57.038220+00:00",
       "last_result": "No unambiguous original article or publisher-feed publication date",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -12539,8 +12544,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/midwest/2026/11/06/891867.htm": {
-      "attempted_at": "2026-11-09T05:37:34.745704+00:00",
-      "retry_after": "2026-11-09T09:37:34.745704+00:00",
+      "attempted_at": "2026-11-09T10:03:57.038220+00:00",
+      "retry_after": "2026-11-09T14:03:57.038220+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -12576,8 +12581,8 @@
       "alternative_search_after": "2026-11-09T07:24:29.096110+00:00"
     },
     "https://www.bbc.co.uk/news/articles/cqrkyyj6rx7ro": {
-      "attempted_at": "2026-11-09T05:37:34.745704+00:00",
-      "retry_after": "2026-11-09T09:37:34.745704+00:00",
+      "attempted_at": "2026-11-09T10:03:57.038220+00:00",
+      "retry_after": "2026-11-09T14:03:57.038220+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -12787,14 +12792,14 @@
       "alternative_search_after": "2026-11-09T11:57:11.820816+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-11-09/india-short-bonds-may-underperform-on-rate-hikes-cash-squeeze": {
-      "attempted_at": "2026-11-09T02:12:45.612304+00:00",
-      "retry_after": "2026-11-09T08:12:45.612304+00:00",
+      "attempted_at": "2026-11-09T10:03:57.038220+00:00",
+      "retry_after": "2026-11-09T16:03:57.038220+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
+      "failures": 2,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-11-09T06:12:45.612304+00:00"
+      "alternative_search_after": "2026-11-09T14:03:57.038220+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-11-09/berkshire-hathaway-plans-first-japan-bond-offering-since-april": {
       "attempted_at": "2026-11-09T02:12:45.612304+00:00",
@@ -12826,8 +12831,8 @@
       "alternative_search_after": "2026-11-09T10:37:41.511048+00:00"
     },
     "https://www.reinsurancene.ws/kalepa-secures-75m-in-series-b-funding-at-470m-valuation-to-expand-ai-insurance-platform/": {
-      "attempted_at": "2026-11-09T06:37:41.511048+00:00",
-      "retry_after": "2026-11-09T10:37:41.511048+00:00",
+      "attempted_at": "2026-11-09T10:03:57.038220+00:00",
+      "retry_after": "2026-11-09T14:03:57.038220+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -12963,6 +12968,23 @@
       "stage": "source",
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.wsj.com/finance/investing/u-s-treasury-yields-edge-lower-as-oil-prices-decline-71869e97": {
+      "attempted_at": "2026-11-09T10:03:57.038220+00:00",
+      "retry_after": "2026-11-09T16:03:57.038220+00:00",
+      "last_result": "HTTP Error 401: HTTP Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-11-09T14:03:57.038220+00:00"
+    },
+    "https://www.reinsurancene.ws/seadrif-gallagher-re-and-philippines-finance-dept-sign-e2m-isf-grant-for-disaster-risk-financing/": {
+      "attempted_at": "2026-11-09T10:03:57.038220+00:00",
+      "retry_after": "2026-11-09T14:03:57.038220+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
     }
   },
   "version": 2,
