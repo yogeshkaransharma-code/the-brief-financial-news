@@ -2,48 +2,10 @@
   "api_budget": {
     "date": "2026-11-12",
     "timezone": "America/Los_Angeles",
-    "requests": 19,
+    "requests": 21,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-11-07T02:24:04.264214+00:00",
-      "result": "response_received",
-      "prompt_characters": 15562,
-      "purpose": "single_pass_writing",
-      "usage": {
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 3292,
-        "candidatesTokenCount": 626,
-        "totalTokenCount": 3918,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 3292
-          }
-        ],
-        "serviceTier": "standard"
-      }
-    },
-    {
-      "at": "2026-11-07T07:38:39.527267+00:00",
-      "result": "response_received",
-      "prompt_characters": 10003,
-      "purpose": "single_pass_writing",
-      "usage": {
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 2009,
-        "candidatesTokenCount": 339,
-        "totalTokenCount": 2348,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 2009
-          }
-        ],
-        "serviceTier": "standard"
-      }
-    },
     {
       "at": "2026-11-07T15:15:47.119371+00:00",
       "result": "response_received",
@@ -1577,6 +1539,32 @@
     },
     {
       "at": "2026-11-12T17:12:57.294118+00:00",
+      "result": "failed",
+      "prompt_characters": 16195,
+      "purpose": "single_pass_writing",
+      "error_type": "GeminiAPIError"
+    },
+    {
+      "at": "2026-11-12T17:54:22.822940+00:00",
+      "result": "response_received",
+      "prompt_characters": 18152,
+      "purpose": "single_pass_writing",
+      "usage": {
+        "model": "gemini-3.5-flash-lite",
+        "promptTokenCount": 3593,
+        "candidatesTokenCount": 686,
+        "totalTokenCount": 4279,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 3593
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    },
+    {
+      "at": "2026-11-12T17:54:37.837506+00:00",
       "result": "failed",
       "prompt_characters": 16195,
       "purpose": "single_pass_writing",
@@ -7817,8 +7805,8 @@
       "headline": "Financial Services Roundup: Market Talk"
     },
     "https://www.mortgagesolutions.co.uk/specialist-lending/commercial-finance/2026/11/10/aria-finance-launches-brokerage-for-hnw-clients/": {
-      "attempted_at": "2026-11-11T15:52:40.583340+00:00",
-      "retry_after": "2026-11-12T16:52:40.583340+00:00",
+      "attempted_at": "2026-11-12T17:54:07.001007+00:00",
+      "retry_after": "2026-11-13T18:54:07.001007+00:00",
       "headline": "Aria Finance launches brokerage for HNW clients"
     },
     "https://www.bloomberg.com/news/articles/2026-11-10/ubs-europe-s-biggest-stock-bull-sees-13-gain-by-end-of-2027": {
@@ -8695,6 +8683,21 @@
       "attempted_at": "2026-11-12T17:12:39.893224+00:00",
       "retry_after": "2026-11-13T18:12:39.893224+00:00",
       "headline": "On-Demand – Cross-border payments: How banks can close the corporate service gap"
+    },
+    "https://www.commercialriskonline.com/stronger-risk-management-needed-to-achieve-sustainable-insurer-profitability-in-china/": {
+      "attempted_at": "2026-11-12T17:54:07.001007+00:00",
+      "retry_after": "2026-11-13T18:54:07.001007+00:00",
+      "headline": "Stronger risk management needed to achieve sustainable insurer profitability in China"
+    },
+    "https://www.insurancejournal.com/news/national/2026/11/12/892477.htm": {
+      "attempted_at": "2026-11-12T17:54:07.001007+00:00",
+      "retry_after": "2026-11-13T18:54:07.001007+00:00",
+      "headline": "Risky Future Summit to Explore Emerging Threats, Technology and Risk Management Strategies for Insurance Industry"
+    },
+    "https://www.theguardian.com/business/2026/nov/12/home-sales-october-low": {
+      "attempted_at": "2026-11-12T17:54:07.001007+00:00",
+      "retry_after": "2026-11-13T18:54:07.001007+00:00",
+      "headline": "Home sales hit 16-year low in October amid record-high mortgage rates"
     }
   },
   "sources": {
@@ -8708,13 +8711,14 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.wsj.com/buyside/personal-finance/financial-advisors/best-financial-advisors": {
-      "attempted_at": "2026-11-12T17:02:23.098594+00:00",
-      "retry_after": "2026-11-12T17:47:23.098594+00:00",
+      "attempted_at": "2026-11-12T17:54:07.001007+00:00",
+      "retry_after": "2026-11-12T18:39:07.001007+00:00",
       "last_result": "Original document is outside the bounded UK source-date window",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
       "failures": 8,
-      "policy": "newsroom-recovery-2026-10-26-v1"
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-11-12T21:54:07.001007+00:00"
     },
     "https://www.professionalpensions.com/news/4045103/people-moves": {
       "attempted_at": "2026-11-12T17:12:39.893224+00:00",
@@ -9059,15 +9063,6 @@
       "failures": 8,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
-    "https://www.bloomberg.com/news/articles/2026-11-05/china-mulls-dollar-offshore-yuan-sovereign-bond-sale-this-month": {
-      "attempted_at": "2026-11-05T17:13:27.129483+00:00",
-      "retry_after": "2026-11-05T23:13:27.129483+00:00",
-      "last_result": "HTTP Error 403: Forbidden",
-      "classification": "ACCESS_RESTRICTED",
-      "stage": "source",
-      "failures": 2,
-      "policy": "newsroom-recovery-2026-10-26-v1"
-    },
     "https://www.insurancebusinessmag.com/uk/news/breaking-news/swiss-re-books-us4-2bn-profit-as-pandc-pipeline-compresses-596269.aspx": {
       "attempted_at": "2026-11-09T05:37:34.745704+00:00",
       "retry_after": "2026-11-09T09:37:34.745704+00:00",
@@ -9324,15 +9319,6 @@
       "classification": "ACCESS_RESTRICTED",
       "stage": "alternative_source",
       "failures": 8,
-      "policy": "newsroom-recovery-2026-10-26-v1"
-    },
-    "https://www.finextra.com/newsarticle/48709/block-faces-765m-doj-settlement": {
-      "attempted_at": "2026-11-05T17:13:27.129483+00:00",
-      "retry_after": "2026-11-05T23:13:27.129483+00:00",
-      "last_result": "HTTP Error 403: Forbidden",
-      "classification": "ACCESS_RESTRICTED",
-      "stage": "source",
-      "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.finextra.com/pressarticle/111588/tbc-georgia-rolls-out-palm-payments": {
@@ -10907,8 +10893,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.aviva.com/newsroom/news-and-research-overview/news-releases/2026/11/aviva-enhances-direct-line-home-insurance/": {
-      "attempted_at": "2026-11-12T17:02:23.098594+00:00",
-      "retry_after": "2026-11-12T17:47:23.098594+00:00",
+      "attempted_at": "2026-11-12T17:54:07.001007+00:00",
+      "retry_after": "2026-11-12T18:39:07.001007+00:00",
       "last_result": "No unambiguous original article or publisher-feed publication date",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -11305,8 +11291,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bankofengland.co.uk/prudential-regulation/publication/2026/november/amendments-to-the-large-exposures-framework-part-2-policy-statement": {
-      "attempted_at": "2026-11-12T17:02:23.098594+00:00",
-      "retry_after": "2026-11-12T17:47:23.098594+00:00",
+      "attempted_at": "2026-11-12T17:54:07.001007+00:00",
+      "retry_after": "2026-11-12T18:39:07.001007+00:00",
       "last_result": "Conflicting original publication dates on source page",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -11996,8 +11982,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/ai-tool-to-recover-trading-days-uk-exporters.html": {
-      "attempted_at": "2026-11-12T17:02:23.098594+00:00",
-      "retry_after": "2026-11-12T17:47:23.098594+00:00",
+      "attempted_at": "2026-11-12T17:54:07.001007+00:00",
+      "retry_after": "2026-11-12T18:39:07.001007+00:00",
       "last_result": "No unambiguous original article or publisher-feed publication date",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -12135,8 +12121,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.fca.org.uk/publications/multi-firm-reviews/operational-resilience-trading-venues": {
-      "attempted_at": "2026-11-12T17:02:23.098594+00:00",
-      "retry_after": "2026-11-12T17:47:23.098594+00:00",
+      "attempted_at": "2026-11-12T17:54:07.001007+00:00",
+      "retry_after": "2026-11-12T18:39:07.001007+00:00",
       "last_result": "Original document is outside the bounded UK source-date window",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -12169,8 +12155,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://news.uk.chubb.com/news-releases?item=122867": {
-      "attempted_at": "2026-11-12T17:02:23.098594+00:00",
-      "retry_after": "2026-11-12T17:47:23.098594+00:00",
+      "attempted_at": "2026-11-12T17:54:07.001007+00:00",
+      "retry_after": "2026-11-12T18:39:07.001007+00:00",
       "last_result": "No unambiguous original article or publisher-feed publication date",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -12312,8 +12298,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bbc.co.uk/news/articles/c87470q4w21o": {
-      "attempted_at": "2026-11-12T17:02:23.098594+00:00",
-      "retry_after": "2026-11-12T17:47:23.098594+00:00",
+      "attempted_at": "2026-11-12T17:54:07.001007+00:00",
+      "retry_after": "2026-11-12T18:39:07.001007+00:00",
       "last_result": "Original document is outside the bounded UK source-date window",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -12405,12 +12391,12 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.finextra.com/pressarticle/111648/duffel-and-katanox-bring-hotel-bookings-payments-and-financing-into-single-flow-for-travel-sellers": {
-      "attempted_at": "2026-11-12T11:14:17.635574+00:00",
-      "retry_after": "2026-11-12T17:14:17.635574+00:00",
+      "attempted_at": "2026-11-12T17:54:07.001007+00:00",
+      "retry_after": "2026-11-12T23:54:07.001007+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 4,
+      "failures": 5,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-11-11/india-simplifies-visa-rules-to-draw-more-foreign-visitors": {
@@ -12449,8 +12435,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insuranceage.co.uk/insight/7959103/blog-when-a-rebuild-assessment-comes-back-lower": {
-      "attempted_at": "2026-11-12T13:49:59.856835+00:00",
-      "retry_after": "2026-11-12T17:49:59.856835+00:00",
+      "attempted_at": "2026-11-12T17:54:07.001007+00:00",
+      "retry_after": "2026-11-12T21:54:07.001007+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -12498,8 +12484,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.aviva.com/newsroom/news-and-research-overview/news-releases/2026/11/aviva-urges-brokers-to-prepare-clients-for-winter/": {
-      "attempted_at": "2026-11-12T17:02:23.098594+00:00",
-      "retry_after": "2026-11-12T17:47:23.098594+00:00",
+      "attempted_at": "2026-11-12T17:54:07.001007+00:00",
+      "retry_after": "2026-11-12T18:39:07.001007+00:00",
       "last_result": "No unambiguous original article or publisher-feed publication date",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -12738,8 +12724,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.ukfinance.org.uk/news-and-insight/press-release/uk-finance-mortgage-arrears-and-possessions-q3-2026": {
-      "attempted_at": "2026-11-12T17:02:23.098594+00:00",
-      "retry_after": "2026-11-12T17:47:23.098594+00:00",
+      "attempted_at": "2026-11-12T17:54:07.001007+00:00",
+      "retry_after": "2026-11-12T18:39:07.001007+00:00",
       "last_result": "No unambiguous original article or publisher-feed publication date",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -12754,8 +12740,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://lmalloyds.com/lma-launches-executive-programme-for-future-female-underwriting-leaders/": {
-      "attempted_at": "2026-11-12T17:02:23.098594+00:00",
-      "retry_after": "2026-11-12T17:47:23.098594+00:00",
+      "attempted_at": "2026-11-12T17:54:07.001007+00:00",
+      "retry_after": "2026-11-12T18:39:07.001007+00:00",
       "last_result": "No unambiguous original article or publisher-feed publication date",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -12777,8 +12763,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.reinsurancene.ws/jan-1-reinsurance-renewal-focus-broadens-beyond-price-munich-re-cfo/": {
-      "attempted_at": "2026-11-12T13:49:59.856835+00:00",
-      "retry_after": "2026-11-12T17:49:59.856835+00:00",
+      "attempted_at": "2026-11-12T17:54:07.001007+00:00",
+      "retry_after": "2026-11-12T21:54:07.001007+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -12800,21 +12786,21 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.fca.org.uk/news/press-releases/fca-proposes-greater-pension-investment-flexibility-support-long-term-value-savers": {
-      "attempted_at": "2026-11-12T17:02:23.098594+00:00",
-      "retry_after": "2026-11-12T17:47:23.098594+00:00",
+      "attempted_at": "2026-11-12T17:54:07.001007+00:00",
+      "retry_after": "2026-11-12T18:39:07.001007+00:00",
       "last_result": "Listing date conflicts with the original document publication date",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
-      "failures": 7,
+      "failures": 8,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-supports-lseg-plain-vanilla-listed-bond-issuance.html": {
-      "attempted_at": "2026-11-12T17:02:23.098594+00:00",
-      "retry_after": "2026-11-12T17:47:23.098594+00:00",
+      "attempted_at": "2026-11-12T17:54:07.001007+00:00",
+      "retry_after": "2026-11-12T18:39:07.001007+00:00",
       "last_result": "No unambiguous original article or publisher-feed publication date",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
-      "failures": 7,
+      "failures": 8,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.reinsurancene.ws/allianz-posts-record-e14-1bn-9m26-operating-profit/": {
@@ -12832,14 +12818,14 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.bloomberg.com/news/articles/2026-11-12/barclays-lafargue-says-nvidia-turmoil-doesn-t-derail-ai-trade": {
-      "attempted_at": "2026-11-12T11:14:17.635574+00:00",
-      "retry_after": "2026-11-12T17:14:17.635574+00:00",
+      "attempted_at": "2026-11-12T17:54:07.001007+00:00",
+      "retry_after": "2026-11-12T23:54:07.001007+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
+      "failures": 2,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-11-12T15:14:17.635574+00:00"
+      "alternative_search_after": "2026-11-12T21:54:07.001007+00:00"
     },
     "https://www.reinsurancene.ws/brit-announces-internal-promotions-within-its-claims-team/": {
       "attempted_at": "2026-11-12T16:00:19.565717+00:00",
@@ -12928,15 +12914,15 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.commercialriskonline.com/ferma-president-rejects-need-for-standalone-ai-insurance/": {
-      "attempted_at": "2026-11-12T13:24:13.855029+00:00",
-      "retry_after": "2026-11-12T17:24:13.855029+00:00",
+      "attempted_at": "2026-11-12T17:54:07.001007+00:00",
+      "retry_after": "2026-11-12T21:54:07.001007+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.reinsurancene.ws/talanx-9m26-net-income-hits-record-e2-2bn-supported-by-reinsurance-division/": {
-      "attempted_at": "2026-11-12T13:24:13.855029+00:00",
-      "retry_after": "2026-11-12T17:24:13.855029+00:00",
+      "attempted_at": "2026-11-12T17:54:07.001007+00:00",
+      "retry_after": "2026-11-12T21:54:07.001007+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -13108,15 +13094,6 @@
       "policy": "newsroom-recovery-2026-10-26-v1",
       "alternative_search_after": "2026-11-12T20:00:19.565717+00:00"
     },
-    "https://www.professionalpensions.com/news/4538904/fca-proposes-excluding-performance-fees-dc-default-charge-cap": {
-      "attempted_at": "2026-11-12T17:02:23.098594+00:00",
-      "retry_after": "2026-11-12T17:32:23.098594+00:00",
-      "last_result": "Gemini API HTTP 503: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
-      "classification": "TEMPORARY_FAILURE",
-      "stage": "writing",
-      "failures": 2,
-      "policy": "newsroom-recovery-2026-10-26-v1"
-    },
     "https://www.finextra.com/pressarticle/111661/smarttrade-acquires-celoxica": {
       "attempted_at": "2026-11-12T16:00:19.565717+00:00",
       "retry_after": "2026-11-12T22:00:19.565717+00:00",
@@ -13232,24 +13209,6 @@
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
     },
-    "https://www.investmentweek.co.uk/news/4538899/nvidia-shares-freefall-ceo-jensen-huang-resigns-affair-scandal": {
-      "attempted_at": "2026-11-12T17:02:23.098594+00:00",
-      "retry_after": "2026-11-12T17:17:23.098594+00:00",
-      "last_result": "Gemini API HTTP 503: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
-      "classification": "TEMPORARY_FAILURE",
-      "stage": "writing",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1"
-    },
-    "https://mgaa.co.uk/biba-and-intact-insurance-back-next-generation-of-brokers-with-new-start-up-hub/": {
-      "attempted_at": "2026-11-12T17:02:23.098594+00:00",
-      "retry_after": "2026-11-12T17:17:23.098594+00:00",
-      "last_result": "Gemini API HTTP 503: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
-      "classification": "TEMPORARY_FAILURE",
-      "stage": "writing",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1"
-    },
     "https://www.finextra.com/pressarticle/111660/nydfs-issues-virtual-currency-advertising-guidance": {
       "attempted_at": "2026-11-12T17:12:39.893224+00:00",
       "retry_after": "2026-11-12T23:12:39.893224+00:00",
@@ -13309,9 +13268,58 @@
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
+    "https://www.theguardian.com/business/2026/nov/12/home-sales-october-low": {
+      "attempted_at": "2026-11-12T17:54:07.001007+00:00",
+      "retry_after": "2026-11-12T21:54:07.001007+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.finextra.com/newsarticle/48747/intermex-rejects-western-unions-termination-of-takeover-deal": {
+      "attempted_at": "2026-11-12T17:54:07.001007+00:00",
+      "retry_after": "2026-11-12T23:54:07.001007+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-11-12T21:54:07.001007+00:00"
+    },
+    "https://www.commercialriskonline.com/stronger-risk-management-needed-to-achieve-sustainable-insurer-profitability-in-china/": {
+      "attempted_at": "2026-11-12T17:54:07.001007+00:00",
+      "retry_after": "2026-11-12T21:54:07.001007+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.insurancejournal.com/news/national/2026/11/12/892475.htm": {
+      "attempted_at": "2026-11-12T17:54:07.001007+00:00",
+      "retry_after": "2026-11-13T17:54:07.001007+00:00",
+      "last_result": "HTTP Error 404: Not Found",
+      "classification": "NOT_FOUND",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.insurancejournal.com/news/national/2026/11/12/892477.htm": {
+      "attempted_at": "2026-11-12T17:54:07.001007+00:00",
+      "retry_after": "2026-11-12T21:54:07.001007+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.fca.org.uk/news/warnings/sterlingconsortiumcouk-clone-fca-registered-firm": {
+      "attempted_at": "2026-11-12T17:54:07.001007+00:00",
+      "retry_after": "2026-11-12T18:09:07.001007+00:00",
+      "last_result": "Gemini API HTTP 503: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+      "classification": "TEMPORARY_FAILURE",
+      "stage": "writing",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
+    },
     "https://www.investmentweek.co.uk/news/4538888/bny-investments-resolves-red-flags-majority-funds-gain-green-light-2026-aov": {
-      "attempted_at": "2026-11-12T17:12:39.893224+00:00",
-      "retry_after": "2026-11-12T17:27:39.893224+00:00",
+      "attempted_at": "2026-11-12T17:54:07.001007+00:00",
+      "retry_after": "2026-11-12T18:09:07.001007+00:00",
       "last_result": "Gemini API HTTP 503: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
       "classification": "TEMPORARY_FAILURE",
       "stage": "writing",
@@ -13319,17 +13327,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.professionalpensions.com/news/4538900/broadstone-launches-employee-benefits-proposition-businesses": {
-      "attempted_at": "2026-11-12T17:12:39.893224+00:00",
-      "retry_after": "2026-11-12T17:27:39.893224+00:00",
-      "last_result": "Gemini API HTTP 503: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
-      "classification": "TEMPORARY_FAILURE",
-      "stage": "writing",
-      "failures": 1,
-      "policy": "newsroom-recovery-2026-10-26-v1"
-    },
-    "https://www.fca.org.uk/news/warnings/sterlingconsortiumcouk-clone-fca-registered-firm": {
-      "attempted_at": "2026-11-12T17:12:39.893224+00:00",
-      "retry_after": "2026-11-12T17:27:39.893224+00:00",
+      "attempted_at": "2026-11-12T17:54:07.001007+00:00",
+      "retry_after": "2026-11-12T18:09:07.001007+00:00",
       "last_result": "Gemini API HTTP 503: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
       "classification": "TEMPORARY_FAILURE",
       "stage": "writing",
