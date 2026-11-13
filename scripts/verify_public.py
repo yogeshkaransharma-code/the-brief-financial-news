@@ -11,6 +11,50 @@ from home_reporting import homepage_articles, DESK_DAYS
 from build_public import story_href, legacy_story_href
 ROOT=Path(__file__).resolve().parents[1]
 
+def verify_story_sections(article, story):
+    """Check the complete rendered reporting, not its incidental paragraph tags.
+
+    Source blocks may contain blank lines. The renderer correctly turns those
+    into multiple <p> elements; a whole-block HTML substring comparison would
+    reject intact reporting and prevent every subsequent deployment.
+    """
+    identifier=article['id']
+    marker='<div class="article-body">'
+    assert marker in story, f'{identifier}: article body missing'
+    body=story.split(marker,1)[1].split('</div>',1)[0]
+    assert body.lstrip().startswith('<h2 id="report-section-1">'), f'{identifier}: first report section missing'
+    sections=re.findall(
+        r'<h2 id="report-section-(\d+)">(.*?)</h2>(.*?)(?=<h2 id="report-section-\d+">|\Z)',
+        body, flags=re.S
+    )
+    assert len(sections)==len(article['blocks']), f'{identifier}: report section count differs from source'
+    for index, ((heading, source_text), (number, rendered_heading, rendered_text)) in enumerate(
+        zip(article['blocks'], sections), start=1
+    ):
+        assert int(number)==index, f'{identifier}: report section numbering changed at {index}'
+        assert rendered_heading==html.escape(str(heading),quote=True), f'{identifier}: heading changed at section {index}'
+        paragraphs=re.findall(r'<p>(.*?)</p>', rendered_text, flags=re.S)
+        remaining=re.sub(r'<p>.*?</p>', '', rendered_text, flags=re.S)
+        assert not remaining.strip(), f'{identifier}: unexpected content outside paragraphs at section {index}'
+        assert all('<' not in part and '>' not in part for part in paragraphs), (
+            f'{identifier}: unescaped markup inside paragraph at section {index}'
+        )
+        expected=' '.join(str(source_text).split())
+        actual=' '.join(' '.join(html.unescape(part).split()) for part in paragraphs).strip()
+        assert actual==expected, f'{identifier}: report text differs from source at section {index}'
+
+
+
+def verify_desk_story_links(page, selected, section):
+    """Validate article identities rather than ambiguous headline substrings.
+
+    Two articles may share a headline, and an old short headline can occur as
+    part of a newer one. Only article URLs prove which records a desk displays.
+    """
+    displayed=re.findall(r'<h2><a href="(story/[^"]+\.html)">', page)
+    expected=[story_href(article) for article in selected]
+    assert displayed==expected, f'{section}: desk article links differ from selected records'
+
 def verify():
     public=ROOT/'public'
     all_articles=json.loads((ROOT/'data/articles.json').read_text())
@@ -191,7 +235,7 @@ def verify():
         if 'tb-article-visual' in story:
             assert 'sector illustration, not event evidence' in story, 'Illustrative image not clearly distinguished from reporting'
             assert '<figcaption>' in story and 'commons.wikimedia.org' in story, 'Illustrative image lacks licensing/attribution'
-        for h,p in a['blocks']:assert html.escape(h,quote=True) in story and html.escape(p,quote=True) in story
+        verify_story_sections(a, story)
     if not edition:assert 'Today’s lead report is still being prepared' in home and 'Explore earlier reporting' in home, 'Empty edition must be truthful with a useful next action'
     assert not (public/'data/live.json').exists() and 'data/live.json' not in home
     assert not (public/'status.html').exists(), 'Internal newsroom dashboard accidentally published'
@@ -228,8 +272,7 @@ def verify():
         older=[a for a in archive if a['desk_section']==section and a['id'] not in matched_ids]
         assert 'Reports published in the last 14 days' in page, 'Desk display window is missing'
         if desk_earlier:assert 'No new '+section.lower()+' reports today.' in page, 'Desk must be clear when quiet'
-        for article in matches:assert html.escape(article['title'],quote=True) in page
-        for article in older:assert html.escape(article['title'],quote=True) not in page, 'Archive item leaked into today’s desk'
+        verify_desk_story_links(page, matches, section)
         assert page.count('<article data-category=')==len(matches)
         assert 'tb-desk-edition-note' in page and 'Earlier editions' in page, 'Desk does not explain date separation'
         if not matches:

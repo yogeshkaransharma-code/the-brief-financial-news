@@ -38,6 +38,12 @@ jobs:
         id: controls
         if: github.event_name != 'schedule'
         run: python scripts/run_checks.py
+      - name: Preflight existing archive and reader pages before any AI requests
+        env:
+          BRIEF_CF_ANALYTICS_TOKEN: '846ee3304ea145b6a4ba99d81a7e9761'
+        run: |
+          python scripts/build_public.py
+          python scripts/verify_public.py
       - name: Discover original-source leads without AI requests
         id: discovery
         continue-on-error: true
