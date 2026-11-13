@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Regression test: source text survives splitting into HTML paragraphs."""
 from build_public import article_body
-from verify_public import verify_story_sections
+from verify_public import verify_story_sections, verify_desk_story_links
+from build_public import story_href
 
 
 def run():
@@ -39,7 +40,21 @@ def run():
         else:
             raise AssertionError(f'Corrupt article fixture {index} passed verification')
 
-    print('PASS: paragraphs and HTML entities preserved; altered, missing, unsafe content rejected')
+    # An old report can share a title with a current report. The desk check
+    # must use the selected record's distinct URL, never the headline string.
+    current={'id': 'ai-aaaaaa123', 'title': 'UK insurance market update'}
+    older={'id': 'ai-bbbbbb456', 'title': 'UK insurance market update'}
+    card='<h2><a href="' + story_href(current) + '">UK insurance market update</a></h2>'
+    verify_desk_story_links(card, [current], 'Insurance')
+    wrong='<h2><a href="' + story_href(older) + '">UK insurance market update</a></h2>'
+    try:
+        verify_desk_story_links(wrong, [current], 'Insurance')
+    except AssertionError:
+        pass
+    else:
+        raise AssertionError('Desk accepted an old article with the same headline')
+
+    print('PASS: complete multi-paragraph reporting, safe HTML and identity-based desk checks')
 
 
 if __name__ == '__main__':
