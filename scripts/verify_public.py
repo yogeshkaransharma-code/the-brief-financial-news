@@ -44,6 +44,17 @@ def verify_story_sections(article, story):
         assert actual==expected, f'{identifier}: report text differs from source at section {index}'
 
 
+
+def verify_desk_story_links(page, selected, section):
+    """Validate article identities rather than ambiguous headline substrings.
+
+    Two articles may share a headline, and an old short headline can occur as
+    part of a newer one. Only article URLs prove which records a desk displays.
+    """
+    displayed=re.findall(r'<h2><a href="(story/[^"]+\.html)">', page)
+    expected=[story_href(article) for article in selected]
+    assert displayed==expected, f'{section}: desk article links differ from selected records'
+
 def verify():
     public=ROOT/'public'
     all_articles=json.loads((ROOT/'data/articles.json').read_text())
@@ -261,8 +272,7 @@ def verify():
         older=[a for a in archive if a['desk_section']==section and a['id'] not in matched_ids]
         assert 'Reports published in the last 14 days' in page, 'Desk display window is missing'
         if desk_earlier:assert 'No new '+section.lower()+' reports today.' in page, 'Desk must be clear when quiet'
-        for article in matches:assert html.escape(article['title'],quote=True) in page
-        for article in older:assert html.escape(article['title'],quote=True) not in page, 'Archive item leaked into today’s desk'
+        verify_desk_story_links(page, matches, section)
         assert page.count('<article data-category=')==len(matches)
         assert 'tb-desk-edition-note' in page and 'Earlier editions' in page, 'Desk does not explain date separation'
         if not matches:
