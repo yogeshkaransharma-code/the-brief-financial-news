@@ -1,39 +1,47 @@
 {
-  "checked_at": "2026-11-15T22:14:04.988049+00:00",
+  "checked_at": "2026-11-15T23:16:54.582199+00:00",
   "uk_date": "2026-11-15",
-  "outcome": "BLOCKED",
-  "editorial_outcome": "BLOCKED",
-  "technical_status": "LIVE_VERIFIED",
+  "outcome": "PUBLISHED",
+  "editorial_outcome": "PUBLISHED",
+  "technical_status": "AWAITING_LIVE_VERIFICATION",
   "source_coverage_status": "PARTIAL",
   "launch_test": {
     "result": "NOT_RUN"
   },
-  "published_this_run": 0,
-  "genuine_same_day_articles": 0,
+  "published_this_run": 1,
+  "genuine_same_day_articles": 1,
   "editorial_selection": {
-    "result": "NO_VERIFIED_CANDIDATES",
+    "result": "SELECTED",
     "requests": 0,
-    "selected": [],
-    "skipped": []
+    "method": "deterministic-source-supported",
+    "selected": [
+      {
+        "url": "https://www.bbc.co.uk/news/articles/c6p9dzmj514ko",
+        "category": "Insurance",
+        "reason": "Relevant current development supported by a complete accessible source"
+      }
+    ],
+    "skipped": [],
+    "deferred": []
   },
-  "published_total": 670,
-  "last_article_at": "2026-11-14T14:20:47.636408+00:00",
-  "fresh_source_candidates": 225,
-  "verified_original_candidates": 6,
+  "published_total": 671,
+  "last_article_at": "2026-11-15T23:16:54.429572+00:00",
+  "fresh_source_candidates": 226,
+  "verified_original_candidates": 7,
   "candidates_by_sector": {
-    "Insurance": 101,
+    "Insurance": 102,
     "Banking": 124
   },
   "verified_by_sector": {
-    "Banking": 3,
-    "Insurance": 3
+    "Insurance": 4,
+    "Banking": 3
   },
-  "articles_commissioned": 0,
-  "articles_held": 27,
+  "articles_commissioned": 1,
+  "articles_held": 26,
   "machine_screened": 0,
   "independent_review": false,
   "publication_policy": "newsroom-single-pass-2026-10-26-v1",
-  "articles_ready_to_publish": 3,
+  "articles_ready_to_publish": 4,
   "primary_indexes_checked": 31,
   "primary_index_failures": 4,
   "feeds_working": 30,
@@ -41,34 +49,55 @@
   "ai_budget": {
     "quota_date": "2026-11-15",
     "quota_timezone": "America/Los_Angeles",
-    "requests_this_run": 0,
-    "requests_today_including_this_run": 0,
+    "requests_this_run": 1,
+    "requests_today_including_this_run": 1,
     "run_limit": 7,
     "daily_limit": null,
     "remaining_today": null,
     "daily_limit_source": "provider",
-    "remaining_this_run": 7
+    "remaining_this_run": 6
   },
   "quota_pause_until": null,
   "pipeline_metrics": {
     "discovered_unique": 526,
     "outside_uk_date": 48,
-    "already_published_or_retired": 104,
+    "already_published_or_retired": 103,
     "irrelevant": 2,
     "unsupported_route": 145,
     "published_development": 2,
-    "fresh_relevant_candidates": 225,
-    "sources_successfully_retrieved": 0,
-    "source_checkpoints_reused": 20,
+    "fresh_relevant_candidates": 226,
+    "source_failures": 18,
+    "sources_successfully_retrieved": 1,
+    "source_checkpoints_reused": 21,
     "outside_sector_content": 10,
-    "source_failures": 20,
-    "outside_uk_market": 6,
-    "verified_original_candidates": 6,
-    "articles_ready_to_publish": 3,
-    "drafts_recovered": 3
+    "outside_uk_market": 7,
+    "verified_original_candidates": 7,
+    "articles_ready_to_publish": 4,
+    "drafts_recovered": 3,
+    "articles_drafted": 1
   },
   "source_fallbacks": [
     {
+      "source": "https://www.bloomberg.com/news/articles/2026-11-15/retail-crowd-dump-vietnam-stocks-for-near-10-bank-deposit-rates",
+      "result": "Public alternative search completed",
+      "candidates": 0
+    },
+    {
+      "source": "https://www.bloomberg.com/news/articles/2026-11-15/retail-crowd-dump-vietnam-stocks-for-near-10-bank-deposit-rates",
+      "alternatives_found": 0,
+      "result": "No matching alternative in checked sources"
+    },
+    {
+      "source": "https://news.sky.com/story/savings-app-chip-targets-retail-investors-in-private-market-first-13612412",
+      "result": "Public alternative search completed",
+      "candidates": 0
+    },
+    {
+      "source": "https://news.sky.com/story/savings-app-chip-targets-retail-investors-in-private-market-first-13612412",
+      "alternatives_found": 0,
+      "result": "No matching alternative in checked sources"
+    },
+    {
       "source": "https://www.wsj.com/buyside/personal-finance/financial-advisors/best-financial-advisors",
       "result": "Public alternative search completed",
       "candidates": 0
@@ -80,31 +109,21 @@
     },
     {
       "source": "https://www.professionalpensions.com/news/4057232/live-blog-pensions-news-digest",
-      "result": "Public alternative search completed",
-      "candidates": 0
-    },
-    {
-      "source": "https://www.professionalpensions.com/news/4057232/live-blog-pensions-news-digest",
       "alternatives_found": 0,
       "result": "No matching alternative in checked sources"
     },
     {
-      "source": "https://www.bloomberg.com/news/articles/2026-11-13/china-policy-bank-bonds-suffer-selloff-as-tax-worries-hit-market",
-      "result": "Public alternative search completed",
-      "candidates": 0
-    },
-    {
-      "source": "https://www.bloomberg.com/news/articles/2026-11-13/china-policy-bank-bonds-suffer-selloff-as-tax-worries-hit-market",
-      "alternatives_found": 0,
-      "result": "No matching alternative in checked sources"
-    },
-    {
-      "source": "https://www.bankofengland.co.uk/news/2026/november/the-boe-monetary-authority-of-singapore-and-bank-of-thailand-media-release",
+      "source": "https://www.finextra.com/newsarticle/48751/mastercard-opens-singapore-innovation-centre-of-excellence",
       "alternatives_found": 0,
       "result": "No matching alternative in checked sources"
     },
     {
       "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/uk-businesses-push-into-new-markets-despite-global-challenges.html",
+      "alternatives_found": 0,
+      "result": "No matching alternative in checked sources"
+    },
+    {
+      "source": "https://www.bankofengland.co.uk/news/2026/november/the-boe-monetary-authority-of-singapore-and-bank-of-thailand-media-release",
       "alternatives_found": 0,
       "result": "No matching alternative in checked sources"
     },
@@ -117,11 +136,6 @@
       "source": "https://www.starlingbank.com/news/-talk-to-transact-starling-customers-can-use-their-voice-to-send-money/",
       "alternatives_found": 2,
       "result": "Alternative retrieval attempted"
-    },
-    {
-      "source": "https://www.finextra.com/newsarticle/48746/baas-bank-griffin-raises-20m-to-add-cards-and-stablecoin-capabilities",
-      "alternatives_found": 0,
-      "result": "No matching alternative in checked sources"
     },
     {
       "source": "https://lmalloyds.com/lma-launches-executive-programme-for-future-female-underwriting-leaders/",
@@ -164,22 +178,7 @@
       "result": "No matching alternative in checked sources"
     },
     {
-      "source": "https://www.bbc.co.uk/news/articles/c87470q4w21o",
-      "alternatives_found": 0,
-      "result": "No matching alternative in checked sources"
-    },
-    {
-      "source": "https://www.bloomberg.com/news/articles/2026-11-13/top-pension-fund-to-buy-more-india-state-bonds-on-high-yields",
-      "alternatives_found": 0,
-      "result": "No matching alternative in checked sources"
-    },
-    {
-      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds-banking-group/lloyds-appoints-manija-poulatova-group-chief-security-officer.html",
-      "alternatives_found": 1,
-      "result": "Alternative retrieval attempted"
-    },
-    {
-      "source": "https://www.finextra.com/pressarticle/111658/uber-adds-revolut-pay-option",
+      "source": "https://www.bloomberg.com/news/articles/2026-11-14/miller-s-white-house-ascent-rattles-mexico-trade-negotiators",
       "alternatives_found": 0,
       "result": "No matching alternative in checked sources"
     }
@@ -342,46 +341,6 @@
       "reason": "Already published or retired"
     },
     {
-      "title": "Prudential Regulation // Policy statement 10 November 2026 PS20/26 – Amendments to the Large Exposures... PS20/26 – Amendments to the Large Exposures Framework – Part 2",
-      "source": "https://www.bankofengland.co.uk/prudential-regulation/publication/2026/november/amendments-to-the-large-exposures-framework-part-2-policy-statement",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current edition window",
-      "source_date": "2026-11-10"
-    },
-    {
-      "title": "News // News release 03 November 2026 Regulators explore credit union reforms to... Regulators explore credit union reforms to support growth, innovation and better outcomes for members",
-      "source": "https://www.bankofengland.co.uk/news/2026/november/regulators-explore-credit-union-reforms-to-support-growth-innovation-and-better-outcomes-for-members",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current edition window",
-      "source_date": "2026-11-03"
-    },
-    {
-      "title": "News // News release 29 October 2026 Bank of England sets out approach to tokenised... Bank of England sets out approach to tokenised collateral in central clearing",
-      "source": "https://www.bankofengland.co.uk/news/2026/october/bank-of-england-sets-out-approach-to-tokenised-collateral-in-central-clearing",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current edition window",
-      "source_date": "2026-10-29"
-    },
-    {
-      "title": "Mayors and business leaders join forces to unlock growth for ambitious ‘Northern 500’ businesses",
-      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/northern-500.html",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current edition window",
-      "source_date": "2026-11-06"
-    },
-    {
-      "title": "Ageas becomes the first UK motor insurer to directly offer customers a car insurance quote through ChatGPT, built and delivered using in-house capability",
-      "source": "https://www.ageas.co.uk/press-releases/2026-press-releases/ageas-first-uk-motor-insurance-quote-chatgpt/",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current edition window",
-      "source_date": "2026-10-29"
-    },
-    {
       "title": "UK Finance calls for action to unlock bank finance for sustainable infrastructure",
       "source": "https://www.ukfinance.org.uk/news-and-insight/press-release/uk-finance-calls-action-unlock-bank-finance-sustainable",
       "result": "excluded",
@@ -430,6 +389,30 @@
       "source_date": "2026-10-26"
     },
     {
+      "title": "Mayors and business leaders join forces to unlock growth for ambitious ‘Northern 500’ businesses",
+      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/northern-500.html",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current edition window",
+      "source_date": "2026-11-06"
+    },
+    {
+      "title": "Ageas becomes the first UK motor insurer to directly offer customers a car insurance quote through ChatGPT, built and delivered using in-house capability",
+      "source": "https://www.ageas.co.uk/press-releases/2026-press-releases/ageas-first-uk-motor-insurance-quote-chatgpt/",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current edition window",
+      "source_date": "2026-10-29"
+    },
+    {
+      "title": "Sheila Cameron to step down as CEO of the Lloyd’s Market Association",
+      "source": "https://lmalloyds.com/sheila-cameron-to-step-down-as-ceo-of-the-lloyds-market-association/",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current edition window",
+      "source_date": "2026-11-04"
+    },
+    {
       "title": "Press Release • 10 Nov 2026 Gracechurch UK Insurers Monitor, 2026: Insurer service hits a four-year high as competition and retention pressures build",
       "source": "https://www.biba.org.uk/press-releases/gracechurch-uk-insurers-monitor-2026-insurer-service-hits-a-four-year-high-as-competition-and-retention-pressures-build/",
       "result": "excluded",
@@ -445,12 +428,12 @@
       "source_date": "2026-11-04"
     },
     {
-      "title": "Sheila Cameron to step down as CEO of the Lloyd’s Market Association",
-      "source": "https://lmalloyds.com/sheila-cameron-to-step-down-as-ceo-of-the-lloyds-market-association/",
+      "title": "Q3 2026 trading statement",
+      "source": "https://www.hiscoxgroup.com/news/press-releases/2026/03-11-26",
       "result": "excluded",
       "stage": "eligibility",
       "reason": "Discovery source date is outside the current edition window",
-      "source_date": "2026-11-04"
+      "source_date": "2026-11-03"
     },
     {
       "title": "Chubb partners with Currys to offer mobile phone insurance",
@@ -461,12 +444,28 @@
       "source_date": "2026-11-02"
     },
     {
-      "title": "Q3 2026 trading statement",
-      "source": "https://www.hiscoxgroup.com/news/press-releases/2026/03-11-26",
+      "title": "Prudential Regulation // Policy statement 10 November 2026 PS20/26 – Amendments to the Large Exposures... PS20/26 – Amendments to the Large Exposures Framework – Part 2",
+      "source": "https://www.bankofengland.co.uk/prudential-regulation/publication/2026/november/amendments-to-the-large-exposures-framework-part-2-policy-statement",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current edition window",
+      "source_date": "2026-11-10"
+    },
+    {
+      "title": "News // News release 03 November 2026 Regulators explore credit union reforms to... Regulators explore credit union reforms to support growth, innovation and better outcomes for members",
+      "source": "https://www.bankofengland.co.uk/news/2026/november/regulators-explore-credit-union-reforms-to-support-growth-innovation-and-better-outcomes-for-members",
       "result": "excluded",
       "stage": "eligibility",
       "reason": "Discovery source date is outside the current edition window",
       "source_date": "2026-11-03"
+    },
+    {
+      "title": "News // News release 29 October 2026 Bank of England sets out approach to tokenised... Bank of England sets out approach to tokenised collateral in central clearing",
+      "source": "https://www.bankofengland.co.uk/news/2026/october/bank-of-england-sets-out-approach-to-tokenised-collateral-in-central-clearing",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current edition window",
+      "source_date": "2026-10-29"
     },
     {
       "title": "Jingle bills: More than half of people plan £250-plus Christmas",
@@ -637,14 +636,6 @@
       "source_date": "2026-10-26"
     },
     {
-      "title": "6th November 2026 Starling to launch fee-free Business Credit Card with uncapped 1% cashback",
-      "source": "https://www.starlingbank.com/news/starling-to-launch-fee-free-business-credit-card-with-uncapped-1-cashback",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Discovery source date is outside the current edition window",
-      "source_date": "2026-11-06"
-    },
-    {
       "title": "One claim every two hours: Zurich detects record £109m of fraud",
       "source": "https://www.zurich.co.uk/media-centre/zurich-detects-109m-fraud",
       "result": "excluded",
@@ -657,6 +648,14 @@
       "result": "excluded",
       "stage": "eligibility",
       "reason": "Already published or retired"
+    },
+    {
+      "title": "6th November 2026 Starling to launch fee-free Business Credit Card with uncapped 1% cashback",
+      "source": "https://www.starlingbank.com/news/starling-to-launch-fee-free-business-credit-card-with-uncapped-1-cashback",
+      "result": "excluded",
+      "stage": "eligibility",
+      "reason": "Discovery source date is outside the current edition window",
+      "source_date": "2026-11-06"
     },
     {
       "title": "EU banking watchdog veers away from single deposit insurance scheme",
@@ -2248,13 +2247,6 @@
       "reason": "No reviewed article route in source registry"
     },
     {
-      "title": "Data centre outage risks create opportunities for parametric and non-damage BI cover: Howden",
-      "source": "https://www.reinsurancene.ws/data-centre-outage-risks-create-opportunities-for-parametric-and-non-damage-bi-cover-howden/",
-      "result": "excluded",
-      "stage": "eligibility",
-      "reason": "Already published or retired"
-    },
-    {
       "title": "London brokers embrace AI as they fear losing expertise",
       "source": "https://www.commercialriskonline.com/london-brokers-embrace-ai-as-they-fear-losing-expertise/",
       "result": "excluded",
@@ -2341,6 +2333,13 @@
       "reason": "No reviewed article route in source registry"
     },
     {
+      "title": "Lloyds appoints Manija Poulatova as Group Chief Security Officer",
+      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds-banking-group/lloyds-appoints-manija-poulatova-group-chief-security-officer.html",
+      "result": "deferred",
+      "stage": "source",
+      "reason": "Bounded source-read allowance; retained for next run"
+    },
+    {
       "title": "Lloyds supports LSEG with first new Plain Vanilla Listed Bond issuance",
       "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/lloyds-supports-lseg-plain-vanilla-listed-bond-issuance.html",
       "result": "deferred",
@@ -2389,15 +2388,6 @@
       "retry_after": "2026-11-16T01:44:32.867015+00:00"
     },
     {
-      "title": "Savings app Chip targets retail investors in private market first",
-      "source": "https://news.sky.com/story/savings-app-chip-targets-retail-investors-in-private-market-first-13612412",
-      "result": "retry deferred",
-      "stage": "source",
-      "reason": "HTTP Error 403: Forbidden",
-      "classification": "ACCESS_RESTRICTED",
-      "retry_after": "2026-11-15T23:14:43.681024+00:00"
-    },
-    {
       "title": "‘Prove you are not a robot’: how the Captcha scam captures your computer",
       "source": "https://www.theguardian.com/money/2026/nov/15/captcha-scam-computer-malicious-software",
       "result": "retry deferred",
@@ -2414,15 +2404,6 @@
       "reason": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "retry_after": "2026-11-16T03:16:52.505515+00:00"
-    },
-    {
-      "title": "Miller’s White House Ascent Rattles Mexico Trade Negotiators",
-      "source": "https://www.bloomberg.com/news/articles/2026-11-14/miller-s-white-house-ascent-rattles-mexico-trade-negotiators",
-      "result": "retry deferred",
-      "stage": "source",
-      "reason": "HTTP Error 403: Forbidden",
-      "classification": "ACCESS_RESTRICTED",
-      "retry_after": "2026-11-15T23:14:43.681024+00:00"
     },
     {
       "title": "Goldman Sachs Sees 19% Return on Asia ex-Japan Stocks in 2027",
@@ -2515,15 +2496,6 @@
       "retry_after": "2026-11-15T23:44:32.867015+00:00"
     },
     {
-      "title": "Texas’ Next AG Vows ‘Tremendous Scrutiny’ of Tesla-SpaceX Deal",
-      "source": "https://www.insurancejournal.com/news/southcentral/2026/11/13/892594.htm",
-      "result": "retry deferred",
-      "stage": "source",
-      "reason": "No UK financial connection in complete source",
-      "classification": "OUTSIDE_UK_SCOPE",
-      "retry_after": "2026-11-15T22:49:21.533665+00:00"
-    },
-    {
       "title": "Accelerant’s total revenue rises 4.2% to $278.6m in Q3’26",
       "source": "https://www.reinsurancene.ws/accelerants-total-revenue-rises-4-2-to-278-6m-in-q326/",
       "result": "retry deferred",
@@ -2551,15 +2523,6 @@
       "retry_after": "2026-11-15T23:44:32.867015+00:00"
     },
     {
-      "title": "Insurer Denied Second Injury Fund Reimbursement for Late Notice",
-      "source": "https://www.insurancejournal.com/news/east/2026/11/13/892580.htm",
-      "result": "retry deferred",
-      "stage": "source",
-      "reason": "No UK financial connection in complete source",
-      "classification": "OUTSIDE_UK_SCOPE",
-      "retry_after": "2026-11-15T22:49:21.533665+00:00"
-    },
-    {
       "title": "German Watchdog Warns Some Cooling Systems Remain Vulnerable to Hacking",
       "source": "https://www.insurancejournal.com/news/international/2026/11/13/892571.htm",
       "result": "retry deferred",
@@ -2585,15 +2548,6 @@
       "reason": "No UK financial connection in complete source",
       "classification": "OUTSIDE_UK_SCOPE",
       "retry_after": "2026-11-16T01:16:52.505515+00:00"
-    },
-    {
-      "title": "Kin delivers record Q3’26 new policy sales and 24% total revenue increase",
-      "source": "https://www.reinsurancene.ws/kin-delivers-record-q326-new-policy-sales-and-24-total-revenue-increase/",
-      "result": "retry deferred",
-      "stage": "source",
-      "reason": "No UK financial connection in complete source",
-      "classification": "OUTSIDE_UK_SCOPE",
-      "retry_after": "2026-11-15T22:49:21.533665+00:00"
     },
     {
       "title": "FCA issues alert over Swinton clone",
@@ -2650,6 +2604,15 @@
       "retry_after": "2026-11-16T02:40:40.319970+00:00"
     },
     {
+      "title": "Cowbell to Offer Standalone AI Liability Insurance for US SMEs",
+      "source": "https://www.insurancejournal.com/news/national/2026/11/13/892540.htm",
+      "result": "retry deferred",
+      "stage": "source",
+      "reason": "No UK financial connection in complete source",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "retry_after": "2026-11-16T02:13:44.005415+00:00"
+    },
+    {
       "title": "PayPal partners with Workday to enhance employee financial wellbeing",
       "source": "https://www.finextra.com/pressarticle/111667/paypal-partners-with-workday-to-enhance-employee-financial-wellbeing",
       "result": "retry deferred",
@@ -2666,6 +2629,15 @@
       "reason": "No UK financial connection in complete source",
       "classification": "OUTSIDE_UK_SCOPE",
       "retry_after": "2026-11-16T01:16:52.505515+00:00"
+    },
+    {
+      "title": "Viewpoint: The Cyber Insurance Industry’s AI Blind Spot",
+      "source": "https://www.insurancejournal.com/news/national/2026/11/13/892529.htm",
+      "result": "retry deferred",
+      "stage": "source",
+      "reason": "No UK financial connection in complete source",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "retry_after": "2026-11-16T02:13:44.005415+00:00"
     },
     {
       "title": "Nvidia’s Jensen Huang steps down, interim CEO appointed as stocks plummet",
@@ -2700,15 +2672,6 @@
       "reason": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "retry_after": "2026-11-16T03:16:52.505515+00:00"
-    },
-    {
-      "title": "AI will create more jobs than it replaces, finds Gartner research",
-      "source": "https://www.commercialriskonline.com/ai-will-create-more-jobs-than-it-replaces-finds-gartner-research/",
-      "result": "retry deferred",
-      "stage": "source",
-      "reason": "No UK financial connection in complete source",
-      "classification": "OUTSIDE_UK_SCOPE",
-      "retry_after": "2026-11-15T22:49:21.533665+00:00"
     },
     {
       "title": "Microsoft outage insured loss up to $500m but coverage restrictions will limit claims: Morningstar",
@@ -2756,22 +2719,11 @@
       "retry_after": "2026-11-16T03:16:52.505515+00:00"
     },
     {
-      "title": "People Moves: 9 – 13 November 2026",
-      "source": "https://www.insuranceage.co.uk/insight/7959161/people-moves-9-13-november-2026",
-      "result": "retry deferred",
-      "stage": "source",
-      "reason": "No UK financial connection in complete source",
-      "classification": "OUTSIDE_UK_SCOPE",
-      "retry_after": "2026-11-15T22:49:21.533665+00:00"
-    },
-    {
       "title": "Africa’s Top Pension Funds Ask for About $1 Billion in Dangote’s Refinery IPO",
       "source": "https://www.bloomberg.com/news/articles/2026-11-13/africa-s-top-pension-funds-ask-for-about-1-billion-in-dangote-s-refinery-ipo",
-      "result": "retry deferred",
+      "result": "deferred",
       "stage": "source",
-      "reason": "HTTP Error 403: Forbidden",
-      "classification": "ACCESS_RESTRICTED",
-      "retry_after": "2026-11-15T22:15:24.577450+00:00"
+      "reason": "Bounded source-read allowance; retained for next run"
     },
     {
       "title": "Revised rules persuade MAIF to launch France-based captive reinsurer",
@@ -2794,11 +2746,9 @@
     {
       "title": "China’s Credit Growth Disappoints Despite Greater Policy Support",
       "source": "https://www.bloomberg.com/news/articles/2026-11-13/china-s-credit-growth-disappoints-despite-greater-policy-support",
-      "result": "retry deferred",
+      "result": "deferred",
       "stage": "source",
-      "reason": "HTTP Error 403: Forbidden",
-      "classification": "ACCESS_RESTRICTED",
-      "retry_after": "2026-11-15T23:14:43.681024+00:00"
+      "reason": "Bounded source-read allowance; retained for next run"
     },
     {
       "title": "Generali’s 9M’26 P&C operating result rises 4.5% despite higher cat and man-made losses",
@@ -2810,6 +2760,15 @@
       "retry_after": "2026-11-16T01:16:52.505515+00:00"
     },
     {
+      "title": "Price Forbes South Africa buys Dire Wolf",
+      "source": "https://www.commercialriskonline.com/price-forbes-south-africa-buys-dire-wolf/",
+      "result": "retry deferred",
+      "stage": "source",
+      "reason": "No UK financial connection in complete source",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "retry_after": "2026-11-16T02:13:44.005415+00:00"
+    },
+    {
       "title": "(USD:ZWG) Zimbabwe Moves to Rebuild Local Bond Market After Currency Turmoil",
       "source": "https://www.bloomberg.com/news/articles/2026-11-13/-usd-zwg-zimbabwe-moves-to-rebuild-local-bond-market-after-currency-turmoil",
       "result": "retry deferred",
@@ -2817,6 +2776,15 @@
       "reason": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "retry_after": "2026-11-16T00:10:18.476200+00:00"
+    },
+    {
+      "title": "Willis Re appoints Kyung Won to senior Asia Pacific leadership role",
+      "source": "https://www.reinsurancene.ws/willis-re-appoints-kyung-won-to-senior-asia-pacific-leadership-role/",
+      "result": "retry deferred",
+      "stage": "source",
+      "reason": "No UK financial connection in complete source",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "retry_after": "2026-11-16T02:13:44.005415+00:00"
     },
     {
       "title": "Freezer Hacks ‘a Wake-Up Call for Society’ Pentagon CIO Says",
@@ -2879,6 +2847,24 @@
       "retry_after": "2026-11-16T00:40:40.319970+00:00"
     },
     {
+      "title": "China Policy Bank Bonds Suffer Selloff as Tax Worries Hit Market",
+      "source": "https://www.bloomberg.com/news/articles/2026-11-13/china-policy-bank-bonds-suffer-selloff-as-tax-worries-hit-market",
+      "result": "retry deferred",
+      "stage": "source",
+      "reason": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "retry_after": "2026-11-16T04:13:44.005415+00:00"
+    },
+    {
+      "title": "Top Pension Fund to Buy More India State Bonds on High Yields",
+      "source": "https://www.bloomberg.com/news/articles/2026-11-13/top-pension-fund-to-buy-more-india-state-bonds-on-high-yields",
+      "result": "retry deferred",
+      "stage": "source",
+      "reason": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "retry_after": "2026-11-16T04:13:44.005415+00:00"
+    },
+    {
       "title": "Japan’s Finance Minister Warns Against Rapid Yen Moves",
       "source": "https://www.wsj.com/finance/currencies/japans-finance-minister-warns-against-rapid-yen-moves-cb65cc67",
       "result": "retry deferred",
@@ -2911,15 +2897,6 @@
       "result": "deferred",
       "stage": "source",
       "reason": "Bounded source-read allowance; retained for next run"
-    },
-    {
-      "title": "Mastercard opens Singapore innovation centre of excellence",
-      "source": "https://www.finextra.com/newsarticle/48751/mastercard-opens-singapore-innovation-centre-of-excellence",
-      "result": "retry deferred",
-      "stage": "source",
-      "reason": "HTTP Error 403: Forbidden",
-      "classification": "ACCESS_RESTRICTED",
-      "retry_after": "2026-11-15T22:15:24.577450+00:00"
     },
     {
       "title": "Visa and Anchorage Digital bring Western Union stablecoin to settlement network",
@@ -2997,11 +2974,9 @@
     {
       "title": "Stronger risk management needed to achieve sustainable insurer profitability in China",
       "source": "https://www.commercialriskonline.com/stronger-risk-management-needed-to-achieve-sustainable-insurer-profitability-in-china/",
-      "result": "retry deferred",
+      "result": "deferred",
       "stage": "source",
-      "reason": "No UK financial connection in complete source",
-      "classification": "OUTSIDE_UK_SCOPE",
-      "retry_after": "2026-11-15T22:49:21.533665+00:00"
+      "reason": "Bounded source-read allowance; retained for next run"
     },
     {
       "title": "Free Virtual Risky Future Summit: Explore Emerging Threats, Technology and Risk Management Strategies",
@@ -3020,11 +2995,9 @@
     {
       "title": "Home sales hit 16-year low in October amid record-high mortgage rates",
       "source": "https://www.theguardian.com/business/2026/nov/12/home-sales-october-low",
-      "result": "retry deferred",
+      "result": "deferred",
       "stage": "source",
-      "reason": "No UK financial connection in complete source",
-      "classification": "OUTSIDE_UK_SCOPE",
-      "retry_after": "2026-11-15T22:49:21.533665+00:00"
+      "reason": "Bounded source-read allowance; retained for next run"
     },
     {
       "title": "Ohio State Suspends Frat After Video Showing Men Engulfed in Flames",
@@ -3032,15 +3005,6 @@
       "result": "deferred",
       "stage": "source",
       "reason": "Bounded source-read allowance; retained for next run"
-    },
-    {
-      "title": "Weather disaster losses account for higher share of national income in 13 countries, Munich Re finds",
-      "source": "https://www.reinsurancene.ws/weather-disaster-losses-account-for-higher-share-of-national-income-in-13-countries-munich-re-finds/",
-      "result": "retry deferred",
-      "stage": "source",
-      "reason": "No UK financial connection in complete source",
-      "classification": "OUTSIDE_UK_SCOPE",
-      "retry_after": "2026-11-15T22:49:21.533665+00:00"
     },
     {
       "title": "Kansas Woman Sentenced to Probation for Insurance Fraud",
@@ -3087,15 +3051,6 @@
       "retry_after": "2026-11-15T23:44:32.867015+00:00"
     },
     {
-      "title": "Q&A: Martyn Holman, chair of Somerset Bridge",
-      "source": "https://www.insuranceage.co.uk/insight/7959132/qa-martyn-holman-chair-of-somerset-bridge",
-      "result": "retry deferred",
-      "stage": "source",
-      "reason": "No UK financial connection in complete source",
-      "classification": "OUTSIDE_UK_SCOPE",
-      "retry_after": "2026-11-15T22:49:21.533665+00:00"
-    },
-    {
       "title": "FNZ to close offices and reduce headcount",
       "source": "https://www.finextra.com/newsarticle/48749/fnz-to-close-offices-and-reduce-headcount",
       "result": "retry deferred",
@@ -3105,13 +3060,20 @@
       "retry_after": "2026-11-16T00:49:21.533665+00:00"
     },
     {
-      "title": "Wolters Kluwer streamlines lending for community banks and credit unions",
-      "source": "https://www.finextra.com/pressarticle/111663/wolters-kluwer-streamlines-lending-for-community-banks-and-credit-unions",
+      "title": "QBE Re hires Kogan as Head of Accident & Health, North America",
+      "source": "https://www.reinsurancene.ws/qbe-re-hires-kogan-as-head-of-accident-health-north-america/",
       "result": "retry deferred",
       "stage": "source",
-      "reason": "HTTP Error 403: Forbidden",
-      "classification": "ACCESS_RESTRICTED",
-      "retry_after": "2026-11-15T23:14:43.681024+00:00"
+      "reason": "No UK financial connection in complete source",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "retry_after": "2026-11-16T02:13:44.005415+00:00"
+    },
+    {
+      "title": "Wolters Kluwer streamlines lending for community banks and credit unions",
+      "source": "https://www.finextra.com/pressarticle/111663/wolters-kluwer-streamlines-lending-for-community-banks-and-credit-unions",
+      "result": "deferred",
+      "stage": "source",
+      "reason": "Bounded source-read allowance; retained for next run"
     },
     {
       "title": "Feedzai helps banks detect AI agents accessing customer accounts",
@@ -3146,11 +3108,9 @@
     {
       "title": "Starling unveils AI-powered 'talk to transact' feature",
       "source": "https://www.finextra.com/newsarticle/48748/starling-unveils-ai-powered-talk-to-transact-feature",
-      "result": "retry deferred",
+      "result": "deferred",
       "stage": "source",
-      "reason": "HTTP Error 403: Forbidden",
-      "classification": "ACCESS_RESTRICTED",
-      "retry_after": "2026-11-15T22:15:24.577450+00:00"
+      "reason": "Bounded source-read allowance; retained for next run"
     },
     {
       "title": "SmartTrade acquires Celoxica",
@@ -3198,11 +3158,18 @@
     {
       "title": "Cat loss accumulation could test LatAm insurers’ resilience, says MS Re’s Castagnino",
       "source": "https://www.reinsurancene.ws/cat-loss-accumulation-could-test-latam-insurers-resilience-says-ms-res-castagnino/",
+      "result": "deferred",
+      "stage": "source",
+      "reason": "Bounded source-read allowance; retained for next run"
+    },
+    {
+      "title": "BaaS bank Griffin raises £20m to add cards and stablecoin capabilities",
+      "source": "https://www.finextra.com/newsarticle/48746/baas-bank-griffin-raises-20m-to-add-cards-and-stablecoin-capabilities",
       "result": "retry deferred",
       "stage": "source",
-      "reason": "No UK financial connection in complete source",
-      "classification": "OUTSIDE_UK_SCOPE",
-      "retry_after": "2026-11-15T22:49:21.533665+00:00"
+      "reason": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "retry_after": "2026-11-16T04:13:44.005415+00:00"
     },
     {
       "title": "El Niño’s Odds of Being Worst Ever Edge Lower, US Climate Prediction Center Says",
@@ -3210,6 +3177,15 @@
       "result": "deferred",
       "stage": "source",
       "reason": "Bounded source-read allowance; retained for next run"
+    },
+    {
+      "title": "Uber adds Revolut Pay option",
+      "source": "https://www.finextra.com/pressarticle/111658/uber-adds-revolut-pay-option",
+      "result": "retry deferred",
+      "stage": "source",
+      "reason": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "retry_after": "2026-11-16T04:13:44.005415+00:00"
     },
     {
       "title": "Finastra and Coefficient Markets team on corporate loan trading workflows",
@@ -3305,6 +3281,15 @@
       "result": "deferred",
       "stage": "source",
       "reason": "Bounded source-read allowance; retained for next run"
+    },
+    {
+      "title": "Ferma president rejects need for standalone AI insurance",
+      "source": "https://www.commercialriskonline.com/ferma-president-rejects-need-for-standalone-ai-insurance/",
+      "result": "retry deferred",
+      "stage": "source",
+      "reason": "No UK financial connection in complete source",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "retry_after": "2026-11-16T02:13:44.005415+00:00"
     },
     {
       "title": "Talanx 9M’26 net income hits record €2.2bn, supported by reinsurance division",
@@ -3806,11 +3791,29 @@
       "retry_after": "2026-11-16T01:16:52.505515+00:00"
     },
     {
+      "title": "Retail Crowd Dump Vietnam Stocks for Near 10% Bank-Deposit Rates",
+      "source": "https://www.bloomberg.com/news/articles/2026-11-15/retail-crowd-dump-vietnam-stocks-for-near-10-bank-deposit-rates",
+      "result": "held back",
+      "stage": "source",
+      "reason": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "retry_after": "2026-11-16T05:16:36.341025+00:00"
+    },
+    {
       "title": "Digital finance products used to abuse almost 20% of young women and girls, UK report finds",
       "source": "https://www.theguardian.com/society/2026/nov/15/digital-finance-products-abuse-against-young-women-and-girls-report",
       "result": "rejected",
       "stage": "sector",
       "reason": "No substantive insurance, banking or related financial-services story"
+    },
+    {
+      "title": "Savings app Chip targets retail investors in private market first",
+      "source": "https://news.sky.com/story/savings-app-chip-targets-retail-investors-in-private-market-first-13612412",
+      "result": "held back",
+      "stage": "source",
+      "reason": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "retry_after": "2026-11-16T05:16:36.341025+00:00"
     },
     {
       "title": "11 of the Best Financial Advisor Companies: Well-Known Fiduciary Investment Firms to Consider",
@@ -3819,7 +3822,7 @@
       "stage": "source",
       "reason": "Original document is outside the bounded UK source-date window",
       "classification": "DATE_UNVERIFIED",
-      "retry_after": "2026-11-15T22:58:44.005415+00:00"
+      "retry_after": "2026-11-16T00:01:36.341025+00:00"
     },
     {
       "title": "A rapid interest rate rise seems inevitable – and households are expected to pick up the tab",
@@ -3842,16 +3845,16 @@
       "stage": "source",
       "reason": "Original document is outside the bounded UK source-date window",
       "classification": "DATE_UNVERIFIED",
-      "retry_after": "2026-11-15T22:58:44.005415+00:00"
+      "retry_after": "2026-11-16T00:01:36.341025+00:00"
     },
     {
-      "title": "China Policy Bank Bonds Suffer Selloff as Tax Worries Hit Market",
-      "source": "https://www.bloomberg.com/news/articles/2026-11-13/china-policy-bank-bonds-suffer-selloff-as-tax-worries-hit-market",
+      "title": "Mastercard opens Singapore innovation centre of excellence",
+      "source": "https://www.finextra.com/newsarticle/48751/mastercard-opens-singapore-innovation-centre-of-excellence",
       "result": "held back",
       "stage": "source",
       "reason": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
-      "retry_after": "2026-11-16T04:13:44.005415+00:00"
+      "retry_after": "2026-11-16T05:16:36.341025+00:00"
     },
     {
       "title": "D Prime Vanuatu Limited (new)",
@@ -3861,22 +3864,22 @@
       "reason": "No substantive insurance, banking or related financial-services story"
     },
     {
-      "title": "News 13 November 2026 The Bank of England, the Monetary Authority... The Bank of England, the Monetary Authority of Singapore, and the Bank of Thailand: Project Meridian...",
-      "source": "https://www.bankofengland.co.uk/news/2026/november/the-boe-monetary-authority-of-singapore-and-bank-of-thailand-media-release",
-      "result": "held back",
-      "stage": "source",
-      "reason": "Conflicting original publication dates on source page",
-      "classification": "DATE_UNVERIFIED",
-      "retry_after": "2026-11-15T22:58:44.005415+00:00"
-    },
-    {
       "title": "UK businesses push into new markets despite global challenges",
       "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/uk-businesses-push-into-new-markets-despite-global-challenges.html",
       "result": "held back",
       "stage": "source",
       "reason": "No unambiguous original article or publisher-feed publication date",
       "classification": "DATE_UNVERIFIED",
-      "retry_after": "2026-11-15T22:58:44.005415+00:00"
+      "retry_after": "2026-11-16T00:01:36.341025+00:00"
+    },
+    {
+      "title": "News 13 November 2026 The Bank of England, the Monetary Authority... The Bank of England, the Monetary Authority of Singapore, and the Bank of Thailand: Project Meridian...",
+      "source": "https://www.bankofengland.co.uk/news/2026/november/the-boe-monetary-authority-of-singapore-and-bank-of-thailand-media-release",
+      "result": "held back",
+      "stage": "source",
+      "reason": "Conflicting original publication dates on source page",
+      "classification": "DATE_UNVERIFIED",
+      "retry_after": "2026-11-16T00:01:36.341025+00:00"
     },
     {
       "title": "7.2m Brits avoid bad luck as home insurance claims data puts superstition to the test​",
@@ -3885,7 +3888,7 @@
       "stage": "source",
       "reason": "No unambiguous original article or publisher-feed publication date",
       "classification": "DATE_UNVERIFIED",
-      "retry_after": "2026-11-15T22:58:44.005415+00:00"
+      "retry_after": "2026-11-16T00:01:36.341025+00:00"
     },
     {
       "title": "13th November 2026 ‘Talk to transact’: Starling customers can use their voice to send money",
@@ -3894,7 +3897,7 @@
       "stage": "source",
       "reason": "No unambiguous original article or publisher-feed publication date",
       "classification": "DATE_UNVERIFIED",
-      "retry_after": "2026-11-15T22:58:44.005415+00:00"
+      "retry_after": "2026-11-16T00:01:36.341025+00:00"
     },
     {
       "title": "13th November 2026 ‘Talk to transact’: Starling customers can use their voice to send money",
@@ -3903,25 +3906,32 @@
       "stage": "alternative_source",
       "reason": "No unambiguous original article or publisher-feed publication date",
       "classification": "DATE_UNVERIFIED",
-      "retry_after": "2026-11-15T22:58:44.005415+00:00"
+      "retry_after": "2026-11-16T00:01:36.341025+00:00"
     },
     {
-      "title": "BNY Investments resolves its red flags as majority of funds gain green light in 2026 AoV",
-      "source": "https://www.investmentweek.co.uk/news/4538888/bny-investments-resolves-red-flags-majority-funds-gain-green-light-2026-aov",
-      "result": "source verified",
-      "stage": "source",
-      "reason": "Complete dated source, with Domestic financial news from a UK specialist publication",
-      "source_sha256": "b8f465fed01ccdf5c570bd981b5fbef8078b7ea2f3275f940c3e15daf9235b2a",
-      "capture_method": "checkpoint"
-    },
-    {
-      "title": "BaaS bank Griffin raises £20m to add cards and stablecoin capabilities",
-      "source": "https://www.finextra.com/newsarticle/48746/baas-bank-griffin-raises-20m-to-add-cards-and-stablecoin-capabilities",
+      "title": "Starling unveils AI-powered 'talk to transact' feature",
+      "source": "https://www.finextra.com/newsarticle/48748/starling-unveils-ai-powered-talk-to-transact-feature",
       "result": "held back",
-      "stage": "source",
+      "stage": "alternative_source",
       "reason": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
-      "retry_after": "2026-11-16T04:13:44.005415+00:00"
+      "retry_after": "2026-11-16T05:16:36.341025+00:00"
+    },
+    {
+      "title": "Cut national insurance for under-25s to create jobs, Milburn report to say",
+      "source": "https://www.bbc.co.uk/news/articles/c6p9dzmj514ko",
+      "result": "source verified",
+      "stage": "source",
+      "reason": "Complete dated source, with UK financial subject established in the full source",
+      "source_sha256": "750283493a90ee913861fa0246de6cc9ee97fedae5d113ec80c23578a562fb5c",
+      "capture_method": "retrieved"
+    },
+    {
+      "title": "Texas’ Next AG Vows ‘Tremendous Scrutiny’ of Tesla-SpaceX Deal",
+      "source": "https://www.insurancejournal.com/news/southcentral/2026/11/13/892594.htm",
+      "result": "rejected",
+      "stage": "uk_market",
+      "reason": "No UK insurance or banking connection in the complete source"
     },
     {
       "title": "How more art and less science defines HNW insurance today",
@@ -3933,22 +3943,15 @@
       "capture_method": "checkpoint"
     },
     {
-      "title": "Hours-Long Microsoft Outage Disrupts Businesses, Governments Globally",
-      "source": "https://www.insurancejournal.com/news/international/2026/11/13/892553.htm",
-      "result": "rejected",
-      "stage": "sector",
-      "reason": "No substantive insurance, banking or related financial-services story"
-    },
-    {
-      "title": "Price Forbes South Africa buys Dire Wolf",
-      "source": "https://www.commercialriskonline.com/price-forbes-south-africa-buys-dire-wolf/",
+      "title": "Kin delivers record Q3’26 new policy sales and 24% total revenue increase",
+      "source": "https://www.reinsurancene.ws/kin-delivers-record-q326-new-policy-sales-and-24-total-revenue-increase/",
       "result": "rejected",
       "stage": "uk_market",
       "reason": "No UK insurance or banking connection in the complete source"
     },
     {
-      "title": "Willis Re appoints Kyung Won to senior Asia Pacific leadership role",
-      "source": "https://www.reinsurancene.ws/willis-re-appoints-kyung-won-to-senior-asia-pacific-leadership-role/",
+      "title": "AI will create more jobs than it replaces, finds Gartner research",
+      "source": "https://www.commercialriskonline.com/ai-will-create-more-jobs-than-it-replaces-finds-gartner-research/",
       "result": "rejected",
       "stage": "uk_market",
       "reason": "No UK insurance or banking connection in the complete source"
@@ -3969,7 +3972,7 @@
       "stage": "source",
       "reason": "No unambiguous original article or publisher-feed publication date",
       "classification": "DATE_UNVERIFIED",
-      "retry_after": "2026-11-15T22:58:44.005415+00:00"
+      "retry_after": "2026-11-16T00:01:36.341025+00:00"
     },
     {
       "title": "Zurich's Executive Committee takes on charities' toughest priorities in 100-hour challenge lab",
@@ -3985,7 +3988,7 @@
       "stage": "source",
       "reason": "No unambiguous original article or publisher-feed publication date",
       "classification": "DATE_UNVERIFIED",
-      "retry_after": "2026-11-15T22:58:44.005415+00:00"
+      "retry_after": "2026-11-16T00:01:36.341025+00:00"
     },
     {
       "title": "Nine in ten middle market businesses in the UK and Ireland hit by disruption while pursuing ambitious growth – Chubb Middle Market Risk Radar",
@@ -3994,34 +3997,25 @@
       "stage": "source",
       "reason": "No unambiguous original article or publisher-feed publication date",
       "classification": "DATE_UNVERIFIED",
-      "retry_after": "2026-11-15T22:58:44.005415+00:00"
+      "retry_after": "2026-11-16T00:01:36.341025+00:00"
     },
     {
-      "title": "FSCS lining up first broker levy in five years",
-      "source": "https://www.insuranceage.co.uk/insight/7959158/fscs-lining-up-first-broker-levy-in-five-years",
-      "result": "source verified",
-      "stage": "source",
-      "reason": "Complete dated source, with Domestic financial news from a UK specialist publication",
-      "source_sha256": "3f50f2b96cdee05203884bd88b8fb2d61c6d1afeed710555d41f0de1ee4643d1",
-      "capture_method": "checkpoint"
-    },
-    {
-      "title": "Cowbell to Offer Standalone AI Liability Insurance for US SMEs",
-      "source": "https://www.insurancejournal.com/news/national/2026/11/13/892540.htm",
+      "title": "Insurer Denied Second Injury Fund Reimbursement for Late Notice",
+      "source": "https://www.insurancejournal.com/news/east/2026/11/13/892580.htm",
       "result": "rejected",
       "stage": "uk_market",
       "reason": "No UK insurance or banking connection in the complete source"
     },
     {
-      "title": "Ferma president rejects need for standalone AI insurance",
-      "source": "https://www.commercialriskonline.com/ferma-president-rejects-need-for-standalone-ai-insurance/",
+      "title": "People Moves: 9 – 13 November 2026",
+      "source": "https://www.insuranceage.co.uk/insight/7959161/people-moves-9-13-november-2026",
       "result": "rejected",
       "stage": "uk_market",
       "reason": "No UK insurance or banking connection in the complete source"
     },
     {
-      "title": "QBE Re hires Kogan as Head of Accident & Health, North America",
-      "source": "https://www.reinsurancene.ws/qbe-re-hires-kogan-as-head-of-accident-health-north-america/",
+      "title": "Weather disaster losses account for higher share of national income in 13 countries, Munich Re finds",
+      "source": "https://www.reinsurancene.ws/weather-disaster-losses-account-for-higher-share-of-national-income-in-13-countries-munich-re-finds/",
       "result": "rejected",
       "stage": "uk_market",
       "reason": "No UK insurance or banking connection in the complete source"
@@ -4034,13 +4028,22 @@
       "reason": "No substantive insurance, banking or related financial-services story"
     },
     {
+      "title": "FSCS lining up first broker levy in five years",
+      "source": "https://www.insuranceage.co.uk/insight/7959158/fscs-lining-up-first-broker-levy-in-five-years",
+      "result": "source verified",
+      "stage": "source",
+      "reason": "Complete dated source, with Domestic financial news from a UK specialist publication",
+      "source_sha256": "3f50f2b96cdee05203884bd88b8fb2d61c6d1afeed710555d41f0de1ee4643d1",
+      "capture_method": "checkpoint"
+    },
+    {
       "title": "CP26/40: Exempting performance fees from the workplace pensions charge cap",
       "source": "https://www.fca.org.uk/publications/consultation-papers/cp26-40-exempting-performance-fees-workplace-pensions-charge-cap",
       "result": "held back",
       "stage": "source",
       "reason": "Several central PDFs linked; needs human source selection",
       "classification": "EVIDENCE_UNUSABLE",
-      "retry_after": "2026-11-15T23:13:44.005415+00:00"
+      "retry_after": "2026-11-16T00:16:36.341025+00:00"
     },
     {
       "title": "UK hosts global summit to combat financial crime",
@@ -4056,7 +4059,7 @@
       "stage": "source",
       "reason": "No unambiguous original article or publisher-feed publication date",
       "classification": "DATE_UNVERIFIED",
-      "retry_after": "2026-11-15T22:58:44.005415+00:00"
+      "retry_after": "2026-11-16T00:01:36.341025+00:00"
     },
     {
       "title": "UK DIY investment assets hit record £672bn as retail interest in Anthropic float builds",
@@ -4074,7 +4077,7 @@
       "stage": "source",
       "reason": "No unambiguous original article or publisher-feed publication date",
       "classification": "DATE_UNVERIFIED",
-      "retry_after": "2026-11-15T22:58:44.005415+00:00"
+      "retry_after": "2026-11-16T00:01:36.341025+00:00"
     },
     {
       "title": "FCA proposes greater pension investment flexibility to support long-term value for savers 12/11/2026",
@@ -4083,7 +4086,23 @@
       "stage": "source",
       "reason": "Original document is outside the bounded UK source-date window",
       "classification": "DATE_UNVERIFIED",
-      "retry_after": "2026-11-15T22:58:44.005415+00:00"
+      "retry_after": "2026-11-16T00:01:36.341025+00:00"
+    },
+    {
+      "title": "Q&A: Martyn Holman, chair of Somerset Bridge",
+      "source": "https://www.insuranceage.co.uk/insight/7959132/qa-martyn-holman-chair-of-somerset-bridge",
+      "result": "rejected",
+      "stage": "uk_market",
+      "reason": "No UK insurance or banking connection in the complete source"
+    },
+    {
+      "title": "BNY Investments resolves its red flags as majority of funds gain green light in 2026 AoV",
+      "source": "https://www.investmentweek.co.uk/news/4538888/bny-investments-resolves-red-flags-majority-funds-gain-green-light-2026-aov",
+      "result": "source verified",
+      "stage": "source",
+      "reason": "Complete dated source, with Domestic financial news from a UK specialist publication",
+      "source_sha256": "b8f465fed01ccdf5c570bd981b5fbef8078b7ea2f3275f940c3e15daf9235b2a",
+      "capture_method": "checkpoint"
     },
     {
       "title": "People Moves: Sackers appoints associate",
@@ -4092,7 +4111,7 @@
       "stage": "source",
       "reason": "Original document is outside the bounded UK source-date window",
       "classification": "DATE_UNVERIFIED",
-      "retry_after": "2026-11-15T22:58:44.005415+00:00"
+      "retry_after": "2026-11-16T00:01:36.341025+00:00"
     },
     {
       "title": "Healey to 'fine tune' Founders' Relief by month-end",
@@ -4104,54 +4123,20 @@
       "capture_method": "checkpoint"
     },
     {
-      "title": "What are cold weather payments and who can get them?",
-      "source": "https://www.bbc.co.uk/news/articles/c87470q4w21o",
+      "title": "Miller’s White House Ascent Rattles Mexico Trade Negotiators",
+      "source": "https://www.bloomberg.com/news/articles/2026-11-14/miller-s-white-house-ascent-rattles-mexico-trade-negotiators",
       "result": "held back",
       "stage": "source",
-      "reason": "Original document is outside the bounded UK source-date window",
-      "classification": "DATE_UNVERIFIED",
-      "retry_after": "2026-11-15T22:58:44.005415+00:00"
+      "reason": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "retry_after": "2026-11-16T05:16:36.341025+00:00"
     },
     {
-      "title": "Viewpoint: The Cyber Insurance Industry’s AI Blind Spot",
-      "source": "https://www.insurancejournal.com/news/national/2026/11/13/892529.htm",
+      "title": "Hours-Long Microsoft Outage Disrupts Businesses, Governments Globally",
+      "source": "https://www.insurancejournal.com/news/international/2026/11/13/892553.htm",
       "result": "rejected",
-      "stage": "uk_market",
-      "reason": "No UK insurance or banking connection in the complete source"
-    },
-    {
-      "title": "Top Pension Fund to Buy More India State Bonds on High Yields",
-      "source": "https://www.bloomberg.com/news/articles/2026-11-13/top-pension-fund-to-buy-more-india-state-bonds-on-high-yields",
-      "result": "held back",
-      "stage": "source",
-      "reason": "HTTP Error 403: Forbidden",
-      "classification": "ACCESS_RESTRICTED",
-      "retry_after": "2026-11-16T04:13:44.005415+00:00"
-    },
-    {
-      "title": "Lloyds appoints Manija Poulatova as Group Chief Security Officer",
-      "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds-banking-group/lloyds-appoints-manija-poulatova-group-chief-security-officer.html",
-      "result": "held back",
-      "stage": "source",
-      "reason": "No unambiguous original article or publisher-feed publication date",
-      "classification": "DATE_UNVERIFIED",
-      "retry_after": "2026-11-15T22:58:44.005415+00:00"
-    },
-    {
-      "title": "Uber adds Revolut Pay option",
-      "source": "https://www.finextra.com/pressarticle/111658/uber-adds-revolut-pay-option",
-      "result": "held back",
-      "stage": "source",
-      "reason": "HTTP Error 403: Forbidden",
-      "classification": "ACCESS_RESTRICTED",
-      "retry_after": "2026-11-16T04:13:44.005415+00:00"
-    },
-    {
-      "title": "BNY Investments resolves its red flags as majority of funds gain green light in 2026 AoV",
-      "source": "https://www.investmentweek.co.uk/news/4538888/bny-investments-resolves-red-flags-majority-funds-gain-green-light-2026-aov",
-      "result": "outside scope",
-      "stage": "eligibility",
-      "reason": "No Insurance/Banking content beyond publisher identity or recognised firm"
+      "stage": "sector",
+      "reason": "No substantive insurance, banking or related financial-services story"
     },
     {
       "title": "How more art and less science defines HNW insurance today",
@@ -4182,8 +4167,22 @@
       "reason": "No Insurance/Banking content beyond publisher identity or recognised firm"
     },
     {
+      "title": "BNY Investments resolves its red flags as majority of funds gain green light in 2026 AoV",
+      "source": "https://www.investmentweek.co.uk/news/4538888/bny-investments-resolves-red-flags-majority-funds-gain-green-light-2026-aov",
+      "result": "outside scope",
+      "stage": "eligibility",
+      "reason": "No Insurance/Banking content beyond publisher identity or recognised firm"
+    },
+    {
       "title": "Healey to 'fine tune' Founders' Relief by month-end",
       "source": "https://www.investmentweek.co.uk/news/4538839/healey-fine-tune-founders-relief-end",
+      "result": "ready to publish",
+      "stage": "writing",
+      "reason": "Source-based article complete; no independent AI review requested"
+    },
+    {
+      "title": "Cut national insurance for under-25s to create jobs, Milburn report to say",
+      "source": "https://www.bbc.co.uk/news/articles/c6p9dzmj514ko",
       "result": "ready to publish",
       "stage": "writing",
       "reason": "Source-based article complete; no independent AI review requested"
@@ -4195,13 +4194,13 @@
     "Association of British Insurers: HTTPError HTTP Error 403: Forbidden",
     "Revolut UK: HTTPError HTTP Error 403: Forbidden",
     {
-      "source": "Finextra",
-      "url": "https://www.finextra.com/rss/headlines.aspx",
+      "source": "Finextra payments",
+      "url": "https://www.finextra.com/rss/channel.aspx?channel=payments",
       "error": "HTTP Error 403: Forbidden"
     },
     {
-      "source": "Finextra payments",
-      "url": "https://www.finextra.com/rss/channel.aspx?channel=payments",
+      "source": "Finextra",
+      "url": "https://www.finextra.com/rss/headlines.aspx",
       "error": "HTTP Error 403: Forbidden"
     },
     {
@@ -4235,8 +4234,8 @@
       "error": "HTTP Error 403: Forbidden"
     },
     {
-      "source": "Finextra wealth",
-      "url": "https://www.finextra.com/rss/channel.aspx?channel=wealth",
+      "source": "Finextra payments and cards",
+      "url": "https://www.finextra.com/rss/channel.aspx?channel=cards",
       "error": "HTTP Error 403: Forbidden"
     },
     {
@@ -4245,8 +4244,8 @@
       "error": "HTTP Error 403: Forbidden"
     },
     {
-      "source": "Finextra payments and cards",
-      "url": "https://www.finextra.com/rss/channel.aspx?channel=cards",
+      "source": "Finextra wealth",
+      "url": "https://www.finextra.com/rss/channel.aspx?channel=wealth",
       "error": "HTTP Error 403: Forbidden"
     }
   ],
@@ -4288,199 +4287,13 @@
       ]
     }
   ],
-  "run_id": "43768074719",
+  "run_id": "43773900580",
   "event": "schedule",
-  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/43768074719",
+  "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/43773900580",
   "publisher_links": 0,
-  "discovery_headlines": 6,
-  "publisher_desk_checked_at": "2026-11-15T22:13:38.762659+00:00",
+  "discovery_headlines": 8,
+  "publisher_desk_checked_at": "2026-11-15T23:16:32.146276+00:00",
   "previous_verified_runs": [
-    {
-      "run_id": "43656702237",
-      "event": "schedule",
-      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/43656702237",
-      "editorial_outcome": "BLOCKED",
-      "published_this_run": 0,
-      "publisher_links": 0,
-      "discovery_headlines": 0,
-      "source_coverage_status": "PARTIAL",
-      "fresh_source_candidates": 225,
-      "verified_by_sector": {
-        "Banking": 3,
-        "Insurance": 3
-      },
-      "ai_budget": {
-        "quota_date": "2026-11-14",
-        "quota_timezone": "America/Los_Angeles",
-        "requests_this_run": 0,
-        "requests_today_including_this_run": 1,
-        "run_limit": 7,
-        "daily_limit": null,
-        "remaining_today": null,
-        "daily_limit_source": "provider",
-        "remaining_this_run": 7
-      },
-      "pipeline_metrics": {
-        "discovered_unique": 526,
-        "outside_uk_date": 48,
-        "already_published_or_retired": 105,
-        "irrelevant": 2,
-        "unsupported_route": 144,
-        "published_development": 2,
-        "fresh_relevant_candidates": 225,
-        "source_failures": 20,
-        "sources_successfully_retrieved": 0,
-        "source_checkpoints_reused": 20,
-        "outside_sector_content": 9,
-        "outside_uk_market": 7,
-        "verified_original_candidates": 6,
-        "articles_ready_to_publish": 3,
-        "drafts_recovered": 3
-      },
-      "source_fallbacks": [
-        {
-          "source": "https://www.wsj.com/buyside/personal-finance/financial-advisors/best-financial-advisors",
-          "result": "Public alternative search completed",
-          "candidates": 0
-        },
-        {
-          "source": "https://www.wsj.com/buyside/personal-finance/financial-advisors/best-financial-advisors",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.bloomberg.com/news/articles/2026-11-13/us-treasury-weighs-loan-to-help-venezuela-pay-debt-to-idb",
-          "result": "Public alternative search completed",
-          "candidates": 0
-        },
-        {
-          "source": "https://www.bloomberg.com/news/articles/2026-11-13/us-treasury-weighs-loan-to-help-venezuela-pay-debt-to-idb",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.finextra.com/pressarticle/111669/clearscore-launches-free-uk-rent-reporting-to-all-three-credit-bureaus",
-          "result": "Public alternative search completed",
-          "candidates": 0
-        },
-        {
-          "source": "https://www.finextra.com/pressarticle/111669/clearscore-launches-free-uk-rent-reporting-to-all-three-credit-bureaus",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.professionalpensions.com/news/4057232/live-blog-pensions-news-digest",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/uk-businesses-push-into-new-markets-despite-global-challenges.html",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.bankofengland.co.uk/news/2026/november/the-boe-monetary-authority-of-singapore-and-bank-of-thailand-media-release",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.lloydsbank.com/news-and-insights/2026/brits-avoid-bad-luck-as-home-insurance-claims-data.html",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.starlingbank.com/news/-talk-to-transact-starling-customers-can-use-their-voice-to-send-money/",
-          "alternatives_found": 2,
-          "result": "Alternative retrieval attempted"
-        },
-        {
-          "source": "https://www.finextra.com/pressarticle/111655/payment-options-picks-tribe-to-power-acquiring-across-apac-and-cema",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://lmalloyds.com/lma-launches-executive-programme-for-future-female-underwriting-leaders/",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.bloomberg.com/news/articles/2026-11-11/california-s-kim-says-insurance-should-fund-wildfire-safety-not-super-bowl-ads",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.aviva.com/newsroom/news-and-research-overview/news-releases/2026/11/aviva-urges-brokers-to-prepare-clients-for-winter/",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://news.uk.chubb.com/news-releases?item=122867",
-          "alternatives_found": 2,
-          "result": "Alternative retrieval attempted"
-        },
-        {
-          "source": "https://www.fca.org.uk/publications/consultation-papers/cp26-40-exempting-performance-fees-workplace-pensions-charge-cap",
-          "alternatives_found": 1,
-          "result": "Alternative retrieval attempted"
-        },
-        {
-          "source": "https://www.ukfinance.org.uk/news-and-insight/press-release/uk-finance-mortgage-arrears-and-possessions-q3-2026",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/ai-tool-to-recover-trading-days-uk-exporters.html",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.fca.org.uk/news/press-releases/fca-proposes-greater-pension-investment-flexibility-support-long-term-value-savers",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.professionalpensions.com/news/4045103/people-moves",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://news.sky.com/story/warburg-pincus-eyes-takeover-of-small-business-lender-iwoca-13611448",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        },
-        {
-          "source": "https://www.bbc.co.uk/news/articles/c87470q4w21o",
-          "alternatives_found": 0,
-          "result": "No matching alternative in checked sources"
-        }
-      ],
-      "publication_policy": "newsroom-single-pass-2026-10-26-v1",
-      "independent_review": false,
-      "articles_ready_to_publish": 3,
-      "articles_visible_this_run": 0,
-      "live_article_ids": [],
-      "commissioned_stories": [],
-      "checked_at": "2026-11-15T00:09:44.145283+00:00",
-      "technical_status": "LIVE_VERIFIED",
-      "deployment": "success",
-      "live_check": "success",
-      "browser_check": "skipped",
-      "candidate_outcome_counts": {
-        "eligibility:excluded": 297,
-        "eligibility:rejected": 2,
-        "eligibility:duplicate": 2,
-        "source:deferred": 110,
-        "source:retry deferred": 75,
-        "source:held back": 20,
-        "sector:rejected": 7,
-        "alternative_source:held back": 1,
-        "source:source verified": 6,
-        "uk_market:rejected": 7,
-        "eligibility:outside scope": 2,
-        "writing:ready to publish": 3,
-        "writing:technical failure retained": 1
-      }
-    },
     {
       "run_id": "43661500263",
       "event": "schedule",
@@ -8665,6 +8478,192 @@
         "writing:ready to publish": 3,
         "writing:technical failure retained": 1
       }
+    },
+    {
+      "run_id": "43768074719",
+      "event": "schedule",
+      "run_url": "https://github.com/yogeshkaransharma-code/the-brief-financial-news/actions/runs/43768074719",
+      "editorial_outcome": "BLOCKED",
+      "published_this_run": 0,
+      "publisher_links": 0,
+      "discovery_headlines": 6,
+      "source_coverage_status": "PARTIAL",
+      "fresh_source_candidates": 225,
+      "verified_by_sector": {
+        "Banking": 3,
+        "Insurance": 3
+      },
+      "ai_budget": {
+        "quota_date": "2026-11-15",
+        "quota_timezone": "America/Los_Angeles",
+        "requests_this_run": 0,
+        "requests_today_including_this_run": 0,
+        "run_limit": 7,
+        "daily_limit": null,
+        "remaining_today": null,
+        "daily_limit_source": "provider",
+        "remaining_this_run": 7
+      },
+      "pipeline_metrics": {
+        "discovered_unique": 526,
+        "outside_uk_date": 48,
+        "already_published_or_retired": 104,
+        "irrelevant": 2,
+        "unsupported_route": 145,
+        "published_development": 2,
+        "fresh_relevant_candidates": 225,
+        "sources_successfully_retrieved": 0,
+        "source_checkpoints_reused": 20,
+        "outside_sector_content": 10,
+        "source_failures": 20,
+        "outside_uk_market": 6,
+        "verified_original_candidates": 6,
+        "articles_ready_to_publish": 3,
+        "drafts_recovered": 3
+      },
+      "source_fallbacks": [
+        {
+          "source": "https://www.wsj.com/buyside/personal-finance/financial-advisors/best-financial-advisors",
+          "result": "Public alternative search completed",
+          "candidates": 0
+        },
+        {
+          "source": "https://www.wsj.com/buyside/personal-finance/financial-advisors/best-financial-advisors",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.professionalpensions.com/news/4057232/live-blog-pensions-news-digest",
+          "result": "Public alternative search completed",
+          "candidates": 0
+        },
+        {
+          "source": "https://www.professionalpensions.com/news/4057232/live-blog-pensions-news-digest",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.bloomberg.com/news/articles/2026-11-13/china-policy-bank-bonds-suffer-selloff-as-tax-worries-hit-market",
+          "result": "Public alternative search completed",
+          "candidates": 0
+        },
+        {
+          "source": "https://www.bloomberg.com/news/articles/2026-11-13/china-policy-bank-bonds-suffer-selloff-as-tax-worries-hit-market",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.bankofengland.co.uk/news/2026/november/the-boe-monetary-authority-of-singapore-and-bank-of-thailand-media-release",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/uk-businesses-push-into-new-markets-despite-global-challenges.html",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.lloydsbank.com/news-and-insights/2026/brits-avoid-bad-luck-as-home-insurance-claims-data.html",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.starlingbank.com/news/-talk-to-transact-starling-customers-can-use-their-voice-to-send-money/",
+          "alternatives_found": 2,
+          "result": "Alternative retrieval attempted"
+        },
+        {
+          "source": "https://www.finextra.com/newsarticle/48746/baas-bank-griffin-raises-20m-to-add-cards-and-stablecoin-capabilities",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://lmalloyds.com/lma-launches-executive-programme-for-future-female-underwriting-leaders/",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.aviva.com/newsroom/news-and-research-overview/news-releases/2026/11/aviva-urges-brokers-to-prepare-clients-for-winter/",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://news.uk.chubb.com/news-releases?item=122867",
+          "alternatives_found": 2,
+          "result": "Alternative retrieval attempted"
+        },
+        {
+          "source": "https://www.fca.org.uk/publications/consultation-papers/cp26-40-exempting-performance-fees-workplace-pensions-charge-cap",
+          "alternatives_found": 1,
+          "result": "Alternative retrieval attempted"
+        },
+        {
+          "source": "https://www.ukfinance.org.uk/news-and-insight/press-release/uk-finance-mortgage-arrears-and-possessions-q3-2026",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/ai-tool-to-recover-trading-days-uk-exporters.html",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.fca.org.uk/news/press-releases/fca-proposes-greater-pension-investment-flexibility-support-long-term-value-savers",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.professionalpensions.com/news/4045103/people-moves",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.bbc.co.uk/news/articles/c87470q4w21o",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.bloomberg.com/news/articles/2026-11-13/top-pension-fund-to-buy-more-india-state-bonds-on-high-yields",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        },
+        {
+          "source": "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds-banking-group/lloyds-appoints-manija-poulatova-group-chief-security-officer.html",
+          "alternatives_found": 1,
+          "result": "Alternative retrieval attempted"
+        },
+        {
+          "source": "https://www.finextra.com/pressarticle/111658/uber-adds-revolut-pay-option",
+          "alternatives_found": 0,
+          "result": "No matching alternative in checked sources"
+        }
+      ],
+      "publication_policy": "newsroom-single-pass-2026-10-26-v1",
+      "independent_review": false,
+      "articles_ready_to_publish": 3,
+      "articles_visible_this_run": 0,
+      "live_article_ids": [],
+      "commissioned_stories": [],
+      "checked_at": "2026-11-15T22:14:30.069184+00:00",
+      "technical_status": "LIVE_VERIFIED",
+      "deployment": "success",
+      "live_check": "success",
+      "browser_check": "skipped",
+      "candidate_outcome_counts": {
+        "eligibility:excluded": 297,
+        "eligibility:rejected": 2,
+        "eligibility:duplicate": 2,
+        "source:deferred": 100,
+        "source:retry deferred": 85,
+        "sector:rejected": 8,
+        "source:held back": 20,
+        "alternative_source:held back": 1,
+        "source:source verified": 6,
+        "uk_market:rejected": 6,
+        "eligibility:outside scope": 2,
+        "writing:ready to publish": 3,
+        "writing:technical failure retained": 1
+      }
     }
   ],
   "launch_acceptance": {
@@ -8691,7 +8690,5 @@
   "launch_diagnostic_allowance": {
     "limit": 2,
     "requests": 2
-  },
-  "articles_visible_this_run": 0,
-  "live_article_ids": []
+  }
 }
