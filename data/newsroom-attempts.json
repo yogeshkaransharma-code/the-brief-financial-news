@@ -2,29 +2,10 @@
   "api_budget": {
     "date": "2026-11-15",
     "timezone": "America/Los_Angeles",
-    "requests": 1,
+    "requests": 2,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-11-10T10:30:06.242693+00:00",
-      "result": "response_received",
-      "prompt_characters": 21818,
-      "purpose": "single_pass_writing",
-      "usage": {
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 4353,
-        "candidatesTokenCount": 982,
-        "totalTokenCount": 5335,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 4353
-          }
-        ],
-        "serviceTier": "standard"
-      }
-    },
     {
       "at": "2026-11-10T10:30:21.255802+00:00",
       "result": "response_received",
@@ -1545,6 +1526,13 @@
         ],
         "serviceTier": "standard"
       }
+    },
+    {
+      "at": "2026-11-16T04:13:20.251500+00:00",
+      "result": "failed",
+      "prompt_characters": 24567,
+      "purpose": "single_pass_writing",
+      "error_type": "GeminiAPIError"
     }
   ],
   "capacity_recovery_revision": 2,
@@ -8706,18 +8694,18 @@
       "headline": "Microsoft email, Teams goes out globally puts cloud concentration risk back on brokers' radar"
     },
     "https://www.marketwatch.com/story/bond-yields-just-saw-their-biggest-surge-since-2022-as-expectations-grow-for-more-fed-rate-hikes-d0a4f195": {
-      "attempted_at": "2026-11-15T02:06:29.976275+00:00",
-      "retry_after": "2026-11-16T03:06:29.976275+00:00",
+      "attempted_at": "2026-11-16T04:13:06.882904+00:00",
+      "retry_after": "2026-11-17T05:13:06.882904+00:00",
       "headline": "Bond yields just saw their biggest surge since 2022 as expectations grow for more Fed rate hikes"
     },
     "https://www.bloomberg.com/news/articles/2026-11-12/australia-s-biggest-pension-fund-mulls-chinese-ai-as-costs-spike": {
-      "attempted_at": "2026-11-15T02:06:29.976275+00:00",
-      "retry_after": "2026-11-16T03:06:29.976275+00:00",
+      "attempted_at": "2026-11-16T04:13:06.882904+00:00",
+      "retry_after": "2026-11-17T05:13:06.882904+00:00",
       "headline": "Australia’s Biggest Pension Fund Mulls Chinese AI as Costs Spike"
     },
     "https://www.bloomberg.com/news/articles/2026-11-12/peru-raises-interest-rates-for-first-time-in-nearly-four-years": {
-      "attempted_at": "2026-11-15T02:06:29.976275+00:00",
-      "retry_after": "2026-11-16T03:06:29.976275+00:00",
+      "attempted_at": "2026-11-16T04:13:06.882904+00:00",
+      "retry_after": "2026-11-17T05:13:06.882904+00:00",
       "headline": "Peru Lifts Interest Rate for First Time in Nearly Four Years"
     },
     "https://www.wsj.com/finance/ai-bots-are-using-credit-cards-banks-are-racing-to-keep-up-c30dda30": {
@@ -9031,8 +9019,8 @@
       "headline": "Investing in Financial Security: Masters in Business with Salim Ramji"
     },
     "https://www.bloomberg.com/news/articles/2026-11-13/troubled-sherritt-misses-payment-as-liquidity-crisis-deepens": {
-      "attempted_at": "2026-11-15T02:06:29.976275+00:00",
-      "retry_after": "2026-11-16T03:06:29.976275+00:00",
+      "attempted_at": "2026-11-16T04:13:06.882904+00:00",
+      "retry_after": "2026-11-17T05:13:06.882904+00:00",
       "headline": "Troubled Sherritt Misses Payment as Liquidity Crisis Deepens"
     },
     "https://www.bbc.co.uk/news/articles/c6702j7e48eno": {
@@ -9104,12 +9092,27 @@
       "attempted_at": "2026-11-16T02:00:33.449552+00:00",
       "retry_after": "2026-11-17T03:00:33.449552+00:00",
       "headline": "HKEX Launches First Dim Sum Bond Index to Boost Yuan Debt Market"
+    },
+    "https://www.insurancebusinessmag.com/uk/news/breaking-news/insurers-urged-to-reward-resilience-as-cop31-puts-insurability-centre-stage-597418.aspx": {
+      "attempted_at": "2026-11-16T04:13:06.882904+00:00",
+      "retry_after": "2026-11-17T05:13:06.882904+00:00",
+      "headline": "Insurers urged to reward resilience as COP31 puts insurability centre stage"
+    },
+    "https://www.insurancebusinessmag.com/uk/news/technology/ai-will-reshape-insurance-roles-not-replace-people-hr-leaders-say-597416.aspx": {
+      "attempted_at": "2026-11-16T04:13:06.882904+00:00",
+      "retry_after": "2026-11-17T05:13:06.882904+00:00",
+      "headline": "AI will reshape insurance roles, not replace people, HR leaders say"
+    },
+    "https://www.wsj.com/finance/-63dc4bbf": {
+      "attempted_at": "2026-11-16T04:13:06.882904+00:00",
+      "retry_after": "2026-11-17T05:13:06.882904+00:00",
+      "headline": "Path for Asian Bonds, Currencies More Bullish in 2027, Goldman Sachs Says"
     }
   },
   "sources": {
     "https://www.professionalpensions.com/news/4057232/live-blog-pensions-news-digest": {
-      "attempted_at": "2026-11-16T02:56:43.964229+00:00",
-      "retry_after": "2026-11-16T03:41:43.964229+00:00",
+      "attempted_at": "2026-11-16T04:13:06.882904+00:00",
+      "retry_after": "2026-11-16T04:58:06.882904+00:00",
       "last_result": "Original document is outside the bounded UK source-date window",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -9127,8 +9130,8 @@
       "alternative_search_after": "2026-11-16T06:56:43.964229+00:00"
     },
     "https://www.professionalpensions.com/news/4045103/people-moves": {
-      "attempted_at": "2026-11-16T02:56:43.964229+00:00",
-      "retry_after": "2026-11-16T03:41:43.964229+00:00",
+      "attempted_at": "2026-11-16T04:13:06.882904+00:00",
+      "retry_after": "2026-11-16T04:58:06.882904+00:00",
       "last_result": "Original document is outside the bounded UK source-date window",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -9753,16 +9756,6 @@
       "stage": "source",
       "failures": 8,
       "policy": "newsroom-recovery-2026-10-26-v1"
-    },
-    "https://www.bloomberg.com/news/articles/2026-11-06/argentina-bonds-slide-toward-distress-as-vote-fears-come-early": {
-      "attempted_at": "2026-11-09T03:24:29.096110+00:00",
-      "retry_after": "2026-11-09T09:24:29.096110+00:00",
-      "last_result": "HTTP Error 403: Forbidden",
-      "classification": "ACCESS_RESTRICTED",
-      "stage": "source",
-      "failures": 8,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-11-09T07:24:29.096110+00:00"
     },
     "https://www.bbc.co.uk/news/articles/cqrkyyj6rx7ro": {
       "attempted_at": "2026-11-10T20:54:39.682545+00:00",
@@ -12192,8 +12185,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.ukfinance.org.uk/news-and-insight/press-release/uk-finance-mortgage-arrears-and-possessions-q3-2026": {
-      "attempted_at": "2026-11-16T02:56:43.964229+00:00",
-      "retry_after": "2026-11-16T03:41:43.964229+00:00",
+      "attempted_at": "2026-11-16T04:13:06.882904+00:00",
+      "retry_after": "2026-11-16T04:58:06.882904+00:00",
       "last_result": "No unambiguous original article or publisher-feed publication date",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -12208,8 +12201,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://lmalloyds.com/lma-launches-executive-programme-for-future-female-underwriting-leaders/": {
-      "attempted_at": "2026-11-16T02:56:43.964229+00:00",
-      "retry_after": "2026-11-16T03:41:43.964229+00:00",
+      "attempted_at": "2026-11-16T04:13:06.882904+00:00",
+      "retry_after": "2026-11-16T04:58:06.882904+00:00",
       "last_result": "No unambiguous original article or publisher-feed publication date",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -12245,8 +12238,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.fca.org.uk/publications/consultation-papers/cp26-40-exempting-performance-fees-workplace-pensions-charge-cap": {
-      "attempted_at": "2026-11-16T02:56:43.964229+00:00",
-      "retry_after": "2026-11-16T03:56:43.964229+00:00",
+      "attempted_at": "2026-11-16T04:13:06.882904+00:00",
+      "retry_after": "2026-11-16T05:13:06.882904+00:00",
       "last_result": "Several central PDFs linked; needs human source selection",
       "classification": "EVIDENCE_UNUSABLE",
       "stage": "source",
@@ -12254,8 +12247,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.fca.org.uk/news/press-releases/fca-proposes-greater-pension-investment-flexibility-support-long-term-value-savers": {
-      "attempted_at": "2026-11-16T02:56:43.964229+00:00",
-      "retry_after": "2026-11-16T03:41:43.964229+00:00",
+      "attempted_at": "2026-11-16T04:13:06.882904+00:00",
+      "retry_after": "2026-11-16T04:58:06.882904+00:00",
       "last_result": "Original document is outside the bounded UK source-date window",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -12286,8 +12279,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.bloomberg.com/news/articles/2026-11-12/barclays-lafargue-says-nvidia-turmoil-doesn-t-derail-ai-trade": {
-      "attempted_at": "2026-11-15T21:16:52.505515+00:00",
-      "retry_after": "2026-11-16T03:16:52.505515+00:00",
+      "attempted_at": "2026-11-16T04:13:06.882904+00:00",
+      "retry_after": "2026-11-16T10:13:06.882904+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
@@ -12629,8 +12622,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.reinsurancene.ws/weather-disaster-losses-account-for-higher-share-of-national-income-in-13-countries-munich-re-finds/": {
-      "attempted_at": "2026-11-15T23:16:36.341025+00:00",
-      "retry_after": "2026-11-16T03:16:36.341025+00:00",
+      "attempted_at": "2026-11-16T04:13:06.882904+00:00",
+      "retry_after": "2026-11-16T08:13:06.882904+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -12643,8 +12636,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insuranceage.co.uk/insight/7959132/qa-martyn-holman-chair-of-somerset-bridge": {
-      "attempted_at": "2026-11-15T23:16:36.341025+00:00",
-      "retry_after": "2026-11-16T03:16:36.341025+00:00",
+      "attempted_at": "2026-11-16T04:13:06.882904+00:00",
+      "retry_after": "2026-11-16T08:13:06.882904+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -12778,8 +12771,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.wsj.com/finance/another-winner-from-the-midterms-crusaders-against-insurance-companies-36adf244": {
-      "attempted_at": "2026-11-15T21:16:52.505515+00:00",
-      "retry_after": "2026-11-16T03:16:52.505515+00:00",
+      "attempted_at": "2026-11-16T04:13:06.882904+00:00",
+      "retry_after": "2026-11-16T10:13:06.882904+00:00",
       "last_result": "HTTP Error 401: HTTP Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
@@ -12935,8 +12928,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-11-13/india-equity-surge-brightens-outlook-for-exchanges-brokerages": {
-      "attempted_at": "2026-11-15T21:16:52.505515+00:00",
-      "retry_after": "2026-11-16T03:16:52.505515+00:00",
+      "attempted_at": "2026-11-16T04:13:06.882904+00:00",
+      "retry_after": "2026-11-16T10:13:06.882904+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
@@ -13046,8 +13039,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bankofengland.co.uk/news/2026/november/the-boe-monetary-authority-of-singapore-and-bank-of-thailand-media-release": {
-      "attempted_at": "2026-11-16T02:56:43.964229+00:00",
-      "retry_after": "2026-11-16T03:41:43.964229+00:00",
+      "attempted_at": "2026-11-16T04:13:06.882904+00:00",
+      "retry_after": "2026-11-16T04:58:06.882904+00:00",
       "last_result": "Conflicting original publication dates on source page",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -13055,8 +13048,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.lloydsbankinggroup.com/media/press-releases/2026/lloyds/uk-businesses-push-into-new-markets-despite-global-challenges.html": {
-      "attempted_at": "2026-11-16T02:56:43.964229+00:00",
-      "retry_after": "2026-11-16T03:41:43.964229+00:00",
+      "attempted_at": "2026-11-16T04:13:06.882904+00:00",
+      "retry_after": "2026-11-16T04:58:06.882904+00:00",
       "last_result": "No unambiguous original article or publisher-feed publication date",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -13099,8 +13092,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.finextra.com/pressarticle/111666/deloitte-acquires-flipside-cryptos-ai-business-and-launches-edisyl": {
-      "attempted_at": "2026-11-15T21:16:52.505515+00:00",
-      "retry_after": "2026-11-16T03:16:52.505515+00:00",
+      "attempted_at": "2026-11-16T04:13:06.882904+00:00",
+      "retry_after": "2026-11-16T10:13:06.882904+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
@@ -13108,8 +13101,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.finextra.com/pressarticle/111665/wirex-launches-navoka-an-ai-agent-that-pays-from-its-own-bank-account-and-card": {
-      "attempted_at": "2026-11-15T21:16:52.505515+00:00",
-      "retry_after": "2026-11-16T03:16:52.505515+00:00",
+      "attempted_at": "2026-11-16T04:13:06.882904+00:00",
+      "retry_after": "2026-11-16T10:13:06.882904+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
@@ -13135,8 +13128,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.commercialriskonline.com/ai-will-create-more-jobs-than-it-replaces-finds-gartner-research/": {
-      "attempted_at": "2026-11-15T23:16:36.341025+00:00",
-      "retry_after": "2026-11-16T03:16:36.341025+00:00",
+      "attempted_at": "2026-11-16T04:13:06.882904+00:00",
+      "retry_after": "2026-11-16T08:13:06.882904+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -13149,8 +13142,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insuranceage.co.uk/insight/7959161/people-moves-9-13-november-2026": {
-      "attempted_at": "2026-11-15T23:16:36.341025+00:00",
-      "retry_after": "2026-11-16T03:16:36.341025+00:00",
+      "attempted_at": "2026-11-16T04:13:06.882904+00:00",
+      "retry_after": "2026-11-16T08:13:06.882904+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -13204,8 +13197,8 @@
       "alternative_search_after": "2026-11-16T05:33:28.043958+00:00"
     },
     "https://www.bloomberg.com/news/articles/2026-11-13/new-city-of-london-lord-mayor-seeks-to-get-trillions-of-uk-pensions-invested": {
-      "attempted_at": "2026-11-15T21:16:52.505515+00:00",
-      "retry_after": "2026-11-16T03:16:52.505515+00:00",
+      "attempted_at": "2026-11-16T04:13:06.882904+00:00",
+      "retry_after": "2026-11-16T10:13:06.882904+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
@@ -13220,14 +13213,13 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.finextra.com/pressarticle/111667/paypal-partners-with-workday-to-enhance-employee-financial-wellbeing": {
-      "attempted_at": "2026-11-15T21:16:52.505515+00:00",
-      "retry_after": "2026-11-16T03:16:52.505515+00:00",
+      "attempted_at": "2026-11-16T04:13:06.882904+00:00",
+      "retry_after": "2026-11-16T10:13:06.882904+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
       "failures": 8,
-      "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-11-16T01:16:52.505515+00:00"
+      "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-11-13/treasury-yield-surge-shatters-hopes-worst-of-bond-rout-is-over": {
       "attempted_at": "2026-11-16T03:06:17.804738+00:00",
@@ -13319,8 +13311,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.reinsurancene.ws/kin-delivers-record-q326-new-policy-sales-and-24-total-revenue-increase/": {
-      "attempted_at": "2026-11-15T23:16:36.341025+00:00",
-      "retry_after": "2026-11-16T03:16:36.341025+00:00",
+      "attempted_at": "2026-11-16T04:13:06.882904+00:00",
+      "retry_after": "2026-11-16T08:13:06.882904+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -13372,14 +13364,14 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.finextra.com/newsarticle/48759/openai-launches-chatgpt-wallet": {
-      "attempted_at": "2026-11-15T21:16:52.505515+00:00",
-      "retry_after": "2026-11-16T03:16:52.505515+00:00",
+      "attempted_at": "2026-11-16T04:13:06.882904+00:00",
+      "retry_after": "2026-11-16T10:13:06.882904+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
       "failures": 8,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-11-16T01:16:52.505515+00:00"
+      "alternative_search_after": "2026-11-16T08:13:06.882904+00:00"
     },
     "https://www.insurancejournal.com/news/southeast/2026/11/13/892599.htm": {
       "attempted_at": "2026-11-16T01:33:28.043958+00:00",
@@ -13396,8 +13388,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.insurancejournal.com/news/southcentral/2026/11/13/892594.htm": {
-      "attempted_at": "2026-11-15T23:16:36.341025+00:00",
-      "retry_after": "2026-11-16T03:16:36.341025+00:00",
+      "attempted_at": "2026-11-16T04:13:06.882904+00:00",
+      "retry_after": "2026-11-16T08:13:06.882904+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -13410,8 +13402,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.bloomberg.com/news/articles/2026-11-13/barclays-trading-desk-turns-bullish-for-first-time-since-march": {
-      "attempted_at": "2026-11-15T21:16:52.505515+00:00",
-      "retry_after": "2026-11-16T03:16:52.505515+00:00",
+      "attempted_at": "2026-11-16T04:13:06.882904+00:00",
+      "retry_after": "2026-11-16T10:13:06.882904+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
@@ -13470,14 +13462,14 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bloomberg.com/news/articles/2026-11-14/juicy-6-yields-gain-appeal-after-nvidia-drama-credit-weekly": {
-      "attempted_at": "2026-11-15T21:16:52.505515+00:00",
-      "retry_after": "2026-11-16T03:16:52.505515+00:00",
+      "attempted_at": "2026-11-16T04:13:06.882904+00:00",
+      "retry_after": "2026-11-16T10:13:06.882904+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 5,
+      "failures": 6,
       "policy": "newsroom-recovery-2026-10-26-v1",
-      "alternative_search_after": "2026-11-16T01:16:52.505515+00:00"
+      "alternative_search_after": "2026-11-16T08:13:06.882904+00:00"
     },
     "https://www.theguardian.com/money/2026/nov/15/captcha-scam-computer-malicious-software": {
       "attempted_at": "2026-11-16T01:33:28.043958+00:00",
@@ -13551,6 +13543,43 @@
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1",
       "alternative_search_after": "2026-11-16T06:00:33.449552+00:00"
+    },
+    "https://www.wsj.com/finance/-63dc4bbf": {
+      "attempted_at": "2026-11-16T04:13:06.882904+00:00",
+      "retry_after": "2026-11-16T10:13:06.882904+00:00",
+      "last_result": "HTTP Error 401: HTTP Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-11-16T08:13:06.882904+00:00"
+    },
+    "https://www.insurancebusinessmag.com/uk/news/breaking-news/insurers-urged-to-reward-resilience-as-cop31-puts-insurability-centre-stage-597418.aspx": {
+      "attempted_at": "2026-11-16T04:13:06.882904+00:00",
+      "retry_after": "2026-11-16T04:28:06.882904+00:00",
+      "last_result": "Gemini API HTTP 503: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+      "classification": "TEMPORARY_FAILURE",
+      "stage": "writing",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.insurancebusinessmag.com/uk/news/breaking-news/generali-absorbs-1-1-billion-extra-cat-losses-as-pandc-premiums-rise-6-3-597417.aspx": {
+      "attempted_at": "2026-11-16T04:13:06.882904+00:00",
+      "retry_after": "2026-11-16T04:28:06.882904+00:00",
+      "last_result": "Gemini API HTTP 503: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+      "classification": "TEMPORARY_FAILURE",
+      "stage": "writing",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.insurancebusinessmag.com/uk/news/technology/ai-will-reshape-insurance-roles-not-replace-people-hr-leaders-say-597416.aspx": {
+      "attempted_at": "2026-11-16T04:13:06.882904+00:00",
+      "retry_after": "2026-11-16T04:28:06.882904+00:00",
+      "last_result": "Gemini API HTTP 503: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+      "classification": "TEMPORARY_FAILURE",
+      "stage": "writing",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
     }
   },
   "version": 2,
