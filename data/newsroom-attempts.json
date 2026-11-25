@@ -2,29 +2,10 @@
   "api_budget": {
     "date": "2026-11-25",
     "timezone": "America/Los_Angeles",
-    "requests": 2,
+    "requests": 3,
     "limit": null
   },
   "api_calls": [
-    {
-      "at": "2026-11-18T05:01:06.812514+00:00",
-      "result": "response_received",
-      "prompt_characters": 13750,
-      "purpose": "single_pass_writing",
-      "usage": {
-        "model": "gemini-3.5-flash-lite",
-        "promptTokenCount": 2609,
-        "candidatesTokenCount": 416,
-        "totalTokenCount": 3025,
-        "promptTokensDetails": [
-          {
-            "modality": "TEXT",
-            "tokenCount": 2609
-          }
-        ],
-        "serviceTier": "standard"
-      }
-    },
     {
       "at": "2026-11-18T07:17:01.389341+00:00",
       "result": "response_received",
@@ -1634,6 +1615,13 @@
       "at": "2026-11-25T14:22:15.828601+00:00",
       "result": "failed",
       "prompt_characters": 27144,
+      "purpose": "single_pass_writing",
+      "error_type": "GeminiAPIError"
+    },
+    {
+      "at": "2026-11-25T15:59:59.741753+00:00",
+      "result": "failed",
+      "prompt_characters": 19160,
       "purpose": "single_pass_writing",
       "error_type": "GeminiAPIError"
     }
@@ -11572,8 +11560,8 @@
       "headline": "The Morning Briefing: £927bn wealth transfer exposes Britain’s will gap; Curo cuts adviser rekeying"
     },
     "https://www.insurancebusinessmag.com/uk/news/breaking-news/clear-group-adds-london-hnw-and-real-estate-broker-alexander-miller-598534.aspx": {
-      "attempted_at": "2026-11-24T12:22:01.047598+00:00",
-      "retry_after": "2026-11-25T13:22:01.047598+00:00",
+      "attempted_at": "2026-11-25T15:59:39.910524+00:00",
+      "retry_after": "2026-11-26T16:59:39.910524+00:00",
       "headline": "Clear Group adds London HNW and real estate broker Alexander Miller"
     },
     "https://www.reinsurancene.ws/reinsurance-news-nyc-legacy-market-roundtable-2026/": {
@@ -11755,12 +11743,67 @@
       "attempted_at": "2026-11-25T14:21:32.170091+00:00",
       "retry_after": "2026-11-26T15:21:32.170091+00:00",
       "headline": "Budget Special Report, Part 4: Should I give my children their inheritance now?"
+    },
+    "https://www.insurancejournal.com/news/international/2026/11/25/893757.htm": {
+      "attempted_at": "2026-11-25T15:59:39.910524+00:00",
+      "retry_after": "2026-11-26T16:59:39.910524+00:00",
+      "headline": "UK Financial Watchdog Delivers AI Warning as Meta Launches Adapted Muse"
+    },
+    "https://www.insurancejournal.com/news/international/2026/11/25/893769.htm": {
+      "attempted_at": "2026-11-25T15:59:39.910524+00:00",
+      "retry_after": "2026-11-26T16:59:39.910524+00:00",
+      "headline": "Australian Regulator Finds More Suspected Audit Misconduct at Big Four Firms"
+    },
+    "https://www.reinsurancene.ws/cedar-trace-receives-lloyds-permission-to-underwrite-for-syndicate-1503/": {
+      "attempted_at": "2026-11-25T15:59:39.910524+00:00",
+      "retry_after": "2026-11-26T16:59:39.910524+00:00",
+      "headline": "Cedar Trace receives Lloyd’s Permission to Underwrite for Syndicate 1503"
+    },
+    "https://www.insurancejournal.com/news/international/2026/11/25/893748.htm": {
+      "attempted_at": "2026-11-25T15:59:39.910524+00:00",
+      "retry_after": "2026-11-26T16:59:39.910524+00:00",
+      "headline": "Qatar LNG Exports Hit Busiest Month Since Start of Iran War, Despite Insurance Costs"
+    },
+    "https://www.reinsurancene.ws/ai-set-to-reshape-insurance-jobs-skills-and-workforce-strategies-oxbow-partners-and-lmg-reports/": {
+      "attempted_at": "2026-11-25T15:59:39.910524+00:00",
+      "retry_after": "2026-11-26T16:59:39.910524+00:00",
+      "headline": "AI set to reshape insurance jobs, skills and workforce strategies, Oxbow Partners and LMG reports"
+    },
+    "https://www.reinsurancene.ws/increasing-complexity-strengthens-reinsurance-relevance-and-creates-opportunities-hannover-re-ceo/": {
+      "attempted_at": "2026-11-25T15:59:39.910524+00:00",
+      "retry_after": "2026-11-26T16:59:39.910524+00:00",
+      "headline": "Increasing complexity strengthens reinsurance relevance and creates opportunities: Hannover Re CEO"
+    },
+    "https://www.commercialriskonline.com/resilient-caribbean-insurance-market-sees-strong-profitability-says-best/": {
+      "attempted_at": "2026-11-25T15:59:39.910524+00:00",
+      "retry_after": "2026-11-26T16:59:39.910524+00:00",
+      "headline": "Resilient Caribbean insurance market sees strong profitability, says Best"
+    },
+    "https://www.commercialriskonline.com/six-emerging-risks-face-buyers-and-insurers-in-2027/": {
+      "attempted_at": "2026-11-25T15:59:39.910524+00:00",
+      "retry_after": "2026-11-26T16:59:39.910524+00:00",
+      "headline": "Six emerging risks face buyers and insurers in 2027"
+    },
+    "https://www.reinsurancene.ws/matmut-group-to-launch-reinsurance-subsidiary-matmut-re/": {
+      "attempted_at": "2026-11-25T15:59:39.910524+00:00",
+      "retry_after": "2026-11-26T16:59:39.910524+00:00",
+      "headline": "Matmut Group to launch reinsurance subsidiary Matmut Re"
+    },
+    "https://www.wsj.com/finance/investing/nvidias-role-as-an-underwriter-of-the-ai-boom-95375800": {
+      "attempted_at": "2026-11-25T15:59:39.910524+00:00",
+      "retry_after": "2026-11-26T16:59:39.910524+00:00",
+      "headline": "Nvidia’s Role as an Underwriter of the AI Boom"
+    },
+    "https://www.insurancebusinessmag.com/uk/news/travel/travel-insurance-will-automate-first-and-commercial-lines-will-be-last-598767.aspx": {
+      "attempted_at": "2026-11-25T15:59:39.910524+00:00",
+      "retry_after": "2026-11-26T16:59:39.910524+00:00",
+      "headline": "Travel insurance will automate first, and commercial lines will be last"
     }
   },
   "sources": {
     "https://www.professionalpensions.com/news/4057232/live-blog-pensions-news-digest": {
-      "attempted_at": "2026-11-25T14:21:32.170091+00:00",
-      "retry_after": "2026-11-25T15:06:32.170091+00:00",
+      "attempted_at": "2026-11-25T15:59:39.910524+00:00",
+      "retry_after": "2026-11-25T16:44:39.910524+00:00",
       "last_result": "Original document is outside the bounded UK source-date window",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -14574,8 +14617,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.financial-ombudsman.org.uk/who-we-are/data-insight/news/financial-ombudsman-service-urges-black-friday-shoppers-check-buy-now-pay-later-terms-spend": {
-      "attempted_at": "2026-11-25T05:23:54.047194+00:00",
-      "retry_after": "2026-11-25T06:08:54.047194+00:00",
+      "attempted_at": "2026-11-25T15:59:39.910524+00:00",
+      "retry_after": "2026-11-25T16:44:39.910524+00:00",
       "last_result": "No unambiguous original article or publisher-feed publication date",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -14622,8 +14665,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.bankofengland.co.uk/prudential-regulation/publication/2026/november/dygist-2026": {
-      "attempted_at": "2026-11-25T14:21:32.170091+00:00",
-      "retry_after": "2026-11-25T15:06:32.170091+00:00",
+      "attempted_at": "2026-11-25T15:59:39.910524+00:00",
+      "retry_after": "2026-11-25T16:44:39.910524+00:00",
       "last_result": "Conflicting original publication dates on source page",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
@@ -14631,8 +14674,8 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.fscs.org.uk/news/fscs-news/our-november-2026-outlook/": {
-      "attempted_at": "2026-11-25T14:21:32.170091+00:00",
-      "retry_after": "2026-11-25T15:06:32.170091+00:00",
+      "attempted_at": "2026-11-25T15:59:39.910524+00:00",
+      "retry_after": "2026-11-25T16:44:39.910524+00:00",
       "last_result": "Original document is outside the bounded UK source-date window",
       "classification": "DATE_UNVERIFIED",
       "stage": "alternative_source",
@@ -14647,8 +14690,8 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.commercialriskonline.com/ardonagh-appoints-director-middle-east-and-africa/": {
-      "attempted_at": "2026-11-25T02:27:33.505109+00:00",
-      "retry_after": "2026-11-25T06:27:33.505109+00:00",
+      "attempted_at": "2026-11-25T15:59:39.910524+00:00",
+      "retry_after": "2026-11-25T19:59:39.910524+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -14875,12 +14918,12 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.fca.org.uk/publications/consultation-papers/cp26-41-regulatory-fees-levies-policy-proposals-2027-28": {
-      "attempted_at": "2026-11-25T14:21:32.170091+00:00",
-      "retry_after": "2026-11-25T15:21:32.170091+00:00",
+      "attempted_at": "2026-11-25T15:59:39.910524+00:00",
+      "retry_after": "2026-11-25T16:59:39.910524+00:00",
       "last_result": "Official PDF exceeds page limit; no truncated draft",
       "classification": "EVIDENCE_UNUSABLE",
       "stage": "source",
-      "failures": 6,
+      "failures": 7,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.finextra.com/pressarticle/111760/form3-partners-picks-coinbase-infrastructure-for-stablecoin-money-movement": {
@@ -14893,12 +14936,12 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bankofengland.co.uk/prudential-regulation/publication/2026/november/pra-statement-on-ifrs-18-and-finrep-reporting": {
-      "attempted_at": "2026-11-25T14:21:32.170091+00:00",
-      "retry_after": "2026-11-25T15:06:32.170091+00:00",
+      "attempted_at": "2026-11-25T15:59:39.910524+00:00",
+      "retry_after": "2026-11-25T16:44:39.910524+00:00",
       "last_result": "Conflicting original publication dates on source page",
       "classification": "DATE_UNVERIFIED",
       "stage": "alternative_source",
-      "failures": 7,
+      "failures": 8,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.reinsurancene.ws/reinsurance-news-nyc-legacy-market-roundtable-2026/": {
@@ -14923,21 +14966,21 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.aviva.com/newsroom/news-and-research-overview/news-releases/2026/11/aviva-launches-new-lifetime-pet-insurance-via-price-comparison-websites/": {
-      "attempted_at": "2026-11-25T14:21:32.170091+00:00",
-      "retry_after": "2026-11-25T15:06:32.170091+00:00",
+      "attempted_at": "2026-11-25T15:59:39.910524+00:00",
+      "retry_after": "2026-11-25T16:44:39.910524+00:00",
       "last_result": "No unambiguous original article or publisher-feed publication date",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
-      "failures": 6,
+      "failures": 7,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.ageas.co.uk/newsroom/education-remains-powerful-tool-tackling-insurance-fraud/": {
-      "attempted_at": "2026-11-25T14:21:32.170091+00:00",
-      "retry_after": "2026-11-25T15:06:32.170091+00:00",
+      "attempted_at": "2026-11-25T15:59:39.910524+00:00",
+      "retry_after": "2026-11-25T16:44:39.910524+00:00",
       "last_result": "No unambiguous original article or publisher-feed publication date",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
-      "failures": 6,
+      "failures": 7,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.commercialriskonline.com/europes-defence-and-logistics-sectors-at-risk-of-more-russian-sabotage-in-2027/": {
@@ -15146,12 +15189,12 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.ukfinance.org.uk/news-and-insight/press-release/ps660-million-stolen-fraudsters-uk-finance-calls-tougher-action": {
-      "attempted_at": "2026-11-25T14:21:32.170091+00:00",
-      "retry_after": "2026-11-25T15:06:32.170091+00:00",
+      "attempted_at": "2026-11-25T15:59:39.910524+00:00",
+      "retry_after": "2026-11-25T16:44:39.910524+00:00",
       "last_result": "No unambiguous original article or publisher-feed publication date",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
-      "failures": 3,
+      "failures": 4,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://news.sky.com/story/chinese-tech-giant-guilty-of-plotting-to-steal-trade-secrets-and-bank-fraud-13616130": {
@@ -15196,17 +15239,17 @@
       "last_result": "No UK financial connection in complete source"
     },
     "https://www.finextra.com/newsarticle/48807/as-metas-muse-arrives-in-the-uk-fca-issues-agentic-ai-warning-to-tech-firms": {
-      "attempted_at": "2026-11-25T02:27:33.505109+00:00",
-      "retry_after": "2026-11-25T08:27:33.505109+00:00",
+      "attempted_at": "2026-11-25T15:59:39.910524+00:00",
+      "retry_after": "2026-11-25T21:59:39.910524+00:00",
       "last_result": "HTTP Error 403: Forbidden",
       "classification": "ACCESS_RESTRICTED",
       "stage": "source",
-      "failures": 1,
+      "failures": 2,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.reinsurancene.ws/ardonagh-names-deepan-palani-as-director-middle-east-and-africa/": {
-      "attempted_at": "2026-11-25T02:27:33.505109+00:00",
-      "retry_after": "2026-11-25T06:27:33.505109+00:00",
+      "attempted_at": "2026-11-25T15:59:39.910524+00:00",
+      "retry_after": "2026-11-25T19:59:39.910524+00:00",
       "stage": "scope",
       "classification": "OUTSIDE_UK_SCOPE",
       "last_result": "No UK financial connection in complete source"
@@ -15305,12 +15348,12 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.fca.org.uk/publications/policy-statements/ps26-25-rules-reforming-uk-securitisation-framework": {
-      "attempted_at": "2026-11-25T14:21:32.170091+00:00",
-      "retry_after": "2026-11-25T15:21:32.170091+00:00",
+      "attempted_at": "2026-11-25T15:59:39.910524+00:00",
+      "retry_after": "2026-11-25T16:59:39.910524+00:00",
       "last_result": "Several central PDFs linked; needs human source selection",
       "classification": "EVIDENCE_UNUSABLE",
       "stage": "source",
-      "failures": 1,
+      "failures": 2,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.insurancejournal.com/news/international/2026/11/25/893748.htm": {
@@ -15330,12 +15373,12 @@
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.bankofengland.co.uk/prudential-regulation/publication/2026/november/reforms-to-securitisation-requirements-policy-statement": {
-      "attempted_at": "2026-11-25T14:21:32.170091+00:00",
-      "retry_after": "2026-11-25T15:06:32.170091+00:00",
+      "attempted_at": "2026-11-25T15:59:39.910524+00:00",
+      "retry_after": "2026-11-25T16:44:39.910524+00:00",
       "last_result": "Conflicting original publication dates on source page",
       "classification": "DATE_UNVERIFIED",
       "stage": "source",
-      "failures": 2,
+      "failures": 4,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
     "https://www.insurancejournal.com/news/international/2026/11/25/893737.htm": {
@@ -15361,27 +15404,117 @@
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
-    "https://www.gov.uk/government/news/government-reappoints-ai-champions-to-drive-next-phase-of-ai-in-financial-services": {
-      "attempted_at": "2026-11-25T14:21:32.170091+00:00",
-      "retry_after": "2026-11-25T14:36:32.170091+00:00",
+    "https://www.bloomberg.com/news/articles/2026-11-25/dubai-bank-merger-to-create-159-billion-islamic-lending-giant": {
+      "attempted_at": "2026-11-25T15:59:39.910524+00:00",
+      "retry_after": "2026-11-25T21:59:39.910524+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-11-25T19:59:39.910524+00:00"
+    },
+    "https://www.insurancejournal.com/news/international/2026/11/25/893769.htm": {
+      "attempted_at": "2026-11-25T15:59:39.910524+00:00",
+      "retry_after": "2026-11-25T19:59:39.910524+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.finextra.com/newsarticle/48814/utah-drops-criminal-charges-after-kalshi-exits-state": {
+      "attempted_at": "2026-11-25T15:59:39.910524+00:00",
+      "retry_after": "2026-11-25T21:59:39.910524+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-11-25T19:59:39.910524+00:00"
+    },
+    "https://www.reinsurancene.ws/oliver-wyman-names-netherton-as-global-head-moloney-as-executive-chair-insurance-asset-management/": {
+      "attempted_at": "2026-11-25T15:59:39.910524+00:00",
+      "retry_after": "2026-11-25T19:59:39.910524+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.wsj.com/risk-compliance-journal/the-morning-risk-report-chinas-huawei-convicted-of-fraud-in-u-s-criminal-trial-63fc5211": {
+      "attempted_at": "2026-11-25T15:59:39.910524+00:00",
+      "retry_after": "2026-11-25T21:59:39.910524+00:00",
+      "last_result": "HTTP Error 401: HTTP Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1",
+      "alternative_search_after": "2026-11-25T19:59:39.910524+00:00"
+    },
+    "https://www.commercialriskonline.com/european-cyber-market-to-continue-softening-through-h1-2027-marsh/": {
+      "attempted_at": "2026-11-25T15:59:39.910524+00:00",
+      "retry_after": "2026-11-25T19:59:39.910524+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.insurancejournal.com/news/east/2026/11/25/893755.htm": {
+      "attempted_at": "2026-11-25T15:59:39.910524+00:00",
+      "retry_after": "2026-11-25T19:59:39.910524+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.insuranceage.co.uk/insight/7959218/liberty-and-price-forbes-launch-new-divisions": {
+      "attempted_at": "2026-11-25T15:59:39.910524+00:00",
+      "retry_after": "2026-11-25T19:59:39.910524+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.commercialriskonline.com/australians-warned-of-fire-risk-from-lithium-ion-battery-products/": {
+      "attempted_at": "2026-11-25T15:59:39.910524+00:00",
+      "retry_after": "2026-11-25T19:59:39.910524+00:00",
+      "stage": "scope",
+      "classification": "OUTSIDE_UK_SCOPE",
+      "last_result": "No UK financial connection in complete source"
+    },
+    "https://www.finextra.com/newsarticle/48813/lloyds-completes-multiple-digital-trade-collections-between-bangladesh-and-the-uk": {
+      "attempted_at": "2026-11-25T15:59:39.910524+00:00",
+      "retry_after": "2026-11-25T21:59:39.910524+00:00",
+      "last_result": "HTTP Error 403: Forbidden",
+      "classification": "ACCESS_RESTRICTED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.fca.org.uk/news/blogs/how-should-investors-evaluate-performance": {
+      "attempted_at": "2026-11-25T15:59:39.910524+00:00",
+      "retry_after": "2026-11-25T16:44:39.910524+00:00",
+      "last_result": "Listing date conflicts with the original document publication date",
+      "classification": "DATE_UNVERIFIED",
+      "stage": "source",
+      "failures": 1,
+      "policy": "newsroom-recovery-2026-10-26-v1"
+    },
+    "https://www.investmentweek.co.uk/news/4539547/economic-activity-stronger-labour-market-pushed-bank-england-hike-rates": {
+      "attempted_at": "2026-11-25T15:59:39.910524+00:00",
+      "retry_after": "2026-11-25T16:14:39.910524+00:00",
       "last_result": "Gemini API HTTP 503: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
       "classification": "TEMPORARY_FAILURE",
       "stage": "writing",
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
-    "https://www.insurancebusinessmag.com/uk/news/cyber/uk-businesses-underestimate-board-exposure-in-cyber-threat-picture-598762.aspx": {
-      "attempted_at": "2026-11-25T14:21:32.170091+00:00",
-      "retry_after": "2026-11-25T14:36:32.170091+00:00",
+    "https://www.professionalpensions.com/news/4539546/swansea-scheme-partnership-deploys-20m-social-infrastructure-assets": {
+      "attempted_at": "2026-11-25T15:59:39.910524+00:00",
+      "retry_after": "2026-11-25T16:14:39.910524+00:00",
       "last_result": "Gemini API HTTP 503: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
       "classification": "TEMPORARY_FAILURE",
       "stage": "writing",
       "failures": 1,
       "policy": "newsroom-recovery-2026-10-26-v1"
     },
-    "https://www.reinsurancene.ws/ai-set-to-reshape-insurance-jobs-skills-and-workforce-strategies-oxbow-partners-and-lmg-reports/": {
-      "attempted_at": "2026-11-25T14:21:32.170091+00:00",
-      "retry_after": "2026-11-25T14:36:32.170091+00:00",
+    "https://www.theguardian.com/money/2026/nov/25/nationwide-unveils-1-deposit-mortgage-deal-first-time-buyers-in-uk": {
+      "attempted_at": "2026-11-25T15:59:39.910524+00:00",
+      "retry_after": "2026-11-25T16:14:39.910524+00:00",
       "last_result": "Gemini API HTTP 503: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
       "classification": "TEMPORARY_FAILURE",
       "stage": "writing",
